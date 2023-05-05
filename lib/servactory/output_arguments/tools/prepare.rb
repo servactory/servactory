@@ -35,7 +35,9 @@ module Servactory
         #     instance_variable_set(:@user, value);
         #   end;
         #
-        #   private attr_reader :user;
+        #   private;
+        #
+        #   attr_reader :user;
         #
         def context_output_argument_template_for(output_argument)
           <<-RUBY.squish
@@ -49,7 +51,9 @@ module Servactory
               instance_variable_set(:@#{output_argument.name}, value);
             end;
 
-            private attr_reader :#{output_argument.name};
+            private;
+
+            attr_reader :#{output_argument.name};
           RUBY
         end
       end
