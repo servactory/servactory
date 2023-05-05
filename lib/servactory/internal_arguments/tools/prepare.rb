@@ -42,8 +42,8 @@ module Servactory
             define_method(:#{internal_argument.name}=) do |value|;
               Servactory::InternalArguments::Checks::Type.check!(
                 context: self,
-                internal_argument:,
-                value:
+                internal_argument: internal_argument,
+                value: value
               );
 
               instance_variable_set(:@#{internal_argument.name}, value);

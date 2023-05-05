@@ -16,8 +16,8 @@ module Servactory
 
       def options_for_checks
         {
-          types:,
-          required:
+          types: types,
+          required: required
         }
       end
 

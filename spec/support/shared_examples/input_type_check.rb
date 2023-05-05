@@ -10,10 +10,10 @@ RSpec.shared_examples "input type check" do |name:, expected_type:, array: false
       expect { perform }.to(
         raise_input_argument_error_for(
           check_name: :type,
-          name:,
+          name: name,
           service_class_name: described_class.name,
-          array:,
-          expected_type:,
+          array: array,
+          expected_type: expected_type,
           given_type: FakeServiceType
         )
       )

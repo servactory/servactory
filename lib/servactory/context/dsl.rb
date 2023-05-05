@@ -15,7 +15,9 @@ module Servactory
 
           input_arguments_workbench.find_unnecessary!
           input_arguments_workbench.check_rules!
-          output_arguments_workbench.find_conflicts_in!(collection_of_internal_arguments:)
+          output_arguments_workbench.find_conflicts_in!(
+            collection_of_internal_arguments: collection_of_internal_arguments
+          )
 
           prepare_data
 
@@ -25,7 +27,7 @@ module Servactory
 
           Servactory::Result.prepare_for(
             context: context_store.context,
-            collection_of_output_arguments:
+            collection_of_output_arguments: collection_of_output_arguments
           )
         end
 
@@ -34,10 +36,10 @@ module Servactory
         attr_reader :context_store
 
         def assign_data_with(arguments)
-          input_arguments_workbench.assign(context: context_store.context, arguments:)  # 1
-          internal_arguments_workbench.assign(context: context_store.context)           # 2
-          output_arguments_workbench.assign(context: context_store.context)             # 3
-          stage_handyman&.assign(context: context_store.context)                        # 4
+          input_arguments_workbench.assign(context: context_store.context, arguments: arguments)  # 1
+          internal_arguments_workbench.assign(context: context_store.context)                     # 2
+          output_arguments_workbench.assign(context: context_store.context)                       # 3
+          stage_handyman&.assign(context: context_store.context)                                  # 4
         end
 
         def prepare_data
@@ -47,10 +49,10 @@ module Servactory
           internal_arguments_workbench.prepare  # 3
         end
 
-        def configuration(&)
+        def configuration(&block)
           context_configuration = Servactory::Context::Configuration.new
 
-          context_configuration.instance_eval(&)
+          context_configuration.instance_eval(&block)
         end
       end
     end

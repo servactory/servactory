@@ -6,7 +6,7 @@ RSpec.describe Wrong::Example3 do
 
     let(:attributes) do
       {
-        invoice_number:
+        invoice_number: invoice_number
       }
     end
 

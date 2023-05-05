@@ -28,13 +28,18 @@ module Servactory
 
         def process_input(input)
           input.options_for_checks.each do |check_key, check_options|
-            process_option(check_key, check_options, input:)
+            process_option(check_key, check_options, input: input)
           end
         end
 
         def process_option(check_key, check_options, input:)
           check_classes.each do |check_class|
-            errors_from_checks = process_check_class(check_class, input:, check_key:, check_options:)
+            errors_from_checks = process_check_class(
+              check_class,
+              input: input,
+              check_key: check_key,
+              check_options: check_options
+            )
 
             @errors.push(*errors_from_checks)
           end
@@ -43,10 +48,10 @@ module Servactory
         def process_check_class(check_class, input:, check_key:, check_options:)
           check_class.check(
             context: @context,
-            input:,
+            input: input,
             value: @incoming_arguments.fetch(input.name, nil),
-            check_key:,
-            check_options:
+            check_key: check_key,
+            check_options: check_options
           )
         end
 
