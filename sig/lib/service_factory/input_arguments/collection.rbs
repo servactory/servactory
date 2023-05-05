@@ -1,0 +1,14 @@
+module ServiceFactory
+  module InputArguments
+    class Collection
+      # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
+      extend Forwardable
+
+      @collection: Array[InputArgument]
+
+      def initialize: (*untyped) -> void
+
+      def names: () -> Array[Symbol]
+    end
+  end
+end

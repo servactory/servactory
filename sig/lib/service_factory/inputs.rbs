@@ -1,0 +1,4 @@
+module ServiceFactory
+  class Inputs
+  end
+end

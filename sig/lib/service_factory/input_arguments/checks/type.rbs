@@ -1,0 +1,28 @@
+module ServiceFactory
+  module InputArguments
+    module Checks
+      class Type < Base
+        DEFAULT_MESSAGE: ^(service_class_name: String, input: InputArgument, expected_type: String, given_type: String) -> String
+
+        @context: instance
+        @input: InputArgument
+        @prepared_types: Array[Class]
+        @prepared_value: String
+        @types: Array[Class]
+        @value: untyped
+
+        def self.check: (context: instance, input: InputArgument, value: untyped, check_key: Symbol, check_options: untyped) -> void
+
+        def self.should_be_checked_for?: (InputArgument input, untyped value, Symbol check_key) -> bool
+
+        def initialize: (context: instance, input: InputArgument, value: untyped, types: Array[Class]) -> void
+
+        def check: () -> void
+
+        def prepared_types: -> Array[Class]
+
+        def prepared_value: () -> String
+      end
+    end
+  end
+end

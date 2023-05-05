@@ -1,0 +1,22 @@
+module ServiceFactory
+  module InputArguments
+    module Tools
+      class Rules
+        @collection_of_input_arguments: InputArguments
+        @context: instance
+
+        def self.check!: (*untyped) ?{ () -> void } -> void
+
+        def initialize: (instance context, InputArguments collection_of_input_arguments) -> void
+
+        def check!: () -> void
+
+        private
+
+        def check_for!: (InputArgument input_argument) -> void
+
+        def raise_error_for: (InputArgument input_argument) -> void
+      end
+    end
+  end
+end

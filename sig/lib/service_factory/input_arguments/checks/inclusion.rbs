@@ -1,0 +1,21 @@
+module ServiceFactory
+  module InputArguments
+    module Checks
+      class Inclusion < Base
+        DEFAULT_MESSAGE: ^(service_class_name: String, input: InputArgument) -> String
+
+        @context: instance
+        @input: InputArgument
+        @value: untyped
+
+        def self.check: (context: instance, input: InputArgument, value: untyped, check_key: Symbol, **untyped _) -> void
+
+        def self.should_be_checked_for?: (InputArgument input, Symbol check_key) -> bool
+
+        def initialize: (context: instance, input: InputArgument, value: untyped) -> void
+
+        def check: () -> void
+      end
+    end
+  end
+end

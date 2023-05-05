@@ -1,0 +1,7 @@
+.DS_Store
+*.gem
+.bundle
+.idea
+.run
+.gem_rbs_collection
+.rspec_status
