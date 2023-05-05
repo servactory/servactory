@@ -1,0 +1,13 @@
+module Servactory
+  module Context
+    class Store
+      attr_reader context: instance
+
+      def initialize: (DSL::ClassMethods service_class) -> void
+
+      private
+
+      def service_class_template_with: (instance context) -> String
+    end
+  end
+end

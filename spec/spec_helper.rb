@@ -2,7 +2,7 @@
 
 require "zeitwerk"
 require "forwardable"
-require "service_factory"
+require "servactory"
 
 loader = Zeitwerk::Loader.new
 loader.push_dir(File.expand_path("../examples", __dir__))

@@ -1,5 +1,0 @@
-module ServiceFactory
-  module Utils
-    def boolean?: -> bool
-  end
-end

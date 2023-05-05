@@ -1,0 +1,11 @@
+module Servactory
+  module Stage
+    class Factory
+      @methods: Methods
+
+      def make: (Symbol name, **untyped options) -> void
+
+      def methods: () -> Methods
+    end
+  end
+end

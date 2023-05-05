@@ -1,6 +1,0 @@
-module ServiceFactory
-  module Errors
-    class Failure < ServiceFactory::Errors::Base
-    end
-  end
-end

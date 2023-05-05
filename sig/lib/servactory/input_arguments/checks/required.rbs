@@ -1,0 +1,22 @@
+module Servactory
+  module InputArguments
+    module Checks
+      class Required < Base
+        DEFAULT_MESSAGE: ^(service_class_name: String, input: InputArgument, value: untyped) -> String
+
+        @context: instance
+        @input: InputArgument
+
+        @value: untyped
+
+        def self.check: (context: instance, input: InputArgument, value: untyped, **untyped _) -> void
+
+        def self.should_be_checked_for?: (InputArgument input) -> bool
+
+        def initialize: (context: instance, input: InputArgument, value: untyped) -> void
+
+        def check: () -> void
+      end
+    end
+  end
+end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    service_factory (1.0.2)
+    servactory (1.0.2)
       activesupport
       zeitwerk
 
@@ -87,7 +87,7 @@ DEPENDENCIES
   rubocop-performance (~> 1.17)
   rubocop-rake (~> 0.6)
   rubocop-rspec (~> 2.19)
-  service_factory!
+  servactory!
 
 BUNDLED WITH
    2.4.12

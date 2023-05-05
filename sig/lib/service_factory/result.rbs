@@ -1,7 +1,0 @@
-module ServiceFactory
-  class Result
-    def self.prepare_for: (*untyped) ?{ () -> untyped } -> void
-
-    def prepare_for: (context: instance, collection_of_output_arguments: OutputArguments::Collection) -> self
-  end
-end

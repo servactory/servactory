@@ -1,0 +1,48 @@
+module Servactory
+  module InputArguments
+    module Tools
+      class Prepare
+        @collection_of_input_arguments: Collection
+        @context: instance
+
+        @incoming_arguments: untyped
+
+        @inputs_variables: Hash[Symbol, untyped]
+
+        @internal_variables: Hash[Symbol, untyped]
+
+        def self.prepare: (*untyped) ?{ () -> untyped } -> void
+
+        def initialize: (instance context, untyped incoming_arguments, Collection collection_of_input_arguments) -> void
+
+        def prepare: () -> void
+
+        private
+
+        def process_input: (InputArgument input) -> void
+
+        def create_instance_variables: () -> void
+
+        # EXAMPLE:
+        #
+        #   attr_reader(*[:attr_1]); def initialize(attr_1); @attr_1 = attr_1; end
+        #
+        # OR
+        #
+        #   attr_reader(*[:attr_1, :attr_2, :attr_3])
+        #
+        #   def initialize(attr_1:, attr_2:, attr_3:)
+        #     @attr_1 = attr_1; @attr_2 = attr_2; @attr_3 = attr_3;
+        #   end
+        #
+        def class_inputs_template: () -> String
+
+        # EXAMPLE:
+        #
+        #   private attr_reader(*[:attr_1]);
+        #
+        def context_internal_variables_template: () -> String
+      end
+    end
+  end
+end
