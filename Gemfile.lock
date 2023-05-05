@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    service_factory (0.1.0)
+    service_factory (1.0.0)
       activesupport
       zeitwerk
 
