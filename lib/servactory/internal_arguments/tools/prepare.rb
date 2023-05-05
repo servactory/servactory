@@ -49,7 +49,9 @@ module Servactory
               instance_variable_set(:@#{internal_argument.name}, value);
             end;
 
-            private attr_reader :#{internal_argument.name};
+            private;
+
+            attr_reader :#{internal_argument.name};
           RUBY
         end
       end

@@ -43,7 +43,7 @@ module Servactory
 
           @context.assign_inputs(Servactory::Inputs.new(**@inputs_variables))
 
-          @context.class.class_eval(context_internal_variables_template)
+          @context.class.class_eval(context_internal_variables_template) if context_internal_variables_template.present?
 
           @internal_variables.each do |input_name, input_value|
             @context.instance_variable_set(:"@#{input_name}", input_value)
@@ -79,8 +79,12 @@ module Servactory
         #   private attr_reader(*[:attr_1]);
         #
         def context_internal_variables_template
-          <<-RUBY.squish
-            private attr_reader(*#{@internal_variables.keys});
+          return if @internal_variables.blank?
+
+          @context_internal_variables_template ||= <<-RUBY.squish
+            private;
+
+            attr_reader(*#{@internal_variables.keys});
           RUBY
         end
       end
