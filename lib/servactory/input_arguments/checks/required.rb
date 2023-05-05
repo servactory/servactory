@@ -17,7 +17,7 @@ module Servactory
         def self.check(context:, input:, value:, **)
           return unless should_be_checked_for?(input)
 
-          new(context:, input:, value:).check
+          new(context: context, input: input, value: value).check
         end
 
         def self.should_be_checked_for?(input)

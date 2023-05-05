@@ -6,7 +6,7 @@ RSpec.describe Usual::Example8 do
 
     let(:attributes) do
       {
-        event_name:
+        event_name: event_name
       }
     end
 

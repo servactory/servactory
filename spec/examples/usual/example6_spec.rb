@@ -6,7 +6,7 @@ RSpec.describe Usual::Example6 do
 
     let(:attributes) do
       {
-        ids:
+        ids: ids
       }
     end
 

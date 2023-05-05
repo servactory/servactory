@@ -42,8 +42,8 @@ module Servactory
             define_method(:#{output_argument.name}=) do |value|;
               Servactory::OutputArguments::Checks::Type.check!(
                 context: self,
-                output_argument:,
-                value:
+                output_argument: output_argument,
+                value: value
               );
 
               instance_variable_set(:@#{output_argument.name}, value);

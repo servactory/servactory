@@ -26,12 +26,12 @@ module Servactory
 
       def options_for_checks
         {
-          types:,
-          inclusion:,
-          must:,
-          required:,
-          # internal:,
-          default:
+          types: types,
+          inclusion: inclusion,
+          must: must,
+          required: required,
+          # internal: internal,
+          default: default
         }
       end
 

@@ -8,7 +8,7 @@ RSpec.shared_examples "input required check" do |name:|
       expect { perform }.to(
         raise_input_argument_error_for(
           check_name: :required,
-          name:,
+          name: name,
           service_class_name: described_class.name
         )
       )

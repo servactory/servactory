@@ -12,10 +12,10 @@ module Servactory
 
         attr_reader :stage_handyman
 
-        def stage(&)
+        def stage(&block)
           @stage_factory ||= Factory.new
 
-          @stage_factory.instance_eval(&)
+          @stage_factory.instance_eval(&block)
 
           @stage_handyman = Handyman.work_in(@stage_factory)
 

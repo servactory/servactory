@@ -6,7 +6,7 @@ RSpec.describe Wrong::Example8 do
 
     let(:attributes) do
       {
-        ids:
+        ids: ids
       }
     end
 

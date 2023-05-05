@@ -21,6 +21,10 @@ Naming/VariableNumber:
 Style/Documentation:
   Enabled: false
 
+Style/HashSyntax:
+  Enabled: true
+  EnforcedShorthandSyntax: never
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 

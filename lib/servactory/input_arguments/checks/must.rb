@@ -14,7 +14,7 @@ module Servactory
         def self.check(context:, input:, value:, check_key:, check_options:)
           return unless should_be_checked_for?(input, check_key)
 
-          new(context:, input:, value:, check_options:).check
+          new(context: context, input: input, value: value, check_options: check_options).check
         end
 
         def self.should_be_checked_for?(input, check_key)
@@ -42,7 +42,7 @@ module Servactory
               DEFAULT_MESSAGE,
               service_class_name: @context.class.name,
               input: @input,
-              code:
+              code: code
             )
           end
 
@@ -65,7 +65,7 @@ module Servactory
             message_text,
             service_class_name: @context.class.name,
             input: @input,
-            code:
+            code: code
           )
         end
       end

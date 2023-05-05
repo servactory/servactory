@@ -14,12 +14,12 @@ module InputArgumentHelper
     raise_error(
       ApplicationService::Errors::InputArgumentError,
       prepare_input_argument_text_for(
-        check_name:,
-        name:,
-        service_class_name:,
-        array:,
-        expected_type:,
-        given_type:
+        check_name: check_name,
+        name: name,
+        service_class_name: service_class_name,
+        array: array,
+        expected_type: expected_type,
+        given_type: given_type
       )
     )
   end
@@ -34,9 +34,15 @@ module InputArgumentHelper
   ) # do
     case check_name.to_sym
     when :required
-      prepare_input_argument_required_check_text_for(name:, service_class_name:)
+      prepare_input_argument_required_check_text_for(name: name, service_class_name: service_class_name)
     when :type
-      prepare_input_argument_type_check_text_for(name:, service_class_name:, array:, expected_type:, given_type:)
+      prepare_input_argument_type_check_text_for(
+        name: name,
+        service_class_name: service_class_name,
+        array: array,
+        expected_type: expected_type,
+        given_type: given_type
+      )
     else
       raise "Non-existent `check_name` to generate the error text"
     end
