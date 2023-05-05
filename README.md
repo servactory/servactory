@@ -64,3 +64,53 @@ module ApplicationService
   end
 end
 ```
+
+## Usage
+
+### Minimal example
+
+```ruby
+class SendService < ApplicationService::Base
+  stage { make :something }
+  
+  private
+  
+  def something
+    # ...
+  end
+end
+```
+
+### Inputs
+
+```ruby
+class SendService < ApplicationService::Base
+  input :user, type: User
+  
+  stage { make :something }
+  
+  private
+  
+  def something
+    # ...
+  end
+end
+```
+
+### Outputs
+
+```ruby
+class SendService < ApplicationService::Base
+  input :user, type: User
+  
+  output :notification, type: Notification
+  
+  stage { make :something }
+  
+  private
+  
+  def something
+    self.notification = Notification.create!
+  end
+end
+```
