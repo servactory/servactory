@@ -1,0 +1,31 @@
+require:
+  - rubocop-rspec
+  - rubocop-rake
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2.2
+
+Metrics/ParameterLists:
+  Max: 6
+
+Naming/VariableNumber:
+  Enabled: true
+  EnforcedStyle: snake_case
+  SupportedStyles:
+    - snake_case
+    - normalcase
+    - non_integer
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5

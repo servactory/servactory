@@ -1,0 +1,9 @@
+module ServiceFactory
+  @configuration: Configuration
+
+  def self?.configuration: () -> Configuration
+
+  def self?.reset: () -> untyped
+
+  def self?.configure: () { (untyped) -> untyped } -> untyped
+end

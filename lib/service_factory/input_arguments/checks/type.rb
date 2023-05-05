@@ -1,0 +1,84 @@
+# frozen_string_literal: true
+
+module ServiceFactory
+  module InputArguments
+    module Checks
+      class Type < Base
+        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, expected_type:, given_type:|
+          if input.array?
+            "[#{service_class_name}] Wrong type in input array `#{input.name}`, expected `#{expected_type}`"
+          else
+            "[#{service_class_name}] Wrong type of input `#{input.name}`, " \
+              "expected `#{expected_type}`, " \
+              "got `#{given_type}`"
+          end
+        end
+
+        private_constant :DEFAULT_MESSAGE
+
+        def self.check(context:, input:, value:, check_key:, check_options:)
+          return unless should_be_checked_for?(input, value, check_key)
+
+          new(context:, input:, value:, types: check_options).check
+        end
+
+        def self.should_be_checked_for?(input, value, check_key)
+          check_key == :types && (
+            input.required? || (
+              input.optional? && !input.default.nil?
+            ) || (
+              input.optional? && !value.nil?
+            )
+          )
+        end
+
+        ##########################################################################
+
+        def initialize(context:, input:, value:, types:)
+          super()
+
+          @context = context
+          @input = input
+          @value = value
+          @types = types
+        end
+
+        def check # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+          return if prepared_types.any? do |type|
+            if @input.array?
+              prepared_value.is_a?(::Array) &&
+              prepared_value.respond_to?(:all?) && prepared_value.all?(type)
+            else
+              prepared_value.is_a?(type)
+            end
+          end
+
+          add_error(
+            DEFAULT_MESSAGE,
+            service_class_name: @context.class.name,
+            input: @input,
+            expected_type: prepared_types.join(", "),
+            given_type: prepared_value.class.name
+          )
+        end
+
+        ########################################################################
+
+        def prepared_types
+          @prepared_types ||=
+            @types.map do |type|
+              if type.is_a?(String)
+                Object.const_get(type)
+              else
+                type
+              end
+            end
+        end
+
+        def prepared_value
+          @prepared_value ||= @input.optional? && !@input.default.nil? ? @input.default : @value
+        end
+      end
+    end
+  end
+end
