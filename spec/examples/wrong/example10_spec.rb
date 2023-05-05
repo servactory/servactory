@@ -25,9 +25,7 @@ RSpec.describe Wrong::Example10 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputArgumentError,
-              "[Wrong::Example10] Syntax error inside `be_6_characters` of " \
-              "`invoice_numbers` input: [NameError] undefined local variable or " \
-              "method `this_method_does_not_exist' for Wrong::Example10:Class"
+              "[Wrong::Example10] Syntax error inside `be_6_characters` of `invoice_numbers` input"
             )
           )
         end
