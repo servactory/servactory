@@ -23,3 +23,8 @@ categories:
   - title: Documentation 📑
     labels:
       - documentation
+
+template: |
+  ## What’s Changed
+
+  $CHANGES
