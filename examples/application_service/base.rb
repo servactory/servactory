@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ApplicationService
-  class Base < ServiceFactory::Base
+  class Base < Servactory::Base
     configuration do
       input_argument_error_class ApplicationService::Errors::InputArgumentError
       output_argument_error_class ApplicationService::Errors::OutputArgumentError

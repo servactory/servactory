@@ -1,0 +1,17 @@
+module Servactory
+  module Stage
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        @stage_factory: Factory
+
+        private
+
+        attr_reader stage_handyman: Handyman
+
+        def stage: () { () -> void } -> void
+      end
+    end
+  end
+end

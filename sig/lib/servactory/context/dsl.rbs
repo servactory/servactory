@@ -1,0 +1,21 @@
+module Servactory
+  module Context
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        def call!: (Hash[Symbol, untyped] arguments) -> Result
+
+        private
+
+        attr_reader context_store: untyped
+
+        def assign_data_with: (untyped arguments) -> void
+
+        def prepare_data: () -> void
+
+        def configuration: () { () -> void } -> void
+      end
+    end
+  end
+end

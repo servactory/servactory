@@ -1,4 +1,4 @@
-# ServiceFactory
+# Servactory
 
 A set of tools for building reliable services of any complexity.
 
@@ -10,7 +10,7 @@ A set of tools for building reliable services of any complexity.
 
 ### Conventions
 
-- Services are subclasses of `ServiceFactory::Base` and are located in the `app/services` directory. It is common practice to create and inherit from `ApplicationService::Base`, which is a subclass of `ServiceFactory::Base`.
+- Services are subclasses of `Servactory::Base` and are located in the `app/services` directory. It is common practice to create and inherit from `ApplicationService::Base`, which is a subclass of `Servactory::Base`.
 - Name services by what they do, not by what they accept. Try to use verbs in names. For example, `UsersService::Create` instead of `UsersService::Creation`.
 
 ### Installation
@@ -18,7 +18,7 @@ A set of tools for building reliable services of any complexity.
 Add this to `Gemfile`:
 
 ```ruby
-gem "service_factory"
+gem "servactory"
 ```
 
 And execute:
@@ -38,11 +38,11 @@ We recommend that you first prepare the following files in your project.
 
 module ApplicationService
   module Errors
-    class InputArgumentError < ServiceFactory::Errors::InputArgumentError; end
-    class OutputArgumentError < ServiceFactory::Errors::OutputArgumentError; end
-    class InternalArgumentError < ServiceFactory::Errors::InternalArgumentError; end
+    class InputArgumentError < Servactory::Errors::InputArgumentError; end
+    class OutputArgumentError < Servactory::Errors::OutputArgumentError; end
+    class InternalArgumentError < Servactory::Errors::InternalArgumentError; end
 
-    class Failure < ServiceFactory::Errors::Failure; end
+    class Failure < Servactory::Errors::Failure; end
   end
 end
 ```
@@ -53,7 +53,7 @@ end
 # app/services/application_service/base.rb
 
 module ApplicationService
-  class Base < ServiceFactory::Base
+  class Base < Servactory::Base
     configuration do
       input_argument_error_class ApplicationService::Errors::InputArgumentError
       output_argument_error_class ApplicationService::Errors::OutputArgumentError

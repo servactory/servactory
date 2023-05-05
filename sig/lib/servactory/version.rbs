@@ -1,0 +1,11 @@
+module Servactory
+  module VERSION
+    MAJOR: Integer
+
+    MINOR: Integer
+
+    PATCH: Integer
+
+    STRING: String
+  end
+end

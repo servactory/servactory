@@ -1,0 +1,41 @@
+module Servactory
+  module InputArguments
+    class InputArgument
+      attr_reader inclusion: Array[untyped] | nil
+      attr_reader must: Hash[Symbol, { is: Proc, message: (Proc | String | nil) }] | nil
+      attr_reader name: Symbol
+
+      attr_reader types: Array[Class]
+
+      attr_reader required: bool
+
+      attr_reader array: bool
+
+      attr_reader internal: bool
+
+      attr_reader default: untyped
+
+      def initialize: (Symbol name, type: Class, **untyped options) -> void
+
+      def must_present?: -> bool
+
+      def with_conflicts?: -> bool
+
+      def conflict_code: -> (Symbol | nil)
+
+      def inclusion_present?: -> bool
+
+      def options_for_checks: () -> { types: Array[Class], inclusion: Array[untyped] | nil, must: Hash[Symbol, { is: Proc, message: (Proc | String | nil) }] | nil, required: bool, default: untyped }
+
+      def array?: () -> bool
+
+      def required?: () -> bool
+
+      def optional?: () -> bool
+
+      def internal?: () -> bool
+
+      def default_value_present?: () -> bool
+    end
+  end
+end
