@@ -57,10 +57,9 @@ module Servactory
           return if check.call(value: @value)
 
           message.presence || DEFAULT_MESSAGE
-        rescue StandardError => e
+        rescue StandardError => _e
           message_text =
-            "[#{@context.class.name}] Syntax error inside `#{code}` of " \
-            "`#{@input.name}` input: [#{e.class}] #{e.message}"
+            "[#{@context.class.name}] Syntax error inside `#{code}` of `#{@input.name}` input"
 
           add_error(
             message_text,

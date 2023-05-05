@@ -4,4 +4,4 @@
 .idea
 .run
 .gem_rbs_collection
-.rspec_status
+/.rspec_status

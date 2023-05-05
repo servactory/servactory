@@ -2,7 +2,7 @@
 
 module Usual
   class Example9 < ApplicationService::Base
-    Event = Struct.new(:id, :event_name)
+    Event = Struct.new(:id, :event_name, keyword_init: true)
 
     input :event_name, type: String, inclusion: %w[created rejected approved]
 
