@@ -3,6 +3,8 @@
 module Servactory
   module InputArguments
     class InputArgument
+      ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
+
       attr_reader :name,
                   :types,
                   :inclusion,
@@ -18,7 +20,7 @@ module Servactory
 
         @inclusion = options.fetch(:inclusion, nil)
         @must = options.fetch(:must, nil)
-        @array = options.fetch(:array, false)
+        @array = prepare_advanced_for(options.fetch(:array, ARRAY_DEFAULT_VALUE.call))
         @required = options.fetch(:required, true)
         @internal = options.fetch(:internal, false)
         @default = options.fetch(:default, nil)
@@ -33,6 +35,17 @@ module Servactory
           # internal: internal,
           default: default
         }
+      end
+
+      def prepare_advanced_for(value)
+        if value.is_a?(Hash)
+          ARRAY_DEFAULT_VALUE.call(
+            is: value.fetch(:is, false),
+            message: value.fetch(:message, nil)
+          )
+        else
+          ARRAY_DEFAULT_VALUE.call(is: value)
+        end
       end
 
       def conflict_code
@@ -52,7 +65,7 @@ module Servactory
       end
 
       def array?
-        Servactory::Utils.boolean?(array)
+        Servactory::Utils.boolean?(array[:is])
       end
 
       def required?
