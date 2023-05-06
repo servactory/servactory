@@ -61,9 +61,7 @@ module Servactory
           message_text =
             "[#{@context.class.name}] Syntax error inside `#{code}` of `#{@input.name}` input"
 
-          puts
-          puts e.inspect
-          puts
+          puts "#{message_text}: #{e}"
 
           add_error(
             message_text,
