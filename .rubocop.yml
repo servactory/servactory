@@ -10,6 +10,14 @@ AllCops:
 Metrics/ParameterLists:
   Max: 8
 
+Naming/BlockForwarding:
+  Enabled: pending
+  EnforcedStyle: explicit
+  SupportedStyles:
+    - anonymous
+    - explicit
+  BlockForwardingName: block
+
 Naming/VariableNumber:
   Enabled: true
   EnforcedStyle: snake_case
