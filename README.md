@@ -2,7 +2,7 @@
 
 A set of tools for building reliable services of any complexity.
 
-![Gem](https://img.shields.io/gem/v/servactory)
+[![Gem version](https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff)](https://rubygems.org/gems/servactory)
 
 ## Requirements
 
