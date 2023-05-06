@@ -14,7 +14,7 @@ module Servactory
           @collection_of_input_arguments = collection_of_input_arguments
           @collection_of_input_options = collection_of_input_options
 
-          @errors = Set.new
+          @errors = []
         end
 
         def check!
@@ -42,7 +42,7 @@ module Servactory
               check_options: check_options
             )
 
-            @errors.add(errors_from_checks)
+            @errors.push(*errors_from_checks)
           end
         end
 
@@ -65,9 +65,9 @@ module Servactory
         ########################################################################
 
         def raise_errors
-          return if @errors.compact.flatten.empty?
+          return if (tmp_errors = @errors.reject(&:blank?).uniq).empty?
 
-          raise Servactory.configuration.input_argument_error_class, @errors.compact.flatten.first
+          raise Servactory.configuration.input_argument_error_class, tmp_errors.first
         end
       end
     end
