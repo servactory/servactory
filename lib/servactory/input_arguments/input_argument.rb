@@ -89,19 +89,6 @@ module Servactory
         )
       end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
       def options_for_checks
         {
           types: types,
