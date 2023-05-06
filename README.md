@@ -81,36 +81,63 @@ class SendService < ApplicationService::Base
 end
 ```
 
-### Inputs
+### Input attributes
 
 ```ruby
-class SendService < ApplicationService::Base
+class UserService::Accept < ApplicationService::Base
   input :user, type: User
   
-  stage { make :something }
+  stage { make :accept! }
   
   private
   
-  def something
-    # ...
+  def accept!
+    inputs.user.accept!
   end
 end
 ```
 
-### Outputs
+### Output attributes
 
 ```ruby
-class SendService < ApplicationService::Base
+class NotificationService::Create < ApplicationService::Base
   input :user, type: User
   
   output :notification, type: Notification
   
-  stage { make :something }
+  stage { make :create_notification! }
   
   private
   
-  def something
-    self.notification = Notification.create!
+  def create_notification!
+    self.notification = Notification.create!(user: inputs.user)
+  end
+end
+```
+
+### Internal attributes
+
+```ruby
+class NotificationService::Create < ApplicationService::Base
+  input :user, type: User
+
+  internal :inviter, type: User
+  
+  output :notification, type: Notification
+  
+  stage do
+    make :assign_inviter
+    make :create_notification!
+  end
+  
+  private
+  
+  def assign_inviter
+    self.inviter = user.inviter
+  end
+  
+  def create_notification!
+    self.notification = Notification.create!(user: inputs.user, inviter:)
   end
 end
 ```
