@@ -17,7 +17,11 @@ module Servactory
 
       attr_reader default: untyped
 
-      def initialize: (Symbol name, type: Class, **untyped options) -> void
+      def initialize: (Symbol name, collection_of_options: untyped, type: Class, **untyped options) -> void
+
+      def add_array_option_to: -> void
+
+      def add_basic_options_to: -> void
 
       def must_present?: -> bool
 

@@ -8,12 +8,13 @@ module Servactory
           new(...).check!
         end
 
-        def initialize(context, incoming_arguments, collection_of_input_arguments)
+        def initialize(context, incoming_arguments, collection_of_input_arguments, collection_of_input_options)
           @context = context
           @incoming_arguments = incoming_arguments
           @collection_of_input_arguments = collection_of_input_arguments
+          @collection_of_input_options = collection_of_input_options
 
-          @errors = []
+          @errors = Set.new
         end
 
         def check!
@@ -41,7 +42,7 @@ module Servactory
               check_options: check_options
             )
 
-            @errors.push(*errors_from_checks)
+            @errors.add(errors_from_checks)
           end
         end
 
@@ -58,20 +59,15 @@ module Servactory
         ########################################################################
 
         def check_classes
-          [
-            Servactory::InputArguments::Checks::Required,
-            Servactory::InputArguments::Checks::Type,
-            Servactory::InputArguments::Checks::Inclusion,
-            Servactory::InputArguments::Checks::Must
-          ]
+          @collection_of_input_options.check_classes
         end
 
         ########################################################################
 
         def raise_errors
-          return if @errors.empty?
+          return if @errors.compact.flatten.empty?
 
-          raise Servactory.configuration.input_argument_error_class, @errors.first
+          raise Servactory.configuration.input_argument_error_class, @errors.compact.flatten.first
         end
       end
     end

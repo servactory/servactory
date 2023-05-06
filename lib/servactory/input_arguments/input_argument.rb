@@ -6,25 +6,108 @@ module Servactory
       ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
 
       attr_reader :name,
-                  :types,
-                  :inclusion,
-                  :must,
-                  :array,
-                  :required,
-                  :internal,
-                  :default
+                  :types
 
-      def initialize(name, type:, **options)
+      def initialize(name, collection_of_options:, type:, **options)
         @name = name
         @types = Array(type)
 
-        @inclusion = options.fetch(:inclusion, nil)
-        @must = options.fetch(:must, nil)
-        @array = prepare_advanced_for(options.fetch(:array, ARRAY_DEFAULT_VALUE.call))
-        @required = options.fetch(:required, true)
-        @internal = options.fetch(:internal, false)
-        @default = options.fetch(:default, nil)
+        add_basic_options_to(collection_of_options, options)
+
+        collection_of_options.each do |option|
+          self.class.attr_reader(:"#{option.name}")
+
+          instance_variable_set(:"@#{option.name}", option.value)
+        end
+
+        # @inclusion = options.fetch(:inclusion, nil)
+        # @must = options.fetch(:must, nil)
+        # @array = prepare_advanced_for(options.fetch(:array, ARRAY_DEFAULT_VALUE.call))
+        # @required = options.fetch(:required, true)
+        # @internal = options.fetch(:internal, false)
+        # @default = options.fetch(:default, nil)
       end
+
+      def add_basic_options_to(collection_of_options, options)
+        add_required_option_to(collection_of_options, options)
+
+        add_array_option_to(collection_of_options, options)
+        add_default_option_to(collection_of_options, options)
+
+        add_inclusion_option_to(collection_of_options, options)
+        add_must_option_to(collection_of_options, options)
+
+        add_internal_option_to(collection_of_options, options)
+      end
+
+      def add_required_option_to(collection_of_options, options)
+        collection_of_options << Option.new(
+          :required,
+          check_class: Servactory::InputArguments::Checks::Required,
+          **options,
+          value_fallback: true
+        )
+      end
+
+      def add_array_option_to(collection_of_options, options)
+        collection_of_options << Option.new(
+          :array,
+          check_class: Servactory::InputArguments::Checks::Type,
+          **options,
+          value_fallback: false
+        )
+      end
+
+      def add_default_option_to(collection_of_options, options)
+        collection_of_options << Option.new(
+          :default,
+          check_class: Servactory::InputArguments::Checks::Type,
+          **options,
+          value_fallback: nil,
+          with_advanced_mode: false
+        )
+      end
+
+      def add_inclusion_option_to(collection_of_options, options)
+        collection_of_options << Option.new(
+          :inclusion,
+          check_class: Servactory::InputArguments::Checks::Inclusion,
+          **options,
+          value_fallback: nil
+        )
+      end
+
+      def add_must_option_to(collection_of_options, options)
+        collection_of_options << Option.new(
+          :must,
+          check_class: Servactory::InputArguments::Checks::Must,
+          **options,
+          value_fallback: nil,
+          with_advanced_mode: false
+        )
+      end
+
+      def add_internal_option_to(collection_of_options, options)
+        collection_of_options << Option.new(
+          :internal,
+          check_class: nil,
+          **options,
+          value_fallback: false
+        )
+      end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       def options_for_checks
         {
@@ -37,16 +120,16 @@ module Servactory
         }
       end
 
-      def prepare_advanced_for(value)
-        if value.is_a?(Hash)
-          ARRAY_DEFAULT_VALUE.call(
-            is: value.fetch(:is, false),
-            message: value.fetch(:message, nil)
-          )
-        else
-          ARRAY_DEFAULT_VALUE.call(is: value)
-        end
-      end
+      # def prepare_advanced_for(value)
+      #   if value.is_a?(Hash)
+      #     ARRAY_DEFAULT_VALUE.call(
+      #       is: value.fetch(:is, false),
+      #       message: value.fetch(:message, nil)
+      #     )
+      #   else
+      #     ARRAY_DEFAULT_VALUE.call(is: value)
+      #   end
+      # end
 
       def conflict_code
         return :required_vs_default if required? && default_value_present?
@@ -57,7 +140,7 @@ module Servactory
       end
 
       def inclusion_present?
-        inclusion.is_a?(Array) && inclusion.present?
+        inclusion[:is].is_a?(Array) && inclusion[:is].present?
       end
 
       def must_present?
@@ -69,7 +152,7 @@ module Servactory
       end
 
       def required?
-        Servactory::Utils.boolean?(required)
+        Servactory::Utils.boolean?(required[:is])
       end
 
       def optional?
@@ -77,7 +160,7 @@ module Servactory
       end
 
       def internal?
-        Servactory::Utils.boolean?(internal)
+        Servactory::Utils.boolean?(internal[:is])
       end
 
       def default_value_present?
