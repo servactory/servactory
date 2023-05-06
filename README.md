@@ -83,6 +83,10 @@ end
 
 ### Input attributes
 
+#### Isolated usage
+
+With this approach, all input attributes are available only from `inputs`.
+
 ```ruby
 class UserService::Accept < ApplicationService::Base
   input :user, type: User
@@ -93,6 +97,24 @@ class UserService::Accept < ApplicationService::Base
   
   def accept!
     inputs.user.accept!
+  end
+end
+```
+
+#### As an internal argument
+
+With this approach, all input attributes are available from `inputs` as well as directly from the context.
+
+```ruby
+class UserService::Accept < ApplicationService::Base
+  input :user, type: User, internal: true
+  
+  stage { make :accept! }
+  
+  private
+  
+  def accept!
+    user.accept!
   end
 end
 ```
