@@ -1,0 +1,21 @@
+module Servactory
+  module InputArguments
+    class Option
+      DEFAULT_VALUE: ^(is: (bool | nil), message: (String | nil)) -> Proc
+
+      attr_reader name: Symbol
+
+      attr_reader check_class: Class
+
+      attr_reader value: ({ is: Symbol, message: String | nil } | bool | nil)
+
+      def initialize: (Symbol name, check_class: Class, value_fallback: (bool | nil), ?with_advanced_mode: bool, **untyped options) -> void
+
+      private
+
+      def prepare_value_for: (untyped options, value_fallback: bool | nil, with_advanced_mode: bool) -> ({ is: Symbol, message: String | nil } | bool | nil)
+
+      def prepare_advanced_for: (({ is: Symbol, message: String | nil } | bool | nil) value, bool | nil value_fallback) -> { is: Symbol, message: String | nil }
+    end
+  end
+end
