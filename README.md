@@ -81,36 +81,105 @@ class SendService < ApplicationService::Base
 end
 ```
 
-### Inputs
+### Input attributes
+
+#### Isolated usage
+
+With this approach, all input attributes are available only from `inputs`.
 
 ```ruby
-class SendService < ApplicationService::Base
+class UserService::Accept < ApplicationService::Base
   input :user, type: User
   
-  stage { make :something }
+  stage { make :accept! }
   
   private
   
-  def something
-    # ...
+  def accept!
+    inputs.user.accept!
   end
 end
 ```
 
-### Outputs
+#### As an internal argument
+
+With this approach, all input attributes are available from `inputs` as well as directly from the context.
 
 ```ruby
-class SendService < ApplicationService::Base
+class UserService::Accept < ApplicationService::Base
+  input :user, type: User, internal: true
+  
+  stage { make :accept! }
+  
+  private
+  
+  def accept!
+    user.accept!
+  end
+end
+```
+
+### Output attributes
+
+```ruby
+class NotificationService::Create < ApplicationService::Base
   input :user, type: User
   
   output :notification, type: Notification
   
-  stage { make :something }
+  stage { make :create_notification! }
   
   private
   
-  def something
-    self.notification = Notification.create!
+  def create_notification!
+    self.notification = Notification.create!(user: inputs.user)
   end
 end
+```
+
+### Internal attributes
+
+```ruby
+class NotificationService::Create < ApplicationService::Base
+  input :user, type: User
+
+  internal :inviter, type: User
+  
+  output :notification, type: Notification
+  
+  stage do
+    make :assign_inviter
+    make :create_notification!
+  end
+  
+  private
+  
+  def assign_inviter
+    self.inviter = user.inviter
+  end
+  
+  def create_notification!
+    self.notification = Notification.create!(user: inputs.user, inviter:)
+  end
+end
+```
+
+### Result
+
+All services have the result of their work. For example, in case of success this call:
+
+```ruby
+service_result = NotificationService::Create.call!(user: User.first)
+```
+
+Will return this:
+
+```ruby
+#<Servactory::Result:0x0000000112c00748 @notification=...>
+```
+
+And then you can work with this result, for example, in this way:
+
+```ruby
+Notification::SendJob.perform_later(service_result.notification.id)
 ```
