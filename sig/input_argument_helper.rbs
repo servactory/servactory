@@ -1,0 +1,34 @@
+module InputArgumentHelper
+  def prepare_input_argument_text_for: (
+    check_name: Symbol,
+    name: Symbol,
+    service_class_name: Class,
+    array: bool,
+    array_message: String | nil,
+    expected_type: Class | nil,
+    given_type: Class | nil
+  ) -> String
+
+  def raise_input_argument_error_for: (
+    check_name: Symbol,
+    name: Symbol,
+    service_class_name: Class,
+    array: bool,
+    array_message: String | nil,
+    expected_type: Class | nil,
+    given_type: Class | nil
+  ) -> void
+
+  private
+
+  def prepare_input_argument_required_check_text_for: (name: Symbol, service_class_name: Class) -> String
+
+  def prepare_input_argument_type_check_text_for: (
+    name: Symbol,
+    service_class_name: Class,
+    array: bool,
+    array_message: String | nil,
+    expected_type: Class,
+    given_type: Class
+  ) -> String
+end
