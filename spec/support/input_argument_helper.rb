@@ -3,6 +3,7 @@
 module InputArgumentHelper
   extend self
 
+  # rubocop:disable Metrics/MethodLength
   def raise_input_argument_error_for(
     check_name:,
     name:,
@@ -25,6 +26,7 @@ module InputArgumentHelper
       )
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def prepare_input_argument_text_for(
     check_name:,

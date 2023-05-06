@@ -8,7 +8,7 @@ AllCops:
   TargetRubyVersion: 3.2.2
 
 Metrics/ParameterLists:
-  Max: 6
+  Max: 8
 
 Naming/VariableNumber:
   Enabled: true
