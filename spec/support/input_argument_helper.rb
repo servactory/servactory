@@ -3,11 +3,13 @@
 module InputArgumentHelper
   extend self
 
+  # rubocop:disable Metrics/MethodLength
   def raise_input_argument_error_for(
     check_name:,
     name:,
     service_class_name:,
     array: false,
+    array_message: nil,
     expected_type: nil,
     given_type: nil
   ) # do
@@ -18,17 +20,20 @@ module InputArgumentHelper
         name: name,
         service_class_name: service_class_name,
         array: array,
+        array_message: array_message,
         expected_type: expected_type,
         given_type: given_type
       )
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def prepare_input_argument_text_for(
     check_name:,
     name:,
     service_class_name:,
     array: false,
+    array_message: nil,
     expected_type: nil,
     given_type: nil
   ) # do
@@ -40,6 +45,7 @@ module InputArgumentHelper
         name: name,
         service_class_name: service_class_name,
         array: array,
+        array_message: array_message,
         expected_type: expected_type,
         given_type: given_type
       )
@@ -54,11 +60,22 @@ module InputArgumentHelper
     "[#{service_class_name}] Required input `#{name}` is missing"
   end
 
-  def prepare_input_argument_type_check_text_for(name:, service_class_name:, array:, expected_type:, given_type:)
+  def prepare_input_argument_type_check_text_for(
+    name:,
+    service_class_name:,
+    array:,
+    array_message:,
+    expected_type:,
+    given_type:
+  ) # do
     expected_type = expected_type.join(", ") if expected_type.is_a?(Array)
 
     if array
-      "[#{service_class_name}] Wrong type in input array `#{name}`, expected `#{expected_type}`"
+      if array_message.present?
+        array_message
+      else
+        "[#{service_class_name}] Wrong type in input array `#{name}`, expected `#{expected_type}`"
+      end
     else
       "[#{service_class_name}] Wrong type of input `#{name}`, expected `#{expected_type}`, got `#{given_type}`"
     end

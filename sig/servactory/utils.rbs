@@ -1,5 +1,0 @@
-module Servactory
-  module Utils
-    def boolean?: -> bool
-  end
-end

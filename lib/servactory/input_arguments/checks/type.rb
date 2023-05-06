@@ -6,7 +6,15 @@ module Servactory
       class Type < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, expected_type:, given_type:|
           if input.array?
-            "[#{service_class_name}] Wrong type in input array `#{input.name}`, expected `#{expected_type}`"
+            array_message = input.array[:message]
+
+            if array_message.is_a?(Proc)
+              array_message.call(input: input, expected_type: expected_type)
+            elsif array_message.is_a?(String) && array_message.present?
+              array_message
+            else
+              "[#{service_class_name}] Wrong type in input array `#{input.name}`, expected `#{expected_type}`"
+            end
           else
             "[#{service_class_name}] Wrong type of input `#{input.name}`, " \
               "expected `#{expected_type}`, " \

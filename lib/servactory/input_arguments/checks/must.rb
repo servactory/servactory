@@ -32,7 +32,7 @@ module Servactory
           @check_options = check_options
         end
 
-        def check
+        def check # rubocop:disable Metrics/MethodLength
           @check_options.each do |code, options|
             message = call_or_fetch_message_from(code, options)
 
