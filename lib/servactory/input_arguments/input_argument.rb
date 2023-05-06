@@ -19,13 +19,6 @@ module Servactory
 
           instance_variable_set(:"@#{option.name}", option.value)
         end
-
-        # @inclusion = options.fetch(:inclusion, nil)
-        # @must = options.fetch(:must, nil)
-        # @array = prepare_advanced_for(options.fetch(:array, ARRAY_DEFAULT_VALUE.call))
-        # @required = options.fetch(:required, true)
-        # @internal = options.fetch(:internal, false)
-        # @default = options.fetch(:default, nil)
       end
 
       def add_basic_options_to(collection_of_options, options)
@@ -119,17 +112,6 @@ module Servactory
           default: default
         }
       end
-
-      # def prepare_advanced_for(value)
-      #   if value.is_a?(Hash)
-      #     ARRAY_DEFAULT_VALUE.call(
-      #       is: value.fetch(:is, false),
-      #       message: value.fetch(:message, nil)
-      #     )
-      #   else
-      #     ARRAY_DEFAULT_VALUE.call(is: value)
-      #   end
-      # end
 
       def conflict_code
         return :required_vs_default if required? && default_value_present?
