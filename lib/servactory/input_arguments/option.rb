@@ -15,7 +15,7 @@ module Servactory
         @name = name.to_sym
         @check_class = check_class
 
-        @value = prepare_value_for(options, value_fallback:, with_advanced_mode:)
+        @value = prepare_value_for(options, value_fallback: value_fallback, with_advanced_mode: with_advanced_mode)
       end
 
       private
