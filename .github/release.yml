@@ -1,0 +1,29 @@
+changelog:
+  categories:
+    - title: Features 🎉
+      labels:
+        - feature
+    - title: Bug Fixes 🐛
+      labels:
+        - bug
+    - title: Polish 💅🏻
+      labels:
+        - polish
+    - title: Breaking Changes 💥
+      labels:
+        - breaking-change
+    - title: Tests 🏭
+      labels:
+        - tests
+    - title: Dependencies 📦
+      labels:
+        - dependencies
+    - title: Misc 🧰
+      labels:
+        - CI
+    - title: Documentation 📑
+      labels:
+        - documentation
+    - title: Other changes
+      labels:
+        - "*"
