@@ -24,14 +24,20 @@ module Servactory
       end
 
       def add_basic_options_with(options)
+        # Check Class: Servactory::InputArguments::Checks::Required
         add_required_option_with(options)
 
+        # Check Class: Servactory::InputArguments::Checks::Type
         add_array_option_with(options)
         add_default_option_with(options)
 
+        # Check Class: Servactory::InputArguments::Checks::Inclusion
         add_inclusion_option_with(options)
+
+        # Check Class: Servactory::InputArguments::Checks::Must
         add_must_option_with(options)
 
+        # Check Class: nil
         add_internal_option_with(options)
       end
 
