@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples "input type check" do |name:, expected_type:, array: false|
+RSpec.shared_examples "input type check" do |name:, expected_type:, array: false, array_message: nil|
   describe "is of the wrong type" do
     let(name) { array ? Array(FakeServiceType.new) : FakeServiceType.new }
 
@@ -13,6 +13,7 @@ RSpec.shared_examples "input type check" do |name:, expected_type:, array: false
           name: name,
           service_class_name: described_class.name,
           array: array,
+          array_message: array_message,
           expected_type: expected_type,
           given_type: FakeServiceType
         )

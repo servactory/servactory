@@ -1,7 +1,7 @@
 module Servactory
   module InputArguments
     class InputArgument
-      ARRAY_DEFAULT_VALUE: ^(is: bool, message: String | nil) -> { is: bool, message: String | nil }
+      ARRAY_DEFAULT_VALUE: ^(is: bool, message: Proc | String | nil) -> { is: bool, message: String | nil }
 
       attr_reader inclusion: Array[untyped] | nil
       attr_reader must: Hash[Symbol, { is: Proc, message: (Proc | String | nil) }] | nil
@@ -11,7 +11,7 @@ module Servactory
 
       attr_reader required: bool
 
-      attr_reader array: { is: bool, message: String | nil }
+      attr_reader array: { is: bool, message: Proc | String | nil }
 
       attr_reader internal: bool
 
@@ -21,7 +21,7 @@ module Servactory
 
       def must_present?: -> bool
 
-      def prepare_advanced_for: -> { is: bool, message: String | nil }
+      def prepare_advanced_for: -> { is: bool, message: Proc | String | nil }
 
       def with_conflicts?: -> bool
 
