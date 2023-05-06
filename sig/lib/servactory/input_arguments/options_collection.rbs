@@ -9,6 +9,8 @@ module Servactory
       def initialize: (*untyped) -> void
 
       def check_classes: () -> Array[Class]
+
+      def options_for_checks: -> Hash[Symbol, untyped]
     end
   end
 end

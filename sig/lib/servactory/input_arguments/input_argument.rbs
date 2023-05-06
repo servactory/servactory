@@ -3,35 +3,29 @@ module Servactory
     class InputArgument
       ARRAY_DEFAULT_VALUE: ^(is: bool, message: Proc | String | nil) -> { is: bool, message: String | nil }
 
-      attr_reader inclusion: Array[untyped] | nil
-      attr_reader must: Hash[Symbol, { is: Proc, message: (Proc | String | nil) }] | nil
+      @collection_of_options: OptionsCollection
+
       attr_reader name: Symbol
+
+      attr_reader collection_of_options: OptionsCollection
 
       attr_reader types: Array[Class]
 
-      attr_reader required: bool
-
-      attr_reader array: { is: bool, message: Proc | String | nil }
-
-      attr_reader internal: bool
-
-      attr_reader default: untyped
-
       def initialize: (Symbol name, collection_of_options: OptionsCollection, type: Class, **untyped options) -> void
 
-      def add_array_option_to: (OptionsCollection collection_of_options, untyped options) -> OptionsCollection
+      def add_basic_options_with: (untyped options) -> void
 
-      def add_basic_options_to: (OptionsCollection collection_of_options, untyped options) -> void
+      def add_array_option_with: (untyped options) -> OptionsCollection
 
-      def add_default_option_to: (OptionsCollection collection_of_options, untyped options) -> OptionsCollection
+      def add_default_option_with: (untyped options) -> OptionsCollection
 
-      def add_inclusion_option_to: (OptionsCollection collection_of_options, untyped options) -> OptionsCollection
+      def add_inclusion_option_with: (untyped options) -> OptionsCollection
 
-      def add_internal_option_to: (OptionsCollection collection_of_options, untyped options) -> OptionsCollection
+      def add_internal_option_with: (untyped options) -> OptionsCollection
 
-      def add_must_option_to: (OptionsCollection collection_of_options, untyped options) -> OptionsCollection
+      def add_must_option_with: (untyped options) -> OptionsCollection
 
-      def add_required_option_to: (OptionsCollection collection_of_options, untyped options) -> OptionsCollection
+      def add_required_option_with: (untyped options) -> OptionsCollection
 
       def must_present?: -> bool
 

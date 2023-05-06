@@ -7,9 +7,11 @@ module Servactory
 
       attr_reader check_class: Class
 
+      attr_reader need_for_checks: bool
+
       attr_reader value: ({ is: Symbol, message: String | nil } | bool | nil)
 
-      def initialize: (Symbol name, check_class: Class, value_fallback: (bool | nil), ?with_advanced_mode: bool, **untyped options) -> void
+      def initialize: (Symbol name, check_class: Class, need_for_checks: bool, value_fallback: (bool | nil), ?with_advanced_mode: bool, **untyped options) -> void
 
       private
 
