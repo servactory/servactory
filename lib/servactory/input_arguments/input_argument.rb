@@ -37,8 +37,8 @@ module Servactory
         collection_of_options << Option.new(
           :required,
           check_class: Servactory::InputArguments::Checks::Required,
-          **options,
-          value_fallback: true
+          value_fallback: true,
+          **options
         )
       end
 
@@ -46,8 +46,8 @@ module Servactory
         collection_of_options << Option.new(
           :array,
           check_class: Servactory::InputArguments::Checks::Type,
-          **options,
-          value_fallback: false
+          value_fallback: false,
+          **options
         )
       end
 
@@ -55,9 +55,9 @@ module Servactory
         collection_of_options << Option.new(
           :default,
           check_class: Servactory::InputArguments::Checks::Type,
-          **options,
           value_fallback: nil,
-          with_advanced_mode: false
+          with_advanced_mode: false,
+          **options
         )
       end
 
@@ -65,8 +65,8 @@ module Servactory
         collection_of_options << Option.new(
           :inclusion,
           check_class: Servactory::InputArguments::Checks::Inclusion,
-          **options,
-          value_fallback: nil
+          value_fallback: nil,
+          **options
         )
       end
 
@@ -74,9 +74,9 @@ module Servactory
         collection_of_options << Option.new(
           :must,
           check_class: Servactory::InputArguments::Checks::Must,
-          **options,
           value_fallback: nil,
-          with_advanced_mode: false
+          with_advanced_mode: false,
+          **options
         )
       end
 
@@ -84,8 +84,8 @@ module Servactory
         collection_of_options << Option.new(
           :internal,
           check_class: nil,
-          **options,
-          value_fallback: false
+          value_fallback: false,
+          **options
         )
       end
 
