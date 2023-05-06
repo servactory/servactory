@@ -163,3 +163,23 @@ class NotificationService::Create < ApplicationService::Base
   end
 end
 ```
+
+### Result
+
+All services have the result of their work. For example, in case of success this call:
+
+```ruby
+service_result = NotificationService::Create.call!(user: User.first)
+```
+
+Will return this:
+
+```ruby
+#<Servactory::Result:0x0000000112c00748 @notification=...>
+```
+
+And then you can work with this result, for example, in this way:
+
+```ruby
+Notification::SendJob.perform_later(service_result.notification.id)
+```
