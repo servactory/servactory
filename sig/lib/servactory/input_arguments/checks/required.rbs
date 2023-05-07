@@ -9,9 +9,9 @@ module Servactory
 
         @value: untyped
 
-        def self.check: (context: instance, input: InputArgument, value: untyped, **untyped _) -> void
+        def self.check: (context: instance, input: InputArgument, value: untyped, check_key: Symbol, **untyped _) -> void
 
-        def self.should_be_checked_for?: (InputArgument input) -> bool
+        def self.should_be_checked_for?: (InputArgument input, Symbol check_key) -> bool
 
         def initialize: (context: instance, input: InputArgument, value: untyped) -> void
 

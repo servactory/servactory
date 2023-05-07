@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.shared_examples "input required check" do |name:|
+RSpec.shared_examples "input required check" do |name:, custom_message: nil|
   describe "is not passed" do
     let(name) { nil }
 
@@ -9,7 +9,8 @@ RSpec.shared_examples "input required check" do |name:|
         raise_input_argument_error_for(
           check_name: :required,
           name: name,
-          service_class_name: described_class.name
+          service_class_name: described_class.name,
+          custom_message: custom_message
         )
       )
     end

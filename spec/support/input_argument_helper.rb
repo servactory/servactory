@@ -8,6 +8,7 @@ module InputArgumentHelper
     check_name:,
     name:,
     service_class_name:,
+    custom_message: nil,
     array: false,
     array_message: nil,
     expected_type: nil,
@@ -19,6 +20,7 @@ module InputArgumentHelper
         check_name: check_name,
         name: name,
         service_class_name: service_class_name,
+        custom_message: custom_message,
         array: array,
         array_message: array_message,
         expected_type: expected_type,
@@ -32,6 +34,7 @@ module InputArgumentHelper
     check_name:,
     name:,
     service_class_name:,
+    custom_message: nil,
     array: false,
     array_message: nil,
     expected_type: nil,
@@ -39,7 +42,11 @@ module InputArgumentHelper
   ) # do
     case check_name.to_sym
     when :required
-      prepare_input_argument_required_check_text_for(name: name, service_class_name: service_class_name)
+      prepare_input_argument_required_check_text_for(
+        name: name,
+        service_class_name: service_class_name,
+        custom_message: custom_message
+      )
     when :type
       prepare_input_argument_type_check_text_for(
         name: name,
@@ -56,8 +63,8 @@ module InputArgumentHelper
 
   private
 
-  def prepare_input_argument_required_check_text_for(name:, service_class_name:)
-    "[#{service_class_name}] Required input `#{name}` is missing"
+  def prepare_input_argument_required_check_text_for(name:, service_class_name:, custom_message:)
+    custom_message.presence || "[#{service_class_name}] Required input `#{name}` is missing"
   end
 
   def prepare_input_argument_type_check_text_for(

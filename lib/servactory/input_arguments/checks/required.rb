@@ -14,14 +14,14 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check(context:, input:, value:, **)
-          return unless should_be_checked_for?(input)
+        def self.check(context:, input:, value:, check_key:, **)
+          return unless should_be_checked_for?(input, check_key)
 
           new(context: context, input: input, value: value).check
         end
 
-        def self.should_be_checked_for?(input)
-          input.required?
+        def self.should_be_checked_for?(input, check_key)
+          %i[required types].include?(check_key) && input.required?
         end
 
         ##########################################################################
@@ -34,15 +34,17 @@ module Servactory
           @value = value
         end
 
-        def check # rubocop:disable Metrics/MethodLength
+        def check # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           if @input.array? && @value.present?
             return if @value.respond_to?(:all?) && @value.all?(&:present?)
           elsif @value.present?
             return
           end
 
+          _, message = @input.required.values_at(:is, :message)
+
           add_error(
-            DEFAULT_MESSAGE,
+            message.presence || DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
             input: @input,
             value: @value
