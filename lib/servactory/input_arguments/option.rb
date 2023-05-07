@@ -47,12 +47,12 @@ module Servactory
         return options.fetch(@name, value_fallback) unless with_advanced_mode
 
         prepare_advanced_for(
-          options.fetch(@name, DEFAULT_VALUE.call(key: value_key, value: value_fallback)),
+          value: options.fetch(@name, DEFAULT_VALUE.call(key: value_key, value: value_fallback)),
           value_fallback: value_fallback
         )
       end
 
-      def prepare_advanced_for(value, value_fallback)
+      def prepare_advanced_for(value:, value_fallback:)
         if value.is_a?(Hash)
           DEFAULT_VALUE.call(
             key: value_key,

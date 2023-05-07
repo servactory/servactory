@@ -33,7 +33,7 @@ module Servactory
 
       def prepare_value_for: (untyped options, value_fallback: bool | nil, with_advanced_mode: bool) -> ({ is: Symbol, message: String | nil } | bool | nil)
 
-      def prepare_advanced_for: (({ is: Symbol, message: String | nil } | bool | nil) value, bool | nil value_fallback) -> { is: Symbol, message: String | nil }
+      def prepare_advanced_for: (value: ({ is: Symbol, message: String | nil } | bool | nil), value_fallback: (bool | nil)) -> { is: Symbol, message: String | nil }
     end
   end
 end
