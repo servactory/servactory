@@ -4,6 +4,26 @@ A set of tools for building reliable services of any complexity.
 
 [![Gem version](https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff)](https://rubygems.org/gems/servactory)
 
+## Contents
+
+- [Requirements](https://github.com/afuno/servactory/edit/main/README.md#requirements)
+- [Getting started](https://github.com/afuno/servactory/edit/main/README.md#getting-started)
+  - [Conventions](https://github.com/afuno/servactory/edit/main/README.md#conventions)
+  - [Installation](https://github.com/afuno/servactory/edit/main/README.md#installation)
+  - [Preparation](https://github.com/afuno/servactory/edit/main/README.md#preparation)
+- [Usage](https://github.com/afuno/servactory/edit/main/README.md#usage)
+  - [Minimal example](https://github.com/afuno/servactory#minimal-example)
+  - [Input attributes](https://github.com/afuno/servactory#input-attributes)
+    - [Isolated usage](https://github.com/afuno/servactory#isolated-usage)
+    - [As an internal argument](https://github.com/afuno/servactory#isolated-usage)
+    - [Optional inputs](https://github.com/afuno/servactory#optional-inputs)
+    - [An array of specific values](https://github.com/afuno/servactory#an-array-of-specific-values)
+    - [Inclusion](https://github.com/afuno/servactory#inclusion)
+    - [Must](https://github.com/afuno/servactory#must)
+  - [Output attributes](https://github.com/afuno/servactory/edit/main/README.md#output-attributes)
+  - [Internal attributes](https://github.com/afuno/servactory/edit/main/README.md#internal-attributes)
+  - [Result](https://github.com/afuno/servactory/edit/main/README.md#result)
+
 ## Requirements
 
 - Ruby >= 2.7
