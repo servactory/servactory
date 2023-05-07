@@ -11,7 +11,7 @@ module Servactory
 
       attr_reader need_for_checks: bool
 
-      attr_reader value: ({ is: Symbol, message: String? }? | bool?)
+      attr_reader value: ({ is: Symbol, message: String? } | Array[Class] | bool?)
       attr_reader value_key: Symbol?
 
       def initialize: (
@@ -21,17 +21,23 @@ module Servactory
         need_for_checks: bool,
         value_key: Symbol?,
         value_fallback: bool?,
+        original_value: Array[Class]?,
         define_input_methods: Proc?,
         define_conflicts: Proc?,
         ?with_advanced_mode: bool,
-        **untyped options)
-      -> void
+        **untyped options
+      ) -> void
 
       def need_for_checks?: -> bool
 
       private
 
-      def prepare_value_for: (untyped options, value_fallback: bool?, with_advanced_mode: bool) -> ({ is: Symbol, message: String? } | bool)
+      def prepare_value_for: (
+        original_value: Array[Class]?,
+        options: untyped,
+        value_fallback: bool?,
+        with_advanced_mode: bool
+      ) -> ({ is: Symbol, message: String? } | bool)
 
       def prepare_advanced_for: (value: ({ is: Symbol, message: String? }? | bool?), ?value_fallback: bool) -> { is: Symbol, message: String? }
     end

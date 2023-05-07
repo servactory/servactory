@@ -21,7 +21,7 @@ module Servactory
         end
 
         def self.should_be_checked_for?(input, check_key)
-          %i[required types].include?(check_key) && input.required?
+          check_key == :required && input.required?
         end
 
         ##########################################################################

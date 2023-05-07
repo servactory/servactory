@@ -14,12 +14,14 @@ module Servactory
                   :value_key,
                   :value
 
+      # rubocop:disable Metrics/MethodLength
       def initialize(
         name:,
         input:,
         check_class:,
         need_for_checks:,
         value_fallback:,
+        original_value: nil,
         value_key: nil,
         define_input_methods: nil,
         define_conflicts: nil,
@@ -32,10 +34,16 @@ module Servactory
         @need_for_checks = need_for_checks
         @value_key = value_key
 
-        @value = prepare_value_for(options, value_fallback: value_fallback, with_advanced_mode: with_advanced_mode)
+        @value = prepare_value_for(
+          original_value: original_value,
+          options: options,
+          value_fallback: value_fallback,
+          with_advanced_mode: with_advanced_mode
+        )
 
         input.instance_eval(define_input_methods.call) if define_input_methods.present?
       end
+      # rubocop:enable Metrics/MethodLength
 
       def need_for_checks?
         need_for_checks
@@ -43,7 +51,9 @@ module Servactory
 
       private
 
-      def prepare_value_for(options, value_fallback:, with_advanced_mode:)
+      def prepare_value_for(original_value:, options:, value_fallback:, with_advanced_mode:)
+        return original_value if original_value.present?
+
         return options.fetch(@name, value_fallback) unless with_advanced_mode
 
         prepare_advanced_for(
