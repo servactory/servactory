@@ -21,7 +21,7 @@ module Servactory
         need_for_checks: bool,
         value_key: Symbol?,
         value_fallback: bool?,
-        instance_eval: Proc?,
+        define_input_methods: Proc?,
         define_conflicts: Proc?,
         ?with_advanced_mode: bool,
         **untyped options)

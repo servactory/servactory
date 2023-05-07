@@ -46,7 +46,7 @@ module Servactory
           name: :required,
           input: self,
           check_class: Servactory::InputArguments::Checks::Required,
-          instance_eval: lambda do
+          define_input_methods: lambda do
             <<-RUBY
               def required?
                 Servactory::Utils.boolean?(required[:is])
@@ -74,7 +74,7 @@ module Servactory
           name: :array,
           input: self,
           check_class: Servactory::InputArguments::Checks::Type,
-          instance_eval: lambda do
+          define_input_methods: lambda do
             <<-RUBY
               def array?
                 Servactory::Utils.boolean?(array[:is])
@@ -99,7 +99,7 @@ module Servactory
           name: :default,
           input: self,
           check_class: Servactory::InputArguments::Checks::Type,
-          instance_eval: lambda do
+          define_input_methods: lambda do
             <<-RUBY
               def default_value_present?
                 !default.nil?
@@ -118,7 +118,7 @@ module Servactory
           name: :inclusion,
           input: self,
           check_class: Servactory::InputArguments::Checks::Inclusion,
-          instance_eval: lambda do
+          define_input_methods: lambda do
             <<-RUBY
               def inclusion_present?
                 inclusion[:in].is_a?(Array) && inclusion[:in].present?
@@ -137,7 +137,7 @@ module Servactory
           name: :must,
           input: self,
           check_class: Servactory::InputArguments::Checks::Must,
-          instance_eval: lambda do
+          define_input_methods: lambda do
             <<-RUBY
               def must_present?
                 must.present?
@@ -156,7 +156,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :internal,
           input: self,
-          instance_eval: lambda do
+          define_input_methods: lambda do
             <<-RUBY
               def internal?
                 Servactory::Utils.boolean?(internal[:is])

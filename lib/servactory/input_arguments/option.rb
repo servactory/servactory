@@ -21,7 +21,7 @@ module Servactory
         need_for_checks:,
         value_fallback:,
         value_key: nil,
-        instance_eval: nil,
+        define_input_methods: nil,
         define_conflicts: nil,
         with_advanced_mode: true,
         **options
@@ -34,7 +34,7 @@ module Servactory
 
         @value = prepare_value_for(options, value_fallback: value_fallback, with_advanced_mode: with_advanced_mode)
 
-        input.instance_eval(instance_eval.call) if instance_eval.present?
+        input.instance_eval(define_input_methods.call) if define_input_methods.present?
       end
 
       def need_for_checks?
