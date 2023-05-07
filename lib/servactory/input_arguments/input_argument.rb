@@ -58,6 +58,7 @@ module Servactory
             RUBY
           end,
           need_for_checks: true,
+          value_key: :is,
           value_fallback: true,
           **options
         )
@@ -76,6 +77,7 @@ module Servactory
             RUBY
           end,
           need_for_checks: false,
+          value_key: :is,
           value_fallback: false,
           **options
         )
@@ -94,6 +96,7 @@ module Servactory
             RUBY
           end,
           need_for_checks: true,
+          value_key: :is,
           value_fallback: nil,
           with_advanced_mode: false,
           **options
@@ -113,6 +116,7 @@ module Servactory
             RUBY
           end,
           need_for_checks: true,
+          value_key: :is,
           value_fallback: nil,
           **options
         )
@@ -131,6 +135,7 @@ module Servactory
             RUBY
           end,
           need_for_checks: true,
+          value_key: :is,
           value_fallback: nil,
           with_advanced_mode: false,
           **options
@@ -150,6 +155,7 @@ module Servactory
           end,
           need_for_checks: false,
           check_class: nil,
+          value_key: :is,
           value_fallback: false,
           **options
         )
