@@ -27,27 +27,13 @@ module Servactory
 
       def add_required_option_with: (untyped options) -> OptionsCollection
 
-      def must_present?: -> bool
-
       def prepare_advanced_for: -> { is: bool, message: Proc | String | nil }
 
       def with_conflicts?: -> bool
 
       def conflict_code: -> (Symbol | nil)
 
-      def inclusion_present?: -> bool
-
       def options_for_checks: () -> { types: Array[Class], inclusion: Array[untyped] | nil, must: Hash[Symbol, { is: Proc, message: (Proc | String | nil) }] | nil, required: bool, default: untyped }
-
-      def array?: () -> bool
-
-      def required?: () -> bool
-
-      def optional?: () -> bool
-
-      def internal?: () -> bool
-
-      def default_value_present?: () -> bool
     end
   end
 end

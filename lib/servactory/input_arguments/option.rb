@@ -12,12 +12,23 @@ module Servactory
                   :need_for_checks,
                   :value
 
-      def initialize(name, check_class:, need_for_checks:, value_fallback:, with_advanced_mode: true, **options)
+      def initialize(
+        name:,
+        input:,
+        check_class:,
+        need_for_checks:,
+        value_fallback:,
+        instance_eval: nil,
+        with_advanced_mode: true,
+        **options
+      ) # do
         @name = name.to_sym
         @check_class = check_class
         @need_for_checks = need_for_checks
 
         @value = prepare_value_for(options, value_fallback: value_fallback, with_advanced_mode: with_advanced_mode)
+
+        input.instance_eval(instance_eval.call) if instance_eval.present?
       end
 
       def need_for_checks?

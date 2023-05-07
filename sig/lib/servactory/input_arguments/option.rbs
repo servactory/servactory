@@ -11,7 +11,7 @@ module Servactory
 
       attr_reader value: ({ is: Symbol, message: String | nil } | bool | nil)
 
-      def initialize: (Symbol name, check_class: Class, need_for_checks: bool, value_fallback: (bool | nil), ?with_advanced_mode: bool, **untyped options) -> void
+      def initialize: (name: Symbol, input: InputArgument, check_class: Class, need_for_checks: bool, value_fallback: (bool | nil), instance_eval: (Proc | nil), ?with_advanced_mode: bool, **untyped options) -> void
 
       private
 

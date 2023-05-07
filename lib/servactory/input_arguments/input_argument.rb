@@ -2,7 +2,7 @@
 
 module Servactory
   module InputArguments
-    class InputArgument
+    class InputArgument # rubocop:disable Metrics/ClassLength
       ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
 
       attr_reader :name,
@@ -41,30 +41,58 @@ module Servactory
         add_internal_option_with(options)
       end
 
-      def add_required_option_with(options)
+      def add_required_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
-          :required,
+          name: :required,
+          input: self,
           check_class: Servactory::InputArguments::Checks::Required,
+          instance_eval: lambda do
+            <<-RUBY
+              def required?
+                Servactory::Utils.boolean?(required[:is])
+              end
+
+              def optional?
+                !required?
+              end
+            RUBY
+          end,
           need_for_checks: true,
           value_fallback: true,
           **options
         )
       end
 
-      def add_array_option_with(options)
+      def add_array_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
-          :array,
+          name: :array,
+          input: self,
           check_class: Servactory::InputArguments::Checks::Type,
+          instance_eval: lambda do
+            <<-RUBY
+              def array?
+                Servactory::Utils.boolean?(array[:is])
+              end
+            RUBY
+          end,
           need_for_checks: false,
           value_fallback: false,
           **options
         )
       end
 
-      def add_default_option_with(options)
+      def add_default_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
-          :default,
+          name: :default,
+          input: self,
           check_class: Servactory::InputArguments::Checks::Type,
+          instance_eval: lambda do
+            <<-RUBY
+              def default_value_present?
+                !default.nil?
+              end
+            RUBY
+          end,
           need_for_checks: true,
           value_fallback: nil,
           with_advanced_mode: false,
@@ -72,20 +100,36 @@ module Servactory
         )
       end
 
-      def add_inclusion_option_with(options)
+      def add_inclusion_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
-          :inclusion,
+          name: :inclusion,
+          input: self,
           check_class: Servactory::InputArguments::Checks::Inclusion,
+          instance_eval: lambda do
+            <<-RUBY
+              def inclusion_present?
+                inclusion[:is].is_a?(Array) && inclusion[:is].present?
+              end
+            RUBY
+          end,
           need_for_checks: true,
           value_fallback: nil,
           **options
         )
       end
 
-      def add_must_option_with(options)
+      def add_must_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
-          :must,
+          name: :must,
+          input: self,
           check_class: Servactory::InputArguments::Checks::Must,
+          instance_eval: lambda do
+            <<-RUBY
+              def must_present?
+                must.present?
+              end
+            RUBY
+          end,
           need_for_checks: true,
           value_fallback: nil,
           with_advanced_mode: false,
@@ -93,9 +137,17 @@ module Servactory
         )
       end
 
-      def add_internal_option_with(options)
+      def add_internal_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
-          :internal,
+          name: :internal,
+          input: self,
+          instance_eval: lambda do
+            <<-RUBY
+              def internal?
+                Servactory::Utils.boolean?(internal[:is])
+              end
+            RUBY
+          end,
           need_for_checks: false,
           check_class: nil,
           value_fallback: false,
@@ -117,34 +169,6 @@ module Servactory
         return :array_vs_inclusion if array? && inclusion_present?
 
         nil
-      end
-
-      def inclusion_present?
-        inclusion[:is].is_a?(Array) && inclusion[:is].present?
-      end
-
-      def must_present?
-        must.present?
-      end
-
-      def array?
-        Servactory::Utils.boolean?(array[:is])
-      end
-
-      def required?
-        Servactory::Utils.boolean?(required[:is])
-      end
-
-      def optional?
-        !required?
-      end
-
-      def internal?
-        Servactory::Utils.boolean?(internal[:is])
-      end
-
-      def default_value_present?
-        !default.nil?
       end
 
       def with_conflicts?
