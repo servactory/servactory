@@ -9,11 +9,9 @@ module Servactory
 
       attr_reader collection_of_options: OptionsCollection
 
-      attr_reader types: Array[Class]
+      def initialize: (Symbol name, collection_of_options: OptionsCollection, type: (Class | Array[Class]), **untyped options) -> void
 
-      def initialize: (Symbol name, collection_of_options: OptionsCollection, type: Class, **untyped options) -> void
-
-      def add_basic_options_with: (untyped options) -> void
+      def add_basic_options_with: (type: (Class | Array[Class]), options: untyped) -> void
 
       def add_array_option_with: (untyped options) -> OptionsCollection
 
@@ -27,13 +25,15 @@ module Servactory
 
       def add_required_option_with: (untyped options) -> OptionsCollection
 
+      def add_types_option_with: ((Class | Array[Class]) type) -> OptionsCollection
+
       def prepare_advanced_for: -> { is: bool, message: Proc | String | nil }
 
       def with_conflicts?: -> bool
 
       def conflict_code: -> (Symbol | nil)
 
-      def options_for_checks: () -> { types: Array[Class], inclusion: Array[untyped] | nil, must: Hash[Symbol, { is: Proc, message: (Proc | String | nil) }] | nil, required: bool, default: untyped }
+      def options_for_checks: () -> Hash[Symbol, untyped]
     end
   end
 end

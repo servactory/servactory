@@ -6,15 +6,13 @@ module Servactory
       ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
 
       attr_reader :name,
-                  :collection_of_options,
-                  :types
+                  :collection_of_options
 
       def initialize(name, collection_of_options:, type:, **options)
         @name = name
         @collection_of_options = collection_of_options
-        @types = Array(type)
 
-        add_basic_options_with(options)
+        add_basic_options_with(type: type, options: options)
 
         @collection_of_options.each do |option|
           self.class.attr_reader(:"#{option.name}")
@@ -23,13 +21,14 @@ module Servactory
         end
       end
 
-      def add_basic_options_with(options)
+      def add_basic_options_with(type:, options:)
         # Check Class: Servactory::InputArguments::Checks::Required
         add_required_option_with(options)
 
         # Check Class: Servactory::InputArguments::Checks::Type
-        add_array_option_with(options)
+        add_types_option_with(type)
         add_default_option_with(options)
+        add_array_option_with(options)
 
         # Check Class: Servactory::InputArguments::Checks::Inclusion
         add_inclusion_option_with(options)
@@ -69,6 +68,37 @@ module Servactory
         )
       end
 
+      def add_types_option_with(type)
+        collection_of_options << Option.new(
+          name: :types,
+          input: self,
+          original_value: Array(type),
+          check_class: Servactory::InputArguments::Checks::Type,
+          need_for_checks: true,
+          value_fallback: nil,
+          with_advanced_mode: false
+        )
+      end
+
+      def add_default_option_with(options) # rubocop:disable Metrics/MethodLength
+        collection_of_options << Option.new(
+          name: :default,
+          input: self,
+          check_class: Servactory::InputArguments::Checks::Type,
+          define_input_methods: lambda do
+            <<-RUBY
+              def default_value_present?
+                !default.nil?
+              end
+            RUBY
+          end,
+          need_for_checks: true,
+          value_fallback: nil,
+          with_advanced_mode: false,
+          **options
+        )
+      end
+
       def add_array_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
           name: :array,
@@ -90,25 +120,6 @@ module Servactory
           need_for_checks: false,
           value_key: :is,
           value_fallback: false,
-          **options
-        )
-      end
-
-      def add_default_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
-          name: :default,
-          input: self,
-          check_class: Servactory::InputArguments::Checks::Type,
-          define_input_methods: lambda do
-            <<-RUBY
-              def default_value_present?
-                !default.nil?
-              end
-            RUBY
-          end,
-          need_for_checks: true,
-          value_fallback: nil,
-          with_advanced_mode: false,
           **options
         )
       end
@@ -172,11 +183,7 @@ module Servactory
       end
 
       def options_for_checks
-        {
-          types: types
-        }.merge(
-          collection_of_options.options_for_checks
-        )
+        collection_of_options.options_for_checks
       end
 
       def conflict_code
