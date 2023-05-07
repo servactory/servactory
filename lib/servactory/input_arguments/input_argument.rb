@@ -111,12 +111,12 @@ module Servactory
           instance_eval: lambda do
             <<-RUBY
               def inclusion_present?
-                inclusion[:is].is_a?(Array) && inclusion[:is].present?
+                inclusion[:in].is_a?(Array) && inclusion[:in].present?
               end
             RUBY
           end,
           need_for_checks: true,
-          value_key: :is,
+          value_key: :in,
           value_fallback: nil,
           **options
         )
