@@ -30,7 +30,8 @@ module InputArgumentHelper
   end
   # rubocop:enable Metrics/MethodLength
 
-  def prepare_input_argument_text_for( # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
+  def prepare_input_argument_text_for(
     check_name:,
     name:,
     service_class_name:,
@@ -60,6 +61,7 @@ module InputArgumentHelper
       raise "Non-existent `check_name` to generate the error text"
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
