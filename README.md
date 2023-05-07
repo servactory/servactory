@@ -72,7 +72,7 @@ end
 ### Minimal example
 
 ```ruby
-class SendService < ApplicationService::Base
+class MinimalService < ApplicationService::Base
   stage { make :something }
   
   private
@@ -87,10 +87,10 @@ end
 
 #### Isolated usage
 
-With this approach, all input attributes are available only from `inputs`.
+With this approach, all input attributes are available only from `inputs`. This is default behaviour.
 
 ```ruby
-class UserService::Accept < ApplicationService::Base
+class UsersService::Accept < ApplicationService::Base
   input :user, type: User
   
   stage { make :accept! }
@@ -108,7 +108,7 @@ end
 With this approach, all input attributes are available from `inputs` as well as directly from the context.
 
 ```ruby
-class UserService::Accept < ApplicationService::Base
+class UsersService::Accept < ApplicationService::Base
   input :user, type: User, internal: true
   
   stage { make :accept! }
@@ -118,6 +118,59 @@ class UserService::Accept < ApplicationService::Base
   def accept!
     user.accept!
   end
+end
+```
+
+#### Optional inputs
+
+By default, all inputs are required. To make an input optional, specify `false` in the `required` option.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :first_name, type: String, internal: true
+  input :middle_name, type: String, required: false
+  input :last_name, type: String, internal: true
+
+  # ...
+end
+```
+
+#### An array of specific values
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :invoice_numbers, type: String, array: true
+
+  # ...
+end
+```
+
+#### Inclusion
+
+```ruby
+class EventService::Send < ApplicationService::Base
+  input :event_name, type: String, inclusion: %w[created rejected approved]
+
+  # ...
+end
+```
+
+#### Must
+
+Sometimes there are cases that require the implementation of a specific input attribute check. In such cases `must` can help.
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :invoice_numbers,
+        type: String,
+        array: true,
+        must: {
+          be_6_characters: {
+            is: ->(value:) { value.all? { |id| id.size == 6 } }
+          }
+        }
+
+  # ...
 end
 ```
 
