@@ -12,7 +12,7 @@ module Servactory
         @name = name
         @collection_of_options = collection_of_options
 
-        add_basic_options_with(type:, options:)
+        add_basic_options_with(type: type, options: options)
 
         @collection_of_options.each do |option|
           self.class.attr_reader(:"#{option.name}")
