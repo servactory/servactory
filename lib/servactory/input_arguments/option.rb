@@ -9,6 +9,7 @@ module Servactory
 
       attr_reader :name,
                   :check_class,
+                  :define_conflicts,
                   :need_for_checks,
                   :value_key,
                   :value
@@ -21,11 +22,13 @@ module Servactory
         value_key:,
         value_fallback:,
         instance_eval: nil,
+        define_conflicts: nil,
         with_advanced_mode: true,
         **options
       ) # do
         @name = name.to_sym
         @check_class = check_class
+        @define_conflicts = define_conflicts
         @need_for_checks = need_for_checks
         @value_key = value_key
 

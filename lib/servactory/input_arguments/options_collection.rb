@@ -26,6 +26,10 @@ module Servactory
           [option.name, value]
         end
       end
+
+      def defined_conflicts
+        map { |option| option.define_conflicts&.call }.reject(&:blank?).uniq.join
+      end
     end
   end
 end

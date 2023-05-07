@@ -10,6 +10,8 @@ module Servactory
 
       def check_classes: () -> Array[Class]
 
+      def defined_conflicts: -> String
+
       def options_for_checks: -> Hash[Symbol, untyped]
     end
   end
