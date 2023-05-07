@@ -103,6 +103,8 @@ class MinimalService < ApplicationService::Base
 end
 ```
 
+[More examples](https://github.com/afuno/servactory/tree/main/examples/usual)
+
 ### Input attributes
 
 #### Isolated usage
