@@ -107,7 +107,6 @@ module Servactory
             RUBY
           end,
           need_for_checks: true,
-          value_key: :is,
           value_fallback: nil,
           with_advanced_mode: false,
           **options
