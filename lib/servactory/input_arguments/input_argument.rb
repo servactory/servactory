@@ -12,7 +12,7 @@ module Servactory
         @name = name
         @collection_of_options = collection_of_options
 
-        add_basic_options_with(type, options)
+        add_basic_options_with(type:, options:)
 
         @collection_of_options.each do |option|
           self.class.attr_reader(:"#{option.name}")
@@ -21,7 +21,7 @@ module Servactory
         end
       end
 
-      def add_basic_options_with(type, options)
+      def add_basic_options_with(type:, options:)
         # Check Class: Servactory::InputArguments::Checks::Required
         add_required_option_with(options)
 

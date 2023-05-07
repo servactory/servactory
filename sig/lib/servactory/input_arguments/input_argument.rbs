@@ -11,7 +11,7 @@ module Servactory
 
       def initialize: (Symbol name, collection_of_options: OptionsCollection, type: (Class | Array[Class]), **untyped options) -> void
 
-      def add_basic_options_with: (untyped options) -> void
+      def add_basic_options_with: (type: (Class | Array[Class]), options: untyped) -> void
 
       def add_array_option_with: (untyped options) -> OptionsCollection
 
