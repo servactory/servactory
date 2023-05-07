@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     servactory (1.4.0)
-      activesupport
-      zeitwerk
+      activesupport (~> 7.0)
+      zeitwerk (~> 2.6)
 
 GEM
   remote: https://rubygems.org/
