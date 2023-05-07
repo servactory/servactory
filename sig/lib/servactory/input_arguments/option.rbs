@@ -1,0 +1,39 @@
+module Servactory
+  module InputArguments
+    class Option
+      DEFAULT_VALUE: ^(key: Symbol, value: bool?, message: String?) -> Proc
+
+      attr_reader name: Symbol
+
+      attr_reader check_class: Class
+
+      attr_reader define_conflicts: Proc?
+
+      attr_reader need_for_checks: bool
+
+      attr_reader value: ({ is: Symbol, message: String? }? | bool?)
+      attr_reader value_key: Symbol?
+
+      def initialize: (
+        name: Symbol,
+        input: InputArgument,
+        check_class: Class,
+        need_for_checks: bool,
+        value_key: Symbol?,
+        value_fallback: bool?,
+        define_input_methods: Proc?,
+        define_conflicts: Proc?,
+        ?with_advanced_mode: bool,
+        **untyped options)
+      -> void
+
+      def need_for_checks?: -> bool
+
+      private
+
+      def prepare_value_for: (untyped options, value_fallback: bool?, with_advanced_mode: bool) -> ({ is: Symbol, message: String? } | bool)
+
+      def prepare_advanced_for: (value: ({ is: Symbol, message: String? }? | bool?), ?value_fallback: bool) -> { is: Symbol, message: String? }
+    end
+  end
+end

@@ -23,6 +23,16 @@ RSpec.describe Usual::Example2 do
 
           expect(result.full_name).to eq("John Fitzgerald Kennedy")
         end
+
+        describe "even if `middle_name` is not specified" do
+          let(:middle_name) { nil }
+
+          it "returns the expected value in `full_name`" do
+            result = perform
+
+            expect(result.full_name).to eq("John Kennedy")
+          end
+        end
       end
     end
 

@@ -11,9 +11,10 @@ module Servactory
         @collection_of_input_arguments = collection_of_input_arguments
       end
 
-      def assign(context:, arguments:)
+      def assign(context:, arguments:, collection_of_input_options:)
         @context = context
         @incoming_arguments = arguments
+        @collection_of_input_options = collection_of_input_options
       end
 
       def find_unnecessary!
@@ -29,12 +30,14 @@ module Servactory
       end
 
       def check!
-        Tools::Check.check!(context, @incoming_arguments, collection_of_input_arguments)
+        Tools::Check.check!(context, @incoming_arguments, collection_of_input_arguments, collection_of_input_options)
       end
 
       private
 
-      attr_reader :context, :collection_of_input_arguments
+      attr_reader :context,
+                  :collection_of_input_arguments,
+                  :collection_of_input_options
     end
   end
 end

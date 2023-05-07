@@ -5,7 +5,7 @@ module Servactory
     module Checks
       class Inclusion < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:|
-          "[#{service_class_name}] Wrong value in `#{input.name}`, must be one of `#{input.inclusion}`"
+          "[#{service_class_name}] Wrong value in `#{input.name}`, must be one of `#{input.inclusion[:in]}`"
         end
 
         private_constant :DEFAULT_MESSAGE
@@ -31,7 +31,7 @@ module Servactory
         end
 
         def check
-          return if @input.inclusion.include?(@value)
+          return if @input.inclusion[:in].include?(@value)
 
           add_error(
             DEFAULT_MESSAGE,

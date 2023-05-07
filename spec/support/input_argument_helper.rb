@@ -28,7 +28,7 @@ module InputArgumentHelper
   end
   # rubocop:enable Metrics/MethodLength
 
-  def prepare_input_argument_text_for(
+  def prepare_input_argument_text_for( # rubocop:disable Metrics/MethodLength
     check_name:,
     name:,
     service_class_name:,

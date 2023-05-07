@@ -35,11 +35,16 @@ module Servactory
 
         attr_reader :context_store
 
-        def assign_data_with(arguments)
-          input_arguments_workbench.assign(context: context_store.context, arguments: arguments)  # 1
-          internal_arguments_workbench.assign(context: context_store.context)                     # 2
-          output_arguments_workbench.assign(context: context_store.context)                       # 3
-          stage_handyman&.assign(context: context_store.context)                                  # 4
+        def assign_data_with(arguments) # rubocop:disable Metrics/AbcSize
+          input_arguments_workbench.assign(
+            context: context_store.context,
+            arguments: arguments,
+            collection_of_input_options: collection_of_input_options
+          )
+
+          internal_arguments_workbench.assign(context: context_store.context)
+          output_arguments_workbench.assign(context: context_store.context)
+          stage_handyman&.assign(context: context_store.context)
         end
 
         def prepare_data
