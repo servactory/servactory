@@ -22,7 +22,7 @@ module Servactory
       #   end
       #
       #   def fail_input!(input_attribute_name, message, prefix: true)
-      #     message_text = prefix ? "[#{context.class.name}] Custom `\#{input_attribute_name}` input error: " : ""
+      #     message_text = prefix ? "[ServiceClassName] Custom `\#{input_attribute_name}` input error: " : ""
       #
       #     message_text += message
       #
