@@ -47,7 +47,7 @@ RSpec.describe Usual::Example9 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputArgumentError,
-                "[Usual::Example9] Custom `event_name` input error: The `rejected` event cannot be used now"
+                "The `rejected` event cannot be used now"
               )
             )
           end

@@ -299,7 +299,17 @@ end
 
 The methods that are used in the stages may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
 
-By default, the `prefix` option is set to `true`. Passing `false` will only apply custom text.
+#### Fail
+
+```ruby
+stage { make :check! }
+
+def check!
+  return if inputs.invoice_number.start_with?("AA")
+
+  fail!("Invalid invoice number")
+end
+```
 
 #### Fail for input
 
@@ -309,7 +319,7 @@ stage { make :check! }
 def check!
   return if inputs.invoice_number.start_with?("AA")
 
-  fail_input!(:invoice_number, "Invalid invoice number", prefix: false)
+  fail_input!(:invoice_number, "Invalid invoice number")
 end
 ```
 

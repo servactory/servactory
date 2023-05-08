@@ -7,7 +7,7 @@ module Servactory
 
       private
 
-      def service_class_template_with: (instance context) -> String
+      def service_class_template: -> String
     end
   end
 end

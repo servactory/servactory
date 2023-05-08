@@ -6,43 +6,57 @@ module Servactory
       attr_reader :context
 
       def initialize(service_class)
-        @context = service_class.new
+        service_class.class_eval(service_class_template)
 
-        service_class.class_eval(service_class_template_with(context))
+        @context = service_class.new
       end
 
       private
 
       # EXAMPLE:
       #
-      #   attr_reader(:inputs)
+      #   attr_reader(:inputs, :errors)
+      #
+      #   def initialize
+      #     @errors = []
+      #   end
       #
       #   def assign_inputs(inputs)
       #     @inputs = inputs
       #   end
       #
-      #   def fail_input!(input_attribute_name, message, prefix: true)
-      #     message_text = prefix ? "[ServiceClassName] Custom `\#{input_attribute_name}` input error: " : ""
-      #
-      #     message_text += message
-      #
-      #     raise Servactory.configuration.input_argument_error_class, message_text
+      #   def fail_input!(_input_attribute_name, message)
+      #     raise Servactory.configuration.input_argument_error_class, message
       #   end
       #
-      def service_class_template_with(context)
+      #   def fail!(error)
+      #     @errors << error
+      #   end
+      #
+      def service_class_template
         <<-RUBY
-          attr_reader(:inputs)
+          attr_reader(:inputs, :errors)
+
+          def initialize
+            @errors = []
+          end
 
           def assign_inputs(inputs)
             @inputs = inputs
           end
 
-          def fail_input!(input_attribute_name, message, prefix: true)
-            message_text = prefix ? "[#{context.class.name}] Custom `\#{input_attribute_name}` input error: " : ""
+          def fail_input!(_input_attribute_name, message)
+            raise Servactory.configuration.input_argument_error_class, message
+          end
 
-            message_text += message
+          def fail!(error)
+            @errors << error
+          end
 
-            raise Servactory.configuration.input_argument_error_class, message_text
+          def raise_first_error
+            return if (tmp_errors = errors.reject(&:blank?).uniq).empty?
+
+            raise Servactory.configuration.failure_class, tmp_errors.first
           end
         RUBY
       end

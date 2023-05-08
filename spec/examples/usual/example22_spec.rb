@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Example20 do
+RSpec.describe Usual::Example22 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -30,8 +30,8 @@ RSpec.describe Usual::Example20 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
-                "[Usual::Example20] Custom `invoice_number` input error: Invalid invoice number"
+                ApplicationService::Errors::Failure,
+                "Invalid invoice number"
               )
             )
           end

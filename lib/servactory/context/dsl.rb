@@ -25,6 +25,8 @@ module Servactory
 
           stage_handyman.run_methods!
 
+          context_store.context.raise_first_error
+
           Servactory::Result.prepare_for(
             context: context_store.context,
             collection_of_output_arguments: collection_of_output_arguments
