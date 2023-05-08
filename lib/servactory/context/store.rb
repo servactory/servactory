@@ -30,7 +30,7 @@ module Servactory
       #   end
       #
       #   def fail!(error)
-      #     @errors << error
+      #     @errors << Servactory::Errors::Error.new(:_fail, error)
       #   end
       #
       def service_class_template
@@ -45,18 +45,19 @@ module Servactory
             @inputs = inputs
           end
 
-          def fail_input!(_input_attribute_name, message)
-            raise Servactory.configuration.input_argument_error_class, message
+          def fail_input!(input_attribute_name, message)
+            raise Servactory.configuration.input_argument_error_class,
+                  Servactory::Errors::Error.new(input_attribute_name, message).message
           end
 
           def fail!(error)
-            @errors << error
+            @errors << Servactory::Errors::Error.new(:_fail, error)
           end
 
           def raise_first_error
             return if (tmp_errors = errors.reject(&:blank?).uniq).empty?
 
-            raise Servactory.configuration.failure_class, tmp_errors.first
+            raise Servactory.configuration.failure_class, tmp_errors.first.message
           end
         RUBY
       end
