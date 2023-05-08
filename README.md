@@ -52,7 +52,7 @@ bundle install
 
 ### Preparation
 
-We recommend that you first prepare the following files in your project.
+As a first step, it is recommended to prepare the base class for further inheritance.
 
 #### ApplicationService::Errors
 
