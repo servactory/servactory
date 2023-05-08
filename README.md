@@ -150,9 +150,9 @@ By default, all inputs are required. To make an input optional, specify `false` 
 
 ```ruby
 class UsersService::Create < ApplicationService::Base
-  input :first_name, type: String, internal: true
+  input :first_name, type: String
   input :middle_name, type: String, required: false
-  input :last_name, type: String, internal: true
+  input :last_name, type: String
 
   # ...
 end
