@@ -39,10 +39,10 @@ module Servactory
         end
 
         def create_instance_variables
-          servactory_inputs_class = Servactory::Inputs.dup
-          servactory_inputs_class.class_eval(class_inputs_template) if class_inputs_template.present?
+          inputs_class = Servactory::Inputs.dup
+          inputs_class.class_eval(class_inputs_template) if class_inputs_template.present?
 
-          @context.assign_inputs(servactory_inputs_class.new(**@inputs_variables))
+          @context.assign_inputs(inputs_class.new(**@inputs_variables))
 
           @context.class.class_eval(context_internal_variables_template) if context_internal_variables_template.present?
 
