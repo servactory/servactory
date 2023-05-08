@@ -94,11 +94,11 @@ end
 
 ```ruby
 class MinimalService < ApplicationService::Base
-  stage { make :something }
+  stage { make :call }
   
   private
   
-  def something
+  def call
     # ...
   end
 end
