@@ -39,9 +39,10 @@ module Servactory
         end
 
         def create_instance_variables
-          Servactory::Inputs.class_eval(class_inputs_template)
+          servactory_inputs_class = Servactory::Inputs.dup
+          servactory_inputs_class.class_eval(class_inputs_template) if class_inputs_template.present?
 
-          @context.assign_inputs(Servactory::Inputs.new(**@inputs_variables))
+          @context.assign_inputs(servactory_inputs_class.new(**@inputs_variables))
 
           @context.class.class_eval(context_internal_variables_template) if context_internal_variables_template.present?
 
@@ -54,10 +55,6 @@ module Servactory
 
         # EXAMPLE:
         #
-        #   attr_reader(*[:attr_1]); def initialize(attr_1); @attr_1 = attr_1; end
-        #
-        # OR
-        #
         #   attr_reader(*[:attr_1, :attr_2, :attr_3])
         #
         #   def initialize(attr_1:, attr_2:, attr_3:)
@@ -65,18 +62,20 @@ module Servactory
         #   end
         #
         def class_inputs_template
-          <<-RUBY.squish
-            attr_reader(*#{@inputs_variables.keys});
+          return if @inputs_variables.blank?
 
-            def initialize(#{@inputs_variables.keys.join(':, ')}:);
-              #{@inputs_variables.keys.map { |key| "@#{key} = #{key}" }.join('; ')};
+          @class_inputs_template ||= <<-RUBY
+            attr_reader(*#{@inputs_variables.keys})
+
+            def initialize(#{@inputs_variables.keys.join(':, ')}:)
+              #{@inputs_variables.keys.map { |key| "@#{key} = #{key}" }.join('; ')}
             end
           RUBY
         end
 
         # EXAMPLE:
         #
-        #   private attr_reader(*[:attr_1]);
+        #   private; attr_reader(*[:attr_1]);
         #
         def context_internal_variables_template
           return if @internal_variables.blank?

@@ -8,7 +8,7 @@ module Servactory
       end
 
       module ClassMethods
-        def call!(arguments) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        def call!(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           @context_store ||= Store.new(self)
 
           assign_data_with(arguments)
