@@ -24,6 +24,7 @@ A set of tools for building reliable services of any complexity.
   - [Output attributes](#output-attributes)
   - [Internal attributes](#internal-attributes)
   - [Stage](#stage)
+  - [Failures](#failures)
   - [Result](#result)
 
 ## Requirements
@@ -291,6 +292,24 @@ end
 
 def process_result
   ARModel.create!(response)
+end
+```
+
+### Failures
+
+The methods that are used in the stages may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
+
+By default, the `prefix` option is set to `true`. Passing `false` will only apply custom text.
+
+#### Fail for input
+
+```ruby
+stage { make :check! }
+
+def check!
+  return if inputs.invoice_number.start_with?("AA")
+
+  fail_input!(:invoice_number, "Invalid invoice number", prefix: false)
 end
 ```
 
