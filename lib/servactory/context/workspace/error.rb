@@ -4,12 +4,14 @@ module Servactory
   module Context
     module Workspace
       class Error
-        attr_reader :section,
-                    :message
+        attr_reader :type,
+                    :message,
+                    :name
 
-        def initialize(section, message)
-          @section = section
+        def initialize(type:, message:, name: nil)
+          @type = type
           @message = message
+          @name = name
         end
       end
     end
