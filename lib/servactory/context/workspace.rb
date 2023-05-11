@@ -22,7 +22,7 @@ module Servactory
         errors << Error.new(type: :fail, message: error)
       end
 
-      def raise_first_error
+      def raise_first_fail
         return if (tmp_errors = errors.for_fails.not_blank_and_uniq).empty?
 
         raise Servactory.configuration.failure_class, tmp_errors.first.message

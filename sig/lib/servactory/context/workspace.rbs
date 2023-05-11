@@ -15,7 +15,7 @@ module Servactory
 
       def fail!: (String error) -> Errors
 
-      def raise_first_error: () -> (nil | untyped)
+      def raise_first_fail: () -> (nil | untyped)
     end
   end
 end

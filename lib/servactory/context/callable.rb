@@ -20,7 +20,7 @@ module Servactory
 
         stage_handyman.run_methods!
 
-        context_store.context.raise_first_error
+        context_store.context.raise_first_fail
 
         Servactory::Result.prepare_for(
           context: context_store.context,
