@@ -6,7 +6,7 @@ module Servactory
       attr_reader :inputs
 
       def errors
-        @errors ||= []
+        @errors ||= Errors.new
       end
 
       def assign_inputs(inputs)
@@ -14,16 +14,15 @@ module Servactory
       end
 
       def fail_input!(input_attribute_name, message)
-        raise Servactory.configuration.input_argument_error_class,
-              Servactory::Errors::Error.new(input_attribute_name, message).message
+        raise Servactory.configuration.input_argument_error_class, Error.new(input_attribute_name, message).message
       end
 
       def fail!(error)
-        errors << Servactory::Errors::Error.new(:_fail, error)
+        errors << Error.new(:_fail, error)
       end
 
       def raise_first_error
-        return if (tmp_errors = errors.reject(&:blank?).uniq).empty?
+        return if (tmp_errors = errors.for_fails.not_blank_and_uniq).empty?
 
         raise Servactory.configuration.failure_class, tmp_errors.first.message
       end

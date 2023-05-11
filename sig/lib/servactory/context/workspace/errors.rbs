@@ -1,0 +1,20 @@
+module Servactory
+  module Context
+    module Workspace
+      class Errors
+        # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
+        extend Forwardable
+
+        @collection: Array[Error]
+
+        def initialize: (?Array[Error] collection) -> void
+
+        def not_blank_and_uniq: () -> Errors
+
+        def for_fails: () -> Errors
+
+        def for_inputs: () -> Errors
+      end
+    end
+  end
+end

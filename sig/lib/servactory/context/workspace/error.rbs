@@ -1,0 +1,13 @@
+module Servactory
+  module Context
+    module Workspace
+      class Error
+        attr_reader section: Symbol
+
+        attr_reader message: String
+
+        def initialize: (Symbol section, String message) -> void
+      end
+    end
+  end
+end
