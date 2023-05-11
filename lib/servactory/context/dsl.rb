@@ -10,6 +10,8 @@ module Servactory
       end
 
       module Configurable
+        private
+
         def configuration(&block)
           context_configuration = Servactory::Context::Configuration.new
 
