@@ -6,12 +6,12 @@ module Servactory
       class Error
         attr_reader :type,
                     :message,
-                    :name
+                    :attribute_name
 
-        def initialize(type:, message:, name: nil)
+        def initialize(type:, message:, attribute_name: nil)
           @type = type
           @message = message
-          @name = name
+          @attribute_name = attribute_name
         end
       end
     end

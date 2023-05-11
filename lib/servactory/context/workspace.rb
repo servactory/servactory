@@ -15,7 +15,7 @@ module Servactory
 
       def fail_input!(input_attribute_name, message)
         raise Servactory.configuration.input_argument_error_class,
-              Error.new(type: :input, name: input_attribute_name, message: message).message
+              Error.new(type: :input, attribute_name: input_attribute_name, message: message).message
       end
 
       def fail!(error)
