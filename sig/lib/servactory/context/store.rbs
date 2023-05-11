@@ -3,7 +3,7 @@ module Servactory
     class Store
       attr_reader context: instance
 
-      def initialize: (DSL::ClassMethods service_class) -> void
+      def initialize: (Callable service_class) -> void
     end
   end
 end
