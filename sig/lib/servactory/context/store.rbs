@@ -4,10 +4,6 @@ module Servactory
       attr_reader context: instance
 
       def initialize: (DSL::ClassMethods service_class) -> void
-
-      private
-
-      def service_class_template: -> String
     end
   end
 end
