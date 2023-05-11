@@ -29,29 +29,29 @@ module Servactory
 
         # EXAMPLE:
         #
-        #   define_method(:user=) do |value|;
-        #     Servactory::InternalArguments::Checks::Type.check!( context: self, internal_argument:, value: );
+        #   define_method(:user=) do |value|
+        #     Servactory::InternalArguments::Checks::Type.check!( context: self, internal_argument:, value: )
         #
-        #     instance_variable_set(:@user, value);
-        #   end;
+        #     instance_variable_set(:@user, value)
+        #   end
         #
-        #   private attr_reader :user;
+        #   private attr_reader :user
         #
         def context_internal_argument_template_for(internal_argument)
-          <<-RUBY.squish
-            define_method(:#{internal_argument.name}=) do |value|;
+          <<-RUBY
+            define_method(:#{internal_argument.name}=) do |value|
               Servactory::InternalArguments::Checks::Type.check!(
                 context: self,
                 internal_argument: internal_argument,
                 value: value
-              );
+              )
 
-              instance_variable_set(:@#{internal_argument.name}, value);
-            end;
+              instance_variable_set(:@#{internal_argument.name}, value)
+            end
 
-            private;
+            private
 
-            attr_reader :#{internal_argument.name};
+            attr_reader :#{internal_argument.name}
           RUBY
         end
       end
