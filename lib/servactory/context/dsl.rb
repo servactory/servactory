@@ -5,11 +5,12 @@ module Servactory
     module DSL
       def self.included(base)
         base.extend(ClassMethods)
+        base.prepend(Workspace)
       end
 
       module ClassMethods
         def call!(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-          @context_store ||= Store.new(self)
+          @context_store = Store.new(self)
 
           assign_data_with(arguments)
 

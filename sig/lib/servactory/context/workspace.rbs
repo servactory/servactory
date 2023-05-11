@@ -1,13 +1,15 @@
 module Servactory
   module Context
     module Workspace
-      attr_reader inputs: InputArguments
+      @errors: Array[Errors::Error]
 
-      attr_reader errors: Array[Errors::Error]
+      attr_reader inputs: InputArguments
 
       def initialize: () -> void
 
       def assign_inputs: (InputArguments inputs) -> untyped
+
+      def errors: -> Array[Errors::Error]
 
       def fail_input!: (Symbol input_attribute_name, String message) -> untyped
 

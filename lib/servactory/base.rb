@@ -7,7 +7,5 @@ module Servactory
     include InternalArguments::DSL
     include OutputArguments::DSL
     include Stage::DSL
-
-    prepend Context::Workspace
   end
 end

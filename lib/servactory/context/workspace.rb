@@ -3,10 +3,10 @@
 module Servactory
   module Context
     module Workspace
-      attr_reader(:inputs, :errors)
+      attr_reader :inputs
 
-      def initialize
-        @errors = []
+      def errors
+        @errors ||= []
       end
 
       def assign_inputs(inputs)
@@ -19,7 +19,7 @@ module Servactory
       end
 
       def fail!(error)
-        @errors << Servactory::Errors::Error.new(:_fail, error)
+        errors << Servactory::Errors::Error.new(:_fail, error)
       end
 
       def raise_first_error
