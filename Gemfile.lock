@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    servactory (1.4.2)
+    servactory (1.4.3)
       activesupport (~> 7.0)
       zeitwerk (~> 2.6)
 
