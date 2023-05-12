@@ -4,7 +4,7 @@ module Servactory
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
 
-      @collection: Array[InputArgument]
+      @collection: Set[InputArgument]
 
       def initialize: (*untyped) -> void
 

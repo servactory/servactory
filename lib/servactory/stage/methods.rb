@@ -8,7 +8,7 @@ module Servactory
       def_delegators :@methods, :<<, :each
 
       def initialize(*)
-        @methods = []
+        @methods = Set.new
       end
     end
   end

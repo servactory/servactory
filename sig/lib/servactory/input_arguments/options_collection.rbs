@@ -4,11 +4,11 @@ module Servactory
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
 
-      @collection: Array[Option]
+      @collection: Set[Option]
 
-      def initialize: (*untyped) -> void
+      def initialize: (?Set[Option] collection) -> void
 
-      def check_classes: () -> Array[Class]
+      def check_classes: () -> OptionsCollection
 
       def defined_conflicts: -> String
 

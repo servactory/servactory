@@ -5,11 +5,11 @@ module Servactory
         # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
         extend Forwardable
 
-        @collection: Array[Error]
+        @collection: Set[Error]
 
-        def initialize: (?Array[Error] collection) -> void
+        def initialize: (?Set[Error] collection) -> void
 
-        def not_blank_and_uniq: () -> Errors
+        def not_blank: () -> Errors
 
         def for_fails: () -> Errors
 
