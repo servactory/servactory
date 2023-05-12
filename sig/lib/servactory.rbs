@@ -3,7 +3,7 @@ module Servactory
 
   def self?.configuration: () -> Configuration
 
-  def self?.reset: () -> untyped
+  def self?.reset: () -> void
 
   def self?.configure: () { (untyped) -> untyped } -> untyped
 end
