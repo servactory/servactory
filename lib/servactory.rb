@@ -17,11 +17,11 @@ module Servactory
   module_function
 
   def configuration
-    @configuration ||= Servactory::Configuration.new
+    @configuration ||= Servactory::Configuration::Setup.new
   end
 
   def reset
-    @configuration = Servactory::Configuration.new
+    @configuration = Servactory::Configuration::Setup.new
   end
 
   def configure

@@ -23,6 +23,8 @@ A set of tools for building reliable services of any complexity.
     - [Must](#must)
   - [Output attributes](#output-attributes)
   - [Internal attributes](#internal-attributes)
+  - [Stage](#stage)
+  - [Failures](#failures)
   - [Result](#result)
 
 ## Requirements
@@ -239,6 +241,85 @@ class NotificationService::Create < ApplicationService::Base
   def create_notification!
     self.notification = Notification.create!(user: inputs.user, inviter:)
   end
+end
+```
+
+### Stage
+
+A "stage" is a single action or group of actions that needs to be "make".
+
+#### Minimal example
+
+```ruby
+stage { make :something }
+
+def something
+  # ...
+end
+```
+
+#### Condition
+
+```ruby
+stage { make :something, if: -> { Settings.something.enabled } }
+
+def something
+  # ...
+end
+```
+
+#### Groups
+
+The functionality of stage groups will be expanded in future releases.
+
+```ruby
+stage do
+  make :assign_api_model
+  make :perform_api_request
+end
+
+stage do
+  make :process_result
+end
+
+def assign_api_model
+  self.api_model = APIModel.new
+end
+
+def perform_api_request
+  self.response = APIClient.resource.create(api_model)
+end
+
+def process_result
+  ARModel.create!(response)
+end
+```
+
+### Failures
+
+The methods that are used in the stages may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
+
+#### Fail
+
+```ruby
+stage { make :check! }
+
+def check!
+  return if inputs.invoice_number.start_with?("AA")
+
+  fail!("Invalid invoice number")
+end
+```
+
+#### Fail for input
+
+```ruby
+stage { make :check! }
+
+def check!
+  return if inputs.invoice_number.start_with?("AA")
+
+  fail_input!(:invoice_number, "Invalid invoice number")
 end
 ```
 

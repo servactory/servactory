@@ -1,0 +1,15 @@
+module Servactory
+  module Context
+    module Callable
+      def call!: (?::Hash[untyped, untyped] arguments) -> Result
+
+      private
+
+      attr_reader context_store: Store
+
+      def assign_data_with: (untyped arguments) -> void
+
+      def prepare_data: () -> void
+    end
+  end
+end

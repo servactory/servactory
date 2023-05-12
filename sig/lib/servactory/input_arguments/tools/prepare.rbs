@@ -2,6 +2,8 @@ module Servactory
   module InputArguments
     module Tools
       class Prepare
+        @class_inputs_template: String
+        @context_internal_variables_template: String
         @collection_of_input_arguments: Collection
         @context: instance
 

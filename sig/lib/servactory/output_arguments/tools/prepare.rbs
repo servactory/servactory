@@ -25,7 +25,7 @@ module Servactory
         #
         #   private attr_reader :user;
         #
-        def context_output_argument_template_for: (untyped output_argument) -> String
+        def context_output_argument_template_for: (OutputArgument output_argument) -> String
       end
     end
   end
