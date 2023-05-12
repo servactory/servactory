@@ -1,7 +1,7 @@
 module Servactory
-  @configuration: Configuration
+  @configuration: Configuration::Setup
 
-  def self?.configuration: () -> Configuration
+  def self?.configuration: () -> Configuration::Setup
 
   def self?.reset: () -> void
 
