@@ -6,7 +6,7 @@ module Servactory
       attr_reader :context
 
       def initialize(service_class)
-        @context = service_class.new
+        @context = service_class.send(:new)
       end
     end
   end
