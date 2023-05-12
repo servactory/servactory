@@ -26,6 +26,7 @@ A set of tools for building reliable services of any complexity.
   - [Stage](#stage)
   - [Failures](#failures)
   - [Result](#result)
+- [Testing](#testing)
 - [Thanks](#thanks)
 - [Contributing](#contributing)
 
@@ -344,6 +345,10 @@ And then you can work with this result, for example, in this way:
 ```ruby
 Notification::SendJob.perform_later(service_result.notification.id)
 ```
+
+## Testing
+
+Testing Servactory services is the same as testing regular Ruby classes.
 
 ## Thanks
 
