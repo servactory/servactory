@@ -6,7 +6,7 @@ module Servactory
       class Errors
         # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
         extend Forwardable
-        def_delegators :@collection, :<<, :filter, :reject, :empty?, :first
+        def_delegators :@collection, :<<, :to_a, :filter, :reject, :empty?, :first
 
         def initialize(collection = [])
           @collection = collection
