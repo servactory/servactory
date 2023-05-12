@@ -26,6 +26,7 @@ A set of tools for building reliable services of any complexity.
   - [Stage](#stage)
   - [Failures](#failures)
   - [Result](#result)
+- [Contributing](#contributing)
 
 ## Requirements
 
@@ -342,3 +343,11 @@ And then you can work with this result, for example, in this way:
 ```ruby
 Notification::SendJob.perform_later(service_result.notification.id)
 ```
+
+## Contributing
+
+1. Fork it (https://github.com/afuno/servactory/fork);
+2. Create your feature branch (`git checkout -b my-new-feature`);
+3. Commit your changes (`git commit -am "Add some feature"`);
+4. Push to the branch (`git push origin my-new-feature`);
+5. Create a new Pull Request.
