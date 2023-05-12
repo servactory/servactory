@@ -26,6 +26,7 @@ A set of tools for building reliable services of any complexity.
   - [Stage](#stage)
   - [Failures](#failures)
   - [Result](#result)
+- [Thanks](#thanks)
 - [Contributing](#contributing)
 
 ## Requirements
@@ -343,6 +344,10 @@ And then you can work with this result, for example, in this way:
 ```ruby
 Notification::SendJob.perform_later(service_result.notification.id)
 ```
+
+## Thanks
+
+Thanks to [@sunny](https://github.com/sunny) for [Service Actor](https://github.com/sunny/actor).
 
 ## Contributing
 
