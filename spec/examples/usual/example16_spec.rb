@@ -18,25 +18,21 @@ RSpec.describe Usual::Example16 do
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "result class"
+        include_examples "success result class"
 
         it "returns the expected value in `full_name`" do
           result = perform
 
           expect(result.full_name).to eq("John Fitzgerald Kennedy")
-          expect(result.success?).to be(true)
-          expect(result.failure?).to be(false)
         end
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`", :aggregate_failures do
+          it "returns the expected value in `full_name`" do
             result = perform
 
             expect(result.full_name).to eq("John Kennedy")
-            expect(result.success?).to be(true)
-            expect(result.failure?).to be(false)
           end
         end
       end
@@ -76,25 +72,21 @@ RSpec.describe Usual::Example16 do
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "result class"
+        include_examples "success result class"
 
         it "returns the expected value in `full_name`" do
           result = perform
 
           expect(result.full_name).to eq("John Fitzgerald Kennedy")
-          expect(result.success?).to be(true)
-          expect(result.failure?).to be(false)
         end
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`", :aggregate_failures do
+          it "returns the expected value in `full_name`" do
             result = perform
 
             expect(result.full_name).to eq("John Kennedy")
-            expect(result.success?).to be(true)
-            expect(result.failure?).to be(false)
           end
         end
       end

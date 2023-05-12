@@ -21,14 +21,12 @@ RSpec.describe Usual::Example7 do
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "result class"
+        include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
+        it "returns the expected value in `first_id`" do
           result = perform
 
           expect(result.first_invoice_number).to eq("7650AE")
-          expect(result.success?).to be(true)
-          expect(result.failure?).to be(false)
         end
       end
 
@@ -121,14 +119,12 @@ RSpec.describe Usual::Example7 do
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "result class"
+        include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
+        it "returns the expected value in `first_id`" do
           result = perform
 
           expect(result.first_invoice_number).to eq("7650AE")
-          expect(result.success?).to be(true)
-          expect(result.failure?).to be(false)
         end
       end
 

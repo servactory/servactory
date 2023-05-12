@@ -14,14 +14,12 @@ RSpec.describe Usual::Example20 do
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "result class"
+        include_examples "success result class"
 
-        it "returns the expected value in `invoice_number`", :aggregate_failures do
+        it "returns the expected value in `invoice_number`" do
           result = perform
 
           expect(result.invoice_number).to eq("AA-7650AE")
-          expect(result.success?).to be(true)
-          expect(result.failure?).to be(false)
         end
       end
 
@@ -62,14 +60,12 @@ RSpec.describe Usual::Example20 do
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "result class"
+        include_examples "success result class"
 
-        it "returns the expected value in `invoice_number`", :aggregate_failures do
+        it "returns the expected value in `invoice_number`" do
           result = perform
 
           expect(result.invoice_number).to eq("AA-7650AE")
-          expect(result.success?).to be(true)
-          expect(result.failure?).to be(false)
         end
       end
 
@@ -77,10 +73,11 @@ RSpec.describe Usual::Example20 do
         describe "because invalid invoice number" do
           let(:invoice_number) { "BB-7650AE" }
 
+          include_examples "failure result class"
+
           it "returns the expected value in `errors`", :aggregate_failures do
             result = perform
 
-            expect(result).to be_a(Servactory::Result)
             expect(result.errors).to be_a(Servactory::Context::Workspace::Errors)
             expect(result.errors.to_a).to(
               contain_exactly(
@@ -91,8 +88,6 @@ RSpec.describe Usual::Example20 do
                 )
               )
             )
-            expect(result.success?).to be(false)
-            expect(result.failure?).to be(true)
           end
         end
       end
