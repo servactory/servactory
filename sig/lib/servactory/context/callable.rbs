@@ -3,6 +3,8 @@ module Servactory
     module Callable
       def call!: (?::Hash[untyped, untyped] arguments) -> Result
 
+      def call: (?::Hash[untyped, untyped] arguments) -> Result
+
       private
 
       attr_reader context_store: Store
