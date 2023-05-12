@@ -7,14 +7,12 @@ module Servactory
       extend Forwardable
       def_delegators :@collection, :<<, :filter, :each, :map
 
-      def initialize(collection = Set.new)
-        @collection = collection
+      def initialize(*)
+        @collection = Set.new
       end
 
       def check_classes
-        filtered = filter { |option| option.check_class.present? }.map(&:check_class).uniq
-
-        OptionsCollection.new(filtered)
+        filter { |option| option.check_class.present? }.map(&:check_class).uniq
       end
 
       def options_for_checks

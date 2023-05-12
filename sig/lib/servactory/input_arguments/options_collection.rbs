@@ -6,7 +6,7 @@ module Servactory
 
       @collection: Set[Option]
 
-      def initialize: (?Set[Option] collection) -> void
+      def initialize: (*untyped) -> void
 
       def check_classes: () -> OptionsCollection
 
