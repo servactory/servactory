@@ -18,7 +18,7 @@ A set of tools for building reliable services of any complexity.
     - [Isolated usage](#isolated-usage)
     - [As an internal argument](#isolated-usage)
     - [Optional inputs](#optional-inputs)
-    - [As](#as)
+    - [As (internal name)](#as-internal-name)
     - [An array of specific values](#an-array-of-specific-values)
     - [Inclusion](#inclusion)
     - [Must](#must)
