@@ -28,7 +28,11 @@ module Servactory
       end
 
       def defined_conflict_code
-        flat_map { |option| option.define_conflicts&.map(&:call) }.reject(&:blank?).first
+        flat_map do |option|
+          option.define_conflicts&.map do |define_conflict|
+            define_conflict.content.call
+          end
+        end.reject(&:blank?).first
       end
     end
   end

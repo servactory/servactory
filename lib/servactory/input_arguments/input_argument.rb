@@ -66,7 +66,7 @@ module Servactory
             )
           ],
           define_conflicts: [
-            -> { return :required_vs_default if required? && default_value_present? }
+            DefineInputConflict.new(content: -> { return :required_vs_default if required? && default_value_present? })
           ],
           need_for_checks: true,
           value_key: :is,
@@ -117,8 +117,8 @@ module Servactory
             )
           ],
           define_conflicts: [
-            -> { return :array_vs_array if array? && types.include?(Array) },
-            -> { return :array_vs_inclusion if array? && inclusion_present? }
+            DefineInputConflict.new(content: -> { return :array_vs_array if array? && types.include?(Array) }),
+            DefineInputConflict.new(content: -> { return :array_vs_inclusion if array? && inclusion_present? })
           ],
           need_for_checks: false,
           value_key: :is,
