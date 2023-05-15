@@ -9,6 +9,7 @@ module Servactory
 
       attr_reader :name,
                   :check_class,
+                  :define_input_methods,
                   :define_conflicts,
                   :need_for_checks,
                   :value_key,
@@ -30,6 +31,7 @@ module Servactory
       ) # do
         @name = name.to_sym
         @check_class = check_class
+        @define_input_methods = define_input_methods
         @define_conflicts = define_conflicts
         @need_for_checks = need_for_checks
         @value_key = value_key
@@ -41,7 +43,7 @@ module Servactory
           with_advanced_mode: with_advanced_mode
         )
 
-        input.instance_eval(define_input_methods.call) if define_input_methods.present?
+        prepare_input_methods_for(input)
       end
       # rubocop:enable Metrics/MethodLength
 
@@ -72,6 +74,22 @@ module Servactory
         else
           DEFAULT_VALUE.call(key: value_key, value: value)
         end
+      end
+
+      def prepare_input_methods_for(input)
+        input.instance_eval(define_input_methods_template) if define_input_methods_template.present?
+      end
+
+      def define_input_methods_template
+        return if @define_input_methods.blank?
+
+        @define_input_methods_template ||= @define_input_methods.map do |define_input_method|
+          <<-RUBY
+            def #{define_input_method[:name]}
+              #{define_input_method[:content].call(value: @value)}
+            end
+          RUBY
+        end.join("\n")
       end
     end
   end
