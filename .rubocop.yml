@@ -7,6 +7,19 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2.2
 
+Gemspec/DevelopmentDependencies:
+  Enabled: pending
+  EnforcedStyle: gemspec
+  SupportedStyles:
+    - Gemfile
+    - gems.rb
+    - gemspec
+  AllowedGems: [ ]
+  Include:
+    - '**/*.gemspec'
+    - '**/Gemfile'
+    - '**/gems.rb'
+
 Metrics/ParameterLists:
   Max: 12
 
