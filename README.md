@@ -163,6 +163,26 @@ class UsersService::Create < ApplicationService::Base
 end
 ```
 
+#### As
+
+This option changes the name of the input within the service.
+
+```ruby
+class NotificationService::Create < ApplicationService::Base
+  input :customer, as: :user, type: User
+
+  output :notification, type: Notification
+
+  stage { make :create_notification! }
+
+  private
+
+  def create_notification!
+    self.notification = Notification.create!(user: inputs.user)
+  end
+end
+```
+
 #### An array of specific values
 
 ```ruby
