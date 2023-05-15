@@ -2,12 +2,10 @@ module Servactory
   module InputArguments
     module Tools
       class Check
+        @context: instance
+        @incoming_arguments: untyped
         @collection_of_input_arguments: Collection
         @collection_of_input_options: OptionsCollection
-        @context: instance
-
-        @errors: Array[String]
-        @incoming_arguments: untyped
 
         def self.check!: (*untyped) ?{ () -> untyped } -> void
 
@@ -17,6 +15,8 @@ module Servactory
 
         private
 
+        attr_reader errors: CheckErrors
+
         def process_input: (InputArgument input) -> void
 
         def process_option: (Symbol check_key, Hash[Symbol, untyped] check_options, input: InputArgument) -> void
@@ -24,6 +24,8 @@ module Servactory
         def process_check_class: (Class check_class, input: InputArgument, check_key: Symbol, check_options: Hash[Symbol, untyped]) -> instance
 
         def check_classes: () -> ::Array[Class]
+
+        def errors: -> CheckErrors
 
         def raise_errors: () -> void
       end

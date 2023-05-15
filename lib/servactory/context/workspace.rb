@@ -23,7 +23,7 @@ module Servactory
       end
 
       def raise_first_fail
-        return if (tmp_errors = errors.for_fails.not_blank_and_uniq).empty?
+        return if (tmp_errors = errors.for_fails.not_blank).empty?
 
         raise Servactory.configuration.failure_class, tmp_errors.first.message
       end

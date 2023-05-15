@@ -8,7 +8,7 @@ module Servactory
       def_delegators :@collection, :<<, :filter, :each, :map
 
       def initialize(*)
-        @collection = []
+        @collection = Set.new
       end
 
       def check_classes

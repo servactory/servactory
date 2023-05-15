@@ -4,9 +4,9 @@ module Servactory
       class Base
         def initialize: () -> void
 
-        attr_reader errors: Array[String]
+        attr_reader errors: Errors
 
-        def add_error: (String | Proc message, **untyped arguments) -> Array[String]
+        def add_error: (String | Proc message, **untyped arguments) -> Errors
       end
     end
   end
