@@ -9,7 +9,7 @@ module Servactory
         def add_error(message, **arguments)
           message = message.call(**arguments) if message.is_a?(Proc)
 
-          errors.add(message)
+          errors << message
         end
 
         private
