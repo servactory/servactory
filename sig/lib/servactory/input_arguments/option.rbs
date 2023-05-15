@@ -7,7 +7,7 @@ module Servactory
 
       attr_reader check_class: Class
 
-      attr_reader define_input_methods: Array[{ name: Symbol, content: Proc }]?
+      attr_reader define_input_methods: Array[DefineInputMethod]?
 
       attr_reader define_conflicts: Proc?
 
@@ -24,7 +24,7 @@ module Servactory
         value_key: Symbol?,
         value_fallback: bool?,
         original_value: Array[Class]?,
-        define_input_methods: Array[{ name: Symbol, content: Proc }]?,
+        define_input_methods: Array[DefineInputMethod]?,
         define_conflicts: Proc?,
         ?with_advanced_mode: bool,
         **untyped options

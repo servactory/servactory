@@ -85,8 +85,8 @@ module Servactory
 
         @define_input_methods_template ||= @define_input_methods.map do |define_input_method|
           <<-RUBY
-            def #{define_input_method[:name]}
-              #{define_input_method[:content].call(value: @value)}
+            def #{define_input_method.name}
+              #{define_input_method.content.call(value: @value)}
             end
           RUBY
         end.join("\n")

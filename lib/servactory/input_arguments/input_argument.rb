@@ -56,14 +56,14 @@ module Servactory
           input: self,
           check_class: Servactory::InputArguments::Checks::Required,
           define_input_methods: [
-            {
+            DefineInputMethod.new(
               name: :required?,
               content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
-            },
-            {
+            ),
+            DefineInputMethod.new(
               name: :optional?,
               content: ->(value:) { !Servactory::Utils.boolean?(value[:is]) }
-            }
+            )
           ],
           define_conflicts: lambda do
             <<-RUBY
@@ -95,10 +95,10 @@ module Servactory
           input: self,
           check_class: Servactory::InputArguments::Checks::Type,
           define_input_methods: [
-            {
+            DefineInputMethod.new(
               name: :default_value_present?,
               content: ->(value:) { !value.nil? }
-            }
+            )
           ],
           need_for_checks: true,
           value_fallback: nil,
@@ -113,10 +113,10 @@ module Servactory
           input: self,
           check_class: Servactory::InputArguments::Checks::Type,
           define_input_methods: [
-            {
+            DefineInputMethod.new(
               name: :array?,
               content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
-            }
+            )
           ],
           define_conflicts: lambda do
             <<-RUBY
@@ -137,10 +137,10 @@ module Servactory
           input: self,
           check_class: Servactory::InputArguments::Checks::Inclusion,
           define_input_methods: [
-            {
+            DefineInputMethod.new(
               name: :inclusion_present?,
               content: ->(value:) { value[:in].is_a?(Array) && value[:in].present? }
-            }
+            )
           ],
           need_for_checks: true,
           value_key: :in,
@@ -155,10 +155,10 @@ module Servactory
           input: self,
           check_class: Servactory::InputArguments::Checks::Must,
           define_input_methods: [
-            {
+            DefineInputMethod.new(
               name: :must_present?,
               content: ->(value:) { value.present? }
-            }
+            )
           ],
           need_for_checks: true,
           value_key: :is,
@@ -174,10 +174,10 @@ module Servactory
           input: self,
           check_class: nil,
           define_input_methods: [
-            {
+            DefineInputMethod.new(
               name: :internal?,
               content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
-            }
+            )
           ],
           need_for_checks: false,
           value_key: :is,
