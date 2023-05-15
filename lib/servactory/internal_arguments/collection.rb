@@ -8,7 +8,7 @@ module Servactory
       def_delegators :@collection, :<<, :each, :map
 
       def initialize(*)
-        @collection = []
+        @collection = Set.new
       end
 
       def names

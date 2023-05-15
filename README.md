@@ -18,6 +18,7 @@ A set of tools for building reliable services of any complexity.
     - [Isolated usage](#isolated-usage)
     - [As an internal argument](#isolated-usage)
     - [Optional inputs](#optional-inputs)
+    - [As (internal name)](#as-internal-name)
     - [An array of specific values](#an-array-of-specific-values)
     - [Inclusion](#inclusion)
     - [Must](#must)
@@ -160,6 +161,26 @@ class UsersService::Create < ApplicationService::Base
   input :last_name, type: String
 
   # ...
+end
+```
+
+#### As (internal name)
+
+This option changes the name of the input within the service.
+
+```ruby
+class NotificationService::Create < ApplicationService::Base
+  input :customer, as: :user, type: User
+
+  output :notification, type: Notification
+
+  stage { make :create_notification! }
+
+  private
+
+  def create_notification!
+    self.notification = Notification.create!(user: inputs.user)
+  end
 end
 ```
 

@@ -8,12 +8,12 @@ module Servactory
         extend Forwardable
         def_delegators :@collection, :<<, :to_a, :filter, :reject, :empty?, :first
 
-        def initialize(collection = [])
+        def initialize(collection = Set.new)
           @collection = collection
         end
 
-        def not_blank_and_uniq
-          Errors.new(reject(&:blank?).uniq)
+        def not_blank
+          Errors.new(reject(&:blank?))
         end
 
         def for_fails
