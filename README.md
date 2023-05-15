@@ -26,6 +26,9 @@ A set of tools for building reliable services of any complexity.
   - [Stage](#stage)
   - [Failures](#failures)
   - [Result](#result)
+- [Testing](#testing)
+- [Thanks](#thanks)
+- [Contributing](#contributing)
 
 ## Requirements
 
@@ -157,6 +160,26 @@ class UsersService::Create < ApplicationService::Base
   input :last_name, type: String
 
   # ...
+end
+```
+
+#### As
+
+This option changes the name of the input within the service.
+
+```ruby
+class NotificationService::Create < ApplicationService::Base
+  input :customer, as: :user, type: User
+
+  output :notification, type: Notification
+
+  stage { make :create_notification! }
+
+  private
+
+  def create_notification!
+    self.notification = Notification.create!(user: inputs.user)
+  end
 end
 ```
 
@@ -342,3 +365,19 @@ And then you can work with this result, for example, in this way:
 ```ruby
 Notification::SendJob.perform_later(service_result.notification.id)
 ```
+
+## Testing
+
+Testing Servactory services is the same as testing regular Ruby classes.
+
+## Thanks
+
+Thanks to [@sunny](https://github.com/sunny) for [Service Actor](https://github.com/sunny/actor).
+
+## Contributing
+
+1. Fork it (https://github.com/afuno/servactory/fork);
+2. Create your feature branch (`git checkout -b my-new-feature`);
+3. Commit your changes (`git commit -am "Add some feature"`);
+4. Push to the branch (`git push origin my-new-feature`);
+5. Create a new Pull Request.
