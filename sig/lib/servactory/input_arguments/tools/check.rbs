@@ -3,6 +3,7 @@ module Servactory
     module Tools
       class Check
         @collection_of_input_arguments: Collection
+        @collection_of_input_options: OptionsCollection
         @context: instance
 
         @errors: Array[String]

@@ -82,8 +82,8 @@ module Servactory
         collection_of_options << Option.new(
           name: :types,
           input: self,
-          original_value: Array(type),
           check_class: Servactory::InputArguments::Checks::Type,
+          original_value: Array(type),
           need_for_checks: true,
           value_fallback: nil,
           with_advanced_mode: false
@@ -177,6 +177,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :internal,
           input: self,
+          check_class: nil,
           define_input_methods: lambda do
             <<-RUBY
               def internal?
@@ -185,7 +186,6 @@ module Servactory
             RUBY
           end,
           need_for_checks: false,
-          check_class: nil,
           value_key: :is,
           value_fallback: false,
           **options
