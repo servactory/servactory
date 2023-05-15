@@ -45,7 +45,7 @@ module Servactory
 
       def prepare_advanced_for: (value: ({ is: Symbol, message: String? }? | bool?), ?value_fallback: bool) -> { is: Symbol, message: String? }
 
-      def prepare_input_methods_for: (InputArgumentHelper input) -> void
+      def prepare_input_methods_for: (InputArgument input) -> void
 
       def define_input_methods_template: -> String
     end
