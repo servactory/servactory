@@ -5,7 +5,7 @@ module Servactory
     class OptionsCollection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
-      def_delegators :@collection, :<<, :filter, :each, :map
+      def_delegators :@collection, :<<, :filter, :each, :map, :flat_map
 
       def initialize(*)
         @collection = Set.new
@@ -27,8 +27,8 @@ module Servactory
         end
       end
 
-      def defined_conflicts
-        map { |option| option.define_conflicts&.call }.reject(&:blank?).uniq.join
+      def defined_conflict_code
+        flat_map { |option| option.define_conflicts&.map(&:call) }.reject(&:blank?).first
       end
     end
   end
