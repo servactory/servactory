@@ -67,7 +67,7 @@ module Servactory
         end
 
         def raise_errors
-          return if (tmp_errors = errors.reject(&:blank?)).empty?
+          return if (tmp_errors = errors.not_blank).empty?
 
           raise Servactory.configuration.input_argument_error_class, tmp_errors.first
         end

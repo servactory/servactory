@@ -8,6 +8,8 @@ module Servactory
         @collection: Set[String]
 
         def initialize: (*untyped) -> void
+
+        def not_blank: -> CheckErrors
       end
     end
   end
