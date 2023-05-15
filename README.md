@@ -178,7 +178,7 @@ class NotificationService::Create < ApplicationService::Base
   private
 
   def create_notification!
-    self.notification = Notification.create!(user: inputs.customer)
+    self.notification = Notification.create!(user: inputs.user)
   end
 end
 ```
