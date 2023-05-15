@@ -29,8 +29,8 @@ module Servactory
 
       def defined_conflict_code
         flat_map do |option|
-          option.define_conflicts&.map do |define_conflict|
-            define_conflict.content.call
+          option.define_input_conflicts&.map do |define_input_conflict|
+            define_input_conflict.content.call
           end
         end.reject(&:blank?).first
       end
