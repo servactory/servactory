@@ -164,7 +164,7 @@ class UsersService::Create < ApplicationService::Base
 end
 ```
 
-#### As
+#### As (internal name)
 
 This option changes the name of the input within the service.
 
