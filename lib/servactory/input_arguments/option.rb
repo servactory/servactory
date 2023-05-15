@@ -10,7 +10,7 @@ module Servactory
       attr_reader :name,
                   :check_class,
                   :define_input_methods,
-                  :define_conflicts,
+                  :define_input_conflicts,
                   :need_for_checks,
                   :value_key,
                   :value
@@ -25,14 +25,14 @@ module Servactory
         original_value: nil,
         value_key: nil,
         define_input_methods: nil,
-        define_conflicts: nil,
+        define_input_conflicts: nil,
         with_advanced_mode: true,
         **options
       ) # do
         @name = name.to_sym
         @check_class = check_class
         @define_input_methods = define_input_methods
-        @define_conflicts = define_conflicts
+        @define_input_conflicts = define_input_conflicts
         @need_for_checks = need_for_checks
         @value_key = value_key
 

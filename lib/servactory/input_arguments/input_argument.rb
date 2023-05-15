@@ -65,11 +65,9 @@ module Servactory
               content: ->(value:) { !Servactory::Utils.boolean?(value[:is]) }
             )
           ],
-          define_conflicts: lambda do
-            <<-RUBY
-              return :required_vs_default if required? && default_value_present?
-            RUBY
-          end,
+          define_input_conflicts: [
+            DefineInputConflict.new(content: -> { return :required_vs_default if required? && default_value_present? })
+          ],
           need_for_checks: true,
           value_key: :is,
           value_fallback: true,
@@ -118,12 +116,10 @@ module Servactory
               content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
             )
           ],
-          define_conflicts: lambda do
-            <<-RUBY
-              return :array_vs_array if array? && types.include?(Array)
-              return :array_vs_inclusion if array? && inclusion_present?
-            RUBY
-          end,
+          define_input_conflicts: [
+            DefineInputConflict.new(content: -> { return :array_vs_array if array? && types.include?(Array) }),
+            DefineInputConflict.new(content: -> { return :array_vs_inclusion if array? && inclusion_present? })
+          ],
           need_for_checks: false,
           value_key: :is,
           value_fallback: false,
@@ -191,9 +187,7 @@ module Servactory
       end
 
       def conflict_code
-        instance_eval(collection_of_options.defined_conflicts)
-
-        nil
+        collection_of_options.defined_conflict_code
       end
 
       def with_conflicts?
