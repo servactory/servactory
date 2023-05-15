@@ -14,6 +14,8 @@ A set of tools for building reliable services of any complexity.
   - [Preparation](#preparation)
 - [Usage](#usage)
   - [Minimal example](#minimal-example)
+  - [Call](#call)
+  - [Result](#result)
   - [Input attributes](#input-attributes)
     - [Isolated usage](#isolated-usage)
     - [As an internal argument](#isolated-usage)
@@ -26,7 +28,6 @@ A set of tools for building reliable services of any complexity.
   - [Internal attributes](#internal-attributes)
   - [Stage](#stage)
   - [Failures](#failures)
-  - [Result](#result)
 - [Testing](#testing)
 - [Thanks](#thanks)
 - [Contributing](#contributing)
@@ -111,6 +112,47 @@ end
 ```
 
 [More examples](https://github.com/afuno/servactory/tree/main/examples/usual)
+
+### Call
+
+Services can only be called via `.call` and `.call!` methods.
+
+The `.call` method will only fail if it catches an exception in the input arguments.
+Internal and output attributes, as well as methods for failures - all this will be collected in the result.
+
+The `.call!` method will fail if it catches any exception.
+
+#### Via .call
+
+```ruby
+UsersService::Accept.call(user: User.first)
+```
+
+#### Via .call!
+
+```ruby
+UsersService::Accept.call!(user: User.first)
+```
+
+### Result
+
+All services have the result of their work. For example, in case of success this call:
+
+```ruby
+service_result = UsersService::Accept.call!(user: User.first)
+```
+
+Will return this:
+
+```ruby
+#<Servactory::Result:0x0000000107ad9e88 @user="...">
+```
+
+And then you can work with this result, for example, in this way:
+
+```ruby
+Notification::SendJob.perform_later(service_result.user.id)
+```
 
 ### Input attributes
 
@@ -345,26 +387,6 @@ def check!
 
   fail_input!(:invoice_number, "Invalid invoice number")
 end
-```
-
-### Result
-
-All services have the result of their work. For example, in case of success this call:
-
-```ruby
-service_result = NotificationService::Create.call!(user: User.first)
-```
-
-Will return this:
-
-```ruby
-#<Servactory::Result:0x0000000112c00748 @notification=...>
-```
-
-And then you can work with this result, for example, in this way:
-
-```ruby
-Notification::SendJob.perform_later(service_result.notification.id)
 ```
 
 ## Testing

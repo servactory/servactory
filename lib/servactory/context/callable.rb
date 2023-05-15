@@ -28,6 +28,29 @@ module Servactory
         )
       end
 
+      def call(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        @context_store = Store.new(self)
+
+        assign_data_with(arguments)
+
+        input_arguments_workbench.find_unnecessary!
+        input_arguments_workbench.check_rules!
+        output_arguments_workbench.find_conflicts_in!(
+          collection_of_internal_arguments: collection_of_internal_arguments
+        )
+
+        prepare_data
+
+        input_arguments_workbench.check!
+
+        stage_handyman.run_methods!
+
+        Servactory::Result.prepare_for(
+          context: context_store.context,
+          collection_of_output_arguments: collection_of_output_arguments
+        )
+      end
+
       private
 
       attr_reader :context_store
