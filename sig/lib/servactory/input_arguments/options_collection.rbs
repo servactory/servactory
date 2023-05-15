@@ -8,7 +8,7 @@ module Servactory
 
       def initialize: (*untyped) -> void
 
-      def check_classes: () -> OptionsCollection
+      def check_classes: () -> Array[Class]
 
       def defined_conflicts: -> String
 
