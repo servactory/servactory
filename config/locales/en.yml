@@ -16,6 +16,8 @@ en:
             default: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_array: "[%{service_class_name}] Wrong type in input array `%{input_name}`, expected `%{expected_type}`"
       tools:
+        find_unnecessary:
+          error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"
         rules:
           error: "[%{service_class_name}] Conflict in `%{input_name}` input options: `%{conflict_code}`"
     internal_arguments:
