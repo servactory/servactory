@@ -3,6 +3,7 @@ PATH
   specs:
     servactory (1.4.5)
       activesupport (~> 7.0)
+      i18n (~> 1.13)
       zeitwerk (~> 2.6)
 
 GEM
