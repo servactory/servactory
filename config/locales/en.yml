@@ -19,3 +19,7 @@ en:
       checks:
         type:
           default_error: "[%{service_class_name}] Wrong type of internal argument `%{internal_argument_name}`, expected `%{expected_type}`, got `%{given_type}`"
+    output_arguments:
+      checks:
+        type:
+          default_error: "[%{service_class_name}] Wrong type of output argument `%{output_argument_name}`, expected `%{expected_type}`, got `%{given_type}`"

@@ -18,8 +18,7 @@ RSpec.describe Wrong::Example5 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputArgumentError,
-              "The \"invoice_number\" output argument on \"Wrong::Example5\" must be of " \
-              "type \"Integer\" but was \"String\""
+              "[Wrong::Example5] Wrong type of output argument `invoice_number`, expected `Integer`, got `String`"
             )
           )
         end
@@ -51,8 +50,7 @@ RSpec.describe Wrong::Example5 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputArgumentError,
-              "The \"invoice_number\" output argument on \"Wrong::Example5\" must be of " \
-              "type \"Integer\" but was \"String\""
+              "[Wrong::Example5] Wrong type of output argument `invoice_number`, expected `Integer`, got `String`"
             )
           )
         end
