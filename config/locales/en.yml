@@ -7,3 +7,7 @@ en:
         must:
           default_error: "[%{service_class_name}] Input `%{input_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{input_name}` input"
+        required:
+          default_error:
+            default: "[%{service_class_name}] Required input `%{input_name}` is missing"
+            for_array: "[%{service_class_name}] Required element in input array `%{input_name}` is missing"
