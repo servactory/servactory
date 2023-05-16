@@ -2,7 +2,8 @@ module Servactory
   module InputArguments
     module Checks
       class Must < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, input: InputArgument, code: Symbol) -> Proc
+        DEFAULT_MESSAGE: ^(service_class_name: String, input: InputArgument, value: untyped, code: Symbol) -> Proc
+        SYNTAX_ERROR_MESSAGE: ^(service_class_name: String, input: InputArgument, value: untyped, code: Symbol, exception_message: String) -> Proc
 
         @check_options: untyped
         @context: instance

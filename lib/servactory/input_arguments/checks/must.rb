@@ -4,12 +4,28 @@ module Servactory
   module InputArguments
     module Checks
       class Must < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, code:|
-          "[#{service_class_name}] Input `#{input.name}` " \
-            "must \"#{code.to_s.humanize(capitalize: false, keep_id_suffix: true)}\""
+        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:, code:|
+          I18n.t(
+            "servactory.input_arguments.checks.must.default_error",
+            service_class_name: service_class_name,
+            input_name: input.name,
+            value: value,
+            code: code
+          )
         end
 
-        private_constant :DEFAULT_MESSAGE
+        SYNTAX_ERROR_MESSAGE = lambda do |service_class_name:, input:, value:, code:, exception_message:|
+          I18n.t(
+            "servactory.input_arguments.checks.must.syntax_error",
+            service_class_name: service_class_name,
+            input_name: input.name,
+            value: value,
+            code: code,
+            exception_message: exception_message
+          )
+        end
+
+        private_constant :DEFAULT_MESSAGE, :SYNTAX_ERROR_MESSAGE
 
         def self.check(context:, input:, value:, check_key:, check_options:)
           return unless should_be_checked_for?(input, check_key)
@@ -42,6 +58,7 @@ module Servactory
               DEFAULT_MESSAGE,
               service_class_name: @context.class.name,
               input: @input,
+              value: @value,
               code: code
             )
           end
@@ -58,16 +75,13 @@ module Servactory
 
           message.presence || DEFAULT_MESSAGE
         rescue StandardError => e
-          message_text =
-            "[#{@context.class.name}] Syntax error inside `#{code}` of `#{@input.name}` input"
-
-          puts "#{message_text}: #{e}"
-
           add_error(
-            message_text,
+            SYNTAX_ERROR_MESSAGE,
             service_class_name: @context.class.name,
             input: @input,
-            code: code
+            value: @value,
+            code: code,
+            exception_message: e.message
           )
         end
       end

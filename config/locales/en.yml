@@ -3,4 +3,7 @@ en:
     input_arguments:
       checks:
         inclusion:
-          error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
+          default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
+        must:
+          default_error: "[%{service_class_name}] Input `%{input_name}` must \"%{code}\""
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{input_name}` input"
