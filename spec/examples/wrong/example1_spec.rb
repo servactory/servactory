@@ -18,8 +18,8 @@ RSpec.describe Wrong::Example1 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalArgumentError,
-              "The \"prepared_invoice_number\" internal argument on \"Wrong::Example1\" must be of " \
-              "type \"Integer\" but was \"String\""
+              "[Wrong::Example1] Wrong type of internal argument `prepared_invoice_number`, " \
+              "expected `Integer`, got `String`"
             )
           )
         end
@@ -51,8 +51,8 @@ RSpec.describe Wrong::Example1 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalArgumentError,
-              "The \"prepared_invoice_number\" internal argument on \"Wrong::Example1\" must be of " \
-              "type \"Integer\" but was \"String\""
+              "[Wrong::Example1] Wrong type of internal argument `prepared_invoice_number`, " \
+              "expected `Integer`, got `String`"
             )
           )
         end

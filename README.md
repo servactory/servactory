@@ -28,6 +28,7 @@ A set of tools for building reliable services of any complexity.
   - [Internal attributes](#internal-attributes)
   - [Stage](#stage)
   - [Failures](#failures)
+- [I18n](#i18n)
 - [Testing](#testing)
 - [Thanks](#thanks)
 - [Contributing](#contributing)
@@ -388,6 +389,12 @@ def check!
   fail_input!(:invoice_number, "Invalid invoice number")
 end
 ```
+
+## I18n
+
+All texts are stored in the localization file. All texts can be changed or supplemented by new locales.
+
+[See en.yml file](https://github.com/afuno/servactory/tree/main/config/locales/en.yml)
 
 ## Testing
 

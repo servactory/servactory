@@ -17,9 +17,13 @@ module Servactory
         def check!
           return if overlapping_attributes.empty?
 
-          raise Servactory.configuration.output_argument_error_class,
-                "The \"#{@context.class.name}\" service contains internal attributes that " \
-                "conflict with outputs: \"#{overlapping_attributes.join(', ')}\""
+          message_text = I18n.t(
+            "servactory.output_arguments.tools.conflicts.error",
+            service_class_name: @context.class.name,
+            overlapping_attributes: overlapping_attributes.join(", ")
+          )
+
+          raise Servactory.configuration.output_argument_error_class, message_text
         end
 
         private

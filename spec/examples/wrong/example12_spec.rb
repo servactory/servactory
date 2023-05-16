@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Example5 do
+RSpec.describe Wrong::Example12 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -18,17 +18,10 @@ RSpec.describe Wrong::Example5 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputArgumentError,
-              "[Wrong::Example5] Wrong type of output argument `invoice_number`, expected `Integer`, got `String`"
+              "[Wrong::Example12] Conflict between internal and output attributes `prepared_invoice_number`"
             )
           )
         end
-      end
-    end
-
-    context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
       end
     end
   end
@@ -50,17 +43,10 @@ RSpec.describe Wrong::Example5 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputArgumentError,
-              "[Wrong::Example5] Wrong type of output argument `invoice_number`, expected `Integer`, got `String`"
+              "[Wrong::Example12] Conflict between internal and output attributes `prepared_invoice_number`"
             )
           )
         end
-      end
-    end
-
-    context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
       end
     end
   end

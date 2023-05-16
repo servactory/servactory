@@ -5,11 +5,14 @@ module Servactory
     module Checks
       class Required < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
-          if input.array? && value.present?
-            "[#{service_class_name}] Required element in input array `#{input.name}` is missing"
-          else
-            "[#{service_class_name}] Required input `#{input.name}` is missing"
-          end
+          i18n_key = "servactory.input_arguments.checks.required.default_error."
+          i18n_key += input.array? && value.present? ? "for_array" : "default"
+
+          I18n.t(
+            i18n_key,
+            service_class_name: service_class_name,
+            input_name: input.name
+          )
         end
 
         private_constant :DEFAULT_MESSAGE

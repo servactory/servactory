@@ -2,7 +2,7 @@ module Servactory
   module InputArguments
     module Checks
       class Inclusion < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, input: InputArgument) -> String
+        DEFAULT_MESSAGE: ^(service_class_name: String, input: InputArgument, value: untyped) -> String
 
         @context: instance
         @input: InputArgument

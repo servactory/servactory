@@ -1,0 +1,33 @@
+en:
+  servactory:
+    input_arguments:
+      checks:
+        inclusion:
+          default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
+        must:
+          default_error: "[%{service_class_name}] Input `%{input_name}` must \"%{code}\""
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{input_name}` input"
+        required:
+          default_error:
+            default: "[%{service_class_name}] Required input `%{input_name}` is missing"
+            for_array: "[%{service_class_name}] Required element in input array `%{input_name}` is missing"
+        type:
+          default_error:
+            default: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
+            for_array: "[%{service_class_name}] Wrong type in input array `%{input_name}`, expected `%{expected_type}`"
+      tools:
+        find_unnecessary:
+          error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"
+        rules:
+          error: "[%{service_class_name}] Conflict in `%{input_name}` input options: `%{conflict_code}`"
+    internal_arguments:
+      checks:
+        type:
+          default_error: "[%{service_class_name}] Wrong type of internal argument `%{internal_argument_name}`, expected `%{expected_type}`, got `%{given_type}`"
+    output_arguments:
+      checks:
+        type:
+          default_error: "[%{service_class_name}] Wrong type of output argument `%{output_argument_name}`, expected `%{expected_type}`, got `%{given_type}`"
+      tools:
+        conflicts:
+          error: "[%{service_class_name}] Conflict between internal and output attributes `%{overlapping_attributes}`"

@@ -17,8 +17,13 @@ module Servactory
         def check!
           return if unnecessary_attributes.empty?
 
-          raise Servactory.configuration.input_argument_error_class,
-                "[#{@context.class.name}] Unexpected attributes: `#{unnecessary_attributes.join(', ')}`"
+          message_text = I18n.t(
+            "servactory.input_arguments.tools.find_unnecessary.error",
+            service_class_name: @context.class.name,
+            unnecessary_attributes: unnecessary_attributes.join(", ")
+          )
+
+          raise Servactory.configuration.input_argument_error_class, message_text
         end
 
         private

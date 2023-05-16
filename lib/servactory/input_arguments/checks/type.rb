@@ -13,12 +13,22 @@ module Servactory
             elsif array_message.is_a?(String) && array_message.present?
               array_message
             else
-              "[#{service_class_name}] Wrong type in input array `#{input.name}`, expected `#{expected_type}`"
+              I18n.t(
+                "servactory.input_arguments.checks.type.default_error.for_array",
+                service_class_name: service_class_name,
+                input_name: input.name,
+                expected_type: expected_type,
+                given_type: given_type
+              )
             end
           else
-            "[#{service_class_name}] Wrong type of input `#{input.name}`, " \
-              "expected `#{expected_type}`, " \
-              "got `#{given_type}`"
+            I18n.t(
+              "servactory.input_arguments.checks.type.default_error.default",
+              service_class_name: service_class_name,
+              input_name: input.name,
+              expected_type: expected_type,
+              given_type: given_type
+            )
           end
         end
 

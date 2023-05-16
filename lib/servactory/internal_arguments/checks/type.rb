@@ -5,8 +5,13 @@ module Servactory
     module Checks
       class Type < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, internal_argument:, expected_type:, given_type:|
-          "The \"#{internal_argument.name}\" internal argument on \"#{service_class_name}\" must be of type " \
-            "\"#{expected_type}\" but was \"#{given_type}\""
+          I18n.t(
+            "servactory.internal_arguments.checks.type.default_error",
+            service_class_name: service_class_name,
+            internal_argument_name: internal_argument.name,
+            expected_type: expected_type,
+            given_type: given_type
+          )
         end
 
         private_constant :DEFAULT_MESSAGE
