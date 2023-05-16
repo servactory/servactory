@@ -55,7 +55,7 @@ module Servactory
             next if message.blank?
 
             add_error(
-              DEFAULT_MESSAGE,
+              message,
               service_class_name: @context.class.name,
               input: @input,
               value: @value,
