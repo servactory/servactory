@@ -28,9 +28,14 @@ module Servactory
         end
 
         def raise_error_for(input_argument)
-          raise Servactory.configuration.input_argument_error_class,
-                "[#{@context.class.name}] Conflict in `#{input_argument.name}` input " \
-                "options: `#{input_argument.conflict_code}`"
+          message_text = I18n.t(
+            "servactory.input_arguments.tools.rules.error",
+            service_class_name: @context.class.name,
+            input_name: input_argument.name,
+            conflict_code: input_argument.conflict_code
+          )
+
+          raise Servactory.configuration.input_argument_error_class, message_text
         end
       end
     end
