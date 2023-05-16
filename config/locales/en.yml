@@ -28,6 +28,6 @@ en:
       checks:
         type:
           default_error: "[%{service_class_name}] Wrong type of output argument `%{output_argument_name}`, expected `%{expected_type}`, got `%{given_type}`"
-    tools:
-      conflicts:
-        error: "The \"%{service_class_name}\" service contains internal attributes that conflict with outputs: \"%{overlapping_attributes}\""
+      tools:
+        conflicts:
+          error: "[%{service_class_name}] Conflict between internal and output attributes `%{overlapping_attributes}`"
