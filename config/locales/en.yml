@@ -1,0 +1,6 @@
+en:
+  servactory:
+    input_arguments:
+      checks:
+        inclusion:
+          error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"

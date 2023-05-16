@@ -4,8 +4,14 @@ module Servactory
   module InputArguments
     module Checks
       class Inclusion < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, input:|
-          "[#{service_class_name}] Wrong value in `#{input.name}`, must be one of `#{input.inclusion[:in]}`"
+        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
+          I18n.t(
+            "servactory.input_arguments.checks.inclusion.error",
+            service_class_name: service_class_name,
+            input_name: input.name,
+            input_inclusion: input.inclusion[:in],
+            value: value
+          )
         end
 
         private_constant :DEFAULT_MESSAGE
@@ -36,7 +42,8 @@ module Servactory
           add_error(
             DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
-            input: @input
+            input: @input,
+            value: @value
           )
         end
       end
