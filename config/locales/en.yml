@@ -15,3 +15,7 @@ en:
           default_error:
             default: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_array: "[%{service_class_name}] Wrong type in input array `%{input_name}`, expected `%{expected_type}`"
+    internal_arguments:
+      checks:
+        type:
+          default_error: "[%{service_class_name}] Wrong type of internal argument `%{internal_argument_name}`, expected `%{expected_type}`, got `%{given_type}`"

@@ -2,7 +2,7 @@ module Servactory
   module InternalArguments
     module Checks
       class Type < Base
-        DEFAULT_MESSAGE: Proc
+        DEFAULT_MESSAGE: ^(service_class_name: String, input: InternalArgument, expected_type: String, given_type: String) -> Proc
 
         @context: instance
 
