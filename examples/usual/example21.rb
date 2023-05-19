@@ -6,7 +6,7 @@ module Usual
 
     output :first_id, type: String
 
-    stage { make :assign_first_id }
+    make :assign_first_id
 
     private
 

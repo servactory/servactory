@@ -6,7 +6,7 @@ module Wrong
 
     output :invoice_number, type: Integer
 
-    stage { make :assign_invoice_number }
+    make :assign_invoice_number
 
     private
 

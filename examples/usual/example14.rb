@@ -12,7 +12,7 @@ module Usual
 
     output :event, type: Event
 
-    stage { make :create_event }
+    make :create_event
 
     private
 

@@ -8,7 +8,7 @@ module Usual
 
     output :full_name, type: String
 
-    stage { make :assign_full_name }
+    make :assign_full_name
 
     private
 

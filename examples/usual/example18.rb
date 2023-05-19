@@ -10,13 +10,8 @@ module Usual
 
     output :full_name, type: String
 
-    stage do
-      make :prepare_full_name
-    end
-
-    stage do
-      make :assign_full_name
-    end
+    make :prepare_full_name
+    make :assign_full_name
 
     private
 
