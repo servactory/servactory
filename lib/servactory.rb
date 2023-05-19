@@ -5,7 +5,6 @@ require "zeitwerk"
 require "active_support/core_ext/string"
 
 # require "servactory/support/loader"
-# require "servactory/engine"
 
 loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect(
@@ -28,6 +27,8 @@ module Servactory
     yield(configuration)
   end
 end
+
+require "servactory/engine" if defined?(Rails::Engine)
 
 # require_relative "servactory/exceptions"
 
