@@ -8,6 +8,12 @@ module Servactory
       end
 
       module ClassMethods
+        def inherited(child)
+          super
+
+          child.send(:collection_of_output_arguments).merge(collection_of_output_arguments)
+        end
+
         private
 
         def output(name, **options)

@@ -8,6 +8,12 @@ module Servactory
       end
 
       module ClassMethods
+        def inherited(child)
+          super
+
+          child.send(:collection_of_input_arguments).merge(collection_of_input_arguments)
+        end
+
         private
 
         def input(name, **options)

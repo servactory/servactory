@@ -8,6 +8,12 @@ module Servactory
       end
 
       module ClassMethods
+        def inherited(child)
+          super
+
+          child.send(:collection_of_internal_arguments).merge(collection_of_internal_arguments)
+        end
+
         private
 
         def internal(name, **options)
