@@ -52,5 +52,9 @@ Style/StringLiterals:
 RSpec/ExampleLength:
   Enabled: false
 
+RSpec/IndexedLet:
+  Enabled: pending
+  Max: 3
+
 RSpec/NestedGroups:
   Max: 5
