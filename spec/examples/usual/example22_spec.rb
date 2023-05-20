@@ -20,7 +20,7 @@ RSpec.describe Usual::Example22 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
+        it "returns the expected value in `full_name`", :aggregate_failures do
           result = perform
 
           expect(result.output_1).to eq("First")
@@ -67,7 +67,7 @@ RSpec.describe Usual::Example22 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
+        it "returns the expected value in `full_name`", :aggregate_failures do
           result = perform
 
           expect(result.output_1).to eq("First")
