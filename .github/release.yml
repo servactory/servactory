@@ -5,7 +5,7 @@ changelog:
         - feature
     - title: Bug Fixes 🐛
       labels:
-        - bug
+        - fix
     - title: Polish 💅🏻
       labels:
         - polish
