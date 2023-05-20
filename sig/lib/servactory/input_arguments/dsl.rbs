@@ -5,12 +5,9 @@ module Servactory
 
       module ClassMethods
         @collection_of_input_arguments: Collection
-        @collection_of_input_options: OptionsCollection
         @input_arguments_workbench: Workbench
 
         private
-
-        def collection_of_input_options: -> OptionsCollection
 
         def input: (Symbol name, **untyped options) -> void
 

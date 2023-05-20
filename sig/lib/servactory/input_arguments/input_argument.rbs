@@ -3,18 +3,15 @@ module Servactory
     class InputArgument
       ARRAY_DEFAULT_VALUE: ^(is: bool, message: Proc | String | nil) -> { is: bool, message: String | nil }
 
-      @internal_name: Symbol?
       @collection_of_options: OptionsCollection
+      @internal_name: Symbol?
 
       attr_reader internal_name: Symbol?
       attr_reader name: Symbol
 
-      attr_reader collection_of_options: OptionsCollection
-
       def initialize: (
         Symbol name,
         as: Symbol?,
-        collection_of_options: OptionsCollection,
         type: (Class | Array[Class]),
         **untyped options
       ) -> void
@@ -34,6 +31,8 @@ module Servactory
       def add_required_option_with: (untyped options) -> OptionsCollection
 
       def add_types_option_with: ((Class | Array[Class]) type) -> OptionsCollection
+
+      def collection_of_options: -> OptionsCollection
 
       def prepare_advanced_for: -> { is: bool, message: Proc | String | nil }
 

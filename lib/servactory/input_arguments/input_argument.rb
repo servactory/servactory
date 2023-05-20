@@ -6,24 +6,20 @@ module Servactory
       ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
 
       attr_reader :name,
-                  :internal_name,
-                  :collection_of_options
+                  :internal_name
 
       # rubocop:disable Style/KeywordParametersOrder
       def initialize(
         name,
         as: nil,
-        collection_of_options:,
         type:,
         **options
       )
         @name = name
         @internal_name = as.present? ? as : name
-        @collection_of_options = collection_of_options
-
         add_basic_options_with(type: type, options: options)
 
-        @collection_of_options.each do |option|
+        collection_of_options.each do |option|
           self.class.attr_reader(:"#{option.name}")
 
           instance_variable_set(:"@#{option.name}", option.value)
@@ -180,6 +176,10 @@ module Servactory
           value_fallback: false,
           **options
         )
+      end
+
+      def collection_of_options
+        @collection_of_options ||= OptionsCollection.new
       end
 
       def options_for_checks
