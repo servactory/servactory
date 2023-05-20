@@ -6,7 +6,7 @@ module Wrong
 
     output :prepared_invoice_number, type: String
 
-    stage { make :prepare_invoice_number }
+    make :prepare_invoice_number
 
     private
 

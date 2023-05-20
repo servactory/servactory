@@ -8,10 +8,8 @@ module Usual
 
     output :event, type: Event
 
-    stage do
-      make :validate_input!
-      make :create_event
-    end
+    make :validate_input!
+    make :create_event
 
     private
 

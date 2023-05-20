@@ -26,7 +26,7 @@ A set of tools for building reliable services of any complexity.
     - [Must](#must)
   - [Output attributes](#output-attributes)
   - [Internal attributes](#internal-attributes)
-  - [Stage](#stage)
+  - [Make](#make)
   - [Failures](#failures)
 - [I18n](#i18n)
 - [Testing](#testing)
@@ -102,7 +102,7 @@ end
 
 ```ruby
 class MinimalService < ApplicationService::Base
-  stage { make :call }
+  make :call
   
   private
   
@@ -164,8 +164,8 @@ With this approach, all input attributes are available only from `inputs`. This 
 ```ruby
 class UsersService::Accept < ApplicationService::Base
   input :user, type: User
-  
-  stage { make :accept! }
+
+  make :accept!
   
   private
   
@@ -182,8 +182,8 @@ With this approach, all input attributes are available from `inputs` as well as 
 ```ruby
 class UsersService::Accept < ApplicationService::Base
   input :user, type: User, internal: true
-  
-  stage { make :accept! }
+
+  make :accept!
   
   private
   
@@ -217,7 +217,7 @@ class NotificationService::Create < ApplicationService::Base
 
   output :notification, type: Notification
 
-  stage { make :create_notification! }
+  make :create_notification!
 
   private
 
@@ -273,8 +273,8 @@ class NotificationService::Create < ApplicationService::Base
   input :user, type: User
   
   output :notification, type: Notification
-  
-  stage { make :create_notification! }
+
+  make :create_notification!
   
   private
   
@@ -293,11 +293,9 @@ class NotificationService::Create < ApplicationService::Base
   internal :inviter, type: User
   
   output :notification, type: Notification
-  
-  stage do
-    make :assign_inviter
-    make :create_notification!
-  end
+
+  make :assign_inviter
+  make :create_notification!
   
   private
   
@@ -311,14 +309,12 @@ class NotificationService::Create < ApplicationService::Base
 end
 ```
 
-### Stage
-
-A "stage" is a single action or group of actions that needs to be "make".
+### Make
 
 #### Minimal example
 
 ```ruby
-stage { make :something }
+make :something
 
 def something
   # ...
@@ -328,26 +324,19 @@ end
 #### Condition
 
 ```ruby
-stage { make :something, if: -> { Settings.something.enabled } }
+make :something, if: -> { Settings.something.enabled }
 
 def something
   # ...
 end
 ```
 
-#### Groups
-
-The functionality of stage groups will be expanded in future releases.
+#### Several
 
 ```ruby
-stage do
-  make :assign_api_model
-  make :perform_api_request
-end
-
-stage do
-  make :process_result
-end
+make :assign_api_model
+make :perform_api_request
+make :process_result
 
 def assign_api_model
   self.api_model = APIModel.new
@@ -364,12 +353,12 @@ end
 
 ### Failures
 
-The methods that are used in the stages may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
+The methods that are used in `make` may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
 
 #### Fail
 
 ```ruby
-stage { make :check! }
+make :check!
 
 def check!
   return if inputs.invoice_number.start_with?("AA")
@@ -381,7 +370,7 @@ end
 #### Fail for input
 
 ```ruby
-stage { make :check! }
+make :check!
 
 def check!
   return if inputs.invoice_number.start_with?("AA")

@@ -8,6 +8,6 @@ module Servactory
 
     include OutputArguments::DSL
 
-    include Stage::DSL
+    include MakeMethods::DSL
   end
 end

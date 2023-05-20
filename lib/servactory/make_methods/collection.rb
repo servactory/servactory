@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Stage
-    class Methods
+  module MakeMethods
+    class Collection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
-      def_delegators :@methods, :<<, :each
+      def_delegators :@collection, :<<, :each
 
       def initialize(*)
-        @methods = Set.new
+        @collection = Set.new
       end
     end
   end

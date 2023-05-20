@@ -18,7 +18,7 @@ module Servactory
 
         input_arguments_workbench.check!
 
-        stage_handyman.run_methods!
+        make_methods_workbench.run!
 
         context_store.context.raise_first_fail
 
@@ -43,7 +43,7 @@ module Servactory
 
         input_arguments_workbench.check!
 
-        stage_handyman.run_methods!
+        make_methods_workbench.run!
 
         Servactory::Result.prepare_for(
           context: context_store.context,
@@ -55,7 +55,7 @@ module Servactory
 
       attr_reader :context_store
 
-      def assign_data_with(arguments) # rubocop:disable Metrics/AbcSize
+      def assign_data_with(arguments)
         input_arguments_workbench.assign(
           context: context_store.context,
           arguments: arguments,
@@ -64,7 +64,7 @@ module Servactory
 
         internal_arguments_workbench.assign(context: context_store.context)
         output_arguments_workbench.assign(context: context_store.context)
-        stage_handyman&.assign(context: context_store.context)
+        make_methods_workbench.assign(context: context_store.context)
       end
 
       def prepare_data
