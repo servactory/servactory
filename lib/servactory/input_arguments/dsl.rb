@@ -29,7 +29,7 @@ module Servactory
         end
 
         def collection_of_input_options
-          @collection_of_input_options ||= OptionsCollection.new
+          @collection_of_input_options = OptionsCollection.new
         end
 
         def input_arguments_workbench

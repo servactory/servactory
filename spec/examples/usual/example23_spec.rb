@@ -21,9 +21,9 @@ RSpec.describe Usual::Example23 do
     let(:date) { DateTime.new(2023, 1, 1) }
 
     context "when the input arguments are invalid" do
-      context "when `elma_identifier`" do
-        it_behaves_like "input required check", name: :elma_identifier
-        it_behaves_like "input type check", name: :elma_identifier, expected_type: String
+      context "when `api_identifier`" do
+        it_behaves_like "input required check", name: :api_identifier
+        it_behaves_like "input type check", name: :api_identifier, expected_type: String
       end
 
       context "when `first_name`" do
@@ -41,9 +41,9 @@ RSpec.describe Usual::Example23 do
         it_behaves_like "input type check", name: :last_name, expected_type: String
       end
 
-      context "when `verification_date`" do
-        it_behaves_like "input required check", name: :verification_date
-        it_behaves_like "input type check", name: :verification_date, expected_type: DateTime
+      context "when `date`" do
+        it_behaves_like "input required check", name: :date
+        it_behaves_like "input type check", name: :date, expected_type: DateTime
       end
     end
   end

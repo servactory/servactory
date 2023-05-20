@@ -7,7 +7,7 @@ module Servactory
 
       def initialize: (Collection collection_of_input_arguments) -> void
 
-      def assign: (context: instance, arguments: untyped, collection_of_input_options: untyped) -> void
+      def assign: (context: instance, arguments: untyped) -> void
 
       def check_rules!: -> void
 
@@ -22,8 +22,6 @@ module Servactory
       attr_reader context: instance
 
       attr_reader collection_of_input_arguments: Collection
-
-      attr_reader collection_of_input_options: untyped
     end
   end
 end
