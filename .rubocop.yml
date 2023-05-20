@@ -53,8 +53,10 @@ RSpec/ExampleLength:
   Enabled: false
 
 RSpec/IndexedLet:
-  Enabled: pending
   Max: 3
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 6
 
 RSpec/NestedGroups:
   Max: 5

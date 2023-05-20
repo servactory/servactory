@@ -58,8 +58,7 @@ module Servactory
       def assign_data_with(arguments)
         input_arguments_workbench.assign(
           context: context_store.context,
-          arguments: arguments,
-          collection_of_input_options: collection_of_input_options
+          arguments: arguments
         )
 
         internal_arguments_workbench.assign(context: context_store.context)

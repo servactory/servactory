@@ -8,11 +8,10 @@ module Servactory
           new(...).check!
         end
 
-        def initialize(context, incoming_arguments, collection_of_input_arguments, collection_of_input_options)
+        def initialize(context, incoming_arguments, collection_of_input_arguments)
           @context = context
           @incoming_arguments = incoming_arguments
           @collection_of_input_arguments = collection_of_input_arguments
-          @collection_of_input_options = collection_of_input_options
         end
 
         def check!
@@ -32,7 +31,7 @@ module Servactory
         end
 
         def process_option(check_key, check_options, input:)
-          check_classes.each do |check_class|
+          check_classes_from(input).each do |check_class|
             errors_from_checks = process_check_class(
               check_class,
               input: input,
@@ -56,8 +55,8 @@ module Servactory
 
         ########################################################################
 
-        def check_classes
-          @collection_of_input_options.check_classes
+        def check_classes_from(input)
+          input.collection_of_options.check_classes
         end
 
         ########################################################################
