@@ -25,7 +25,8 @@ module Servactory
 
       private
 
-      attr_reader :context, :collection_of_make_methods
+      attr_reader :context,
+                  :collection_of_make_methods
 
       def unnecessary_for?(make_method)
         condition = make_method.condition

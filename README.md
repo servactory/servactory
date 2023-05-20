@@ -351,6 +351,10 @@ def process_result
 end
 ```
 
+#### Inheritance
+
+Service inheritance is also supported.
+
 ### Failures
 
 The methods that are used in `make` may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
