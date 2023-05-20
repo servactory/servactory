@@ -26,7 +26,7 @@ A set of tools for building reliable services of any complexity.
     - [Must](#must)
   - [Output attributes](#output-attributes)
   - [Internal attributes](#internal-attributes)
-  - [Stage](#stage)
+  - [Make](#make)
   - [Failures](#failures)
 - [I18n](#i18n)
 - [Testing](#testing)
@@ -309,9 +309,7 @@ class NotificationService::Create < ApplicationService::Base
 end
 ```
 
-### Stage
-
-A "stage" is a single action or group of actions that needs to be "make".
+### Make
 
 #### Minimal example
 
@@ -333,9 +331,7 @@ def something
 end
 ```
 
-#### Groups
-
-The functionality of stage groups will be expanded in future releases.
+#### Several
 
 ```ruby
 make :assign_api_model
@@ -357,7 +353,7 @@ end
 
 ### Failures
 
-The methods that are used in the stages may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
+The methods that are used in `make` may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
 
 #### Fail
 

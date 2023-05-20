@@ -7,7 +7,7 @@ module Servactory
     include InputArguments::DSL
     include InternalArguments::DSL
     include OutputArguments::DSL
-    include Stage::DSL
+    include MakeMethods::DSL
 
     private_class_method :new
   end
