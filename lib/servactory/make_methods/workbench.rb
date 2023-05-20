@@ -11,7 +11,6 @@ module Servactory
         @collection_of_make_methods = collection_of_make_methods
       end
 
-      
       def assign(context:)
         @context = context
       end
