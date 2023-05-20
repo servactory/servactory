@@ -21,7 +21,8 @@ module Servactory
 
       private
 
-      attr_reader :context, :collection_of_internal_arguments
+      attr_reader :context,
+                  :collection_of_internal_arguments
     end
   end
 end
