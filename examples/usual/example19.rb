@@ -4,9 +4,7 @@ module Usual
   class Example19 < ApplicationService::Base
     output :number, type: Integer
 
-    stage do
-      make :assign_number
-    end
+    make :assign_number
 
     private
 

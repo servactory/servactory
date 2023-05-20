@@ -13,7 +13,7 @@ module Usual
 
     output :first_invoice_number, type: String
 
-    stage { make :assign_first_invoice_number }
+    make :assign_first_invoice_number
 
     private
 

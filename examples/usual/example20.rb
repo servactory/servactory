@@ -6,10 +6,8 @@ module Usual
 
     output :invoice_number, type: String
 
-    stage do
-      make :check_invoice_number!
-      make :assign_invoice_number
-    end
+    make :check_invoice_number!
+    make :assign_invoice_number
 
     private
 

@@ -1,10 +1,10 @@
 module Servactory
-  module Stage
-    class Methods
+  module MakeMethods
+    class Collection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
 
-      @methods: Set[Method]
+      @collection: Set[Collection]
 
       def initialize: (*untyped) -> void
     end

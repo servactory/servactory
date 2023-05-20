@@ -8,10 +8,8 @@ module Wrong
 
     output :invoice_number, type: String
 
-    stage do
-      make :prepare_invoice_number
-      make :assign_invoice_number
-    end
+    make :prepare_invoice_number
+    make :assign_invoice_number
 
     private
 
