@@ -8,6 +8,12 @@ module Servactory
       end
 
       module ClassMethods
+        def inherited(child)
+          super
+
+          child.send(:collection_of_make_methods).merge(collection_of_make_methods)
+        end
+
         private
 
         def make(name, **options)
