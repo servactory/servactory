@@ -37,10 +37,13 @@ module Servactory
         end
 
         def check
-          return if @input.inclusion[:in].include?(@value)
+          inclusion_in, message = @input.inclusion.values_at(:in, :message)
+
+          return if inclusion_in.nil?
+          return if inclusion_in.include?(@value)
 
           add_error(
-            DEFAULT_MESSAGE,
+            message.presence || DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
             input: @input,
             value: @value
