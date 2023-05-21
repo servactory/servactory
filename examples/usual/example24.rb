@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Usual
-  class Example14 < ApplicationService::Base
+  class Example24 < ApplicationService::Base
     Event = Struct.new(:id, :event_name, keyword_init: true)
 
     input :event_name,
           type: String,
           inclusion: {
             in: %w[created rejected approved],
-            message: lambda do |value:|
+            message: lambda do |value:, **|
               value.present? ? "Incorrect `event_name` specified: `#{value}`" : "Event name not specified"
             end
           }

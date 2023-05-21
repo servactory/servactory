@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Example14 do
+RSpec.describe Usual::Example24 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -19,7 +19,7 @@ RSpec.describe Usual::Example14 do
         it "returns the expected values", :aggregate_failures do
           result = perform
 
-          expect(result.event).to be_a(Usual::Example14::Event)
+          expect(result.event).to be_a(Usual::Example24::Event)
           expect(result.event.id).to be_present
           expect(result.event.event_name).to eq("created")
         end
@@ -33,8 +33,7 @@ RSpec.describe Usual::Example14 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputArgumentError,
-                "[Usual::Example14] Wrong value in `event_name`, must be one of " \
-                "`[\"created\", \"rejected\", \"approved\"]`"
+                "Incorrect `event_name` specified: `sent`"
               )
             )
           end
@@ -69,7 +68,7 @@ RSpec.describe Usual::Example14 do
         it "returns the expected values", :aggregate_failures do
           result = perform
 
-          expect(result.event).to be_a(Usual::Example14::Event)
+          expect(result.event).to be_a(Usual::Example24::Event)
           expect(result.event.id).to be_present
           expect(result.event.event_name).to eq("created")
         end
@@ -83,8 +82,7 @@ RSpec.describe Usual::Example14 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputArgumentError,
-                "[Usual::Example14] Wrong value in `event_name`, must be one of " \
-                "`[\"created\", \"rejected\", \"approved\"]`"
+                "Incorrect `event_name` specified: `sent`"
               )
             )
           end
