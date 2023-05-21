@@ -17,6 +17,7 @@ module Servactory
       )
         @name = name
         @internal_name = as.present? ? as : name
+
         add_basic_options_with(type: type, options: options)
 
         collection_of_options.each do |option|
