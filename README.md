@@ -395,13 +395,10 @@ fail!(
 ```
 
 ```ruby
-fail_input!(
-  :invoice_number, 
-  message: "Invalid invoice number",
-  meta: {
-    invoice_number: inputs.invoice_number
-  }
-)
+exception.detailed_message  # => Invalid invoice number (ApplicationService::Errors::Failure)
+exception.message           # => Invalid invoice number
+exception.type              # => :fail
+exception.meta              # => {:invoice_number=>"BB-7650AE"}
 ```
 
 ## I18n
