@@ -9,9 +9,9 @@ module Servactory
                     :attribute_name
 
         def initialize(type:, message:, attribute_name: nil)
-          @type = type
+          @type = type.to_sym
           @message = message
-          @attribute_name = attribute_name
+          @attribute_name = attribute_name if @type == :input
         end
       end
     end
