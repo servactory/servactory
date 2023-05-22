@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Example20 do
+RSpec.describe Usual::Example25 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -83,7 +83,10 @@ RSpec.describe Usual::Example20 do
               contain_exactly(
                 an_object_having_attributes(
                   type: :fail,
-                  message: "Invalid invoice number"
+                  message: "Invalid invoice number",
+                  meta: {
+                    invoice_number: "BB-7650AE"
+                  }
                 )
               )
             )
