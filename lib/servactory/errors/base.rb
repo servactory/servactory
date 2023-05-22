@@ -2,6 +2,7 @@
 
 module Servactory
   module Errors
-    class Base < StandardError; end
+    class Base < StandardError
+    end
   end
 end

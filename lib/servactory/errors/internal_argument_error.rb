@@ -2,6 +2,7 @@
 
 module Servactory
   module Errors
-    class InternalArgumentError < Servactory::Errors::Base; end
+    class InternalArgumentError < Base
+    end
   end
 end
