@@ -367,7 +367,7 @@ make :check!
 def check!
   return if inputs.invoice_number.start_with?("AA")
 
-  fail!("Invalid invoice number")
+  fail!(message: "Invalid invoice number")
 end
 ```
 
@@ -379,7 +379,7 @@ make :check!
 def check!
   return if inputs.invoice_number.start_with?("AA")
 
-  fail_input!(:invoice_number, "Invalid invoice number")
+  fail_input!(:invoice_number, message: "Invalid invoice number")
 end
 ```
 

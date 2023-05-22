@@ -16,7 +16,7 @@ module Usual
     def validate_input!
       return if inputs.event_name != "rejected"
 
-      fail_input!(:event_name, "The `rejected` event cannot be used now")
+      fail_input!(:event_name, message: "The `rejected` event cannot be used now")
     end
 
     def create_event
