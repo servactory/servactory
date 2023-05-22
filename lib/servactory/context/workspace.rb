@@ -13,13 +13,18 @@ module Servactory
         @inputs = inputs
       end
 
-      def fail_input!(input_attribute_name, message:)
+      def fail_input!(input_attribute_name, message:, meta: nil)
         raise Servactory.configuration.input_argument_error_class,
-              Error.new(type: :input, attribute_name: input_attribute_name, message: message).message
+              Error.new(
+                type: :input,
+                attribute_name: input_attribute_name,
+                message: message,
+                meta: meta
+              ).message
       end
 
-      def fail!(message:)
-        errors << Error.new(type: :fail, message: message)
+      def fail!(message:, meta: nil)
+        errors << Error.new(type: :fail, message: message, meta: meta)
       end
 
       def raise_first_fail

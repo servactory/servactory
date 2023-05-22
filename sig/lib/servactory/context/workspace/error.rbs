@@ -8,7 +8,9 @@ module Servactory
 
         attr_reader attribute_name: Symbol?
 
-        def initialize: (type: Symbol, message: String, ?attribute_name: Symbol?) -> void
+        attr_reader meta: untyped?
+
+        def initialize: (type: Symbol, message: String, ?attribute_name: Symbol?, meta: untyped?) -> void
       end
     end
   end
