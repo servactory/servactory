@@ -1,6 +1,13 @@
 module Servactory
   module Errors
     class Failure < Servactory::Errors::Base
+      @type: Symbol
+      @meta: untyped
+
+      attr_reader type: Symbol
+      attr_reader meta: untyped
+
+      def initialize: (error: Context::Workspace::Error) -> void
     end
   end
 end
