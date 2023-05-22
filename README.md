@@ -383,6 +383,27 @@ def check!
 end
 ```
 
+#### Metadata
+
+```ruby
+fail!(
+  message: "Invalid invoice number", 
+  meta: { 
+    invoice_number: inputs.invoice_number 
+  }
+)
+```
+
+```ruby
+fail_input!(
+  :invoice_number, 
+  message: "Invalid invoice number",
+  meta: {
+    invoice_number: inputs.invoice_number
+  }
+)
+```
+
 ## I18n
 
 All texts are stored in the localization file. All texts can be changed or supplemented by new locales.
