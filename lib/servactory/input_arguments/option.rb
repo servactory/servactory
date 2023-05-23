@@ -66,10 +66,12 @@ module Servactory
 
       def prepare_advanced_for(value:, value_fallback:)
         if value.is_a?(Hash)
+          message = value.fetch(:message, nil)
+
           DEFAULT_VALUE.call(
             key: value_key,
-            value: value.fetch(value_key, value_fallback),
-            message: value.fetch(:message, nil)
+            value: value.fetch(value_key, message.present? ? true : value_fallback),
+            message: message
           )
         else
           DEFAULT_VALUE.call(key: value_key, value: value)
