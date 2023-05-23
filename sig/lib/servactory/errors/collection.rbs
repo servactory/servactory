@@ -4,9 +4,9 @@ module Servactory
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
 
-      @collection: Set[Failure | InputArgumentError | InternalArgumentError | OutputArgumentError]
+      @collection: Set[Failure | InputAttributeError | InternalAttributeError | OutputAttributeError]
 
-      def initialize: (?Set[Failure | InputArgumentError | InternalArgumentError | OutputArgumentError] collection) -> void
+      def initialize: (?Set[Failure | InputAttributeError | InternalAttributeError | OutputAttributeError] collection) -> void
 
       def not_blank: () -> Collection
 

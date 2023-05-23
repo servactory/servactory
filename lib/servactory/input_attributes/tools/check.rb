@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
 module Servactory
-  module InputArguments
+  module InputAttributes
     module Tools
       class Check
         def self.check!(...)
           new(...).check!
         end
 
-        def initialize(context, incoming_arguments, collection_of_input_arguments)
+        def initialize(context, incoming_attributes, collection_of_input_attributes)
           @context = context
-          @incoming_arguments = incoming_arguments
-          @collection_of_input_arguments = collection_of_input_arguments
+          @incoming_attributes = incoming_attributes
+          @collection_of_input_attributes = collection_of_input_attributes
         end
 
         def check!
-          @collection_of_input_arguments.each do |input|
+          @collection_of_input_attributes.each do |input|
             process_input(input)
           end
 
@@ -47,7 +47,7 @@ module Servactory
           check_class.check(
             context: @context,
             input: input,
-            value: @incoming_arguments.fetch(input.name, nil),
+            value: @incoming_attributes.fetch(input.name, nil),
             check_key: check_key,
             check_options: check_options
           )
@@ -68,7 +68,7 @@ module Servactory
         def raise_errors
           return if (tmp_errors = errors.not_blank).empty?
 
-          raise Servactory.configuration.input_argument_error_class.new(message: tmp_errors.first)
+          raise Servactory.configuration.input_attribute_error_class.new(message: tmp_errors.first)
         end
       end
     end

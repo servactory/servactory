@@ -2,7 +2,7 @@
 
 module Servactory
   module Errors
-    class InputArgumentError < Base
+    class InputAttributeError < Base
       attr_reader :message,
                   :input_name
 

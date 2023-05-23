@@ -1,15 +1,15 @@
 module Servactory
-  module OutputArguments
+  module OutputAttributes
     module Tools
       class Conflicts
         @context: instance
-        @collection_of_output_arguments: Collection
-        @@collection_of_internal_arguments: InternalArguments::Collection
+        @collection_of_output_attributes: Collection
+        @@collection_of_internal_attributes: InternalAttributes::Collection
         @overlapping_attributes: Array[Symbol]
 
         def self.check!: (*untyped) ?{ () -> untyped } -> void
 
-        def initialize: (instance context, Collection collection_of_output_arguments, InternalArguments::Collection collection_of_internal_arguments) -> void
+        def initialize: (instance context, Collection collection_of_output_attributes, InternalAttributes::Collection collection_of_internal_attributes) -> void
 
         def check!: () -> void
 
