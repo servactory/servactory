@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Example25 do
+RSpec.describe Usual::Example27 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -63,7 +63,7 @@ RSpec.describe Usual::Example25 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputArgumentError,
-                "[Usual::Example25] Required element in input array `ids` is missing"
+                "[Usual::Example27] Required element in input array `ids` is missing"
               )
             )
           end
@@ -82,7 +82,7 @@ RSpec.describe Usual::Example25 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputArgumentError,
-                "[Usual::Example25] Required element in input array `ids` is missing"
+                "[Usual::Example27] Required element in input array `ids` is missing"
               )
             )
           end
@@ -165,7 +165,7 @@ RSpec.describe Usual::Example25 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputArgumentError,
-                "[Usual::Example25] Required element in input array `ids` is missing"
+                "[Usual::Example27] Required element in input array `ids` is missing"
               )
             )
           end
@@ -184,7 +184,7 @@ RSpec.describe Usual::Example25 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputArgumentError,
-                "[Usual::Example25] Required element in input array `ids` is missing"
+                "[Usual::Example27] Required element in input array `ids` is missing"
               )
             )
           end

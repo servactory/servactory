@@ -4,9 +4,7 @@ module Usual
   class Example26 < ApplicationService::Base
     input :ids,
           type: String,
-          array: {
-            message: ->(input:, expected_type:) { "Input `#{input.name}` must be an array of `#{expected_type}`" }
-          }
+          array: { message: "Input `ids` must be an array of `String`" }
 
     output :first_id, type: String
 
