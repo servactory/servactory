@@ -16,7 +16,7 @@ RSpec.describe Usual::Example22 do
     let(:input_2) { "Second" }
     let(:input_3) { "Third" }
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -30,7 +30,7 @@ RSpec.describe Usual::Example22 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `input_1`" do
         it_behaves_like "input required check", name: :input_1
         it_behaves_like "input type check", name: :input_1, expected_type: String
@@ -63,7 +63,7 @@ RSpec.describe Usual::Example22 do
     let(:input_2) { "Second" }
     let(:input_3) { "Third" }
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -77,7 +77,7 @@ RSpec.describe Usual::Example22 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `input_1`" do
         it_behaves_like "input required check", name: :input_1
         it_behaves_like "input type check", name: :input_1, expected_type: String

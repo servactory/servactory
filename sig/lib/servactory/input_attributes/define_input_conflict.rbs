@@ -1,0 +1,9 @@
+module Servactory
+  module InputAttributes
+    class DefineInputConflict
+      attr_reader content: Proc
+
+      def initialize: (content: Proc) -> void
+    end
+  end
+end

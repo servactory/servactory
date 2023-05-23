@@ -4,9 +4,9 @@ module Servactory
   class Base
     include Configuration::DSL
     include Context::DSL
-    include InputArguments::DSL
-    include InternalArguments::DSL
-    include OutputArguments::DSL
+    include InputAttributes::DSL
+    include InternalAttributes::DSL
+    include OutputAttributes::DSL
     include MakeMethods::DSL
 
     private_class_method :new

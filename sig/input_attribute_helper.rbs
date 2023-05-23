@@ -1,0 +1,36 @@
+module InputAttributeHelper
+  def prepare_input_attribute_text_for: (
+    check_name: Symbol,
+    name: Symbol,
+    service_class_name: Class,
+      custom_message: String?,
+    array: bool,
+    array_message: String?,
+    expected_type: Class?,
+    given_type: Class?
+  ) -> String
+
+  def raise_input_attribute_error_for: (
+    check_name: Symbol,
+    name: Symbol,
+    service_class_name: Class,
+    custom_message: String?,
+    array: bool,
+    array_message: String?,
+    expected_type: Class?,
+    given_type: Class?
+  ) -> void
+
+  private
+
+  def prepare_input_attribute_required_check_text_for: (name: Symbol, service_class_name: Class, custom_message: String?) -> String
+
+  def prepare_input_attribute_type_check_text_for: (
+    name: Symbol,
+    service_class_name: Class,
+    array: bool,
+    array_message: String?,
+    expected_type: Class,
+    given_type: Class
+  ) -> String
+end

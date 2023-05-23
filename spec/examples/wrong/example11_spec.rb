@@ -19,7 +19,7 @@ RSpec.describe Wrong::Example11 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
@@ -32,7 +32,7 @@ RSpec.describe Wrong::Example11 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
@@ -59,7 +59,7 @@ RSpec.describe Wrong::Example11 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
@@ -72,7 +72,7 @@ RSpec.describe Wrong::Example11 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 

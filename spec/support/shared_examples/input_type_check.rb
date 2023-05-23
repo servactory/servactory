@@ -8,7 +8,7 @@ RSpec.shared_examples "input type check" do |name:, expected_type:, array: false
 
     it "returns expected error" do
       expect { perform }.to(
-        raise_input_argument_error_for(
+        raise_input_attribute_error_for(
           check_name: :type,
           name: name,
           service_class_name: described_class.name,

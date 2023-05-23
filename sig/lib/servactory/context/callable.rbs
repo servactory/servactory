@@ -1,15 +1,15 @@
 module Servactory
   module Context
     module Callable
-      def call!: (?::Hash[untyped, untyped] arguments) -> Result
+      def call!: (?::Hash[untyped, untyped] attributes) -> Result
 
-      def call: (?::Hash[untyped, untyped] arguments) -> Result
+      def call: (?::Hash[untyped, untyped] attributes) -> Result
 
       private
 
       attr_reader context_store: Store
 
-      def assign_data_with: (untyped arguments) -> void
+      def assign_data_with: (untyped attributes) -> void
 
       def prepare_data: () -> void
     end

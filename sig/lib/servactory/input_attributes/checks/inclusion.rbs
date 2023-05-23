@@ -1,0 +1,21 @@
+module Servactory
+  module InputAttributes
+    module Checks
+      class Inclusion < Base
+        DEFAULT_MESSAGE: ^(service_class_name: String, input: InputAttribute, value: untyped) -> String
+
+        @context: instance
+        @input: InputAttribute
+        @value: untyped
+
+        def self.check: (context: instance, input: InputAttribute, value: untyped, check_key: Symbol, **untyped _) -> void
+
+        def self.should_be_checked_for?: (InputAttribute input, Symbol check_key) -> bool
+
+        def initialize: (context: instance, input: InputAttribute, value: untyped) -> void
+
+        def check: () -> void
+      end
+    end
+  end
+end

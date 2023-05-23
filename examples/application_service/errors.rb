@@ -2,9 +2,9 @@
 
 module ApplicationService
   module Errors
-    class InputArgumentError < Servactory::Errors::InputArgumentError; end
-    class OutputArgumentError < Servactory::Errors::OutputArgumentError; end
-    class InternalArgumentError < Servactory::Errors::InternalArgumentError; end
+    class InputAttributeError < Servactory::Errors::InputAttributeError; end
+    class OutputAttributeError < Servactory::Errors::OutputAttributeError; end
+    class InternalAttributeError < Servactory::Errors::InternalAttributeError; end
 
     class Failure < Servactory::Errors::Failure; end
   end

@@ -19,7 +19,7 @@ RSpec.describe Usual::Example13 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -43,7 +43,7 @@ RSpec.describe Usual::Example13 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "Input `ids` must be an array of `String`"
               )
             )
@@ -62,7 +62,7 @@ RSpec.describe Usual::Example13 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "[Usual::Example13] Required element in input array `ids` is missing"
               )
             )
@@ -81,7 +81,7 @@ RSpec.describe Usual::Example13 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "[Usual::Example13] Required element in input array `ids` is missing"
               )
             )
@@ -90,7 +90,7 @@ RSpec.describe Usual::Example13 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
@@ -121,7 +121,7 @@ RSpec.describe Usual::Example13 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -145,7 +145,7 @@ RSpec.describe Usual::Example13 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "Input `ids` must be an array of `String`"
               )
             )
@@ -164,7 +164,7 @@ RSpec.describe Usual::Example13 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "[Usual::Example13] Required element in input array `ids` is missing"
               )
             )
@@ -183,7 +183,7 @@ RSpec.describe Usual::Example13 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "[Usual::Example13] Required element in input array `ids` is missing"
               )
             )
@@ -192,7 +192,7 @@ RSpec.describe Usual::Example13 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 

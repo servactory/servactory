@@ -2,11 +2,11 @@ module Servactory
   class Base
     include Context::DSL
 
-    include InputArguments::DSL
+    include InputAttributes::DSL
 
-    include InternalArguments::DSL
+    include InternalAttributes::DSL
 
-    include OutputArguments::DSL
+    include OutputAttributes::DSL
 
     include MakeMethods::DSL
   end

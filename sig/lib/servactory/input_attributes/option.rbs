@@ -1,0 +1,53 @@
+module Servactory
+  module InputAttributes
+    class Option
+      DEFAULT_VALUE: ^(key: Symbol, value: bool?, message: String?) -> Proc
+
+      attr_reader name: Symbol
+
+      attr_reader check_class: Class
+
+      attr_reader define_input_methods: Array[DefineInputMethod]?
+
+      attr_reader define_input_conflicts: Array[DefineInputConflict]?
+
+      attr_reader need_for_checks: bool
+
+      attr_reader value: ({ is: Symbol, message: String? } | Array[Class] | bool?)
+      attr_reader value_key: Symbol?
+
+      def initialize: (
+        name: Symbol,
+        input: InputAttribute,
+        check_class: Class,
+        need_for_checks: bool,
+        value_key: Symbol?,
+        value_fallback: bool?,
+        original_value: Array[Class]?,
+        define_input_methods: Array[DefineInputMethod]?,
+        define_input_conflicts: Array[DefineInputConflict]?,
+        ?with_advanced_mode: bool,
+        **untyped options
+      ) -> void
+
+      def need_for_checks?: -> bool
+
+      private
+
+      attr_reader define_input_methods_template: String
+
+      def prepare_value_for: (
+        original_value: Array[Class]?,
+        options: untyped,
+        value_fallback: bool?,
+        with_advanced_mode: bool
+      ) -> ({ is: Symbol, message: String? } | bool)
+
+      def prepare_advanced_for: (value: ({ is: Symbol, message: String? }? | bool?), ?value_fallback: bool) -> { is: Symbol, message: String? }
+
+      def prepare_input_methods_for: (InputAttribute input) -> void
+
+      def define_input_methods_template: -> String
+    end
+  end
+end

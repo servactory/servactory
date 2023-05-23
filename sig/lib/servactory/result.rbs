@@ -2,11 +2,11 @@ module Servactory
   class Result
     def self.prepare_for: (*untyped) ?{ () -> untyped } -> Result
 
-    def prepare_for: (context: instance, collection_of_output_arguments: OutputArguments::Collection) -> self
+    def prepare_for: (context: instance, collection_of_output_attributes: OutputAttributes::Collection) -> self
 
     private
 
-    def prepare_outputs_with: (context: instance, collection_of_output_arguments: OutputArguments) -> void
+    def prepare_outputs_with: (context: instance, collection_of_output_attributes: OutputAttributes) -> void
 
     def prepare_statuses_with: (context: instance) -> void
   end

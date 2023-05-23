@@ -18,7 +18,7 @@ A set of tools for building reliable services of any complexity.
   - [Result](#result)
   - [Input attributes](#input-attributes)
     - [Isolated usage](#isolated-usage)
-    - [As an internal argument](#isolated-usage)
+    - [As an internal attribute](#isolated-usage)
     - [Optional inputs](#optional-inputs)
     - [As (internal name)](#as-internal-name)
     - [An array of specific values](#an-array-of-specific-values)
@@ -69,9 +69,9 @@ As a first step, it is recommended to prepare the base class for further inherit
 
 module ApplicationService
   module Errors
-    class InputArgumentError < Servactory::Errors::InputArgumentError; end
-    class OutputArgumentError < Servactory::Errors::OutputArgumentError; end
-    class InternalArgumentError < Servactory::Errors::InternalArgumentError; end
+    class InputAttributeError < Servactory::Errors::InputAttributeError; end
+    class OutputAttributeError < Servactory::Errors::OutputAttributeError; end
+    class InternalAttributeError < Servactory::Errors::InternalAttributeError; end
 
     class Failure < Servactory::Errors::Failure; end
   end
@@ -86,9 +86,9 @@ end
 module ApplicationService
   class Base < Servactory::Base
     configuration do
-      input_argument_error_class ApplicationService::Errors::InputArgumentError
-      output_argument_error_class ApplicationService::Errors::OutputArgumentError
-      internal_argument_error_class ApplicationService::Errors::InternalArgumentError
+      input_attribute_error_class ApplicationService::Errors::InputAttributeError
+      output_attribute_error_class ApplicationService::Errors::OutputAttributeError
+      internal_attribute_error_class ApplicationService::Errors::InternalAttributeError
 
       failure_class ApplicationService::Errors::Failure
     end
@@ -118,7 +118,7 @@ end
 
 Services can only be called via `.call` and `.call!` methods.
 
-The `.call` method will only fail if it catches an exception in the input arguments.
+The `.call` method will only fail if it catches an exception in the input attributes.
 Internal and output attributes, as well as methods for failures - all this will be collected in the result.
 
 The `.call!` method will fail if it catches any exception.
@@ -175,7 +175,7 @@ class UsersService::Accept < ApplicationService::Base
 end
 ```
 
-#### As an internal argument
+#### As an internal attribute
 
 With this approach, all input attributes are available from `inputs` as well as directly from the context.
 

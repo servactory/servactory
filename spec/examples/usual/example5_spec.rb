@@ -19,7 +19,7 @@ RSpec.describe Usual::Example5 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -31,7 +31,7 @@ RSpec.describe Usual::Example5 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
         it_behaves_like "input type check", name: :ids, expected_type: Array
@@ -57,7 +57,7 @@ RSpec.describe Usual::Example5 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -69,7 +69,7 @@ RSpec.describe Usual::Example5 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
         it_behaves_like "input type check", name: :ids, expected_type: Array

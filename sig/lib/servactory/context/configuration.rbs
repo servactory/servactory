@@ -1,11 +1,11 @@
 module Servactory
   module Context
     class Configuration
-      def input_argument_error_class: (Errors::InputArgumentError input_argument_error_class) -> Errors::InputArgumentError
+      def input_attribute_error_class: (Errors::InputAttributeError input_attribute_error_class) -> Errors::InputAttributeError
 
-      def output_argument_error_class: (Errors::OutputArgumentError output_argument_error_class) -> Errors::OutputArgumentError
+      def output_attribute_error_class: (Errors::OutputAttributeError output_attribute_error_class) -> Errors::OutputAttributeError
 
-      def internal_argument_error_class: (Errors::InternalArgumentError internal_argument_error_class) -> Errors::InternalArgumentError
+      def internal_attribute_error_class: (Errors::InternalAttributeError internal_attribute_error_class) -> Errors::InternalAttributeError
 
       def failure_class: (Errors::Failure failure_class) -> Errors::Failure
     end

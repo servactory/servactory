@@ -16,7 +16,7 @@ RSpec.describe Usual::Example4 do
     let(:middle_name) { nil }
     let(:last_name) { "Kennedy" }
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -28,7 +28,7 @@ RSpec.describe Usual::Example4 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `first_name`" do
         it_behaves_like "input required check", name: :first_name
         it_behaves_like "input type check", name: :first_name, expected_type: String
@@ -56,7 +56,7 @@ RSpec.describe Usual::Example4 do
     let(:middle_name) { nil }
     let(:last_name) { "Kennedy" }
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -68,7 +68,7 @@ RSpec.describe Usual::Example4 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `first_name`" do
         it_behaves_like "input required check", name: :first_name
         it_behaves_like "input type check", name: :first_name, expected_type: String

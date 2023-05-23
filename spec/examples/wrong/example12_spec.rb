@@ -12,12 +12,12 @@ RSpec.describe Wrong::Example12 do
 
     let(:invoice_number) { "ABC-123" }
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputArgumentError,
+              ApplicationService::Errors::OutputAttributeError,
               "[Wrong::Example12] Conflict between internal and output attributes `prepared_invoice_number`"
             )
           )
@@ -37,12 +37,12 @@ RSpec.describe Wrong::Example12 do
 
     let(:invoice_number) { "ABC-123" }
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputArgumentError,
+              ApplicationService::Errors::OutputAttributeError,
               "[Wrong::Example12] Conflict between internal and output attributes `prepared_invoice_number`"
             )
           )

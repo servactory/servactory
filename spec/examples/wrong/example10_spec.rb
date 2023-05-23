@@ -19,12 +19,12 @@ RSpec.describe Wrong::Example10 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputAttributeError,
               "[Wrong::Example10] Syntax error inside `be_6_characters` of `invoice_numbers` input"
             )
           )
@@ -51,12 +51,12 @@ RSpec.describe Wrong::Example10 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputAttributeError,
               "[Wrong::Example10] Syntax error inside `be_6_characters` of `invoice_numbers` input"
             )
           )

@@ -19,12 +19,12 @@ RSpec.describe Wrong::Example8 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputAttributeError,
               "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
             )
           )
@@ -32,7 +32,7 @@ RSpec.describe Wrong::Example8 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `ids`" do
         describe "is not passed" do
           let(:ids) { nil }
@@ -40,7 +40,7 @@ RSpec.describe Wrong::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
               )
             )
@@ -53,7 +53,7 @@ RSpec.describe Wrong::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
               )
             )
@@ -81,12 +81,12 @@ RSpec.describe Wrong::Example8 do
       ]
     end
 
-    context "when the input arguments are valid" do
+    context "when the input attributes are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputAttributeError,
               "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
             )
           )
@@ -94,7 +94,7 @@ RSpec.describe Wrong::Example8 do
       end
     end
 
-    context "when the input arguments are invalid" do
+    context "when the input attributes are invalid" do
       context "when `ids`" do
         describe "is not passed" do
           let(:ids) { nil }
@@ -102,7 +102,7 @@ RSpec.describe Wrong::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
               )
             )
@@ -115,7 +115,7 @@ RSpec.describe Wrong::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputAttributeError,
                 "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
               )
             )

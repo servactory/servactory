@@ -1,6 +1,0 @@
-module Servactory
-  module Errors
-    class InputArgumentError < Servactory::Errors::Base
-    end
-  end
-end

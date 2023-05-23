@@ -1,0 +1,14 @@
+module Servactory
+  module InputAttributes
+    module Checks
+      class Errors
+        # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
+        extend Forwardable
+
+        @collection: Set[String]
+
+        def initialize: (*untyped) -> void
+      end
+    end
+  end
+end

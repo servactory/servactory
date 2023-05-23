@@ -3,11 +3,11 @@ module Servactory
     module Workspace
       @errors: Errors
 
-      attr_reader inputs: InputArguments
+      attr_reader inputs: InputAttributes
 
       def initialize: () -> void
 
-      def assign_inputs: (InputArguments inputs) -> untyped
+      def assign_inputs: (InputAttributes inputs) -> untyped
 
       def errors: -> Errors
 

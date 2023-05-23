@@ -1,0 +1,21 @@
+module Servactory
+  module InternalAttributes
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        @@collection_of_internal_attributes: Collection
+
+        @internal_attributes_workbench: Workbench
+
+        private
+
+        def internal: (Symbol name, **untyped options) -> void
+
+        def collection_of_internal_attributes: () -> Collection
+
+        def internal_attributes_workbench: () -> Workbench
+      end
+    end
+  end
+end

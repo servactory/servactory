@@ -1,0 +1,18 @@
+module Servactory
+  module InputAttributes
+    class OptionsCollection
+      # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
+      extend Forwardable
+
+      @collection: Set[Option]
+
+      def initialize: (*untyped) -> void
+
+      def check_classes: () -> Array[Class]
+
+      def defined_conflict_code: -> Symbol
+
+      def options_for_checks: -> Hash[Symbol, untyped]
+    end
+  end
+end

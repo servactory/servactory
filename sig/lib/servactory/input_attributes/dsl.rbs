@@ -1,0 +1,20 @@
+module Servactory
+  module InputAttributes
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        @collection_of_input_attributes: Collection
+        @input_attributes_workbench: Workbench
+
+        private
+
+        def input: (Symbol name, **untyped options) -> void
+
+        def collection_of_input_attributes: () -> Collection
+
+        def input_attributes_workbench: () -> Workbench
+      end
+    end
+  end
+end

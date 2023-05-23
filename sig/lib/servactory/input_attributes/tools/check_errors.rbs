@@ -1,0 +1,16 @@
+module Servactory
+  module InputAttributes
+    module Tools
+      class CheckErrors
+        # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
+        extend Forwardable
+
+        @collection: Set[String]
+
+        def initialize: (*untyped) -> void
+
+        def not_blank: -> CheckErrors
+      end
+    end
+  end
+end

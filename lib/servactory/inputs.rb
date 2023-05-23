@@ -3,7 +3,7 @@
 module Servactory
   class Inputs
     def initialize(**)
-      # NOTE: Look at the file `lib/servactory/input_arguments/tools/prepare.rb`
+      # NOTE: Look at the file `lib/servactory/input_attributes/tools/prepare.rb`
     end
   end
 end
