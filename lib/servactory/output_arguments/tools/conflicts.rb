@@ -23,7 +23,7 @@ module Servactory
             overlapping_attributes: overlapping_attributes.join(", ")
           )
 
-          raise Servactory.configuration.output_argument_error_class, message_text
+          raise Servactory.configuration.output_argument_error_class.new(message: message_text)
         end
 
         private
