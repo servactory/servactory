@@ -2,6 +2,7 @@
 
 module Servactory
   module Errors
-    class OutputArgumentError < Servactory::Errors::Base; end
+    class OutputArgumentError < Base
+    end
   end
 end

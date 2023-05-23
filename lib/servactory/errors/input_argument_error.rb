@@ -2,6 +2,7 @@
 
 module Servactory
   module Errors
-    class InputArgumentError < Servactory::Errors::Base; end
+    class InputArgumentError < Base
+    end
   end
 end
