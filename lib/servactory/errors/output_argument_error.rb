@@ -2,6 +2,14 @@
 
 module Servactory
   module Errors
-    class OutputArgumentError < Servactory::Errors::Base; end
+    class OutputArgumentError < Base
+      attr_reader :message
+
+      def initialize(message:)
+        @message = message
+
+        super(message)
+      end
+    end
   end
 end

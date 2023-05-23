@@ -1,6 +1,10 @@
 module Servactory
   module Errors
     class Failure < Servactory::Errors::Base
+      attr_reader message: String
+      attr_reader meta: untyped
+
+      def initialize: (message: String, meta: untyped?) -> void
     end
   end
 end
