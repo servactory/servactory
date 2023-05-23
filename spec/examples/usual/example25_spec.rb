@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Example20 do
+RSpec.describe Usual::Example25 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -12,7 +12,7 @@ RSpec.describe Usual::Example20 do
 
     let(:invoice_number) { "AA-7650AE" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -27,19 +27,20 @@ RSpec.describe Usual::Example20 do
         describe "because invalid invoice number" do
           let(:invoice_number) { "BB-7650AE" }
 
-          it "returns expected error" do
+          it "returns expected error", :aggregate_failures do
             expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::Failure,
-                "Invalid invoice number"
-              )
+              raise_error do |exception|
+                expect(exception).to be_a(ApplicationService::Errors::Failure)
+                expect(exception.message).to eq("Invalid invoice number")
+                expect(exception.meta).to match(invoice_number: "BB-7650AE")
+              end
             )
           end
         end
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `invoice_number`" do
         it_behaves_like "input required check", name: :invoice_number
         it_behaves_like "input type check", name: :invoice_number, expected_type: String
@@ -58,7 +59,7 @@ RSpec.describe Usual::Example20 do
 
     let(:invoice_number) { "AA-7650AE" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -82,7 +83,10 @@ RSpec.describe Usual::Example20 do
             expect(result.errors.to_a).to(
               contain_exactly(
                 an_object_having_attributes(
-                  message: "Invalid invoice number"
+                  message: "Invalid invoice number",
+                  meta: {
+                    invoice_number: "BB-7650AE"
+                  }
                 )
               )
             )
@@ -91,7 +95,7 @@ RSpec.describe Usual::Example20 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `invoice_number`" do
         it_behaves_like "input required check", name: :invoice_number
         it_behaves_like "input type check", name: :invoice_number, expected_type: String

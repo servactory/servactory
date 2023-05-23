@@ -2,6 +2,14 @@
 
 module Servactory
   module Errors
-    class InternalAttributeError < Servactory::Errors::Base; end
+    class InternalArgumentError < Base
+      attr_reader :message
+
+      def initialize(message:)
+        @message = message
+
+        super(message)
+      end
+    end
   end
 end

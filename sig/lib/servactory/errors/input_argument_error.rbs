@@ -1,0 +1,10 @@
+module Servactory
+  module Errors
+    class InputArgumentError < Servactory::Errors::Base
+      attr_reader message: String
+      attr_reader input_name: Symbol?
+
+      def initialize: (message: String, input_name: Symbol?) -> void
+    end
+  end
+end

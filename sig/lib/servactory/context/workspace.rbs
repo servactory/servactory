@@ -9,11 +9,11 @@ module Servactory
 
       def assign_inputs: (InputAttributes inputs) -> untyped
 
-      def errors: -> Errors
+      def errors: -> Servactory::Errors::Collection
 
-      def fail_input!: (Symbol input_attribute_name, String message) -> untyped
+      def fail_input!: (Symbol input_attribute_name, message: String) -> void
 
-      def fail!: (String error) -> Errors
+      def fail!: (message: String, meta: untyped?) -> Errors
 
       def raise_first_fail: () -> (nil | untyped)
     end

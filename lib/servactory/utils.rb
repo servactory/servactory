@@ -4,6 +4,8 @@ module Servactory
   module Utils
     module_function
 
+    # @param value [#to_s]
+    # @return [Boolean]
     def boolean?(value)
       value.to_s.casecmp("true").to_i.zero?
     end

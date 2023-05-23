@@ -15,7 +15,6 @@ module Usual
         date: inputs.date
       }
     end
-
   end
 
   class Example23 < Example23Base
