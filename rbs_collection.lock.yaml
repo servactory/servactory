@@ -2,7 +2,7 @@
 sources:
 - type: git
   name: ruby/gem_rbs_collection
-  revision: 34275028974d6352fe7666a6e833def7a6efb4a5
+  revision: 163126f59d1bb765a6234fc60d3edf21cdfce255
   remote: https://github.com/ruby/gem_rbs_collection.git
   repo_dir: gems
 path: ".gem_rbs_collection"
@@ -12,7 +12,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 34275028974d6352fe7666a6e833def7a6efb4a5
+    revision: 163126f59d1bb765a6234fc60d3edf21cdfce255
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: ast
@@ -20,15 +20,19 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 34275028974d6352fe7666a6e833def7a6efb4a5
+    revision: 163126f59d1bb765a6234fc60d3edf21cdfce255
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: cgi
+  version: '0'
+  source:
+    type: stdlib
 - name: concurrent-ruby
   version: '1.1'
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 34275028974d6352fe7666a6e833def7a6efb4a5
+    revision: 163126f59d1bb765a6234fc60d3edf21cdfce255
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: date
@@ -40,7 +44,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 34275028974d6352fe7666a6e833def7a6efb4a5
+    revision: 163126f59d1bb765a6234fc60d3edf21cdfce255
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: json
@@ -63,12 +67,16 @@ gems:
   version: '0'
   source:
     type: stdlib
+- name: optparse
+  version: '0'
+  source:
+    type: stdlib
 - name: parallel
   version: '1.20'
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 34275028974d6352fe7666a6e833def7a6efb4a5
+    revision: 163126f59d1bb765a6234fc60d3edf21cdfce255
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: rainbow
@@ -76,10 +84,14 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 34275028974d6352fe7666a6e833def7a6efb4a5
+    revision: 163126f59d1bb765a6234fc60d3edf21cdfce255
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: singleton
+  version: '0'
+  source:
+    type: stdlib
+- name: tempfile
   version: '0'
   source:
     type: stdlib
@@ -87,4 +99,16 @@ gems:
   version: '0'
   source:
     type: stdlib
+- name: uri
+  version: '0'
+  source:
+    type: stdlib
+- name: yard
+  version: '0.9'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 163126f59d1bb765a6234fc60d3edf21cdfce255
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 gemfile_lock_path: Gemfile.lock
