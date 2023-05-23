@@ -78,11 +78,10 @@ RSpec.describe Usual::Example20 do
           it "returns the expected value in `errors`", :aggregate_failures do
             result = perform
 
-            expect(result.errors).to be_a(Servactory::Context::Workspace::Errors)
+            expect(result.errors).to be_a(Servactory::Errors::Collection)
             expect(result.errors.to_a).to(
               contain_exactly(
                 an_object_having_attributes(
-                  type: :fail,
                   message: "Invalid invoice number"
                 )
               )

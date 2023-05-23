@@ -9,7 +9,7 @@ module Servactory
         def raise_error_with(message, **arguments)
           message = message.call(**arguments) if message.is_a?(Proc)
 
-          raise Servactory.configuration.internal_argument_error_class, message
+          raise Servactory.configuration.internal_argument_error_class.new(message: message)
         end
       end
     end

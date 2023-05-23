@@ -31,7 +31,6 @@ RSpec.describe Usual::Example25 do
             expect { perform }.to(
               raise_error do |exception|
                 expect(exception).to be_a(ApplicationService::Errors::Failure)
-                expect(exception.type).to eq(:fail)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(invoice_number: "BB-7650AE")
               end
@@ -80,11 +79,10 @@ RSpec.describe Usual::Example25 do
           it "returns the expected value in `errors`", :aggregate_failures do
             result = perform
 
-            expect(result.errors).to be_a(Servactory::Context::Workspace::Errors)
+            expect(result.errors).to be_a(Servactory::Errors::Collection)
             expect(result.errors.to_a).to(
               contain_exactly(
                 an_object_having_attributes(
-                  type: :fail,
                   message: "Invalid invoice number",
                   meta: {
                     invoice_number: "BB-7650AE"

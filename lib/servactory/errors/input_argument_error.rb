@@ -3,6 +3,15 @@
 module Servactory
   module Errors
     class InputArgumentError < Base
+      attr_reader :message,
+                  :input_name
+
+      def initialize(message:, input_name: nil)
+        @message = message
+        @input_name = input_name&.to_sym
+
+        super(message)
+      end
     end
   end
 end

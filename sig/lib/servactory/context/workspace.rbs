@@ -9,9 +9,9 @@ module Servactory
 
       def assign_inputs: (InputArguments inputs) -> untyped
 
-      def errors: -> Errors
+      def errors: -> Servactory::Errors::Collection
 
-      def fail_input!: (Symbol input_attribute_name, message: String) -> untyped
+      def fail_input!: (Symbol input_attribute_name, message: String) -> void
 
       def fail!: (message: String, meta: untyped?) -> Errors
 

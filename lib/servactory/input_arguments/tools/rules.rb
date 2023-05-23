@@ -35,7 +35,10 @@ module Servactory
             conflict_code: input_argument.conflict_code
           )
 
-          raise Servactory.configuration.input_argument_error_class, message_text
+          raise Servactory.configuration.input_argument_error_class.new(
+            message: message_text,
+            input_name: input_argument.name
+          )
         end
       end
     end
