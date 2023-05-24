@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module MakeMethods
-    class MakeMethod
+  module Methods
+    class Method
       attr_reader :name,
                   :condition
 

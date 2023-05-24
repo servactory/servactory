@@ -8,6 +8,6 @@ module Servactory
 
     include Outputs::DSL
 
-    include MakeMethods::DSL
+    include Methods::DSL
   end
 end

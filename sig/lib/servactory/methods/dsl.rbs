@@ -1,0 +1,20 @@
+module Servactory
+  module Methods
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        @collection_of_methods: Collection
+        @methods_workbench: Workbench
+
+        private
+
+        def make: (Symbol name, **untyped options) -> void
+
+        def collection_of_methods: () -> Collection
+
+        def methods_workbench: () -> Workbench
+      end
+    end
+  end
+end

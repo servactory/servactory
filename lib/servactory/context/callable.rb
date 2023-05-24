@@ -18,7 +18,7 @@ module Servactory
 
         inputs_workbench.check!
 
-        make_methods_workbench.run!
+        methods_workbench.run!
 
         context_store.context.raise_first_fail
 
@@ -43,7 +43,7 @@ module Servactory
 
         inputs_workbench.check!
 
-        make_methods_workbench.run!
+        methods_workbench.run!
 
         Servactory::Result.prepare_for(
           context: context_store.context,
@@ -63,7 +63,7 @@ module Servactory
 
         internals_workbench.assign(context: context_store.context)
         outputs_workbench.assign(context: context_store.context)
-        make_methods_workbench.assign(context: context_store.context)
+        methods_workbench.assign(context: context_store.context)
       end
 
       def prepare_data

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servactory
-  module MakeMethods
+  module Methods
     class Collection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable

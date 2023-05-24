@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Servactory
-  module MakeMethods
+  module Methods
     class Workbench
       def self.work_with(...)
         new(...)
       end
 
-      def initialize(collection_of_make_methods)
-        @collection_of_make_methods = collection_of_make_methods
+      def initialize(collection_of_methods)
+        @collection_of_methods = collection_of_methods
       end
 
       def assign(context:)
@@ -16,7 +16,7 @@ module Servactory
       end
 
       def run!
-        collection_of_make_methods.each do |make_method|
+        collection_of_methods.each do |make_method|
           next if unnecessary_for?(make_method)
 
           context.send(make_method.name)
@@ -26,7 +26,7 @@ module Servactory
       private
 
       attr_reader :context,
-                  :collection_of_make_methods
+                  :collection_of_methods
 
       def unnecessary_for?(make_method)
         condition = make_method.condition
