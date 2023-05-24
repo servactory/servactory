@@ -12,7 +12,7 @@ RSpec.describe Wrong::Example12 do
 
     let(:invoice_number) { "ABC-123" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
@@ -37,7 +37,7 @@ RSpec.describe Wrong::Example12 do
 
     let(:invoice_number) { "ABC-123" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(

@@ -19,7 +19,7 @@ RSpec.describe Usual::Example7 do
       ]
     end
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -90,7 +90,7 @@ RSpec.describe Usual::Example7 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 
@@ -117,7 +117,7 @@ RSpec.describe Usual::Example7 do
       ]
     end
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -188,7 +188,7 @@ RSpec.describe Usual::Example7 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 

@@ -12,7 +12,7 @@ RSpec.describe Usual::Example20 do
 
     let(:invoice_number) { "AA-7650AE" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -39,7 +39,7 @@ RSpec.describe Usual::Example20 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `invoice_number`" do
         it_behaves_like "input required check", name: :invoice_number
         it_behaves_like "input type check", name: :invoice_number, expected_type: String
@@ -58,7 +58,7 @@ RSpec.describe Usual::Example20 do
 
     let(:invoice_number) { "AA-7650AE" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -91,7 +91,7 @@ RSpec.describe Usual::Example20 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `invoice_number`" do
         it_behaves_like "input required check", name: :invoice_number
         it_behaves_like "input type check", name: :invoice_number, expected_type: String

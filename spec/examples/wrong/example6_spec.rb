@@ -12,7 +12,7 @@ RSpec.describe Wrong::Example6 do
 
     let(:event_name) { "created" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
@@ -25,7 +25,7 @@ RSpec.describe Wrong::Example6 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `event_name`" do
         describe "is not passed" do
           let(:event_name) { nil }
@@ -67,7 +67,7 @@ RSpec.describe Wrong::Example6 do
 
     let(:event_name) { "created" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
@@ -80,7 +80,7 @@ RSpec.describe Wrong::Example6 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `event_name`" do
         describe "is not passed" do
           let(:event_name) { nil }

@@ -12,7 +12,7 @@ RSpec.describe Wrong::Example4 do
 
     let(:invoice_number) { "ABC-123" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
@@ -25,7 +25,7 @@ RSpec.describe Wrong::Example4 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `invoice_number`" do
         it_behaves_like "input required check", name: :invoice_number
         it_behaves_like "input type check", name: :invoice_number, expected_type: String
@@ -44,7 +44,7 @@ RSpec.describe Wrong::Example4 do
 
     let(:invoice_number) { "ABC-123" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
@@ -57,7 +57,7 @@ RSpec.describe Wrong::Example4 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `invoice_number`" do
         it_behaves_like "input required check", name: :invoice_number
         it_behaves_like "input type check", name: :invoice_number, expected_type: String

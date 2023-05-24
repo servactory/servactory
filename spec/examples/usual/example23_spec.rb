@@ -20,7 +20,7 @@ RSpec.describe Usual::Example23 do
     let(:last_name) { "Kennedy" }
     let(:date) { DateTime.new(2023, 1, 1) }
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `api_identifier`" do
         it_behaves_like "input required check", name: :api_identifier
         it_behaves_like "input type check", name: :api_identifier, expected_type: String
@@ -67,7 +67,7 @@ RSpec.describe Usual::Example23 do
     let(:last_name) { "Kennedy" }
     let(:date) { DateTime.new(2023, 1, 1) }
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `api_identifier`" do
         it_behaves_like "input required check", name: :api_identifier
         it_behaves_like "input type check", name: :api_identifier, expected_type: String

@@ -19,7 +19,7 @@ RSpec.describe Wrong::Example10 do
       ]
     end
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
@@ -51,7 +51,7 @@ RSpec.describe Wrong::Example10 do
       ]
     end
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(

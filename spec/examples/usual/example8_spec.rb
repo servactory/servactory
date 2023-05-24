@@ -12,7 +12,7 @@ RSpec.describe Usual::Example8 do
 
     let(:event_name) { "created" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -42,7 +42,7 @@ RSpec.describe Usual::Example8 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `event_name`" do
         it_behaves_like "input required check", name: :event_name
 
@@ -62,7 +62,7 @@ RSpec.describe Usual::Example8 do
 
     let(:event_name) { "created" }
 
-    context "when the input attributes are valid" do
+    context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
@@ -92,7 +92,7 @@ RSpec.describe Usual::Example8 do
       end
     end
 
-    context "when the input attributes are invalid" do
+    context "when the input arguments are invalid" do
       context "when `event_name`" do
         it_behaves_like "input required check", name: :event_name
 
