@@ -8,9 +8,9 @@ module Servactory
           new(...).check!
         end
 
-        def initialize(context, incoming_attributes, collection_of_inputs)
+        def initialize(context, incoming_arguments, collection_of_inputs)
           @context = context
-          @incoming_attributes = incoming_attributes
+          @incoming_arguments = incoming_arguments
           @collection_of_inputs = collection_of_inputs
         end
 
@@ -29,7 +29,7 @@ module Servactory
         private
 
         def unnecessary_attributes
-          @unnecessary_attributes ||= @incoming_attributes.keys - @collection_of_inputs.names
+          @unnecessary_attributes ||= @incoming_arguments.keys - @collection_of_inputs.names
         end
       end
     end

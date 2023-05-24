@@ -11,13 +11,13 @@ module Servactory
         @collection_of_inputs = collection_of_inputs
       end
 
-      def assign(context:, attributes:)
+      def assign(context:, arguments:)
         @context = context
-        @incoming_attributes = attributes
+        @incoming_arguments = arguments
       end
 
       def find_unnecessary!
-        Tools::FindUnnecessary.check!(context, @incoming_attributes, collection_of_inputs)
+        Tools::FindUnnecessary.check!(context, @incoming_arguments, collection_of_inputs)
       end
 
       def check_rules!
@@ -25,11 +25,11 @@ module Servactory
       end
 
       def prepare
-        Tools::Prepare.prepare(context, @incoming_attributes, collection_of_inputs)
+        Tools::Prepare.prepare(context, @incoming_arguments, collection_of_inputs)
       end
 
       def check!
-        Tools::Check.check!(context, @incoming_attributes, collection_of_inputs)
+        Tools::Check.check!(context, @incoming_arguments, collection_of_inputs)
       end
 
       private

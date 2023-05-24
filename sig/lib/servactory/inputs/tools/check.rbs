@@ -3,12 +3,12 @@ module Servactory
     module Tools
       class Check
         @context: instance
-        @incoming_attributes: untyped
+        @incoming_arguments: untyped
         @collection_of_inputs: Collection
 
         def self.check!: (*untyped) ?{ () -> untyped } -> void
 
-        def initialize: (instance context, untyped incoming_attributes, Collection collection_of_inputs) -> void
+        def initialize: (instance context, untyped incoming_arguments, Collection collection_of_inputs) -> void
 
         def check!: () -> void
 

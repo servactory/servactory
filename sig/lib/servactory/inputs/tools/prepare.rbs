@@ -7,7 +7,7 @@ module Servactory
         @collection_of_inputs: Collection
         @context: instance
 
-        @incoming_attributes: untyped
+        @incoming_arguments: untyped
 
         @inputs_variables: Hash[Symbol, untyped]
 
@@ -15,7 +15,7 @@ module Servactory
 
         def self.prepare: (*untyped) ?{ () -> untyped } -> void
 
-        def initialize: (instance context, untyped incoming_attributes, Collection collection_of_inputs) -> void
+        def initialize: (instance context, untyped incoming_arguments, Collection collection_of_inputs) -> void
 
         def prepare: () -> void
 

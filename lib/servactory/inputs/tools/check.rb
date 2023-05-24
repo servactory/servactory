@@ -8,9 +8,9 @@ module Servactory
           new(...).check!
         end
 
-        def initialize(context, incoming_attributes, collection_of_inputs)
+        def initialize(context, incoming_arguments, collection_of_inputs)
           @context = context
-          @incoming_attributes = incoming_attributes
+          @incoming_arguments = incoming_arguments
           @collection_of_inputs = collection_of_inputs
         end
 
@@ -47,7 +47,7 @@ module Servactory
           check_class.check(
             context: @context,
             input: input,
-            value: @incoming_attributes.fetch(input.name, nil),
+            value: @incoming_arguments.fetch(input.name, nil),
             check_key: check_key,
             check_options: check_options
           )

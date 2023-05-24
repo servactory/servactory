@@ -5,13 +5,13 @@ module Servactory
         @collection_of_inputs: Collection
         @context: instance
 
-        @incoming_attributes: untyped
+        @incoming_arguments: untyped
 
         @unnecessary_attributes: Array[Symbol]
 
         def self.check!: (*untyped) ?{ () -> untyped } -> void
 
-        def initialize: (instance context, untyped incoming_attributes, Collection collection_of_inputs) -> void
+        def initialize: (instance context, untyped incoming_arguments, Collection collection_of_inputs) -> void
 
         def check!: () -> void
 

@@ -8,9 +8,9 @@ module Servactory
           new(...).prepare
         end
 
-        def initialize(context, incoming_attributes, collection_of_inputs)
+        def initialize(context, incoming_arguments, collection_of_inputs)
           @context = context
-          @incoming_attributes = incoming_attributes
+          @incoming_arguments = incoming_arguments
           @collection_of_inputs = collection_of_inputs
         end
 
@@ -28,7 +28,7 @@ module Servactory
         private
 
         def process_input(input)
-          input_value = @incoming_attributes.fetch(input.name, nil)
+          input_value = @incoming_arguments.fetch(input.name, nil)
           input_value = input.default if input.optional? && input_value.blank?
 
           @inputs_variables[input.internal_name] = input_value
