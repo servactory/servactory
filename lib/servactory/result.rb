@@ -8,15 +8,15 @@ module Servactory
 
     private
 
-    def prepare_for(context:, collection_of_output_arguments:)
-      prepare_outputs_with(context: context, collection_of_output_arguments: collection_of_output_arguments)
+    def prepare_for(context:, collection_of_outputs:)
+      prepare_outputs_with(context: context, collection_of_outputs: collection_of_outputs)
       prepare_statuses_with(context: context)
 
       self
     end
 
-    def prepare_outputs_with(context:, collection_of_output_arguments:)
-      collection_of_output_arguments.each do |output|
+    def prepare_outputs_with(context:, collection_of_outputs:)
+      collection_of_outputs.each do |output|
         self.class.attr_reader(:"#{output.name}")
 
         instance_variable_set(:"@#{output.name}", context.instance_variable_get(:"@#{output.name}"))

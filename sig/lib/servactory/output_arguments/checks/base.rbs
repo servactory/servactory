@@ -1,9 +1,0 @@
-module Servactory
-  module OutputArguments
-    module Checks
-      class Base
-        def raise_error_with: (String | Proc message, **untyped arguments) -> untyped
-      end
-    end
-  end
-end

@@ -1,0 +1,24 @@
+module Servactory
+  module Inputs
+    module Tools
+      class FindUnnecessary
+        @collection_of_inputs: Collection
+        @context: instance
+
+        @incoming_arguments: untyped
+
+        @unnecessary_attributes: Array[Symbol]
+
+        def self.check!: (*untyped) ?{ () -> untyped } -> void
+
+        def initialize: (instance context, untyped incoming_arguments, Collection collection_of_inputs) -> void
+
+        def check!: () -> void
+
+        private
+
+        def unnecessary_attributes: () -> Array[Symbol]
+      end
+    end
+  end
+end

@@ -17,7 +17,7 @@ RSpec.describe Wrong::Example7 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputError,
               "[Wrong::Example7] Conflict in `event_name` input options: `required_vs_default`"
             )
           )
@@ -33,7 +33,7 @@ RSpec.describe Wrong::Example7 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example7] Conflict in `event_name` input options: `required_vs_default`"
               )
             )
@@ -46,7 +46,7 @@ RSpec.describe Wrong::Example7 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example7] Conflict in `event_name` input options: `required_vs_default`"
               )
             )
@@ -72,7 +72,7 @@ RSpec.describe Wrong::Example7 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputError,
               "[Wrong::Example7] Conflict in `event_name` input options: `required_vs_default`"
             )
           )
@@ -88,7 +88,7 @@ RSpec.describe Wrong::Example7 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example7] Conflict in `event_name` input options: `required_vs_default`"
               )
             )
@@ -101,7 +101,7 @@ RSpec.describe Wrong::Example7 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example7] Conflict in `event_name` input options: `required_vs_default`"
               )
             )

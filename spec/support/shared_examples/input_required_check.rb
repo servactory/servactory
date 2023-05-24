@@ -6,7 +6,7 @@ RSpec.shared_examples "input required check" do |name:, custom_message: nil|
 
     it "returns expected error" do
       expect { perform }.to(
-        raise_input_argument_error_for(
+        raise_input_error_for(
           check_name: :required,
           name: name,
           service_class_name: described_class.name,

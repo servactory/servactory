@@ -17,7 +17,7 @@ RSpec.describe Wrong::Example6 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputError,
               "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
             )
           )
@@ -33,7 +33,7 @@ RSpec.describe Wrong::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
               )
             )
@@ -46,7 +46,7 @@ RSpec.describe Wrong::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
               )
             )
@@ -72,7 +72,7 @@ RSpec.describe Wrong::Example6 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputError,
               "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
             )
           )
@@ -88,7 +88,7 @@ RSpec.describe Wrong::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
               )
             )
@@ -101,7 +101,7 @@ RSpec.describe Wrong::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
               )
             )

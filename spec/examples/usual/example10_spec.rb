@@ -32,7 +32,7 @@ RSpec.describe Usual::Example10 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example10] Wrong value in `event_name`, must be one of " \
                 "`[\"created\", \"rejected\", \"approved\"]`"
               )
@@ -46,7 +46,7 @@ RSpec.describe Usual::Example10 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "The `rejected` event cannot be used now"
               )
             )
@@ -95,7 +95,7 @@ RSpec.describe Usual::Example10 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example10] Wrong value in `event_name`, must be one of " \
                 "`[\"created\", \"rejected\", \"approved\"]`"
               )
@@ -109,7 +109,7 @@ RSpec.describe Usual::Example10 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "The `rejected` event cannot be used now"
               )
             )

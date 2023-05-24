@@ -5,7 +5,7 @@ A set of tools for building reliable services of any complexity.
 [![Gem version](https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff)](https://rubygems.org/gems/servactory)
 [![Release Date](https://img.shields.io/github/release-date/afuno/servactory)](https://github.com/afuno/servactory/releases)
 
-## Contents
+## Table of contents
 
 - [Requirements](#requirements)
 - [Getting started](#getting-started)
@@ -16,16 +16,16 @@ A set of tools for building reliable services of any complexity.
   - [Minimal example](#minimal-example)
   - [Call](#call)
   - [Result](#result)
-  - [Input attributes](#input-attributes)
-    - [Isolated usage](#isolated-usage)
-    - [As an internal argument](#isolated-usage)
-    - [Optional inputs](#optional-inputs)
-    - [As (internal name)](#as-internal-name)
-    - [An array of specific values](#an-array-of-specific-values)
-    - [Inclusion](#inclusion)
-    - [Must](#must)
-  - [Output attributes](#output-attributes)
-  - [Internal attributes](#internal-attributes)
+  - [Input](#input)
+    - [Type](#option-type)
+    - [Required](#option-required)
+    - [Internal](#option-internal)
+    - [Internal name](#option-as)
+    - [Array](#option-array)
+    - [Inclusion](#option-inclusion)
+    - [Must](#option-must)
+  - [Output](#output)
+  - [Internal](#internal)
   - [Make](#make)
   - [Failures](#failures)
 - [I18n](#i18n)
@@ -69,9 +69,9 @@ As a first step, it is recommended to prepare the base class for further inherit
 
 module ApplicationService
   module Errors
-    class InputArgumentError < Servactory::Errors::InputArgumentError; end
-    class OutputArgumentError < Servactory::Errors::OutputArgumentError; end
-    class InternalArgumentError < Servactory::Errors::InternalArgumentError; end
+    class InputError < Servactory::Errors::InputError; end
+    class OutputError < Servactory::Errors::OutputError; end
+    class InternalError < Servactory::Errors::InternalError; end
 
     class Failure < Servactory::Errors::Failure; end
   end
@@ -86,9 +86,9 @@ end
 module ApplicationService
   class Base < Servactory::Base
     configuration do
-      input_argument_error_class ApplicationService::Errors::InputArgumentError
-      output_argument_error_class ApplicationService::Errors::OutputArgumentError
-      internal_argument_error_class ApplicationService::Errors::InternalArgumentError
+      input_error_class ApplicationService::Errors::InputError
+      output_error_class ApplicationService::Errors::OutputError
+      internal_error_class ApplicationService::Errors::InternalError
 
       failure_class ApplicationService::Errors::Failure
     end
@@ -155,11 +155,45 @@ And then you can work with this result, for example, in this way:
 Notification::SendJob.perform_later(service_result.user.id)
 ```
 
-### Input attributes
+### Input
 
-#### Isolated usage
+#### Option `type`
 
-With this approach, all input attributes are available only from `inputs`. This is default behaviour.
+Always required to specify. May contain one or more classes.
+
+```ruby
+class UsersService::Accept < ApplicationService::Base
+  input :user, type: User
+
+  # ...
+end
+```
+
+```ruby
+class ToggleService < ApplicationService::Base
+  input :flag, type: [TrueClass, FalseClass]
+
+  # ...
+end
+```
+
+#### Option `required`
+
+By default, `required` is set to `true`.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :first_name, type: String
+  input :middle_name, type: String, required: false
+  input :last_name, type: String
+
+  # ...
+end
+```
+
+#### Option `internal`
+
+By default, `internal` is set to `false`.
 
 ```ruby
 class UsersService::Accept < ApplicationService::Base
@@ -175,10 +209,6 @@ class UsersService::Accept < ApplicationService::Base
 end
 ```
 
-#### As an internal argument
-
-With this approach, all input attributes are available from `inputs` as well as directly from the context.
-
 ```ruby
 class UsersService::Accept < ApplicationService::Base
   input :user, type: User, internal: true
@@ -193,21 +223,7 @@ class UsersService::Accept < ApplicationService::Base
 end
 ```
 
-#### Optional inputs
-
-By default, all inputs are required. To make an input optional, specify `false` in the `required` option.
-
-```ruby
-class UsersService::Create < ApplicationService::Base
-  input :first_name, type: String
-  input :middle_name, type: String, required: false
-  input :last_name, type: String
-
-  # ...
-end
-```
-
-#### As (internal name)
+#### Option `as`
 
 This option changes the name of the input within the service.
 
@@ -227,7 +243,9 @@ class NotificationService::Create < ApplicationService::Base
 end
 ```
 
-#### An array of specific values
+#### Option `array`
+
+Using this option will mean that the input argument is an array, each element of which has the specified type.
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base
@@ -237,7 +255,7 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
-#### Inclusion
+#### Option `inclusion`
 
 ```ruby
 class EventService::Send < ApplicationService::Base
@@ -247,7 +265,7 @@ class EventService::Send < ApplicationService::Base
 end
 ```
 
-#### Must
+#### Option `must`
 
 Sometimes there are cases that require the implementation of a specific input attribute check. In such cases `must` can help.
 
@@ -266,7 +284,7 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
-### Output attributes
+### Output
 
 ```ruby
 class NotificationService::Create < ApplicationService::Base
@@ -284,7 +302,7 @@ class NotificationService::Create < ApplicationService::Base
 end
 ```
 
-### Internal attributes
+### Internal
 
 ```ruby
 class NotificationService::Create < ApplicationService::Base

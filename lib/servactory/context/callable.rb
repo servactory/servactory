@@ -8,23 +8,23 @@ module Servactory
 
         assign_data_with(arguments)
 
-        input_arguments_workbench.find_unnecessary!
-        input_arguments_workbench.check_rules!
-        output_arguments_workbench.find_conflicts_in!(
-          collection_of_internal_arguments: collection_of_internal_arguments
+        inputs_workbench.find_unnecessary!
+        inputs_workbench.check_rules!
+        outputs_workbench.find_conflicts_in!(
+          collection_of_internals: collection_of_internals
         )
 
         prepare_data
 
-        input_arguments_workbench.check!
+        inputs_workbench.check!
 
-        make_methods_workbench.run!
+        methods_workbench.run!
 
         context_store.context.raise_first_fail
 
         Servactory::Result.prepare_for(
           context: context_store.context,
-          collection_of_output_arguments: collection_of_output_arguments
+          collection_of_outputs: collection_of_outputs
         )
       end
 
@@ -33,21 +33,21 @@ module Servactory
 
         assign_data_with(arguments)
 
-        input_arguments_workbench.find_unnecessary!
-        input_arguments_workbench.check_rules!
-        output_arguments_workbench.find_conflicts_in!(
-          collection_of_internal_arguments: collection_of_internal_arguments
+        inputs_workbench.find_unnecessary!
+        inputs_workbench.check_rules!
+        outputs_workbench.find_conflicts_in!(
+          collection_of_internals: collection_of_internals
         )
 
         prepare_data
 
-        input_arguments_workbench.check!
+        inputs_workbench.check!
 
-        make_methods_workbench.run!
+        methods_workbench.run!
 
         Servactory::Result.prepare_for(
           context: context_store.context,
-          collection_of_output_arguments: collection_of_output_arguments
+          collection_of_outputs: collection_of_outputs
         )
       end
 
@@ -56,21 +56,20 @@ module Servactory
       attr_reader :context_store
 
       def assign_data_with(arguments)
-        input_arguments_workbench.assign(
+        inputs_workbench.assign(
           context: context_store.context,
           arguments: arguments
         )
 
-        internal_arguments_workbench.assign(context: context_store.context)
-        output_arguments_workbench.assign(context: context_store.context)
-        make_methods_workbench.assign(context: context_store.context)
+        internals_workbench.assign(context: context_store.context)
+        outputs_workbench.assign(context: context_store.context)
+        methods_workbench.assign(context: context_store.context)
       end
 
       def prepare_data
-        input_arguments_workbench.prepare     # 1
-
-        output_arguments_workbench.prepare    # 2
-        internal_arguments_workbench.prepare  # 3
+        inputs_workbench.prepare      # 1
+        outputs_workbench.prepare     # 2
+        internals_workbench.prepare   # 3
       end
     end
   end

@@ -1,0 +1,9 @@
+module Servactory
+  module Outputs
+    module Checks
+      class Base
+        def raise_error_with: (String | Proc message, **untyped attributes) -> untyped
+      end
+    end
+  end
+end

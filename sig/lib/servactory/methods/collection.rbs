@@ -1,0 +1,12 @@
+module Servactory
+  module Methods
+    class Collection
+      # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
+      extend Forwardable
+
+      @collection: Set[Collection]
+
+      def initialize: (*untyped) -> void
+    end
+  end
+end

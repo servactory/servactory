@@ -1,0 +1,22 @@
+module Servactory
+  module Inputs
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        @collection_of_inputs: Collection
+        @inputs_workbench: Workbench
+
+        def inherited: -> void
+
+        private
+
+        def input: (Symbol name, **untyped options) -> void
+
+        def collection_of_inputs: () -> Collection
+
+        def inputs_workbench: () -> Workbench
+      end
+    end
+  end
+end

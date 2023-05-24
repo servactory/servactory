@@ -1,0 +1,21 @@
+module Servactory
+  module Methods
+    class Workbench
+      def self.work_with: (*untyped) ?{ () -> untyped } -> untyped
+
+      def initialize: (Collection collection_of_methods) -> void
+
+      def assign: (context: untyped) -> void
+
+      def run!: () -> void
+
+      private
+
+      attr_reader context: instance
+
+      attr_reader collection_of_methods: Collection
+
+      def unnecessary_for?: (Method make_method) -> bool
+    end
+  end
+end

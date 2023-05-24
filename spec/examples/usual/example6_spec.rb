@@ -43,7 +43,7 @@ RSpec.describe Usual::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example6] Wrong type in input array `ids`, expected `String`"
               )
             )
@@ -62,7 +62,7 @@ RSpec.describe Usual::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example6] Required element in input array `ids` is missing"
               )
             )
@@ -81,7 +81,7 @@ RSpec.describe Usual::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example6] Required element in input array `ids` is missing"
               )
             )
@@ -141,7 +141,7 @@ RSpec.describe Usual::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example6] Wrong type in input array `ids`, expected `String`"
               )
             )
@@ -160,7 +160,7 @@ RSpec.describe Usual::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example6] Required element in input array `ids` is missing"
               )
             )
@@ -179,7 +179,7 @@ RSpec.describe Usual::Example6 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example6] Required element in input array `ids` is missing"
               )
             )

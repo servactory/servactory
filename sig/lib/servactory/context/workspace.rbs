@@ -3,15 +3,15 @@ module Servactory
     module Workspace
       @errors: Errors
 
-      attr_reader inputs: InputArguments
+      attr_reader inputs: Inputs
 
       def initialize: () -> void
 
-      def assign_inputs: (InputArguments inputs) -> untyped
+      def assign_inputs: (Inputs inputs) -> untyped
 
       def errors: -> Servactory::Errors::Collection
 
-      def fail_input!: (Symbol input_attribute_name, message: String) -> void
+      def fail_input!: (Symbol input_name, message: String) -> void
 
       def fail!: (message: String, meta: untyped?) -> Errors
 

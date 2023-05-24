@@ -17,8 +17,8 @@ RSpec.describe Wrong::Example5 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputArgumentError,
-              "[Wrong::Example5] Wrong type of output argument `invoice_number`, expected `Integer`, got `String`"
+              ApplicationService::Errors::OutputError,
+              "[Wrong::Example5] Wrong type of output attribute `invoice_number`, expected `Integer`, got `String`"
             )
           )
         end
@@ -49,8 +49,8 @@ RSpec.describe Wrong::Example5 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputArgumentError,
-              "[Wrong::Example5] Wrong type of output argument `invoice_number`, expected `Integer`, got `String`"
+              ApplicationService::Errors::OutputError,
+              "[Wrong::Example5] Wrong type of output attribute `invoice_number`, expected `Integer`, got `String`"
             )
           )
         end

@@ -1,0 +1,11 @@
+module Servactory
+  module Inputs
+    class DefineInputMethod
+      attr_reader name: Symbol
+
+      attr_reader content: Proc
+
+      def initialize: (name: Symbol, content: Proc) -> void
+    end
+  end
+end

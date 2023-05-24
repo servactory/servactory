@@ -1,0 +1,32 @@
+module Servactory
+  module Outputs
+    module Tools
+      class Prepare
+        @collection_of_outputs: Collection
+        @context: instance
+
+        def self.prepare: (*untyped) ?{ () -> untyped } -> void
+
+        def initialize: (instance context, Collection collection_of_outputs) -> void
+
+        def prepare: () -> void
+
+        private
+
+        def create_instance_variable_for: (Output output) -> void
+
+        # EXAMPLE:
+        #
+        #   define_method(:user=) do |value|;
+        #     Servactory::Internals::Checks::Type.check!( context: self, output:, value: );
+        #
+        #     instance_variable_set(:@user, value);
+        #   end;
+        #
+        #   private attr_reader :user;
+        #
+        def context_output_template_for: (Output output) -> String
+      end
+    end
+  end
+end

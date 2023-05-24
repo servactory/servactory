@@ -1,0 +1,22 @@
+module Servactory
+  module Internals
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        @collection_of_internals: Collection
+        @internals_workbench: Workbench
+
+        def inherited: -> void
+
+        private
+
+        def internal: (Symbol name, **untyped options) -> void
+
+        def collection_of_internals: () -> Collection
+
+        def internals_workbench: () -> Workbench
+      end
+    end
+  end
+end

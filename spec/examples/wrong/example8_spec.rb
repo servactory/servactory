@@ -24,7 +24,7 @@ RSpec.describe Wrong::Example8 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputError,
               "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
             )
           )
@@ -40,7 +40,7 @@ RSpec.describe Wrong::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
               )
             )
@@ -53,7 +53,7 @@ RSpec.describe Wrong::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
               )
             )
@@ -86,7 +86,7 @@ RSpec.describe Wrong::Example8 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputError,
               "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
             )
           )
@@ -102,7 +102,7 @@ RSpec.describe Wrong::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
               )
             )
@@ -115,7 +115,7 @@ RSpec.describe Wrong::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputArgumentError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
               )
             )

@@ -1,0 +1,19 @@
+module Servactory
+  module Internals
+    class Internal
+      attr_reader name: Symbol
+
+      attr_reader types: Array[Class]
+
+      attr_reader required: bool
+
+      def initialize: (Symbol name, type: Class, **untyped options) -> void
+
+      def options_for_checks: () -> { types: Array[Class], required: bool }
+
+      def required?: () -> bool
+
+      def optional?: () -> bool
+    end
+  end
+end

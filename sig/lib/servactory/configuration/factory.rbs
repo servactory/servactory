@@ -1,11 +1,11 @@
 module Servactory
   module Configuration
     class Factory
-      def input_argument_error_class: (Errors::InputArgumentError input_argument_error_class) -> Errors::InputArgumentError
+      def input_error_class: (Errors::InputError input_error_class) -> Errors::InputError
 
-      def output_argument_error_class: (Errors::OutputArgumentError output_argument_error_class) -> Errors::OutputArgumentError
+      def output_error_class: (Errors::OutputError output_error_class) -> Errors::OutputError
 
-      def internal_argument_error_class: (Errors::InternalArgumentError internal_argument_error_class) -> Errors::InternalArgumentError
+      def internal_error_class: (Errors::InternalError internal_error_class) -> Errors::InternalError
 
       def failure_class: (Errors::Failure failure_class) -> Errors::Failure
     end

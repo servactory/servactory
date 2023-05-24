@@ -1,0 +1,23 @@
+module Servactory
+  module Internals
+    module Tools
+      class Prepare
+        @context: instance
+
+        @collection_of_internals: Internals
+
+        def self.prepare: (*untyped) ?{ () -> untyped } -> void
+
+        def initialize: (instance context, Internals collection_of_internals) -> void
+
+        def prepare: () -> void
+
+        private
+
+        def create_instance_variable_for: (Internal internal) -> void
+
+        def context_internal_template_for: (Internal internal) -> String
+      end
+    end
+  end
+end

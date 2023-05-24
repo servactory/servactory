@@ -24,7 +24,7 @@ RSpec.describe Wrong::Example10 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputError,
               "[Wrong::Example10] Syntax error inside `be_6_characters` of `invoice_numbers` input"
             )
           )
@@ -56,7 +56,7 @@ RSpec.describe Wrong::Example10 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputArgumentError,
+              ApplicationService::Errors::InputError,
               "[Wrong::Example10] Syntax error inside `be_6_characters` of `invoice_numbers` input"
             )
           )

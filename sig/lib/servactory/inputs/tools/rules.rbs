@@ -1,0 +1,22 @@
+module Servactory
+  module Inputs
+    module Tools
+      class Rules
+        @collection_of_inputs: Inputs
+        @context: instance
+
+        def self.check!: (*untyped) ?{ () -> void } -> void
+
+        def initialize: (instance context, Inputs collection_of_inputs) -> void
+
+        def check!: () -> void
+
+        private
+
+        def check_for!: (Input input) -> void
+
+        def raise_error_for: (Input input) -> void
+      end
+    end
+  end
+end

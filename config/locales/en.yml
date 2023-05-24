@@ -1,6 +1,6 @@
 en:
   servactory:
-    input_arguments:
+    inputs:
       checks:
         inclusion:
           default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
@@ -20,14 +20,14 @@ en:
           error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"
         rules:
           error: "[%{service_class_name}] Conflict in `%{input_name}` input options: `%{conflict_code}`"
-    internal_arguments:
+    internals:
       checks:
         type:
-          default_error: "[%{service_class_name}] Wrong type of internal argument `%{internal_argument_name}`, expected `%{expected_type}`, got `%{given_type}`"
-    output_arguments:
+          default_error: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
+    outputs:
       checks:
         type:
-          default_error: "[%{service_class_name}] Wrong type of output argument `%{output_argument_name}`, expected `%{expected_type}`, got `%{given_type}`"
+          default_error: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
       tools:
         conflicts:
           error: "[%{service_class_name}] Conflict between internal and output attributes `%{overlapping_attributes}`"

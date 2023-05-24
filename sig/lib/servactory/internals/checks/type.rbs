@@ -1,0 +1,25 @@
+module Servactory
+  module Internals
+    module Checks
+      class Type < Base
+        DEFAULT_MESSAGE: ^(service_class_name: String, input: Internal, expected_type: String, given_type: String) -> Proc
+
+        @context: instance
+
+        @internal: Internal
+        @prepared_types: Array[Class]
+        @value: untyped
+
+        def self.check!: (*untyped) ?{ () -> untyped } -> void
+
+        def initialize: (context: instance, internal: Internal, value: untyped) -> void
+
+        def check!: () -> void
+
+        private
+
+        def prepared_types: -> Array[Class]
+      end
+    end
+  end
+end
