@@ -20,7 +20,7 @@ en:
           error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"
         rules:
           error: "[%{service_class_name}] Conflict in `%{input_name}` input options: `%{conflict_code}`"
-    internal_attributes:
+    internals:
       checks:
         type:
           default_error: "[%{service_class_name}] Wrong type of internal attribute `%{internal_attribute_name}`, expected `%{expected_type}`, got `%{given_type}`"

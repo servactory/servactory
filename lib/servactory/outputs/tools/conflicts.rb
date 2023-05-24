@@ -8,10 +8,10 @@ module Servactory
           new(...).check!
         end
 
-        def initialize(context, collection_of_outputs, collection_of_internal_attributes)
+        def initialize(context, collection_of_outputs, collection_of_internals)
           @context = context
           @collection_of_outputs = collection_of_outputs
-          @collection_of_internal_attributes = collection_of_internal_attributes
+          @collection_of_internals = collection_of_internals
         end
 
         def check!
@@ -30,7 +30,7 @@ module Servactory
 
         def overlapping_attributes
           @overlapping_attributes ||=
-            @collection_of_outputs.names.intersection(@collection_of_internal_attributes.names)
+            @collection_of_outputs.names.intersection(@collection_of_internals.names)
         end
       end
     end

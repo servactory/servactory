@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module InternalAttributes
-    class InternalAttribute
+  module Internals
+    class Internal
       attr_reader :name,
                   :types,
                   :required

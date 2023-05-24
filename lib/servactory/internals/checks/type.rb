@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Servactory
-  module InternalAttributes
+  module Internals
     module Checks
       class Type < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, internal_attribute:, expected_type:, given_type:|
           I18n.t(
-            "servactory.internal_attributes.checks.type.default_error",
+            "servactory.internals.checks.type.default_error",
             service_class_name: service_class_name,
             internal_attribute_name: internal_attribute.name,
             expected_type: expected_type,

@@ -5,7 +5,7 @@ module Servactory
 
       def output_attribute_error_class: (Errors::OutputError output_attribute_error_class) -> Errors::OutputError
 
-      def internal_attribute_error_class: (Errors::InternalAttributeError internal_attribute_error_class) -> Errors::InternalAttributeError
+      def internal_attribute_error_class: (Errors::InternalError internal_attribute_error_class) -> Errors::InternalError
 
       def failure_class: (Errors::Failure failure_class) -> Errors::Failure
     end

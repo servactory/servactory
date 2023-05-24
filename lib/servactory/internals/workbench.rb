@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Servactory
-  module InternalAttributes
+  module Internals
     class Workbench
       def self.work_with(...)
         new(...)
       end
 
-      def initialize(collection_of_internal_attributes)
-        @collection_of_internal_attributes = collection_of_internal_attributes
+      def initialize(collection_of_internals)
+        @collection_of_internals = collection_of_internals
       end
 
       def assign(context:)
@@ -16,13 +16,13 @@ module Servactory
       end
 
       def prepare
-        Tools::Prepare.prepare(context, collection_of_internal_attributes)
+        Tools::Prepare.prepare(context, collection_of_internals)
       end
 
       private
 
       attr_reader :context,
-                  :collection_of_internal_attributes
+                  :collection_of_internals
     end
   end
 end

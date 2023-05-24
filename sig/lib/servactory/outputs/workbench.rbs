@@ -7,7 +7,7 @@ module Servactory
 
       def assign: (context: instance) -> void
 
-      def find_conflicts_in!: (collection_of_internal_attributes: InternalAttributes::Collection) -> void
+      def find_conflicts_in!: (collection_of_internals: Internals::Collection) -> void
 
       def prepare: () -> void
 

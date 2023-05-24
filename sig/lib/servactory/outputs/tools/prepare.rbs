@@ -18,7 +18,7 @@ module Servactory
         # EXAMPLE:
         #
         #   define_method(:user=) do |value|;
-        #     Servactory::InternalAttributes::Checks::Type.check!( context: self, output_attribute:, value: );
+        #     Servactory::Internals::Checks::Type.check!( context: self, output_attribute:, value: );
         #
         #     instance_variable_set(:@user, value);
         #   end;

@@ -1,5 +1,5 @@
 module Servactory
-  module InternalAttributes
+  module Internals
     module Checks
       class Base
         def raise_error_with: (String | Proc message, **untyped attributes) -> untyped

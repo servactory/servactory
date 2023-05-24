@@ -15,8 +15,8 @@ module Servactory
         @context = context
       end
 
-      def find_conflicts_in!(collection_of_internal_attributes:)
-        Tools::Conflicts.check!(context, collection_of_outputs, collection_of_internal_attributes)
+      def find_conflicts_in!(collection_of_internals:)
+        Tools::Conflicts.check!(context, collection_of_outputs, collection_of_internals)
       end
 
       def prepare

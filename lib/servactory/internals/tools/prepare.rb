@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 module Servactory
-  module InternalAttributes
+  module Internals
     module Tools
       class Prepare
         def self.prepare(...)
           new(...).prepare
         end
 
-        def initialize(context, collection_of_internal_attributes)
+        def initialize(context, collection_of_internals)
           @context = context
-          @collection_of_internal_attributes = collection_of_internal_attributes
+          @collection_of_internals = collection_of_internals
         end
 
         def prepare
-          @collection_of_internal_attributes.each do |internal_attribute|
+          @collection_of_internals.each do |internal_attribute|
             create_instance_variable_for(internal_attribute)
           end
         end
@@ -30,7 +30,7 @@ module Servactory
         # EXAMPLE:
         #
         #   define_method(:user=) do |value|
-        #     Servactory::InternalAttributes::Checks::Type.check!( context: self, internal_attribute:, value: )
+        #     Servactory::Internals::Checks::Type.check!( context: self, internal_attribute:, value: )
         #
         #     instance_variable_set(:@user, value)
         #   end
@@ -40,7 +40,7 @@ module Servactory
         def context_internal_attribute_template_for(internal_attribute)
           <<-RUBY
             define_method(:#{internal_attribute.name}=) do |value|
-              Servactory::InternalAttributes::Checks::Type.check!(
+              Servactory::Internals::Checks::Type.check!(
                 context: self,
                 internal_attribute: internal_attribute,
                 value: value

@@ -5,7 +5,7 @@ module Servactory
     include Configuration::DSL
     include Context::DSL
     include Inputs::DSL
-    include InternalAttributes::DSL
+    include Internals::DSL
     include Outputs::DSL
     include MakeMethods::DSL
 

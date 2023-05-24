@@ -11,7 +11,7 @@ module Servactory
         inputs_workbench.find_unnecessary!
         inputs_workbench.check_rules!
         outputs_workbench.find_conflicts_in!(
-          collection_of_internal_attributes: collection_of_internal_attributes
+          collection_of_internals: collection_of_internals
         )
 
         prepare_data
@@ -36,7 +36,7 @@ module Servactory
         inputs_workbench.find_unnecessary!
         inputs_workbench.check_rules!
         outputs_workbench.find_conflicts_in!(
-          collection_of_internal_attributes: collection_of_internal_attributes
+          collection_of_internals: collection_of_internals
         )
 
         prepare_data
@@ -61,15 +61,15 @@ module Servactory
           attributes: attributes
         )
 
-        internal_attributes_workbench.assign(context: context_store.context)
+        internals_workbench.assign(context: context_store.context)
         outputs_workbench.assign(context: context_store.context)
         make_methods_workbench.assign(context: context_store.context)
       end
 
       def prepare_data
-        inputs_workbench.prepare               # 1
-        outputs_workbench.prepare    # 2
-        internal_attributes_workbench.prepare  # 3
+        inputs_workbench.prepare      # 1
+        outputs_workbench.prepare     # 2
+        internals_workbench.prepare   # 3
       end
     end
   end

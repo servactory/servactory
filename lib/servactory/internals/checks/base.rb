@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servactory
-  module InternalAttributes
+  module Internals
     module Checks
       class Base
         protected

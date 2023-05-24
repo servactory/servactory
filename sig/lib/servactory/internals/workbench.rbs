@@ -1,9 +1,9 @@
 module Servactory
-  module InternalAttributes
+  module Internals
     class Workbench
       def self.work_with: (*untyped) ?{ () -> untyped } -> untyped
 
-      def initialize: (Collection collection_of_internal_attributes) -> void
+      def initialize: (Collection collection_of_internals) -> void
 
       def assign: (context: instance) -> void
 
@@ -13,7 +13,7 @@ module Servactory
 
       attr_reader context: instance
 
-      attr_reader collection_of_internal_attributes: Collection
+      attr_reader collection_of_internals: Collection
     end
   end
 end

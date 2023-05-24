@@ -2,7 +2,7 @@
 
 module Servactory
   module Errors
-    class InternalAttributeError < Base
+    class InternalError < Base
       attr_reader :message
 
       def initialize(message:)
