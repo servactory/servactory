@@ -28,6 +28,7 @@ A set of tools for building reliable services of any complexity.
   - [Internal](#internal)
   - [Make](#make)
   - [Failures](#failures)
+  - [Inheritance](#inheritance)
 - [I18n](#i18n)
 - [Testing](#testing)
 - [Thanks](#thanks)
@@ -369,10 +370,6 @@ def process_result
 end
 ```
 
-#### Inheritance
-
-Service inheritance is also supported.
-
 ### Failures
 
 The methods that are used in `make` may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
@@ -418,6 +415,10 @@ exception.message           # => Invalid invoice number
 exception.type              # => :fail
 exception.meta              # => {:invoice_number=>"BB-7650AE"}
 ```
+
+### Inheritance
+
+Inheritance between services is also supported.
 
 ## I18n
 
