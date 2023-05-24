@@ -13,9 +13,9 @@ module Servactory
 
         private
 
-        def check_for!: (Input input_attribute) -> void
+        def check_for!: (Input input) -> void
 
-        def raise_error_for: (Input input_attribute) -> void
+        def raise_error_for: (Input input) -> void
       end
     end
   end

@@ -13,19 +13,19 @@ module Servactory
 
         private
 
-        def create_instance_variable_for: (Output output_attribute) -> void
+        def create_instance_variable_for: (Output output) -> void
 
         # EXAMPLE:
         #
         #   define_method(:user=) do |value|;
-        #     Servactory::Internals::Checks::Type.check!( context: self, output_attribute:, value: );
+        #     Servactory::Internals::Checks::Type.check!( context: self, output:, value: );
         #
         #     instance_variable_set(:@user, value);
         #   end;
         #
         #   private attr_reader :user;
         #
-        def context_output_attribute_template_for: (Output output_attribute) -> String
+        def context_output_template_for: (Output output) -> String
       end
     end
   end

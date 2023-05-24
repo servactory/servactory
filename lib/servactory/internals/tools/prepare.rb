@@ -14,44 +14,44 @@ module Servactory
         end
 
         def prepare
-          @collection_of_internals.each do |internal_attribute|
-            create_instance_variable_for(internal_attribute)
+          @collection_of_internals.each do |internal|
+            create_instance_variable_for(internal)
           end
         end
 
         private
 
-        def create_instance_variable_for(internal_attribute)
-          @context.instance_variable_set(:"@#{internal_attribute.name}", nil)
+        def create_instance_variable_for(internal)
+          @context.instance_variable_set(:"@#{internal.name}", nil)
 
-          @context.class.class_eval(context_internal_attribute_template_for(internal_attribute))
+          @context.class.class_eval(context_internal_template_for(internal))
         end
 
         # EXAMPLE:
         #
         #   define_method(:user=) do |value|
-        #     Servactory::Internals::Checks::Type.check!( context: self, internal_attribute:, value: )
+        #     Servactory::Internals::Checks::Type.check!( context: self, internal:, value: )
         #
         #     instance_variable_set(:@user, value)
         #   end
         #
         #   private attr_reader :user
         #
-        def context_internal_attribute_template_for(internal_attribute)
+        def context_internal_template_for(internal)
           <<-RUBY
-            define_method(:#{internal_attribute.name}=) do |value|
+            define_method(:#{internal.name}=) do |value|
               Servactory::Internals::Checks::Type.check!(
                 context: self,
-                internal_attribute: internal_attribute,
+                internal: internal,
                 value: value
               )
 
-              instance_variable_set(:@#{internal_attribute.name}, value)
+              instance_variable_set(:@#{internal.name}, value)
             end
 
             private
 
-            attr_reader :#{internal_attribute.name}
+            attr_reader :#{internal.name}
           RUBY
         end
       end

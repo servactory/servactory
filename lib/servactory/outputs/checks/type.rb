@@ -4,11 +4,11 @@ module Servactory
   module Outputs
     module Checks
       class Type < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, output_attribute:, expected_type:, given_type:|
+        DEFAULT_MESSAGE = lambda do |service_class_name:, output:, expected_type:, given_type:|
           I18n.t(
             "servactory.outputs.checks.type.default_error",
             service_class_name: service_class_name,
-            output_attribute_name: output_attribute.name,
+            output_name: output.name,
             expected_type: expected_type,
             given_type: given_type
           )
@@ -22,11 +22,11 @@ module Servactory
 
         ##########################################################################
 
-        def initialize(context:, output_attribute:, value:)
+        def initialize(context:, output:, value:)
           super()
 
           @context = context
-          @output_attribute = output_attribute
+          @output = output
           @value = value
         end
 
@@ -36,7 +36,7 @@ module Servactory
           raise_error_with(
             DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
-            output_attribute: @output_attribute,
+            output: @output,
             expected_type: prepared_types.join(", "),
             given_type: @value.class.name
           )
@@ -46,7 +46,7 @@ module Servactory
 
         def prepared_types
           @prepared_types ||=
-            Array(@output_attribute.types).map do |type|
+            Array(@output.types).map do |type|
               if type.is_a?(String)
                 Object.const_get(type)
               else

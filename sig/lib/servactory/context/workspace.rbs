@@ -11,7 +11,7 @@ module Servactory
 
       def errors: -> Servactory::Errors::Collection
 
-      def fail_input!: (Symbol input_attribute_name, message: String) -> void
+      def fail_input!: (Symbol input_name, message: String) -> void
 
       def fail!: (message: String, meta: untyped?) -> Errors
 

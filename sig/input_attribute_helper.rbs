@@ -1,5 +1,5 @@
 module InputAttributeHelper
-  def prepare_input_attribute_text_for: (
+  def prepare_input_text_for: (
     check_name: Symbol,
     name: Symbol,
     service_class_name: Class,
@@ -10,7 +10,7 @@ module InputAttributeHelper
     given_type: Class?
   ) -> String
 
-  def raise_input_attribute_error_for: (
+  def raise_input_error_for: (
     check_name: Symbol,
     name: Symbol,
     service_class_name: Class,
@@ -23,9 +23,9 @@ module InputAttributeHelper
 
   private
 
-  def prepare_input_attribute_required_check_text_for: (name: Symbol, service_class_name: Class, custom_message: String?) -> String
+  def prepare_input_required_check_text_for: (name: Symbol, service_class_name: Class, custom_message: String?) -> String
 
-  def prepare_input_attribute_type_check_text_for: (
+  def prepare_input_type_check_text_for: (
     name: Symbol,
     service_class_name: Class,
     array: bool,

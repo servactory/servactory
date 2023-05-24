@@ -14,30 +14,30 @@ module Servactory
         end
 
         def check!
-          @collection_of_inputs.each do |input_attribute|
-            check_for!(input_attribute)
+          @collection_of_inputs.each do |input|
+            check_for!(input)
           end
         end
 
         private
 
-        def check_for!(input_attribute)
-          return unless input_attribute.with_conflicts?
+        def check_for!(input)
+          return unless input.with_conflicts?
 
-          raise_error_for(input_attribute)
+          raise_error_for(input)
         end
 
-        def raise_error_for(input_attribute)
+        def raise_error_for(input)
           message_text = I18n.t(
             "servactory.inputs.tools.rules.error",
             service_class_name: @context.class.name,
-            input_name: input_attribute.name,
-            conflict_code: input_attribute.conflict_code
+            input_name: input.name,
+            conflict_code: input.conflict_code
           )
 
           raise Servactory.configuration.input_error_class.new(
             message: message_text,
-            input_name: input_attribute.name
+            input_name: input.name
           )
         end
       end

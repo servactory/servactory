@@ -14,23 +14,23 @@ module Servactory
         end
 
         def prepare
-          @collection_of_outputs.each do |output_attribute|
-            create_instance_variable_for(output_attribute)
+          @collection_of_outputs.each do |output|
+            create_instance_variable_for(output)
           end
         end
 
         private
 
-        def create_instance_variable_for(output_attribute)
-          @context.instance_variable_set(:"@#{output_attribute.name}", nil)
+        def create_instance_variable_for(output)
+          @context.instance_variable_set(:"@#{output.name}", nil)
 
-          @context.class.class_eval(context_output_attribute_template_for(output_attribute))
+          @context.class.class_eval(context_output_template_for(output))
         end
 
         # EXAMPLE:
         #
         #   define_method(:user=) do |value|
-        #     Servactory::Internals::Checks::Type.check!( context: self, output_attribute:, value: )
+        #     Servactory::Internals::Checks::Type.check!( context: self, output:, value: )
         #
         #     instance_variable_set(:@user, value)
         #   end
@@ -39,21 +39,21 @@ module Servactory
         #
         #   attr_reader :user
         #
-        def context_output_attribute_template_for(output_attribute)
+        def context_output_template_for(output)
           <<-RUBY
-            define_method(:#{output_attribute.name}=) do |value|
+            define_method(:#{output.name}=) do |value|
               Servactory::Outputs::Checks::Type.check!(
                 context: self,
-                output_attribute: output_attribute,
+                output: output,
                 value: value
               )
 
-              instance_variable_set(:@#{output_attribute.name}, value)
+              instance_variable_set(:@#{output.name}, value)
             end
 
             private
 
-            attr_reader :#{output_attribute.name}
+            attr_reader :#{output.name}
           RUBY
         end
       end

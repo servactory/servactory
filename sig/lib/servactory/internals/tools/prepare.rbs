@@ -14,9 +14,9 @@ module Servactory
 
         private
 
-        def create_instance_variable_for: (Internal internal_attribute) -> void
+        def create_instance_variable_for: (Internal internal) -> void
 
-        def context_internal_attribute_template_for: (Internal internal_attribute) -> String
+        def context_internal_template_for: (Internal internal) -> String
       end
     end
   end

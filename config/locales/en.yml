@@ -23,11 +23,11 @@ en:
     internals:
       checks:
         type:
-          default_error: "[%{service_class_name}] Wrong type of internal attribute `%{internal_attribute_name}`, expected `%{expected_type}`, got `%{given_type}`"
+          default_error: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
     outputs:
       checks:
         type:
-          default_error: "[%{service_class_name}] Wrong type of output attribute `%{output_attribute_name}`, expected `%{expected_type}`, got `%{given_type}`"
+          default_error: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
       tools:
         conflicts:
           error: "[%{service_class_name}] Conflict between internal and output attributes `%{overlapping_attributes}`"

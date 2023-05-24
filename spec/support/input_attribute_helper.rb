@@ -4,7 +4,7 @@ module InputAttributeHelper
   extend self
 
   # rubocop:disable Metrics/MethodLength
-  def raise_input_attribute_error_for(
+  def raise_input_error_for(
     check_name:,
     name:,
     service_class_name:,
@@ -16,7 +16,7 @@ module InputAttributeHelper
   ) # do
     raise_error(
       ApplicationService::Errors::InputError,
-      prepare_input_attribute_text_for(
+      prepare_input_text_for(
         check_name: check_name,
         name: name,
         service_class_name: service_class_name,
@@ -31,7 +31,7 @@ module InputAttributeHelper
   # rubocop:enable Metrics/MethodLength
 
   # rubocop:disable Metrics/MethodLength
-  def prepare_input_attribute_text_for(
+  def prepare_input_text_for(
     check_name:,
     name:,
     service_class_name:,
@@ -43,13 +43,13 @@ module InputAttributeHelper
   ) # do
     case check_name.to_sym
     when :required
-      prepare_input_attribute_required_check_text_for(
+      prepare_input_required_check_text_for(
         name: name,
         service_class_name: service_class_name,
         custom_message: custom_message
       )
     when :type
-      prepare_input_attribute_type_check_text_for(
+      prepare_input_type_check_text_for(
         name: name,
         service_class_name: service_class_name,
         array: array,
@@ -65,11 +65,11 @@ module InputAttributeHelper
 
   private
 
-  def prepare_input_attribute_required_check_text_for(name:, service_class_name:, custom_message:)
+  def prepare_input_required_check_text_for(name:, service_class_name:, custom_message:)
     custom_message.presence || "[#{service_class_name}] Required input `#{name}` is missing"
   end
 
-  def prepare_input_attribute_type_check_text_for(
+  def prepare_input_type_check_text_for(
     name:,
     service_class_name:,
     array:,
