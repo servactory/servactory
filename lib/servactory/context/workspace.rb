@@ -14,7 +14,7 @@ module Servactory
       end
 
       def fail_input!(input_attribute_name, message:)
-        raise Servactory.configuration.input_attribute_error_class.new(
+        raise Servactory.configuration.input_error_class.new(
           input_name: input_attribute_name,
           message: message
         )

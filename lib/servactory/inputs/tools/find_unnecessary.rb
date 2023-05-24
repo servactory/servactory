@@ -23,7 +23,7 @@ module Servactory
             unnecessary_attributes: unnecessary_attributes.join(", ")
           )
 
-          raise Servactory.configuration.input_attribute_error_class.new(message: message_text)
+          raise Servactory.configuration.input_error_class.new(message: message_text)
         end
 
         private

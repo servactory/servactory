@@ -1,11 +1,11 @@
 module Servactory
   module Configuration
     class Setup
-      attr_accessor input_attribute_error_class: singleton(Servactory::Errors::InputError)
+      attr_accessor input_error_class: singleton(Servactory::Errors::InputError)
 
-      attr_accessor internal_attribute_error_class: singleton(Servactory::Errors::InternalError)
+      attr_accessor internal_error_class: singleton(Servactory::Errors::InternalError)
 
-      attr_accessor output_attribute_error_class: singleton(Servactory::Errors::OutputError)
+      attr_accessor output_error_class: singleton(Servactory::Errors::OutputError)
 
       attr_accessor failure_class: singleton(Servactory::Errors::Failure)
 
