@@ -8,6 +8,8 @@ module Servactory
 
         @outputs_workbench: Workbench
 
+        def inherited: -> void
+
         private
 
         def output: (Symbol name, **untyped options) -> void

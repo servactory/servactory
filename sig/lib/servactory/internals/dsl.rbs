@@ -4,9 +4,10 @@ module Servactory
       def self.included: (untyped base) -> untyped
 
       module ClassMethods
-        @@collection_of_internals: Collection
-
+        @collection_of_internals: Collection
         @internals_workbench: Workbench
+
+        def inherited: -> void
 
         private
 

@@ -7,6 +7,8 @@ module Servactory
         @collection_of_inputs: Collection
         @inputs_workbench: Workbench
 
+        def inherited: -> void
+
         private
 
         def input: (Symbol name, **untyped options) -> void
