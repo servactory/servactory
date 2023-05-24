@@ -32,7 +32,7 @@ RSpec.describe Usual::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputAttributeError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example8] Wrong value in `event_name`, must be one of " \
                 "`[\"created\", \"rejected\", \"approved\"]`"
               )
@@ -82,7 +82,7 @@ RSpec.describe Usual::Example8 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputAttributeError,
+                ApplicationService::Errors::InputError,
                 "[Usual::Example8] Wrong value in `event_name`, must be one of " \
                 "`[\"created\", \"rejected\", \"approved\"]`"
               )

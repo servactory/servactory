@@ -69,7 +69,7 @@ As a first step, it is recommended to prepare the base class for further inherit
 
 module ApplicationService
   module Errors
-    class InputAttributeError < Servactory::Errors::InputAttributeError; end
+    class InputError < Servactory::Errors::InputError; end
     class OutputAttributeError < Servactory::Errors::OutputAttributeError; end
     class InternalAttributeError < Servactory::Errors::InternalAttributeError; end
 
@@ -86,7 +86,7 @@ end
 module ApplicationService
   class Base < Servactory::Base
     configuration do
-      input_attribute_error_class ApplicationService::Errors::InputAttributeError
+      input_attribute_error_class ApplicationService::Errors::InputError
       output_attribute_error_class ApplicationService::Errors::OutputAttributeError
       internal_attribute_error_class ApplicationService::Errors::InternalAttributeError
 

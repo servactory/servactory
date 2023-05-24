@@ -15,7 +15,7 @@ module InputAttributeHelper
     given_type: nil
   ) # do
     raise_error(
-      ApplicationService::Errors::InputAttributeError,
+      ApplicationService::Errors::InputError,
       prepare_input_attribute_text_for(
         check_name: check_name,
         name: name,

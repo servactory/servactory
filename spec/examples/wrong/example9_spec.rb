@@ -32,7 +32,7 @@ RSpec.describe Wrong::Example9 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputAttributeError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example9] Unexpected attributes: `invoice_code`"
               )
             )
@@ -80,7 +80,7 @@ RSpec.describe Wrong::Example9 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputAttributeError,
+                ApplicationService::Errors::InputError,
                 "[Wrong::Example9] Unexpected attributes: `invoice_code`"
               )
             )

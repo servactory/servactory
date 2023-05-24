@@ -8,15 +8,15 @@ module Servactory
 
         assign_data_with(attributes)
 
-        input_attributes_workbench.find_unnecessary!
-        input_attributes_workbench.check_rules!
+        inputs_workbench.find_unnecessary!
+        inputs_workbench.check_rules!
         output_attributes_workbench.find_conflicts_in!(
           collection_of_internal_attributes: collection_of_internal_attributes
         )
 
         prepare_data
 
-        input_attributes_workbench.check!
+        inputs_workbench.check!
 
         make_methods_workbench.run!
 
@@ -33,15 +33,15 @@ module Servactory
 
         assign_data_with(attributes)
 
-        input_attributes_workbench.find_unnecessary!
-        input_attributes_workbench.check_rules!
+        inputs_workbench.find_unnecessary!
+        inputs_workbench.check_rules!
         output_attributes_workbench.find_conflicts_in!(
           collection_of_internal_attributes: collection_of_internal_attributes
         )
 
         prepare_data
 
-        input_attributes_workbench.check!
+        inputs_workbench.check!
 
         make_methods_workbench.run!
 
@@ -56,7 +56,7 @@ module Servactory
       attr_reader :context_store
 
       def assign_data_with(attributes)
-        input_attributes_workbench.assign(
+        inputs_workbench.assign(
           context: context_store.context,
           attributes: attributes
         )
@@ -67,8 +67,7 @@ module Servactory
       end
 
       def prepare_data
-        input_attributes_workbench.prepare     # 1
-
+        inputs_workbench.prepare               # 1
         output_attributes_workbench.prepare    # 2
         internal_attributes_workbench.prepare  # 3
       end

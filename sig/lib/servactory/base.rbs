@@ -2,7 +2,7 @@ module Servactory
   class Base
     include Context::DSL
 
-    include InputAttributes::DSL
+    include Inputs::DSL
 
     include InternalAttributes::DSL
 

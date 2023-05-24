@@ -5,7 +5,7 @@ module Servactory
     module Workspace
       class Inputs
         def initialize(**)
-          # NOTE: Look at the file `lib/servactory/input_attributes/tools/prepare.rb`
+          # NOTE: Look at the file `lib/servactory/inputs/tools/prepare.rb`
         end
       end
     end

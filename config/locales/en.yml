@@ -1,6 +1,6 @@
 en:
   servactory:
-    input_attributes:
+    inputs:
       checks:
         inclusion:
           default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"

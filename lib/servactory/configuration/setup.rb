@@ -9,7 +9,7 @@ module Servactory
                     :failure_class
 
       def initialize
-        @input_attribute_error_class = Servactory::Errors::InputAttributeError
+        @input_attribute_error_class = Servactory::Errors::InputError
         @internal_attribute_error_class = Servactory::Errors::InternalAttributeError
         @output_attribute_error_class = Servactory::Errors::OutputAttributeError
 
