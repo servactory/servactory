@@ -4,7 +4,7 @@ module ApplicationService
   class Base < Servactory::Base
     configuration do
       input_attribute_error_class ApplicationService::Errors::InputError
-      output_attribute_error_class ApplicationService::Errors::OutputAttributeError
+      output_attribute_error_class ApplicationService::Errors::OutputError
       internal_attribute_error_class ApplicationService::Errors::InternalAttributeError
 
       failure_class ApplicationService::Errors::Failure

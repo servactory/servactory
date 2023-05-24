@@ -1,0 +1,21 @@
+module Servactory
+  module Outputs
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        @collection_of_outputs: Collection
+
+        @outputs_workbench: Workbench
+
+        private
+
+        def output: (Symbol name, **untyped options) -> void
+
+        def collection_of_outputs: () -> Collection
+
+        def outputs_workbench: () -> Workbench
+      end
+    end
+  end
+end

@@ -6,7 +6,7 @@ module Servactory
 
     include InternalAttributes::DSL
 
-    include OutputAttributes::DSL
+    include Outputs::DSL
 
     include MakeMethods::DSL
   end

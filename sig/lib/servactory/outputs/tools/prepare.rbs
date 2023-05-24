@@ -1,19 +1,19 @@
 module Servactory
-  module OutputAttributes
+  module Outputs
     module Tools
       class Prepare
-        @collection_of_output_attributes: Collection
+        @collection_of_outputs: Collection
         @context: instance
 
         def self.prepare: (*untyped) ?{ () -> untyped } -> void
 
-        def initialize: (instance context, Collection collection_of_output_attributes) -> void
+        def initialize: (instance context, Collection collection_of_outputs) -> void
 
         def prepare: () -> void
 
         private
 
-        def create_instance_variable_for: (OutputAttribute output_attribute) -> void
+        def create_instance_variable_for: (Output output_attribute) -> void
 
         # EXAMPLE:
         #
@@ -25,7 +25,7 @@ module Servactory
         #
         #   private attr_reader :user;
         #
-        def context_output_attribute_template_for: (OutputAttribute output_attribute) -> String
+        def context_output_attribute_template_for: (Output output_attribute) -> String
       end
     end
   end

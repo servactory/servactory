@@ -11,7 +11,7 @@ module Servactory
       def initialize
         @input_attribute_error_class = Servactory::Errors::InputError
         @internal_attribute_error_class = Servactory::Errors::InternalAttributeError
-        @output_attribute_error_class = Servactory::Errors::OutputAttributeError
+        @output_attribute_error_class = Servactory::Errors::OutputError
 
         @failure_class = Servactory::Errors::Failure
       end

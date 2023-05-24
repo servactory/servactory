@@ -3,7 +3,7 @@ module Servactory
     class Factory
       def input_attribute_error_class: (Errors::InputError input_attribute_error_class) -> Errors::InputError
 
-      def output_attribute_error_class: (Errors::OutputAttributeError output_attribute_error_class) -> Errors::OutputAttributeError
+      def output_attribute_error_class: (Errors::OutputError output_attribute_error_class) -> Errors::OutputError
 
       def internal_attribute_error_class: (Errors::InternalAttributeError internal_attribute_error_class) -> Errors::InternalAttributeError
 

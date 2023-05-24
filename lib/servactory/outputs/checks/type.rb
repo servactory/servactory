@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Servactory
-  module OutputAttributes
+  module Outputs
     module Checks
       class Type < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, output_attribute:, expected_type:, given_type:|
           I18n.t(
-            "servactory.output_attributes.checks.type.default_error",
+            "servactory.outputs.checks.type.default_error",
             service_class_name: service_class_name,
             output_attribute_name: output_attribute.name,
             expected_type: expected_type,

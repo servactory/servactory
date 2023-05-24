@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servactory
-  module OutputAttributes
+  module Outputs
     module Checks
       class Base
         protected

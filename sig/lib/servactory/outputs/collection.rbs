@@ -1,10 +1,10 @@
 module Servactory
-  module OutputAttributes
+  module Outputs
     class Collection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
 
-      @collection: Set[OutputAttribute]
+      @collection: Set[Output]
 
       def initialize: (*untyped) -> void
 

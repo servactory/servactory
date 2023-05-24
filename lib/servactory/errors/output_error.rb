@@ -2,7 +2,7 @@
 
 module Servactory
   module Errors
-    class OutputAttributeError < Base
+    class OutputError < Base
       attr_reader :message
 
       def initialize(message:)

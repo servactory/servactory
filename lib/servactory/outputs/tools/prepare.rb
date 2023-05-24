@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 module Servactory
-  module OutputAttributes
+  module Outputs
     module Tools
       class Prepare
         def self.prepare(...)
           new(...).prepare
         end
 
-        def initialize(context, collection_of_output_attributes)
+        def initialize(context, collection_of_outputs)
           @context = context
-          @collection_of_output_attributes = collection_of_output_attributes
+          @collection_of_outputs = collection_of_outputs
         end
 
         def prepare
-          @collection_of_output_attributes.each do |output_attribute|
+          @collection_of_outputs.each do |output_attribute|
             create_instance_variable_for(output_attribute)
           end
         end
@@ -42,7 +42,7 @@ module Servactory
         def context_output_attribute_template_for(output_attribute)
           <<-RUBY
             define_method(:#{output_attribute.name}=) do |value|
-              Servactory::OutputAttributes::Checks::Type.check!(
+              Servactory::Outputs::Checks::Type.check!(
                 context: self,
                 output_attribute: output_attribute,
                 value: value

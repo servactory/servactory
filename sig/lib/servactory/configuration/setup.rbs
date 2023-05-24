@@ -5,7 +5,7 @@ module Servactory
 
       attr_accessor internal_attribute_error_class: singleton(Servactory::Errors::InternalAttributeError)
 
-      attr_accessor output_attribute_error_class: singleton(Servactory::Errors::OutputAttributeError)
+      attr_accessor output_attribute_error_class: singleton(Servactory::Errors::OutputError)
 
       attr_accessor failure_class: singleton(Servactory::Errors::Failure)
 

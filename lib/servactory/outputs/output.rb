@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module OutputAttributes
-    class OutputAttribute
+  module Outputs
+    class Output
       attr_reader :name,
                   :types,
                   :required,

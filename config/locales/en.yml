@@ -24,7 +24,7 @@ en:
       checks:
         type:
           default_error: "[%{service_class_name}] Wrong type of internal attribute `%{internal_attribute_name}`, expected `%{expected_type}`, got `%{given_type}`"
-    output_attributes:
+    outputs:
       checks:
         type:
           default_error: "[%{service_class_name}] Wrong type of output attribute `%{output_attribute_name}`, expected `%{expected_type}`, got `%{given_type}`"

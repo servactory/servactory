@@ -17,7 +17,7 @@ RSpec.describe Wrong::Example12 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputAttributeError,
+              ApplicationService::Errors::OutputError,
               "[Wrong::Example12] Conflict between internal and output attributes `prepared_invoice_number`"
             )
           )
@@ -42,7 +42,7 @@ RSpec.describe Wrong::Example12 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputAttributeError,
+              ApplicationService::Errors::OutputError,
               "[Wrong::Example12] Conflict between internal and output attributes `prepared_invoice_number`"
             )
           )
