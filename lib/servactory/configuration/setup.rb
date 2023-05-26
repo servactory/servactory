@@ -6,7 +6,8 @@ module Servactory
       attr_accessor :input_error_class,
                     :internal_error_class,
                     :output_error_class,
-                    :failure_class
+                    :failure_class,
+                    :method_shortcuts
 
       def initialize
         @input_error_class = Servactory::Errors::InputError
@@ -14,6 +15,8 @@ module Servactory
         @output_error_class = Servactory::Errors::OutputError
 
         @failure_class = Servactory::Errors::Failure
+
+        @method_shortcuts = Servactory::Methods::Shortcuts::Collection.new
       end
     end
   end

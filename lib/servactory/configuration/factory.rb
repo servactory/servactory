@@ -18,6 +18,10 @@ module Servactory
       def failure_class(failure_class)
         Servactory.configuration.failure_class = failure_class
       end
+
+      def method_shortcuts(method_shortcuts)
+        Servactory.configuration.method_shortcuts.merge(method_shortcuts)
+      end
     end
   end
 end
