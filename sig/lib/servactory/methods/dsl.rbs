@@ -13,6 +13,10 @@ module Servactory
 
         def make: (Symbol name, **untyped options) -> void
 
+        def method_missing: (Symbol, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
+
+        def respond_to_missing?: (Symbol shortcut_name, *untyped) -> bool
+
         def collection_of_methods: () -> Collection
 
         def methods_workbench: () -> Workbench

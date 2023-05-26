@@ -9,6 +9,8 @@ module Servactory
 
       attr_accessor failure_class: singleton(Servactory::Errors::Failure)
 
+      attr_accessor method_shortcuts: Methods::Shortcuts::Collection
+
       def initialize: () -> void
     end
   end

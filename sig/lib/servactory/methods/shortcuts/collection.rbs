@@ -1,0 +1,14 @@
+module Servactory
+  module Methods
+    module Shortcuts
+      class Collection
+        # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
+        extend Forwardable
+
+        @collection: Set[Symbol]
+
+        def initialize: (*untyped) -> void
+      end
+    end
+  end
+end
