@@ -343,7 +343,7 @@ end
 #### Condition
 
 ```ruby
-make :something, if: -> { Settings.something.enabled }
+make :something, if: ->(**) { Settings.something.enabled }
 
 def something
   # ...

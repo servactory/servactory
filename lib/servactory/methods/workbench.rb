@@ -34,7 +34,7 @@ module Servactory
         return false if condition.blank?
         return !Servactory::Utils.boolean?(condition) unless condition.is_a?(Proc)
 
-        !condition.call(context)
+        !condition.call(context: context)
       end
     end
   end
