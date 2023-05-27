@@ -1,5 +1,5 @@
 ---
-title: Servactory
+title: Overview
 description: A set of tools for building reliable services of any complexity.
 slug: /
 sidebar_position: 1

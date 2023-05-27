@@ -1,6 +1,6 @@
 ---
 title: Changelog
-slug: /contributing
+slug: /changelog
 sidebar_position: 6
 ---
 
