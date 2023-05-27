@@ -1,6 +1,6 @@
 ---
 title: Testing
-slug: /i18n
+slug: /testing
 sidebar_position: 5
 ---
 
