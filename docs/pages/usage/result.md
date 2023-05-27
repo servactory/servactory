@@ -3,7 +3,7 @@ title: Service result
 slug: /usage/result
 sidebar_label: Result
 sidebar_position: 3
-pagination_label: Result
+pagination_label: Service result
 ---
 
 # Result

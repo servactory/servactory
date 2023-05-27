@@ -1,9 +1,9 @@
 ---
-title: Make method
+title: Make methods
 slug: /usage/make
 sidebar_label: Make
 sidebar_position: 7
-pagination_label: Make
+pagination_label: Make methods
 ---
 
 # Make

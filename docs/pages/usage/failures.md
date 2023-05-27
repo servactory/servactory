@@ -3,7 +3,7 @@ title: Service failures
 slug: /usage/failures
 sidebar_label: Failures
 sidebar_position: 8
-pagination_label: Failures
+pagination_label: Service failures
 ---
 
 # Failures

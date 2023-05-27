@@ -3,7 +3,7 @@ title: Service internal attributes
 slug: /usage/internal
 sidebar_label: Internal
 sidebar_position: 6
-pagination_label: Internal
+pagination_label: Service internal attributes
 ---
 
 # Internal

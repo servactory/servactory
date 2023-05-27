@@ -3,7 +3,7 @@ title: Service output attributes
 slug: /usage/output
 sidebar_label: Output
 sidebar_position: 5
-pagination_label: Output
+pagination_label: Service output attributes
 ---
 
 # Output
