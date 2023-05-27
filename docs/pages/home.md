@@ -14,7 +14,7 @@ A set of tools for building reliable services of any complexity.
 [![Gem version](https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff)](https://rubygems.org/gems/servactory)
 [![Release Date](https://img.shields.io/github/release-date/afuno/servactory)](https://github.com/afuno/servactory/releases)
 
-## What is a Servacory?
+## About Servactory
 
 Servactory is a standardization of a unified approach to the development of reliable services of any complexity.
 
@@ -101,7 +101,7 @@ With a call like this:
 NotificationService::Send.call!(comment:, provider:)
 ```
 
-## Why use Servactory?
+## Reasons to use Servactory
 
 ### Unified approach
 
