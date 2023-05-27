@@ -1,7 +1,9 @@
 ---
-title: Input
+title: Service input arguments
 slug: /usage/input
+sidebar_label: Input
 sidebar_position: 4
+pagination_label: Service input arguments
 ---
 
 # Input

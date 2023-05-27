@@ -1,7 +1,10 @@
 ---
-title: Call
+title: Service call
+description: Description of the use of calling services
 slug: /usage/call
+sidebar_label: Call
 sidebar_position: 2
+pagination_label: Service call
 ---
 
 # Call
