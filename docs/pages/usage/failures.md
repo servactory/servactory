@@ -1,5 +1,5 @@
 ---
-title: Failures
+title: Service failures
 slug: /usage/failures
 sidebar_label: Failures
 sidebar_position: 8

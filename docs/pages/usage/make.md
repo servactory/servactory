@@ -1,5 +1,5 @@
 ---
-title: Make
+title: Make method
 slug: /usage/make
 sidebar_label: Make
 sidebar_position: 7

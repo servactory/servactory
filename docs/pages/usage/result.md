@@ -1,5 +1,5 @@
 ---
-title: Result
+title: Service result
 slug: /usage/result
 sidebar_label: Result
 sidebar_position: 3

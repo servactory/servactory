@@ -7,6 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Servactory',
+  titleDelimiter: '—',
   tagline: 'Service factory for Ruby applications',
   favicon: 'img/favicon.ico',
 

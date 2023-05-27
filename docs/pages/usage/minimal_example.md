@@ -1,5 +1,5 @@
 ---
-title: Minimal example
+title: Minimal service example
 slug: /usage/minimal-example
 sidebar_label: Minimal example
 sidebar_position: 1
