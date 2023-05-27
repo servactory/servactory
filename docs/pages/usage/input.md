@@ -16,7 +16,9 @@ Always required to specify. May contain one or more classes.
 
 ```ruby
 class UsersService::Accept < ApplicationService::Base
-  input :user, type: User
+  input :user,
+        # highlight-next-line
+        type: User
 
   # ...
 end
@@ -24,7 +26,9 @@ end
 
 ```ruby
 class ToggleService < ApplicationService::Base
-  input :flag, type: [TrueClass, FalseClass]
+  input :flag,
+        # highlight-next-line
+        type: [TrueClass, FalseClass]
 
   # ...
 end
@@ -36,9 +40,16 @@ By default, `required` is set to `true`.
 
 ```ruby
 class UsersService::Create < ApplicationService::Base
-  input :first_name, type: String
-  input :middle_name, type: String, required: false
-  input :last_name, type: String
+  input :first_name,
+        type: String
+  
+  input :middle_name,
+        type: String,
+        # highlight-next-line
+        required: false
+  
+  input :last_name,
+        type: String
 
   # ...
 end
@@ -50,13 +61,15 @@ By default, `internal` is set to `false`.
 
 ```ruby
 class UsersService::Accept < ApplicationService::Base
-  input :user, type: User
+  input :user,
+        type: User
 
   make :accept!
   
   private
   
   def accept!
+    # highlight-next-line
     inputs.user.accept!
   end
 end
@@ -64,13 +77,17 @@ end
 
 ```ruby
 class UsersService::Accept < ApplicationService::Base
-  input :user, type: User, internal: true
+  input :user,
+        type: User,
+        # highlight-next-line
+        internal: true
 
   make :accept!
   
   private
   
   def accept!
+    # highlight-next-line
     user.accept!
   end
 end
@@ -82,15 +99,20 @@ This option changes the name of the input within the service.
 
 ```ruby
 class NotificationService::Create < ApplicationService::Base
-  input :customer, as: :user, type: User
+  input :customer,
+        # highlight-next-line
+        as: :user,
+        type: User
 
-  output :notification, type: Notification
+  output :notification,
+         type: Notification
 
   make :create_notification!
 
   private
 
   def create_notification!
+    # highlight-next-line
     self.notification = Notification.create!(user: inputs.user)
   end
 end
@@ -102,7 +124,10 @@ Using this option will mean that the input argument is an array, each element of
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base
-  input :invoice_numbers, type: String, array: true
+  input :invoice_numbers,
+        type: String,
+        # highlight-next-line
+        array: true
 
   # ...
 end
@@ -112,7 +137,10 @@ end
 
 ```ruby
 class EventService::Send < ApplicationService::Base
-  input :event_name, type: String, inclusion: %w[created rejected approved]
+  input :event_name,
+        type: String,
+        # highlight-next-line
+        inclusion: %w[created rejected approved]
 
   # ...
 end
@@ -127,10 +155,15 @@ class PymentsService::Send < ApplicationService::Base
   input :invoice_numbers,
         type: String,
         array: true,
+        # highlight-next-line
         must: {
+          # highlight-next-line
           be_6_characters: {
+            # highlight-next-line
             is: ->(value:) { value.all? { |id| id.size == 6 } }
+            # highlight-next-line
           }
+          # highlight-next-line
         }
 
   # ...

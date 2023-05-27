@@ -11,7 +11,8 @@ pagination_label: Service output attributes
 ```ruby
 class NotificationService::Create < ApplicationService::Base
   input :user, type: User
-  
+
+  # highlight-next-line
   output :notification, type: Notification
 
   make :create_notification!
@@ -19,6 +20,7 @@ class NotificationService::Create < ApplicationService::Base
   private
   
   def create_notification!
+    # highlight-next-line
     self.notification = Notification.create!(user: inputs.user)
   end
 end
