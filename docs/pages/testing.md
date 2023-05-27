@@ -1,7 +1,9 @@
 ---
 title: Testing
 slug: /testing
+sidebar_label: Testing
 sidebar_position: 5
+pagination_label: Testing
 ---
 
 # Testing

@@ -1,7 +1,9 @@
 ---
 title: Call
 slug: /usage/call
+sidebar_label: Call
 sidebar_position: 2
+pagination_label: Call
 ---
 
 # Call

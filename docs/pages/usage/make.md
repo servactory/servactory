@@ -1,7 +1,9 @@
 ---
 title: Make
 slug: /usage/make
+sidebar_label: Make
 sidebar_position: 7
+pagination_label: Make
 ---
 
 # Make

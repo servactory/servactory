@@ -2,7 +2,9 @@
 title: Overview
 description: A set of tools for building reliable services of any complexity.
 slug: /
+sidebar_label: Overview
 sidebar_position: 1
+pagination_label: Overview
 ---
 
 # Servactory

@@ -1,7 +1,9 @@
 ---
 title: Input
 slug: /usage/input
+sidebar_label: Input
 sidebar_position: 4
+pagination_label: Input
 ---
 
 # Input

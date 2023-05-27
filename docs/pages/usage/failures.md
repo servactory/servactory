@@ -1,7 +1,9 @@
 ---
 title: Failures
 slug: /usage/failures
+sidebar_label: Failures
 sidebar_position: 8
+pagination_label: Failures
 ---
 
 # Failures

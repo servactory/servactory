@@ -1,7 +1,9 @@
 ---
 title: Minimal example
 slug: /usage/minimal-example
+sidebar_label: Minimal example
 sidebar_position: 1
+pagination_label: Minimal example
 ---
 
 # Minimal example

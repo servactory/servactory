@@ -1,7 +1,9 @@
 ---
-title: Code of Conduct
+title: Contributor Covenant Code of Conduct
 slug: /code-of-conduct
+sidebar_label: Code of Conduct
 sidebar_position: 7
+pagination_label: Code of Conduct
 ---
 
 # Contributor Covenant Code of Conduct
