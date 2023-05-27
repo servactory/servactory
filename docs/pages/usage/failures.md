@@ -18,6 +18,7 @@ make :check!
 def check!
   return if inputs.invoice_number.start_with?("AA")
 
+  # highlight-next-line
   fail!(message: "Invalid invoice number")
 end
 ```
@@ -30,6 +31,7 @@ make :check!
 def check!
   return if inputs.invoice_number.start_with?("AA")
 
+  # highlight-next-line
   fail_input!(:invoice_number, message: "Invalid invoice number")
 end
 ```
@@ -38,9 +40,12 @@ end
 
 ```ruby
 fail!(
-  message: "Invalid invoice number", 
-  meta: { 
-    invoice_number: inputs.invoice_number 
+  message: "Invalid invoice number",
+  # highlight-next-line
+  meta: {
+    # highlight-next-line
+    invoice_number: inputs.invoice_number
+    # highlight-next-line
   }
 )
 ```
