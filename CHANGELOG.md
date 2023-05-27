@@ -1,1 +1,1 @@
-# Changelog
+docs/pages/CHANGELOG.md
