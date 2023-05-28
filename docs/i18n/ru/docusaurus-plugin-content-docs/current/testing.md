@@ -1,11 +1,11 @@
 ---
-title: Тестирование сервисов
+title: Service testing
 slug: /testing
-sidebar_label: Тестирование
+sidebar_label: Testing
 sidebar_position: 5
-pagination_label: Тестирование сервисов
+pagination_label: Service testing
 ---
 
-# Тестирование
+# Testing
 
-Сервисы, написанные на Servactory, тестируются как обычные классы Ruby.
+Testing Servactory services is the same as testing regular Ruby classes.
