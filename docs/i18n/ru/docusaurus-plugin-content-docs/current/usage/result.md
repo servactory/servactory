@@ -1,26 +1,26 @@
 ---
-title: Service result
+title: Результат сервиса
 slug: /usage/result
-sidebar_label: Result
+sidebar_label: Результат сервиса
 sidebar_position: 3
-pagination_label: Service result
+pagination_label: Результат сервиса
 ---
 
-# Result
+# Результат сервиса
 
-All services have the result of their work. For example, in case of success this call:
+Все сервисы имеют результат своей работы. Например, в случае успеха этот вызов:
 
 ```ruby
 service_result = UsersService::Accept.call!(user: User.first)
 ```
 
-Will return this:
+Будет возвращать это:
 
 ```ruby
 #<Servactory::Result:0x0000000107ad9e88 @user="...">
 ```
 
-And then you can work with this result, for example, in this way:
+И затем можно работать с этим результатом, например, таким образом:
 
 ```ruby
 Notification::SendJob.perform_later(service_result.user.id)
