@@ -169,3 +169,68 @@ class PymentsService::Send < ApplicationService::Base
   # ...
 end
 ```
+
+## Advanced mode
+
+Advanced mode implies more detailed work with the option.
+
+### Option `required`
+
+```ruby
+input :first_name,
+      type: String,
+      required: {
+        is: true,
+        message: "Input `first_name` is required"
+      }
+```
+
+```ruby
+input :first_name,
+      type: String,
+      required: {
+        message: lambda do |service_class_name:, input:, value:|
+          "Input `first_name` is required"
+        end
+      }
+```
+
+### Option `inclusion`
+
+```ruby
+input :event_name,
+      type: String,
+      inclusion: {
+        in: %w[created rejected approved]
+      }
+```
+
+```ruby
+input :event_name,
+      type: String,
+      inclusion: {
+        in: %w[created rejected approved],
+        message: lambda do |service_class_name:, input:, value:|
+          value.present? ? "Incorrect `event_name` specified: `#{value}`" : "Event name not specified"
+        end
+      }
+```
+
+### Option `must`
+
+:::note
+
+The `must` option can only work in advanced mode.
+
+:::
+
+```ruby
+input :invoice_numbers,
+      type: String,
+      array: true,
+      must: {
+        be_6_characters: {
+          is: ->(value:) { value.all? { |id| id.size == 6 } }
+        }
+      }
+```
