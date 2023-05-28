@@ -1,9 +1,9 @@
 ---
-title: Выходные атрибута сервиса
+title: Выходные атрибуты сервиса
 slug: /usage/output
 sidebar_label: Output
 sidebar_position: 5
-pagination_label: Выходные атрибута сервиса
+pagination_label: Выходные атрибуты сервиса
 ---
 
 # Output
