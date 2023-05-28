@@ -8,14 +8,15 @@ pagination_label: Входные аргументы сервиса
 
 # Input
 
-## Помощники по валидации
+## Опции
 
-### `type`
+### Опция `type`
 
-Этот помощник проверяет чтобы переданное в `input` значение соответствовало указанному типу (классу).
-Он использует метод `is_a?`.
+Эта опция является валидацией.
+Будет проверяться чтобы переданное в `input` значение соответствовало указанному типу (классу).
+Используется метод `is_a?`.
 
-Всегда обязателен для указания. Может содержать один или несколько классов.
+Всегда обязательно для указания. Может содержать один или несколько классов.
 
 ```ruby
 class UsersService::Accept < ApplicationService::Base
@@ -37,12 +38,13 @@ class ToggleService < ApplicationService::Base
 end
 ```
 
-### `required`
+### Опция `required`
 
-Этот помощник проверяет чтобы переданное в `input` значение не было пустым.
-Он использует метод `present?` чтобы проверить, является ли значение не `nil` или не пустой строкой.
+Эта опция является валидацией.
+Будет проверяться чтобы переданное в `input` значение не было пустым.
+Используется метод `present?` чтобы проверить, является ли значение не `nil` или не пустой строкой.
 
-По умолчанию для `required` установлено значение `true`.
+По умолчанию `required` имеет значение `true`.
 
 ```ruby
 class UsersService::Create < ApplicationService::Base
@@ -61,9 +63,13 @@ class UsersService::Create < ApplicationService::Base
 end
 ```
 
-### `internal`
+### Опция `internal`
 
-By default, `internal` is set to `false`.
+Эта опция не является валидацией.
+Она используется для подготовки `input` аргумента.
+Для `input` аргумента будет создана копия в виде internal-атрибута.
+
+По умолчанию `internal` имеет значение `false`.
 
 ```ruby
 class UsersService::Accept < ApplicationService::Base
@@ -99,9 +105,11 @@ class UsersService::Accept < ApplicationService::Base
 end
 ```
 
-### `as`
+### Опция `as`
 
-This option changes the name of the input within the service.
+Эта опция не является валидацией.
+Она используется для подготовки `input` аргумента.
+Для `input` аргумента будет назначено указанное через `:as` имя.
 
 ```ruby
 class NotificationService::Create < ApplicationService::Base
@@ -124,9 +132,11 @@ class NotificationService::Create < ApplicationService::Base
 end
 ```
 
-### `array`
+### Опция `array`
 
-Using this option will mean that the input argument is an array, each element of which has the specified type.
+Эта опция является валидацией.
+Будет проверяться чтобы переданное в `input` значение было массивом и соответствовало указанному типу (классу).
+Используется метод `is_a?`. Работает совместно с опциями [`type`](#опция-type) и [`required`](#опция-required).
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base
@@ -139,7 +149,11 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
-### `inclusion`
+### Опция `inclusion`
+
+Эта опция является валидацией.
+Будет проверяться чтобы переданное в `input` значение находилось в указанном массиве.
+Используется метод `include?`.
 
 ```ruby
 class EventService::Send < ApplicationService::Base
@@ -152,9 +166,10 @@ class EventService::Send < ApplicationService::Base
 end
 ```
 
-### `must`
+### Опция `must`
 
-Sometimes there are cases that require the implementation of a specific input attribute check. In such cases `must` can help.
+Эта опция является валидацией.
+Но в отличии от других валидационных опций, `:must` позволяет описывать валидацию внутри себя.
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base
