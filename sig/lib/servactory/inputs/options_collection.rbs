@@ -8,7 +8,7 @@ module Servactory
 
       def initialize: (*untyped) -> void
 
-      def check_classes: () -> Array[Class]
+      def validation_classes: () -> Array[Class]
 
       def defined_conflict_code: -> Symbol
 
