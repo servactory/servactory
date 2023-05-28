@@ -51,7 +51,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :required,
           input: self,
-          check_class: Servactory::Inputs::Validations::Required,
+          validation_class: Servactory::Inputs::Validations::Required,
           define_input_methods: [
             DefineInputMethod.new(
               name: :required?,
@@ -76,7 +76,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :types,
           input: self,
-          check_class: Servactory::Inputs::Validations::Type,
+          validation_class: Servactory::Inputs::Validations::Type,
           original_value: Array(type),
           need_for_checks: true,
           value_fallback: nil,
@@ -88,7 +88,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :default,
           input: self,
-          check_class: Servactory::Inputs::Validations::Type,
+          validation_class: Servactory::Inputs::Validations::Type,
           define_input_methods: [
             DefineInputMethod.new(
               name: :default_value_present?,
@@ -106,7 +106,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :array,
           input: self,
-          check_class: Servactory::Inputs::Validations::Type,
+          validation_class: Servactory::Inputs::Validations::Type,
           define_input_methods: [
             DefineInputMethod.new(
               name: :array?,
@@ -128,7 +128,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :inclusion,
           input: self,
-          check_class: Servactory::Inputs::Validations::Inclusion,
+          validation_class: Servactory::Inputs::Validations::Inclusion,
           define_input_methods: [
             DefineInputMethod.new(
               name: :inclusion_present?,
@@ -146,7 +146,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :must,
           input: self,
-          check_class: Servactory::Inputs::Validations::Must,
+          validation_class: Servactory::Inputs::Validations::Must,
           define_input_methods: [
             DefineInputMethod.new(
               name: :must_present?,
@@ -165,7 +165,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :internal,
           input: self,
-          check_class: nil,
+          validation_class: nil,
           define_input_methods: [
             DefineInputMethod.new(
               name: :internal?,

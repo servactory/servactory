@@ -5,7 +5,7 @@ module Servactory
 
       attr_reader name: Symbol
 
-      attr_reader check_class: Class
+      attr_reader validation_class: Class
 
       attr_reader define_input_methods: Array[DefineInputMethod]?
 
@@ -19,7 +19,7 @@ module Servactory
       def initialize: (
         name: Symbol,
         input: Input,
-        check_class: Class,
+        validation_class: Class,
         need_for_checks: bool,
         value_key: Symbol?,
         value_fallback: bool?,
