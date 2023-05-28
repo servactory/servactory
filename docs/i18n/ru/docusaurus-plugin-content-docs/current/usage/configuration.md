@@ -1,16 +1,16 @@
 ---
-title: Configuration
+title: Конфигурация
 slug: /usage/configuration
-sidebar_label: Configuration
+sidebar_label: Конфигурация
 sidebar_position: 1
-pagination_label: Configuration
+pagination_label: Конфигурация
 ---
 
-# Configuration
+# Конфигурация
 
-Services are configured through the `configuration` method, which can be placed, for example, in the base class.
+Сервисы конфигурируются через `configuration` метод, который может быть расположен, например, в базовом классе.
 
-## Configuration examples
+## Пример конфигурации
 
 ### Errors
 
@@ -32,7 +32,7 @@ module ApplicationService
 end
 ```
 
-### Method shortcuts
+### Сокращения методов
 
 ```ruby title="app/services/application_service/base.rb"
 module ApplicationService
