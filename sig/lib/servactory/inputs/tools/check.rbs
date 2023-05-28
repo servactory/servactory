@@ -1,16 +1,16 @@
 module Servactory
   module Inputs
     module Tools
-      class Check
+      class Validation
         @context: instance
         @incoming_arguments: untyped
         @collection_of_inputs: Collection
 
-        def self.check!: (*untyped) ?{ () -> untyped } -> void
+        def self.validate!: (*untyped) ?{ () -> untyped } -> void
 
         def initialize: (instance context, untyped incoming_arguments, Collection collection_of_inputs) -> void
 
-        def check!: () -> void
+        def validate!: () -> void
 
         private
 

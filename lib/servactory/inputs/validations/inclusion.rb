@@ -2,7 +2,7 @@
 
 module Servactory
   module Inputs
-    module Checks
+    module Validations
       class Inclusion < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
           I18n.t(

@@ -2,7 +2,7 @@
 
 module Servactory
   module Outputs
-    module Checks
+    module Validations
       class Type < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, output:, expected_type:, given_type:|
           I18n.t(
@@ -16,8 +16,8 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check!(...)
-          new(...).check!
+        def self.validate!(...)
+          new(...).validate!
         end
 
         ##########################################################################
@@ -30,7 +30,7 @@ module Servactory
           @value = value
         end
 
-        def check!
+        def validate!
           return if prepared_types.any? { |type| @value.is_a?(type) }
 
           raise_error_with(

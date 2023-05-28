@@ -2,17 +2,15 @@
 
 module Servactory
   module Inputs
-    module Checks
+    module Validations
       class Base
-        protected
+        private
 
         def add_error(message, **attributes)
           message = message.call(**attributes) if message.is_a?(Proc)
 
           errors << message
         end
-
-        private
 
         def errors
           @errors ||= Errors.new

@@ -30,7 +30,7 @@ module Servactory
         # EXAMPLE:
         #
         #   define_method(:user=) do |value|
-        #     Servactory::Internals::Checks::Type.check!( context: self, internal:, value: )
+        #     Servactory::Internals::Validations::Type.validate!( context: self, internal:, value: )
         #
         #     instance_variable_set(:@user, value)
         #   end
@@ -40,7 +40,7 @@ module Servactory
         def context_internal_template_for(internal)
           <<-RUBY
             define_method(:#{internal.name}=) do |value|
-              Servactory::Internals::Checks::Type.check!(
+              Servactory::Internals::Validations::Type.validate!(
                 context: self,
                 internal: internal,
                 value: value

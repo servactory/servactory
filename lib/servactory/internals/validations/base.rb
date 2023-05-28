@@ -2,7 +2,7 @@
 
 module Servactory
   module Internals
-    module Checks
+    module Validations
       class Base
         protected
 
