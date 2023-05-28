@@ -8,9 +8,9 @@ pagination_label: Service input arguments
 
 # Input
 
-## Options
+## Validation Helpers
 
-### Option `type`
+### `type`
 
 Always required to specify. May contain one or more classes.
 
@@ -34,7 +34,7 @@ class ToggleService < ApplicationService::Base
 end
 ```
 
-### Option `required`
+### `required`
 
 By default, `required` is set to `true`.
 
@@ -55,7 +55,7 @@ class UsersService::Create < ApplicationService::Base
 end
 ```
 
-### Option `internal`
+### `internal`
 
 By default, `internal` is set to `false`.
 
@@ -93,7 +93,7 @@ class UsersService::Accept < ApplicationService::Base
 end
 ```
 
-### Option `as`
+### `as`
 
 This option changes the name of the input within the service.
 
@@ -118,7 +118,7 @@ class NotificationService::Create < ApplicationService::Base
 end
 ```
 
-### Option `array`
+### `array`
 
 Using this option will mean that the input argument is an array, each element of which has the specified type.
 
@@ -133,7 +133,7 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
-### Option `inclusion`
+### `inclusion`
 
 ```ruby
 class EventService::Send < ApplicationService::Base
@@ -146,7 +146,7 @@ class EventService::Send < ApplicationService::Base
 end
 ```
 
-### Option `must`
+### `must`
 
 Sometimes there are cases that require the implementation of a specific input attribute check. In such cases `must` can help.
 
