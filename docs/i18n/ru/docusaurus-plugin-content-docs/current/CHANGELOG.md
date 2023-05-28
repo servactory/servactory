@@ -1,11 +1,11 @@
 ---
-title: Changelog
+title: Список изменений
 slug: /changelog
-sidebar_label: Changelog
+sidebar_label: Список изменений
 sidebar_position: 6
-pagination_label: Changelog
+pagination_label: Список изменений
 ---
 
-# Changelog
+# Список изменений
 
-Soon
+Информация скоро будет добавлена.
