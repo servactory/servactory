@@ -17,19 +17,19 @@ module Servactory
       end
 
       def find_unnecessary!
-        Tools::FindUnnecessary.check!(context, @incoming_arguments, collection_of_inputs)
+        Tools::FindUnnecessary.validate!(context, @incoming_arguments, collection_of_inputs)
       end
 
       def check_rules!
-        Tools::Rules.check!(context, collection_of_inputs)
+        Tools::Rules.validate!(context, collection_of_inputs)
       end
 
       def prepare
         Tools::Prepare.prepare(context, @incoming_arguments, collection_of_inputs)
       end
 
-      def check!
-        Tools::Check.check!(context, @incoming_arguments, collection_of_inputs)
+      def validate!
+        Tools::Validation.validate!(context, @incoming_arguments, collection_of_inputs)
       end
 
       private

@@ -15,7 +15,7 @@ module Servactory
 
       def prepare: () -> void
 
-      def check!: () -> void
+      def validate!: () -> void
 
       private
 

@@ -2,7 +2,7 @@
 
 module Servactory
   module Inputs
-    module Checks
+    module Validations
       class Required < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
           i18n_key = "servactory.inputs.checks.required.default_error."

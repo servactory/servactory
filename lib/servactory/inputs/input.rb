@@ -29,18 +29,18 @@ module Servactory
       # rubocop:enable Style/KeywordParametersOrder
 
       def add_basic_options_with(type:, options:)
-        # Check Class: Servactory::Inputs::Checks::Required
+        # Check Class: Servactory::Inputs::Validations::Required
         add_required_option_with(options)
 
-        # Check Class: Servactory::Inputs::Checks::Type
+        # Check Class: Servactory::Inputs::Validations::Type
         add_types_option_with(type)
         add_default_option_with(options)
         add_array_option_with(options)
 
-        # Check Class: Servactory::Inputs::Checks::Inclusion
+        # Check Class: Servactory::Inputs::Validations::Inclusion
         add_inclusion_option_with(options)
 
-        # Check Class: Servactory::Inputs::Checks::Must
+        # Check Class: Servactory::Inputs::Validations::Must
         add_must_option_with(options)
 
         # Check Class: nil
@@ -51,7 +51,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :required,
           input: self,
-          check_class: Servactory::Inputs::Checks::Required,
+          check_class: Servactory::Inputs::Validations::Required,
           define_input_methods: [
             DefineInputMethod.new(
               name: :required?,
@@ -76,7 +76,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :types,
           input: self,
-          check_class: Servactory::Inputs::Checks::Type,
+          check_class: Servactory::Inputs::Validations::Type,
           original_value: Array(type),
           need_for_checks: true,
           value_fallback: nil,
@@ -88,7 +88,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :default,
           input: self,
-          check_class: Servactory::Inputs::Checks::Type,
+          check_class: Servactory::Inputs::Validations::Type,
           define_input_methods: [
             DefineInputMethod.new(
               name: :default_value_present?,
@@ -106,7 +106,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :array,
           input: self,
-          check_class: Servactory::Inputs::Checks::Type,
+          check_class: Servactory::Inputs::Validations::Type,
           define_input_methods: [
             DefineInputMethod.new(
               name: :array?,
@@ -128,7 +128,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :inclusion,
           input: self,
-          check_class: Servactory::Inputs::Checks::Inclusion,
+          check_class: Servactory::Inputs::Validations::Inclusion,
           define_input_methods: [
             DefineInputMethod.new(
               name: :inclusion_present?,
@@ -146,7 +146,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :must,
           input: self,
-          check_class: Servactory::Inputs::Checks::Must,
+          check_class: Servactory::Inputs::Validations::Must,
           define_input_methods: [
             DefineInputMethod.new(
               name: :must_present?,

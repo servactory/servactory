@@ -7,11 +7,11 @@ module Servactory
         @@collection_of_internals: Internals::Collection
         @overlapping_attributes: Array[Symbol]
 
-        def self.check!: (*untyped) ?{ () -> untyped } -> void
+        def self.validate!: (*untyped) ?{ () -> untyped } -> void
 
         def initialize: (instance context, Collection collection_of_outputs, Internals::Collection collection_of_internals) -> void
 
-        def check!: () -> void
+        def validate!: () -> void
 
         private
 

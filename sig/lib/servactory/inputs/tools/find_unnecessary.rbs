@@ -9,11 +9,11 @@ module Servactory
 
         @unnecessary_attributes: Array[Symbol]
 
-        def self.check!: (*untyped) ?{ () -> untyped } -> void
+        def self.validate!: (*untyped) ?{ () -> untyped } -> void
 
         def initialize: (instance context, untyped incoming_arguments, Collection collection_of_inputs) -> void
 
-        def check!: () -> void
+        def validate!: () -> void
 
         private
 

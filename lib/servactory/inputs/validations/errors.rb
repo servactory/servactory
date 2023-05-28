@@ -2,7 +2,7 @@
 
 module Servactory
   module Inputs
-    module Checks
+    module Validations
       class Errors
         # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
         extend Forwardable

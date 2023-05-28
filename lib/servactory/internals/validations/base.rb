@@ -1,21 +1,15 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Inputs
-    module Checks
+  module Internals
+    module Validations
       class Base
         protected
 
-        def add_error(message, **attributes)
+        def raise_error_with(message, **attributes)
           message = message.call(**attributes) if message.is_a?(Proc)
 
-          errors << message
-        end
-
-        private
-
-        def errors
-          @errors ||= Errors.new
+          raise Servactory.configuration.internal_error_class.new(message: message)
         end
       end
     end

@@ -4,8 +4,8 @@ module Servactory
   module Outputs
     module Tools
       class Conflicts
-        def self.check!(...)
-          new(...).check!
+        def self.validate!(...)
+          new(...).validate!
         end
 
         def initialize(context, collection_of_outputs, collection_of_internals)
@@ -14,7 +14,7 @@ module Servactory
           @collection_of_internals = collection_of_internals
         end
 
-        def check!
+        def validate!
           return if overlapping_attributes.empty?
 
           message_text = I18n.t(
