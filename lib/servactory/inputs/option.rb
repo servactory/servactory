@@ -8,7 +8,7 @@ module Servactory
       private_constant :DEFAULT_VALUE
 
       attr_reader :name,
-                  :check_class,
+                  :validation_class,
                   :define_input_methods,
                   :define_input_conflicts,
                   :need_for_checks,
@@ -19,7 +19,7 @@ module Servactory
       def initialize(
         name:,
         input:,
-        check_class:,
+        validation_class:,
         need_for_checks:,
         value_fallback:,
         original_value: nil,
@@ -30,7 +30,7 @@ module Servactory
         **options
       ) # do
         @name = name.to_sym
-        @check_class = check_class
+        @validation_class = validation_class
         @define_input_methods = define_input_methods
         @define_input_conflicts = define_input_conflicts
         @need_for_checks = need_for_checks
