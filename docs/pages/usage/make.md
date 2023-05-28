@@ -1,9 +1,9 @@
 ---
-title: Make methods
+title: Calling service methods
 slug: /usage/make
 sidebar_label: Make
 sidebar_position: 7
-pagination_label: Make methods
+pagination_label: Calling service methods
 ---
 
 # Make
