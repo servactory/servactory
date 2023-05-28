@@ -32,7 +32,7 @@ module ApplicationService
 end
 ```
 
-### Сокращения методов
+### Сокращения для методов
 
 ```ruby title="app/services/application_service/base.rb"
 module ApplicationService
