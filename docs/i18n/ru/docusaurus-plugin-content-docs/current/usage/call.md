@@ -1,27 +1,28 @@
 ---
-title: Service call
-description: Description of the use of calling services
+title: Вызов сервиса
+description: Описание использования вызова сервисов
 slug: /usage/call
-sidebar_label: Call
+sidebar_label: Вызов сервиса
 sidebar_position: 2
-pagination_label: Service call
+pagination_label: Вызов сервиса
 ---
 
-# Call
+# Вызов сервиса
 
-Services can only be called via `.call` and `.call!` methods.
+Сервисы могут быть вызваны только через методы `.call` и `.call!`.
 
-The `.call` method will only fail if it catches an exception in the input arguments. Internal and output attributes, as well as methods for failures - all this will be collected in the result.
+Вызов через метод `.call` будет падать с ошибкой только в том случае, если он перехватит исключение в `input` аргументах.
+Ошибки, возникшие в атрибутах `internal` и `output`, а также ошибки, возникшие в методах — все это будет собрано в `Result` сервиса.
 
-The `.call!` method will fail if it catches any exception.
+Вызов через метод `.call!` будет падать при любой проблеме.
 
-## Via `.call`
+## Через `.call`
 
 ```ruby
 UsersService::Accept.call(user: User.first)
 ```
 
-## Via `.call!`
+## Через `.call!`
 
 ```ruby
 UsersService::Accept.call!(user: User.first)
