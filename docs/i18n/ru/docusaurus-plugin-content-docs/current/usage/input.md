@@ -1,18 +1,21 @@
 ---
-title: Service input arguments
+title: Входные аргументы сервиса
 slug: /usage/input
 sidebar_label: Input
 sidebar_position: 4
-pagination_label: Service input arguments
+pagination_label: Входные аргументы сервиса
 ---
 
 # Input
 
-## Validation Helpers
+## Помощники по валидации
 
 ### `type`
 
-Always required to specify. May contain one or more classes.
+Этот помощник проверяет чтобы переданное в `input` значение соответствовало указанному типу (классу).
+Он использует метод `is_a?`.
+
+Всегда обязателен для указания. Может содержать один или несколько классов.
 
 ```ruby
 class UsersService::Accept < ApplicationService::Base
@@ -36,7 +39,10 @@ end
 
 ### `required`
 
-By default, `required` is set to `true`.
+Этот помощник проверяет чтобы переданное в `input` значение не было пустым.
+Он использует метод `present?` чтобы проверить, является ли значение не `nil` или не пустой строкой.
+
+По умолчанию для `required` установлено значение `true`.
 
 ```ruby
 class UsersService::Create < ApplicationService::Base
