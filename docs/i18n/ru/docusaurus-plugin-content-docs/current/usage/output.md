@@ -1,12 +1,22 @@
 ---
-title: Service output attributes
+title: Выходные атрибута сервиса
 slug: /usage/output
 sidebar_label: Output
 sidebar_position: 5
-pagination_label: Service output attributes
+pagination_label: Выходные атрибута сервиса
 ---
 
 # Output
+
+Все атрибуты, которые должен возвращать сервис в `Result` должны быть описаны через `output` метод.
+
+## Опции
+
+### Опция `type`
+
+Эта опция является валидацией.
+Будет проверяться чтобы переданное в `output` значение соответствовало указанному типу (классу).
+Используется метод `is_a?`.
 
 ```ruby
 class NotificationService::Create < ApplicationService::Base
