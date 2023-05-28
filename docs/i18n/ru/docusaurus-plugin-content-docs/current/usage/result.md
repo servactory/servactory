@@ -1,9 +1,9 @@
 ---
-title: Результат сервиса
+title: Результат работы
 slug: /usage/result
-sidebar_label: Результат сервиса
+sidebar_label: Результат работы
 sidebar_position: 3
-pagination_label: Результат сервиса
+pagination_label: Результат работы
 ---
 
 # Результат сервиса
