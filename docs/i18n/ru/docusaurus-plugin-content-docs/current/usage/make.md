@@ -1,14 +1,18 @@
 ---
-title: Make methods
+title: Вызов методов сервиса
 slug: /usage/make
 sidebar_label: Make
 sidebar_position: 7
-pagination_label: Make methods
+pagination_label: Вызов методов сервиса
 ---
 
 # Make
 
-## Minimal example
+Вызов методов сервиса происходит только при помощи `make`.
+
+## Примеры
+
+### Минимальный
 
 ```ruby
 make :something
@@ -18,19 +22,7 @@ def something
 end
 ```
 
-## Condition
-
-```ruby
-make :something,
-     # highlight-next-line
-     if: ->(**) { Settings.something.enabled }
-
-def something
-  # ...
-end
-```
-
-## Several
+### Несколько методов
 
 ```ruby
 # highlight-next-line
@@ -56,7 +48,26 @@ def process_result
 end
 ```
 
-## Method shortcuts
+## Опции
+
+### Опция `if`
+
+Перед вызовом метода будет проверено условие, описанное в `if`.
+
+```ruby
+make :something,
+     # highlight-next-line
+     if: ->(**) { Settings.something.enabled }
+
+def something
+  # ...
+end
+```
+
+## Сокращения для методов
+
+Через конфигурацию `method_shortcuts` можно добавить часто используемые слова, которые используются в виде префиксов в именах методов.
+Имена самих методов короче не станут, но это позволит сократить строки с применением метода `make` и улучшить читаемость кода сервиса, сделав его выразительнее.
 
 ```ruby
 configuration do
