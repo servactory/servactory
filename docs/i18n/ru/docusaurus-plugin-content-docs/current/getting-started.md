@@ -1,35 +1,35 @@
 ---
-title: Getting started
+title: Приступая к работе
 slug: /getting-started
-sidebar_label: Getting started
+sidebar_label: Приступая к работе
 sidebar_position: 2
-pagination_label: Getting started
+pagination_label: Приступая к работе
 ---
 
-# Getting started
+# Начиная
 
-## Conventions
+## Соглашения
 
-- Services are subclasses of `Servactory::Base` and are located in the `app/services` directory. It is common practice to create and inherit from `ApplicationService::Base`, which is a subclass of `Servactory::Base`.
-- Name services by what they do, not by what they accept. Try to use verbs in names. For example, `UsersService::Create` instead of `UsersService::Creation`.
+- Все сервисы являются подклассами `Servactory::Base` и располагаются в директории `app/services`. Общепринятой практикой является создание и наследование от `ApplicationService::Base`, который является подклассом `Servactory::Base`.
+- Называйте сервисы по тому что они делают, а не по тому что они принимают. Используйте глаголы в именах. Напрмиер, назовите сервис `UsersService::Create` вместо `UsersService::Creation`.
 
-## Installation
+## Установка
 
-Add this to `Gemfile`:
+Добавьте это в файл `Gemfile`:
 
 ```ruby
 gem "servactory"
 ```
 
-And execute:
+Затем выполните:
 
 ```shell
 bundle install
 ```
 
-## Preparation
+## Подготовка
 
-As a first step, it is recommended to prepare the base class for further inheritance.
+Для начала рекомендуется подготовить базовый класс для дальнейшего наследования.
 
 ### ApplicationService::Errors
 
