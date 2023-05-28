@@ -1,16 +1,25 @@
 ---
-title: Service failures
+title: Неудачи и падения сервиса
 slug: /usage/failures
-sidebar_label: Failures
+sidebar_label: Неудачи
 sidebar_position: 8
-pagination_label: Service failures
+pagination_label: Неудачи и падения сервиса
 ---
 
-# Failures
+# Неудачи сервиса
 
-The methods that are used in `make` may fail. In order to more informatively provide information about this outside the service, the following methods were prepared.
+При простом сценарии использования все неудачи (или падения) сервиса будут возникать из `input`, `output` или `internal`.
+Это все будет считаться неожиданным поведением в работе сервиса.
 
-## Fail
+Но помимо этого можно также описать ожидаемые падения в работе сервиса.
+Для этого предусмотрены методы, представленные ниже.
+
+## Через `.fail!`
+
+Базовый метод.
+Позволяет передать текст в виде сообщения, а также дополнительную информацию через аргумент `meta`.
+
+При вызове сервиса через метод `.call!` будет явзяться `exception` с классом `Servactory::Errors::Failure`.
 
 ```ruby
 make :check!
@@ -22,21 +31,6 @@ def check!
   fail!(message: "Invalid invoice number")
 end
 ```
-
-## Fail for input
-
-```ruby
-make :check!
-
-def check!
-  return if inputs.invoice_number.start_with?("AA")
-
-  # highlight-next-line
-  fail_input!(:invoice_number, message: "Invalid invoice number")
-end
-```
-
-## Metadata
 
 ```ruby
 fail!(
@@ -55,4 +49,21 @@ exception.detailed_message  # => Invalid invoice number (ApplicationService::Err
 exception.message           # => Invalid invoice number
 exception.type              # => :fail
 exception.meta              # => {:invoice_number=>"BB-7650AE"}
+```
+
+## Через `.fail_input!`
+
+Отличается от `.fail!` обязательным указыванием имени input-аргумента.
+
+При вызове сервиса через метод `.call!` будет явзяться `exception` с классом `Servactory::Errors::InputError`.
+
+```ruby
+make :check!
+
+def check!
+  return if inputs.invoice_number.start_with?("AA")
+
+  # highlight-next-line
+  fail_input!(:invoice_number, message: "Invalid invoice number")
+end
 ```
