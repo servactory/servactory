@@ -1,12 +1,22 @@
 ---
-title: Service internal attributes
+title: Внутренние атрибуты сервиса
 slug: /usage/internal
 sidebar_label: Internal
 sidebar_position: 6
-pagination_label: Service internal attributes
+pagination_label: Внутренние атрибуты сервиса
 ---
 
 # Internal
+
+Внутренние приватные атрибуты можно определять через метод `internal`.
+
+## Опции
+
+### Опция `type`
+
+Эта опция является валидацией.
+Будет проверяться чтобы переданное в `internal` значение соответствовало указанному типу (классу).
+Используется метод `is_a?`.
 
 ```ruby
 class NotificationService::Create < ApplicationService::Base
