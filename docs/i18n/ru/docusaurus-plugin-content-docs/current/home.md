@@ -1,24 +1,24 @@
 ---
-title: Overview
-description: A set of tools for building reliable services of any complexity.
+title: Обзор
+description: Набор инструментов для построения надежных сервисов любой сложности
 slug: /
-sidebar_label: Overview
+sidebar_label: Обзор
 sidebar_position: 1
-pagination_label: Overview
+pagination_label: Обзор
 ---
 
 # Servactory
 
-A set of tools for building reliable services of any complexity.
+Набор инструментов для построения надежных сервисов любой сложности.
 
 [![Gem version](https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff)](https://rubygems.org/gems/servactory)
 [![Release Date](https://img.shields.io/github/release-date/afuno/servactory)](https://github.com/afuno/servactory/releases)
 
-## What is a Servacory?
+## Что такое Servacory?
 
-Servactory is a standardization of a unified approach to the development of reliable services of any complexity.
+Servactory — это стандартизация единого подхода к разработке надежных сервисов любой сложности.
 
-With Servactory, you can do something simple:
+При помощи Servactory можно сделать что-то простое:
 
 ```ruby
 class MinimalService < ApplicationService::Base
@@ -32,13 +32,13 @@ class MinimalService < ApplicationService::Base
 end
 ```
 
-And then call with:
+А затем вызвать с помощью:
 
 ```ruby
 MinimalService.call!
 ```
 
-Or create something more complex:
+Или создать что-то более сложное:
 
 ```ruby
 class NotificationService::Send < ApplicationService::Base
@@ -92,7 +92,7 @@ class NotificationService::Send < ApplicationService::Base
 end
 ```
 
-With a call like this:
+С таким вызовом:
 
 ```ruby
 # comment = Comment.first
@@ -101,17 +101,17 @@ With a call like this:
 NotificationService::Send.call!(comment:, provider:)
 ```
 
-## Why use Servactory?
+## Зачем использовать Servactory?
 
-### Unified approach
+### Единый подход
 
-The Ruby language is multifaceted. 
-This leads to the fact that the services in the applications begin to vary greatly, implementing a different approach to development.
-Over time, this complicates the development in the project and can make it difficult to understand the services.
+Язык Ruby многогранен.
+Это приводит к тому, что сервисы в приложениях начинают сильно различаться, реализуя разный подход к разработке.
+Со временем это усложняет разработку в проекте и может затруднить понимание сервисов и кода в целом.
 
-Servactory standardizes the approach to development by offering to implement services only through the proposed API.
+Servactory стандартизирует подход к разработке, предлагая реализовать сервисы только через предложенный API, однообразно описывая логику внутри классов.
 
-### Testing
+### Тестирование
 
-Services written under Servactory are tested like regular Ruby classes.
-As a result of a unified approach to the development of services, their testing also becomes uniform.
+Сервисы, написанные на Servactory, тестируются как обычные классы Ruby.
+В результате единого подхода к разработке сервисов их тестирование также становится единообразным.
