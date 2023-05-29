@@ -32,7 +32,7 @@ module Servactory
         condition = make_method.condition
 
         return false if condition.nil?
-        return !Servactory::Utils.boolean?(condition) unless condition.is_a?(Proc)
+        return !Servactory::Utils.true?(condition) unless condition.is_a?(Proc)
 
         !condition.call(context: context)
       end

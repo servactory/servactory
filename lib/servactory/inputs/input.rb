@@ -55,11 +55,11 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :required?,
-              content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
+              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
             ),
             DefineInputMethod.new(
               name: :optional?,
-              content: ->(value:) { !Servactory::Utils.boolean?(value[:is]) }
+              content: ->(value:) { !Servactory::Utils.true?(value[:is]) }
             )
           ],
           define_input_conflicts: [
@@ -110,7 +110,7 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :array?,
-              content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
+              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
             )
           ],
           define_input_conflicts: [
@@ -169,7 +169,7 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :internal?,
-              content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
+              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
             )
           ],
           need_for_checks: false,
