@@ -30,7 +30,14 @@ module Servactory
 
       def unnecessary_for?(make_method)
         condition = make_method.condition
+        is_condition_opposite = make_method.is_condition_opposite
 
+        result = prepare_condition_for(condition)
+
+        is_condition_opposite ? !result : result
+      end
+
+      def prepare_condition_for(condition)
         return false if condition.nil?
         return !Servactory::Utils.true?(condition) unless condition.is_a?(Proc)
 
