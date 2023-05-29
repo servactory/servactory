@@ -8,7 +8,7 @@ pagination_label: Service result
 
 # Result
 
-All services have the result of their work. For example, in case of success this call:
+All services have the result of their work. For instance, in case of success this call:
 
 ```ruby
 service_result = UsersService::Accept.call!(user: User.first)
