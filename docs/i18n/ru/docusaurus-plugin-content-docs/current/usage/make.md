@@ -64,6 +64,20 @@ def something
 end
 ```
 
+### Опция `unless`
+
+Противоположность опции `if`.
+
+```ruby
+make :something,
+     # highlight-next-line
+     unless: ->(**) { Settings.something.disabled }
+
+def something
+  # ...
+end
+```
+
 ## Сокращения для методов
 
 Через конфигурацию `method_shortcuts` можно добавить часто используемые слова, которые используются в виде префиксов в именах методов.
