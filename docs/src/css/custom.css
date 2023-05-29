@@ -30,7 +30,11 @@
   --ifm-navbar-background-color: #000000;
   --ifm-color-emphasis-300: #19191B !important;
   --ifm-toc-border-color: #19191B !important;
-  --ifm-background-color: #0F0F10 !important;
+  --ifm-background-color: #000000 !important;
 
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.navbar {
+  border-bottom: var(--ifm-toc-border-color) solid 1px;
 }

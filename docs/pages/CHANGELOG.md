@@ -8,4 +8,4 @@ pagination_label: Changelog
 
 # Changelog
 
-Soon
+Information will be added soon.

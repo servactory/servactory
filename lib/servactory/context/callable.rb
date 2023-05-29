@@ -16,7 +16,7 @@ module Servactory
 
         prepare_data
 
-        inputs_workbench.check!
+        inputs_workbench.validate!
 
         methods_workbench.run!
 
@@ -41,7 +41,7 @@ module Servactory
 
         prepare_data
 
-        inputs_workbench.check!
+        inputs_workbench.validate!
 
         methods_workbench.run!
 

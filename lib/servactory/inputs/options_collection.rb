@@ -11,8 +11,8 @@ module Servactory
         @collection = Set.new
       end
 
-      def check_classes
-        filter { |option| option.check_class.present? }.map(&:check_class).uniq
+      def validation_classes
+        filter { |option| option.validation_class.present? }.map(&:validation_class).uniq
       end
 
       def options_for_checks

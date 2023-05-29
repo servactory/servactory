@@ -1,5 +1,5 @@
 module Servactory
   module Utils
-    def self?.boolean?: (untyped value) -> bool
+    def self?.true?: (untyped value) -> bool
   end
 end

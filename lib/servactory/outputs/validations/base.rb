@@ -2,7 +2,7 @@
 
 module Servactory
   module Outputs
-    module Checks
+    module Validations
       class Base
         protected
 

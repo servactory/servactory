@@ -16,7 +16,7 @@ module Servactory
       end
 
       def find_conflicts_in!(collection_of_internals:)
-        Tools::Conflicts.check!(context, collection_of_outputs, collection_of_internals)
+        Tools::Conflicts.validate!(context, collection_of_outputs, collection_of_internals)
       end
 
       def prepare

@@ -29,18 +29,18 @@ module Servactory
       # rubocop:enable Style/KeywordParametersOrder
 
       def add_basic_options_with(type:, options:)
-        # Check Class: Servactory::Inputs::Checks::Required
+        # Check Class: Servactory::Inputs::Validations::Required
         add_required_option_with(options)
 
-        # Check Class: Servactory::Inputs::Checks::Type
+        # Check Class: Servactory::Inputs::Validations::Type
         add_types_option_with(type)
         add_default_option_with(options)
         add_array_option_with(options)
 
-        # Check Class: Servactory::Inputs::Checks::Inclusion
+        # Check Class: Servactory::Inputs::Validations::Inclusion
         add_inclusion_option_with(options)
 
-        # Check Class: Servactory::Inputs::Checks::Must
+        # Check Class: Servactory::Inputs::Validations::Must
         add_must_option_with(options)
 
         # Check Class: nil
@@ -51,15 +51,15 @@ module Servactory
         collection_of_options << Option.new(
           name: :required,
           input: self,
-          check_class: Servactory::Inputs::Checks::Required,
+          validation_class: Servactory::Inputs::Validations::Required,
           define_input_methods: [
             DefineInputMethod.new(
               name: :required?,
-              content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
+              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
             ),
             DefineInputMethod.new(
               name: :optional?,
-              content: ->(value:) { !Servactory::Utils.boolean?(value[:is]) }
+              content: ->(value:) { !Servactory::Utils.true?(value[:is]) }
             )
           ],
           define_input_conflicts: [
@@ -76,7 +76,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :types,
           input: self,
-          check_class: Servactory::Inputs::Checks::Type,
+          validation_class: Servactory::Inputs::Validations::Type,
           original_value: Array(type),
           need_for_checks: true,
           value_fallback: nil,
@@ -88,7 +88,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :default,
           input: self,
-          check_class: Servactory::Inputs::Checks::Type,
+          validation_class: Servactory::Inputs::Validations::Type,
           define_input_methods: [
             DefineInputMethod.new(
               name: :default_value_present?,
@@ -106,11 +106,11 @@ module Servactory
         collection_of_options << Option.new(
           name: :array,
           input: self,
-          check_class: Servactory::Inputs::Checks::Type,
+          validation_class: Servactory::Inputs::Validations::Type,
           define_input_methods: [
             DefineInputMethod.new(
               name: :array?,
-              content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
+              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
             )
           ],
           define_input_conflicts: [
@@ -128,7 +128,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :inclusion,
           input: self,
-          check_class: Servactory::Inputs::Checks::Inclusion,
+          validation_class: Servactory::Inputs::Validations::Inclusion,
           define_input_methods: [
             DefineInputMethod.new(
               name: :inclusion_present?,
@@ -146,7 +146,7 @@ module Servactory
         collection_of_options << Option.new(
           name: :must,
           input: self,
-          check_class: Servactory::Inputs::Checks::Must,
+          validation_class: Servactory::Inputs::Validations::Must,
           define_input_methods: [
             DefineInputMethod.new(
               name: :must_present?,
@@ -165,11 +165,11 @@ module Servactory
         collection_of_options << Option.new(
           name: :internal,
           input: self,
-          check_class: nil,
+          validation_class: nil,
           define_input_methods: [
             DefineInputMethod.new(
               name: :internal?,
-              content: ->(value:) { Servactory::Utils.boolean?(value[:is]) }
+              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
             )
           ],
           need_for_checks: false,

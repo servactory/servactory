@@ -3,9 +3,9 @@
 module Servactory
   module Inputs
     module Tools
-      class Check
-        def self.check!(...)
-          new(...).check!
+      class Validation
+        def self.validate!(...)
+          new(...).validate!
         end
 
         def initialize(context, incoming_arguments, collection_of_inputs)
@@ -14,7 +14,7 @@ module Servactory
           @collection_of_inputs = collection_of_inputs
         end
 
-        def check!
+        def validate!
           @collection_of_inputs.each do |input|
             process_input(input)
           end
@@ -31,9 +31,9 @@ module Servactory
         end
 
         def process_option(check_key, check_options, input:)
-          check_classes_from(input).each do |check_class|
-            errors_from_checks = process_check_class(
-              check_class,
+          validation_classes_from(input).each do |validation_class|
+            errors_from_checks = process_validation_classes(
+              validation_class,
               input: input,
               check_key: check_key,
               check_options: check_options
@@ -43,8 +43,8 @@ module Servactory
           end
         end
 
-        def process_check_class(check_class, input:, check_key:, check_options:)
-          check_class.check(
+        def process_validation_classes(validation_class, input:, check_key:, check_options:)
+          validation_class.check(
             context: @context,
             input: input,
             value: @incoming_arguments.fetch(input.name, nil),
@@ -55,8 +55,8 @@ module Servactory
 
         ########################################################################
 
-        def check_classes_from(input)
-          input.collection_of_options.check_classes
+        def validation_classes_from(input)
+          input.collection_of_options.validation_classes
         end
 
         ########################################################################

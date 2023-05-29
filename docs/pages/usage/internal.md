@@ -12,6 +12,7 @@ pagination_label: Service internal attributes
 class NotificationService::Create < ApplicationService::Base
   input :user, type: User
 
+  # highlight-next-line
   internal :inviter, type: User
   
   output :notification, type: Notification
@@ -22,6 +23,7 @@ class NotificationService::Create < ApplicationService::Base
   private
   
   def assign_inviter
+    # highlight-next-line
     self.inviter = user.inviter
   end
   
