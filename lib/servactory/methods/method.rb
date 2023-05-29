@@ -13,11 +13,11 @@ module Servactory
         @is_condition_opposite = false
         @condition = options.fetch(:if, nil)
 
-        if @condition.nil?
-          @condition = options.fetch(:unless, nil)
+        return unless @condition.nil?
 
-          @is_condition_opposite = true unless @condition.nil?
-        end
+        @condition = options.fetch(:unless, nil)
+
+        @is_condition_opposite = true unless @condition.nil?
       end
     end
   end
