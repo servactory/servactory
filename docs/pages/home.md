@@ -109,7 +109,7 @@ The Ruby language is flexible and versatile.
 This fact indicates that the services in the applications begin to vary greatly, implementing a different development approach.
 Over time, this case complicates the development in the project and can make it difficult to understand the services.
 
-Servactory standardizes the approach to development by offering the implementation of services only through the proposed API.
+Servactory standardizes the approach to development by offering the implementation of services only through the proposed API, describing the logic within classes uniformly.
 
 ### Testing
 
