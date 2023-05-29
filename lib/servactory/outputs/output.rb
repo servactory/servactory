@@ -25,7 +25,7 @@ module Servactory
       end
 
       def required?
-        Servactory::Utils.boolean?(required)
+        Servactory::Utils.true?(required)
       end
 
       def optional?

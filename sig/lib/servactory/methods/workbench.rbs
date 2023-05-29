@@ -15,6 +15,8 @@ module Servactory
 
       attr_reader collection_of_methods: Collection
 
+      def prepare_condition_for: ((Proc | bool)? condition) -> bool
+
       def unnecessary_for?: (Method make_method) -> bool
     end
   end
