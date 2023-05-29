@@ -31,7 +31,7 @@ module Servactory
       def unnecessary_for?(make_method)
         condition = make_method.condition
 
-        return false if condition.blank?
+        return false if condition.nil?
         return !Servactory::Utils.boolean?(condition) unless condition.is_a?(Proc)
 
         !condition.call(context: context)
