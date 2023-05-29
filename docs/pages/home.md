@@ -114,4 +114,4 @@ Servactory standardizes the approach to development by offering the implementati
 ### Testing
 
 Services written under Servactory are tested like standard Ruby classes.
-As a result of the unified approach to the development of services, their testing also become uniform.
+As a result of the unified approach to the development of services, their testing also becomes uniform.
