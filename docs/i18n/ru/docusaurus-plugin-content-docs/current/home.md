@@ -22,10 +22,6 @@ Servactory — это стандартизация единого подхода
 
 ```ruby
 class MinimalService < ApplicationService::Base
-  make :call
-  
-  private
-  
   def call
     # ...
   end
@@ -35,7 +31,7 @@ end
 А затем вызвать с помощью:
 
 ```ruby
-MinimalService.call!
+MinimalService.call! # или MinimalService.call
 ```
 
 Или создать что-то более сложное:
@@ -99,6 +95,8 @@ end
 # provider = NotificationProvider.first
 
 NotificationService::Send.call!(comment:, provider:)
+# Или 
+# NotificationService::Send.call(comment:, provider:)
 ```
 
 ## Зачем использовать Servactory?
