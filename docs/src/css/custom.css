@@ -61,7 +61,7 @@
   --docsearch-text-color: var(--ifm-font-color-base);
   --docsearch-muted-color: var(--ifm-color-secondary-darkest);
   --docsearch-container-background: rgba(0, 0, 0, 0.9);
-  --docsearch-highlight-color: var(--ifm-color-emphasis-300);
+  --docsearch-highlight-color: var(--ifm-color-primary);
   /* Modal */
   --docsearch-modal-background: var(--ifm-background-color);
   /* Search box */
@@ -78,4 +78,8 @@
           var(--ifm-color-emphasis-200) 0%,
           var(--ifm-color-emphasis-100) 100%
   );
+}
+
+.DocSearch-Hit[aria-selected='true'] a {
+  background-color: var(--ifm-color-emphasis-300) !important;
 }
