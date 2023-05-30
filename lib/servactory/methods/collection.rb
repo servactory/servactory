@@ -5,7 +5,7 @@ module Servactory
     class Collection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
-      def_delegators :@collection, :<<, :each, :merge
+      def_delegators :@collection, :<<, :each, :merge, :empty?
 
       def initialize(*)
         @collection = Set.new
