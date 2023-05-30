@@ -31,11 +31,11 @@ module Servactory
           input_value = @incoming_arguments.fetch(input.name, nil)
           input_value = input.default if input.optional? && input_value.blank?
 
-          @inputs_variables[input.internal_name] = input_value
-
-          return unless input.internal?
-
-          @internal_variables[input.name] = input_value
+          if input.internal?
+            @internal_variables[input.name] = input_value
+          else
+            @inputs_variables[input.internal_name] = input_value
+          end
         end
 
         def create_instance_variables
