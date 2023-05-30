@@ -4,6 +4,12 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 
+const isDev = process.env.NODE_ENV === 'development';
+
+if (isDev) {
+  require('dotenv').config({ path: './.env.local' });
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Servactory',
@@ -70,6 +76,11 @@ const config = {
         defaultMode: 'dark',
         disableSwitch: true,
         respectPrefersColorScheme: false,
+      },
+      algolia: {
+        appId: process.env.ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_API_KEY,
+        indexName: 'servactory',
       },
       navbar: {
         title: 'Servactory',
