@@ -18,7 +18,7 @@ module Servactory
       def run!
         return try_to_use_call if collection_of_methods.empty?
 
-        collection_of_methods.each do |make_method|
+        collection_of_methods.sorted_by_position.each do |make_method|
           next if unnecessary_for?(make_method)
 
           context.send(make_method.name)
