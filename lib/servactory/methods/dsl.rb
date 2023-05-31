@@ -16,8 +16,12 @@ module Servactory
 
         private
 
-        def make(name, **options)
-          collection_of_methods << Method.new(name, **options)
+        def make(name, position: nil, **options)
+          collection_of_methods << Method.new(
+            name,
+            position: position.presence || next_position,
+            **options
+          )
         end
 
         def method_missing(shortcut_name, *args, &block)
@@ -32,6 +36,10 @@ module Servactory
 
         def respond_to_missing?(shortcut_name, *)
           Servactory.configuration.method_shortcuts.include?(shortcut_name) || super
+        end
+
+        def next_position
+          collection_of_methods.size + 1
         end
 
         def collection_of_methods
