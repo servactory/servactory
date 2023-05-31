@@ -12,7 +12,7 @@ pagination_label: Конфигурация
 
 ## Пример конфигурации
 
-### Errors
+### Ошибки
 
 ```ruby title="app/services/application_service/base.rb"
 module ApplicationService

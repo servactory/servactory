@@ -18,7 +18,7 @@ pagination_label: Обзор
 
 Servactory — это стандартизация единого подхода к разработке надежных сервисов любой сложности.
 
-При помощи Servactory можно сделать что-то простое:
+При помощи Servactory можно сделать что-то простое, например:
 
 ```ruby
 class MinimalService < ApplicationService::Base
