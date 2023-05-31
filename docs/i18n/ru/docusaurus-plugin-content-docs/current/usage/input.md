@@ -258,3 +258,17 @@ input :invoice_numbers,
         }
       }
 ```
+
+```ruby
+input :invoice_numbers,
+      type: String,
+      array: true,
+      must: {
+        be_6_characters: {
+          is: ->(value:) { value.all? { |id| id.size == 6 } },
+          message: lambda do |service_class_name:, input:, value:, code:|
+            "Wrong IDs in `#{input.name}`"
+          end
+        }
+      }
+```
