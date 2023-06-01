@@ -198,7 +198,7 @@ end
 
 Advanced mode provides more detailed work with the option.
 
-### Опция `required`
+### Option `required`
 
 ```ruby
 input :first_name,
@@ -219,7 +219,7 @@ input :first_name,
       }
 ```
 
-### Опция `inclusion`
+### Option `inclusion`
 
 ```ruby
 input :event_name,
@@ -240,7 +240,7 @@ input :event_name,
       }
 ```
 
-### Опция `must`
+### Option `must`
 
 :::note
 
