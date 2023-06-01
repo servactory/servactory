@@ -8,6 +8,16 @@ pagination_label: Service internal attributes
 
 # Internal
 
+Internal private attributes can be defined through the internal method.
+
+## Options
+
+### `type`
+
+This option is validation.
+It will check that the value set to `internal` corresponds to the specified type (class).
+In this case `is_a?` method is used.
+
 ```ruby
 class NotificationService::Create < ApplicationService::Base
   input :user, type: User
