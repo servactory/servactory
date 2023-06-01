@@ -12,7 +12,7 @@ Internal private attributes can be defined through the internal method.
 
 ## Options
 
-### `Type`
+### `Type` option
 
 This option is validation.
 It will check that the value set to `internal` corresponds to the specified type (class).
