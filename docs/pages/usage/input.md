@@ -193,3 +193,82 @@ class PymentsService::Send < ApplicationService::Base
   # ...
 end
 ```
+
+## Advanced mode
+
+Advanced mode provides more detailed work with the option.
+
+### Опция `required`
+
+```ruby
+input :first_name,
+      type: String,
+      required: {
+        is: true,
+        message: "Input `first_name` is required"
+      }
+```
+
+```ruby
+input :first_name,
+      type: String,
+      required: {
+        message: lambda do |service_class_name:, input:, value:|
+          "Input `first_name` is required"
+        end
+      }
+```
+
+### Опция `inclusion`
+
+```ruby
+input :event_name,
+      type: String,
+      inclusion: {
+        in: %w[created rejected approved]
+      }
+```
+
+```ruby
+input :event_name,
+      type: String,
+      inclusion: {
+        in: %w[created rejected approved],
+        message: lambda do |service_class_name:, input:, value:|
+          value.present? ? "Incorrect `event_name` specified: `#{value}`" : "Event name not specified"
+        end
+      }
+```
+
+### Опция `must`
+
+:::note
+
+`must` option can work only in advanced mode.
+
+:::
+
+```ruby
+input :invoice_numbers,
+      type: String,
+      array: true,
+      must: {
+        be_6_characters: {
+          is: ->(value:) { value.all? { |id| id.size == 6 } }
+        }
+      }
+```
+
+```ruby
+input :invoice_numbers,
+      type: String,
+      array: true,
+      must: {
+        be_6_characters: {
+          is: ->(value:) { value.all? { |id| id.size == 6 } },
+          message: lambda do |service_class_name:, input:, value:, code:|
+            "Wrong IDs in `#{input.name}`"
+          end
+        }
+      }
+```
