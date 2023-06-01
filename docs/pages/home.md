@@ -22,10 +22,6 @@ With Servactory you can do something simple, just like that:
 
 ```ruby
 class MinimalService < ApplicationService::Base
-  make :call
-  
-  private
-  
   def call
     # ...
   end
@@ -35,7 +31,7 @@ end
 And then call with:
 
 ```ruby
-MinimalService.call!
+MinimalService.call! # or MinimalService.call
 ```
 
 Or create something more complex:
@@ -99,6 +95,8 @@ With a call like this:
 # provider = NotificationProvider.first
 
 NotificationService::Send.call!(comment:, provider:)
+# Or
+# NotificationService::Send.call(comment:, provider:)
 ```
 
 ## Reasons to use Servactory

@@ -16,7 +16,9 @@ module Servactory
       end
 
       def run!
-        collection_of_methods.each do |make_method|
+        return try_to_use_call if collection_of_methods.empty?
+
+        collection_of_methods.sorted_by_position.each do |make_method|
           next if unnecessary_for?(make_method)
 
           context.send(make_method.name)
@@ -27,6 +29,10 @@ module Servactory
 
       attr_reader :context,
                   :collection_of_methods
+
+      def try_to_use_call
+        context.try(:send, :call)
+      end
 
       def unnecessary_for?(make_method)
         condition = make_method.condition

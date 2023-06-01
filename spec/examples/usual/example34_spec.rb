@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Example7 do
+RSpec.describe Usual::Example34 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -45,7 +45,7 @@ RSpec.describe Usual::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example7] Input `invoice_numbers` must \"be_6_characters\""
+                "Wrong IDs in `invoice_numbers`"
               )
             )
           end
@@ -64,7 +64,7 @@ RSpec.describe Usual::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example7] Wrong type in input array `invoice_numbers`, expected `String`"
+                "[Usual::Example34] Wrong type in input array `invoice_numbers`, expected `String`"
               )
             )
           end
@@ -83,7 +83,7 @@ RSpec.describe Usual::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example7] Required element in input array `invoice_numbers` is missing"
+                "[Usual::Example34] Required element in input array `invoice_numbers` is missing"
               )
             )
           end
@@ -102,7 +102,7 @@ RSpec.describe Usual::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example7] Required element in input array `invoice_numbers` is missing"
+                "[Usual::Example34] Required element in input array `invoice_numbers` is missing"
               )
             )
           end
@@ -163,7 +163,7 @@ RSpec.describe Usual::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example7] Input `invoice_numbers` must \"be_6_characters\""
+                "Wrong IDs in `invoice_numbers`"
               )
             )
           end
@@ -182,7 +182,7 @@ RSpec.describe Usual::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example7] Wrong type in input array `invoice_numbers`, expected `String`"
+                "[Usual::Example34] Wrong type in input array `invoice_numbers`, expected `String`"
               )
             )
           end
@@ -201,7 +201,7 @@ RSpec.describe Usual::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example7] Required element in input array `invoice_numbers` is missing"
+                "[Usual::Example34] Required element in input array `invoice_numbers` is missing"
               )
             )
           end
@@ -220,7 +220,7 @@ RSpec.describe Usual::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example7] Required element in input array `invoice_numbers` is missing"
+                "[Usual::Example34] Required element in input array `invoice_numbers` is missing"
               )
             )
           end
