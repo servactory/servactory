@@ -8,7 +8,7 @@ pagination_label: Service result
 
 # Result
 
-All services have the result of their work. For instance, in case of success this call:
+All services have the result of their work. For example, in case of success this call:
 
 ```ruby
 service_result = UsersService::Accept.call!(user: User.first)
@@ -20,7 +20,7 @@ Will return this:
 #<Servactory::Result:0x0000000107ad9e88 @user="...">
 ```
 
-And then you can work with this result, for example, in this way:
+And then work with thе result in this way:
 
 ```ruby
 Notification::SendJob.perform_later(service_result.user.id)
