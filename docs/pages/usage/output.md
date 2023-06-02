@@ -12,7 +12,7 @@ All attributes the service must return in `Result` should be described through t
 
 ## Options
 
-### `Type` option
+### Option `type`
 
 This option is validation.
 It will check that the value set to `output` corresponds to the specified type (class).

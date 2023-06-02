@@ -8,7 +8,7 @@ pagination_label: Service failures
 
 # Failures
 
-In a simple use case, all service failures (or crashes) will come from input, output or internal attributes.
+In a simple use case, all service failures will come from input, output or internal attributes.
 That would be considered as unexpected behavior in service operation.
 
 In order to describe expected service crashes, the following methods were prepared.

@@ -244,7 +244,7 @@ input :event_name,
 
 :::note
 
-`must` option can work only in advanced mode.
+The `must` option can work only in advanced mode.
 
 :::
 
