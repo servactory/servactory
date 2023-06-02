@@ -14,11 +14,11 @@ A set of tools for building reliable services of any complexity.
 [![Gem version](https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff)](https://rubygems.org/gems/servactory)
 [![Release Date](https://img.shields.io/github/release-date/afuno/servactory)](https://github.com/afuno/servactory/releases)
 
-## What is a Servacory?
+## About Servactory
 
 Servactory is a standardization of a unified approach to the development of reliable services of any complexity.
 
-With Servactory, you can do something simple:
+With Servactory you can do something simple, just like that:
 
 ```ruby
 class MinimalService < ApplicationService::Base
@@ -99,17 +99,17 @@ NotificationService::Send.call!(comment:, provider:)
 # NotificationService::Send.call(comment:, provider:)
 ```
 
-## Why use Servactory?
+## Reasons to use Servactory
 
 ### Unified approach
 
-The Ruby language is multifaceted. 
-This leads to the fact that the services in the applications begin to vary greatly, implementing a different approach to development.
-Over time, this complicates the development in the project and can make it difficult to understand the services.
+The Ruby language is flexible and versatile. 
+This fact indicates that the services in the applications begin to vary greatly, implementing a different development approach.
+Over time, this case complicates the development in the project and can make it difficult to understand the services.
 
-Servactory standardizes the approach to development by offering to implement services only through the proposed API.
+Servactory standardizes the approach to development by offering the implementation of services only through the proposed API, describing the logic within classes uniformly.
 
 ### Testing
 
-Services written under Servactory are tested like regular Ruby classes.
-As a result of a unified approach to the development of services, their testing also becomes uniform.
+Services written under Servactory are tested like standard Ruby classes.
+As a result of the unified approach to the development of services, their testing also becomes uniform.

@@ -8,6 +8,16 @@ pagination_label: Service output attributes
 
 # Output
 
+All attributes the service must return in `Result` should be described through the `output` method.
+
+## Options
+
+### `Type` option
+
+This option is validation.
+It will check that the value set to `output` corresponds to the specified type (class).
+In this case `is_a?` method is used.
+
 ```ruby
 class NotificationService::Create < ApplicationService::Base
   input :user, type: User

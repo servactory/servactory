@@ -8,9 +8,16 @@ pagination_label: Service input arguments
 
 # Input
 
+All arguments that service must expect should be described through input method.
+If the service receives an argument that hasn't been described through input method, it will return an error.
+
 ## Options
 
 ### Option `type`
+
+This option is validation.
+It will check if the value set to `input` corresponds to the specified type (class).
+The `is_a?` method is used.
 
 Always required to specify. May contain one or more classes.
 
@@ -36,6 +43,10 @@ end
 
 ### Option `required`
 
+This option is validation.
+Checks that the value set to `input` is not empty.
+The `present?` method is used to check if the value is not `nil` or an empty string.
+
 By default, `required` is set to `true`.
 
 ```ruby
@@ -56,6 +67,10 @@ end
 ```
 
 ### Option `internal`
+
+This option is not validation.
+Used to prepare an input argument.
+For the input argument, a copy will be created as an internal attribute.
 
 By default, `internal` is set to `false`.
 
@@ -95,6 +110,8 @@ end
 
 ### Option `as`
 
+This option is not validation.
+Used to prepare the input argument.
 This option changes the name of the input within the service.
 
 ```ruby
@@ -120,7 +137,9 @@ end
 
 ### Option `array`
 
-Using this option will mean that the input argument is an array, each element of which has the specified type.
+This option is validation.
+It will check if the value set to `input` is an array and corresponds to the specified type (class).
+The `is_a?` method is used. Works together with options [`type`](#option-type) and [`required`](#option-required).
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base
@@ -135,6 +154,10 @@ end
 
 ### Option `inclusion`
 
+This option is validation.
+Checks that the value set in `input` is in the specified array.
+The `include?` method is used.
+
 ```ruby
 class EventService::Send < ApplicationService::Base
   input :event_name,
@@ -148,7 +171,8 @@ end
 
 ### Option `must`
 
-Sometimes there are cases that require the implementation of a specific input attribute check. In such cases `must` can help.
+This option is validation.
+Unlike other validation options, `must` allows to describe the validation internally.
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base
@@ -172,7 +196,7 @@ end
 
 ## Advanced mode
 
-Advanced mode implies more detailed work with the option.
+Advanced mode provides more detailed work with the option.
 
 ### Option `required`
 
@@ -220,7 +244,7 @@ input :event_name,
 
 :::note
 
-The `must` option can only work in advanced mode.
+`must` option can work only in advanced mode.
 
 :::
 
@@ -231,6 +255,20 @@ input :invoice_numbers,
       must: {
         be_6_characters: {
           is: ->(value:) { value.all? { |id| id.size == 6 } }
+        }
+      }
+```
+
+```ruby
+input :invoice_numbers,
+      type: String,
+      array: true,
+      must: {
+        be_6_characters: {
+          is: ->(value:) { value.all? { |id| id.size == 6 } },
+          message: lambda do |service_class_name:, input:, value:, code:|
+            "Wrong IDs in `#{input.name}`"
+          end
         }
       }
 ```

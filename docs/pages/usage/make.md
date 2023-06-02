@@ -82,7 +82,7 @@ end
 
 All methods have a position.
 If a method needs to be called at a different time than it was added via `make`, then the `position` option can be used.
-Can be useful when inheriting services.
+Can be useful at service inheritance.
 
 ```ruby
 make :something,
@@ -96,8 +96,8 @@ end
 
 ## Method shortcuts
 
-Through the `method_shortcuts` configuration, can add frequently used words that are used as prefixes in method names.
-The names of the methods themselves will not become shorter, but this will shorten the lines using the `make` method and improve the readability of the service code, making it more expressive.
+Add frequently used words that are used as prefixes in method names through the `method_shortcuts` configuration.
+It won't make the names of methods shorter, but that will shorten the lines using the `make` method and improve the readability of the service code, making it more expressive.
 
 ```ruby
 configuration do

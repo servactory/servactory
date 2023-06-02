@@ -20,7 +20,7 @@ Will return this:
 #<Servactory::Result:0x0000000107ad9e88 @user="...">
 ```
 
-And then you can work with this result, for example, in this way:
+And then work with thе result in this way:
 
 ```ruby
 Notification::SendJob.perform_later(service_result.user.id)
