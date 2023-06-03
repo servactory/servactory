@@ -1,9 +1,9 @@
 ---
-title: Service testing
+title: Testing services
 slug: /testing
 sidebar_label: Testing
 sidebar_position: 10
-pagination_label: Service testing
+pagination_label: Testing services
 ---
 
 # Testing

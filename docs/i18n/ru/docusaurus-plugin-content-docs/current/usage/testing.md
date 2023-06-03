@@ -1,9 +1,9 @@
 ---
-title: Service testing
+title: Тестирование сервисов
 slug: /testing
-sidebar_label: Testing
+sidebar_label: Тестирование
 sidebar_position: 10
-pagination_label: Service testing
+pagination_label: Тестирование сервисов
 ---
 
 # Testing
