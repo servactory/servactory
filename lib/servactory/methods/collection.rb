@@ -5,7 +5,7 @@ module Servactory
     class Collection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
-      def_delegators :@collection, :<<, :each, :merge, :sort_by, :size, :empty?
+      def_delegators :@collection, :<<, :each, :merge, :sort_by, :group_by, :size, :empty?
 
       def initialize(collection = Set.new)
         @collection = collection
@@ -13,6 +13,10 @@ module Servactory
 
       def sorted_by_position
         Collection.new(sort_by(&:position))
+      end
+
+      def grouped_by_wrapper
+        Collection.new(group_by(&:wrapper))
       end
     end
   end

@@ -9,6 +9,8 @@ module Servactory
       def initialize: (Set[Collection] collection) -> void
 
       def sorted_by_position: -> Collection
+
+      def grouped_by_wrapper: -> Collection
     end
   end
 end

@@ -18,6 +18,15 @@ module Servactory
       def run!
         return try_to_use_call if collection_of_methods.empty?
 
+        collection_of_methods.grouped_by_wrapper.each do |wrapper, methods|
+          puts
+          puts
+          puts wrapper.inspect
+          puts methods.size.inspect
+          puts
+          puts
+        end
+
         collection_of_methods.sorted_by_position.each do |make_method|
           next if unnecessary_for?(make_method)
 

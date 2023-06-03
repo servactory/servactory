@@ -5,6 +5,8 @@ module Servactory
 
       attr_reader position: Integer
 
+      attr_reader wrapper: Proc?
+
       attr_reader condition: (Proc | bool)?
 
       attr_reader is_condition_opposite: bool

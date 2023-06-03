@@ -5,12 +5,15 @@ module Servactory
     class Method
       attr_reader :name,
                   :position,
+                  :wrapper,
                   :condition,
                   :is_condition_opposite
 
       def initialize(name, position:, **options)
         @name = name
         @position = position
+
+        @wrapper = options.fetch(:wrapper, nil)
 
         @is_condition_opposite = false
         @condition = options.fetch(:if, nil)

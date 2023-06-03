@@ -16,10 +16,25 @@ module Servactory
 
         private
 
-        def make(name, position: nil, **options)
+        def stage(wrap_in: nil, &block)
+
+          make = ->(name, position: nil, **options) { make(name, position: nil, wrapper: wrap_in, **options) }
+
+          yield(make) if block
+        end
+
+        # def wrap_in(wrapper = nil)
+        #   puts "wrap_in assign"
+        #   @wrapper = wrapper if wrapper.present?
+        # end
+
+        def make(name, position: nil, wrapper: nil, **options)
+          puts "make #{name} — #{wrapper.inspect}"
+
           collection_of_methods << Method.new(
             name,
             position: position.presence || next_position,
+            wrapper: wrapper,
             **options
           )
         end
