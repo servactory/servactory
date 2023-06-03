@@ -19,22 +19,23 @@ module Servactory
         def stage(&block)
           instance_eval(&block)
 
-          @wrapper = nil
+          @stage_wrapper = nil
 
           nil
         end
 
         def wrap_in(wrapper)
-          @wrapper = wrapper
+          @stage_wrapper = wrapper
         end
 
         def make(name, position: nil, **options)
           position = position.presence || next_position
+          wrapper = @stage_wrapper.presence || :"#{name}_#{position}"
 
           collection_of_methods << Method.new(
             name,
             position: position,
-            wrapper: @wrapper.presence || :"#{name}_#{position}",
+            wrapper: wrapper,
             **options
           )
         end

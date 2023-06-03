@@ -4,12 +4,17 @@ module Servactory
       def self.included: (untyped base) -> untyped
 
       module ClassMethods
+        @stage_wrapper: Proc?
         @collection_of_methods: Collection
         @methods_workbench: Workbench
 
         def inherited: -> void
 
         private
+
+        def stage: () { () -> untyped } -> nil
+
+        def wrap_in: (Proc? wrapper) -> Proc?
 
         def make: (Symbol name, position: Integer?, **untyped options) -> void
 
