@@ -17,11 +17,6 @@ module Servactory
         private
 
         def stage(&block)
-          # wrap_in_proc = ->(wrapper) { wrapper }
-          # make_proc = ->(name, position: nil, **options) { make(name, position: position, wrapper: wrap_in_proc, **options) }
-
-          # yield(wrap_in_proc, make_proc) if block
-
           instance_eval(&block)
 
           @wrapper = nil

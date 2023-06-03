@@ -17,6 +17,8 @@ module Servactory
 
       def try_to_use_call: -> void
 
+      def call_methods: -> void
+
       def prepare_condition_for: ((Proc | bool)? condition) -> bool
 
       def unnecessary_for?: (Method make_method) -> bool

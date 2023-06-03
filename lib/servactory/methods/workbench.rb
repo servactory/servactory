@@ -18,19 +18,12 @@ module Servactory
       def run!
         return try_to_use_call if collection_of_methods.empty?
 
-        collection_of_methods.grouped_by_wrapper.each do |wrapper, methods|
-          puts
-          puts
-          puts wrapper.inspect
-          puts methods.size.inspect
-          puts
-          puts
-        end
-
-        collection_of_methods.sorted_by_position.each do |make_method|
-          next if unnecessary_for?(make_method)
-
-          context.send(make_method.name)
+        collection_of_methods.sorted_by_position.grouped_by_wrapper.each do |wrapper, methods|
+          if wrapper.present?
+            wrapper.call { call_methods(methods) }
+          else
+            call_methods(methods)
+          end
         end
       end
 
@@ -41,6 +34,14 @@ module Servactory
 
       def try_to_use_call
         context.try(:send, :call)
+      end
+
+      def call_methods(methods)
+        methods.each do |make_method|
+          next if unnecessary_for?(make_method)
+
+          context.send(make_method.name)
+        end
       end
 
       def unnecessary_for?(make_method)
