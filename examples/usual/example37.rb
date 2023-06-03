@@ -15,7 +15,7 @@ module Usual
   class Example37 < ApplicationService::Base
     output :number, type: Integer
 
-    stage do # |wrap_in, make|
+    stage do
       wrap_in -> { Example37Transaction.transaction }
 
       make :assign_number_5
@@ -23,7 +23,7 @@ module Usual
       make :assign_number_7
     end
 
-    stage do # |wrap_in, make|
+    stage do
       wrap_in -> { Example37Transaction.transaction }
 
       make :assign_number_5
