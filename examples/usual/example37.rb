@@ -2,10 +2,6 @@
 
 module Usual
   class Example37Transaction
-    # def initialize
-    #   super
-    # end
-
     def self.transaction(&block)
       yield if block
       # TODO: rescue Example37TransactionRollback
