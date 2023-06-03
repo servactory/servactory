@@ -1,1 +1,1 @@
-docs/pages/CONTRIBUTING.md
+website/docs/CONTRIBUTING.md

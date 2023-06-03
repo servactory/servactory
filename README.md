@@ -11,7 +11,7 @@ See [servactory.com](https://servactory.com) for documentation.
 
 ## Contributing
 
-This project is intended to be a safe, welcoming space for collaboration. Contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct. We recommend reading the [contributing guide](./docs/pages/CONTRIBUTING.md) as well.
+This project is intended to be a safe, welcoming space for collaboration. Contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct. We recommend reading the [contributing guide](./website/docs/CONTRIBUTING.md) as well.
 
 ## License
 
