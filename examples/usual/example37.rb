@@ -12,22 +12,12 @@ module Usual
     output :number, type: Integer
 
     stage do
-      wrap_in -> { Example37Transaction.transaction }
+      wrap_in Example37Transaction.transaction
 
       make :assign_number_5
       make :assign_number_6
       make :assign_number_7
     end
-
-    stage do
-      wrap_in -> { Example37Transaction.transaction }
-
-      make :assign_number_5
-      make :assign_number_6
-      make :assign_number_7
-    end
-
-    make :assign_number_7
 
     private
 

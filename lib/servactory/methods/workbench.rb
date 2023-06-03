@@ -20,7 +20,7 @@ module Servactory
 
         collection_of_methods.sorted_by_position.grouped_by_wrapper.each do |wrapper, methods|
           if wrapper.present?
-            wrapper.call { call_methods(methods) }
+            wrapper { call_methods(methods) }
           else
             call_methods(methods)
           end
