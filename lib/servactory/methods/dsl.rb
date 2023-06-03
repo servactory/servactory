@@ -16,11 +16,11 @@ module Servactory
 
         private
 
-        def stage(wrap_in: nil, &block)
+        def stage(&block)
+          wrap_in = ->(wrapper) { wrapper }
+          make = ->(name, position: nil, **options) { make(name, position: position, wrapper: wrap_in, **options) }
 
-          make = ->(name, position: nil, **options) { make(name, position: nil, wrapper: wrap_in, **options) }
-
-          yield(make) if block
+          yield(wrap_in, make) if block
         end
 
         # def wrap_in(wrapper = nil)
