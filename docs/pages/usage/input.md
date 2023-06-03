@@ -8,7 +8,7 @@ pagination_label: Service input arguments
 
 # Input
 
-All arguments that service must expect should be described through input method.
+All arguments that service must expect should be described through `input` method.
 If the service receives an argument that hasn't been described through input method, it will return an error.
 
 ## Options

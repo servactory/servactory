@@ -8,4 +8,4 @@ pagination_label: Service testing
 
 # Testing
 
-Testing Servactory services is the same as testing regular Ruby classes.
+Тестирование сервисов Servactory аналогично тестированию обычных классов Ruby.

@@ -8,7 +8,7 @@ pagination_label: Calling service methods
 
 # Make
 
-Service methods are called only with `make`.
+Service methods are called only with `make` method.
 
 ## Examples
 

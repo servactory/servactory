@@ -8,7 +8,7 @@ pagination_label: Service internal attributes
 
 # Internal
 
-Internal private attributes can be defined through the internal method.
+Internal private attributes can be defined through the `internal` method.
 
 ## Options
 

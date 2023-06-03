@@ -1,7 +1,7 @@
 ---
 title: Результат работы
 slug: /usage/result
-sidebar_label: Результат работы
+sidebar_label: Результат
 sidebar_position: 3
 pagination_label: Результат работы
 ---
