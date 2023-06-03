@@ -15,13 +15,13 @@ The `.call` method will only fail if it catches an exception in the input argume
 
 The `.call!` method will fail if it catches any exception.
 
-## Via `.call`
+### Via `.call`
 
 ```ruby
 UsersService::Accept.call(user: User.first)
 ```
 
-## Via `.call!`
+### Via `.call!`
 
 ```ruby
 UsersService::Accept.call!(user: User.first)

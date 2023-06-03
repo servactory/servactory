@@ -15,7 +15,7 @@ In order to describe expected service crashes, the following methods were prepar
 
 ## Fail
 
-Base method that allows to pass text as message and additional information via `meta` argument.
+Base method that allows to pass text as message and additional information via `meta` attribute.
 
 When the service is called via the `.call!` method, there will be called an exception with the class `Servactory::Errors::Failure`.
 

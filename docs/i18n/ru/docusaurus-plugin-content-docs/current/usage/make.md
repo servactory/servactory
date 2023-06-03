@@ -8,7 +8,7 @@ pagination_label: Вызов методов сервиса
 
 # Make
 
-Вызов методов сервиса происходит только при помощи `make`.
+Вызов методов сервиса происходит только при помощи метода `make`.
 
 ## Примеры
 
@@ -85,11 +85,29 @@ end
 Может быть полезно при наследовании сервисов.
 
 ```ruby
-make :something,
-     # highlight-next-line
-     position: 1
+class SomeApiService::Base < ApplicationService::Base
+  make :api_request!,
+       # highlight-next-line
+       position: 2
 
-def something
+  # ...
+end
+
+class SomeApiService::Posts::Create < ApplicationService::Base
+  input :post_name, type: String
+
+  # ...
+  
+  make :validate!,
+       # highlight-next-line
+       position: 1
+
+  private
+
+  def validate!
+    # ...
+  end
+
   # ...
 end
 ```
