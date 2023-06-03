@@ -19,8 +19,8 @@ module Servactory
         return try_to_use_call if collection_of_methods.empty?
 
         collection_of_methods.sorted_by_position.grouped_by_wrapper.each do |wrapper, methods|
-          if wrapper.present?
-            wrapper { call_methods(methods) }
+          if wrapper.is_a?(Proc)
+            wrapper.call(methods: call_methods(methods))
           else
             call_methods(methods)
           end

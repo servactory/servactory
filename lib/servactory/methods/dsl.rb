@@ -24,15 +24,17 @@ module Servactory
           nil
         end
 
-        def wrap_in(wrapper = nil)
-          @wrapper = wrapper if wrapper.present?
+        def wrap_in(wrapper)
+          @wrapper = wrapper
         end
 
         def make(name, position: nil, **options)
+          position = position.presence || next_position
+
           collection_of_methods << Method.new(
             name,
-            position: position.presence || next_position,
-            wrapper: @wrapper,
+            position: position,
+            wrapper: @wrapper.presence || :"#{name}_#{position}",
             **options
           )
         end
