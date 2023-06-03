@@ -15,30 +15,30 @@ module Usual
   class Example37 < ApplicationService::Base
     output :number, type: Integer
 
-    stage do |wrap_in, make|
-      # wrap_in ->(methods:) { Example37Transaction.transaction { methods } }
-      wrap_in.call(->(methods:) { Example37Transaction.transaction { methods } })
+    stage do # |wrap_in, make|
+      wrap_in ->(methods:) { Example37Transaction.transaction { methods } }
+      # wrap_in.call(->(methods:) { Example37Transaction.transaction { methods } })
 
-      make.call(:assign_number_5)
-      make.call(:assign_number_6)
-      make.call(:assign_number_7)
+      make :assign_number_5
+      make :assign_number_6
+      make :assign_number_7
 
-      # make :assign_number_5
-      # make :assign_number_6
-      # make :assign_number_7
+      # make.call(:assign_number_5)
+      # make.call(:assign_number_6)
+      # make.call(:assign_number_7)
     end
 
-    stage do |wrap_in, make|
-      # wrap_in ->(methods:) { Example37Transaction.transaction { methods } }
-      wrap_in.call(->(methods:) { Example37Transaction.transaction { methods } })
+    stage do # |wrap_in, make|
+      wrap_in ->(methods:) { Example37Transaction.transaction { methods } }
+      # wrap_in.call(->(methods:) { Example37Transaction.transaction { methods } })
 
-      make.call(:assign_number_5)
-      make.call(:assign_number_6)
-      make.call(:assign_number_7)
+      make :assign_number_5
+      make :assign_number_6
+      make :assign_number_7
 
-      # make :assign_number_5
-      # make :assign_number_6
-      # make :assign_number_7
+      # make.call(:assign_number_5)
+      # make.call(:assign_number_6)
+      # make.call(:assign_number_7)
     end
 
     make :assign_number_7

@@ -17,24 +17,27 @@ module Servactory
         private
 
         def stage(&block)
-          wrap_in = ->(wrapper) { wrapper }
-          make = ->(name, position: nil, **options) { make(name, position: position, wrapper: wrap_in, **options) }
+          # wrap_in_proc = ->(wrapper) { wrapper }
+          # make_proc = ->(name, position: nil, **options) { make(name, position: position, wrapper: wrap_in_proc, **options) }
 
-          yield(wrap_in, make) if block
+          # yield(wrap_in_proc, make_proc) if block
+
+          instance_eval(&block)
+
+          @wrapper = nil
+
+          nil
         end
 
-        # def wrap_in(wrapper = nil)
-        #   puts "wrap_in assign"
-        #   @wrapper = wrapper if wrapper.present?
-        # end
+        def wrap_in(wrapper = nil)
+          @wrapper = wrapper if wrapper.present?
+        end
 
-        def make(name, position: nil, wrapper: nil, **options)
-          puts "make #{name} — #{wrapper.inspect}"
-
+        def make(name, position: nil, **options)
           collection_of_methods << Method.new(
             name,
             position: position.presence || next_position,
-            wrapper: wrapper,
+            wrapper: @wrapper,
             **options
           )
         end
