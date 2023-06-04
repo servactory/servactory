@@ -20,10 +20,11 @@ module Servactory
 
         collection_of_stages.sorted_by_position.each do |stage|
           wrapper = stage.wrapper
+          rollback = stage.rollback
           methods = stage.methods.sorted_by_position
 
           if wrapper.is_a?(Proc)
-            call_wrapper_with_methods(wrapper, methods)
+            call_wrapper_with_methods(wrapper, rollback, methods)
           else
             call_methods(methods)
           end
@@ -39,10 +40,10 @@ module Servactory
         context.try(:send, :call)
       end
 
-      def call_wrapper_with_methods(wrapper, methods)
+      def call_wrapper_with_methods(wrapper, rollback, methods)
         wrapper.call(methods: call_methods(methods))
       rescue StandardError => e
-        context.send(methods.first.rollback, e)
+        context.send(rollback, e)
       end
 
       def call_methods(methods)
