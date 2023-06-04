@@ -20,7 +20,7 @@ module Servactory
 
         collection_of_methods.sorted_by_position.grouped_by_wrapper.each do |wrapper, methods|
           if wrapper.is_a?(Proc)
-            call_wrapper_with_methods(methods)
+            call_wrapper_with_methods(wrapper, methods)
           else
             call_methods(methods)
           end
@@ -36,7 +36,7 @@ module Servactory
         context.try(:send, :call)
       end
 
-      def call_wrapper_with_methods(methods)
+      def call_wrapper_with_methods(wrapper, methods)
         wrapper.call(methods: call_methods(methods))
       rescue StandardError => e
         context.send(methods.first.rollback, e)

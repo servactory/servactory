@@ -17,7 +17,7 @@ module Servactory
 
       def try_to_use_call: -> void
 
-      def call_wrapper_with_methods: (Collection methods) -> void
+      def call_wrapper_with_methods: (Proc wrapper, Collection methods) -> void
 
       def call_methods: (Collection methods) -> void
 
