@@ -17,7 +17,7 @@ module Usual
       wrap_in ->(methods:) { Example39Transaction.transaction { methods } }
 
       make :assign_number_5
-      make :assign_number_6, position: 1
+      make :assign_number_6, position: 99
       make :assign_number_7
     end
 
