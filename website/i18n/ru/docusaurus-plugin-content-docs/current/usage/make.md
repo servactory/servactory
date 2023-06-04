@@ -159,15 +159,15 @@ end
 
 # highlight-next-line
 def clear_data_and_fail!(e)
-  user&.destroy!
-  blog&.destroy!
   post&.destroy!
+  blog&.destroy!
+  user&.destroy!
 
   fail!(message: "Failed to create data: #{e.message}")
 end
 ```
 
-## Сокращения для методов
+## Сокращение для методов
 
 Через конфигурацию `method_shortcuts` можно добавить часто используемые слова, которые используются в виде префиксов в именах методов.
 Имена самих методов короче не станут, но это позволит сократить строки с применением метода `make` и улучшить читаемость кода сервиса, сделав его выразительнее.
