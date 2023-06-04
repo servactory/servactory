@@ -112,6 +112,34 @@ class SomeApiService::Posts::Create < ApplicationService::Base
 end
 ```
 
+## Группирование нескольких методов
+
+Собрать в одну группу выполнение несколько методов можно при помощи метода `stage`.
+
+```ruby
+stage do
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+```
+
+### Оборачивание
+
+Группу методов, находящийхся в `stage` можно обернуть во что-то.
+Например, это может быть `ActiveRecord::Base.transaction` от Rails.
+
+```ruby
+stage do
+  # highlight-next-line
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods } }
+  
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+```
+
 ## Сокращения для методов
 
 Через конфигурацию `method_shortcuts` можно добавить часто используемые слова, которые используются в виде префиксов в именах методов.
