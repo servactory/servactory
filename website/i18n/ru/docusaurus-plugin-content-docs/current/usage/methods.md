@@ -165,9 +165,7 @@ end
 
 # highlight-next-line
 def clear_data_and_fail!(e)
-  post&.destroy!
-  blog&.destroy!
-  user&.destroy!
+  # ...
 
   fail!(message: "Failed to create data: #{e.message}")
 end
