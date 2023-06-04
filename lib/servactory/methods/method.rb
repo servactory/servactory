@@ -6,6 +6,7 @@ module Servactory
       attr_reader :name,
                   :position,
                   :wrapper,
+                  :rollback,
                   :condition,
                   :is_condition_opposite
 
@@ -14,6 +15,7 @@ module Servactory
         @position = position
 
         @wrapper = options.fetch(:wrapper, nil)
+        @rollback = options.fetch(:rollback, nil)
 
         @is_condition_opposite = false
         @condition = options.fetch(:if, nil)

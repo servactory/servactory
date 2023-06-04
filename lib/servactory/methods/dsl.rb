@@ -20,12 +20,17 @@ module Servactory
           instance_eval(&block)
 
           @stage_wrapper = nil
+          @stage_rollback = nil
 
           nil
         end
 
         def wrap_in(wrapper)
           @stage_wrapper = wrapper
+        end
+
+        def rollback(rollback)
+          @stage_rollback = rollback
         end
 
         def make(name, position: nil, **options)
@@ -36,6 +41,7 @@ module Servactory
             name,
             position: position,
             wrapper: wrapper,
+            rollback: @stage_rollback.presence,
             **options
           )
         end
