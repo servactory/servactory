@@ -93,7 +93,7 @@ class SomeApiService::Base < ApplicationService::Base
   # ...
 end
 
-class SomeApiService::Posts::Create < ApplicationService::Base
+class SomeApiService::Posts::Create < SomeApiService::Base
   input :post_name, type: String
 
   # ...
