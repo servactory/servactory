@@ -165,6 +165,7 @@ def clear_data_and_fail!(e)
 
   fail!(message: "Failed to create data: #{e.message}")
 end
+```
 
 ## Сокращения для методов
 
