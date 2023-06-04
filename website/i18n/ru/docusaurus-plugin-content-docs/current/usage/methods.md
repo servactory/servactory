@@ -1,12 +1,12 @@
 ---
 title: Вызов методов сервиса
-slug: /usage/make
-sidebar_label: Make
+slug: /usage/methods
+sidebar_label: Методы
 sidebar_position: 7
 pagination_label: Вызов методов сервиса
 ---
 
-# Make
+# Методы
 
 Вызов методов сервиса происходит только при помощи метода `make`.
 

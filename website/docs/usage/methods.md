@@ -1,12 +1,12 @@
 ---
 title: Calling service methods
-slug: /usage/make
-sidebar_label: Make
+slug: /usage/methods
+sidebar_label: Methods
 sidebar_position: 7
 pagination_label: Calling service methods
 ---
 
-# Make
+# Methods
 
 Service methods are called only with `make` method.
 
