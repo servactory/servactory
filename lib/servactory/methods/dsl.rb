@@ -65,7 +65,7 @@ module Servactory
         end
 
         def collection_of_methods
-          @collection_of_methods ||= Collection.new
+          @collection_of_methods ||= MethodCollection.new
         end
 
         def methods_workbench
