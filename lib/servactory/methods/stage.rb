@@ -8,7 +8,6 @@ module Servactory
                     :rollback
 
       def initialize(position:, wrapper: nil, rollback: nil)
-        # @code = code
         @position = position
         @wrapper = wrapper
         @rollback = rollback
