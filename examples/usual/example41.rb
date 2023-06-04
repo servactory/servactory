@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 
 module Usual
-  class Example38Transaction
+  class Example41Transaction
     def self.transaction(&block)
       yield if block
     end
   end
 
-  class Example38 < ApplicationService::Base
+  class Example41 < ApplicationService::Base
     output :number, type: Integer
 
     make :assign_number_4
 
     stage do
-      wrap_in ->(methods:) { Example38Transaction.transaction { methods } }
+      wrap_in ->(methods:) { Example41Transaction.transaction { methods } }
+      rollback :method_for_rollback
 
       make :assign_number_5
       make :assign_number_6
@@ -33,7 +34,9 @@ module Usual
     end
 
     def assign_number_6
-      self.number = 6
+      # self.number = 6
+
+      raise "bad number"
     end
 
     def assign_number_7
@@ -42,6 +45,10 @@ module Usual
 
     def assign_number_8
       self.number = 8
+    end
+
+    def method_for_rollback(_e)
+      self.number = 9
     end
   end
 end

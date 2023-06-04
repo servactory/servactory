@@ -4,7 +4,6 @@ module Usual
   class Example39Transaction
     def self.transaction(&block)
       yield if block
-      # TODO: rescue Example37TransactionRollback
     end
   end
 
