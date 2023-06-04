@@ -112,6 +112,54 @@ class SomeApiService::Posts::Create < ApplicationService::Base
 end
 ```
 
+## Group of several methods
+
+```ruby
+stage do
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+```
+
+### Wrapping
+
+```ruby
+stage do
+  # highlight-next-line
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods } }
+  
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+```
+
+### Rollback
+
+```ruby
+stage do
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods } }
+  # highlight-next-line
+  rollback :clear_data_and_fail!
+  
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+
+# ...
+
+# highlight-next-line
+def clear_data_and_fail!(e)
+  post&.destroy!
+  blog&.destroy!
+  user&.destroy!
+
+  fail!(message: "Failed to create data: #{e.message}")
+end
+```
+
 ## Method shortcuts
 
 Add frequently used words that are used as prefixes in method names through the `method_shortcuts` configuration.
