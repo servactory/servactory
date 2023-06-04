@@ -11,56 +11,45 @@ module Servactory
         def inherited(child)
           super
 
-          child.send(:collection_of_methods).merge(collection_of_methods)
+          child.send(:collection_of_stages).merge(collection_of_stages)
         end
 
         private
 
         def stage(&block)
-          @stage = Stage.new(position: next_position)
+          @current_stage = Stage.new(position: next_position)
 
           instance_eval(&block)
 
-          # @stage_wrapper = nil
-          # @stage_rollback = nil
-
-          @stage = nil
+          @current_stage = nil
 
           nil
         end
 
         def wrap_in(wrapper)
-          # @stage_wrapper = wrapper
+          return if @current_stage.blank?
 
-          @stage.wrapper = wrapper
+          @current_stage.wrapper = wrapper
         end
 
         def rollback(rollback)
-          # @stage_rollback = rollback
+          return if @current_stage.blank?
 
-          @stage.rollback = rollback
+          @current_stage.rollback = rollback
         end
 
         def make(name, position: nil, **options)
           position = position.presence || next_position
 
-          @stage = @stage.presence || Stage.new(position: position)
+          @current_stage = @current_stage.presence || Stage.new(position: position)
 
-          @stage.methods << Method.new(
+          @current_stage.methods << Method.new(
             name,
             position: position,
             **options
           )
 
-          collection_of_stages << @stage
-
-          # collection_of_methods << Method.new(
-          #   name,
-          #   position: position,
-          #   wrapper: wrapper,
-          #   rollback: @stage_rollback.presence,
-          #   **options
-          # )
+          collection_of_stages << @current_stage
         end
 
         def method_missing(shortcut_name, *args, &block)
@@ -83,10 +72,6 @@ module Servactory
 
         def collection_of_stages
           @collection_of_stages ||= StageCollection.new
-        end
-
-        def collection_of_methods
-          @collection_of_methods ||= MethodCollection.new
         end
 
         def methods_workbench

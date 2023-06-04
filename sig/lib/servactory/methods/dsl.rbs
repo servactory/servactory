@@ -4,8 +4,8 @@ module Servactory
       def self.included: (untyped base) -> untyped
 
       module ClassMethods
-        @stage_wrapper: Proc?
-        @collection_of_methods: Collection
+        @current_stage: Stage?
+        @collection_of_stages: StageCollection
         @methods_workbench: Workbench
 
         def inherited: -> void
@@ -16,6 +16,8 @@ module Servactory
 
         def wrap_in: (Proc? wrapper) -> Proc?
 
+        def rollback: (Symbol? rollback) -> Symbol?
+
         def make: (Symbol name, position: Integer?, **untyped options) -> void
 
         def method_missing: (Symbol, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
@@ -24,7 +26,7 @@ module Servactory
 
         def next_position: -> Integer
 
-        def collection_of_methods: () -> Collection
+        def collection_of_stages: () -> StageCollection
 
         def methods_workbench: () -> Workbench
       end
