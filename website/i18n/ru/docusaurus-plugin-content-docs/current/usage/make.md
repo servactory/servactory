@@ -112,7 +112,7 @@ class SomeApiService::Posts::Create < ApplicationService::Base
 end
 ```
 
-## Группирование нескольких методов
+## Группа из нескольких методов
 
 Собрать в одну группу выполнение несколько методов можно при помощи метода `stage`.
 
@@ -139,6 +139,32 @@ stage do
   make :create_post_for_user_blog!
 end
 ```
+
+### Откат
+
+Если в одном из методов в группе или в `wrap_in` возникло исключение, то это можно обработать при помощи метода `rollback`.
+
+```ruby
+stage do
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods } }
+  # highlight-next-line
+  rollback :clear_data_and_fail!
+  
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+
+# ...
+
+# highlight-next-line
+def clear_data_and_fail!(e)
+  user&.destroy!
+  blog&.destroy!
+  post&.destroy!
+
+  fail!(message: "Failed to create data: #{e.message}")
+end
 
 ## Сокращения для методов
 
