@@ -1,0 +1,19 @@
+module Servactory
+  module Methods
+    class Stage
+      attr_accessor position: Integer
+
+      attr_accessor wrapper: Proc?
+
+      attr_accessor rollback: Symbol?
+
+      attr_accessor methods: MethodCollection
+
+      def initialize: (position: Integer, ?wrapper: Proc?, ?rollback: Symbol?) -> void
+
+      def next_method_position: () -> Integer
+
+      def methods: () -> MethodCollection
+    end
+  end
+end

@@ -7,8 +7,8 @@ module Servactory
         new(...)
       end
 
-      def initialize(collection_of_methods)
-        @collection_of_methods = collection_of_methods
+      def initialize(collection_of_stages)
+        @collection_of_stages = collection_of_stages
       end
 
       def assign(context:)
@@ -16,9 +16,12 @@ module Servactory
       end
 
       def run!
-        return try_to_use_call if collection_of_methods.empty?
+        return try_to_use_call if collection_of_stages.empty?
 
-        collection_of_methods.sorted_by_position.grouped_by_wrapper.each do |wrapper, methods|
+        collection_of_stages.sorted_by_position.each do |stage|
+          wrapper = stage.wrapper
+          methods = stage.methods.sorted_by_position
+
           if wrapper.is_a?(Proc)
             call_wrapper_with_methods(wrapper, methods)
           else
@@ -30,7 +33,7 @@ module Servactory
       private
 
       attr_reader :context,
-                  :collection_of_methods
+                  :collection_of_stages
 
       def try_to_use_call
         context.try(:send, :call)

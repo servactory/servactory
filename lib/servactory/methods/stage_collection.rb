@@ -2,7 +2,7 @@
 
 module Servactory
   module Methods
-    class MethodCollection
+    class StageCollection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
       def_delegators :@collection, :<<, :each, :merge, :sort_by, :size, :empty?
@@ -12,7 +12,7 @@ module Servactory
       end
 
       def sorted_by_position
-        MethodCollection.new(sort_by(&:position))
+        StageCollection.new(sort_by(&:position))
       end
     end
   end
