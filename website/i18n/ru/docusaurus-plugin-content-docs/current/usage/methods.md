@@ -138,7 +138,7 @@ end
 ```ruby
 stage do
   # highlight-next-line
-  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods } }
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods.call } }
   
   make :create_user!
   make :create_blog_for_user!
@@ -152,7 +152,7 @@ end
 
 ```ruby
 stage do
-  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods } }
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods.call } }
   # highlight-next-line
   rollback :clear_data_and_fail!
   

@@ -45,7 +45,7 @@ module Servactory
       end
 
       def call_wrapper_with_methods(wrapper, rollback, methods)
-        wrapper.call(methods: call_methods(methods))
+        wrapper.call(methods: -> { call_methods(methods) })
       rescue StandardError => e
         context.send(rollback, e) if rollback.present?
       end
