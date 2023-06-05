@@ -112,7 +112,15 @@ class SomeApiService::Posts::Create < SomeApiService::Base
 end
 ```
 
-## Group of several methods
+## Group of multiple methods
+
+You can use the `stage` method to group multiple methods into one execution group.
+
+:::info
+
+Usage of the `position` option for `make` will sort only in `stage`.
+
+:::
 
 ```ruby
 stage do
@@ -123,6 +131,9 @@ end
 ```
 
 ### Wrapping
+
+Group of methods in `stage` can be wrapped in something.
+For example, it could be `ActiveRecord::Base.transaction` from Rails.
 
 ```ruby
 stage do
@@ -136,6 +147,8 @@ end
 ```
 
 ### Rollback
+
+If an exception occurs in one of the methods in the group or in `wrap_in`, this can be handled using the `rollback` method.
 
 ```ruby
 stage do
