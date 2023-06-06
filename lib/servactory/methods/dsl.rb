@@ -11,17 +11,45 @@ module Servactory
         def inherited(child)
           super
 
-          child.send(:collection_of_methods).merge(collection_of_methods)
+          child.send(:collection_of_stages).merge(collection_of_stages)
         end
 
         private
 
+        def stage(&block)
+          @current_stage = Stage.new(position: next_position)
+
+          instance_eval(&block)
+
+          @current_stage = nil
+
+          nil
+        end
+
+        def wrap_in(wrapper)
+          return if @current_stage.blank?
+
+          @current_stage.wrapper = wrapper
+        end
+
+        def rollback(rollback)
+          return if @current_stage.blank?
+
+          @current_stage.rollback = rollback
+        end
+
         def make(name, position: nil, **options)
-          collection_of_methods << Method.new(
+          position = position.presence || next_position
+
+          @current_stage = @current_stage.presence || Stage.new(position: position)
+
+          @current_stage.methods << Method.new(
             name,
-            position: position.presence || next_position,
+            position: position,
             **options
           )
+
+          collection_of_stages << @current_stage
         end
 
         def method_missing(shortcut_name, *args, &block)
@@ -39,15 +67,15 @@ module Servactory
         end
 
         def next_position
-          collection_of_methods.size + 1
+          collection_of_stages.size + 1
         end
 
-        def collection_of_methods
-          @collection_of_methods ||= Collection.new
+        def collection_of_stages
+          @collection_of_stages ||= StageCollection.new
         end
 
         def methods_workbench
-          @methods_workbench ||= Workbench.work_with(collection_of_methods)
+          @methods_workbench ||= Workbench.work_with(collection_of_stages)
         end
       end
     end

@@ -3,9 +3,9 @@ module Servactory
     class Workbench
       def self.work_with: (*untyped) ?{ () -> untyped } -> untyped
 
-      def initialize: (Collection collection_of_methods) -> void
+      def initialize: (StageCollection collection_of_stages) -> void
 
-      def assign: (context: untyped) -> void
+      def assign: (context: instance) -> void
 
       def run!: () -> void
 
@@ -13,9 +13,15 @@ module Servactory
 
       attr_reader context: instance
 
-      attr_reader collection_of_methods: Collection
+      attr_reader collection_of_stages: StageCollection
 
       def try_to_use_call: -> void
+
+      def call_stage: (Stage stage) -> void
+
+      def call_wrapper_with_methods: (Proc wrapper, Symbol? rollback, MethodCollection methods) -> void
+
+      def call_methods: (MethodCollection methods) -> void
 
       def prepare_condition_for: ((Proc | bool)? condition) -> bool
 

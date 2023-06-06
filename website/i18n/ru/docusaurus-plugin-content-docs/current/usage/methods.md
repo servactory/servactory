@@ -1,12 +1,12 @@
 ---
 title: Вызов методов сервиса
-slug: /usage/make
-sidebar_label: Make
+slug: /usage/methods
+sidebar_label: Методы
 sidebar_position: 7
 pagination_label: Вызов методов сервиса
 ---
 
-# Make
+# Методы
 
 Вызов методов сервиса происходит только при помощи метода `make`.
 
@@ -112,7 +112,66 @@ class SomeApiService::Posts::Create < SomeApiService::Base
 end
 ```
 
-## Сокращения для методов
+## Группа из нескольких методов
+
+Собрать в одну группу выполнение несколько методов можно при помощи метода `stage`.
+
+:::info
+
+Использование опции `position` для `make` будет сортировать только внутри `stage`.
+
+:::
+
+```ruby
+stage do
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+```
+
+### Оборачивание
+
+Группу методов, находящийхся в `stage` можно обернуть во что-то.
+Например, это может быть `ActiveRecord::Base.transaction` от Rails.
+
+```ruby
+stage do
+  # highlight-next-line
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods.call } }
+  
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+```
+
+### Откат
+
+Если в одном из методов в группе или в `wrap_in` возникло исключение, то это можно обработать при помощи метода `rollback`.
+
+```ruby
+stage do
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods.call } }
+  # highlight-next-line
+  rollback :clear_data_and_fail!
+  
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+
+# ...
+
+# highlight-next-line
+def clear_data_and_fail!(e)
+  # ...
+
+  fail!(message: "Failed to create data: #{e.message}")
+end
+```
+
+## Сокращение для методов
 
 Через конфигурацию `method_shortcuts` можно добавить часто используемые слова, которые используются в виде префиксов в именах методов.
 Имена самих методов короче не станут, но это позволит сократить строки с применением метода `make` и улучшить читаемость кода сервиса, сделав его выразительнее.

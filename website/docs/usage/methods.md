@@ -1,12 +1,12 @@
 ---
 title: Calling service methods
-slug: /usage/make
-sidebar_label: Make
+slug: /usage/methods
+sidebar_label: Methods
 sidebar_position: 7
 pagination_label: Calling service methods
 ---
 
-# Make
+# Methods
 
 Service methods are called only with `make` method.
 
@@ -109,6 +109,65 @@ class SomeApiService::Posts::Create < SomeApiService::Base
   end
 
   # ...
+end
+```
+
+## Group of multiple methods
+
+You can use the `stage` method to group multiple methods into one execution group.
+
+:::info
+
+Usage of the `position` option for `make` will sort only in `stage`.
+
+:::
+
+```ruby
+stage do
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+```
+
+### Wrapping
+
+Group of methods in `stage` can be wrapped in something.
+For example, it could be `ActiveRecord::Base.transaction` from Rails.
+
+```ruby
+stage do
+  # highlight-next-line
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods.call } }
+  
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+```
+
+### Rollback
+
+If an exception occurs in one of the methods in the group or in `wrap_in`, this can be handled using the `rollback` method.
+
+```ruby
+stage do
+  wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods.call } }
+  # highlight-next-line
+  rollback :clear_data_and_fail!
+  
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+
+# ...
+
+# highlight-next-line
+def clear_data_and_fail!(e)
+  # ...
+
+  fail!(message: "Failed to create data: #{e.message}")
 end
 ```
 
