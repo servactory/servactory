@@ -31,6 +31,8 @@ module Servactory
         end
 
         def validate!
+          return unless should_be_checked?
+
           return if prepared_types.any? { |type| @value.is_a?(type) }
 
           raise_error_with(
@@ -43,6 +45,14 @@ module Servactory
         end
 
         private
+
+        def should_be_checked?
+          @output.required? || (
+            @output.optional? && !@output.default.nil?
+          ) || (
+            @output.optional? && !@value.nil?
+          )
+        end
 
         def prepared_types
           @prepared_types ||=
