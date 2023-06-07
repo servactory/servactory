@@ -2,6 +2,7 @@
 
 module Usual
   class Example43 < ApplicationService::Base
+    # NOTE: https://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
     User = Struct.new(:email, :password, keyword_init: true) do
       def self.find_by(email:)
         return if email != "correct@email.com"
