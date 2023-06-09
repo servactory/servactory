@@ -11,7 +11,7 @@ module Servactory
 
         private
 
-        def input: (Symbol name, **untyped options) -> void
+        def input: (Symbol name, *Symbol helpers, **untyped options) -> void
 
         def collection_of_inputs: () -> Collection
 

@@ -11,6 +11,7 @@ module Servactory
 
       def initialize: (
         Symbol name,
+        *Symbol helpers,
         as: Symbol?,
         type: (Class | Array[Class]),
         **untyped options

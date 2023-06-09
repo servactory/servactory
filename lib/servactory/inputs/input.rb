@@ -5,18 +5,27 @@ module Servactory
     class Input # rubocop:disable Metrics/ClassLength
       ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
 
+      HELPER_LIBRARY = {
+        as_array: { array: true }
+      }.freeze
+
+      private_constant :HELPER_LIBRARY
+
       attr_reader :name,
                   :internal_name
 
       # rubocop:disable Style/KeywordParametersOrder
       def initialize(
         name,
+        *helpers,
         as: nil,
         type:,
         **options
       )
         @name = name
         @internal_name = as.present? ? as : name
+
+        options = apply_helpers_for_options(helpers: helpers, options: options)
 
         add_basic_options_with(type: type, options: options)
 
@@ -27,6 +36,20 @@ module Servactory
         end
       end
       # rubocop:enable Style/KeywordParametersOrder
+
+      def apply_helpers_for_options(helpers:, options:)
+        prepared_options = {}
+
+        helpers.each do |helper|
+          next unless HELPER_LIBRARY.key?(helper)
+
+          found_helper = HELPER_LIBRARY[helper]
+
+          prepared_options.merge!(found_helper)
+        end
+
+        options.merge(prepared_options)
+      end
 
       def add_basic_options_with(type:, options:)
         # Check Class: Servactory::Inputs::Validations::Required
@@ -63,7 +86,7 @@ module Servactory
             )
           ],
           define_input_conflicts: [
-            DefineInputConflict.new(content: -> { return :required_vs_default if required? && default_value_present? })
+            DefineInputConflict.new(content: -> { :required_vs_default if required? && default_value_present? })
           ],
           need_for_checks: true,
           value_key: :is,
@@ -114,8 +137,8 @@ module Servactory
             )
           ],
           define_input_conflicts: [
-            DefineInputConflict.new(content: -> { return :array_vs_array if array? && types.include?(Array) }),
-            DefineInputConflict.new(content: -> { return :array_vs_inclusion if array? && inclusion_present? })
+            DefineInputConflict.new(content: -> { :array_vs_array if array? && types.include?(Array) }),
+            DefineInputConflict.new(content: -> { :array_vs_inclusion if array? && inclusion_present? })
           ],
           need_for_checks: false,
           value_key: :is,
