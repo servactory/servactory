@@ -2,6 +2,7 @@ module Servactory
   module Inputs
     class Input
       ARRAY_DEFAULT_VALUE: ^(is: bool, message: Proc | String | nil) -> { is: bool, message: String | nil }
+      HELPER_LIBRARY: Hash[Symbol, Hash[Symbol, bool]]
 
       @collection_of_options: OptionsCollection
       @internal_name: Symbol?
@@ -16,6 +17,8 @@ module Servactory
         type: (Class | Array[Class]),
         **untyped options
       ) -> void
+
+      def apply_helpers_for_options: (helpers: Array[Symbol], options: OptionsCollection) -> OptionsCollection
 
       def add_basic_options_with: (type: (Class | Array[Class]), options: untyped) -> void
 
