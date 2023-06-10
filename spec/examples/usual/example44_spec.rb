@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Example6 do
+RSpec.describe Usual::Example44 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -44,7 +44,7 @@ RSpec.describe Usual::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example6] Wrong type in input array `ids`, expected `String`"
+                "[Usual::Example44] Wrong type in input array `ids`, expected `String`"
               )
             )
           end
@@ -63,7 +63,7 @@ RSpec.describe Usual::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example6] Required element in input array `ids` is missing"
+                "[Usual::Example44] Required element in input array `ids` is missing"
               )
             )
           end
@@ -82,7 +82,7 @@ RSpec.describe Usual::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example6] Required element in input array `ids` is missing"
+                "[Usual::Example44] Required element in input array `ids` is missing"
               )
             )
           end
@@ -142,7 +142,7 @@ RSpec.describe Usual::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example6] Wrong type in input array `ids`, expected `String`"
+                "[Usual::Example44] Wrong type in input array `ids`, expected `String`"
               )
             )
           end
@@ -161,7 +161,7 @@ RSpec.describe Usual::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example6] Required element in input array `ids` is missing"
+                "[Usual::Example44] Required element in input array `ids` is missing"
               )
             )
           end
@@ -180,7 +180,7 @@ RSpec.describe Usual::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example6] Required element in input array `ids` is missing"
+                "[Usual::Example44] Required element in input array `ids` is missing"
               )
             )
           end

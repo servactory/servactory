@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Usual
-  class Example6 < ApplicationService::Base
+  class Example44 < ApplicationService::Base
     input :ids, :as_array, type: String
 
     output :first_id, type: String
