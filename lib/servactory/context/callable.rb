@@ -6,6 +6,8 @@ module Servactory
       def call!(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         @context_store = Store.new(self)
 
+        context_store.context.send(:assign_service_strict_mode, true)
+
         assign_data_with(arguments)
 
         inputs_workbench.find_unnecessary!
@@ -30,6 +32,8 @@ module Servactory
 
       def call(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         @context_store = Store.new(self)
+
+        context_store.context.send(:assign_service_strict_mode, false)
 
         assign_data_with(arguments)
 
