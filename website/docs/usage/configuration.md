@@ -32,6 +32,37 @@ module ApplicationService
 end
 ```
 
+### Helpers for `input`
+
+Custom helpers for `input` should be based on the `must` option.
+
+```ruby title="app/services/application_service/base.rb"
+module ApplicationService
+  class Base < Servactory::Base
+    configuration do
+      # highlight-next-line
+      input_option_helpers(
+        [
+          Servactory::Inputs::OptionHelper.new(
+            name: :must_be_6_characters,
+            equivalent: {
+              must: {
+                be_6_characters: {
+                  is: ->(value:) { value.all? { |id| id.size == 6 } },
+                  message: lambda do |input:, **|
+                    "Wrong IDs in `#{input.name}`"
+                  end
+                }
+              }
+            }
+          )
+        ]
+      )
+    end
+  end
+end
+```
+
 ### Method shortcuts
 
 ```ruby title="app/services/application_service/base.rb"

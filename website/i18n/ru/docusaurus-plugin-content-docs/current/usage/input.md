@@ -247,6 +247,26 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
+### Пользовательские
+
+Есть возможность добавлять пользовательские хелперы.
+Они основываются на опции `must`.
+
+Добавление выполняется через метод `input_option_helpers` в `configuration`.
+[Пример конфигурации](./configuration.md#хелперы-для-input).
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :invoice_numbers,
+        # highlight-next-line
+        :must_be_6_characters,
+        type: String,
+        array: true
+
+  # ...
+end
+```
+
 ## Расширенный режим
 
 Расширенный режим подразумевает более детальную работу с опцией.
