@@ -5,13 +5,7 @@ module Servactory
     class Input # rubocop:disable Metrics/ClassLength
       ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
 
-      HELPER_LIBRARY = {
-        optional: { required: false },
-        internal: { internal: true },
-        as_array: { array: true }
-      }.freeze
-
-      private_constant :ARRAY_DEFAULT_VALUE, :HELPER_LIBRARY
+      private_constant :ARRAY_DEFAULT_VALUE
 
       attr_reader :name,
                   :internal_name
@@ -43,11 +37,11 @@ module Servactory
         prepared_options = {}
 
         helpers.each do |helper|
-          next unless HELPER_LIBRARY.key?(helper)
+          found_helper = Servactory.configuration.input_option_helpers.find_by(name: helper)
 
-          found_helper = HELPER_LIBRARY[helper]
+          next if found_helper.blank?
 
-          prepared_options.merge!(found_helper)
+          prepared_options.merge!(found_helper.equivalent)
         end
 
         options.merge(prepared_options)

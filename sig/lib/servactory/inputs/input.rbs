@@ -2,7 +2,6 @@ module Servactory
   module Inputs
     class Input
       ARRAY_DEFAULT_VALUE: ^(is: bool, message: Proc | String | nil) -> { is: bool, message: String | nil }
-      HELPER_LIBRARY: Hash[Symbol, Hash[Symbol, bool]]
 
       @collection_of_options: OptionsCollection
       @internal_name: Symbol?
