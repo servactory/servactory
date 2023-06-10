@@ -16,9 +16,10 @@ module Servactory
 
         private
 
-        def input(name, **options)
+        def input(name, *helpers, **options)
           collection_of_inputs << Input.new(
             name,
+            *helpers,
             **options
           )
         end

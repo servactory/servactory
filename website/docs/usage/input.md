@@ -194,6 +194,59 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
+## Helpers
+
+### Helper `optional`
+
+This helper is equivalent to `required: false`.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :first_name,
+        type: String
+
+  input :middle_name,
+        # highlight-next-line
+        :optional,
+        type: String
+
+  input :last_name,
+        type: String
+
+  # ...
+end
+```
+
+### Helper `internal`
+
+This helper is equivalent to `internal: true`.
+
+```ruby
+class UsersService::Accept < ApplicationService::Base
+  input :user,
+        # highlight-next-line
+        :internal,
+        type: User
+
+  # ...
+end
+```
+
+### Helper `as_array`
+
+This helper is equivalent to `array: true`.
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :invoice_numbers,
+        # highlight-next-line
+        :as_array,
+        type: String
+
+  # ...
+end
+```
+
 ## Advanced mode
 
 Advanced mode provides more detailed work with the option.

@@ -18,6 +18,8 @@ module Servactory
 
         private
 
+        def should_be_checked?: -> bool
+
         def prepared_types: -> Array[Class]
       end
     end

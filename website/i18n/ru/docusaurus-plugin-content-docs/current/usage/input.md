@@ -194,6 +194,59 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
+## Хелперы
+
+### Хелпер `optional`
+
+Этот хелпер эквивалентен `required: false`.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :first_name,
+        type: String
+
+  input :middle_name,
+        # highlight-next-line
+        :optional,
+        type: String
+
+  input :last_name,
+        type: String
+
+  # ...
+end
+```
+
+### Хелпер `internal`
+
+Этот хелпер эквивалентен `internal: true`.
+
+```ruby
+class UsersService::Accept < ApplicationService::Base
+  input :user,
+        # highlight-next-line
+        :internal,
+        type: User
+
+  # ...
+end
+```
+
+### Хелпер `as_array`
+
+Этот хелпер эквивалентен `array: true`.
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :invoice_numbers,
+        # highlight-next-line
+        :as_array,
+        type: String
+
+  # ...
+end
+```
+
 ## Расширенный режим
 
 Расширенный режим подразумевает более детальную работу с опцией.
