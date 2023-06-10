@@ -1,5 +1,6 @@
 ---
 title: Service result
+description: Description and examples of using result of service
 slug: /usage/result
 sidebar_label: Result
 sidebar_position: 3

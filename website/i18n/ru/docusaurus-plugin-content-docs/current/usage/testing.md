@@ -1,5 +1,6 @@
 ---
 title: Тестирование сервисов
+description: Информация о тестировании сервисов
 slug: /testing
 sidebar_label: Тестирование
 sidebar_position: 10

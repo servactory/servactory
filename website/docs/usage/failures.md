@@ -1,5 +1,6 @@
 ---
 title: Service failures
+description: Description and examples of use of service failures
 slug: /usage/failures
 sidebar_label: Failures
 sidebar_position: 8

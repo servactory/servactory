@@ -1,5 +1,6 @@
 ---
 title: Service internal attributes
+description: Description and examples of using internal attributes of service
 slug: /usage/internal
 sidebar_label: Internal
 sidebar_position: 6

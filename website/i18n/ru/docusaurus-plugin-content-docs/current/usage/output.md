@@ -1,5 +1,6 @@
 ---
 title: Выходные атрибуты сервиса
+description: Описание и примеры использования выходных атрибутов сервиса
 slug: /usage/output
 sidebar_label: Output
 sidebar_position: 5

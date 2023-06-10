@@ -1,6 +1,6 @@
 ---
 title: Вызов сервиса
-description: Описание использования вызова сервисов
+description: Описание и примеры использования вызова сервиса
 slug: /usage/call
 sidebar_label: Вызов
 sidebar_position: 2

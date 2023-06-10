@@ -1,5 +1,6 @@
 ---
 title: Конфигурация
+description: Описание и примеры конфигурирования сервисов
 slug: /usage/configuration
 sidebar_label: Конфигурация
 sidebar_position: 1
