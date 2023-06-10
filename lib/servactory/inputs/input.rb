@@ -6,7 +6,7 @@ module Servactory
       ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
 
       HELPER_LIBRARY = {
-        required: { required: true },
+        optional: { required: false },
         internal: { internal: true },
         as_array: { array: true }
       }.freeze
@@ -27,7 +27,7 @@ module Servactory
         @name = name
         @internal_name = as.present? ? as : name
 
-        options = apply_helpers_for_options(helpers: helpers, options: options)
+        options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
 
         add_basic_options_with(type: type, options: options)
 
