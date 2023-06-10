@@ -11,7 +11,7 @@ module Servactory
         as_array: { array: true }
       }.freeze
 
-      private_constant :HELPER_LIBRARY
+      private_constant :ARRAY_DEFAULT_VALUE, :HELPER_LIBRARY
 
       attr_reader :name,
                   :internal_name
