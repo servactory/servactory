@@ -2,6 +2,7 @@ module Servactory
   module Context
     module Workspace
       @errors: Errors
+      @service_strict_mode: bool
 
       attr_reader inputs: Inputs
 
@@ -16,6 +17,10 @@ module Servactory
       def fail!: (message: String, meta: untyped?) -> Errors
 
       def raise_first_fail: () -> (nil | untyped)
+
+      private
+
+      def assign_service_strict_mode: (bool flag) -> bool
     end
   end
 end

@@ -29,7 +29,17 @@ module Servactory
       end
 
       def fail!(message:, meta: nil)
-        errors << Servactory.configuration.failure_class.new(message: message, meta: meta)
+        failure = Servactory.configuration.failure_class.new(message: message, meta: meta)
+
+        raise failure if @service_strict_mode
+
+        errors << failure
+      end
+
+      private
+
+      def assign_service_strict_mode(flag)
+        @service_strict_mode = flag
       end
     end
   end
