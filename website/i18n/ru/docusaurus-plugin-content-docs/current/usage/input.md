@@ -253,7 +253,8 @@ end
 Они основываются на опции `must`.
 
 Добавление выполняется через метод `input_option_helpers` в `configuration`.
-[Пример конфигурации](./configuration.md#хелперы-для-input).
+
+[Пример конфигурации](./configuration.md#хелперы-для-input)
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base

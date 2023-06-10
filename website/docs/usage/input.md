@@ -253,7 +253,8 @@ It is possible to add custom helpers.
 It is based on the `must` option.
 
 Adding is done via the `input_option_helpers` method in `configuration`.
-[Configuration example](./configuration.md#helpers-for-input).
+
+[Configuration example](./configuration.md#helpers-for-input)
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base
