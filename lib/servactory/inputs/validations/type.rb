@@ -94,7 +94,7 @@ module Servactory
         end
 
         def prepared_value
-          @prepared_value ||= @input.optional? && !@input.default.nil? ? @input.default : @value
+          @prepared_value ||= @input.optional? && !@input.default.nil? && @value.blank? ? @input.default : @value
         end
       end
     end
