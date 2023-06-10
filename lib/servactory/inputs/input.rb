@@ -6,6 +6,8 @@ module Servactory
       ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
 
       HELPER_LIBRARY = {
+        required: { required: true },
+        internal: { internal: true },
         as_array: { array: true }
       }.freeze
 
