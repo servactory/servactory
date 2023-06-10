@@ -7,6 +7,7 @@ module Servactory
                     :internal_error_class,
                     :output_error_class,
                     :failure_class,
+                    :input_option_helpers,
                     :method_shortcuts
 
       def initialize
@@ -16,7 +17,19 @@ module Servactory
 
         @failure_class = Servactory::Errors::Failure
 
+        @input_option_helpers = Servactory::Inputs::OptionHelpersCollection.new(default_input_option_helpers)
+
         @method_shortcuts = Servactory::Methods::Shortcuts::Collection.new
+      end
+
+      private
+
+      def default_input_option_helpers
+        Set[
+          Servactory::Inputs::OptionHelper.new(name: :optional, equivalent: { required: false }),
+          Servactory::Inputs::OptionHelper.new(name: :internal, equivalent: { internal: true }),
+          Servactory::Inputs::OptionHelper.new(name: :as_array, equivalent: { array: true })
+        ]
       end
     end
   end

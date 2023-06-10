@@ -247,6 +247,27 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
+### Custom
+
+It is possible to add custom helpers.
+It is based on the `must` option.
+
+Adding is done via the `input_option_helpers` method in `configuration`.
+
+[Configuration example](./configuration.md#helpers-for-input)
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :invoice_numbers,
+        # highlight-next-line
+        :must_be_6_characters,
+        type: String,
+        array: true
+
+  # ...
+end
+```
+
 ## Advanced mode
 
 Advanced mode provides more detailed work with the option.

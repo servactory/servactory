@@ -19,6 +19,10 @@ module Servactory
         Servactory.configuration.failure_class = failure_class
       end
 
+      def input_option_helpers(input_option_helpers)
+        Servactory.configuration.input_option_helpers.merge(input_option_helpers)
+      end
+
       def method_shortcuts(method_shortcuts)
         Servactory.configuration.method_shortcuts.merge(method_shortcuts)
       end

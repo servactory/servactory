@@ -1,0 +1,14 @@
+module Servactory
+  module Inputs
+    class OptionHelpersCollection
+      # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
+      extend Forwardable
+
+      @collection: Set[OptionHelper]
+
+      def initialize: (Set[OptionHelper] collection) -> void
+
+      def find_by: (name: Symbol) -> OptionHelper?
+    end
+  end
+end
