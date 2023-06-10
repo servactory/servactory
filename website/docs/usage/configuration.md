@@ -1,5 +1,6 @@
 ---
 title: Configuration
+description: Description and examples of service configuration
 slug: /usage/configuration
 sidebar_label: Configuration
 sidebar_position: 1

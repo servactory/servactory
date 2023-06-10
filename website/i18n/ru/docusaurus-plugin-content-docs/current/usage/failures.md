@@ -1,5 +1,6 @@
 ---
 title: Неудачи и падения сервиса
+description: Описание и примеры использования неудач и падений сервиса
 slug: /usage/failures
 sidebar_label: Неудачи
 sidebar_position: 8

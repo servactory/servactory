@@ -1,5 +1,6 @@
 ---
 title: Внутренние атрибуты сервиса
+description: Описание и примеры использования внутренних атрибутов сервиса
 slug: /usage/internal
 sidebar_label: Internal
 sidebar_position: 6

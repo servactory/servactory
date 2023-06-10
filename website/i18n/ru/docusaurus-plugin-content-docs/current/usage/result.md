@@ -1,5 +1,6 @@
 ---
 title: Результат работы
+description: Описание и примеры использования результата работы сервиса
 slug: /usage/result
 sidebar_label: Результат
 sidebar_position: 3

@@ -1,5 +1,6 @@
 ---
 title: Входные аргументы сервиса
+description: Описание и примеры использования входных аргументов сервиса
 slug: /usage/input
 sidebar_label: Input
 sidebar_position: 4

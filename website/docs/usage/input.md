@@ -1,5 +1,6 @@
 ---
 title: Service input arguments
+description: Description and examples of using input arguments of service
 slug: /usage/input
 sidebar_label: Input
 sidebar_position: 4
