@@ -1,0 +1,7 @@
+module Servactory
+  module Test
+    class Result
+      def initialize: (**untyped attributes) -> void
+    end
+  end
+end
