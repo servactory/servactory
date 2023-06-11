@@ -15,7 +15,7 @@ pagination_label: Конфигурация
 
 ### Ошибки
 
-```ruby {4-6, 8} title="app/services/application_service/base.rb"
+```ruby {4-6,8} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do
@@ -35,7 +35,7 @@ end
 
 #### Пример с `must`
 
-```ruby {4,6-18} title="app/services/application_service/base.rb"
+```ruby {4-20} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do
@@ -63,7 +63,7 @@ end
 
 #### Пример с `prepare`
 
-```ruby {4,6-11} title="app/services/application_service/base.rb"
+```ruby {4-13} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do

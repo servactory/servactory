@@ -15,7 +15,7 @@ Services are configured through the `configuration` method, which can be placed,
 
 ### Errors
 
-```ruby {4-6, 8} title="app/services/application_service/base.rb"
+```ruby {4-6,8} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do
@@ -35,7 +35,7 @@ Custom helpers for `input` are based on the `must` and `prepare` options.
 
 #### Example with `must`
 
-```ruby {4,6-18} title="app/services/application_service/base.rb"
+```ruby {4-20} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do
@@ -63,7 +63,7 @@ end
 
 #### Example with `prepare`
 
-```ruby {4,6-11} title="app/services/application_service/base.rb"
+```ruby {4-13} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do
