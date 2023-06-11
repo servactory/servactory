@@ -195,6 +195,25 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
+### Option `prepare`
+
+This option is not validation.
+Used to prepare the value of the input argument.
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :amount_cents,
+        as: :amount,
+        type: Integer,
+        # highlight-next-line
+        prepare: ->(value:) { Money.new(cents: value, currency: :USD) }
+
+  # then `inputs.balance` is used in the service
+
+  # ...
+end
+```
+
 ## Helpers
 
 ### Helper `optional`

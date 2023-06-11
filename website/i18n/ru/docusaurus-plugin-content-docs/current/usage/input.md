@@ -195,6 +195,25 @@ class PymentsService::Send < ApplicationService::Base
 end
 ```
 
+### Опция `prepare`
+
+Эта опция не является валидацией.
+Она используется для подготовки значения input-аргумента.
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :amount_cents,
+        as: :amount,
+        type: Integer,
+        # highlight-next-line
+        prepare: ->(value:) { Money.new(cents: value, currency: :USD) }
+
+  # затем в сервисе используется `inputs.balance`
+
+  # ...
+end
+```
+
 ## Хелперы
 
 ### Хелпер `optional`
