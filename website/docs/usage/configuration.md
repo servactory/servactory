@@ -15,18 +15,14 @@ Services are configured through the `configuration` method, which can be placed,
 
 ### Errors
 
-```ruby title="app/services/application_service/base.rb"
+```ruby {4-6, 8} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do
-      # highlight-next-line
       input_error_class ApplicationService::Errors::InputError
-      # highlight-next-line
       output_error_class ApplicationService::Errors::OutputError
-      # highlight-next-line
       internal_error_class ApplicationService::Errors::InternalError
 
-      # highlight-next-line
       failure_class ApplicationService::Errors::Failure
     end
   end
@@ -35,13 +31,14 @@ end
 
 ### Helpers for `input`
 
-Custom helpers for `input` should be based on the `must` option.
+Custom helpers for `input` are based on the `must` and `prepare` options.
 
-```ruby title="app/services/application_service/base.rb"
+#### Example with `must`
+
+```ruby {4,6-18} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do
-      # highlight-next-line
       input_option_helpers(
         [
           Servactory::Inputs::OptionHelper.new(
@@ -64,13 +61,33 @@ module ApplicationService
 end
 ```
 
-### Method shortcuts
+#### Example with `prepare`
 
-```ruby title="app/services/application_service/base.rb"
+```ruby {4,6-11} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do
-      # highlight-next-line
+      input_option_helpers(
+        [
+          Servactory::Inputs::OptionHelper.new(
+            name: :to_money,
+            equivalent: {
+              prepare: ->(value:) { Money.new(cents: value, currency: :USD) }
+            }
+          )
+        ]
+      )
+    end
+  end
+end
+```
+
+### Method shortcuts
+
+```ruby {4} title="app/services/application_service/base.rb"
+module ApplicationService
+  class Base < Servactory::Base
+    configuration do
       method_shortcuts %i[assign perform]
     end
   end
