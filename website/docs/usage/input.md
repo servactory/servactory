@@ -270,11 +270,13 @@ end
 ### Custom
 
 It is possible to add custom helpers.
-It is based on the `must` option.
+It is based on the `must` and `prepare` options.
 
 Adding is done via the `input_option_helpers` method in `configuration`.
 
 [Configuration example](./configuration.md#helpers-for-input)
+
+#### Example with `must`
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base
@@ -283,6 +285,20 @@ class PymentsService::Send < ApplicationService::Base
         :must_be_6_characters,
         type: String,
         array: true
+
+  # ...
+end
+```
+
+#### Example with `prepare`
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :amount_cents,
+        # highlight-next-line
+        :to_money,
+        as: :amount,
+        type: Integer
 
   # ...
 end

@@ -270,11 +270,13 @@ end
 ### Пользовательские
 
 Есть возможность добавлять пользовательские хелперы.
-Они основываются на опции `must`.
+Они основываются на опциях `must` и `prepare`.
 
 Добавление выполняется через метод `input_option_helpers` в `configuration`.
 
 [Пример конфигурации](./configuration.md#хелперы-для-input)
+
+#### Пример с `must`
 
 ```ruby
 class PymentsService::Send < ApplicationService::Base
@@ -283,6 +285,20 @@ class PymentsService::Send < ApplicationService::Base
         :must_be_6_characters,
         type: String,
         array: true
+
+  # ...
+end
+```
+
+#### Пример с `prepare`
+
+```ruby
+class PymentsService::Send < ApplicationService::Base
+  input :amount_cents,
+        # highlight-next-line
+        :to_money,
+        as: :amount,
+        type: Integer
 
   # ...
 end
