@@ -63,6 +63,7 @@ module Servactory
         add_must_option_with(options)
 
         # Check Class: nil
+        add_prepare_option_with(options)
         add_internal_option_with(options)
       end
 
@@ -176,6 +177,18 @@ module Servactory
           value_key: :is,
           value_fallback: nil,
           with_advanced_mode: false,
+          **options
+        )
+      end
+
+      def add_prepare_option_with(options)
+        collection_of_options << Option.new(
+          name: :prepare,
+          input: self,
+          validation_class: nil,
+          need_for_checks: false,
+          value_key: :in,
+          value_fallback: false,
           **options
         )
       end

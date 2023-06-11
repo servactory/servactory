@@ -31,6 +31,9 @@ module Servactory
           input_value = @incoming_arguments.fetch(input.name, nil)
           input_value = input.default if input.optional? && input_value.blank?
 
+          input_prepare = input.prepare.fetch(:in, nil)
+          input_value = input_prepare.call(value: input_value) if input_prepare.present?
+
           if input.internal?
             @internal_variables[input.name] = input_value
           else
