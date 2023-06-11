@@ -186,6 +186,17 @@ module Servactory
           name: :prepare,
           input: self,
           validation_class: nil,
+          define_input_methods: [
+            DefineInputMethod.new(
+              name: :prepare_present?,
+              content: ->(value:) { value[:in].present? }
+            )
+          ],
+          define_input_conflicts: [
+            DefineInputConflict.new(content: -> { :prepare_vs_array if prepare_present? && array? }),
+            DefineInputConflict.new(content: -> { :prepare_vs_inclusion if prepare_present? && inclusion_present? }),
+            DefineInputConflict.new(content: -> { :prepare_vs_must if prepare_present? && must_present? })
+          ],
           need_for_checks: false,
           value_key: :in,
           value_fallback: false,
