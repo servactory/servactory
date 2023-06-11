@@ -200,6 +200,12 @@ end
 Эта опция не является валидацией.
 Она используется для подготовки значения input-аргумента.
 
+:::caution
+
+Используйте опцию `prepare` осторожно и только для простых действий.
+
+:::
+
 ```ruby
 class PymentsService::Send < ApplicationService::Base
   input :amount_cents,

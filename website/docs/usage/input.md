@@ -200,6 +200,12 @@ end
 This option is not validation.
 Used to prepare the value of the input argument.
 
+:::caution
+
+Use the `prepare` option carefully and only for simple actions.
+
+:::
+
 ```ruby
 class PymentsService::Send < ApplicationService::Base
   input :amount_cents,
