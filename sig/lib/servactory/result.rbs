@@ -6,7 +6,7 @@ module Servactory
 
     private
 
-    def prepare_outputs_with: (context: instance, collection_of_outputs: Outputs) -> void
+    def prepare_outputs_with: (context: instance, collection_of_outputs: Outputs::Collection) -> void
 
     def prepare_statuses_with: (context: instance) -> void
   end
