@@ -5,12 +5,14 @@ module Servactory
     class Stage
       attr_accessor :position,
                     :wrapper,
-                    :rollback
+                    :rollback,
+                    :condition
 
-      def initialize(position:, wrapper: nil, rollback: nil)
+      def initialize(position:, wrapper: nil, rollback: nil, condition: nil)
         @position = position
         @wrapper = wrapper
         @rollback = rollback
+        @condition = condition
       end
 
       def next_method_position

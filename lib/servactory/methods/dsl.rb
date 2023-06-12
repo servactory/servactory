@@ -38,6 +38,12 @@ module Servactory
           @current_stage.rollback = rollback
         end
 
+        def only_if(condition)
+          return if @current_stage.blank?
+
+          @current_stage.condition = condition
+        end
+
         def make(name, position: nil, **options)
           position = position.presence || next_position
 

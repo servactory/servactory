@@ -18,6 +18,8 @@ module Servactory
 
         def rollback: (Symbol? rollback) -> Symbol?
 
+        def only_if: ((bool | Proc)? condition) -> (bool | Proc)?
+
         def make: (Symbol name, position: Integer?, **untyped options) -> void
 
         def method_missing: (Symbol, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void

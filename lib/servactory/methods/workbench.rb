@@ -33,6 +33,8 @@ module Servactory
       end
 
       def call_stage(stage)
+        return if unnecessary_for_stage?(stage)
+
         wrapper = stage.wrapper
         rollback = stage.rollback
         methods = stage.methods.sorted_by_position
@@ -52,13 +54,23 @@ module Servactory
 
       def call_methods(methods)
         methods.each do |make_method|
-          next if unnecessary_for?(make_method)
+          next if unnecessary_for_make?(make_method)
 
           context.send(make_method.name)
         end
       end
 
-      def unnecessary_for?(make_method)
+      def unnecessary_for_stage?(stage)
+        condition = stage.condition
+        # is_condition_opposite = stage.is_condition_opposite
+
+        result = prepare_condition_for(condition) # rubocop:disable Style/RedundantAssignment
+
+        # is_condition_opposite ? !result : result
+        result
+      end
+
+      def unnecessary_for_make?(make_method)
         condition = make_method.condition
         is_condition_opposite = make_method.is_condition_opposite
 
