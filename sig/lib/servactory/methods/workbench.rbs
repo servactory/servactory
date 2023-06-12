@@ -23,9 +23,11 @@ module Servactory
 
       def call_methods: (MethodCollection methods) -> void
 
-      def prepare_condition_for: ((Proc | bool)? condition) -> bool
+      def unnecessary_for_stage?: (Stage stage) -> bool
 
-      def unnecessary_for?: (Method make_method) -> bool
+      def unnecessary_for_make?: (Method make_method) -> bool
+
+      def prepare_condition_for: ((Proc | bool)? condition) -> bool
     end
   end
 end

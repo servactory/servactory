@@ -7,9 +7,16 @@ module Servactory
 
       attr_accessor rollback: Symbol?
 
+      attr_accessor condition: (bool | Proc)?
+
       attr_accessor methods: MethodCollection
 
-      def initialize: (position: Integer, ?wrapper: Proc?, ?rollback: Symbol?) -> void
+      def initialize: (
+        position: Integer,
+        ?wrapper: Proc?,
+        ?rollback: Symbol?,
+        ?condition: (bool | Proc)?,
+      ) -> void
 
       def next_method_position: () -> Integer
 
