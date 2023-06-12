@@ -164,7 +164,7 @@ end
 
 If an exception occurs in one of the methods in the group or in `wrap_in`, this can be handled using the `rollback` method.
 
-```ruby {3}
+```ruby {3,12}
 stage do
   wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods.call } }
   rollback :clear_data_and_fail!
@@ -176,7 +176,6 @@ end
 
 # ...
 
-# highlight-next-line
 def clear_data_and_fail!(e)
   # ...
 
