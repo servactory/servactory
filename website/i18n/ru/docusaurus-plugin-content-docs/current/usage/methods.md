@@ -131,14 +131,27 @@ stage do
 end
 ```
 
-### Оборачивание
+### Опция `only_if`
+
+Перед вызовом методов внутри `stage` будет проверено условие, описанное в `if`.
+
+```ruby {2}
+stage do
+  only_if ->(context:) { Settings.features.preview.enabled }
+  
+  make :create_user!
+  make :create_blog_for_user!
+  make :create_post_for_user_blog!
+end
+```
+
+### Опция `wrap_in`
 
 Группу методов, находящийхся в `stage` можно обернуть во что-то.
 Например, это может быть `ActiveRecord::Base.transaction` от Rails.
 
-```ruby
+```ruby {2}
 stage do
-  # highlight-next-line
   wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods.call } }
   
   make :create_user!
@@ -147,14 +160,13 @@ stage do
 end
 ```
 
-### Откат
+### Опция `rollback`
 
 Если в одном из методов в группе или в `wrap_in` возникло исключение, то это можно обработать при помощи метода `rollback`.
 
-```ruby
+```ruby {3}
 stage do
   wrap_in ->(methods:) { ActiveRecord::Base.transaction { methods.call } }
-  # highlight-next-line
   rollback :clear_data_and_fail!
   
   make :create_user!
