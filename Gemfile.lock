@@ -31,6 +31,9 @@ GEM
       method_source (~> 1.0)
     rainbow (3.1.1)
     rake (13.0.6)
+    rake-compiler (1.2.3)
+      rake
+    rb_sys (0.9.78)
     rbs (3.1.0)
     regexp_parser (2.8.0)
     rexml (3.2.5)
@@ -87,6 +90,8 @@ PLATFORMS
 DEPENDENCIES
   pry (~> 0.14)
   rake (~> 13.0)
+  rake-compiler (~> 1.2)
+  rb_sys (~> 0.9)
   rbs (~> 3.1)
   rspec (~> 3.12)
   rubocop (~> 1.50)

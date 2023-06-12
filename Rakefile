@@ -9,4 +9,12 @@ require "rubocop/rake_task"
 
 RuboCop::RakeTask.new
 
-task default: %i[spec rubocop]
+require "rb_sys/extensiontask"
+
+task build: :compile
+
+RbSys::ExtensionTask.new("servactory") do |ext|
+  ext.lib_dir = "lib/servactory"
+end
+
+task default: %i[compile spec rubocop]

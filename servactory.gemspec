@@ -24,8 +24,9 @@ Gem::Specification.new do |spec|
 
   spec.metadata["rubygems_mfa_required"] = "true"
 
-  spec.files = Dir["config/**/*", "lib/**/*", "Rakefile", "README.md"]
+  spec.files = Dir["config/**/*", "ext/**/*", "lib/**/*", "Rakefile", "README.md"]
   spec.require_paths = ["lib"]
+  spec.extensions = ["ext/servactory/Cargo.toml"]
 
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
@@ -35,7 +36,9 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "pry", "~> 0.14"
   spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rake-compiler", "~> 1.2"
   spec.add_development_dependency "rbs", "~> 3.1"
+  spec.add_development_dependency "rb_sys", "~> 0.9"
   spec.add_development_dependency "rspec", "~> 3.12"
   spec.add_development_dependency "rubocop", "~> 1.50"
   spec.add_development_dependency "rubocop-performance", "~> 1.17"

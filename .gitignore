@@ -5,3 +5,5 @@
 .run
 .gem_rbs_collection
 /.rspec_status
+/tmp
+/target

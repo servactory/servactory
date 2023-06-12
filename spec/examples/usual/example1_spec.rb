@@ -32,6 +32,14 @@ RSpec.describe Usual::Example1 do
           it "returns the expected value in `full_name`" do
             result = perform
 
+            puts
+            puts
+            puts Servactory::HelloRust.hello("Josef").inspect
+            puts
+            puts
+
+            # bundle exec ruby -rservactory -e 'puts Servactory::HelloRust.hello("Josef")'
+
             expect(result.full_name).to eq("John Kennedy")
           end
         end

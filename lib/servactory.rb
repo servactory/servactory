@@ -4,6 +4,8 @@ require "zeitwerk"
 
 require "active_support/core_ext/string"
 
+require_relative "servactory/servactory"
+
 # require "servactory/support/loader"
 
 loader = Zeitwerk::Loader.for_gem

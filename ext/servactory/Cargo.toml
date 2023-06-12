@@ -1,0 +1,23 @@
+[package]
+name = "servactory"
+version = "1.6.9"
+edition = "2021"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+authors = ["Anton Sokolov <profox.rus@gmail.com>"]
+
+description = "A set of tools for building reliable services of any complexity"
+
+repository = "https://github.com/afuno/servactory"
+homepage = "https://github.com/afuno/servactory"
+documentation = "https://servactory.com"
+
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+magnus = { version = "0.4" }
