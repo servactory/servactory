@@ -2,6 +2,10 @@
 
 module Usual
   class Example28 < ApplicationService::Base
+    configuration do
+      method_shortcuts %i[assign]
+    end
+
     output :number, type: Integer
 
     assign :number
