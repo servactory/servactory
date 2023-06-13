@@ -44,6 +44,8 @@ module Servactory
 
               instance_variable_set(:@#{output.name}, value)
             end
+
+            attr_reader :#{output.name}
           RUBY
         end
       end
