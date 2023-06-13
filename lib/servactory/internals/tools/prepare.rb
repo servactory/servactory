@@ -22,8 +22,6 @@ module Servactory
         private
 
         def create_instance_variable_for(internal)
-          @context.instance_variable_set(:"@#{internal.name}", nil)
-
           @context.class.class_eval(context_internal_template_for(internal))
         end
 

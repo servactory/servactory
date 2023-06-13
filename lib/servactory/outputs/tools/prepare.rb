@@ -22,8 +22,6 @@ module Servactory
         private
 
         def create_instance_variable_for(output)
-          @context.instance_variable_set(:"@#{output.name}", nil)
-
           @context.class.class_eval(context_output_template_for(output))
         end
 
@@ -34,10 +32,6 @@ module Servactory
         #
         #     instance_variable_set(:@user, value)
         #   end
-        #
-        #   private
-        #
-        #   attr_reader :user
         #
         def context_output_template_for(output)
           <<-RUBY
@@ -50,10 +44,6 @@ module Servactory
 
               instance_variable_set(:@#{output.name}, value)
             end
-
-            private
-
-            attr_reader :#{output.name}
           RUBY
         end
       end
