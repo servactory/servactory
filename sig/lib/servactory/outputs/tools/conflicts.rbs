@@ -4,7 +4,7 @@ module Servactory
       class Conflicts
         @context: instance
         @collection_of_outputs: Collection
-        @@collection_of_internals: Internals::Collection
+        @collection_of_internals: Internals::Collection
         @overlapping_attributes: Array[Symbol]
 
         def self.validate!: (*untyped) ?{ () -> untyped } -> void

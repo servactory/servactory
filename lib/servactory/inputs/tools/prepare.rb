@@ -78,16 +78,12 @@ module Servactory
 
         # EXAMPLE:
         #
-        #   private
-        #
         #   attr_reader(*[:attr_1])
         #
         def context_internal_variables_template
           return if @internal_variables.blank?
 
           @context_internal_variables_template ||= <<-RUBY
-            private
-
             attr_reader(*#{@internal_variables.keys})
           RUBY
         end
