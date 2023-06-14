@@ -28,8 +28,12 @@ module Servactory
         )
       end
 
-      def fail!(message:, meta: nil)
-        failure = Servactory.configuration.failure_class.new(message: message, meta: meta)
+      def fail!(
+        message:,
+        failure_class: Servactory.configuration.failure_class,
+        meta: nil
+      )
+        failure = failure_class.new(message: message, meta: meta)
 
         raise failure if @service_strict_mode
 

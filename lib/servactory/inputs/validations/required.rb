@@ -38,9 +38,9 @@ module Servactory
         end
 
         def check # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          if @input.array? && @value.present?
+          if @input.array? && Servactory::Utils.value_present?(@value)
             return if @value.respond_to?(:all?) && @value.all?(&:present?)
-          elsif @value.present?
+          elsif Servactory::Utils.value_present?(@value)
             return
           end
 

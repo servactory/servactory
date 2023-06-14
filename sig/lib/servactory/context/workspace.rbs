@@ -14,7 +14,7 @@ module Servactory
 
       def fail_input!: (Symbol input_name, message: String) -> void
 
-      def fail!: (message: String, meta: untyped?) -> Errors
+      def fail!: (message: String, failure_class: singleton(Errors::Failure), meta: untyped?) -> Errors
 
       def raise_first_fail: () -> (nil | untyped)
 
