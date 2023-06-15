@@ -11,7 +11,7 @@ pagination_label: Information about service class
 
 From outside the service, can get information about its input, internal, and output attributes.
 
-This can be useful, for example, when implementing complex class handling.
+It is valuable, when implementing complex class handling, for example.
 
 For example, the following attributes are described in a service:
 
