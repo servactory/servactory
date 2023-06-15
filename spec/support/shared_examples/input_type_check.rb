@@ -2,7 +2,7 @@
 
 RSpec.shared_examples "input type check" do |name:, expected_type:, array: false, array_message: nil|
   describe "is of the wrong type" do
-    let(name) { array ? Array(Servactory::Test::FakeType.new) : Servactory::Test::FakeType.new }
+    let(name) { array ? Array(Servactory::TestKit::FakeType.new) : Servactory::TestKit::FakeType.new }
 
     it "returns expected error" do
       expect { perform }.to(
@@ -13,7 +13,7 @@ RSpec.shared_examples "input type check" do |name:, expected_type:, array: false
           array: array,
           array_message: array_message,
           expected_type: expected_type,
-          given_type: Servactory::Test::FakeType
+          given_type: Servactory::TestKit::FakeType
         )
       )
     end
