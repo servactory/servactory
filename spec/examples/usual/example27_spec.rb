@@ -19,6 +19,11 @@ RSpec.describe Usual::Example27 do
       ]
     end
 
+    include_examples "check class info",
+                     inputs: %i[ids],
+                     internals: %i[],
+                     outputs: %i[first_id]
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
@@ -120,6 +125,11 @@ RSpec.describe Usual::Example27 do
         b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
       ]
     end
+
+    include_examples "check class info",
+                     inputs: %i[ids],
+                     internals: %i[],
+                     outputs: %i[first_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

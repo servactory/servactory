@@ -19,6 +19,11 @@ RSpec.describe Usual::Example7 do
       ]
     end
 
+    include_examples "check class info",
+                     inputs: %i[invoice_numbers],
+                     internals: %i[],
+                     outputs: %i[first_invoice_number]
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
@@ -136,6 +141,11 @@ RSpec.describe Usual::Example7 do
         BD2D6B
       ]
     end
+
+    include_examples "check class info",
+                     inputs: %i[invoice_numbers],
+                     internals: %i[],
+                     outputs: %i[first_invoice_number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

@@ -12,6 +12,11 @@ RSpec.describe Usual::Example20 do
 
     let(:invoice_number) { "AA-7650AE" }
 
+    include_examples "check class info",
+                     inputs: %i[invoice_number],
+                     internals: %i[],
+                     outputs: %i[invoice_number]
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
@@ -57,6 +62,11 @@ RSpec.describe Usual::Example20 do
     end
 
     let(:invoice_number) { "AA-7650AE" }
+
+    include_examples "check class info",
+                     inputs: %i[invoice_number],
+                     internals: %i[],
+                     outputs: %i[invoice_number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

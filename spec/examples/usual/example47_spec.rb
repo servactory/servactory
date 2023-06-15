@@ -12,6 +12,11 @@ RSpec.describe Usual::Example47 do
 
     let(:balance_cents) { 2_000_00 }
 
+    include_examples "check class info",
+                     inputs: %i[balance_cents],
+                     internals: %i[],
+                     outputs: [:balance_with_bonus]
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
@@ -44,6 +49,11 @@ RSpec.describe Usual::Example47 do
     end
 
     let(:balance_cents) { 2_000_00 }
+
+    include_examples "check class info",
+                     inputs: %i[balance_cents],
+                     internals: %i[],
+                     outputs: [:balance_with_bonus]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

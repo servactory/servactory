@@ -16,6 +16,11 @@ RSpec.describe Usual::Example22 do
     let(:input_2) { "Second" }
     let(:input_3) { "Third" }
 
+    include_examples "check class info",
+                     inputs: %i[input_1 input_2 input_3],
+                     internals: %i[],
+                     outputs: %i[output_1 output_2 output_3]
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
@@ -62,6 +67,11 @@ RSpec.describe Usual::Example22 do
     let(:input_1) { "First" }
     let(:input_2) { "Second" }
     let(:input_3) { "Third" }
+
+    include_examples "check class info",
+                     inputs: %i[input_1 input_2 input_3],
+                     internals: %i[],
+                     outputs: %i[output_1 output_2 output_3]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
