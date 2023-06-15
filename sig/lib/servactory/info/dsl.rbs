@@ -1,0 +1,11 @@
+module Servactory
+  module Info
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        def info: () -> Servactory::Info::Result
+      end
+    end
+  end
+end

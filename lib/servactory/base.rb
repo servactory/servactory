@@ -3,6 +3,7 @@
 module Servactory
   class Base
     include Configuration::DSL
+    include Info::DSL
     include Context::DSL
     include Inputs::DSL
     include Internals::DSL
