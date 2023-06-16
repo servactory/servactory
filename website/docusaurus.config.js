@@ -85,7 +85,7 @@ const config = {
           },
           {
             from: '/usage/result',
-            to: '/usage/attributes/result',
+            to: '/usage/call',
           },
         ]
       }
