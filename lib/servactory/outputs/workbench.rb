@@ -19,10 +19,6 @@ module Servactory
         Tools::Conflicts.validate!(context, collection_of_outputs, collection_of_internals)
       end
 
-      def prepare
-        Tools::Prepare.prepare(context, collection_of_outputs)
-      end
-
       private
 
       attr_reader :context, :collection_of_outputs

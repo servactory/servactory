@@ -16,7 +16,7 @@ module Usual
     private
 
     def prepare_full_name
-      self.prepared_full_name = [
+      internals.prepared_full_name =[
         inputs.first_name,
         inputs.middle_name,
         inputs.last_name
@@ -24,7 +24,7 @@ module Usual
     end
 
     def assign_full_name
-      self.full_name = prepared_full_name
+      outputs.full_name = internals.prepared_full_name
     end
   end
 end

@@ -26,7 +26,7 @@ module Wrong
     private
 
     def assign_balance_with_bonus
-      self.balance_with_bonus = inputs.balance + BONUS
+      outputs.balance_with_bonus = inputs.balance + BONUS
     end
   end
 end

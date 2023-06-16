@@ -11,7 +11,7 @@ module Wrong
     private
 
     def assign_invoice_number
-      self.prepared_invoice_number = inputs.invoice_number
+      outputs.prepared_invoice_number = inputs.invoice_number
     end
   end
 end

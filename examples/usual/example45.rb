@@ -13,7 +13,7 @@ module Usual
     private
 
     def assign_full_name
-      self.full_name = [
+      outputs.full_name = [
         first_name,
         middle_name,
         last_name

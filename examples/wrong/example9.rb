@@ -11,7 +11,7 @@ module Wrong
     private
 
     def prepare_invoice_number
-      self.prepared_invoice_number = inputs.invoice_number.split("-").last
+      outputs.prepared_invoice_number = inputs.invoice_number.split("-").last
     end
   end
 end

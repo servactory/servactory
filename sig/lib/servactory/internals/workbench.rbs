@@ -7,8 +7,6 @@ module Servactory
 
       def assign: (context: instance) -> void
 
-      def prepare: () -> void
-
       private
 
       attr_reader context: instance

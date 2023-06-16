@@ -7,7 +7,7 @@ module Usual
     private
 
     def perform_api_request!
-      self.api_response = {
+      outputs.api_response = {
         api_identifier: inputs.api_identifier,
         first_name: inputs.first_name,
         middle_name: inputs.middle_name,

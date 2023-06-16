@@ -22,11 +22,11 @@ module Usual
     end
 
     def assign_invoice_number_tmp
-      self.invoice_number_tmp = invoice_number
+      outputs.invoice_number_tmp = invoice_number
     end
 
     def assign_invoice_number
-      self.invoice_number = invoice_number_tmp
+      outputs.invoice_number = outputs.invoice_number_tmp
     end
   end
 end

@@ -18,7 +18,7 @@ module Usual
     end
 
     def assign_invoice_number
-      self.invoice_number = inputs.invoice_number
+      outputs.invoice_number = inputs.invoice_number
     end
   end
 end

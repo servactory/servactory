@@ -15,10 +15,6 @@ module Servactory
         @context = context
       end
 
-      def prepare
-        Tools::Prepare.prepare(context, collection_of_internals)
-      end
-
       private
 
       attr_reader :context,

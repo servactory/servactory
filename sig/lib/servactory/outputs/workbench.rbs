@@ -9,8 +9,6 @@ module Servactory
 
       def find_conflicts_in!: (collection_of_internals: Internals::Collection) -> void
 
-      def prepare: () -> void
-
       private
 
       attr_reader context: instance

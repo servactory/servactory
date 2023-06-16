@@ -71,9 +71,7 @@ module Servactory
       end
 
       def prepare_data
-        inputs_workbench.prepare      # 1
-        outputs_workbench.prepare     # 2
-        internals_workbench.prepare   # 3
+        inputs_workbench.prepare
       end
     end
   end
