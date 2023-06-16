@@ -1,10 +1,18 @@
 module Servactory
   module Context
     module Workspace
+      @internals: Internals
+      @outputs: Outputs
       @errors: Errors
       @service_strict_mode: bool
 
       attr_reader inputs: Inputs
+
+      def internals: -> Internals
+      alias int internals
+
+      def outputs: -> Outputs
+      alias out outputs
 
       def initialize: () -> void
 
