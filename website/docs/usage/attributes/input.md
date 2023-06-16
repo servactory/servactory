@@ -1,9 +1,9 @@
 ---
 title: Service input arguments
 description: Description and examples of using input arguments of service
-slug: /usage/input
+slug: input
 sidebar_label: Input
-sidebar_position: 4
+sidebar_position: 1
 pagination_label: Service input arguments
 ---
 
@@ -280,7 +280,7 @@ It is based on the `must` and `prepare` options.
 
 Adding is done via the `input_option_helpers` method in `configuration`.
 
-[Configuration example](./configuration.md#helpers-for-input)
+[Configuration example](../configuration.md#helpers-for-input)
 
 #### Example with `must`
 

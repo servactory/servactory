@@ -1,9 +1,9 @@
 ---
 title: Выходные атрибуты сервиса
 description: Описание и примеры использования выходных атрибутов сервиса
-slug: /usage/output
+slug: output
 sidebar_label: Output
-sidebar_position: 5
+sidebar_position: 2
 pagination_label: Выходные атрибуты сервиса
 ---
 

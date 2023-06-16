@@ -1,9 +1,9 @@
 ---
 title: Вызов методов сервиса
 description: Описание и примеры использования вызова методов сервиса
-slug: /usage/methods
+slug: methods
 sidebar_label: Методы
-sidebar_position: 7
+sidebar_position: 4
 pagination_label: Вызов методов сервиса
 ---
 

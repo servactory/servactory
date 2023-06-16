@@ -1,9 +1,9 @@
 ---
 title: Входные аргументы сервиса
 description: Описание и примеры использования входных аргументов сервиса
-slug: /usage/input
+slug: input
 sidebar_label: Input
-sidebar_position: 4
+sidebar_position: 1
 pagination_label: Входные аргументы сервиса
 ---
 
@@ -280,7 +280,7 @@ end
 
 Добавление выполняется через метод `input_option_helpers` в `configuration`.
 
-[Пример конфигурации](./configuration.md#хелперы-для-input)
+[Пример конфигурации](../configuration.md#хелперы-для-input)
 
 #### Пример с `must`
 

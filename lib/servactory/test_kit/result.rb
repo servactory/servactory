@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Test
+  module TestKit
     class Result
       def initialize(**attributes)
         attributes.each_pair do |method_name, method_return|
