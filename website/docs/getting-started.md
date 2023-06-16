@@ -1,7 +1,7 @@
 ---
 title: Getting started
 description: Description and examples of use
-slug: /getting-started
+slug: getting-started
 sidebar_label: Getting started
 sidebar_position: 2
 pagination_label: Getting started

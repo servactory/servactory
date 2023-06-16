@@ -1,9 +1,9 @@
 ---
 title: Service output attributes
 description: Description and examples of using output attributes of service
-slug: /usage/output
+slug: output
 sidebar_label: Output
-sidebar_position: 5
+sidebar_position: 2
 pagination_label: Service output attributes
 ---
 

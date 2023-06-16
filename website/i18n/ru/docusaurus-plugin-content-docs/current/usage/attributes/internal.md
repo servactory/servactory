@@ -1,9 +1,9 @@
 ---
 title: Внутренние атрибуты сервиса
 description: Описание и примеры использования внутренних атрибутов сервиса
-slug: /usage/internal
+slug: internal
 sidebar_label: Internal
-sidebar_position: 6
+sidebar_position: 3
 pagination_label: Внутренние атрибуты сервиса
 ---
 

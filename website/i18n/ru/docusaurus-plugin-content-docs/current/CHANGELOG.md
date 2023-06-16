@@ -1,8 +1,8 @@
 ---
 title: Changelog
-slug: /changelog
+slug: changelog
 sidebar_label: Changelog
-sidebar_position: 6
+sidebar_position: 4
 pagination_label: Changelog
 ---
 

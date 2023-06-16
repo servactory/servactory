@@ -1,9 +1,9 @@
 ---
 title: Testing services
 description: Information about testing services
-slug: /testing
+slug: testing
 sidebar_label: Testing
-sidebar_position: 10
+sidebar_position: 7
 pagination_label: Testing services
 ---
 

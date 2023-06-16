@@ -66,6 +66,32 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            from: '/usage/input',
+            to: '/usage/attributes/input',
+          },
+          {
+            from: '/usage/output',
+            to: '/usage/attributes/output',
+          },
+          {
+            from: '/usage/internal',
+            to: '/usage/attributes/internal',
+          },
+          {
+            from: '/usage/result',
+            to: '/usage/call',
+          },
+        ]
+      }
+    ]
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
