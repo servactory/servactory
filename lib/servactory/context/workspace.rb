@@ -9,12 +9,12 @@ module Servactory
       alias inp inputs
 
       def internals
-        @internals ||= Internals.new(self, collection_of_internals: self.class.send(:collection_of_internals))
+        @internals ||= Internals.new(self, workbench: self.class.send(:internals_workbench))
       end
       alias int internals
 
       def outputs
-        @outputs ||= Outputs.new(self, collection_of_outputs: self.class.send(:collection_of_outputs))
+        @outputs ||= Outputs.new(self, workbench: self.class.send(:outputs_workbench))
       end
       alias out outputs
 

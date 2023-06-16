@@ -3,12 +3,14 @@
 module Servactory
   module Internals
     class Workbench
+      attr_reader :collection
+
       def self.work_with(...)
         new(...)
       end
 
-      def initialize(collection_of_internals)
-        @collection_of_internals = collection_of_internals
+      def initialize(collection)
+        @collection = collection
       end
 
       def assign(context:)
@@ -17,8 +19,7 @@ module Servactory
 
       private
 
-      attr_reader :context,
-                  :collection_of_internals
+      attr_reader :context
     end
   end
 end

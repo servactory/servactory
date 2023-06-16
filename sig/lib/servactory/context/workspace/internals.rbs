@@ -5,7 +5,7 @@ module Servactory
         @context: instance
         @collection_of_internals: Servactory::Internals::Collection
 
-        def initialize: (Workspace context, collection_of_internals: Servactory::Internals::Collection) -> void
+        def initialize: (Workspace context, workbench: Servactory::Internals::Workbench) -> void
 
         def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
 
