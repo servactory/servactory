@@ -10,6 +10,10 @@ if (isDev) {
   require('dotenv').config({ path: './.env.local' });
 }
 
+if (!isDev) {
+  require('@vercel/analytics').inject();
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Servactory',
