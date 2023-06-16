@@ -1,0 +1,22 @@
+module Servactory
+  module Context
+    module Workspace
+      class Outputs
+        @context: instance
+        @collection_of_outputs: Servactory::Outputs::Collection
+
+        def initialize: (instance context, collection_of_outputs: Servactory::Outputs::Collection) -> void
+
+        def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
+
+        def respond_to_missing?: (Symbol name, *untyped) -> void
+
+        private
+
+        def setter_with: (name: Symbol, value: untyped?) { () -> untyped } -> void
+
+        def getter_with: (name: Symbol) { () -> untyped } -> void
+      end
+    end
+  end
+end

@@ -3,85 +3,15 @@
 module Servactory
   module Context
     module Workspace
-      class Internals
-        def initialize(context, collection_of_internals:)
-          @context = context
-          @collection_of_internals = collection_of_internals
-        end
-
-        def method_missing(name, *args, &block)
-          if name.to_s.end_with?("=")
-            prepared_name = name.to_s.delete("=").to_sym
-
-            return super unless @collection_of_internals.names.include?(prepared_name)
-
-            internal = @collection_of_internals.find_by(name: prepared_name)
-            value = args.pop
-
-            Servactory::Internals::Validations::Type.validate!(
-              context: @context,
-              internal: internal,
-              value: value
-            )
-
-            @context.instance_variable_set(:"@#{internal.name}", value)
-          else
-            internal = @collection_of_internals.find_by(name: name)
-
-            return super if internal.nil?
-
-            @context.instance_variable_get(:"@#{internal.name}")
-          end
-        end
-
-        def respond_to_missing?(name, *)
-          @collection_of_internals.names.include?(name) || super
-        end
-      end
-
-      class Outputs
-        def initialize(context, collection_of_outputs:)
-          @context = context
-          @collection_of_outputs = collection_of_outputs
-        end
-
-        def method_missing(name, *args, &block)
-          if name.to_s.end_with?("=")
-            prepared_name = name.to_s.delete("=").to_sym
-
-            return super unless @collection_of_outputs.names.include?(prepared_name)
-
-            output = @collection_of_outputs.find_by(name: prepared_name)
-            value = args.pop
-
-            Servactory::Outputs::Validations::Type.validate!(
-              context: @context,
-              output: output,
-              value: value
-            )
-
-            @context.instance_variable_set(:"@#{output.name}", value)
-          else
-            output = @collection_of_outputs.find_by(name: name)
-
-            return super if output.nil?
-
-            @context.instance_variable_get(:"@#{output.name}")
-          end
-        end
-
-        def respond_to_missing?(name, *)
-          @collection_of_outputs.names.include?(name) || super
-        end
-      end
-
       def internals
         @internals ||= Internals.new(self, collection_of_internals: self.class.send(:collection_of_internals))
       end
+      alias :int :internals
 
       def outputs
         @outputs ||= Outputs.new(self, collection_of_outputs: self.class.send(:collection_of_outputs))
       end
+      alias :out :outputs
 
       def errors
         @errors ||= Servactory::Errors::Collection.new
