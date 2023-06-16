@@ -6,7 +6,7 @@ module Servactory
       def inputs
         @inputs ||= Inputs.new(self, workbench: self.class.send(:inputs_workbench))
       end
-      alias in inputs
+      alias inp inputs
 
       def internals
         @internals ||= Internals.new(self, collection_of_internals: self.class.send(:collection_of_internals))
