@@ -20,6 +20,11 @@ RSpec.describe Usual::Example23 do
     let(:last_name) { "Kennedy" }
     let(:date) { DateTime.new(2023, 1, 1) }
 
+    include_examples "check class info",
+                     inputs: [:api_identifier, :date, :first_name, :last_name, :middle_name],
+                     internals: %i[],
+                     outputs: %i[api_response]
+
     context "when the input arguments are invalid" do
       context "when `api_identifier`" do
         it_behaves_like "input required check", name: :api_identifier
@@ -66,6 +71,11 @@ RSpec.describe Usual::Example23 do
     let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
     let(:date) { DateTime.new(2023, 1, 1) }
+
+    include_examples "check class info",
+                     inputs: [:api_identifier, :date, :first_name, :last_name, :middle_name],
+                     internals: %i[],
+                     outputs: %i[api_response]
 
     context "when the input arguments are invalid" do
       context "when `api_identifier`" do

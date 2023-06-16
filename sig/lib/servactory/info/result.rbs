@@ -1,0 +1,15 @@
+module Servactory
+  module Info
+    class Result
+      attr_reader inputs: Array[Symbol]
+      attr_reader internals: Array[Symbol]
+      attr_reader outputs: Array[Symbol]
+
+      def initialize: (
+        inputs: Array[Symbol],
+        internals: Array[Symbol],
+        outputs: Array[Symbol]
+      ) -> void
+    end
+  end
+end

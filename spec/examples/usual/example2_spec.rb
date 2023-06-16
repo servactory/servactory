@@ -16,6 +16,11 @@ RSpec.describe Usual::Example2 do
     let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
 
+    include_examples "check class info",
+                     inputs: %i[first_name last_name middle_name],
+                     internals: %i[prepared_full_name],
+                     outputs: %i[full_name]
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
@@ -69,6 +74,11 @@ RSpec.describe Usual::Example2 do
     let(:first_name) { "John" }
     let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
+
+    include_examples "check class info",
+                     inputs: %i[first_name last_name middle_name],
+                     internals: %i[prepared_full_name],
+                     outputs: %i[full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

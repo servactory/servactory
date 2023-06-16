@@ -14,6 +14,11 @@ RSpec.describe Usual::Example43 do
     let(:email) { "correct@email.com" }
     let(:password) { "correct_password" }
 
+    include_examples "check class info",
+                     inputs: %i[email password],
+                     internals: %i[],
+                     outputs: %i[user]
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
@@ -81,6 +86,11 @@ RSpec.describe Usual::Example43 do
 
     let(:email) { "correct@email.com" }
     let(:password) { "correct_password" }
+
+    include_examples "check class info",
+                     inputs: %i[email password],
+                     internals: %i[],
+                     outputs: %i[user]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

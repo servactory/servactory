@@ -12,6 +12,11 @@ RSpec.describe Usual::Example8 do
 
     let(:event_name) { "created" }
 
+    include_examples "check class info",
+                     inputs: %i[event_name],
+                     internals: %i[],
+                     outputs: %i[event]
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
@@ -61,6 +66,11 @@ RSpec.describe Usual::Example8 do
     end
 
     let(:event_name) { "created" }
+
+    include_examples "check class info",
+                     inputs: %i[event_name],
+                     internals: %i[],
+                     outputs: %i[event]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
