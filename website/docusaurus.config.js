@@ -74,7 +74,19 @@ const config = {
           {
             from: '/usage/input',
             to: '/usage/attributes/input',
-          }
+          },
+          {
+            from: '/usage/output',
+            to: '/usage/attributes/output',
+          },
+          {
+            from: '/usage/internal',
+            to: '/usage/attributes/internal',
+          },
+          {
+            from: '/usage/result',
+            to: '/usage/attributes/result',
+          },
         ]
       }
     ]
