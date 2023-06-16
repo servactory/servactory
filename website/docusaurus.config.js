@@ -1,8 +1,6 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-require('@vercel/analytics').inject();
-
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 
@@ -10,6 +8,10 @@ const isDev = process.env.NODE_ENV === 'development';
 
 if (isDev) {
   require('dotenv').config({ path: './.env.local' });
+}
+
+if (!isDev) {
+  require('@vercel/analytics').inject();
 }
 
 /** @type {import('@docusaurus/types').Config} */
