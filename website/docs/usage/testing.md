@@ -3,7 +3,7 @@ title: Testing services
 description: Information about testing services
 slug: /testing
 sidebar_label: Testing
-sidebar_position: 11
+sidebar_position: 10
 pagination_label: Testing services
 ---
 
