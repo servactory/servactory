@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# FIXME: DELETE ME
 module Usual
   class Example1 < ApplicationService::Base
     input :first_name, type: String
