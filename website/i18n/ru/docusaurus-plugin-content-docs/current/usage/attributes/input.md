@@ -12,6 +12,24 @@ pagination_label: Входные аргументы сервиса
 Все аргументы, которые должен ожидать сервис должны быть описаны через метод `input`.
 Если сервис будет получать аргумент, который не был описан через метод `input`, то он будет возвращать ошибку.
 
+## Использование
+
+Использование входящих в серсис аргументов осуществляется через метод `inputs` или его алиас `inp`.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :nickname, type: String
+
+  # ...
+
+  def create!
+    outputs.user = User.create!(nickname: inputs.nickname)
+    # или
+    # outputs.user = User.create!(nickname: inp.nickname)
+  end
+end
+```
+
 ## Опции
 
 ### Опция `type`
