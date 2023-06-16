@@ -6,12 +6,12 @@ module Servactory
       def internals
         @internals ||= Internals.new(self, collection_of_internals: self.class.send(:collection_of_internals))
       end
-      alias :int :internals
+      alias int internals
 
       def outputs
         @outputs ||= Outputs.new(self, collection_of_outputs: self.class.send(:collection_of_outputs))
       end
-      alias :out :outputs
+      alias out outputs
 
       def errors
         @errors ||= Servactory::Errors::Collection.new
