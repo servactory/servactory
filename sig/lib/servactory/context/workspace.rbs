@@ -6,8 +6,6 @@ module Servactory
       @errors: Errors
       @service_strict_mode: bool
 
-      attr_reader inputs: Inputs
-
       def internals: -> Internals
       alias int internals
 

@@ -18,13 +18,13 @@ module Usual
   end
 
   class Example23 < Example23Base
-    input :api_identifier, type: String, internal: true
+    input :api_identifier, type: String
 
-    input :first_name, type: String, internal: true
-    input :middle_name, type: String, internal: true
-    input :last_name, type: String, internal: true
+    input :first_name, type: String
+    input :middle_name, type: String
+    input :last_name, type: String
 
-    input :date, type: DateTime, internal: true
+    input :date, type: DateTime
 
     output :api_response, type: Hash
   end

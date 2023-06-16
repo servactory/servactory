@@ -3,6 +3,11 @@
 module Servactory
   module Context
     module Workspace
+      def inputs
+        @inputs ||= Inputs.new(self, workbench: self.class.send(:inputs_workbench))
+      end
+      alias in inputs
+
       def internals
         @internals ||= Internals.new(self, collection_of_internals: self.class.send(:collection_of_internals))
       end
@@ -17,9 +22,9 @@ module Servactory
         @errors ||= Servactory::Errors::Collection.new
       end
 
-      def assign_inputs(inputs)
-        @inputs = inputs
-      end
+      # def assign_inputs(inputs)
+      #   @inputs = inputs
+      # end
 
       def raise_first_fail
         return if (tmp_errors = errors.for_fails.not_blank).empty?
@@ -28,8 +33,6 @@ module Servactory
       end
 
       protected
-
-      attr_reader :inputs
 
       def fail_input!(input_name, message:)
         raise Servactory.configuration.input_error_class.new(
