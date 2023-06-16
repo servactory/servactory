@@ -32,7 +32,7 @@ class NotificationService::Create < ApplicationService::Base
   
   def create_notification!
     # highlight-next-line
-    self.notification = Notification.create!(user: inputs.user)
+    outputs.notification = Notification.create!(user: inputs.user)
   end
 end
 ```

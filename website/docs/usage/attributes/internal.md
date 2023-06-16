@@ -35,11 +35,11 @@ class NotificationService::Create < ApplicationService::Base
   
   def assign_inviter
     # highlight-next-line
-    self.inviter = user.inviter
+    internals.inviter = inputs.user.inviter
   end
   
   def create_notification!
-    self.notification = Notification.create!(user: inputs.user, inviter:)
+    outputs.notification = Notification.create!(user: inputs.user, inviter: internals.inviter)
   end
 end
 ```

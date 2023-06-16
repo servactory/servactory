@@ -67,48 +67,6 @@ class UsersService::Create < ApplicationService::Base
 end
 ```
 
-### Опция `internal`
-
-Эта опция не является валидацией.
-Она используется для подготовки input-аргумента.
-Если указано `true`, то input-аргумент будет создан как internal-атрибут.
-
-По умолчанию `internal` имеет значение `false`.
-
-```ruby
-class UsersService::Accept < ApplicationService::Base
-  input :user,
-        type: User
-
-  make :accept!
-  
-  private
-  
-  def accept!
-    # highlight-next-line
-    inputs.user.accept!
-  end
-end
-```
-
-```ruby
-class UsersService::Accept < ApplicationService::Base
-  input :user,
-        type: User,
-        # highlight-next-line
-        internal: true
-
-  make :accept!
-  
-  private
-  
-  def accept!
-    # highlight-next-line
-    user.accept!
-  end
-end
-```
-
 ### Опция `as`
 
 Эта опция не является валидацией.
@@ -238,21 +196,6 @@ class UsersService::Create < ApplicationService::Base
 
   input :last_name,
         type: String
-
-  # ...
-end
-```
-
-### Хелпер `internal`
-
-Этот хелпер эквивалентен `internal: true`.
-
-```ruby
-class UsersService::Accept < ApplicationService::Base
-  input :user,
-        # highlight-next-line
-        :internal,
-        type: User
 
   # ...
 end
