@@ -1,9 +1,9 @@
 ---
 title: Service result
 description: Description and examples of using result of service
-slug: /usage/result
+slug: result
 sidebar_label: Result
-sidebar_position: 3
+sidebar_position: 5
 pagination_label: Service result
 ---
 

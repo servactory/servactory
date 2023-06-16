@@ -1,9 +1,9 @@
 ---
 title: Calling service methods
 description: Description and examples of using service method calls
-slug: /usage/methods
+slug: methods
 sidebar_label: Methods
-sidebar_position: 7
+sidebar_position: 4
 pagination_label: Calling service methods
 ---
 

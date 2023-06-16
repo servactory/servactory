@@ -1,7 +1,7 @@
 ---
 title: Вызов сервиса
 description: Описание и примеры использования вызова сервиса
-slug: /usage/call
+slug: call
 sidebar_label: Вызов
 sidebar_position: 2
 pagination_label: Вызов сервиса

@@ -1,9 +1,9 @@
 ---
 title: Тестирование сервисов
 description: Информация о тестировании сервисов
-slug: /testing
+slug: testing
 sidebar_label: Тестирование
-sidebar_position: 10
+sidebar_position: 8
 pagination_label: Тестирование сервисов
 ---
 

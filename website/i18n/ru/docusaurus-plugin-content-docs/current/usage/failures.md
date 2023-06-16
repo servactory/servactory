@@ -1,9 +1,9 @@
 ---
 title: Неудачи и падения сервиса
 description: Описание и примеры использования неудач и падений сервиса
-slug: /usage/failures
+slug: failures
 sidebar_label: Неудачи
-sidebar_position: 8
+sidebar_position: 6
 pagination_label: Неудачи и падения сервиса
 ---
 

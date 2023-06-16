@@ -1,9 +1,9 @@
 ---
 title: Результат работы
 description: Описание и примеры использования результата работы сервиса
-slug: /usage/result
+slug: result
 sidebar_label: Результат
-sidebar_position: 3
+sidebar_position: 5
 pagination_label: Результат работы
 ---
 

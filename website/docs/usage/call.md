@@ -1,7 +1,7 @@
 ---
 title: Service call
 description: Description and examples of how to use service call
-slug: /usage/call
+slug: call
 sidebar_label: Call
 sidebar_position: 2
 pagination_label: Service call

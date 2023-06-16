@@ -1,7 +1,7 @@
 ---
 title: Конфигурация
 description: Описание и примеры конфигурирования сервисов
-slug: /usage/configuration
+slug: configuration
 sidebar_label: Конфигурация
 sidebar_position: 1
 pagination_label: Конфигурация

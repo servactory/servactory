@@ -1,7 +1,7 @@
 ---
 title: Приступая к работе
 description: Описание и примеры использования
-slug: /getting-started
+slug: getting-started
 sidebar_label: Приступая к работе
 sidebar_position: 2
 pagination_label: Приступая к работе
