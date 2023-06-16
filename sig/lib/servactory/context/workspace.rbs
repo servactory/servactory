@@ -1,10 +1,14 @@
 module Servactory
   module Context
     module Workspace
+      @inputs: Inputs
       @internals: Internals
       @outputs: Outputs
       @errors: Errors
       @service_strict_mode: bool
+
+      def inputs: -> Inputs
+      alias inp inputs
 
       def internals: -> Internals
       alias int internals
@@ -13,8 +17,6 @@ module Servactory
       alias out outputs
 
       def initialize: () -> void
-
-      def assign_inputs: (Inputs inputs) -> untyped
 
       def errors: -> Servactory::Errors::Collection
 
