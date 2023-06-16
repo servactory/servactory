@@ -4,7 +4,7 @@ module Servactory
   module VERSION
     MAJOR = 1
     MINOR = 6
-    PATCH = 13
+    PATCH = 14
 
     STRING = [MAJOR, MINOR, PATCH].join(".")
   end
