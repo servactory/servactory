@@ -51,6 +51,13 @@ const config = {
         docs: {
           path: 'docs',
           routeBasePath: '/',
+          lastVersion: 'current',
+          versions: {
+            current: {
+              label: '1.7',
+              path: '/',
+            },
+          },
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -119,6 +126,11 @@ const config = {
         //   src: 'img/logo.svg',
         // },
         items: [
+          {
+            type: 'docsVersionDropdown',
+            position: 'right',
+            dropdownActiveClassDisabled: true,
+          },
           {
             type: 'localeDropdown',
             position: 'right',
