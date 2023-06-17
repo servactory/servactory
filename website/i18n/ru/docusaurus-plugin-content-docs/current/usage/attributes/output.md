@@ -11,6 +11,24 @@ pagination_label: Выходные атрибуты сервиса
 
 Все атрибуты, которые должен возвращать сервис в `Result` должны быть описаны через метод `output`.
 
+## Использование
+
+Назначение и использование выходящих аргументов сервиса осуществляется через методы `outputs=`/`outputs` или их алиасы `out=`/`out`.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :first_name, type: String
+
+  # ...
+
+  def something
+    outputs.full_name = [inputs.first_name, inputs.middle_name, inputs.last_name].compact.join(" ")
+    # или
+    # out.full_name = [inp.first_name, inp.middle_name, inp.last_name].compact.join(" ")
+  end
+end
+```
+
 ## Опции
 
 ### Опция `type`
@@ -27,12 +45,12 @@ class NotificationService::Create < ApplicationService::Base
   output :notification, type: Notification
 
   make :create_notification!
-  
+
   private
-  
+
   def create_notification!
     # highlight-next-line
-    self.notification = Notification.create!(user: inputs.user)
+    outputs.notification = Notification.create!(user: inputs.user)
   end
 end
 ```

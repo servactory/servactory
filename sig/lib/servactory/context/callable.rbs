@@ -10,8 +10,6 @@ module Servactory
       attr_reader context_store: Store
 
       def assign_data_with: (untyped arguments) -> void
-
-      def prepare_data: () -> void
     end
   end
 end

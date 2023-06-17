@@ -12,6 +12,24 @@ pagination_label: Service input arguments
 All arguments that service must expect should be described through `input` method.
 If the service receives an argument that hasn't been described through input method, it will return an error.
 
+## Usage
+
+The use of the arguments included in the service is done through the `inputs` method or its `inp` alias.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :nickname, type: String
+
+  # ...
+
+  def create!
+    outputs.user = User.create!(nickname: inputs.nickname)
+    # or
+    # outputs.user = User.create!(nickname: inp.nickname)
+  end
+end
+```
+
 ## Options
 
 ### Option `type`
@@ -67,48 +85,6 @@ class UsersService::Create < ApplicationService::Base
 end
 ```
 
-### Option `internal`
-
-This option is not validation.
-Used to prepare an input argument.
-For the input argument, a copy will be created as an internal attribute.
-
-By default, `internal` is set to `false`.
-
-```ruby
-class UsersService::Accept < ApplicationService::Base
-  input :user,
-        type: User
-
-  make :accept!
-  
-  private
-  
-  def accept!
-    # highlight-next-line
-    inputs.user.accept!
-  end
-end
-```
-
-```ruby
-class UsersService::Accept < ApplicationService::Base
-  input :user,
-        type: User,
-        # highlight-next-line
-        internal: true
-
-  make :accept!
-  
-  private
-  
-  def accept!
-    # highlight-next-line
-    user.accept!
-  end
-end
-```
-
 ### Option `as`
 
 This option is not validation.
@@ -131,7 +107,7 @@ class NotificationService::Create < ApplicationService::Base
 
   def create_notification!
     # highlight-next-line
-    self.notification = Notification.create!(user: inputs.user)
+    outputs.notification = Notification.create!(user: inputs.user)
   end
 end
 ```
@@ -238,21 +214,6 @@ class UsersService::Create < ApplicationService::Base
 
   input :last_name,
         type: String
-
-  # ...
-end
-```
-
-### Helper `internal`
-
-This helper is equivalent to `internal: true`.
-
-```ruby
-class UsersService::Accept < ApplicationService::Base
-  input :user,
-        # highlight-next-line
-        :internal,
-        type: User
 
   # ...
 end

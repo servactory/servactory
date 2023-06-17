@@ -18,7 +18,7 @@ RSpec.describe Usual::Example3 do
 
     include_examples "check class info",
                      inputs: %i[first_name last_name middle_name],
-                     internals: %i[],
+                     internals: %i[prepared_full_name],
                      outputs: %i[full_name]
 
     context "when the input arguments are valid" do
@@ -77,7 +77,7 @@ RSpec.describe Usual::Example3 do
 
     include_examples "check class info",
                      inputs: %i[first_name last_name middle_name],
-                     internals: %i[],
+                     internals: %i[prepared_full_name],
                      outputs: %i[full_name]
 
     context "when the input arguments are valid" do

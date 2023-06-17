@@ -3,26 +3,23 @@
 module Servactory
   module Internals
     class Workbench
+      attr_reader :collection
+
       def self.work_with(...)
         new(...)
       end
 
-      def initialize(collection_of_internals)
-        @collection_of_internals = collection_of_internals
+      def initialize(collection)
+        @collection = collection
       end
 
       def assign(context:)
         @context = context
       end
 
-      def prepare
-        Tools::Prepare.prepare(context, collection_of_internals)
-      end
-
       private
 
-      attr_reader :context,
-                  :collection_of_internals
+      attr_reader :context
     end
   end
 end

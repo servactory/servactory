@@ -11,6 +11,24 @@ pagination_label: Service internal attributes
 
 Internal private attributes can be defined through the `internal` method.
 
+## Usage
+
+The assignment and use of internal service arguments is done through the `internals=`/`internals` methods or their `int=`/`int` aliases.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :first_name, type: String
+
+  # ...
+
+  def something
+    internals.full_name = [inputs.first_name, inputs.middle_name, inputs.last_name].compact.join(" ")
+    # or
+    # int.full_name = [inp.first_name, inp.middle_name, inp.last_name].compact.join(" ")
+  end
+end
+```
+
 ## Options
 
 ### Option `type`
@@ -35,11 +53,11 @@ class NotificationService::Create < ApplicationService::Base
   
   def assign_inviter
     # highlight-next-line
-    self.inviter = user.inviter
+    internals.inviter = inputs.user.inviter
   end
   
   def create_notification!
-    self.notification = Notification.create!(user: inputs.user, inviter:)
+    outputs.notification = Notification.create!(user: inputs.user, inviter: internals.inviter)
   end
 end
 ```

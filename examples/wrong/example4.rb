@@ -14,11 +14,11 @@ module Wrong
     private
 
     def prepare_invoice_number
-      self.prepared_invoice_number = inputs.invoice_number
+      internals.prepared_invoice_number = inputs.invoice_number
     end
 
     def assign_invoice_number
-      self.number = prepared_invoice_number
+      outputs.number = internals.prepared_invoice_number
     end
   end
 end

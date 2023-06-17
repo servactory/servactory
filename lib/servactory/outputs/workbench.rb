@@ -3,12 +3,14 @@
 module Servactory
   module Outputs
     class Workbench
+      attr_reader :collection
+
       def self.work_with(...)
         new(...)
       end
 
-      def initialize(collection_of_outputs)
-        @collection_of_outputs = collection_of_outputs
+      def initialize(collection)
+        @collection = collection
       end
 
       def assign(context:)
@@ -16,16 +18,12 @@ module Servactory
       end
 
       def find_conflicts_in!(collection_of_internals:)
-        Tools::Conflicts.validate!(context, collection_of_outputs, collection_of_internals)
-      end
-
-      def prepare
-        Tools::Prepare.prepare(context, collection_of_outputs)
+        Tools::Conflicts.validate!(context, collection, collection_of_internals)
       end
 
       private
 
-      attr_reader :context, :collection_of_outputs
+      attr_reader :context
     end
   end
 end

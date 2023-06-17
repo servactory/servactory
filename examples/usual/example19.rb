@@ -9,7 +9,7 @@ module Usual
     private
 
     def assign_number
-      self.number = 7
+      outputs.number = 7
     end
   end
 end

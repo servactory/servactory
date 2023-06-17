@@ -35,17 +35,17 @@ make :process_result
 
 # highlight-next-line
 def assign_api_model
-  self.api_model = APIModel.new
+  internals.api_model = APIModel.new
 end
 
 # highlight-next-line
 def perform_api_request
-  self.response = APIClient.resource.create(api_model)
+  internals.response = APIClient.resource.create(internals.api_model)
 end
 
 # highlight-next-line
 def process_result
-  ARModel.create!(response)
+  ARModel.create!(internals.response)
 end
 ```
 
@@ -202,15 +202,15 @@ make :process_result
 
 # highlight-next-line
 def assign_api_model
-  self.api_model = APIModel.new
+  internals.api_model = APIModel.new
 end
 
 # highlight-next-line
 def perform_api_request
-  self.response = APIClient.resource.create(api_model)
+  internals.response = APIClient.resource.create(internals.api_model)
 end
 
 def process_result
-  ARModel.create!(response)
+  ARModel.create!(internals.response)
 end
 ```

@@ -3,12 +3,15 @@
 module Servactory
   module Inputs
     class Workbench
+      attr_reader :collection,
+                  :incoming_arguments
+
       def self.work_with(...)
         new(...)
       end
 
-      def initialize(collection_of_inputs)
-        @collection_of_inputs = collection_of_inputs
+      def initialize(collection)
+        @collection = collection
       end
 
       def assign(context:, arguments:)
@@ -17,25 +20,20 @@ module Servactory
       end
 
       def find_unnecessary!
-        Tools::FindUnnecessary.validate!(context, @incoming_arguments, collection_of_inputs)
+        Tools::FindUnnecessary.validate!(context, @incoming_arguments, collection)
       end
 
       def check_rules!
-        Tools::Rules.validate!(context, collection_of_inputs)
-      end
-
-      def prepare
-        Tools::Prepare.prepare(context, @incoming_arguments, collection_of_inputs)
+        Tools::Rules.validate!(context, collection)
       end
 
       def validate!
-        Tools::Validation.validate!(context, @incoming_arguments, collection_of_inputs)
+        Tools::Validation.validate!(context, @incoming_arguments, collection)
       end
 
       private
 
-      attr_reader :context,
-                  :collection_of_inputs
+      attr_reader :context
     end
   end
 end

@@ -1,11 +1,13 @@
 module Servactory
   module Inputs
     class Workbench
-      @incoming_arguments: untyped
+      attr_reader collection: Collection
+
+      attr_reader incoming_arguments: untyped
 
       def self.work_with: (*untyped) ?{ () -> untyped } -> instance
 
-      def initialize: (Collection collection_of_inputs) -> void
+      def initialize: (Collection collection) -> void
 
       def assign: (context: instance, arguments: untyped) -> void
 
@@ -13,15 +15,11 @@ module Servactory
 
       def find_unnecessary!: () -> void
 
-      def prepare: () -> void
-
       def validate!: () -> void
 
       private
 
       attr_reader context: instance
-
-      attr_reader collection_of_inputs: Collection
     end
   end
 end

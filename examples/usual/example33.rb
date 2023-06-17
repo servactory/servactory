@@ -7,7 +7,7 @@ module Usual
     private
 
     def call
-      self.number = 7
+      outputs.number = 7
     end
   end
 end

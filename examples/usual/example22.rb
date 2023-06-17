@@ -11,7 +11,7 @@ module Usual
     private
 
     def assign_output_3
-      self.output_3 = inputs.input_3
+      outputs.output_3 = inputs.input_3
     end
   end
 
@@ -25,7 +25,7 @@ module Usual
     private
 
     def assign_output_1
-      self.output_1 = inputs.input_1
+      outputs.output_1 = inputs.input_1
     end
   end
 
@@ -39,7 +39,7 @@ module Usual
     private
 
     def assign_output_2
-      self.output_2 = inputs.input_2
+      outputs.output_2 = inputs.input_2
     end
   end
 end

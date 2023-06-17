@@ -8,4 +8,16 @@ pagination_label: Changelog
 
 # Changelog
 
-Information will be added soon.
+## Unreleased
+
+### Changed
+
+- Changed work with `input`, `output` and `internal` attributes ([#76](https://github.com/afuno/servactory/pull/76))
+
+### Improved
+
+- Improved performance ([#76](https://github.com/afuno/servactory/pull/76))
+
+## 1.6.14
+
+- First release in the changelog

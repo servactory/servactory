@@ -10,11 +10,11 @@ module Usual
     private
 
     def assign_number_7
-      self.number = 7
+      outputs.number = 7
     end
 
     def assign_number_6
-      self.number = 6
+      outputs.number = 6
     end
   end
 end

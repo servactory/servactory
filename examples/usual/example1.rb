@@ -2,9 +2,9 @@
 
 module Usual
   class Example1 < ApplicationService::Base
-    input :first_name, type: String, internal: true
-    input :middle_name, type: String, required: false, internal: true
-    input :last_name, type: String, internal: true
+    input :first_name, type: String
+    input :middle_name, type: String, required: false
+    input :last_name, type: String
 
     output :full_name, type: String
 
@@ -13,10 +13,10 @@ module Usual
     private
 
     def assign_full_name
-      self.full_name = [
-        first_name,
-        middle_name,
-        last_name
+      outputs.full_name = [
+        inputs.first_name,
+        inputs.middle_name,
+        inputs.last_name
       ].compact.join(" ")
     end
   end

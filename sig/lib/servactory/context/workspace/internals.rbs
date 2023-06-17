@@ -1,0 +1,22 @@
+module Servactory
+  module Context
+    module Workspace
+      class Internals
+        @context: instance
+        @collection_of_internals: Servactory::Internals::Collection
+
+        def initialize: (Workspace context, workbench: Servactory::Internals::Workbench) -> void
+
+        def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
+
+        def respond_to_missing?: (Symbol name, *untyped) -> void
+
+        private
+
+        def setter_with: (name: Symbol, value: untyped?) { () -> untyped } -> void
+
+        def getter_with: (name: Symbol) { () -> untyped } -> void
+      end
+    end
+  end
+end

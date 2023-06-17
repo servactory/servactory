@@ -11,6 +11,24 @@ pagination_label: Внутренние атрибуты сервиса
 
 Внутренние приватные атрибуты можно определять через метод `internal`.
 
+## Использование
+
+Назначение и использование внутренних аргументов сервиса осуществляется через методы `internals=`/`internals` или их алиасы `int=`/`int`.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :first_name, type: String
+
+  # ...
+
+  def something
+    internals.full_name = [inputs.first_name, inputs.middle_name, inputs.last_name].compact.join(" ")
+    # или
+    # int.full_name = [inp.first_name, inp.middle_name, inp.last_name].compact.join(" ")
+  end
+end
+```
+
 ## Опции
 
 ### Опция `type`
@@ -35,11 +53,11 @@ class NotificationService::Create < ApplicationService::Base
   
   def assign_inviter
     # highlight-next-line
-    self.inviter = user.inviter
+    internals.inviter = inputs.user.inviter
   end
   
   def create_notification!
-    self.notification = Notification.create!(user: inputs.user, inviter:)
+    outputs.notification = Notification.create!(user: inputs.user, inviter: internals.inviter)
   end
 end
 ```

@@ -20,7 +20,7 @@ module Usual
     private
 
     def create_event
-      self.event = Event.new(
+      outputs.event = Event.new(
         id: "14fe213e-1b0a-4a68-bca9-ce082db0f2c6",
         event_name: inputs.event_name
       )

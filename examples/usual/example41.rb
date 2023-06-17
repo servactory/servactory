@@ -26,29 +26,29 @@ module Usual
     private
 
     def assign_number_4
-      self.number = 4
+      outputs.number = 4
     end
 
     def assign_number_5
-      self.number = 5
+      outputs.number = 5
     end
 
     def assign_number_6
-      # self.number = 6
+      # outputs.number = 6
 
       raise "bad number"
     end
 
     def assign_number_7
-      self.number = 7
+      outputs.number = 7
     end
 
     def assign_number_8
-      self.number = 8
+      outputs.number = 8
     end
 
     def method_for_rollback(_e)
-      self.number = 9
+      outputs.number = 9
     end
   end
 end

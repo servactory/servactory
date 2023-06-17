@@ -12,6 +12,24 @@ pagination_label: Входные аргументы сервиса
 Все аргументы, которые должен ожидать сервис должны быть описаны через метод `input`.
 Если сервис будет получать аргумент, который не был описан через метод `input`, то он будет возвращать ошибку.
 
+## Использование
+
+Использование входящих в серсис аргументов осуществляется через метод `inputs` или его алиас `inp`.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :nickname, type: String
+
+  # ...
+
+  def create!
+    outputs.user = User.create!(nickname: inputs.nickname)
+    # или
+    # outputs.user = User.create!(nickname: inp.nickname)
+  end
+end
+```
+
 ## Опции
 
 ### Опция `type`
@@ -67,48 +85,6 @@ class UsersService::Create < ApplicationService::Base
 end
 ```
 
-### Опция `internal`
-
-Эта опция не является валидацией.
-Она используется для подготовки input-аргумента.
-Если указано `true`, то input-аргумент будет создан как internal-атрибут.
-
-По умолчанию `internal` имеет значение `false`.
-
-```ruby
-class UsersService::Accept < ApplicationService::Base
-  input :user,
-        type: User
-
-  make :accept!
-  
-  private
-  
-  def accept!
-    # highlight-next-line
-    inputs.user.accept!
-  end
-end
-```
-
-```ruby
-class UsersService::Accept < ApplicationService::Base
-  input :user,
-        type: User,
-        # highlight-next-line
-        internal: true
-
-  make :accept!
-  
-  private
-  
-  def accept!
-    # highlight-next-line
-    user.accept!
-  end
-end
-```
-
 ### Опция `as`
 
 Эта опция не является валидацией.
@@ -131,7 +107,7 @@ class NotificationService::Create < ApplicationService::Base
 
   def create_notification!
     # highlight-next-line
-    self.notification = Notification.create!(user: inputs.user)
+    outputs.notification = Notification.create!(user: inputs.user)
   end
 end
 ```
@@ -238,21 +214,6 @@ class UsersService::Create < ApplicationService::Base
 
   input :last_name,
         type: String
-
-  # ...
-end
-```
-
-### Хелпер `internal`
-
-Этот хелпер эквивалентен `internal: true`.
-
-```ruby
-class UsersService::Accept < ApplicationService::Base
-  input :user,
-        # highlight-next-line
-        :internal,
-        type: User
 
   # ...
 end

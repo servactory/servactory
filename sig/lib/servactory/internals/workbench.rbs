@@ -1,19 +1,17 @@
 module Servactory
   module Internals
     class Workbench
+      attr_reader collection: Collection
+
       def self.work_with: (*untyped) ?{ () -> untyped } -> untyped
 
-      def initialize: (Collection collection_of_internals) -> void
+      def initialize: (Collection collection) -> void
 
       def assign: (context: instance) -> void
-
-      def prepare: () -> void
 
       private
 
       attr_reader context: instance
-
-      attr_reader collection_of_internals: Collection
     end
   end
 end

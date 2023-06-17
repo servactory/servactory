@@ -16,8 +16,6 @@ module Servactory
           collection_of_internals: collection_of_internals
         )
 
-        prepare_data
-
         inputs_workbench.validate!
 
         methods_workbench.run!
@@ -43,8 +41,6 @@ module Servactory
           collection_of_internals: collection_of_internals
         )
 
-        prepare_data
-
         inputs_workbench.validate!
 
         methods_workbench.run!
@@ -68,12 +64,6 @@ module Servactory
         internals_workbench.assign(context: context_store.context)
         outputs_workbench.assign(context: context_store.context)
         methods_workbench.assign(context: context_store.context)
-      end
-
-      def prepare_data
-        inputs_workbench.prepare      # 1
-        outputs_workbench.prepare     # 2
-        internals_workbench.prepare   # 3
       end
     end
   end

@@ -39,7 +39,7 @@ Or create something more complex:
 ```ruby
 class NotificationService::Send < ApplicationService::Base
   input :comment, type: Comment
-  input :provider, type: NotificationProvider, internal: true
+  input :provider, type: NotificationProvider
 
   internal :user, type: User
   internal :status, type: String
@@ -59,15 +59,15 @@ class NotificationService::Send < ApplicationService::Base
   private
 
   def assign_user
-    self.user = comment.user
+    internals.user = inputs.comment.user
   end
 
   def assign_status
-    self.status = StatusEnum::NOTIFIED
+    internals.status = StatusEnum::NOTIFIED
   end
 
   def create_notification!
-    self.notification = Notification.create!(user:, comment: inputs.comment, provider:)
+    outputs.notification = Notification.create!(user:, comment: inputs.comment, provider: inputs.provider)
   end
 
   def send_notification
@@ -75,15 +75,15 @@ class NotificationService::Send < ApplicationService::Base
 
     return fail!(message: service_result.errors.first.message) if service_result.failure?
 
-    self.response = service_result.response
+    internals.response = service_result.response
   end
 
   def update_notification!
-    notification.update!(original_data: response)
+    outputs.notification.update!(original_data: response)
   end
 
   def update_comment!
-    comment.update!(status:)
+    inputs.comment.update!(status:)
   end
 end
 ```
