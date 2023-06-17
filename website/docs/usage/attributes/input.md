@@ -14,7 +14,7 @@ If the service receives an argument that hasn't been described through input met
 
 ## Usage
 
-The use of the arguments included in the service is done through the `inputs` method or its alias `inp`.
+The use of the arguments included in the service is done through the `inputs` method or its `inp` alias.
 
 ```ruby
 class UsersService::Create < ApplicationService::Base
