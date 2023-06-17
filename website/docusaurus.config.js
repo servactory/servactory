@@ -83,6 +83,30 @@ const config = {
       {
         redirects: [
           {
+            from: '/1.6/changelog',
+            to: '/changelog',
+          },
+          {
+            from: '/1.6/code-of-conduct',
+            to: '/code-of-conduct',
+          },
+          {
+            from: '/1.6/contributing',
+            to: '/contributing',
+          },
+          {
+            from: '/ru/1.6/changelog',
+            to: '/changelog',
+          },
+          {
+            from: '/ru/1.6/code-of-conduct',
+            to: '/code-of-conduct',
+          },
+          {
+            from: '/ru/1.6/contributing',
+            to: '/contributing',
+          },
+          {
             from: '/usage/input',
             to: '/usage/attributes/input',
           },
