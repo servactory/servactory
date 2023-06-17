@@ -24,7 +24,7 @@ class UserService::Authenticate < ApplicationService::Base
 
   def call
     if (user = User.find_by(email: inputs.email)&.authenticate(inputs.password))
-      self.user = user
+      outputs.user = user
     else
       fail!(message: "Authentication failed")
     end

@@ -11,6 +11,24 @@ pagination_label: Service output attributes
 
 All attributes the service must return in `Result` should be described through the `output` method.
 
+## Usage
+
+The assignment and use of service output arguments is done through the `outputs=`/`outputs` methods or their `out=`/`out` aliases.
+
+```ruby
+class UsersService::Create < ApplicationService::Base
+  input :first_name, type: String
+
+  # ...
+
+  def something
+    outputs.full_name = [inputs.first_name, inputs.middle_name, inputs.last_name].compact.join(" ")
+    # or
+    # out.full_name = [inp.first_name, inp.middle_name, inp.last_name].compact.join(" ")
+  end
+end
+```
+
 ## Options
 
 ### Option `type`
