@@ -83,6 +83,10 @@ const config = {
       {
         redirects: [
           {
+            from: '/usage/call',
+            to: '/usage/call-and-result',
+          },
+          {
             from: '/usage/input',
             to: '/usage/attributes/input',
           },
