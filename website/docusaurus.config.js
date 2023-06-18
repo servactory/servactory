@@ -100,7 +100,7 @@ const config = {
           },
           {
             from: '/usage/result',
-            to: '/usage/call',
+            to: '/usage/call-and-result',
           },
         ]
       }
