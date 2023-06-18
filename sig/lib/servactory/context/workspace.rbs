@@ -20,6 +20,8 @@ module Servactory
 
       def errors: -> Servactory::Errors::Collection
 
+      def error: -> (Errors::InputError | Errors::InternalError | Errors::OutputError | Errors::Failure)
+
       def fail_input!: (Symbol input_name, message: String) -> void
 
       def fail!: (message: String, failure_class: singleton(Errors::Failure), meta: untyped?) -> Errors
