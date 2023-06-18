@@ -73,7 +73,7 @@ class NotificationService::Send < ApplicationService::Base
   def send_notification
     service_result = NotificatorService::API::Send.call(notification:)
 
-    return fail!(message: service_result.errors.first.message) if service_result.failure?
+    return fail!(message: service_result.error.message) if service_result.failure?
 
     internals.response = service_result.response
   end
