@@ -122,6 +122,11 @@ RSpec.describe Usual::Example43 do
                 )
               )
             )
+
+            expect(result.error).to be_a(ApplicationService::Errors::Failure)
+            expect(result.error).to an_object_having_attributes(
+              message: "Authentication failed"
+            )
           end
         end
 
@@ -140,6 +145,11 @@ RSpec.describe Usual::Example43 do
                   message: "Authentication failed"
                 )
               )
+            )
+
+            expect(result.error).to be_a(ApplicationService::Errors::Failure)
+            expect(result.error).to an_object_having_attributes(
+              message: "Authentication failed"
             )
           end
         end
