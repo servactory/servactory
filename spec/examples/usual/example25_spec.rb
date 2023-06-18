@@ -100,6 +100,14 @@ RSpec.describe Usual::Example25 do
                 )
               )
             )
+
+            expect(result.error).to be_a(ApplicationService::Errors::Failure)
+            expect(result.error).to an_object_having_attributes(
+              message: "Invalid invoice number",
+              meta: {
+                invoice_number: "BB-7650AE"
+              }
+            )
           end
         end
       end

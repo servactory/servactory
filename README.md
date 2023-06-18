@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
       session[:current_user_id] = service_result.user.id
       redirect_to service_result.user
     else
-      flash.now[:message] = service_result.errors.first.message
+      flash.now[:message] = service_result.error.message
       render :new
     end
   end

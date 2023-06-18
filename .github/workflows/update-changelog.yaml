@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: ${{ github.event.release.target_commitish }}
 
       - name: Update Changelog
         uses: stefanzweifel/changelog-updater-action@v1
@@ -27,16 +27,16 @@ jobs:
           release-notes: ${{ github.event.release.body }}
           latest-version: ${{ github.event.release.name }}
 
-      - name: Commit updated website/docs/CONTRIBUTING.md
+      - name: Commit updated CONTRIBUTING.md
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: main
-          commit_message: Update CHANGELOG
+          branch: ${{ github.event.release.target_commitish }}
+          commit_message: Update CONTRIBUTING.md
           file_pattern: website/docs/CONTRIBUTING.md
 
-      - name: Commit updated website/i18n/ru/docusaurus-plugin-content-docs/current/CHANGELOG.md
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          branch: main
-          commit_message: Update CHANGELOG
-          file_pattern: website/i18n/ru/docusaurus-plugin-content-docs/current/CHANGELOG.md
+#      - name: Commit updated website/i18n/ru/docusaurus-plugin-content-docs/current/CHANGELOG.md
+#        uses: stefanzweifel/git-auto-commit-action@v4
+#        with:
+#          branch: ${{ github.event.release.target_commitish }}
+#          commit_message: Update CONTRIBUTING.md
+#          file_pattern: website/i18n/ru/docusaurus-plugin-content-docs/current/CHANGELOG.md

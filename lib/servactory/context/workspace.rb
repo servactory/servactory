@@ -22,6 +22,10 @@ module Servactory
         @errors ||= Servactory::Errors::Collection.new
       end
 
+      def error
+        errors.first
+      end
+
       def raise_first_fail
         return if (tmp_errors = errors.for_fails.not_blank).empty?
 

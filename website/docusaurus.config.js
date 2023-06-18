@@ -10,10 +10,6 @@ if (isDev) {
   require('dotenv').config({ path: './.env.local' });
 }
 
-if (!isDev) {
-  require('@vercel/analytics').inject();
-}
-
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Servactory',
@@ -83,6 +79,10 @@ const config = {
       {
         redirects: [
           {
+            from: '/usage/call',
+            to: '/usage/call-and-result',
+          },
+          {
             from: '/usage/input',
             to: '/usage/attributes/input',
           },
@@ -96,7 +96,7 @@ const config = {
           },
           {
             from: '/usage/result',
-            to: '/usage/call',
+            to: '/usage/call-and-result',
           },
         ]
       }

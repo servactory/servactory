@@ -1,38 +1,39 @@
 ---
-title: Service call
+title: Service call and result of work
 description: Description and examples of how to use service call
-slug: call
-sidebar_label: Call
+slug: call-and-result
+sidebar_label: Call and Result
 sidebar_position: 2
-pagination_label: Service call
+pagination_label: Service call and result of work
 ---
 
-# Call
+# Service call and result of work
 
 Services can only be called via `.call` and `.call!` methods.
 
-The `.call` method will only fail if it catches an exception in the input arguments. Internal and output attributes, as well as methods for failures — all this will be collected in the result.
+## Via `.call!`
 
 The `.call!` method will fail if it catches any exception.
-
-### Via `.call`
-
-```ruby
-UsersService::Accept.call(user: User.first)
-```
-
-### Via `.call!`
 
 ```ruby
 UsersService::Accept.call!(user: User.first)
 ```
 
-### Result
+## Via `.call`
+
+The `.call` method will only fail if it catches an exception in the input arguments. 
+Internal and output attributes, as well as methods for failures — all this will be collected in the result.
+
+```ruby
+UsersService::Accept.call(user: User.first)
+```
+
+## Result
 
 All services have the result of their work. For example, in case of success this call:
 
 ```ruby
-service_result = UsersService::Accept.call!(user: User.first)
+service_result = UsersService::Accept.call(user: User.first)
 ```
 
 Will return this:
@@ -47,7 +48,22 @@ And then work with thе result in this way:
 Notification::SendJob.perform_later(service_result.user.id)
 ```
 
-### Info
+### Result content
+
+#### Output attributes
+
+Anything that has been added via the `output` method in the service will be available in `Result`.
+
+#### Helpers
+
+As a result of the work of the service, there are `success?` and `failure?` methods, 
+which can help determine the result of the work for further processing.
+
+#### Errors
+
+It is possible to get all errors via the `errors` method, or just the first one via the `error` method.
+
+## Info
 
 From outside the service, can get information about its input, internal, and output attributes.
 

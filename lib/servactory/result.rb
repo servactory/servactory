@@ -25,6 +25,7 @@ module Servactory
 
     def prepare_statuses_with(context:)
       define_singleton_method(:errors) { context.errors }
+      define_singleton_method(:error) { context.error }
       define_singleton_method(:success?) { context.errors.empty? }
       define_singleton_method(:failure?) { !context.errors.empty? }
     end
