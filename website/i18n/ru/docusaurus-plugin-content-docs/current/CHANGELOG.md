@@ -1,3 +1,11 @@
+---
+title: Changelog
+slug: changelog
+sidebar_label: Changelog
+sidebar_position: 4
+pagination_label: Changelog
+---
+
 # Changelog
 
 ## [v1.7.1](https://github.com/afuno/servactory/tree/v1.7.1) (2023-06-18)
