@@ -9,4 +9,12 @@ require "rubocop/rake_task"
 
 RuboCop::RakeTask.new
 
+require "github_changelog_generator/task"
+
+GitHubChangelogGenerator::RakeTask.new :changelog do |config|
+  config.user = "afuno"
+  config.project = "servactory"
+  config.output = "website/docs/CHANGELOG.md"
+end
+
 task default: %i[spec rubocop]
