@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+bundle exec github_changelog_generator \
+            -u afuno \
+            -p servactory \
+            --output "website/docs/CHANGELOG.md" \
+            --configure-sections "{ \
+              \"breaking-change\": { \"prefix\": \"**Breaking changes:**\", \"labels\":[\"breaking-change\"] }, \
+              \"feature\": { \"prefix\": \"**Implemented enhancements:**\", \"labels\":[\"feature\", \"polish\" ,\"tests\"] }, \
+              \"bug\": { \"prefix\": \"**Fixed:**\", \"labels\":[\"fix\"] }, \
+              \"dependencies\": { \"prefix\": \"**Dependencies:**\", \"labels\":[\"dependencies\"] }, \
+              \"documentation\": { \"prefix\": \"**Documentation:**\", \"labels\":[\"documentation\"] } \
+            }"
+
+echo -e "---\ntitle: Changelog\nslug: changelog\nsidebar_label: Changelog\nsidebar_position: 4\npagination_label: Changelog\n---\n\n$(cat website/docs/CHANGELOG.md)" > website/docs/CHANGELOG.md
+
+cp website/docs/CHANGELOG.md website/i18n/ru/docusaurus-plugin-content-docs/current/CHANGELOG.md
