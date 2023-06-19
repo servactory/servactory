@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+bundle exec github_changelog_generator \
+            -u afuno \
+            -p servactory \
+            --output="website/docs/CHANGELOG.md" \
+            --breaking-labels="breaking-change" \
+            --enhancement_labels="feature,polish,tests,dependencies,documentation" \
+            --bug-labels="fix" \
+            --pr-label "**Merged pull requests:**" \
+            --breaking-label "**Breaking changes:**" \
+            --enhancement-label "**Implemented enhancements:**" \
+            --bugs-label "**Fixed:**"
