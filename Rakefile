@@ -15,6 +15,9 @@ GitHubChangelogGenerator::RakeTask.new :changelog do |config|
   config.user = "afuno"
   config.project = "servactory"
   config.output = "website/docs/CHANGELOG.md"
+  config.enhancement_labels = %w[features breaking-change]
+  # config.breaking_labels = %w[breaking-change]
+  config.bug_labels = %w[fix]
 end
 
 task default: %i[spec rubocop]

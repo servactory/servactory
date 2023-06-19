@@ -12,9 +12,12 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.6.14...v1.7.0)
 
-**Merged pull requests:**
+**Implemented enhancements:**
 
 - Rewrite work with attributes and improve performance [\#76](https://github.com/afuno/servactory/pull/76) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
 - Add analytics to documentation [\#75](https://github.com/afuno/servactory/pull/75) ([afuno](https://github.com/afuno))
 
 ## [v1.6.14](https://github.com/afuno/servactory/tree/v1.6.14) (2023-06-16)
@@ -31,7 +34,7 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.6.12...v1.6.13)
 
-**Merged pull requests:**
+**Fixed bugs:**
 
 - Improve functionality [\#71](https://github.com/afuno/servactory/pull/71) ([afuno](https://github.com/afuno))
 
@@ -39,7 +42,7 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.6.11...v1.6.12)
 
-**Merged pull requests:**
+**Fixed bugs:**
 
 - Fix variable definition [\#70](https://github.com/afuno/servactory/pull/70) ([afuno](https://github.com/afuno))
 
@@ -47,7 +50,7 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.6.10...v1.6.11)
 
-**Merged pull requests:**
+**Fixed bugs:**
 
 - Fix conflict between input and output [\#69](https://github.com/afuno/servactory/pull/69) ([afuno](https://github.com/afuno))
 
@@ -82,7 +85,7 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.6.6...v1.6.7)
 
-**Merged pull requests:**
+**Fixed bugs:**
 
 - Improve work and prepare tools for testing [\#62](https://github.com/afuno/servactory/pull/62) ([afuno](https://github.com/afuno))
 
@@ -149,14 +152,17 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.5.2...v1.6.0)
 
-**Merged pull requests:**
+**Implemented enhancements:**
 
-- Update versions of dependencies from 23.05.2023 [\#36](https://github.com/afuno/servactory/pull/36) ([afuno](https://github.com/afuno))
 - Improve and simplify naming [\#35](https://github.com/afuno/servactory/pull/35) ([afuno](https://github.com/afuno))
 - Simplify the use of the `array` option [\#34](https://github.com/afuno/servactory/pull/34) ([afuno](https://github.com/afuno))
 - Rework error handling [\#33](https://github.com/afuno/servactory/pull/33) ([afuno](https://github.com/afuno))
-- Add Yard [\#32](https://github.com/afuno/servactory/pull/32) ([afuno](https://github.com/afuno))
 - Add support for the `meta` attribute for the `fail!` method [\#31](https://github.com/afuno/servactory/pull/31) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
+- Update versions of dependencies from 23.05.2023 [\#36](https://github.com/afuno/servactory/pull/36) ([afuno](https://github.com/afuno))
+- Add Yard [\#32](https://github.com/afuno/servactory/pull/32) ([afuno](https://github.com/afuno))
 
 ## [v1.5.2](https://github.com/afuno/servactory/tree/v1.5.2) (2023-05-21)
 
@@ -170,7 +176,7 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.5.0...v1.5.1)
 
-**Merged pull requests:**
+**Fixed bugs:**
 
 - Fix work with input attribute options [\#29](https://github.com/afuno/servactory/pull/29) ([afuno](https://github.com/afuno))
 
@@ -178,10 +184,13 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.4.7...v1.5.0)
 
+**Implemented enhancements:**
+
+- Use `Make` instead of `Stage` [\#27](https://github.com/afuno/servactory/pull/27) ([afuno](https://github.com/afuno))
+
 **Merged pull requests:**
 
 - Update versions of dependencies from 20.05.2023 [\#28](https://github.com/afuno/servactory/pull/28) ([afuno](https://github.com/afuno))
-- Use `Make` instead of `Stage` [\#27](https://github.com/afuno/servactory/pull/27) ([afuno](https://github.com/afuno))
 - Improve inheritance for attributes and methods [\#26](https://github.com/afuno/servactory/pull/26) ([afuno](https://github.com/afuno))
 
 ## [v1.4.7](https://github.com/afuno/servactory/tree/v1.4.7) (2023-05-19)
