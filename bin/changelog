@@ -7,10 +7,12 @@ bundle exec github_changelog_generator \
             -u afuno \
             -p servactory \
             --output="website/docs/CHANGELOG.md" \
-            --breaking-labels="breaking-change" \
-            --enhancement_labels="feature,polish,tests,dependencies,documentation" \
-            --bug-labels="fix" \
-            --pr-label "**Merged pull requests:**" \
-            --breaking-label "**Breaking changes:**" \
-            --enhancement-label "**Implemented enhancements:**" \
-            --bugs-label "**Fixed:**"
+            --configure-sections "{ \
+              \"breaking-change\": { \"prefix\": \"**Breaking changes:**\", \"labels\":[\"breaking-change\"] }, \
+              \"feature\": { \"prefix\": \"**Implemented enhancements:**\", \"labels\":[\"feature\", \"polish\" ,\"tests\"] }, \
+              \"bug\": { \"prefix\": \"**Fixed:**\", \"labels\":[\"fix\"] }, \
+              \"dependencies\": { \"prefix\": \"**Dependencies:**\", \"labels\":[\"dependencies\"] }, \
+              \"documentation\": { \"prefix\": \"**Documentation:**\", \"labels\":[\"documentation\"] } \
+            }"
+
+cp website/docs/CHANGELOG.md website/i18n/ru/docusaurus-plugin-content-docs/current/CHANGELOG.md
