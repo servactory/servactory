@@ -33,7 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "i18n", "~> 1.13"
   spec.add_runtime_dependency "zeitwerk", "~> 2.6"
 
-  spec.add_development_dependency "github_changelog_generator", "~> 1.16"
   spec.add_development_dependency "pry", "~> 0.14"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rbs", "~> 3.1"
