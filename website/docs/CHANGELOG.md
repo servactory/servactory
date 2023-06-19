@@ -12,7 +12,7 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.6.14...v1.7.0)
 
-**Implemented enhancements:**
+**Breaking changes:**
 
 - Rewrite work with attributes and improve performance [\#76](https://github.com/afuno/servactory/pull/76) ([afuno](https://github.com/afuno))
 
@@ -152,7 +152,7 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.5.2...v1.6.0)
 
-**Implemented enhancements:**
+**Breaking changes:**
 
 - Improve and simplify naming [\#35](https://github.com/afuno/servactory/pull/35) ([afuno](https://github.com/afuno))
 - Simplify the use of the `array` option [\#34](https://github.com/afuno/servactory/pull/34) ([afuno](https://github.com/afuno))
@@ -184,7 +184,7 @@
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.4.7...v1.5.0)
 
-**Implemented enhancements:**
+**Breaking changes:**
 
 - Use `Make` instead of `Stage` [\#27](https://github.com/afuno/servactory/pull/27) ([afuno](https://github.com/afuno))
 

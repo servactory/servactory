@@ -21,3 +21,5 @@ GitHubChangelogGenerator::RakeTask.new :changelog do |config|
 end
 
 task default: %i[spec rubocop]
+
+# github_changelog_generator -u afuno -p servactory --output="website/docs/CHANGELOG.md" --breaking-labels="breaking-change" --enhancement_labels="features" --bug-labels="fix"
