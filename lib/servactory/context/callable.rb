@@ -6,8 +6,6 @@ module Servactory
       def call!(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         @context_store = Store.new(self)
 
-        context_store.context.send(:assign_service_strict_mode, true)
-
         assign_data_with(arguments)
 
         inputs_workbench.find_unnecessary!
@@ -20,9 +18,7 @@ module Servactory
 
         methods_workbench.run!
 
-        context_store.context.raise_first_fail
-
-        Servactory::Result.prepare_for(
+        Servactory::Result.success_for(
           context: context_store.context,
           collection_of_outputs: collection_of_outputs
         )
@@ -31,8 +27,6 @@ module Servactory
       def call(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         @context_store = Store.new(self)
 
-        context_store.context.send(:assign_service_strict_mode, false)
-
         assign_data_with(arguments)
 
         inputs_workbench.find_unnecessary!
@@ -45,10 +39,12 @@ module Servactory
 
         methods_workbench.run!
 
-        Servactory::Result.prepare_for(
+        Servactory::Result.success_for(
           context: context_store.context,
           collection_of_outputs: collection_of_outputs
         )
+      rescue Servactory.configuration.failure_class => e
+        Servactory::Result.failure_for(exception: e)
       end
 
       private

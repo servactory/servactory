@@ -4,8 +4,6 @@ module Servactory
       @inputs: Inputs
       @internals: Internals
       @outputs: Outputs
-      @errors: Errors
-      @service_strict_mode: bool
 
       def inputs: -> Inputs
       alias inp inputs
@@ -18,19 +16,9 @@ module Servactory
 
       def initialize: () -> void
 
-      def errors: -> Servactory::Errors::Collection
+      def fail_input!: (Symbol input_name, message: String) -> Exception
 
-      def error: -> (Errors::InputError | Errors::InternalError | Errors::OutputError | Errors::Failure)
-
-      def fail_input!: (Symbol input_name, message: String) -> void
-
-      def fail!: (message: String, failure_class: singleton(Errors::Failure), meta: untyped?) -> Errors
-
-      def raise_first_fail: () -> (nil | untyped)
-
-      private
-
-      def assign_service_strict_mode: (bool flag) -> bool
+      def fail!: (message: String, meta: untyped?) -> Exception
     end
   end
 end

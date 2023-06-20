@@ -35,10 +35,13 @@ RSpec.describe Usual::Example42 do
       describe "but the data required for work is invalid" do
         include_examples "failure result class"
 
-        it "returns the expected value in `first_id`" do
+        it "returns the expected value in `errors`", :aggregate_failures do
           result = perform
 
-          expect(result.number).to eq(8)
+          expect(result.error).to be_a(ApplicationService::Errors::Failure)
+          expect(result.error).to an_object_having_attributes(
+            message: "rollback with bad number"
+          )
         end
       end
     end

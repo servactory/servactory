@@ -18,20 +18,6 @@ module Servactory
       end
       alias out outputs
 
-      def errors
-        @errors ||= Servactory::Errors::Collection.new
-      end
-
-      def error
-        errors.first
-      end
-
-      def raise_first_fail
-        return if (tmp_errors = errors.for_fails.not_blank).empty?
-
-        raise tmp_errors.first
-      end
-
       protected
 
       def fail_input!(input_name, message:)
@@ -41,22 +27,8 @@ module Servactory
         )
       end
 
-      def fail!(
-        message:,
-        failure_class: Servactory.configuration.failure_class,
-        meta: nil
-      )
-        failure = failure_class.new(message: message, meta: meta)
-
-        raise failure if @service_strict_mode
-
-        errors << failure
-      end
-
-      private
-
-      def assign_service_strict_mode(flag)
-        @service_strict_mode = flag
+      def fail!(message:, meta: nil)
+        raise Servactory.configuration.failure_class.new(message: message, meta: meta)
       end
     end
   end
