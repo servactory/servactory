@@ -11,9 +11,9 @@ module Servactory
 
       def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Servactory::Inputs::OptionHelpersCollection
 
-      def aliases_for_make: (Array[Symbol] aliases_for_make) -> Methods::MakeAliases::Collection
+      def aliases_for_make: (Array[Symbol] aliases_for_make) -> Methods::AliasesForMake::Collection
 
-      def method_shortcuts: (Array[Symbol] method_shortcuts) -> Methods::Shortcuts::Collection
+      def shortcuts_for_make: (Array[Symbol] shortcuts_for_make) -> Methods::ShortcutsForMake::Collection
     end
   end
 end

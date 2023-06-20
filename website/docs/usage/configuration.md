@@ -82,13 +82,21 @@ module ApplicationService
 end
 ```
 
-### Method shortcuts
+### Aliases for `make`
+
+```ruby {2} title="app/services/application_service/base.rb"
+configuration do
+  aliases_for_make %i[execute]
+end
+```
+
+### Shortcuts for `make`
 
 ```ruby {4} title="app/services/application_service/base.rb"
 module ApplicationService
   class Base < Servactory::Base
     configuration do
-      method_shortcuts %i[assign perform]
+      shortcuts_for_make %i[assign perform]
     end
   end
 end
