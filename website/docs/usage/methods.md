@@ -199,29 +199,24 @@ def something
 end
 ```
 
-## Method shortcuts
+## Shortcuts for `make`
 
 Add frequently used words that are used as prefixes in method names through the `shortcuts_for_make` configuration.
 It won't make the names of methods shorter, but that will shorten the lines using the `make` method and improve the readability of the service code, making it more expressive.
 
-```ruby
+```ruby {2,5,6,9,13}
 configuration do
-  # highlight-next-line
   shortcuts_for_make %i[assign perform]
 end
 
-# highlight-next-line
 assign :api_model
-# highlight-next-line
 perform :api_request
 make :process_result
 
-# highlight-next-line
 def assign_api_model
   internals.api_model = APIModel.new
 end
 
-# highlight-next-line
 def perform_api_request
   internals.response = APIClient.resource.create(internals.api_model)
 end

@@ -199,29 +199,24 @@ def something
 end
 ```
 
-## Сокращение для методов
+## Сокращения для `make`
 
 Через конфигурацию `shortcuts_for_make` можно добавить часто используемые слова, которые используются в виде префиксов в именах методов.
 Имена самих методов короче не станут, но это позволит сократить строки с применением метода `make` и улучшить читаемость кода сервиса, сделав его выразительнее.
 
-```ruby
+```ruby {2,5,6,9,13}
 configuration do
-  # highlight-next-line
   shortcuts_for_make %i[assign perform]
 end
 
-# highlight-next-line
 assign :api_model
-# highlight-next-line
 perform :api_request
 make :process_result
 
-# highlight-next-line
 def assign_api_model
   internals.api_model = APIModel.new
 end
 
-# highlight-next-line
 def perform_api_request
   internals.response = APIClient.resource.create(internals.api_model)
 end
