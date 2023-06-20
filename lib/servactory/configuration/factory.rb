@@ -23,8 +23,8 @@ module Servactory
         Servactory.configuration.input_option_helpers.merge(input_option_helpers)
       end
 
-      def make_aliases(make_aliases)
-        Servactory.configuration.make_aliases.merge(make_aliases)
+      def aliases_for_make(aliases_for_make)
+        Servactory.configuration.aliases_for_make.merge(aliases_for_make)
       end
 
       def method_shortcuts(method_shortcuts)

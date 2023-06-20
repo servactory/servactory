@@ -3,7 +3,7 @@
 module Usual
   class Example45 < ApplicationService::Base
     configuration do
-      make_aliases %i[play do_it!]
+      aliases_for_make %i[play do_it!]
     end
 
     output :number, type: Integer

@@ -185,11 +185,11 @@ end
 
 ## Aliases for `make`
 
-Through the `make_aliases` configuration it is possible to add an alias for the `make` method.
+Through the `aliases_for_make` configuration it is possible to add an alias for the `make` method.
 
 ```ruby {2,5}
 configuration do
-  make_aliases %i[execute]
+  aliases_for_make %i[execute]
 end
 
 execute :something
