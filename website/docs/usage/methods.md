@@ -183,6 +183,22 @@ def clear_data_and_fail!(e)
 end
 ```
 
+## Aliases for `make`
+
+Through the `make_aliases` configuration it is possible to add an alias for the `make` method.
+
+```ruby {2,5}
+configuration do
+  make_aliases %i[execute]
+end
+
+execute :something
+
+def something
+  # ...
+end
+```
+
 ## Method shortcuts
 
 Add frequently used words that are used as prefixes in method names through the `method_shortcuts` configuration.

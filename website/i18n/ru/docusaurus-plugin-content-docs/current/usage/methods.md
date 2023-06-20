@@ -183,6 +183,22 @@ def clear_data_and_fail!(e)
 end
 ```
 
+## Алиасы для `make`
+
+Через конфигурацию `make_aliases` можно добавить алиас для метода `make`.
+
+```ruby {2,5}
+configuration do
+  make_aliases %i[execute]
+end
+
+execute :something
+
+def something
+  # ...
+end
+```
+
 ## Сокращение для методов
 
 Через конфигурацию `method_shortcuts` можно добавить часто используемые слова, которые используются в виде префиксов в именах методов.
