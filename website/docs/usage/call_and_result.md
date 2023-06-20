@@ -5,13 +5,18 @@ slug: call-and-result
 sidebar_label: Call and Result
 sidebar_position: 2
 pagination_label: Service call and result of work
+
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
 # Service call and result of work
 
+## Service call
+
 Services can only be called via `.call` and `.call!` methods.
 
-## Via `.call!`
+### Via `.call!`
 
 The `.call!` method will fail if it catches any exception.
 
@@ -19,7 +24,7 @@ The `.call!` method will fail if it catches any exception.
 UsersService::Accept.call!(user: User.first)
 ```
 
-## Via `.call`
+### Via `.call`
 
 The `.call` method will only fail if it catches an exception in the input arguments. 
 Internal and output attributes, as well as methods for failures — all this will be collected in the result.
@@ -59,9 +64,20 @@ Anything that has been added via the `output` method in the service will be avai
 As a result of the work of the service, there are `success?` and `failure?` methods, 
 which can help determine the result of the work for further processing.
 
-#### Errors
+```ruby
+service_result.success? # => true
+service_result.failure? # => false
+```
 
-It is possible to get all errors via the `errors` method, or just the first one via the `error` method.
+#### Error
+
+Information about the error can be obtained through the `error` method.
+
+```ruby
+service_result.error
+
+# => <ApplicationService::Errors::Failure: Invalid invoice number>
+```
 
 ## Info
 

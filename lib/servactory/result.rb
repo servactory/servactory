@@ -2,15 +2,30 @@
 
 module Servactory
   class Result
-    def self.prepare_for(...)
-      new.send(:prepare_for, ...)
+    def self.success_for(...)
+      new.send(:success_for, ...)
+    end
+
+    def self.failure_for(...)
+      new.send(:failure_for, ...)
     end
 
     private
 
-    def prepare_for(context:, collection_of_outputs:)
+    def success_for(context:, collection_of_outputs:)
       prepare_outputs_with(context: context, collection_of_outputs: collection_of_outputs)
-      prepare_statuses_with(context: context)
+
+      define_singleton_method(:success?) { true }
+      define_singleton_method(:failure?) { false }
+
+      self
+    end
+
+    def failure_for(exception:)
+      define_singleton_method(:error) { exception }
+
+      define_singleton_method(:success?) { false }
+      define_singleton_method(:failure?) { true }
 
       self
     end
@@ -21,13 +36,6 @@ module Servactory
 
         instance_variable_set(:"@#{output.name}", context.instance_variable_get(:"@#{output.name}"))
       end
-    end
-
-    def prepare_statuses_with(context:)
-      define_singleton_method(:errors) { context.errors }
-      define_singleton_method(:error) { context.error }
-      define_singleton_method(:success?) { context.errors.empty? }
-      define_singleton_method(:failure?) { !context.errors.empty? }
     end
   end
 end

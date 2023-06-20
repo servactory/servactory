@@ -1,13 +1,15 @@
 module Servactory
   class Result
-    def self.prepare_for: (*untyped) ?{ () -> untyped } -> Result
+    def self.success_for: (*untyped) ?{ () -> untyped } -> Result
 
-    def prepare_for: (context: instance, collection_of_outputs: Outputs::Collection) -> self
+    def self.failure_for: (*untyped) ?{ () -> untyped } -> Result
 
     private
 
-    def prepare_outputs_with: (context: instance, collection_of_outputs: Outputs::Collection) -> void
+    def success_for: (context: instance, collection_of_outputs: Outputs::Collection) -> self
 
-    def prepare_statuses_with: (context: instance) -> void
+    def failure_for: (exception: Exception) -> self
+
+    def prepare_outputs_with: (context: instance, collection_of_outputs: Outputs::Collection) -> void
   end
 end

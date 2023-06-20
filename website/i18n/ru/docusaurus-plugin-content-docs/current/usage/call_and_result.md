@@ -5,13 +5,18 @@ slug: call-and-result
 sidebar_label: Вызов и результат
 sidebar_position: 2
 pagination_label: Вызов сервиса и результат работы
+
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
 # Вызов сервиса и результат работы
 
+## Вызов сервиса
+
 Сервисы могут быть вызваны только через методы `.call` и `.call!`.
 
-## Через `.call!`
+### Через `.call!`
 
 Вызов через метод `.call!` будет падать при любом виде исключения.
 
@@ -19,7 +24,7 @@ pagination_label: Вызов сервиса и результат работы
 UsersService::Accept.call!(user: User.first)
 ```
 
-## Через `.call`
+### Через `.call`
 
 Вызов через метод `.call` будет падать с ошибкой только в том случае, если он перехватит исключение в input-аргументах.
 Ошибки, возникшие в атрибутах internal и output, а также ошибки, возникшие в методах — все это будет собрано в `Result` сервиса.
@@ -59,9 +64,20 @@ Notification::SendJob.perform_later(service_result.user.id)
 В результате работы сервиса присутствуют методы `success?` и `failure?`, 
 которые могут помочь определить результат работы для дальнейшей обработки.
 
-#### Ошибки
+```ruby
+service_result.success? # => true
+service_result.failure? # => false
+```
 
-Можно получить все ошибки через метод `errors` или только первую через метод `error`.
+#### Ошибка
+
+Информацию об ошибке можно получить через метод `error`.
+
+```ruby
+service_result.error
+
+# => <ApplicationService::Errors::Failure: Invalid invoice number>
+```
 
 ## Информация
 
