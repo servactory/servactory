@@ -82,7 +82,15 @@ module ApplicationService
 end
 ```
 
-### Сокращения для методов
+### Алиасы для `make`
+
+```ruby {2} title="app/services/application_service/base.rb"
+configuration do
+  aliases_for_make %i[execute]
+end
+```
+
+### Сокращения для `make`
 
 ```ruby {4} title="app/services/application_service/base.rb"
 module ApplicationService
