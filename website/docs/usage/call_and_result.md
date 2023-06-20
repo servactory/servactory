@@ -9,9 +9,11 @@ pagination_label: Service call and result of work
 
 # Service call and result of work
 
+## Service call
+
 Services can only be called via `.call` and `.call!` methods.
 
-## Via `.call!`
+### Via `.call!`
 
 The `.call!` method will fail if it catches any exception.
 
@@ -19,7 +21,7 @@ The `.call!` method will fail if it catches any exception.
 UsersService::Accept.call!(user: User.first)
 ```
 
-## Via `.call`
+### Via `.call`
 
 The `.call` method will only fail if it catches an exception in the input arguments. 
 Internal and output attributes, as well as methods for failures — all this will be collected in the result.
@@ -61,7 +63,7 @@ which can help determine the result of the work for further processing.
 
 #### Errors
 
-It is possible to get all errors via the `errors` method, or just the first one via the `error` method.
+Information about the error can be obtained through the `error` method.
 
 ## Info
 
