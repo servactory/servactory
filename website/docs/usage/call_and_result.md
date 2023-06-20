@@ -61,9 +61,18 @@ Anything that has been added via the `output` method in the service will be avai
 As a result of the work of the service, there are `success?` and `failure?` methods, 
 which can help determine the result of the work for further processing.
 
+```ruby
+service_result.success? # => true
+service_result.failure? # => false
+```
+
 #### Errors
 
 Information about the error can be obtained through the `error` method.
+
+```ruby
+service_result.error.inspect # => #<ApplicationService::Errors::Failure: Invalid invoice number>
+```
 
 ## Info
 

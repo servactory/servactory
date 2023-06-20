@@ -61,9 +61,18 @@ Notification::SendJob.perform_later(service_result.user.id)
 В результате работы сервиса присутствуют методы `success?` и `failure?`, 
 которые могут помочь определить результат работы для дальнейшей обработки.
 
+```ruby
+service_result.success? # => true
+service_result.failure? # => false
+```
+
 #### Ошибки
 
 Информацию об ошибке можно получить через метод `error`.
+
+```ruby
+service_result.error.inspect # => #<ApplicationService::Errors::Failure: Invalid invoice number>
+```
 
 ## Информация
 
