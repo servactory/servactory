@@ -71,9 +71,9 @@ service_result.failure? # => false
 Information about the error can be obtained through the `error` method.
 
 ```ruby
-service_result.error.inspect
+service_result.error
 
-# => #<ApplicationService::Errors::Failure: Invalid invoice number>
+# => <ApplicationService::Errors::Failure: Invalid invoice number>
 ```
 
 ## Info
