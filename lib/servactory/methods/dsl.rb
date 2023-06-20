@@ -58,9 +58,28 @@ module Servactory
           collection_of_stages << @current_stage
         end
 
-        def method_missing(shortcut_name, *args, &block)
-          return super unless Servactory.configuration.method_shortcuts.include?(shortcut_name)
+        def method_missing(name, *args, &block)
+          if Servactory.configuration.aliases_for_make.include?(name)
+            return method_missing_for_aliases_for_make(name, *args, &block)
+          end
 
+          if Servactory.configuration.method_shortcuts.include?(name)
+            return method_missing_for_method_shortcuts(name, *args, &block)
+          end
+
+          super
+        end
+
+        def method_missing_for_aliases_for_make(_alias_name, *args, &block) # rubocop:disable Lint/UnusedMethodArgument
+          method_name = args.first
+          method_options = args.last.is_a?(Hash) ? args.pop : {}
+
+          return if method_name.nil?
+
+          make(method_name, **method_options)
+        end
+
+        def method_missing_for_method_shortcuts(shortcut_name, *args, &block) # rubocop:disable Lint/UnusedMethodArgument
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
           args.each do |method_name|
@@ -69,7 +88,9 @@ module Servactory
         end
 
         def respond_to_missing?(shortcut_name, *)
-          Servactory.configuration.method_shortcuts.include?(shortcut_name) || super
+          Servactory.configuration.aliases_for_make.include?(shortcut_name) ||
+            Servactory.configuration.method_shortcuts.include?(name) ||
+            super
         end
 
         def next_position

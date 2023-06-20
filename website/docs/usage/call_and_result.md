@@ -71,7 +71,7 @@ service_result.failure? # => false
 
 #### Error
 
-Information about the error can be obtained through the `error` method.
+Error information can be obtained through the `error` method.
 
 ```ruby
 service_result.error
