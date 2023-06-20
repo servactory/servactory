@@ -13,7 +13,7 @@ module Servactory
 
       def aliases_for_make: (Array[Symbol] aliases_for_make) -> Methods::AliasesForMake::Collection
 
-      def shortcuts_for_make: (Array[Symbol] shortcuts_for_make) -> Methods::Shortcuts::Collection
+      def shortcuts_for_make: (Array[Symbol] shortcuts_for_make) -> Methods::ShortcutsForMake::Collection
     end
   end
 end

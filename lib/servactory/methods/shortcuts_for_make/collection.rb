@@ -2,7 +2,7 @@
 
 module Servactory
   module Methods
-    module Shortcuts
+    module ShortcutsForMake
       class Collection
         # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
         extend Forwardable

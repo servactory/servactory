@@ -13,7 +13,7 @@ module Servactory
 
       attr_accessor aliases_for_make: Methods::AliasesForMake::Collection
 
-      attr_accessor shortcuts_for_make: Methods::Shortcuts::Collection
+      attr_accessor shortcuts_for_make: Methods::ShortcutsForMake::Collection
 
       def initialize: () -> void
 
