@@ -8,6 +8,27 @@ pagination_label: Changelog
 
 # Changelog
 
+## [v1.8.0](https://github.com/afuno/servactory/tree/v1.8.0) (2023-06-20)
+
+[Full Changelog](https://github.com/afuno/servactory/compare/v1.7.1...v1.8.0)
+
+**Breaking changes:**
+
+- Rename `method_shortcuts` to `shortcuts_for_make` [\#83](https://github.com/afuno/servactory/pull/83) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Add alias support for `make` [\#82](https://github.com/afuno/servactory/pull/82) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Improve result of service [\#81](https://github.com/afuno/servactory/pull/81) ([afuno](https://github.com/afuno))
+
+**Documentation:**
+
+- Create documentation version 1.7 [\#85](https://github.com/afuno/servactory/pull/85) ([afuno](https://github.com/afuno))
+- Add generator for CHANGELOG.md [\#80](https://github.com/afuno/servactory/pull/80) ([afuno](https://github.com/afuno))
+
 ## [v1.7.1](https://github.com/afuno/servactory/tree/v1.7.1) (2023-06-18)
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.7.0...v1.7.1)
