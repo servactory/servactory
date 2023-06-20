@@ -66,7 +66,7 @@ service_result.success? # => true
 service_result.failure? # => false
 ```
 
-#### Errors
+#### Error
 
 Information about the error can be obtained through the `error` method.
 

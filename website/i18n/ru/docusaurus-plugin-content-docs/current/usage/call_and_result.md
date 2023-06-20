@@ -66,7 +66,7 @@ service_result.success? # => true
 service_result.failure? # => false
 ```
 
-#### Ошибки
+#### Ошибка
 
 Информацию об ошибке можно получить через метод `error`.
 
