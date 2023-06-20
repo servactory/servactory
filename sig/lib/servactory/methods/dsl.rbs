@@ -22,7 +22,11 @@ module Servactory
 
         def make: (Symbol name, position: Integer?, **untyped options) -> void
 
-        def method_missing: (Symbol, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
+        def method_missing: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
+
+        def method_missing_for_make_aliases: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
+
+        def method_missing_for_method_shortcuts: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
 
         def respond_to_missing?: (Symbol shortcut_name, *untyped) -> bool
 

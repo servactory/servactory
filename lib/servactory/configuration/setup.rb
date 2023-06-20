@@ -8,6 +8,7 @@ module Servactory
                     :output_error_class,
                     :failure_class,
                     :input_option_helpers,
+                    :make_aliases,
                     :method_shortcuts
 
       def initialize
@@ -19,6 +20,7 @@ module Servactory
 
         @input_option_helpers = Servactory::Inputs::OptionHelpersCollection.new(default_input_option_helpers)
 
+        @make_aliases = Servactory::Methods::MakeAliases::Collection.new
         @method_shortcuts = Servactory::Methods::Shortcuts::Collection.new
       end
 
