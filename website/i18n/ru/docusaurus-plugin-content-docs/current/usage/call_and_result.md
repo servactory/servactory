@@ -5,6 +5,9 @@ slug: call-and-result
 sidebar_label: Вызов и результат
 sidebar_position: 2
 pagination_label: Вызов сервиса и результат работы
+
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
 # Вызов сервиса и результат работы

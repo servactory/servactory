@@ -5,6 +5,9 @@ slug: call-and-result
 sidebar_label: Call and Result
 sidebar_position: 2
 pagination_label: Service call and result of work
+
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
 # Service call and result of work
