@@ -201,13 +201,13 @@ end
 
 ## Method shortcuts
 
-Add frequently used words that are used as prefixes in method names through the `method_shortcuts` configuration.
+Add frequently used words that are used as prefixes in method names through the `shortcuts_for_make` configuration.
 It won't make the names of methods shorter, but that will shorten the lines using the `make` method and improve the readability of the service code, making it more expressive.
 
 ```ruby
 configuration do
   # highlight-next-line
-  method_shortcuts %i[assign perform]
+  shortcuts_for_make %i[assign perform]
 end
 
 # highlight-next-line

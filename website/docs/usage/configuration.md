@@ -88,7 +88,7 @@ end
 module ApplicationService
   class Base < Servactory::Base
     configuration do
-      method_shortcuts %i[assign perform]
+      shortcuts_for_make %i[assign perform]
     end
   end
 end

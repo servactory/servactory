@@ -27,8 +27,8 @@ module Servactory
         Servactory.configuration.aliases_for_make.merge(aliases_for_make)
       end
 
-      def method_shortcuts(method_shortcuts)
-        Servactory.configuration.method_shortcuts.merge(method_shortcuts)
+      def shortcuts_for_make(shortcuts_for_make)
+        Servactory.configuration.shortcuts_for_make.merge(shortcuts_for_make)
       end
     end
   end

@@ -63,8 +63,8 @@ module Servactory
             return method_missing_for_aliases_for_make(name, *args, &block)
           end
 
-          if Servactory.configuration.method_shortcuts.include?(name)
-            return method_missing_for_method_shortcuts(name, *args, &block)
+          if Servactory.configuration.shortcuts_for_make.include?(name)
+            return method_missing_for_shortcuts_for_make(name, *args, &block)
           end
 
           super
@@ -79,7 +79,7 @@ module Servactory
           make(method_name, **method_options)
         end
 
-        def method_missing_for_method_shortcuts(shortcut_name, *args, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def method_missing_for_shortcuts_for_make(shortcut_name, *args, &block) # rubocop:disable Lint/UnusedMethodArgument
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
           args.each do |method_name|
@@ -89,7 +89,7 @@ module Servactory
 
         def respond_to_missing?(shortcut_name, *)
           Servactory.configuration.aliases_for_make.include?(shortcut_name) ||
-            Servactory.configuration.method_shortcuts.include?(name) ||
+            Servactory.configuration.shortcuts_for_make.include?(name) ||
             super
         end
 

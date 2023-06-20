@@ -26,7 +26,7 @@ module Servactory
 
         def method_missing_for_aliases_for_make: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
 
-        def method_missing_for_method_shortcuts: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
+        def method_missing_for_shortcuts_for_make: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
 
         def respond_to_missing?: (Symbol shortcut_name, *untyped) -> bool
 
