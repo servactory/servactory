@@ -10,11 +10,12 @@ module Servactory
       attr_reader :name,
                   :internal_name
 
+      # rubocop:disable Style/KeywordParametersOrder
       def initialize(
         name,
-        type,
         *helpers,
         as: nil,
+        type:,
         **options
       )
         @name = name
@@ -30,6 +31,7 @@ module Servactory
           instance_variable_set(:"@#{option.name}", option.value)
         end
       end
+      # rubocop:enable Style/KeywordParametersOrder
 
       def apply_helpers_for_options(helpers:, options:)
         prepared_options = {}

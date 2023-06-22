@@ -16,8 +16,8 @@ module Servactory
 
         private
 
-        def output(name, type:, **options)
-          collection_of_outputs << Output.new(name, type, **options)
+        def output(name, **options)
+          collection_of_outputs << Output.new(name, **options)
         end
 
         def collection_of_outputs
