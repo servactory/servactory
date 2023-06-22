@@ -9,7 +9,7 @@ module Servactory
 
       attr_reader default: untyped
 
-      def initialize: (Symbol name, type: Class, **untyped options) -> void
+      def initialize: (Symbol name, (Class | Array[Class]) type, **untyped options) -> void
 
       def options_for_checks: () -> { types: Array[Class], required: bool, default: untyped }
 

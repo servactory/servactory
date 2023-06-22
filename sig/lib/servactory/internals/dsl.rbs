@@ -11,7 +11,7 @@ module Servactory
 
         private
 
-        def internal: (Symbol name, **untyped options) -> void
+        def internal: (Symbol name, type: (Class | Array[Class]), **untyped options) -> void
 
         def collection_of_internals: () -> Collection
 

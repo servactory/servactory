@@ -16,8 +16,8 @@ module Servactory
 
         private
 
-        def internal(name, **options)
-          collection_of_internals << Internal.new(name, **options)
+        def internal(name, type:, **options)
+          collection_of_internals << Internal.new(name, type, **options)
         end
 
         def collection_of_internals
