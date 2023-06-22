@@ -12,7 +12,7 @@ module Servactory
 
         private
 
-        def output: (Symbol name, **untyped options) -> void
+        def output: (Symbol name, type: (Class | Array[Class]), **untyped options) -> void
 
         def collection_of_outputs: () -> Collection
 
