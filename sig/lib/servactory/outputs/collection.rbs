@@ -9,6 +9,8 @@ module Servactory
       def initialize: (*untyped) -> void
 
       def names: () -> Array[Symbol]
+
+      def find_by: (name: Symbol) -> Output?
     end
   end
 end
