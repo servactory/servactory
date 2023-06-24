@@ -9,12 +9,18 @@ A set of tools for building reliable services of any complexity.
 
 See [servactory.com](https://servactory.com) for documentation.
 
-## Examples
+## Example
+
+### Installation
+
+```ruby
+gem "servactory"
+```
 
 ### Service
 
 ```ruby
-class UserService::Authenticate < ApplicationService::Base
+class UserService::Authenticate < Servactory::Base
   input :email, type: String
   input :password, type: String
 
@@ -32,7 +38,7 @@ class UserService::Authenticate < ApplicationService::Base
 end
 ```
 
-### Using in controller
+### Usage
 
 ```ruby
 class SessionsController < ApplicationController
@@ -58,7 +64,9 @@ end
 
 ## Contributing
 
-This project is intended to be a safe, welcoming space for collaboration. Contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct. We recommend reading the [contributing guide](./website/docs/CONTRIBUTING.md) as well.
+This project is intended to be a safe, welcoming space for collaboration. 
+Contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct. 
+We recommend reading the [contributing guide](./website/docs/CONTRIBUTING.md) as well.
 
 ## License
 
