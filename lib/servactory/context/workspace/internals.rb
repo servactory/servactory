@@ -28,7 +28,7 @@ module Servactory
 
           return yield unless @collection_of_internals.names.include?(prepared_name)
 
-          internal = @collection_of_internals.find_by(name: prepared_name)
+          internal = @collection_of_internals.find_by(name: prepared_name) # ::Servactory::Internals::Internal
 
           Servactory::Internals::Validations::Type.validate!(
             context: @context,

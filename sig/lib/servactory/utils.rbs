@@ -2,6 +2,6 @@ module Servactory
   module Utils
     def self?.true?: (untyped value) -> bool
 
-    def value_present?: (untyped value) -> bool
+    def self.value_present?: (untyped value) -> bool
   end
 end

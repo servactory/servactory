@@ -5,7 +5,7 @@ module Servactory
 
       attr_reader name: Symbol
 
-      attr_reader validation_class: Class
+      attr_reader validation_class: Class?
 
       attr_reader define_input_methods: Array[DefineInputMethod]?
 
@@ -19,13 +19,13 @@ module Servactory
       def initialize: (
         name: Symbol,
         input: Input,
-        validation_class: Class,
+        ?validation_class: Class?,
         need_for_checks: bool,
-        value_key: Symbol?,
-        value_fallback: bool?,
-        original_value: Array[Class]?,
-        define_input_methods: Array[DefineInputMethod]?,
-        define_input_conflicts: Array[DefineInputConflict]?,
+        ?value_key: Symbol?,
+        ?value_fallback: bool?,
+        ?original_value: Array[Class]?,
+        ?define_input_methods: Array[DefineInputMethod]?,
+        ?define_input_conflicts: Array[DefineInputConflict]?,
         ?with_advanced_mode: bool,
         **untyped options
       ) -> void
@@ -34,20 +34,20 @@ module Servactory
 
       private
 
-      attr_reader define_input_methods_template: String
+      @define_input_methods_template: String
 
       def prepare_value_for: (
-        original_value: Array[Class]?,
+        ?original_value: Array[Class]?,
         options: untyped,
-        value_fallback: bool?,
+        value_fallback: bool,
         with_advanced_mode: bool
       ) -> ({ is: Symbol, message: String? } | bool)
 
-      def prepare_advanced_for: (value: ({ is: Symbol, message: String? }? | bool?), ?value_fallback: bool) -> { is: Symbol, message: String? }
+      def prepare_advanced_for: (value: ({ is: Symbol, message: String? }? | bool?), value_fallback: bool) -> { is: Symbol, message: String? }
 
       def prepare_input_methods_for: (Input input) -> void
 
-      def define_input_methods_template: -> String
+      def define_input_methods_template: -> String?
     end
   end
 end

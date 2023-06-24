@@ -87,8 +87,8 @@ module Servactory
           end
         end
 
-        def respond_to_missing?(shortcut_name, *)
-          Servactory.configuration.aliases_for_make.include?(shortcut_name) ||
+        def respond_to_missing?(name, *)
+          Servactory.configuration.aliases_for_make.include?(name) ||
             Servactory.configuration.shortcuts_for_make.include?(name) ||
             super
         end

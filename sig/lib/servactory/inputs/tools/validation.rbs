@@ -14,7 +14,7 @@ module Servactory
 
         private
 
-        attr_reader errors: CheckErrors
+        @errors: CheckErrors
 
         def process_input: (Input input) -> void
 
