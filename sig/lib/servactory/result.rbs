@@ -1,15 +1,29 @@
 module Servactory
   class Result
-    def self.success_for: (*untyped) ?{ () -> untyped } -> Result
+    @context: instance?
+    @collection_of_outputs: Outputs::Collection?
+    @exception: Exception?
 
-    def self.failure_for: (*untyped) ?{ () -> untyped } -> Result
+    def self.success_for: (*untyped) -> self
+
+    def self.failure_for: (*untyped) -> self
+
+    def initialize: (?context: instance?, ?collection_of_outputs: untyped) -> void
+
+    def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
+
+    def respond_to_missing?: (Symbol name, *untyped) -> void
+
+    def inspect: () -> String
 
     private
 
-    def success_for: (context: instance, collection_of_outputs: Outputs::Collection) -> self
+    def as_success: () -> self
 
-    def failure_for: (exception: Exception) -> self
+    def as_failure: () -> self
 
-    def prepare_outputs_with: (context: instance, collection_of_outputs: Outputs::Collection) -> void
+    def draw_result: () -> String
+
+    def output_value_for: (Outputs::Output output) -> untyped
   end
 end
