@@ -44,7 +44,7 @@ service_result = UsersService::Accept.call(user: User.first)
 Will return this:
 
 ```ruby
-#<Servactory::Result:0x0000000107ad9e88 @user="...">
+#<Servactory::Result @user=...>
 ```
 
 And then work with thе result in this way:
