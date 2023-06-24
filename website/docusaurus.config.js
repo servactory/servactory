@@ -127,17 +127,21 @@ const config = {
         // },
         items: [
           {
+            type: 'search',
+            position: 'left'
+          },
+          {
+            href: 'https://github.com/afuno/servactory',
+            label: 'GitHub',
+            position: 'right',
+          },
+          {
             type: 'docsVersionDropdown',
             position: 'right',
             dropdownActiveClassDisabled: true,
           },
           {
             type: 'localeDropdown',
-            position: 'right',
-          },
-          {
-            href: 'https://github.com/afuno/servactory',
-            label: 'GitHub',
             position: 'right',
           },
         ],
