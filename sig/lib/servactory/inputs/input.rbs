@@ -17,6 +17,10 @@ module Servactory
         **untyped options
       ) -> void
 
+      def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
+
+      def respond_to_missing?: (Symbol name, *untyped) -> void
+
       def apply_helpers_for_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
 
       def add_basic_options_with: (type: (Class | Array[Class]), options: untyped) -> void
