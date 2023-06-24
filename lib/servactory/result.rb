@@ -35,11 +35,9 @@ module Servactory
     private
 
     def draw_result
-      string = @collection_of_outputs&.map do |output|
+      @collection_of_outputs&.map do |output|
         "@#{output.name}=#{@context.instance_variable_get(:"@#{output.name}").inspect}"
-      end&.join(" ")
-
-      string
+      end&.join(", ")
     end
 
     def as_success
