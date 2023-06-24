@@ -8,6 +8,16 @@ pagination_label: Changelog
 
 # Changelog
 
+## [Unreleased](https://github.com/afuno/servactory/tree/HEAD)
+
+[Full Changelog](https://github.com/afuno/servactory/compare/v1.8.0...HEAD)
+
+**Implemented enhancements:**
+
+- Improve input options [\#88](https://github.com/afuno/servactory/pull/88) ([afuno](https://github.com/afuno))
+- Improve result [\#87](https://github.com/afuno/servactory/pull/87) ([afuno](https://github.com/afuno))
+- Improve display of attributes in IDE [\#86](https://github.com/afuno/servactory/pull/86) ([afuno](https://github.com/afuno))
+
 ## [v1.8.0](https://github.com/afuno/servactory/tree/v1.8.0) (2023-06-20)
 
 [Full Changelog](https://github.com/afuno/servactory/compare/v1.7.1...v1.8.0)
