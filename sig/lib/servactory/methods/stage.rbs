@@ -9,7 +9,7 @@ module Servactory
 
       attr_accessor condition: (bool | Proc)?
 
-      attr_accessor methods: MethodCollection
+      @methods: MethodCollection
 
       def initialize: (
         position: Integer,

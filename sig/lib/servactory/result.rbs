@@ -8,7 +8,7 @@ module Servactory
 
     def self.failure_for: (*untyped) -> self
 
-    def initialize: (?context: instance?, ?collection_of_outputs: untyped) -> void
+    def initialize: (?context: instance?, ?collection_of_outputs: Outputs::Collection?, ?exception: Exception?) -> void
 
     def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
 

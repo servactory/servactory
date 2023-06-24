@@ -4,9 +4,9 @@ module Servactory
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
 
-      @collection: Set[MethodCollection]
+      @collection: Set[Method]
 
-      def initialize: (Set[MethodCollection] collection) -> void
+      def initialize: (Set[Method] collection) -> void
 
       def sorted_by_position: -> MethodCollection
     end

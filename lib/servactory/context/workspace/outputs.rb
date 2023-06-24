@@ -28,7 +28,7 @@ module Servactory
 
           return yield unless @collection_of_outputs.names.include?(prepared_name)
 
-          output = @collection_of_outputs.find_by(name: prepared_name)
+          output = @collection_of_outputs.find_by(name: prepared_name) # ::Servactory::Outputs::Output
 
           Servactory::Outputs::Validations::Type.validate!(
             context: @context,
