@@ -5,10 +5,14 @@ module Servactory
     class OptionsCollection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
-      def_delegators :@collection, :<<, :filter, :each, :map, :flat_map
+      def_delegators :@collection, :<<, :filter, :each, :map, :flat_map, :find
 
       def initialize(*)
         @collection = Set.new
+      end
+
+      def names
+        map(&:name)
       end
 
       def validation_classes
@@ -33,6 +37,10 @@ module Servactory
             define_input_conflict.content.call
           end
         end.reject(&:blank?).first
+      end
+
+      def find_by(name:)
+        find { |option| option.name == name }
       end
     end
   end

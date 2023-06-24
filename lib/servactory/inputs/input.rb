@@ -24,14 +24,20 @@ module Servactory
         options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
 
         add_basic_options_with(type: type, options: options)
-
-        collection_of_options.each do |option|
-          self.class.attr_reader(:"#{option.name}")
-
-          instance_variable_set(:"@#{option.name}", option.value)
-        end
       end
       # rubocop:enable Style/KeywordParametersOrder
+
+      def method_missing(name, *args, &block)
+        option = collection_of_options.find_by(name: name)
+
+        return super if option.nil?
+
+        option.value
+      end
+
+      def respond_to_missing?(name, *)
+        collection_of_options.names.include?(name) || super
+      end
 
       def apply_helpers_for_options(helpers:, options:)
         prepared_options = {}
