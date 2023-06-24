@@ -8,9 +8,9 @@ pagination_label: Changelog
 
 # Changelog
 
-## [Unreleased](https://github.com/afuno/servactory/tree/HEAD)
+## [v1.8.1](https://github.com/afuno/servactory/tree/v1.8.1) (2023-06-24)
 
-[Full Changelog](https://github.com/afuno/servactory/compare/v1.8.0...HEAD)
+[Full Changelog](https://github.com/afuno/servactory/compare/v1.8.0...v1.8.1)
 
 **Implemented enhancements:**
 
