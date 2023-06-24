@@ -8,11 +8,15 @@ module Servactory
 
       def initialize: (*untyped) -> void
 
+      def names: () -> Array[Symbol]
+
       def validation_classes: () -> Array[Class]
 
       def defined_conflict_code: -> Symbol
 
       def options_for_checks: -> Hash[Symbol, untyped]
+
+      def find_by: (name: Symbol) -> Option?
     end
   end
 end
