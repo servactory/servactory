@@ -21,7 +21,7 @@ module Servactory
 
       return super if output.nil?
 
-      @context.instance_variable_get(:"@#{output.name}")
+      output_value_for(output)
     end
 
     def respond_to_missing?(name, *)
@@ -33,12 +33,6 @@ module Servactory
     end
 
     private
-
-    def draw_result
-      @collection_of_outputs&.map do |output|
-        "@#{output.name}=#{@context.instance_variable_get(:"@#{output.name}").inspect}"
-      end&.join(", ")
-    end
 
     def as_success
       define_singleton_method(:success?) { true }
@@ -54,6 +48,16 @@ module Servactory
       define_singleton_method(:failure?) { true }
 
       self
+    end
+
+    def draw_result
+      @collection_of_outputs&.map do |output|
+        "@#{output.name}=#{output_value_for(output).inspect}"
+      end&.join(", ")
+    end
+
+    def output_value_for(output)
+      @context.instance_variable_get(:"@#{output.name}")
     end
   end
 end
