@@ -18,6 +18,10 @@ The assignment and use of internal service arguments is done through the `intern
 ```ruby
 class UsersService::Create < ApplicationService::Base
   input :first_name, type: String
+  input :middle_name, type: String
+  input :last_name, type: String
+
+  internal :full_name, type: String
 
   # ...
 

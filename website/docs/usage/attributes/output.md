@@ -18,6 +18,10 @@ The assignment and use of service output arguments is done through the `outputs=
 ```ruby
 class UsersService::Create < ApplicationService::Base
   input :first_name, type: String
+  input :middle_name, type: String
+  input :last_name, type: String
+
+  output :full_name, type: String
 
   # ...
 
