@@ -14,7 +14,7 @@ pagination_label: Обзор
 [![Gem version](https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff)](https://rubygems.org/gems/servactory)
 [![Release Date](https://img.shields.io/github/release-date/afuno/servactory)](https://github.com/afuno/servactory/releases)
 
-## Что такое Servacory?
+## Что такое Servactory?
 
 Servactory — это стандартизация единого подхода к разработке надежных сервисов любой сложности.
 
