@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+    permissions:
+      # required for all workflows
+      security-events: write
 
     steps:
     - name: Checkout repository
