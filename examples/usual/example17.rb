@@ -20,7 +20,7 @@ module Usual
     private
 
     def prepare_full_name
-      internals.prepared_full_name =[
+      internals.prepared_full_name = [
         inputs.first_name,
         inputs.middle_name,
         inputs.last_name
