@@ -6,6 +6,9 @@ module Servactory
       class Internals
         def initialize(context, workbench:)
           @context = context
+
+          puts "Context::Workspace::Internals —> #{@context}"
+
           @collection_of_internals = workbench.collection
         end
 
@@ -30,6 +33,11 @@ module Servactory
 
           internal = @collection_of_internals.find_by(name: prepared_name) # ::Servactory::Internals::Internal
 
+          puts
+          puts :internal_setter_with
+          puts @context.send(:storage).inspect
+          puts internal.inspect
+
           return yield if internal.nil?
 
           Servactory::Internals::Validations::Type.validate!(
@@ -38,15 +46,26 @@ module Servactory
             value: value
           )
 
-          @context.instance_variable_set(:"@#{internal.name}", value)
+          puts @context.send(:assign_internal, internal.name, value).inspect
+          puts
+
+          @context.send(:assign_internal, internal.name, value)
         end
 
         def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
           internal = @collection_of_internals.find_by(name: name)
 
+          puts
+          puts :internal_getter_with
+          puts @context.send(:storage).inspect
+          puts internal.inspect
+
           return yield if internal.nil?
 
-          @context.instance_variable_get(:"@#{internal.name}")
+          puts @context.send(:fetch_internal, internal.name).inspect
+          puts
+
+          @context.send(:fetch_internal, internal.name)
         end
       end
     end

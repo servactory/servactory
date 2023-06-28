@@ -16,17 +16,17 @@ module Servactory
       @exception = exception
     end
 
-    def method_missing(name, *args, &block)
-      output = @collection_of_outputs&.find_by(name: name)
-
-      return super if output.nil?
-
-      output_value_for(output)
-    end
-
-    def respond_to_missing?(name, *)
-      @collection_of_outputs&.names&.include?(name) || super
-    end
+    # def method_missing(name, *args, &block)
+    #   output = @collection_of_outputs&.find_by(name: name)
+    #
+    #   return super if output.nil?
+    #
+    #   output_value_for(output)
+    # end
+    #
+    # def respond_to_missing?(name, *)
+    #   @collection_of_outputs&.names&.include?(name) || super
+    # end
 
     def inspect
       "#<#{self.class.name} #{draw_result}>"
@@ -37,6 +37,16 @@ module Servactory
     def as_success
       define_singleton_method(:success?) { true }
       define_singleton_method(:failure?) { false }
+
+      # puts
+      # puts
+      # puts @context.send(:storage)[:outputs].inspect
+      # puts
+      # puts
+
+      @context.send(:storage)[:outputs].each_pair do |key, value|
+        define_singleton_method(key) { value }
+      end
 
       self
     end
@@ -51,13 +61,34 @@ module Servactory
     end
 
     def draw_result
-      @collection_of_outputs&.map do |output|
-        "@#{output.name}=#{output_value_for(output).inspect}"
-      end&.join(", ")
+      # @collection_of_outputs&.map do |output|
+      #   puts
+      #   puts
+      #   puts :draw_result
+      #   puts @context.send(:storage).inspect
+      #   puts @context.send(:fetch_output, output.name).inspect
+      #   puts
+      #   puts
+      #
+      #   "@#{output.name}=#{output_value_for(output).inspect}"
+      # end&.join(", ")
+
+      @context.send(:storage)[:outputs].map do |key, value|
+        "@#{key}=#{value}"
+      end.join(", ")
     end
 
-    def output_value_for(output)
-      @context.instance_variable_get(:"@#{output.name}")
-    end
+    # def output_value_for(output)
+    #   # @context.instance_variable_get(:"@#{output.name}")
+    #
+    #   puts
+    #   puts :output_value_for
+    #   puts @context_store.context.__id__.inspect
+    #   puts @context_store.data[:outputs].inspect
+    #   puts @context_store.fetch_output(output.name).inspect
+    #   puts
+    #
+    #   @context_store.fetch_output(output.name)
+    # end
   end
 end

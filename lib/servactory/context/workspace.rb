@@ -18,8 +18,6 @@ module Servactory
       end
       alias out outputs
 
-      protected
-
       def fail_input!(input_name, message:)
         raise Servactory.configuration.input_error_class.new(
           input_name: input_name,

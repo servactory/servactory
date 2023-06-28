@@ -30,6 +30,10 @@ module Servactory
 
           output = @collection_of_outputs.find_by(name: prepared_name) # ::Servactory::Outputs::Output
 
+          puts
+          puts :output_setter_with
+          puts output.inspect
+
           return yield if output.nil?
 
           Servactory::Outputs::Validations::Type.validate!(
@@ -38,15 +42,26 @@ module Servactory
             value: value
           )
 
-          @context.instance_variable_set(:"@#{output.name}", value)
+          puts @context.send(:assign_output, output.name, value).inspect
+          puts
+
+          @context.send(:assign_output, output.name, value)
         end
 
         def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
           output = @collection_of_outputs.find_by(name: name)
 
+          puts
+          puts :output_getter_with
+          puts @context.send(:storage)[:outputs].inspect
+          puts output.inspect
+
           return yield if output.nil?
 
-          @context.instance_variable_get(:"@#{output.name}")
+          puts @context.send(:fetch_output, output.name).inspect
+          puts
+
+          @context.send(:fetch_output, output.name)
         end
       end
     end
