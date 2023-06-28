@@ -49,29 +49,24 @@ module Servactory
 
       def call!(**); end
 
-      def storage
-        puts "storage: self #{self}"
-
-        @storage ||= {
-          internals: {},
-          outputs: {}
-        }
+      def service_storage
+        @service_storage ||= { internals: {}, outputs: {} }
       end
 
       def assign_internal(key, value)
-        storage[:internals].merge!({ key => value })
+        service_storage[:internals].merge!({ key => value })
       end
 
       def fetch_internal(key)
-        storage.fetch(:internals).fetch(key)
+        service_storage.fetch(:internals).fetch(key)
       end
 
       def assign_output(key, value)
-        storage[:outputs].merge!({ key => value })
+        service_storage[:outputs].merge!({ key => value })
       end
 
       def fetch_output(key)
-        storage.fetch(:outputs).fetch(key)
+        service_storage.fetch(:outputs).fetch(key)
       end
     end
   end

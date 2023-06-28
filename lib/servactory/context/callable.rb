@@ -23,10 +23,7 @@ module Servactory
           collection_of_stages: collection_of_stages
         )
 
-        Servactory::Result.success_for(
-          context: context,
-          collection_of_outputs: collection_of_outputs
-        )
+        Servactory::Result.success_for(context: context)
       end
 
       def call(arguments = {})
