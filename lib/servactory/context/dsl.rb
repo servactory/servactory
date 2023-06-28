@@ -8,9 +8,23 @@ module Servactory
         base.include(Workspace)
       end
 
-      def _call!(arguments, collection_of_inputs)
-        call!(arguments, collection_of_inputs)
+      def _call!(
+        incoming_arguments:,
+        collection_of_inputs:,
+        collection_of_internals:,
+        collection_of_outputs:,
+        collection_of_stages:
+      )
+        call!(
+          incoming_arguments: incoming_arguments,
+          collection_of_inputs: collection_of_inputs,
+          collection_of_internals: collection_of_internals,
+          collection_of_outputs: collection_of_outputs,
+          collection_of_stages: collection_of_stages
+        )
       end
+
+      def call!(**); end
 
       def storage
         puts "storage: self #{self}"
