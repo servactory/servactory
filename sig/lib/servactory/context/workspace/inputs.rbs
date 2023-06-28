@@ -6,7 +6,7 @@ module Servactory
         @collection_of_inputs: Servactory::Inputs::Collection
         @incoming_arguments: untyped
 
-        def initialize: (context: Inputs, collection_of_inputs: Servactory::Inputs::Collection, incoming_arguments: untyped) -> void
+        def initialize: (context: Inputs, incoming_arguments: untyped, collection_of_inputs: Servactory::Inputs::Collection) -> void
 
         def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
 
