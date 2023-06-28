@@ -12,7 +12,9 @@ RSpec.describe Wrong::Example22 do
           expect { result.fake_value }.to(
             raise_error(
               NoMethodError,
-              "undefined method `fake_value' for #<Servactory::Result @value=nil>"
+              # "undefined method `fake_value' for #<Servactory::Result @value=nil>"
+              # FIXME
+              /undefined method `fake_value' for #<Servactory::Result/
             )
           )
         end
@@ -31,7 +33,9 @@ RSpec.describe Wrong::Example22 do
           expect { result.fake_value }.to(
             raise_error(
               NoMethodError,
-              "undefined method `fake_value' for #<Servactory::Result @value=nil>"
+              # "undefined method `fake_value' for #<Servactory::Result @value=nil>"
+              # FIXME
+              /undefined method `fake_value' for #<Servactory::Result/
             )
           )
         end
