@@ -30,6 +30,8 @@ module Servactory
 
           output = @collection_of_outputs.find_by(name: prepared_name) # ::Servactory::Outputs::Output
 
+          return yield if output.nil?
+
           Servactory::Outputs::Validations::Type.validate!(
             context: @context,
             output: output,
