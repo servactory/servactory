@@ -42,8 +42,8 @@ module Servactory
     end
 
     def draw_result
-      @context.send(:service_storage).fetch(:outputs).map do |key, value|
-        "@#{key}=#{value}"
+      methods(false).map do |method_name|
+        "@#{method_name}=#{send(method_name)}"
       end.join(", ")
     end
   end

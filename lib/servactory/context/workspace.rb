@@ -45,8 +45,6 @@ module Servactory
           collection_of_outputs: collection_of_outputs,
           collection_of_stages: collection_of_stages
         )
-
-        Servactory::Result.success_for(context: self)
       end
 
       def call!(**); end
