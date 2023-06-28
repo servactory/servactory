@@ -42,7 +42,7 @@ module Servactory
     end
 
     def draw_result
-      methods(false).map do |method_name|
+      methods(false).sort.map do |method_name|
         "@#{method_name}=#{send(method_name)}"
       end.join(", ")
     end
