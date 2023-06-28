@@ -47,15 +47,15 @@ module Servactory
         def make(name, position: nil, **options)
           position = position.presence || next_position
 
-          @current_stage = @current_stage.presence || Stage.new(position: position)
+          current_stage = @current_stage.presence || Stage.new(position: position)
 
-          @current_stage.methods << Method.new(
+          current_stage.methods << Method.new(
             name,
             position: position,
             **options
           )
 
-          collection_of_stages << @current_stage
+          collection_of_stages << current_stage
         end
 
         def method_missing(name, *args, &block)
