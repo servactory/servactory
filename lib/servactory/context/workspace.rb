@@ -4,12 +4,16 @@ module Servactory
   module Context
     module Workspace
       def inputs
-        @inputs ||= Inputs.new(self, workbench: self.class.send(:inputs_workbench))
+        @inputs ||= Inputs.new(
+          self,
+          collection_of_inputs: self.class.send(:collection_of_inputs),
+          incoming_arguments: @incoming_arguments
+        )
       end
       alias inp inputs
 
       def internals
-        @internals ||= Internals.new(self, workbench: self.class.send(:internals_workbench))
+        @internals ||= Internals.new(self, collection_of_internals: self.class.send(:collection_of_internals))
       end
       alias int internals
 
@@ -47,7 +51,9 @@ module Servactory
         )
       end
 
-      def call!(**); end
+      def call!(incoming_arguments:, **)
+        @incoming_arguments = incoming_arguments
+      end
 
       def service_storage
         @service_storage ||= { internals: {}, outputs: {} }

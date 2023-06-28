@@ -23,10 +23,6 @@ module Servactory
         def collection_of_internals
           @collection_of_internals ||= Collection.new
         end
-
-        def internals_workbench
-          @internals_workbench ||= Workbench.work_with(collection_of_internals)
-        end
       end
     end
   end

@@ -5,7 +5,6 @@ module Servactory
 
       module ClassMethods
         @collection_of_inputs: Collection
-        @inputs_workbench: Workbench
 
         def inherited: -> void
 
@@ -14,8 +13,6 @@ module Servactory
         def input: (Symbol name, *Symbol helpers, **untyped options) -> void
 
         def collection_of_inputs: () -> Collection
-
-        def inputs_workbench: () -> Workbench
       end
     end
   end

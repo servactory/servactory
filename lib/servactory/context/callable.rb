@@ -3,13 +3,8 @@
 module Servactory
   module Context
     module Callable
-      def call!(arguments = {}) # rubocop:disable Metrics/MethodLength
+      def call!(arguments = {})
         context = send(:new)
-
-        assign_data_with(context, arguments)
-
-        inputs_workbench.find_unnecessary!
-        inputs_workbench.check_rules!
 
         context.send(
           :_call!,
@@ -27,13 +22,6 @@ module Servactory
         call!(arguments)
       rescue Servactory.configuration.failure_class => e
         Servactory::Result.failure_for(exception: e)
-      end
-
-      private
-
-      def assign_data_with(context, arguments)
-        inputs_workbench.assign(context: context, arguments: arguments)
-        internals_workbench.assign(context: context)
       end
     end
   end

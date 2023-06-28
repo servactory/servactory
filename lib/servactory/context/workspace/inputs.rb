@@ -10,11 +10,11 @@ module Servactory
       # end
 
       class Inputs
-        def initialize(context, workbench:)
+        def initialize(context, collection_of_inputs:, incoming_arguments:)
           @context = context
 
-          @collection_of_inputs = workbench.collection
-          @incoming_arguments = workbench.incoming_arguments
+          @collection_of_inputs = collection_of_inputs
+          @incoming_arguments = incoming_arguments
         end
 
         def method_missing(name, *args, &block)

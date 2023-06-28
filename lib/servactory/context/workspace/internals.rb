@@ -4,10 +4,10 @@ module Servactory
   module Context
     module Workspace
       class Internals
-        def initialize(context, workbench:)
+        def initialize(context, collection_of_internals:)
           @context = context
 
-          @collection_of_internals = workbench.collection
+          @collection_of_internals = collection_of_internals
         end
 
         def method_missing(name, *args, &block)
