@@ -1,12 +1,24 @@
 # Changelog
 
-## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
+## [v1.8.3](https://github.com/servactory/servactory/tree/v1.8.3) (2023-06-28)
 
-[Full Changelog](https://github.com/servactory/servactory/compare/v1.8.1...HEAD)
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.8.2...v1.8.3)
+
+**Fixed:**
+
+- Improve data processing and performance [\#92](https://github.com/servactory/servactory/pull/92) ([afuno](https://github.com/afuno))
+
+## [v1.8.2](https://github.com/servactory/servactory/tree/v1.8.2) (2023-06-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.8.1...v1.8.2)
 
 **Implemented enhancements:**
 
 - Steep and RBS [\#89](https://github.com/servactory/servactory/pull/89) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Add check for presence of attributes [\#91](https://github.com/servactory/servactory/pull/91) ([afuno](https://github.com/afuno))
 
 **Documentation:**
 
