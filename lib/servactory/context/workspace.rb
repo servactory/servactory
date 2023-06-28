@@ -7,7 +7,7 @@ module Servactory
         @inputs ||= Inputs.new(
           self,
           collection_of_inputs: self.class.send(:collection_of_inputs),
-          incoming_arguments: @incoming_arguments
+          incoming_arguments: incoming_arguments
         )
       end
       alias inp inputs
@@ -34,6 +34,8 @@ module Servactory
       end
 
       private
+
+      attr_reader :incoming_arguments
 
       def _call!(
         incoming_arguments:,
