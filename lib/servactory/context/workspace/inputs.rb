@@ -3,18 +3,11 @@
 module Servactory
   module Context
     module Workspace
-      # class Inputs
-      #   def initialize(**)
-      #     # NOTE: Look at the file `lib/servactory/inputs/tools/prepare.rb`
-      #   end
-      # end
-
       class Inputs
-        def initialize(context, workbench:)
+        def initialize(context:, incoming_arguments:, collection_of_inputs:)
           @context = context
-
-          @collection_of_inputs = workbench.collection
-          @incoming_arguments = workbench.incoming_arguments
+          @incoming_arguments = incoming_arguments
+          @collection_of_inputs = collection_of_inputs
         end
 
         def method_missing(name, *args, &block)

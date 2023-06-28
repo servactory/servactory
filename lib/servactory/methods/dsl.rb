@@ -5,6 +5,7 @@ module Servactory
     module DSL
       def self.included(base)
         base.extend(ClassMethods)
+        base.include(Workspace)
       end
 
       module ClassMethods
@@ -47,15 +48,15 @@ module Servactory
         def make(name, position: nil, **options)
           position = position.presence || next_position
 
-          @current_stage = @current_stage.presence || Stage.new(position: position)
+          current_stage = @current_stage.presence || Stage.new(position: position)
 
-          @current_stage.methods << Method.new(
+          current_stage.methods << Method.new(
             name,
             position: position,
             **options
           )
 
-          collection_of_stages << @current_stage
+          collection_of_stages << current_stage
         end
 
         def method_missing(name, *args, &block)
@@ -99,10 +100,6 @@ module Servactory
 
         def collection_of_stages
           @collection_of_stages ||= StageCollection.new
-        end
-
-        def methods_workbench
-          @methods_workbench ||= Workbench.work_with(collection_of_stages)
         end
       end
     end

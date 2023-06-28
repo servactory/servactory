@@ -5,6 +5,7 @@ module Servactory
     module DSL
       def self.included(base)
         base.extend(ClassMethods)
+        base.include(Workspace)
       end
 
       module ClassMethods
@@ -26,10 +27,6 @@ module Servactory
 
         def collection_of_inputs
           @collection_of_inputs ||= Collection.new
-        end
-
-        def inputs_workbench
-          @inputs_workbench ||= Workbench.work_with(collection_of_inputs)
         end
       end
     end

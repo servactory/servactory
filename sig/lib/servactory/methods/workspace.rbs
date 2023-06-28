@@ -1,0 +1,7 @@
+module Servactory
+  module Methods
+    module Workspace
+      def call!: (collection_of_stages: StageCollection, ** untyped) -> void
+    end
+  end
+end

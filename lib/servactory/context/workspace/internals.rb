@@ -4,9 +4,9 @@ module Servactory
   module Context
     module Workspace
       class Internals
-        def initialize(context, workbench:)
+        def initialize(context:, collection_of_internals:)
           @context = context
-          @collection_of_internals = workbench.collection
+          @collection_of_internals = collection_of_internals
         end
 
         def method_missing(name, *args, &block)
@@ -38,7 +38,7 @@ module Servactory
             value: value
           )
 
-          @context.instance_variable_set(:"@#{internal.name}", value)
+          @context.send(:assign_internal, internal.name, value)
         end
 
         def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
@@ -46,7 +46,7 @@ module Servactory
 
           return yield if internal.nil?
 
-          @context.instance_variable_get(:"@#{internal.name}")
+          @context.send(:fetch_internal, internal.name)
         end
       end
     end

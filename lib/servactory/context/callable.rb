@@ -3,63 +3,25 @@
 module Servactory
   module Context
     module Callable
-      def call!(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        @context_store = Store.new(self)
+      def call!(arguments = {})
+        context = send(:new)
 
-        assign_data_with(arguments)
-
-        inputs_workbench.find_unnecessary!
-        inputs_workbench.check_rules!
-        outputs_workbench.find_conflicts_in!(
-          collection_of_internals: collection_of_internals
+        context.send(
+          :_call!,
+          incoming_arguments: arguments,
+          collection_of_inputs: collection_of_inputs,
+          collection_of_internals: collection_of_internals,
+          collection_of_outputs: collection_of_outputs,
+          collection_of_stages: collection_of_stages
         )
 
-        inputs_workbench.validate!
-
-        methods_workbench.run!
-
-        Servactory::Result.success_for(
-          context: context_store.context,
-          collection_of_outputs: collection_of_outputs
-        )
+        Servactory::Result.success_for(context: context)
       end
 
-      def call(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        @context_store = Store.new(self)
-
-        assign_data_with(arguments)
-
-        inputs_workbench.find_unnecessary!
-        inputs_workbench.check_rules!
-        outputs_workbench.find_conflicts_in!(
-          collection_of_internals: collection_of_internals
-        )
-
-        inputs_workbench.validate!
-
-        methods_workbench.run!
-
-        Servactory::Result.success_for(
-          context: context_store.context,
-          collection_of_outputs: collection_of_outputs
-        )
+      def call(arguments = {})
+        call!(arguments)
       rescue Servactory.configuration.failure_class => e
         Servactory::Result.failure_for(exception: e)
-      end
-
-      private
-
-      attr_reader :context_store
-
-      def assign_data_with(arguments)
-        inputs_workbench.assign(
-          context: context_store.context,
-          arguments: arguments
-        )
-
-        internals_workbench.assign(context: context_store.context)
-        outputs_workbench.assign(context: context_store.context)
-        methods_workbench.assign(context: context_store.context)
       end
     end
   end

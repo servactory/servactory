@@ -10,22 +10,9 @@ module Servactory
       new(...).send(:as_failure)
     end
 
-    def initialize(context: nil, collection_of_outputs: nil, exception: nil)
+    def initialize(context: nil, exception: nil)
       @context = context
-      @collection_of_outputs = collection_of_outputs
       @exception = exception
-    end
-
-    def method_missing(name, *args, &block)
-      output = @collection_of_outputs&.find_by(name: name)
-
-      return super if output.nil?
-
-      output_value_for(output)
-    end
-
-    def respond_to_missing?(name, *)
-      @collection_of_outputs&.names&.include?(name) || super
     end
 
     def inspect
@@ -37,6 +24,10 @@ module Servactory
     def as_success
       define_singleton_method(:success?) { true }
       define_singleton_method(:failure?) { false }
+
+      @context.send(:service_storage).fetch(:outputs).each_pair do |key, value|
+        define_singleton_method(key) { value }
+      end
 
       self
     end
@@ -51,13 +42,9 @@ module Servactory
     end
 
     def draw_result
-      @collection_of_outputs&.map do |output|
-        "@#{output.name}=#{output_value_for(output).inspect}"
-      end&.join(", ")
-    end
-
-    def output_value_for(output)
-      @context.instance_variable_get(:"@#{output.name}")
+      methods(false).sort.map do |method_name|
+        "@#{method_name}=#{send(method_name)}"
+      end.join(", ")
     end
   end
 end

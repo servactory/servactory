@@ -4,12 +4,6 @@ module Servactory
       def call!: (?::Hash[untyped, untyped] arguments) -> singleton(Result)
 
       def call: (?::Hash[untyped, untyped] arguments) -> singleton(Result)
-
-      private
-
-      attr_reader context_store: Store
-
-      def assign_data_with: (untyped arguments) -> void
     end
   end
 end

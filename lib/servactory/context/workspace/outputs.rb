@@ -4,9 +4,9 @@ module Servactory
   module Context
     module Workspace
       class Outputs
-        def initialize(context, workbench:)
+        def initialize(context:, collection_of_outputs:)
           @context = context
-          @collection_of_outputs = workbench.collection
+          @collection_of_outputs = collection_of_outputs
         end
 
         def method_missing(name, *args, &block)
@@ -38,7 +38,7 @@ module Servactory
             value: value
           )
 
-          @context.instance_variable_set(:"@#{output.name}", value)
+          @context.send(:assign_output, output.name, value)
         end
 
         def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
@@ -46,7 +46,7 @@ module Servactory
 
           return yield if output.nil?
 
-          @context.instance_variable_get(:"@#{output.name}")
+          @context.send(:fetch_output, output.name)
         end
       end
     end

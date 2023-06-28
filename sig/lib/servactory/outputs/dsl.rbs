@@ -6,8 +6,6 @@ module Servactory
       module ClassMethods
         @collection_of_outputs: Collection
 
-        @outputs_workbench: Workbench
-
         def inherited: -> void
 
         private
@@ -15,8 +13,6 @@ module Servactory
         def output: (Symbol name, **untyped options) -> void
 
         def collection_of_outputs: () -> Collection
-
-        def outputs_workbench: () -> Workbench
       end
     end
   end

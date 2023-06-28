@@ -15,7 +15,7 @@ RSpec.describe Usual::Example50 do
     include_examples "check class info",
                      inputs: %i[invoice_number],
                      internals: %i[],
-                     outputs: [:invoice_number, :invoice_number_tmp]
+                     outputs: %i[invoice_number invoice_number_tmp]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -66,7 +66,7 @@ RSpec.describe Usual::Example50 do
     include_examples "check class info",
                      inputs: %i[invoice_number],
                      internals: %i[],
-                     outputs: [:invoice_number, :invoice_number_tmp]
+                     outputs: %i[invoice_number invoice_number_tmp]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

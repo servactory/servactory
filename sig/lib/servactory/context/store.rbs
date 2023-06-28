@@ -1,9 +1,0 @@
-module Servactory
-  module Context
-    class Store
-      attr_reader context: instance
-
-      def initialize: (Callable service_class) -> void
-    end
-  end
-end

@@ -21,7 +21,7 @@ RSpec.describe Usual::Example23 do
     let(:date) { DateTime.new(2023, 1, 1) }
 
     include_examples "check class info",
-                     inputs: [:api_identifier, :date, :first_name, :last_name, :middle_name],
+                     inputs: %i[api_identifier date first_name last_name middle_name],
                      internals: %i[],
                      outputs: %i[api_response]
 
@@ -73,7 +73,7 @@ RSpec.describe Usual::Example23 do
     let(:date) { DateTime.new(2023, 1, 1) }
 
     include_examples "check class info",
-                     inputs: [:api_identifier, :date, :first_name, :last_name, :middle_name],
+                     inputs: %i[api_identifier date first_name last_name middle_name],
                      internals: %i[],
                      outputs: %i[api_response]
 

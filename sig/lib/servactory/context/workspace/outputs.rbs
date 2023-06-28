@@ -5,7 +5,7 @@ module Servactory
         @context: instance
         @collection_of_outputs: Servactory::Outputs::Collection
 
-        def initialize: (Outputs context, workbench: Servactory::Outputs::Workbench) -> void
+        def initialize: (context: instance, collection_of_outputs: Servactory::Outputs::Collection) -> void
 
         def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
 
