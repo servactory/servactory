@@ -16,9 +16,7 @@ module Servactory
 
         context._call!(arguments, collection_of_inputs)
 
-        # inputs_workbench.validate!
-        #
-        # methods_workbench.run!
+        inputs_workbench.validate!
 
         Servactory::Result.success_for(
           context: context,
