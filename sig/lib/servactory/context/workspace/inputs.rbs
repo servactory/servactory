@@ -3,10 +3,10 @@ module Servactory
     module Workspace
       class Inputs
         @context: instance
-        @collection_of_inputs: Servactory::Inputs::Collection
         @incoming_arguments: untyped
+        @collection_of_inputs: Servactory::Inputs::Collection
 
-        def initialize: (context: Inputs, incoming_arguments: untyped, collection_of_inputs: Servactory::Inputs::Collection) -> void
+        def initialize: (context: instance, incoming_arguments: untyped, collection_of_inputs: Servactory::Inputs::Collection) -> void
 
         def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
 

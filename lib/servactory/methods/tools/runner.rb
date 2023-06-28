@@ -48,10 +48,10 @@ module Servactory
         end
 
         def call_methods(methods)
-          methods.each do |make_method|
-            next if unnecessary_for_make?(make_method)
+          methods.each do |method|
+            next if unnecessary_for_make?(method)
 
-            @context.send(make_method.name)
+            @context.send(method.name)
           end
         end
 
