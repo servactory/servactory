@@ -6,8 +6,8 @@ module Servactory
       def inputs
         @inputs ||= Inputs.new(
           context: self,
-          collection_of_inputs: self.class.send(:collection_of_inputs),
-          incoming_arguments: incoming_arguments
+          incoming_arguments: incoming_arguments,
+          collection_of_inputs: collection_of_inputs
         )
       end
       alias inp inputs
@@ -15,7 +15,7 @@ module Servactory
       def internals
         @internals ||= Internals.new(
           context: self,
-          collection_of_internals: self.class.send(:collection_of_internals)
+          collection_of_internals: collection_of_internals
         )
       end
       alias int internals
@@ -23,7 +23,7 @@ module Servactory
       def outputs
         @outputs ||= Outputs.new(
           context: self,
-          collection_of_outputs: self.class.send(:collection_of_outputs)
+          collection_of_outputs: collection_of_outputs
         )
       end
       alias out outputs
@@ -41,7 +41,10 @@ module Servactory
 
       private
 
-      attr_reader :incoming_arguments
+      attr_reader :incoming_arguments,
+                  :collection_of_inputs,
+                  :collection_of_internals,
+                  :collection_of_outputs
 
       def _call!(
         incoming_arguments:,
@@ -59,8 +62,17 @@ module Servactory
         )
       end
 
-      def call!(incoming_arguments:, **)
+      def call!(
+        incoming_arguments:,
+        collection_of_inputs:,
+        collection_of_internals:,
+        collection_of_outputs:,
+        **
+      )
         @incoming_arguments = incoming_arguments
+        @collection_of_inputs = collection_of_inputs
+        @collection_of_internals = collection_of_internals
+        @collection_of_outputs = collection_of_outputs
       end
 
       def service_storage
