@@ -14,15 +14,14 @@ module Servactory
           collection_of_internals: collection_of_internals
         )
 
-        context._call!(
+        context.send(
+          :_call!,
           incoming_arguments: arguments,
           collection_of_inputs: collection_of_inputs,
           collection_of_internals: collection_of_internals,
           collection_of_outputs: collection_of_outputs,
           collection_of_stages: collection_of_stages
         )
-
-        inputs_workbench.validate!
 
         Servactory::Result.success_for(
           context: context,
