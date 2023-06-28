@@ -2,34 +2,25 @@
 
 module Servactory
   module Methods
-    class Workbench
-      def self.work_with(...)
-        new(...)
+    module Workspace
+      def call!(arguments, collection_of_inputs)
+        Servactory::Inputs::Tools::Validation.validate!(self, arguments, collection_of_inputs)
+
+        run_methods!
       end
 
-      def initialize(collection_of_stages)
-        @collection_of_stages = collection_of_stages
-      end
+      def run_methods!
+        return try_to_use_call if self.class.send(:collection_of_stages).empty?
 
-      def assign(context:)
-        @context = context
-      end
-
-      def run!
-        return try_to_use_call if collection_of_stages.empty?
-
-        collection_of_stages.sorted_by_position.each do |stage|
+        self.class.send(:collection_of_stages).sorted_by_position.each do |stage|
           call_stage(stage)
         end
       end
 
       private
 
-      attr_reader :context,
-                  :collection_of_stages
-
       def try_to_use_call
-        context.try(:send, :call)
+        try(:send, :call)
       end
 
       def call_stage(stage)
@@ -49,14 +40,14 @@ module Servactory
       def call_wrapper_with_methods(wrapper, rollback, methods)
         wrapper.call(methods: -> { call_methods(methods) })
       rescue StandardError => e
-        context.send(rollback, e) if rollback.present?
+        send(rollback, e) if rollback.present?
       end
 
       def call_methods(methods)
         methods.each do |make_method|
           next if unnecessary_for_make?(make_method)
 
-          context.send(make_method.name)
+          send(make_method.name)
         end
       end
 
@@ -83,7 +74,7 @@ module Servactory
         return false if condition.nil?
         return !Servactory::Utils.true?(condition) unless condition.is_a?(Proc)
 
-        !condition.call(context: context)
+        !condition.call(context: self)
       end
     end
   end

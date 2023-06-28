@@ -38,7 +38,6 @@ module Servactory
         inputs_workbench.assign(context: context, arguments: arguments)
         internals_workbench.assign(context: context)
         outputs_workbench.assign(context: context)
-        methods_workbench.assign(context: context)
       end
     end
   end
