@@ -3,12 +3,6 @@
 module Servactory
   module Context
     module Workspace
-      # class Inputs
-      #   def initialize(**)
-      #     # NOTE: Look at the file `lib/servactory/inputs/tools/prepare.rb`
-      #   end
-      # end
-
       class Inputs
         def initialize(context:, incoming_arguments:, collection_of_inputs:)
           @context = context
