@@ -10,9 +10,8 @@ module Servactory
       # end
 
       class Inputs
-        def initialize(context, collection_of_inputs:, incoming_arguments:)
+        def initialize(context:, collection_of_inputs:, incoming_arguments:)
           @context = context
-
           @collection_of_inputs = collection_of_inputs
           @incoming_arguments = incoming_arguments
         end

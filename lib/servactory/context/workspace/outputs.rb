@@ -4,7 +4,7 @@ module Servactory
   module Context
     module Workspace
       class Outputs
-        def initialize(context, collection_of_outputs:)
+        def initialize(context:, collection_of_outputs:)
           @context = context
           @collection_of_outputs = collection_of_outputs
         end

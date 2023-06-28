@@ -5,7 +5,7 @@ module Servactory
     module Workspace
       def inputs
         @inputs ||= Inputs.new(
-          self,
+          context: self,
           collection_of_inputs: self.class.send(:collection_of_inputs),
           incoming_arguments: incoming_arguments
         )
@@ -13,12 +13,18 @@ module Servactory
       alias inp inputs
 
       def internals
-        @internals ||= Internals.new(self, collection_of_internals: self.class.send(:collection_of_internals))
+        @internals ||= Internals.new(
+          context: self,
+          collection_of_internals: self.class.send(:collection_of_internals)
+        )
       end
       alias int internals
 
       def outputs
-        @outputs ||= Outputs.new(self, collection_of_outputs: self.class.send(:collection_of_outputs))
+        @outputs ||= Outputs.new(
+          context: self,
+          collection_of_outputs: self.class.send(:collection_of_outputs)
+        )
       end
       alias out outputs
 

@@ -4,9 +4,8 @@ module Servactory
   module Context
     module Workspace
       class Internals
-        def initialize(context, collection_of_internals:)
+        def initialize(context:, collection_of_internals:)
           @context = context
-
           @collection_of_internals = collection_of_internals
         end
 
