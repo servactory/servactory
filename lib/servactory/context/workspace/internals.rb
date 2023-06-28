@@ -30,6 +30,8 @@ module Servactory
 
           internal = @collection_of_internals.find_by(name: prepared_name) # ::Servactory::Internals::Internal
 
+          return yield if internal.nil?
+
           Servactory::Internals::Validations::Type.validate!(
             context: @context,
             internal: internal,
