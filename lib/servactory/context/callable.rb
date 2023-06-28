@@ -4,9 +4,9 @@ module Servactory
   module Context
     module Callable
       def call!(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        @context_store = Store.new(self)
+        context_store = Store.new(self)
 
-        assign_data_with(arguments)
+        assign_data_with(context_store.context, arguments)
 
         inputs_workbench.find_unnecessary!
         inputs_workbench.check_rules!
@@ -25,9 +25,9 @@ module Servactory
       end
 
       def call(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        @context_store = Store.new(self)
+        context_store = Store.new(self)
 
-        assign_data_with(arguments)
+        assign_data_with(context_store.context, arguments)
 
         inputs_workbench.find_unnecessary!
         inputs_workbench.check_rules!
@@ -49,17 +49,15 @@ module Servactory
 
       private
 
-      attr_reader :context_store
-
-      def assign_data_with(arguments)
+      def assign_data_with(context, arguments)
         inputs_workbench.assign(
-          context: context_store.context,
+          context: context,
           arguments: arguments
         )
 
-        internals_workbench.assign(context: context_store.context)
-        outputs_workbench.assign(context: context_store.context)
-        methods_workbench.assign(context: context_store.context)
+        internals_workbench.assign(context: context)
+        outputs_workbench.assign(context: context)
+        methods_workbench.assign(context: context)
       end
     end
   end
