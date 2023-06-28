@@ -5,7 +5,7 @@ module Servactory
     module DSL
       def self.included(base)
         base.extend(Callable)
-        base.prepend(Workspace)
+        base.include(Workspace)
       end
     end
   end
