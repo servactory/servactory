@@ -3,10 +3,10 @@
 module Servactory
   module Context
     module Callable
-      def call!(arguments = {}) # rubocop:disable Metrics/MethodLength
-        context = send(:new)
+      def call!(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        context_store = Store.new(self)
 
-        assign_data_with(context, arguments)
+        assign_data_with(context_store.context, arguments)
 
         inputs_workbench.find_unnecessary!
         inputs_workbench.check_rules!
@@ -19,15 +19,15 @@ module Servactory
         methods_workbench.run!
 
         Servactory::Result.success_for(
-          context: context,
+          context: context_store.context,
           collection_of_outputs: collection_of_outputs
         )
       end
 
       def call(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        context = send(:new)
+        context_store = Store.new(self)
 
-        assign_data_with(context, arguments)
+        assign_data_with(context_store.context, arguments)
 
         inputs_workbench.find_unnecessary!
         inputs_workbench.check_rules!
@@ -40,7 +40,7 @@ module Servactory
         methods_workbench.run!
 
         Servactory::Result.success_for(
-          context: context,
+          context: context_store.context,
           collection_of_outputs: collection_of_outputs
         )
       rescue Servactory.configuration.failure_class => e
