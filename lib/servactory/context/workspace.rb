@@ -14,7 +14,7 @@ module Servactory
       alias int internals
 
       def outputs
-        @outputs ||= Outputs.new(self, workbench: self.class.send(:outputs_workbench))
+        @outputs ||= Outputs.new(self, collection_of_outputs: self.class.send(:collection_of_outputs))
       end
       alias out outputs
 

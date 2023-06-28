@@ -10,9 +10,6 @@ module Servactory
 
         inputs_workbench.find_unnecessary!
         inputs_workbench.check_rules!
-        outputs_workbench.find_conflicts_in!(
-          collection_of_internals: collection_of_internals
-        )
 
         context.send(
           :_call!,
@@ -37,7 +34,6 @@ module Servactory
       def assign_data_with(context, arguments)
         inputs_workbench.assign(context: context, arguments: arguments)
         internals_workbench.assign(context: context)
-        outputs_workbench.assign(context: context)
       end
     end
   end

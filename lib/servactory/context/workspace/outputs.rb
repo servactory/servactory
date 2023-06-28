@@ -4,9 +4,9 @@ module Servactory
   module Context
     module Workspace
       class Outputs
-        def initialize(context, workbench:)
+        def initialize(context, collection_of_outputs:)
           @context = context
-          @collection_of_outputs = workbench.collection
+          @collection_of_outputs = collection_of_outputs
         end
 
         def method_missing(name, *args, &block)
