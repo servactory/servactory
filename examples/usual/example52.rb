@@ -8,6 +8,7 @@ module Usual
     internal :prepared_text, type: String
 
     output :is_enabled, type: [TrueClass, FalseClass]
+    output :is_really_enabled, type: [TrueClass, FalseClass]
     output :is_text_present, type: [TrueClass, FalseClass]
     output :is_prepared_text_present, type: [TrueClass, FalseClass]
 
@@ -22,6 +23,7 @@ module Usual
 
     def assign_outputs
       outputs.is_enabled = inputs.enable?
+      outputs.is_really_enabled = outputs.is_enabled?
       outputs.is_text_present = inputs.text?
       outputs.is_prepared_text_present = internals.prepared_text?
     end

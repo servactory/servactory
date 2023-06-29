@@ -17,7 +17,7 @@ RSpec.describe Usual::Example52 do
     include_examples "check class info",
                      inputs: %i[enable text],
                      internals: %i[prepared_text],
-                     outputs: %i[is_enabled is_text_present is_prepared_text_present]
+                     outputs: %i[is_enabled is_really_enabled is_text_present is_prepared_text_present]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -27,6 +27,7 @@ RSpec.describe Usual::Example52 do
           result = perform
 
           expect(result.is_enabled).to be(true)
+          expect(result.is_really_enabled).to be(true)
           expect(result.is_text_present).to be(true)
         end
       end
@@ -61,7 +62,7 @@ RSpec.describe Usual::Example52 do
     include_examples "check class info",
                      inputs: %i[enable text],
                      internals: %i[prepared_text],
-                     outputs: %i[is_enabled is_text_present is_prepared_text_present]
+                     outputs: %i[is_enabled is_really_enabled is_text_present is_prepared_text_present]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -71,6 +72,7 @@ RSpec.describe Usual::Example52 do
           result = perform
 
           expect(result.is_enabled).to be(true)
+          expect(result.is_really_enabled).to be(true)
           expect(result.is_text_present).to be(true)
         end
       end
