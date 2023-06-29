@@ -1,7 +1,11 @@
 module Servactory
   module Utils
+    FALSE_VALUES: Set[false | Integer | String (frozen) | Symbol]
+
     def self?.true?: (untyped value) -> bool
 
-    def self.value_present?: (untyped value) -> bool
+    def self?.value_present?: (untyped value) -> bool
+
+    def self?.query_attribute: (untyped value) -> bool
   end
 end
