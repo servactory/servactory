@@ -41,7 +41,7 @@ module Servactory
       when true        then true
       when false, nil  then false
       else
-        if value.is_a?(Numeric) || !value.match?(/[^0-9]/)
+        if value.is_a?(Numeric) || (value.respond_to?(:match?) && !value.match?(/[^0-9]/))
           !value.to_i.zero?
         else
           return false if FALSE_VALUES.include?(value)
