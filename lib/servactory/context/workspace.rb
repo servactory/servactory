@@ -84,7 +84,7 @@ module Servactory
       end
 
       def fetch_internal(key)
-        service_storage.fetch(:internals).fetch(key)
+        service_storage.fetch(:internals).fetch(key, nil)
       end
 
       def assign_output(key, value)
@@ -92,7 +92,7 @@ module Servactory
       end
 
       def fetch_output(key)
-        service_storage.fetch(:outputs).fetch(key)
+        service_storage.fetch(:outputs).fetch(key, nil)
       end
     end
   end
