@@ -26,7 +26,7 @@ module Usual
       internals.prepared_number = inputs.number
     end
 
-    def assign_outputs
+    def assign_outputs # rubocop:disable Metrics/AbcSize
       outputs.is_enabled = inputs.enable?
       outputs.is_really_enabled = outputs.is_enabled?
       outputs.is_text_present = inputs.text?
