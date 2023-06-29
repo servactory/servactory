@@ -16,7 +16,7 @@ module Servactory
       "OFF", :OFF
     ].to_set.freeze
 
-    # private_constant :FALSE_VALUES
+    private_constant :FALSE_VALUES
 
     # @param value [#to_s]
     # @return [Boolean]
