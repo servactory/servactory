@@ -25,7 +25,8 @@ module Servactory
         private
 
         def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
-          input = @collection_of_inputs.find_by(name: name)
+          input_name = name.to_s.chomp("?").to_sym
+          input = @collection_of_inputs.find_by(name: input_name)
 
           return yield if input.nil?
 
@@ -35,7 +36,11 @@ module Servactory
           input_prepare = input.prepare.fetch(:in, nil)
           input_value = input_prepare.call(value: input_value) if input_prepare.present?
 
-          input_value
+          if name.to_s.end_with?("?")
+            Servactory::Utils.query_attribute(input_value)
+          else
+            input_value
+          end
         end
       end
     end

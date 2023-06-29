@@ -24,6 +24,7 @@ RSpec.describe Usual::Example9 do
         it "returns the expected values", :aggregate_failures do
           result = perform
 
+          expect(result.event?).to be(true)
           expect(result.event).to be_a(Usual::Example9::Event)
           expect(result.event.id).to be_present
           expect(result.event.event_name).to eq("created")
@@ -92,6 +93,7 @@ RSpec.describe Usual::Example9 do
         it "returns the expected values", :aggregate_failures do
           result = perform
 
+          expect(result.event?).to be(true)
           expect(result.event).to be_a(Usual::Example9::Event)
           expect(result.event.id).to be_present
           expect(result.event.event_name).to eq("created")

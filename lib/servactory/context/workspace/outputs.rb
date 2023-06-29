@@ -42,11 +42,18 @@ module Servactory
         end
 
         def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
-          output = @collection_of_outputs.find_by(name: name)
+          output_name = name.to_s.chomp("?").to_sym
+          output = @collection_of_outputs.find_by(name: output_name)
 
           return yield if output.nil?
 
-          @context.send(:fetch_output, output.name)
+          output_value = @context.send(:fetch_output, output.name)
+
+          if name.to_s.end_with?("?")
+            Servactory::Utils.query_attribute(output_value)
+          else
+            output_value
+          end
         end
       end
     end

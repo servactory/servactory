@@ -42,11 +42,18 @@ module Servactory
         end
 
         def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
-          internal = @collection_of_internals.find_by(name: name)
+          internal_name = name.to_s.chomp("?").to_sym
+          internal = @collection_of_internals.find_by(name: internal_name)
 
           return yield if internal.nil?
 
-          @context.send(:fetch_internal, internal.name)
+          internal_value = @context.send(:fetch_internal, internal.name)
+
+          if name.to_s.end_with?("?")
+            Servactory::Utils.query_attribute(internal_value)
+          else
+            internal_value
+          end
         end
       end
     end
