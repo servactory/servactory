@@ -6,7 +6,8 @@ module Servactory
       attr_accessor :position,
                     :wrapper,
                     :rollback,
-                    :condition
+                    :condition,
+                    :is_condition_opposite
 
       def initialize(position:, wrapper: nil, rollback: nil, condition: nil)
         @position = position

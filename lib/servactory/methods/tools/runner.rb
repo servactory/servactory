@@ -57,12 +57,11 @@ module Servactory
 
         def unnecessary_for_stage?(stage)
           condition = stage.condition
-          # is_condition_opposite = stage.is_condition_opposite
+          is_condition_opposite = stage.is_condition_opposite
 
-          result = prepare_condition_for(condition) # rubocop:disable Style/RedundantAssignment
+          result = prepare_condition_for(condition)
 
-          # is_condition_opposite ? !result : result
-          result
+          is_condition_opposite ? !result : result
         end
 
         def unnecessary_for_make?(make_method)
