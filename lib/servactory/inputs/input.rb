@@ -187,7 +187,7 @@ module Servactory
         )
       end
 
-      def add_prepare_option_with(options)
+      def add_prepare_option_with(options) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         collection_of_options << Option.new(
           name: :prepare,
           input: self,
