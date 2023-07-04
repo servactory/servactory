@@ -1,7 +1,0 @@
-module Servactory
-  module Outputs
-    module Workspace
-      def call!: (collection_of_internals: Internals::Collection, collection_of_outputs: Collection, ** untyped) -> void
-    end
-  end
-end
