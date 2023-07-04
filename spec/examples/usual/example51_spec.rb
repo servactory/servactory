@@ -29,7 +29,7 @@ RSpec.describe Usual::Example51 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name_*`" do
+        it "returns the expected value in `full_name_*`", :aggregate_failures do
           result = perform
 
           expect(result.full_name_1).to eq("John Fitzgerald Kennedy")
@@ -47,7 +47,7 @@ RSpec.describe Usual::Example51 do
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name_*`" do
+          it "returns the expected value in `full_name_*`", :aggregate_failures do
             result = perform
 
             expect(result.full_name_1).to eq("John Kennedy")
@@ -110,7 +110,7 @@ RSpec.describe Usual::Example51 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name_*`" do
+        it "returns the expected value in `full_name_*`", :aggregate_failures do
           result = perform
 
           expect(result.full_name_1).to eq("John Fitzgerald Kennedy")
@@ -128,7 +128,7 @@ RSpec.describe Usual::Example51 do
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name_*`" do
+          it "returns the expected value in `full_name_*`", :aggregate_failures do
             result = perform
 
             expect(result.full_name_1).to eq("John Kennedy")

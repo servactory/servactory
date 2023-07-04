@@ -24,7 +24,7 @@ module Servactory
 
         private
 
-        def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def getter_with(name:, &block) # rubocop:disable Metrics/MethodLength, Lint/UnusedMethodArgument, Metrics/AbcSize
           input_name = name.to_s.chomp("?").to_sym
           input = @collection_of_inputs.find_by(name: input_name)
 

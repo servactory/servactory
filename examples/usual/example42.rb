@@ -47,7 +47,7 @@ module Usual
       outputs.number = 8
     end
 
-    def method_for_rollback(e)
+    def method_for_rollback(e) # rubocop:disable Naming/MethodParameterName
       fail!(message: "rollback with #{e.message}")
     end
   end

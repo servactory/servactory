@@ -2,6 +2,6 @@
 
 module Servactory
   module TestKit
-    class FakeType; end
+    class FakeType; end # rubocop:disable Lint/EmptyClass
   end
 end
