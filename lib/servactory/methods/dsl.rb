@@ -42,6 +42,14 @@ module Servactory
         def only_if(condition)
           return if @current_stage.blank?
 
+          @current_stage.is_condition_opposite = false
+          @current_stage.condition = condition
+        end
+
+        def only_unless(condition)
+          return if @current_stage.blank?
+
+          @current_stage.is_condition_opposite = true
           @current_stage.condition = condition
         end
 
