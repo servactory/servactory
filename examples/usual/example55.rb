@@ -4,7 +4,7 @@ module Usual
   class Example55 < ApplicationService::Base
     configuration do
       input_option_helpers(
-        Servactory::Inputs::OptionHelpers::Types.use
+        Servactory::Inputs::OptionHelpers::Types.all
       )
     end
 

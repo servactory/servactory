@@ -2,37 +2,33 @@ module Servactory
   module Inputs
     module OptionHelpers
       module Types
-        extend ::Servactory::Inputs::OptionHelpers::Types
+        def self?.all: () -> Set[Servactory::Inputs::OptionHelper]
 
-        def use: () -> Set[Servactory::Inputs::OptionHelper]
+        def self?.symbol: () -> Servactory::Inputs::OptionHelper
 
-        private
+        def self?.symbol?: () -> Servactory::Inputs::OptionHelper
 
-        def symbol: () -> Servactory::Inputs::OptionHelper
+        def self?.string: () -> Servactory::Inputs::OptionHelper
 
-        def symbol?: () -> Servactory::Inputs::OptionHelper
+        def self?.string?: () -> Servactory::Inputs::OptionHelper
 
-        def string: () -> Servactory::Inputs::OptionHelper
+        def self?.integer: () -> Servactory::Inputs::OptionHelper
 
-        def string?: () -> Servactory::Inputs::OptionHelper
+        def self?.integer?: () -> Servactory::Inputs::OptionHelper
 
-        def integer: () -> Servactory::Inputs::OptionHelper
+        def self?.float: () -> Servactory::Inputs::OptionHelper
 
-        def integer?: () -> Servactory::Inputs::OptionHelper
+        def self?.float?: () -> Servactory::Inputs::OptionHelper
 
-        def float: () -> Servactory::Inputs::OptionHelper
+        def self?.boolean: () -> Servactory::Inputs::OptionHelper
 
-        def float?: () -> Servactory::Inputs::OptionHelper
+        def self?.array: () -> Servactory::Inputs::OptionHelper
 
-        def boolean: () -> Servactory::Inputs::OptionHelper
+        def self?.array?: () -> Servactory::Inputs::OptionHelper
 
-        def array: () -> Servactory::Inputs::OptionHelper
+        def self?.hash: () -> Servactory::Inputs::OptionHelper
 
-        def array?: () -> Servactory::Inputs::OptionHelper
-
-        def hash: () -> Servactory::Inputs::OptionHelper
-
-        def hash?: () -> Servactory::Inputs::OptionHelper
+        def self?.hash?: () -> Servactory::Inputs::OptionHelper
       end
     end
   end

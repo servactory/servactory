@@ -4,9 +4,9 @@ module Servactory
   module Inputs
     module OptionHelpers
       module Types # rubocop:disable Metrics/ModuleLength
-        extend self
+        module_function
 
-        def use
+        def all
           Set[
             symbol, symbol?,
             string, string?,
@@ -14,11 +14,9 @@ module Servactory
             float, float?,
             boolean,
             array, array?,
-            hash, hash?,
+            hash, hash?
           ]
         end
-
-        private
 
         def symbol
           Servactory::Inputs::OptionHelper.new(
