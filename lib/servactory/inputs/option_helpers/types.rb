@@ -3,8 +3,28 @@
 module Servactory
   module Inputs
     module OptionHelpers
-      module Types # rubocop:disable Metrics/ModuleLength
+      module Types
         module_function
+
+        def mandatory(name, type)
+          Servactory::Inputs::OptionHelper.new(
+            name: name.to_sym,
+            equivalent: {
+              type: type
+            }
+          )
+        end
+
+        def not_mandatory(name, type)
+          Servactory::Inputs::OptionHelper.new(
+            name: "#{name}?".to_sym,
+            equivalent: {
+              type: type,
+              required: false,
+              default: nil
+            }
+          )
+        end
 
         def all
           Set[
@@ -19,132 +39,55 @@ module Servactory
         end
 
         def symbol
-          Servactory::Inputs::OptionHelper.new(
-            name: :symbol,
-            equivalent: {
-              type: Symbol
-            }
-          )
+          mandatory(:symbol, Symbol)
         end
 
         def symbol?
-          Servactory::Inputs::OptionHelper.new(
-            name: :symbol?,
-            equivalent: {
-              type: Symbol,
-              required: false,
-              default: nil
-            }
-          )
+          not_mandatory(:symbol, Symbol)
         end
 
         def string
-          Servactory::Inputs::OptionHelper.new(
-            name: :string,
-            equivalent: {
-              type: String
-            }
-          )
+          mandatory(:string, String)
         end
 
         def string?
-          Servactory::Inputs::OptionHelper.new(
-            name: :string?,
-            equivalent: {
-              type: String,
-              required: false,
-              default: nil
-            }
-          )
+          not_mandatory(:string, String)
         end
 
         def integer
-          Servactory::Inputs::OptionHelper.new(
-            name: :integer,
-            equivalent: {
-              type: Integer
-            }
-          )
+          mandatory(:integer, Integer)
         end
 
         def integer?
-          Servactory::Inputs::OptionHelper.new(
-            name: :integer?,
-            equivalent: {
-              type: Integer,
-              required: false,
-              default: nil
-            }
-          )
+          not_mandatory(:integer, Integer)
         end
 
         def float
-          Servactory::Inputs::OptionHelper.new(
-            name: :float,
-            equivalent: {
-              type: Float
-            }
-          )
+          mandatory(:float, Float)
         end
 
         def float?
-          Servactory::Inputs::OptionHelper.new(
-            name: :float?,
-            equivalent: {
-              type: Float,
-              required: false,
-              default: nil
-            }
-          )
+          not_mandatory(:float, Float)
         end
 
         def boolean
-          Servactory::Inputs::OptionHelper.new(
-            name: :boolean,
-            equivalent: {
-              type: [TrueClass, FalseClass]
-            }
-          )
+          mandatory(:boolean, [TrueClass, FalseClass])
         end
 
         def array
-          Servactory::Inputs::OptionHelper.new(
-            name: :array,
-            equivalent: {
-              type: Array
-            }
-          )
+          mandatory(:array, Array)
         end
 
         def array?
-          Servactory::Inputs::OptionHelper.new(
-            name: :array?,
-            equivalent: {
-              type: Array,
-              required: false,
-              default: nil
-            }
-          )
+          not_mandatory(:array, Array)
         end
 
         def hash
-          Servactory::Inputs::OptionHelper.new(
-            name: :hash,
-            equivalent: {
-              type: Hash
-            }
-          )
+          mandatory(:hash, Hash)
         end
 
         def hash?
-          Servactory::Inputs::OptionHelper.new(
-            name: :hash?,
-            equivalent: {
-              type: Hash,
-              required: false,
-              default: nil
-            }
-          )
+          not_mandatory(:hash, Hash)
         end
       end
     end
