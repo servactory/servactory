@@ -9,8 +9,8 @@ RSpec.describe Wrong::Example13 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              /undefined method `call'/
+              ApplicationService::Errors::Failure,
+              "Nothing to perform. Use `make` or create a `call` method"
             )
           )
         end
@@ -23,12 +23,14 @@ RSpec.describe Wrong::Example13 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              NoMethodError,
-              /undefined method `call'/
-            )
+        include_examples "failure result class"
+
+        it "returns the expected value in `errors`", :aggregate_failures do
+          result = perform
+
+          expect(result.error).to be_a(ApplicationService::Errors::Failure)
+          expect(result.error).to an_object_having_attributes(
+            message: "Nothing to perform. Use `make` or create a `call` method"
           )
         end
       end

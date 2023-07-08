@@ -75,6 +75,15 @@ module Servactory
         @collection_of_outputs = collection_of_outputs
       end
 
+      def call
+        raise Servactory.configuration.failure_class.new(
+          message: I18n.t(
+            "servactory.methods.call.not_used",
+            service_class_name: self.class.name
+          )
+        )
+      end
+
       def service_storage
         @service_storage ||= { internals: {}, outputs: {} }
       end

@@ -31,3 +31,6 @@ en:
       tools:
         conflicts:
           error: "[%{service_class_name}] Conflict between internal and output attributes `%{overlapping_attributes}`"
+    methods:
+      call:
+        not_used: Nothing to perform. Use `make` or create a `call` method
