@@ -13,7 +13,7 @@ module Servactory
 
         private
 
-        def try_to_use_call: () -> void
+        def use_call: () -> void
 
         def call_stage: (Stage stage) -> void
 

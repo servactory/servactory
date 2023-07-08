@@ -14,7 +14,7 @@ module Servactory
         end
 
         def run!
-          return try_to_use_call if @collection_of_stages.empty?
+          return use_call if @collection_of_stages.empty?
 
           @collection_of_stages.sorted_by_position.each do |stage|
             call_stage(stage)
@@ -23,8 +23,8 @@ module Servactory
 
         private
 
-        def try_to_use_call
-          @context.try(:send, :call)
+        def use_call
+          @context.send(:call)
         end
 
         def call_stage(stage)

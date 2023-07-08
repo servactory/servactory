@@ -45,6 +45,8 @@ module Servactory
         ** untyped
       ) -> untyped
 
+      def call: -> Exception
+
       def service_storage: -> { internals: {}, outputs: {} }
 
       def assign_internal: (Symbol key, untyped value) -> untyped
