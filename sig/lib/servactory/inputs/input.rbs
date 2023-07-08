@@ -23,11 +23,11 @@ module Servactory
 
       def apply_helpers_for_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
 
-      def add_basic_options_with: (type: (Class | Array[Class]), options: untyped) -> void
+      def add_basic_options_with: (untyped options) -> void
 
       def add_required_option_with: (untyped options) -> OptionsCollection
 
-      def add_types_option_with: ((Class | Array[Class]) type) -> OptionsCollection
+      def add_types_option_with: (untyped options) -> OptionsCollection
 
       def add_default_option_with: (untyped options) -> OptionsCollection
 
