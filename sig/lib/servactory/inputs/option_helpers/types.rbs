@@ -1,0 +1,39 @@
+module Servactory
+  module Inputs
+    module OptionHelpers
+      module Types
+        extend ::Servactory::Inputs::OptionHelpers::Types
+
+        def use: () -> Set[Servactory::Inputs::OptionHelper]
+
+        private
+
+        def symbol: () -> Servactory::Inputs::OptionHelper
+
+        def symbol?: () -> Servactory::Inputs::OptionHelper
+
+        def string: () -> Servactory::Inputs::OptionHelper
+
+        def string?: () -> Servactory::Inputs::OptionHelper
+
+        def integer: () -> Servactory::Inputs::OptionHelper
+
+        def integer?: () -> Servactory::Inputs::OptionHelper
+
+        def float: () -> Servactory::Inputs::OptionHelper
+
+        def float?: () -> Servactory::Inputs::OptionHelper
+
+        def boolean: () -> Servactory::Inputs::OptionHelper
+
+        def array: () -> Servactory::Inputs::OptionHelper
+
+        def array?: () -> Servactory::Inputs::OptionHelper
+
+        def hash: () -> Servactory::Inputs::OptionHelper
+
+        def hash?: () -> Servactory::Inputs::OptionHelper
+      end
+    end
+  end
+end
