@@ -23,8 +23,6 @@ module Servactory
         end
 
         def self.should_be_checked_for?(input, value, check_key)
-          # check_key == :inclusion && input.inclusion_present?
-
           check_key == :inclusion && (
             input.required? || (
               input.optional? && !input.default.nil?
