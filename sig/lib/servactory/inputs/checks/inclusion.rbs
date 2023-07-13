@@ -10,7 +10,7 @@ module Servactory
 
         def self.check: (context: instance, input: Input, value: untyped, check_key: Symbol, **untyped _) -> void
 
-        def self.should_be_checked_for?: (Input input, Symbol check_key) -> bool
+        def self.should_be_checked_for?: (Input input, untyped value, Symbol check_key) -> bool
 
         def initialize: (context: instance, input: Input, value: untyped) -> void
 
