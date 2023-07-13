@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.8.7](https://github.com/servactory/servactory/tree/v1.8.7) (2023-07-13)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.8.6...v1.8.7)
+
+**Implemented enhancements:**
+
+- Add optionality for `inclusion` in `input` [\#100](https://github.com/servactory/servactory/pull/100) ([afuno](https://github.com/afuno))
+- Add custom message for `call` method [\#98](https://github.com/servactory/servactory/pull/98) ([afuno](https://github.com/afuno))
+
 ## [v1.8.6](https://github.com/servactory/servactory/tree/v1.8.6) (2023-07-04)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.8.5...v1.8.6)
