@@ -41,7 +41,7 @@ class UserService::Authenticate < Servactory::Base
   private
 
   def call
-    if (user = User.find_by(email: inputs.email)&.authenticate(inputs.password))
+    if (user = User.authenticate_by(email: inputs.email, password: inputs.password)).present?
       outputs.user = user
     else
       fail!(message: "Authentication failed")
