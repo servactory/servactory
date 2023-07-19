@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module ApplicationService
-  class Base < Servactory::Base
+  class Base
+    include Servactory::DSL
+
     configuration do
       input_error_class ApplicationService::Errors::InputError
       output_error_class ApplicationService::Errors::OutputError
