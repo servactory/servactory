@@ -10,7 +10,7 @@ RSpec.describe Wrong::Example13 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::Failure,
-              "Nothing to perform. Use `make` or create a `call` method"
+              "Nothing to perform. Use `make` or create a `call` method."
             )
           )
         end
@@ -30,7 +30,7 @@ RSpec.describe Wrong::Example13 do
 
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
-            message: "Nothing to perform. Use `make` or create a `call` method"
+            message: "Nothing to perform. Use `make` or create a `call` method."
           )
         end
       end
