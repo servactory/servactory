@@ -20,7 +20,7 @@ module Servactory
 
       def call(arguments = {})
         call!(arguments)
-      rescue Servactory.configuration.failure_class => e
+      rescue config.failure_class => e
         Servactory::Result.failure_for(exception: e)
       end
     end

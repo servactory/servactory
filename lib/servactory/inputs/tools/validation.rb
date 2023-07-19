@@ -68,7 +68,7 @@ module Servactory
         def raise_errors
           return if (tmp_errors = errors.not_blank).empty?
 
-          raise Servactory.configuration.input_error_class.new(message: tmp_errors.first)
+          raise @context.class.config.input_error_class.new(message: tmp_errors.first)
         end
       end
     end

@@ -68,13 +68,9 @@ module Servactory
         end
 
         def method_missing(name, *args, &block)
-          if Servactory.configuration.aliases_for_make.include?(name)
-            return method_missing_for_aliases_for_make(name, *args, &block)
-          end
+          return method_missing_for_aliases_for_make(name, *args, &block) if config.aliases_for_make.include?(name)
 
-          if Servactory.configuration.shortcuts_for_make.include?(name)
-            return method_missing_for_shortcuts_for_make(name, *args, &block)
-          end
+          return method_missing_for_shortcuts_for_make(name, *args, &block) if config.shortcuts_for_make.include?(name)
 
           super
         end
@@ -97,8 +93,8 @@ module Servactory
         end
 
         def respond_to_missing?(name, *)
-          Servactory.configuration.aliases_for_make.include?(name) ||
-            Servactory.configuration.shortcuts_for_make.include?(name) ||
+          config.aliases_for_make.include?(name) ||
+            config.shortcuts_for_make.include?(name) ||
             super
         end
 
