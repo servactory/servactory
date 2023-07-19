@@ -10,20 +10,6 @@ loader.inflector.inflect(
 )
 loader.setup
 
-module Servactory
-  # module_function
-  #
-  # def configuration
-  #   @configuration ||= Servactory::Configuration::Setup.new
-  # end
-  #
-  # def reset
-  #   @configuration = Servactory::Configuration::Setup.new
-  # end
-  #
-  # def configure
-  #   yield(configuration)
-  # end
-end
+module Servactory; end
 
 require "servactory/engine" if defined?(Rails::Engine)
