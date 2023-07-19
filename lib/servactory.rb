@@ -4,8 +4,6 @@ require "zeitwerk"
 
 require "active_support/core_ext/string"
 
-# require "servactory/support/loader"
-
 loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect(
   "dsl" => "DSL"
@@ -29,7 +27,3 @@ module Servactory
 end
 
 require "servactory/engine" if defined?(Rails::Engine)
-
-# require_relative "servactory/exceptions"
-
-# require_relative "servactory/base"
