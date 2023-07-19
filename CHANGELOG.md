@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.8.8](https://github.com/servactory/servactory/tree/v1.8.8) (2023-07-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.8.7...v1.8.8)
+
+**Implemented enhancements:**
+
+- Change work with configuration [\#102](https://github.com/servactory/servactory/pull/102) ([afuno](https://github.com/afuno))
+- Add new locale [\#101](https://github.com/servactory/servactory/pull/101) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 20.07.2023 [\#103](https://github.com/servactory/servactory/pull/103) ([afuno](https://github.com/afuno))
+
 ## [v1.8.7](https://github.com/servactory/servactory/tree/v1.8.7) (2023-07-13)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.8.6...v1.8.7)
