@@ -4,10 +4,10 @@ module Servactory
       ARRAY_DEFAULT_VALUE: ^(is: bool, message: Proc | String | nil) -> { is: bool, message: String | nil }
 
       @collection_of_options: OptionsCollection
-      @internal_name: Symbol?
 
-      attr_reader internal_name: Symbol?
       attr_reader name: Symbol
+      attr_reader internal_name: Symbol?
+      attr_reader config: Servactory::Configuration::Setup
 
       def initialize: (
         Symbol name,

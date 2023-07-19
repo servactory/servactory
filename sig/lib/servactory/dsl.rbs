@@ -1,0 +1,5 @@
+module Servactory
+  module DSL
+    def self.included: (untyped base) -> untyped
+  end
+end

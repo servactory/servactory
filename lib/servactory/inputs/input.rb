@@ -8,7 +8,8 @@ module Servactory
       private_constant :ARRAY_DEFAULT_VALUE
 
       attr_reader :name,
-                  :internal_name
+                  :internal_name,
+                  :config
 
       # rubocop:disable Style/KeywordParametersOrder
       def initialize(
@@ -16,10 +17,12 @@ module Servactory
         *helpers,
         as: nil,
         type:,
+        config:,
         **options
       )
         @name = name
         @internal_name = as.present? ? as : name
+        @config = config
 
         options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
 
@@ -43,7 +46,7 @@ module Servactory
         prepared_options = {}
 
         helpers.each do |helper|
-          found_helper = Servactory.configuration.input_option_helpers.find_by(name: helper)
+          found_helper = config.input_option_helpers.find_by(name: helper)
 
           next if found_helper.blank?
 
