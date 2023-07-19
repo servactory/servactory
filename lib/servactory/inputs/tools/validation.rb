@@ -43,7 +43,12 @@ module Servactory
           end
         end
 
-        def process_validation_classes(validation_class, input:, check_key:, check_options:)
+        def process_validation_classes(
+          validation_class,
+          input:,
+          check_key:,
+          check_options:
+        )
           validation_class.check(
             context: @context,
             input: input,

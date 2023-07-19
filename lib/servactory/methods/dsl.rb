@@ -93,9 +93,7 @@ module Servactory
         end
 
         def respond_to_missing?(name, *)
-          config.aliases_for_make.include?(name) ||
-            config.shortcuts_for_make.include?(name) ||
-            super
+          config.aliases_for_make.include?(name) || config.shortcuts_for_make.include?(name) || super
         end
 
         def next_position
