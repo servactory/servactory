@@ -17,6 +17,8 @@ module Servactory
         end
       end
 
+      private_class_method :new
+
       private
 
       def service_storage
