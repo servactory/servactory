@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.9.0](https://github.com/servactory/servactory/tree/v1.9.0) (2023-07-20)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.8.8...v1.9.0)
+
+**Breaking changes:**
+
+- Improve work with `Servactory::TestKit::Result` [\#104](https://github.com/servactory/servactory/pull/104) ([afuno](https://github.com/afuno))
+
 ## [v1.8.8](https://github.com/servactory/servactory/tree/v1.8.8) (2023-07-19)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.8.7...v1.8.8)
