@@ -12,8 +12,8 @@ module Servactory
       end
 
       def initialize(attributes = {})
-        attributes.each_pair do |method_name, method_return|
-          service_storage[:outputs].merge!({ method_name => method_return })
+        attributes.each_pair do |name, value|
+          service_storage[:outputs].merge!({ name => value })
         end
       end
 
