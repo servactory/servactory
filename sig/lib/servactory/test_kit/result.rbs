@@ -1,0 +1,17 @@
+module Servactory
+  module TestKit
+    class Result
+      @service_storage: { outputs: {} }
+
+      def self.as_success: (?::Hash[Symbol, untyped] attributes) -> singleton(Servactory::Result)
+
+      def self.as_failure: (?exception: Errors::Failure?) -> singleton(Servactory::Result)
+
+      def initialize: (?::Hash[Symbol, untyped] attributes) -> void
+
+      private
+
+      def service_storage: -> { outputs: {} }
+    end
+  end
+end
