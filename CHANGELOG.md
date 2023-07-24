@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.9.1](https://github.com/servactory/servactory/tree/v1.9.1) (2023-07-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.0...v1.9.1)
+
+**Fixed:**
+
+- Fix definition of inputs when passing from params [\#105](https://github.com/servactory/servactory/pull/105) ([afuno](https://github.com/afuno))
+
 ## [v1.9.0](https://github.com/servactory/servactory/tree/v1.9.0) (2023-07-20)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.8.8...v1.9.0)
