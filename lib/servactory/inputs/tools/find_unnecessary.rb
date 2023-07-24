@@ -10,7 +10,7 @@ module Servactory
 
         def initialize(context, incoming_arguments, collection_of_inputs)
           @context = context
-          @incoming_arguments = incoming_arguments
+          @incoming_arguments = incoming_arguments.symbolize_keys
           @collection_of_inputs = collection_of_inputs
         end
 
