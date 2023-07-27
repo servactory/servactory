@@ -25,6 +25,7 @@ ru:
         type:
           default_error: "[%{service_class_name}] Неверный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
     outputs:
+      undefined: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
       checks:
         type:
           default_error: "[%{service_class_name}] Неверный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
