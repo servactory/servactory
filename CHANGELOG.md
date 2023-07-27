@@ -1,5 +1,17 @@
 # Changelog
 
+## [v1.9.3](https://github.com/servactory/servactory/tree/v1.9.3) (2023-07-27)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.2...v1.9.3)
+
+**Implemented enhancements:**
+
+- Improve errors about undefined attributes [\#107](https://github.com/servactory/servactory/pull/107) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 27.07.2023 [\#108](https://github.com/servactory/servactory/pull/108) ([afuno](https://github.com/afuno))
+
 ## [v1.9.2](https://github.com/servactory/servactory/tree/v1.9.2) (2023-07-24)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.9.1...v1.9.2)
