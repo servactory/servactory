@@ -17,8 +17,8 @@ RSpec.describe Wrong::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              /undefined method `prepared_number='/
+              ApplicationService::Errors::InputError,
+              "[Wrong::Example3] Undefined internal attribute `prepared_number`"
             )
           )
         end
@@ -49,8 +49,8 @@ RSpec.describe Wrong::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              /undefined method `prepared_number='/
+              ApplicationService::Errors::InputError,
+              "[Wrong::Example3] Undefined internal attribute `prepared_number`"
             )
           )
         end

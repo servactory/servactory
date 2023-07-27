@@ -13,7 +13,7 @@ module Servactory
 
         private
 
-        def setter_with: (name: Symbol, value: untyped?) { () -> untyped } -> void
+        def setter_with: (prepared_name: Symbol, value: untyped?) { () -> untyped } -> void
 
         def getter_with: (name: Symbol) { () -> untyped } -> void
       end

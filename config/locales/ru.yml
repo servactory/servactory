@@ -1,6 +1,9 @@
 ru:
   servactory:
     inputs:
+      undefined:
+        getter: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
+        setter: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
       checks:
         inclusion:
           default_error: "[%{service_class_name}] Неверное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
@@ -21,10 +24,16 @@ ru:
         rules:
           error: "[%{service_class_name}] Конфликт в опциях инпута `%{input_name}`: `%{conflict_code}`"
     internals:
+      undefined:
+        getter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
+        setter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
       checks:
         type:
           default_error: "[%{service_class_name}] Неверный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
     outputs:
+      undefined:
+        getter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
+        setter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
       checks:
         type:
           default_error: "[%{service_class_name}] Неверный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"

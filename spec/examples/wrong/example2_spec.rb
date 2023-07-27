@@ -17,8 +17,8 @@ RSpec.describe Wrong::Example2 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              /undefined method `number'/
+              ApplicationService::Errors::InputError,
+              "[Wrong::Example2] Undefined input attribute `number`"
             )
           )
         end
@@ -49,8 +49,8 @@ RSpec.describe Wrong::Example2 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              /undefined method `number'/
+              ApplicationService::Errors::InputError,
+              "[Wrong::Example2] Undefined input attribute `number`"
             )
           )
         end
