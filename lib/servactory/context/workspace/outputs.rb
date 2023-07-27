@@ -13,9 +13,9 @@ module Servactory
           prepared_name = name.to_s.delete("=").to_sym
 
           if name.to_s.end_with?("=")
-            setter_with(prepared_name: prepared_name, value: args.pop) { raise_error_with(prepared_name) }
+            setter_with(prepared_name: prepared_name, value: args.pop) { raise_error_for(:getter, prepared_name) }
           else
-            getter_with(name: name) { raise_error_with(prepared_name) }
+            getter_with(name: name) { raise_error_for(:getter, prepared_name) }
           end
         end
 
@@ -56,11 +56,11 @@ module Servactory
           end
         end
 
-        def raise_error_with(output_name)
+        def raise_error_for(type, name)
           message_text = I18n.t(
-            "servactory.outputs.undefined",
+            "servactory.outputs.undefined.#{type}",
             service_class_name: @context.class.name,
-            output_name: output_name
+            output_name: name
           )
 
           raise @context.class.config.output_error_class.new(

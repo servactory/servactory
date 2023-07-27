@@ -25,7 +25,9 @@ en:
         type:
           default_error: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
     outputs:
-      undefined: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
+      undefined:
+        getter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
+        setter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
       checks:
         type:
           default_error: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
