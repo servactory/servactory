@@ -24,8 +24,8 @@ RSpec.describe Wrong::Example11 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              /undefined method `ids' for/
+              ApplicationService::Errors::InputError,
+              "[Wrong::Example11] Undefined input attribute `ids`"
             )
           )
         end
@@ -64,8 +64,8 @@ RSpec.describe Wrong::Example11 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              /undefined method `ids' for/
+              ApplicationService::Errors::InputError,
+              "[Wrong::Example11] Undefined input attribute `ids`"
             )
           )
         end
