@@ -11,8 +11,10 @@ module Servactory
         end
 
         def method_missing(name, *args, &block)
+          prepared_name = name.to_s.delete("=").to_sym
+
           if name.to_s.end_with?("=")
-            raise_error_for(:setter, name)
+            raise_error_for(:setter, prepared_name)
           else
             getter_with(name: name) { raise_error_for(:getter, name) }
           end
@@ -50,10 +52,7 @@ module Servactory
             input_name: name
           )
 
-          raise @context.class.config.input_error_class.new(
-            message: message_text,
-            input_name: name
-          )
+          raise @context.class.config.input_error_class.new(message: message_text, input_name: name)
         end
       end
     end

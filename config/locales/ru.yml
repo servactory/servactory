@@ -24,6 +24,9 @@ ru:
         rules:
           error: "[%{service_class_name}] Конфликт в опциях инпута `%{input_name}`: `%{conflict_code}`"
     internals:
+      undefined:
+        getter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
+        setter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
       checks:
         type:
           default_error: "[%{service_class_name}] Неверный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"

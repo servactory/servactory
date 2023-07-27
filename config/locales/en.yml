@@ -24,6 +24,9 @@ en:
         rules:
           error: "[%{service_class_name}] Conflict in `%{input_name}` input options: `%{conflict_code}`"
     internals:
+      undefined:
+        getter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
+        setter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
       checks:
         type:
           default_error: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
