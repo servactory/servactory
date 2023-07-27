@@ -39,6 +39,9 @@ Naming/VariableNumber:
     - normalcase
     - non_integer
 
+Style/ArgumentsForwarding:
+  UseAnonymousForwarding: false
+
 Style/Documentation:
   Enabled: false
 
