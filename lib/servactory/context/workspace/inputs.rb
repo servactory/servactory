@@ -11,9 +11,9 @@ module Servactory
         end
 
         def method_missing(name, *args, &block)
-          prepared_name = name.to_s.delete("=").to_sym
-
           if name.to_s.end_with?("=")
+            prepared_name = name.to_s.delete("=").to_sym
+
             raise_error_for(:setter, prepared_name)
           else
             getter_with(name: name) { raise_error_for(:getter, name) }
