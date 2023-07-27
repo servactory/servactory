@@ -1,6 +1,9 @@
 en:
   servactory:
     inputs:
+      undefined:
+        getter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
+        setter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
       checks:
         inclusion:
           default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"

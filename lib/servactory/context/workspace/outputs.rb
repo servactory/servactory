@@ -13,7 +13,7 @@ module Servactory
           prepared_name = name.to_s.delete("=").to_sym
 
           if name.to_s.end_with?("=")
-            setter_with(prepared_name: prepared_name, value: args.pop) { raise_error_for(:getter, prepared_name) }
+            setter_with(prepared_name: prepared_name, value: args.pop) { raise_error_for(:setter, prepared_name) }
           else
             getter_with(name: name) { raise_error_for(:getter, prepared_name) }
           end

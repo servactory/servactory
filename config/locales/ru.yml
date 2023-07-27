@@ -1,6 +1,9 @@
 ru:
   servactory:
     inputs:
+      undefined:
+        getter: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
+        setter: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
       checks:
         inclusion:
           default_error: "[%{service_class_name}] Неверное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
