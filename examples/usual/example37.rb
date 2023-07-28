@@ -11,7 +11,7 @@ module Usual
     output :number, type: Integer
 
     stage do
-      wrap_in ->(methods:) { Example37Transaction.transaction { methods.call } }
+      wrap_in ->(methods:, **) { Example37Transaction.transaction { methods.call } }
 
       make :assign_number_5
       make :assign_number_6
