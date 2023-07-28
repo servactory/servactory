@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.9.4](https://github.com/servactory/servactory/tree/v1.9.4) (2023-07-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.3...v1.9.4)
+
+**Implemented enhancements:**
+
+- Add `context` attribute to `wrap_in` [\#109](https://github.com/servactory/servactory/pull/109) ([afuno](https://github.com/afuno))
+
 ## [v1.9.3](https://github.com/servactory/servactory/tree/v1.9.3) (2023-07-27)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.9.2...v1.9.3)
