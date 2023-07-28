@@ -25,7 +25,7 @@ module Servactory
       define_singleton_method(:success?) { true }
       define_singleton_method(:failure?) { false }
 
-      @context.send(:service_storage).fetch(:outputs).each_pair do |key, value|
+      @context.send(:servactory_service_storage).fetch(:outputs).each_pair do |key, value|
         define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) }
         define_singleton_method(key) { value }
       end

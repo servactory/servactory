@@ -4,7 +4,7 @@ module Servactory
       @inputs: Inputs
       @internals: Internals
       @outputs: Outputs
-      @service_storage: { internals: {}, outputs: {} }
+      @servactory_service_storage: { internals: {}, outputs: {} }
 
       attr_reader incoming_arguments: untyped
       attr_reader collection_of_inputs: Servactory::Inputs::Collection
@@ -47,7 +47,7 @@ module Servactory
 
       def call: -> Exception
 
-      def service_storage: -> { internals: {}, outputs: {} }
+      def servactory_service_storage: -> { internals: {}, outputs: {} }
 
       def assign_internal: (Symbol key, untyped value) -> untyped
 
