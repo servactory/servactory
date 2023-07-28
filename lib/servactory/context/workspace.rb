@@ -84,24 +84,24 @@ module Servactory
         )
       end
 
-      def service_storage
-        @service_storage ||= { internals: {}, outputs: {} }
+      def servactory_service_storage
+        @servactory_service_storage ||= { internals: {}, outputs: {} }
       end
 
-      def assign_internal(key, value)
-        service_storage[:internals].merge!({ key => value })
+      def assign_servactory_service_storage_internal(key, value)
+        servactory_service_storage[:internals].merge!({ key => value })
       end
 
-      def fetch_internal(key)
-        service_storage.fetch(:internals).fetch(key, nil)
+      def fetch_servactory_service_storage_internal(key)
+        servactory_service_storage.fetch(:internals).fetch(key, nil)
       end
 
-      def assign_output(key, value)
-        service_storage[:outputs].merge!({ key => value })
+      def assign_servactory_service_storage_output(key, value)
+        servactory_service_storage[:outputs].merge!({ key => value })
       end
 
-      def fetch_output(key)
-        service_storage.fetch(:outputs).fetch(key, nil)
+      def fetch_servactory_service_storage_output(key)
+        servactory_service_storage.fetch(:outputs).fetch(key, nil)
       end
     end
   end

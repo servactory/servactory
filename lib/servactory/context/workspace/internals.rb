@@ -38,7 +38,7 @@ module Servactory
             value: value
           )
 
-          @context.send(:assign_internal, internal.name, value)
+          @context.send(:assign_servactory_service_storage_internal, internal.name, value)
         end
 
         def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
@@ -47,7 +47,7 @@ module Servactory
 
           return yield if internal.nil?
 
-          internal_value = @context.send(:fetch_internal, internal.name)
+          internal_value = @context.send(:fetch_servactory_service_storage_internal, internal.name)
 
           if name.to_s.end_with?("?")
             Servactory::Utils.query_attribute(internal_value)
