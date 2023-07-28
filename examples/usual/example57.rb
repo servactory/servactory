@@ -45,8 +45,8 @@ module Usual
       outputs.number = 8
     end
 
-    def transaction!
-      Example57Transaction.transaction { yield }
+    def transaction!(&block)
+      Example57Transaction.transaction(&block)
     end
 
     def method_for_rollback(e) # rubocop:disable Naming/MethodParameterName

@@ -30,8 +30,8 @@ module Usual
       outputs.number = 7
     end
 
-    def transaction!
-      Example56Transaction.transaction { yield }
+    def transaction!(&block)
+      Example56Transaction.transaction(&block)
     end
   end
 end
