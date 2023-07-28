@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module Usual
-  class Example42Transaction
+  class Example57Transaction
     def self.transaction(&block) # rubocop:disable Lint/UnusedMethodArgument
       yield
     end
   end
 
-  class Example42 < ApplicationService::Base
+  class Example57 < ApplicationService::Base
     output :number, type: Integer
 
     make :assign_number_4
@@ -17,13 +17,11 @@ module Usual
       make :assign_number_6
       make :assign_number_7
 
-      wrap_in ->(methods:, **) { Example42Transaction.transaction { methods.call } }
+      wrap_in ->(methods:, context:) { context.transaction! { methods.call } }
       rollback :method_for_rollback
     end
 
     make :assign_number_8
-
-    private
 
     def assign_number_4
       outputs.number = 4
@@ -45,6 +43,10 @@ module Usual
 
     def assign_number_8
       outputs.number = 8
+    end
+
+    def transaction!(&block)
+      Example57Transaction.transaction(&block)
     end
 
     def method_for_rollback(e) # rubocop:disable Naming/MethodParameterName
