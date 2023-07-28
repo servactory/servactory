@@ -16,7 +16,6 @@ module Servactory
         name,
         *helpers,
         as: nil,
-        type:,
         config:,
         **options
       )
@@ -26,7 +25,7 @@ module Servactory
 
         options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
 
-        add_basic_options_with(type: type, options: options)
+        add_basic_options_with(options)
       end
       # rubocop:enable Style/KeywordParametersOrder
 
@@ -56,12 +55,12 @@ module Servactory
         options.merge(prepared_options)
       end
 
-      def add_basic_options_with(type:, options:)
+      def add_basic_options_with(options)
         # Check Class: Servactory::Inputs::Validations::Required
         add_required_option_with(options)
 
         # Check Class: Servactory::Inputs::Validations::Type
-        add_types_option_with(type)
+        add_types_option_with(options)
         add_default_option_with(options)
         add_array_option_with(options)
 
@@ -101,12 +100,12 @@ module Servactory
         )
       end
 
-      def add_types_option_with(type)
+      def add_types_option_with(options)
         collection_of_options << Option.new(
           name: :types,
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
-          original_value: Array(type),
+          original_value: Array(options.fetch(:type)),
           need_for_checks: true,
           value_fallback: nil,
           with_advanced_mode: false
