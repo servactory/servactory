@@ -38,7 +38,7 @@ module Servactory
             value: value
           )
 
-          @context.send(:assign_output, output.name, value)
+          @context.send(:assign_servactory_service_storage_output, output.name, value)
         end
 
         def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
@@ -47,7 +47,7 @@ module Servactory
 
           return yield if output.nil?
 
-          output_value = @context.send(:fetch_output, output.name)
+          output_value = @context.send(:fetch_servactory_service_storage_output, output.name)
 
           if name.to_s.end_with?("?")
             Servactory::Utils.query_attribute(output_value)
