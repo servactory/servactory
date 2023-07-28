@@ -17,8 +17,8 @@ RSpec.describe Wrong::Example4 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              /undefined method `number='/
+              ApplicationService::Errors::OutputError,
+              "[Wrong::Example4] Undefined output attribute `number`"
             )
           )
         end
@@ -49,8 +49,8 @@ RSpec.describe Wrong::Example4 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              /undefined method `number='/
+              ApplicationService::Errors::OutputError,
+              "[Wrong::Example4] Undefined output attribute `number`"
             )
           )
         end

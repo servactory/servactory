@@ -35,7 +35,7 @@ module Servactory
             conflict_code: input.conflict_code
           )
 
-          raise Servactory.configuration.input_error_class.new(
+          raise @context.class.config.input_error_class.new(
             message: message_text,
             input_name: input.name
           )

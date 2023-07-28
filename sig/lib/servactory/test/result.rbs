@@ -1,7 +1,0 @@
-module Servactory
-  module TestKit
-    class Result
-      def initialize: (**untyped attributes) -> void
-    end
-  end
-end

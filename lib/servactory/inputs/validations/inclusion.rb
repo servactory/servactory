@@ -17,13 +17,19 @@ module Servactory
         private_constant :DEFAULT_MESSAGE
 
         def self.check(context:, input:, value:, check_key:, **)
-          return unless should_be_checked_for?(input, check_key)
+          return unless should_be_checked_for?(input, value, check_key)
 
           new(context: context, input: input, value: value).check
         end
 
-        def self.should_be_checked_for?(input, check_key)
-          check_key == :inclusion && input.inclusion_present?
+        def self.should_be_checked_for?(input, value, check_key)
+          check_key == :inclusion && (
+            input.required? || (
+              input.optional? && !input.default.nil?
+            ) || (
+              input.optional? && !value.nil?
+            )
+          )
         end
 
         ##########################################################################

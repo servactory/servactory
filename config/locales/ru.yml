@@ -1,0 +1,42 @@
+ru:
+  servactory:
+    inputs:
+      undefined:
+        getter: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
+        setter: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
+      checks:
+        inclusion:
+          default_error: "[%{service_class_name}] Неверное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
+        must:
+          default_error: "[%{service_class_name}] Инпут `%{input_name}` должен \"%{code}\""
+          syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` инпута `%{input_name}`"
+        required:
+          default_error:
+            default: "[%{service_class_name}] Обязательный инпут `%{input_name}` отсутствует"
+            for_array: "[%{service_class_name}] Обязательный элемент в инпуте-массиве `%{input_name}` отсутствует"
+        type:
+          default_error:
+            default: "[%{service_class_name}] Неверный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+            for_array: "[%{service_class_name}] Неверный тип инпута-массива `%{input_name}`, ожидалось `%{expected_type}`"
+      tools:
+        find_unnecessary:
+          error: "[%{service_class_name}] Неожиданные атрибуты: `%{unnecessary_attributes}`"
+        rules:
+          error: "[%{service_class_name}] Конфликт в опциях инпута `%{input_name}`: `%{conflict_code}`"
+    internals:
+      undefined:
+        getter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
+        setter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
+      checks:
+        type:
+          default_error: "[%{service_class_name}] Неверный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+    outputs:
+      undefined:
+        getter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
+        setter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
+      checks:
+        type:
+          default_error: "[%{service_class_name}] Неверный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+    methods:
+      call:
+        not_used: Нечего исполнять. Используйте `make` или создайте метод `call`.

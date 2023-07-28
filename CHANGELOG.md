@@ -1,5 +1,71 @@
 # Changelog
 
+## [v1.9.4](https://github.com/servactory/servactory/tree/v1.9.4) (2023-07-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.3...v1.9.4)
+
+**Implemented enhancements:**
+
+- Add `context` attribute to `wrap_in` [\#109](https://github.com/servactory/servactory/pull/109) ([afuno](https://github.com/afuno))
+
+## [v1.9.3](https://github.com/servactory/servactory/tree/v1.9.3) (2023-07-27)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.2...v1.9.3)
+
+**Implemented enhancements:**
+
+- Improve errors about undefined attributes [\#107](https://github.com/servactory/servactory/pull/107) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 27.07.2023 [\#108](https://github.com/servactory/servactory/pull/108) ([afuno](https://github.com/afuno))
+
+## [v1.9.2](https://github.com/servactory/servactory/tree/v1.9.2) (2023-07-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.1...v1.9.2)
+
+**Fixed:**
+
+- Fix definition of inputs when passing from params [\#106](https://github.com/servactory/servactory/pull/106) ([afuno](https://github.com/afuno))
+
+## [v1.9.1](https://github.com/servactory/servactory/tree/v1.9.1) (2023-07-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.0...v1.9.1)
+
+**Fixed:**
+
+- Fix definition of inputs when passing from params [\#105](https://github.com/servactory/servactory/pull/105) ([afuno](https://github.com/afuno))
+
+## [v1.9.0](https://github.com/servactory/servactory/tree/v1.9.0) (2023-07-20)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.8.8...v1.9.0)
+
+**Breaking changes:**
+
+- Improve work with `Servactory::TestKit::Result` [\#104](https://github.com/servactory/servactory/pull/104) ([afuno](https://github.com/afuno))
+
+## [v1.8.8](https://github.com/servactory/servactory/tree/v1.8.8) (2023-07-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.8.7...v1.8.8)
+
+**Implemented enhancements:**
+
+- Change work with configuration [\#102](https://github.com/servactory/servactory/pull/102) ([afuno](https://github.com/afuno))
+- Add new locale [\#101](https://github.com/servactory/servactory/pull/101) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 20.07.2023 [\#103](https://github.com/servactory/servactory/pull/103) ([afuno](https://github.com/afuno))
+
+## [v1.8.7](https://github.com/servactory/servactory/tree/v1.8.7) (2023-07-13)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.8.6...v1.8.7)
+
+**Implemented enhancements:**
+
+- Add optionality for `inclusion` in `input` [\#100](https://github.com/servactory/servactory/pull/100) ([afuno](https://github.com/afuno))
+- Add custom message for `call` method [\#98](https://github.com/servactory/servactory/pull/98) ([afuno](https://github.com/afuno))
+
 ## [v1.8.6](https://github.com/servactory/servactory/tree/v1.8.6) (2023-07-04)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.8.5...v1.8.6)

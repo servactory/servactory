@@ -8,7 +8,7 @@ module Servactory
 
         context.send(
           :_call!,
-          incoming_arguments: arguments,
+          incoming_arguments: arguments.symbolize_keys,
           collection_of_inputs: collection_of_inputs,
           collection_of_internals: collection_of_internals,
           collection_of_outputs: collection_of_outputs,
@@ -20,7 +20,7 @@ module Servactory
 
       def call(arguments = {})
         call!(arguments)
-      rescue Servactory.configuration.failure_class => e
+      rescue config.failure_class => e
         Servactory::Result.failure_for(exception: e)
       end
     end

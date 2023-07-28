@@ -8,10 +8,29 @@ module Servactory
       end
 
       module ClassMethods
+        def inherited(child) # rubocop:disable Metrics/AbcSize
+          super
+
+          child.config.input_error_class = config.input_error_class
+          child.config.internal_error_class = config.internal_error_class
+          child.config.output_error_class = config.output_error_class
+
+          child.config.failure_class = config.failure_class
+
+          child.config.input_option_helpers = config.input_option_helpers
+
+          child.config.aliases_for_make = config.aliases_for_make
+          child.config.shortcuts_for_make = config.shortcuts_for_make
+        end
+
+        def config
+          @config ||= Servactory::Configuration::Setup.new
+        end
+
         private
 
         def configuration(&block)
-          @configuration_factory ||= Factory.new
+          @configuration_factory ||= Factory.new(config)
 
           @configuration_factory.instance_eval(&block)
         end

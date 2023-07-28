@@ -2,28 +2,25 @@
 
 module Usual
   class Example55 < ApplicationService::Base
-    configuration do
-      input_option_helpers(
-        Servactory::Inputs::OptionHelpers::Types.all
-      )
-    end
+    Event = Struct.new(:id, :event_name, keyword_init: true)
 
-    input :first_name, :string
-    input :middle_name, :string?
-    input :last_name, :string
+    input :event_name,
+          type: String,
+          inclusion: %w[created rejected approved],
+          required: false,
+          default: nil
 
-    output :full_name, type: String
+    output :event, type: Event
 
-    make :assign_full_name
+    make :create_event
 
     private
 
-    def assign_full_name
-      outputs.full_name = [
-        inputs.first_name,
-        inputs.middle_name,
-        inputs.last_name
-      ].compact.join(" ")
+    def create_event
+      outputs.event = Event.new(
+        id: "14fe213e-1b0a-4a68-bca9-ce082db0f2c6",
+        event_name: inputs.event_name
+      )
     end
   end
 end

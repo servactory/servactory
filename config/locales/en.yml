@@ -1,6 +1,9 @@
 en:
   servactory:
     inputs:
+      undefined:
+        getter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
+        setter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
       checks:
         inclusion:
           default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
@@ -21,16 +24,19 @@ en:
         rules:
           error: "[%{service_class_name}] Conflict in `%{input_name}` input options: `%{conflict_code}`"
     internals:
+      undefined:
+        getter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
+        setter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
       checks:
         type:
           default_error: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
     outputs:
+      undefined:
+        getter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
+        setter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
       checks:
         type:
           default_error: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
-      tools:
-        conflicts:
-          error: "[%{service_class_name}] Conflict between internal and output attributes `%{overlapping_attributes}`"
     methods:
       call:
-        not_used: Nothing to perform. Use `make` or create a `call` method
+        not_used: Nothing to perform. Use `make` or create a `call` method.

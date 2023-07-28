@@ -12,9 +12,11 @@ module Servactory
 
         def method_missing(name, *args, &block)
           if name.to_s.end_with?("=")
-            super
+            prepared_name = name.to_s.delete("=").to_sym
+
+            raise_error_for(:setter, prepared_name)
           else
-            getter_with(name: name) { super }
+            getter_with(name: name) { raise_error_for(:getter, name) }
           end
         end
 
@@ -41,6 +43,16 @@ module Servactory
           else
             input_value
           end
+        end
+
+        def raise_error_for(type, name)
+          message_text = I18n.t(
+            "servactory.inputs.undefined.#{type}",
+            service_class_name: @context.class.name,
+            input_name: name
+          )
+
+          raise @context.class.config.input_error_class.new(message: message_text, input_name: name)
         end
       end
     end

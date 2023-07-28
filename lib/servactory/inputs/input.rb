@@ -8,21 +8,27 @@ module Servactory
       private_constant :ARRAY_DEFAULT_VALUE
 
       attr_reader :name,
-                  :internal_name
+                  :internal_name,
+                  :config
 
+      # rubocop:disable Style/KeywordParametersOrder
       def initialize(
         name,
         *helpers,
         as: nil,
+        type:,
+        config:,
         **options
       )
         @name = name
         @internal_name = as.present? ? as : name
+        @config = config
 
         options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
 
-        add_basic_options_with(options)
+        add_basic_options_with(type: type, options: options)
       end
+      # rubocop:enable Style/KeywordParametersOrder
 
       def method_missing(name, *args, &block)
         option = collection_of_options.find_by(name: name)
@@ -40,7 +46,7 @@ module Servactory
         prepared_options = {}
 
         helpers.each do |helper|
-          found_helper = Servactory.configuration.input_option_helpers.find_by(name: helper)
+          found_helper = config.input_option_helpers.find_by(name: helper)
 
           next if found_helper.blank?
 
@@ -50,12 +56,12 @@ module Servactory
         options.merge(prepared_options)
       end
 
-      def add_basic_options_with(options)
+      def add_basic_options_with(type:, options:)
         # Check Class: Servactory::Inputs::Validations::Required
         add_required_option_with(options)
 
         # Check Class: Servactory::Inputs::Validations::Type
-        add_types_option_with(options)
+        add_types_option_with(type)
         add_default_option_with(options)
         add_array_option_with(options)
 
@@ -95,12 +101,12 @@ module Servactory
         )
       end
 
-      def add_types_option_with(options)
+      def add_types_option_with(type)
         collection_of_options << Option.new(
           name: :types,
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
-          original_value: Array(options.fetch(:type)),
+          original_value: Array(type),
           need_for_checks: true,
           value_fallback: nil,
           with_advanced_mode: false

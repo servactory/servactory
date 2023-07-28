@@ -43,7 +43,12 @@ module Servactory
           end
         end
 
-        def process_validation_classes(validation_class, input:, check_key:, check_options:)
+        def process_validation_classes(
+          validation_class,
+          input:,
+          check_key:,
+          check_options:
+        )
           validation_class.check(
             context: @context,
             input: input,
@@ -68,7 +73,7 @@ module Servactory
         def raise_errors
           return if (tmp_errors = errors.not_blank).empty?
 
-          raise Servactory.configuration.input_error_class.new(message: tmp_errors.first)
+          raise @context.class.config.input_error_class.new(message: tmp_errors.first)
         end
       end
     end

@@ -29,14 +29,14 @@ module Servactory
       alias out outputs
 
       def fail_input!(input_name, message:)
-        raise Servactory.configuration.input_error_class.new(
+        raise self.class.config.input_error_class.new(
           input_name: input_name,
           message: message
         )
       end
 
       def fail!(message:, meta: nil)
-        raise Servactory.configuration.failure_class.new(message: message, meta: meta)
+        raise self.class.config.failure_class.new(message: message, meta: meta)
       end
 
       private
@@ -76,7 +76,7 @@ module Servactory
       end
 
       def call
-        raise Servactory.configuration.failure_class.new(
+        raise self.class.config.failure_class.new(
           message: I18n.t(
             "servactory.methods.call.not_used",
             service_class_name: self.class.name
