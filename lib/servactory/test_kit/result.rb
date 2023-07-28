@@ -13,7 +13,7 @@ module Servactory
 
       def initialize(attributes = {})
         attributes.each_pair do |name, value|
-          service_storage[:outputs].merge!({ name => value })
+          servactory_service_storage[:outputs].merge!({ name => value })
         end
       end
 
@@ -21,8 +21,8 @@ module Servactory
 
       private
 
-      def service_storage
-        @service_storage ||= { outputs: {} }
+      def servactory_service_storage
+        @servactory_service_storage ||= { outputs: {} }
       end
     end
   end

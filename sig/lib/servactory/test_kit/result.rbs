@@ -1,7 +1,7 @@
 module Servactory
   module TestKit
     class Result
-      @service_storage: { outputs: {} }
+      @servactory_service_storage: { outputs: {} }
 
       def self.as_success: (?::Hash[Symbol, untyped] attributes) -> singleton(Servactory::Result)
 
@@ -11,7 +11,7 @@ module Servactory
 
       private
 
-      def service_storage: -> { outputs: {} }
+      def servactory_service_storage: -> { outputs: {} }
     end
   end
 end
