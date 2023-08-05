@@ -9,6 +9,12 @@ module Servactory
           @collection_of_outputs = collection_of_outputs
         end
 
+        def only(*names)
+          @collection_of_outputs
+            .only(*names)
+            .to_h { |output| [output.name, send(output.name)] }
+        end
+
         def method_missing(name, *args, &block)
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym

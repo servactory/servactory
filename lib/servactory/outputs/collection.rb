@@ -5,10 +5,14 @@ module Servactory
     class Collection
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
-      def_delegators :@collection, :<<, :each, :map, :merge, :find
+      def_delegators :@collection, :<<, :filter, :each, :map, :to_h, :merge, :find
 
-      def initialize(*)
-        @collection = Set.new
+      def initialize(collection = Set.new)
+        @collection = collection
+      end
+
+      def only(*internal_names)
+        Collection.new(filter { |internal| internal_names.include?(internal.name) })
       end
 
       def names

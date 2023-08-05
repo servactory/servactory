@@ -6,7 +6,9 @@ module Servactory
 
       @collection: Set[Output]
 
-      def initialize: (*untyped) -> void
+      def initialize: (Set[Output] collection) -> void
+
+      def only: (Array[Symbol] names) -> Collection
 
       def names: () -> Array[Symbol]
 
