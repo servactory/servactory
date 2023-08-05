@@ -4,9 +4,9 @@ module Servactory
       # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
 
-      @collection: (Set[Input] | Collection)
+      @collection: Set[Input]
 
-      def initialize: ((Set[Input] | Collection) collection) -> void
+      def initialize: (Set[Input] collection) -> void
 
       def only: (Array[Symbol] input_names) -> Collection
 
