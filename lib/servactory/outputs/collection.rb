@@ -10,12 +10,12 @@ module Servactory
         @collection = collection
       end
 
-      def only(*internal_names)
-        Collection.new(filter { |internal| internal_names.include?(internal.name) })
+      def only(*names)
+        Collection.new(filter { |internal| names.include?(internal.name) })
       end
 
-      def except(*internal_names)
-        Collection.new(filter { |internal| !internal_names.include?(internal.name) })
+      def except(*names)
+        Collection.new(filter { |internal| !names.include?(internal.name) })
       end
 
       def names

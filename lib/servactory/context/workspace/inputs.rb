@@ -10,15 +10,15 @@ module Servactory
           @collection_of_inputs = collection_of_inputs
         end
 
-        def only(*input_names)
+        def only(*names)
           @collection_of_inputs
-            .only(*input_names)
+            .only(*names)
             .to_h { |input| [input.internal_name, send(input.internal_name)] }
         end
 
-        def except(*input_names)
+        def except(*names)
           @collection_of_inputs
-            .except(*input_names)
+            .except(*names)
             .to_h { |input| [input.internal_name, send(input.internal_name)] }
         end
 

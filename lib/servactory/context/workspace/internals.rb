@@ -9,15 +9,15 @@ module Servactory
           @collection_of_internals = collection_of_internals
         end
 
-        def only(*internal_names)
+        def only(*names)
           @collection_of_internals
-            .only(*internal_names)
+            .only(*names)
             .to_h { |internal| [internal.name, send(internal.name)] }
         end
 
-        def except(*internal_names)
+        def except(*names)
           @collection_of_internals
-            .except(*internal_names)
+            .except(*names)
             .to_h { |internal| [internal.name, send(internal.name)] }
         end
 
