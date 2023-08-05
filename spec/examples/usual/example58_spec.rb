@@ -8,16 +8,18 @@ RSpec.describe Usual::Example58 do
       {
         first_name: first_name,
         middle_name: middle_name,
-        last_name: last_name
+        last_name: last_name,
+        gender: gender
       }
     end
 
     let(:first_name) { "John" }
     let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
+    let(:gender) { "Male" }
 
     include_examples "check class info",
-                     inputs: %i[first_name last_name middle_name],
+                     inputs: %i[first_name last_name middle_name gender],
                      internals: %i[],
                      outputs: %i[full_name]
 
@@ -47,6 +49,11 @@ RSpec.describe Usual::Example58 do
       context "when `last_name`" do
         it_behaves_like "input required check", name: :last_name
         it_behaves_like "input type check", name: :last_name, expected_type: String
+      end
+
+      context "when `gender`" do
+        it_behaves_like "input required check", name: :gender
+        it_behaves_like "input type check", name: :gender, expected_type: String
       end
     end
   end
@@ -58,16 +65,18 @@ RSpec.describe Usual::Example58 do
       {
         first_name: first_name,
         middle_name: middle_name,
-        last_name: last_name
+        last_name: last_name,
+        gender: gender
       }
     end
 
     let(:first_name) { "John" }
     let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
+    let(:gender) { "Male" }
 
     include_examples "check class info",
-                     inputs: %i[first_name last_name middle_name],
+                     inputs: %i[first_name last_name middle_name gender],
                      internals: %i[],
                      outputs: %i[full_name]
 
@@ -97,6 +106,11 @@ RSpec.describe Usual::Example58 do
       context "when `last_name`" do
         it_behaves_like "input required check", name: :last_name
         it_behaves_like "input type check", name: :last_name, expected_type: String
+      end
+
+      context "when `gender`" do
+        it_behaves_like "input required check", name: :gender
+        it_behaves_like "input type check", name: :gender, expected_type: String
       end
     end
   end

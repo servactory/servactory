@@ -5,6 +5,7 @@ module Usual
     input :first_name, type: String
     input :middle_name, type: String
     input :last_name, type: String
+    input :gender, type: String
 
     output :full_name, type: String
 
