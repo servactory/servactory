@@ -30,16 +30,6 @@ RSpec.describe Usual::Example58 do
 
           expect(result.full_name).to eq("John Fitzgerald Kennedy")
         end
-
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
-
-          it "returns the expected value in `full_name`" do
-            result = perform
-
-            expect(result.full_name).to eq("John Kennedy")
-          end
-        end
       end
     end
 
@@ -50,6 +40,7 @@ RSpec.describe Usual::Example58 do
       end
 
       context "when `middle_name`" do
+        it_behaves_like "input required check", name: :middle_name
         it_behaves_like "input type check", name: :middle_name, expected_type: String
       end
 
@@ -89,16 +80,6 @@ RSpec.describe Usual::Example58 do
 
           expect(result.full_name).to eq("John Fitzgerald Kennedy")
         end
-
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
-
-          it "returns the expected value in `full_name`" do
-            result = perform
-
-            expect(result.full_name).to eq("John Kennedy")
-          end
-        end
       end
     end
 
@@ -109,6 +90,7 @@ RSpec.describe Usual::Example58 do
       end
 
       context "when `middle_name`" do
+        it_behaves_like "input required check", name: :middle_name
         it_behaves_like "input type check", name: :middle_name, expected_type: String
       end
 

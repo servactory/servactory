@@ -3,7 +3,7 @@
 module Usual
   class Example58 < ApplicationService::Base
     input :first_name, type: String
-    input :middle_name, type: String, required: false
+    input :middle_name, type: String
     input :last_name, type: String
 
     output :full_name, type: String
