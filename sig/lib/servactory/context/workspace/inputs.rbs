@@ -8,7 +8,7 @@ module Servactory
 
         def initialize: (context: instance, incoming_arguments: untyped, collection_of_inputs: Servactory::Inputs::Collection) -> void
 
-        def only: (Array[Symbol] input_names) -> Hash[Symbol, untyped]
+        def only: (Symbol input_names) -> Hash[Symbol, untyped]
 
         def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
 
