@@ -20,19 +20,20 @@ RSpec.describe Usual::Example63 do
 
     include_examples "check class info",
                      inputs: %i[first_name middle_name last_name gender],
-                     internals: %i[full_name gender],
-                     outputs: %i[first_name middle_name last_name]
+                     internals: %i[],
+                     outputs: %i[first_name middle_name last_name full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values" do
+        it "returns the expected values", :aggregate_failures do
           result = perform
 
           expect(result.first_name).to eq("JOHN")
           expect(result.middle_name).to eq("FITZGERALD")
           expect(result.last_name).to eq("KENNEDY")
+          expect(result.full_name).to eq("JOHN FITZGERALD KENNEDY")
         end
       end
     end
@@ -79,19 +80,20 @@ RSpec.describe Usual::Example63 do
 
     include_examples "check class info",
                      inputs: %i[first_name middle_name last_name gender],
-                     internals: %i[full_name gender],
-                     outputs: %i[first_name middle_name last_name]
+                     internals: %i[],
+                     outputs: %i[first_name middle_name last_name full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values" do
+        it "returns the expected values", :aggregate_failures do
           result = perform
 
           expect(result.first_name).to eq("JOHN")
           expect(result.middle_name).to eq("FITZGERALD")
           expect(result.last_name).to eq("KENNEDY")
+          expect(result.full_name).to eq("JOHN FITZGERALD KENNEDY")
         end
       end
     end

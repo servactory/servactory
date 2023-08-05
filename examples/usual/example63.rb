@@ -7,12 +7,10 @@ module Usual
     input :last_name, type: String
     input :gender, type: String
 
-    internal :full_name, type: String
-    internal :gender, type: String
-
     output :first_name, type: String
     output :middle_name, type: String
     output :last_name, type: String
+    output :full_name, type: String
 
     make :assign_prepared_names
     make :assign_full_name
@@ -26,7 +24,7 @@ module Usual
     end
 
     def assign_full_name
-      internals.full_name = outputs.except(:gender).values.compact.join(" ")
+      outputs.full_name = outputs.except(:gender).values.compact.join(" ")
     end
   end
 end
