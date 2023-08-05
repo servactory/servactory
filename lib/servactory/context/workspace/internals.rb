@@ -9,7 +9,7 @@ module Servactory
           @collection_of_internals = collection_of_internals
         end
 
-        def method_missing(name, *args, &block)
+        def method_missing(name, *args)
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
 
