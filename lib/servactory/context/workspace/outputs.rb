@@ -21,7 +21,7 @@ module Servactory
             .to_h { |output| [output.name, send(output.name)] }
         end
 
-        def method_missing(name, *args, &block)
+        def method_missing(name, *args)
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
 
