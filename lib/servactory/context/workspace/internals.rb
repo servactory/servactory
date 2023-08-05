@@ -15,6 +15,12 @@ module Servactory
             .to_h { |internal| [internal.name, send(internal.name)] }
         end
 
+        def except(*internal_names)
+          @collection_of_internals
+            .except(*internal_names)
+            .to_h { |internal| [internal.name, send(internal.name)] }
+        end
+
         def method_missing(name, *args, &block)
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
