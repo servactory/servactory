@@ -19,7 +19,7 @@ RSpec.describe Usual::Example58 do
     let(:gender) { "Male" }
 
     include_examples "check class info",
-                     inputs: %i[first_name last_name middle_name gender],
+                     inputs: %i[first_name middle_name last_name gender],
                      internals: %i[],
                      outputs: %i[full_name]
 
@@ -76,7 +76,7 @@ RSpec.describe Usual::Example58 do
     let(:gender) { "Male" }
 
     include_examples "check class info",
-                     inputs: %i[first_name last_name middle_name gender],
+                     inputs: %i[first_name middle_name last_name gender],
                      internals: %i[],
                      outputs: %i[full_name]
 
