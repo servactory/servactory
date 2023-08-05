@@ -13,13 +13,13 @@ module Servactory
         def only(*input_names)
           @collection_of_inputs
             .only(*input_names)
-            .to_h { |input| [input.internal_name, send(:"#{input.internal_name}")] }
+            .to_h { |input| [input.internal_name, send(input.internal_name)] }
         end
 
         def except(*input_names)
           @collection_of_inputs
             .except(*input_names)
-            .to_h { |input| [input.internal_name, send(:"#{input.internal_name}")] }
+            .to_h { |input| [input.internal_name, send(input.internal_name)] }
         end
 
         def method_missing(name, *args, &block)
