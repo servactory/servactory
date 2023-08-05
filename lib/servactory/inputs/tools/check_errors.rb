@@ -4,7 +4,6 @@ module Servactory
   module Inputs
     module Tools
       class CheckErrors
-        # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
         extend Forwardable
         def_delegators :@collection, :merge, :reject, :first, :empty?
 

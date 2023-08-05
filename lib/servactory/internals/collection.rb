@@ -3,7 +3,6 @@
 module Servactory
   module Internals
     class Collection
-      # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
       def_delegators :@collection, :<<, :filter, :each, :map, :to_h, :merge, :find
 
