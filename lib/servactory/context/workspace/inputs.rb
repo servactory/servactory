@@ -10,6 +10,12 @@ module Servactory
           @collection_of_inputs = collection_of_inputs
         end
 
+        def only(*input_names)
+          @collection_of_inputs
+            .only(*input_names)
+            .to_h { |input| [input.internal_name, send(:"#{input.internal_name}")] }
+        end
+
         def method_missing(name, *args, &block)
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
