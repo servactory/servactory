@@ -17,7 +17,7 @@ RSpec.describe Usual::Example3 do
     let(:last_name) { "Kennedy" }
 
     include_examples "check class info",
-                     inputs: %i[first_name last_name middle_name],
+                     inputs: %i[first_name middle_name last_name],
                      internals: %i[prepared_full_name],
                      outputs: %i[full_name]
 
@@ -76,7 +76,7 @@ RSpec.describe Usual::Example3 do
     let(:last_name) { "Kennedy" }
 
     include_examples "check class info",
-                     inputs: %i[first_name last_name middle_name],
+                     inputs: %i[first_name middle_name last_name],
                      internals: %i[prepared_full_name],
                      outputs: %i[full_name]
 

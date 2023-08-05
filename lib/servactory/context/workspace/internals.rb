@@ -9,6 +9,18 @@ module Servactory
           @collection_of_internals = collection_of_internals
         end
 
+        def only(*names)
+          @collection_of_internals
+            .only(*names)
+            .to_h { |internal| [internal.name, send(internal.name)] }
+        end
+
+        def except(*names)
+          @collection_of_internals
+            .except(*names)
+            .to_h { |internal| [internal.name, send(internal.name)] }
+        end
+
         def method_missing(name, *args)
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
