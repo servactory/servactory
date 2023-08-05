@@ -15,6 +15,10 @@ module Servactory
         Collection.new(filter { |internal| internal_names.include?(internal.name) })
       end
 
+      def except(*internal_names)
+        Collection.new(filter { |internal| !internal_names.include?(internal.name) })
+      end
+
       def names
         map(&:name)
       end

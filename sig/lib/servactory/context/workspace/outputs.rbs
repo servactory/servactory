@@ -9,6 +9,8 @@ module Servactory
 
         def only: (Symbol names) -> Hash[Symbol, untyped]
 
+        def except: (Symbol names) -> Hash[Symbol, untyped]
+
         def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
 
         def respond_to_missing?: (Symbol name, *untyped) -> void

@@ -10,6 +10,8 @@ module Servactory
 
       def only: (Array[Symbol] names) -> Collection
 
+      def except: (Array[Symbol] names) -> Collection
+
       def names: () -> Array[Symbol]
 
       def find_by: (name: Symbol) -> Output?
