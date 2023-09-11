@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.5...HEAD)
+
+**Dependencies:**
+
+- Update libraries from 11.09.2023 [\#115](https://github.com/servactory/servactory/pull/115) ([afuno](https://github.com/afuno))
+
 ## [v1.9.5](https://github.com/servactory/servactory/tree/v1.9.5) (2023-08-19)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.9.4...v1.9.5)
