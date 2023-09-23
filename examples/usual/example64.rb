@@ -25,3 +25,11 @@ module Usual
     end
   end
 end
+
+Usual::Example64.instance_override do
+  def assign_number
+    super
+
+    outputs.number = outputs.number * 4
+  end
+end

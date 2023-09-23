@@ -24,7 +24,7 @@ RSpec.describe Usual::Example64 do
         it "returns the expected value in `first_id`" do
           result = perform
 
-          expect(result.number).to eq(12)
+          expect(result.number).to eq(24)
         end
       end
     end
@@ -60,7 +60,7 @@ RSpec.describe Usual::Example64 do
         it "returns the expected value in `first_id`" do
           result = perform
 
-          expect(result.number).to eq(12)
+          expect(result.number).to eq(24)
         end
       end
     end
