@@ -47,9 +47,7 @@ module Servactory
         private
 
         def should_be_checked?
-          @internal.required? || (
-            @internal.optional? && !@value.nil?
-          )
+          true
         end
 
         def prepared_types
