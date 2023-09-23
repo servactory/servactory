@@ -11,7 +11,7 @@ module Servactory
 
       module InstanceOverride
         def instance_override(&block)
-          self.class_eval(&block)
+          class_eval(&block)
         end
       end
     end
