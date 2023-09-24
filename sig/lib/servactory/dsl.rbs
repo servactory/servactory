@@ -1,5 +1,9 @@
 module Servactory
   module DSL
     def self.included: (untyped base) -> untyped
+
+    def self.with_extensions: -> DSL
+
+    def self.extensions: -> untyped
   end
 end
