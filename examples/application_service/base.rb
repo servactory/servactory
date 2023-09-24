@@ -4,10 +4,8 @@ require_relative "extensions/status_active/dsl"
 
 module ApplicationService
   class Base
-    include Servactory::DSL.extensions(
-      before_methods: [
-        ApplicationService::Extensions::StatusActive::DSL
-      ]
+    include Servactory::DSL.with_extensions(
+      ApplicationService::Extensions::StatusActive::DSL
     )
 
     configuration do

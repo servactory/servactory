@@ -12,20 +12,21 @@ module Servactory
       base.include(Internals::DSL)
       base.include(Outputs::DSL)
 
-      before_methods_extensions.each { |before_methods_extension| base.include(before_methods_extension) }
+      extensions.each { |extension| base.include(extension) }
+
       base.include(Methods::DSL)
     end
 
-    def self.extensions(extensions)
+    def self.with_extensions(*extensions)
       @@extensions = extensions
 
       self
     end
 
-    def self.before_methods_extensions
-      @@extensions.fetch(:before_methods, [])
+    def self.extensions
+      @@extensions
     end
 
-    private_class_method :before_methods_extensions
+    private_class_method :extensions
   end
 end
