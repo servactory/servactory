@@ -1,0 +1,11 @@
+module Servactory
+  module Extensions
+    class Collection
+      extend Forwardable
+
+      @collection: Set[Class]
+
+      def initialize: (Set[Class] collection) -> void
+    end
+  end
+end
