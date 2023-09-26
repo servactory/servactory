@@ -18,22 +18,10 @@ module Usual
 
     input :user, type: User
 
-    status_active! record: ->(inputs:) { inputs.user }
-
-    # make :perform
+    status_active! :user
 
     def call
-      puts
-      puts :real_call
-      puts
-
-      # inputs.user.name = "NAME"
+      # nothing
     end
-
-    # def perform
-    #   puts
-    #   puts :real_perform
-    #   puts
-    # end
   end
 end

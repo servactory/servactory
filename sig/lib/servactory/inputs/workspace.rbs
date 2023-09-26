@@ -1,6 +1,8 @@
 module Servactory
   module Inputs
     module Workspace
+      private
+
       def call!: (incoming_arguments: untyped, collection_of_inputs: Collection, ** untyped) -> void
     end
   end

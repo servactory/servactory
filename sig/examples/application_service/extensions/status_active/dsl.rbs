@@ -7,13 +7,15 @@ module ApplicationService
         module ClassMethods
           private
 
-          attr_accessor status_active_record: untyped
+          attr_accessor status_active_model_name: Class
 
-          def status_active!: (record: untyped) -> untyped
+          def status_active!: (Class model_name) -> void
         end
 
         module InstanceMethods
-          def call!: (**untyped) -> (nil | untyped)
+          private
+
+          def call!: (**untyped) -> (nil | Exception)
         end
       end
     end

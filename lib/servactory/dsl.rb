@@ -2,7 +2,7 @@
 
 module Servactory
   module DSL
-    @@extensions = {}
+    @extensions = []
 
     def self.included(base)
       base.include(Configuration::DSL)
@@ -18,13 +18,13 @@ module Servactory
     end
 
     def self.with_extensions(*extensions)
-      @@extensions = extensions
+      @extensions = extensions
 
       self
     end
 
     def self.extensions
-      @@extensions
+      @extensions
     end
 
     private_class_method :extensions

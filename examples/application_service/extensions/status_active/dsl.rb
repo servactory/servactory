@@ -12,21 +12,23 @@ module ApplicationService
         module ClassMethods
           private
 
-          attr_accessor :status_active_record
+          attr_accessor :status_active_model_name
 
-          def status_active!(record:)
-            self.status_active_record = record
+          def status_active!(model_name)
+            self.status_active_model_name = model_name
           end
         end
 
         module InstanceMethods
+          private
+
           def call!(**)
             super
 
-            status_active_record = self.class.send(:status_active_record)
-            return if status_active_record.nil?
+            status_active_model_name = self.class.send(:status_active_model_name)
+            return if status_active_model_name.nil?
 
-            is_active = status_active_record.call(inputs: inputs).active?
+            is_active = inputs.send(status_active_model_name).active?
             return if is_active
 
             fail!(message: "User is not active")
