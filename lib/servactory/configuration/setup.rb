@@ -29,7 +29,7 @@ module Servactory
       def default_input_option_helpers
         Set[
           Servactory::Inputs::OptionHelper.new(name: :optional, equivalent: { required: false }),
-          Servactory::Inputs::OptionHelper.new(name: :as_array, equivalent: { array: true })
+          # Servactory::Inputs::OptionHelper.new(name: :as_array, equivalent: { array: true })
         ]
       end
     end

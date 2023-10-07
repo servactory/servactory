@@ -31,7 +31,7 @@ module Servactory
 
         return super if option.nil?
 
-        option.value
+        option.body
       end
 
       def respond_to_missing?(name, *)
@@ -80,19 +80,19 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :required?,
-              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
+              content: ->(option:) { Servactory::Utils.true?(option[:is]) }
             ),
             DefineInputMethod.new(
               name: :optional?,
-              content: ->(value:) { !Servactory::Utils.true?(value[:is]) }
+              content: ->(option:) { !Servactory::Utils.true?(option[:is]) }
             )
           ],
           define_input_conflicts: [
             DefineInputConflict.new(content: -> { :required_vs_default if required? && default_value_present? })
           ],
           need_for_checks: true,
-          value_key: :is,
-          value_fallback: true,
+          body_key: :is,
+          body_fallback: true,
           **options
         )
       end
@@ -104,7 +104,7 @@ module Servactory
           validation_class: Servactory::Inputs::Validations::Type,
           original_value: Array(type),
           need_for_checks: true,
-          value_fallback: nil,
+          body_fallback: nil,
           with_advanced_mode: false
         )
       end
@@ -117,11 +117,11 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :default_value_present?,
-              content: ->(value:) { !value.nil? }
+              content: ->(option:) { !option.nil? }
             )
           ],
           need_for_checks: true,
-          value_fallback: nil,
+          body_fallback: nil,
           with_advanced_mode: false,
           **options
         )
@@ -129,22 +129,23 @@ module Servactory
 
       def add_array_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
-          name: :array,
+          name: :of,
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
           define_input_methods: [
             DefineInputMethod.new(
               name: :array?,
-              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
+              content: ->(option:) { option[:type].present? }
             )
           ],
           define_input_conflicts: [
-            DefineInputConflict.new(content: -> { :array_vs_array if array? && types.include?(Array) }),
+            # DefineInputConflict.new(content: -> { :array_vs_array if array? && types.include?(Array) }),
             DefineInputConflict.new(content: -> { :array_vs_inclusion if array? && inclusion_present? })
           ],
           need_for_checks: false,
-          value_key: :is,
-          value_fallback: false,
+          body_key: :type,
+          body_value: String,
+          body_fallback: false,
           **options
         )
       end
@@ -157,12 +158,12 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :inclusion_present?,
-              content: ->(value:) { value[:in].is_a?(Array) && value[:in].present? }
+              content: ->(option:) { option[:in].is_a?(Array) && option[:in].present? }
             )
           ],
           need_for_checks: true,
-          value_key: :in,
-          value_fallback: nil,
+          body_key: :in,
+          body_fallback: nil,
           **options
         )
       end
@@ -175,12 +176,12 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :must_present?,
-              content: ->(value:) { value.present? }
+              content: ->(option:) { option.present? }
             )
           ],
           need_for_checks: true,
-          value_key: :is,
-          value_fallback: nil,
+          body_key: :is,
+          body_fallback: nil,
           with_advanced_mode: false,
           **options
         )
@@ -194,7 +195,7 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :prepare_present?,
-              content: ->(value:) { value[:in].present? }
+              content: ->(option:) { option[:in].present? }
             )
           ],
           define_input_conflicts: [
@@ -203,8 +204,8 @@ module Servactory
             DefineInputConflict.new(content: -> { :prepare_vs_must if prepare_present? && must_present? })
           ],
           need_for_checks: false,
-          value_key: :in,
-          value_fallback: false,
+          body_key: :in,
+          body_fallback: false,
           **options
         )
       end
@@ -217,12 +218,12 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :internal?,
-              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
+              content: ->(option:) { Servactory::Utils.true?(option[:is]) }
             )
           ],
           need_for_checks: false,
-          value_key: :is,
-          value_fallback: false,
+          body_key: :is,
+          body_fallback: false,
           **options
         )
       end

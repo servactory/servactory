@@ -20,13 +20,13 @@ module Servactory
 
       def options_for_checks
         filter(&:need_for_checks?).to_h do |option|
-          value = if option.value.is_a?(Hash)
-                    option.value.key?(:is) ? option.value.fetch(:is) : option.value
-                  else
-                    option.value
-                  end
+          option_body = if option.body.is_a?(Hash)
+                          option.body.key?(:is) ? option.body.fetch(:is) : option.body
+                        else
+                          option.body
+                        end
 
-          [option.name, value]
+          [option.name, option_body]
         end
       end
 

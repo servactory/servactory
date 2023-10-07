@@ -6,7 +6,7 @@ module Servactory
       class Type < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, expected_type:, given_type:|
           if input.array?
-            array_message = input.array[:message]
+            array_message = input.of.fetch(:message)
 
             if array_message.is_a?(Proc)
               array_message.call(input: input, expected_type: expected_type)
@@ -84,11 +84,21 @@ module Servactory
 
         def prepared_types
           @prepared_types ||=
-            @types.map do |type|
-              if type.is_a?(String)
-                Object.const_get(type)
-              else
-                type
+            if @input.array?
+              Array(@input.of.fetch(:type, [])).map do |type|
+                if type.is_a?(String)
+                  Object.const_get(type)
+                else
+                  type
+                end
+              end
+            else
+              @types.map do |type|
+                if type.is_a?(String)
+                  Object.const_get(type)
+                else
+                  type
+                end
               end
             end
         end
