@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Usual
-  class Example58 < ApplicationService::Base
+  class Example65 < ApplicationService::Base
     configuration do
       input_option_helpers(
         Servactory::Inputs::OptionHelpers::Types.all
