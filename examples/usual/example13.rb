@@ -3,9 +3,9 @@
 module Usual
   class Example13 < ApplicationService::Base
     input :ids,
-          type: String,
-          array: {
-            is: true,
+          type: Array,
+          of: {
+            type: String,
             message: ->(input:, expected_type:) { "Input `#{input.name}` must be an array of `#{expected_type}`" }
           }
 

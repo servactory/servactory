@@ -3,9 +3,9 @@
 module Usual
   class Example12 < ApplicationService::Base
     input :ids,
-          type: String,
-          array: {
-            is: true,
+          type: Array,
+          of: {
+            type: String,
             message: "Input `ids` must be an array of `String`"
           }
 

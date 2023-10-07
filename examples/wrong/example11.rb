@@ -2,7 +2,7 @@
 
 module Wrong
   class Example11 < ApplicationService::Base
-    input :ids, as: :array_of_ids, type: String, array: true
+    input :ids, as: :array_of_ids, type: Array, of: String
 
     output :first_id, type: String
 

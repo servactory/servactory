@@ -24,8 +24,8 @@ module Usual
 
     input :invoice_numbers,
           :must_be_6_characters,
-          type: String,
-          array: true
+          type: Array,
+          of: String
 
     output :first_invoice_number, type: String
 

@@ -2,7 +2,7 @@
 
 module Usual
   class Example11 < ApplicationService::Base
-    input :ids, type: String, array: { is: true }
+    input :ids, type: Array, of: { type: String }
 
     output :first_id, type: String
 
