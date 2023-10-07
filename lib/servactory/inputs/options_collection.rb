@@ -3,7 +3,6 @@
 module Servactory
   module Inputs
     class OptionsCollection
-      # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
       def_delegators :@collection, :<<, :filter, :each, :map, :flat_map, :find
 

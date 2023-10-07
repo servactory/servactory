@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require_relative "extensions/status_active/dsl"
+
 module ApplicationService
   class Base
-    include Servactory::DSL
+    include Servactory::DSL.with_extensions(
+      ApplicationService::Extensions::StatusActive::DSL
+    )
 
     configuration do
       input_error_class ApplicationService::Errors::InputError

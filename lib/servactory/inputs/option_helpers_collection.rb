@@ -3,7 +3,6 @@
 module Servactory
   module Inputs
     class OptionHelpersCollection
-      # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
       def_delegators :@collection, :<<, :find, :merge
 

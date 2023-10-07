@@ -1,12 +1,15 @@
 module Servactory
   module Internals
     class Collection
-      # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
 
-      @collection: Set[Collection]
+      @collection: Set[Internal]
 
-      def initialize: (*untyped) -> void
+      def initialize: (Set[Internal] collection) -> void
+
+      def only: (Array[Symbol] internal_names) -> Collection
+
+      def except: (Array[Symbol] internal_names) -> Collection
 
       def names: () -> Array[Symbol]
 

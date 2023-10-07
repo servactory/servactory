@@ -1,5 +1,11 @@
 module Servactory
   module DSL
+    @extensions: Array[Module]
+
     def self.included: (untyped base) -> untyped
+
+    def self.with_extensions: (*Module extensions) -> singleton(DSL)
+
+    def self.extensions: -> Array[Module]
   end
 end

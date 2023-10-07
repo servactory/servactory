@@ -3,7 +3,6 @@
 module Servactory
   module Methods
     class StageCollection
-      # NOTE: http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
       extend Forwardable
       def_delegators :@collection, :<<, :each, :merge, :sort_by, :size, :empty?
 

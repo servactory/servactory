@@ -1,5 +1,28 @@
 # Changelog
 
+## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.5...HEAD)
+
+**Dependencies:**
+
+- Update libraries from 11.09.2023 [\#115](https://github.com/servactory/servactory/pull/115) ([afuno](https://github.com/afuno))
+
+## [v1.9.5](https://github.com/servactory/servactory/tree/v1.9.5) (2023-08-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.4...v1.9.5)
+
+**Implemented enhancements:**
+
+- Optimize Input when working with `option_helpers` [\#113](https://github.com/servactory/servactory/pull/113) ([afuno](https://github.com/afuno))
+- Add `only` and `except` support for `inputs`, `internals` and `outputs` [\#111](https://github.com/servactory/servactory/pull/111) ([afuno](https://github.com/afuno))
+- Improve storage method naming [\#110](https://github.com/servactory/servactory/pull/110) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 19.08.2023 [\#114](https://github.com/servactory/servactory/pull/114) ([afuno](https://github.com/afuno))
+- Update libraries from 05.08.2023 [\#112](https://github.com/servactory/servactory/pull/112) ([afuno](https://github.com/afuno))
+
 ## [v1.9.4](https://github.com/servactory/servactory/tree/v1.9.4) (2023-07-28)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.9.3...v1.9.4)

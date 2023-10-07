@@ -3,6 +3,8 @@
 module Servactory
   module Inputs
     module Workspace
+      private
+
       def call!(incoming_arguments:, collection_of_inputs:, **)
         super
 

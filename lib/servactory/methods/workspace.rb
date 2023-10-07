@@ -3,6 +3,8 @@
 module Servactory
   module Methods
     module Workspace
+      private
+
       def call!(collection_of_stages:, **)
         super
 
