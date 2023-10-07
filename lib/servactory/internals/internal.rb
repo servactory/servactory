@@ -6,7 +6,7 @@ module Servactory
       attr_reader :name,
                   :types
 
-      def initialize(name, type:, **options)
+      def initialize(name, type:, **_options)
         @name = name
         @types = Array(type)
       end
