@@ -3,10 +3,6 @@
 module Servactory
   module Inputs
     class Input # rubocop:disable Metrics/ClassLength
-      ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
-
-      private_constant :ARRAY_DEFAULT_VALUE
-
       attr_reader :name,
                   :internal_name,
                   :option_helpers
