@@ -29,18 +29,18 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
-  spec.add_runtime_dependency "activesupport", "~> 7.0"
+  spec.add_runtime_dependency "activesupport", "~> 7.0.8"
   spec.add_runtime_dependency "i18n", "~> 1.13"
   spec.add_runtime_dependency "zeitwerk", "~> 2.6"
 
   spec.add_development_dependency "pry", "~> 0.14"
   spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rbs", "~> 3.1.3"
+  spec.add_development_dependency "rbs", "~> 3.2"
   spec.add_development_dependency "rspec", "~> 3.12"
   spec.add_development_dependency "rubocop", "~> 1.50"
   spec.add_development_dependency "rubocop-performance", "~> 1.17"
   spec.add_development_dependency "rubocop-rake", "~> 0.6"
   spec.add_development_dependency "rubocop-rspec", "~> 2.19"
-  spec.add_development_dependency "steep", "~> 1.4"
+  spec.add_development_dependency "steep", "~> 1.5"
   spec.add_development_dependency "yard", "~> 0.9"
 end
