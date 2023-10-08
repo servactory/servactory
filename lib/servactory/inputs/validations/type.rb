@@ -64,7 +64,7 @@ module Servactory
         def check # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           return if prepared_types.any? do |type|
             if @input.array?
-              prepared_value.is_a?(::Array) &&
+              prepared_value.is_a?(@types.fetch(0, Array)) &&
               prepared_value.respond_to?(:all?) && prepared_value.all?(type)
             else
               prepared_value.is_a?(type)
