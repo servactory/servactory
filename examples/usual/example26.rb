@@ -4,7 +4,7 @@ module Usual
   class Example26 < ApplicationService::Base
     input :ids,
           type: Array,
-          of: { message: "Input `ids` must be an array of `String`" }
+          consists_of: { message: "Input `ids` must be an array of `String`" }
 
     output :first_id, type: String
 

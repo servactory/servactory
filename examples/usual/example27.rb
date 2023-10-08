@@ -4,7 +4,7 @@ module Usual
   class Example27 < ApplicationService::Base
     input :ids,
           type: Array,
-          of: {
+          consists_of: {
             message: ->(input:, expected_type:) { "Input `#{input.name}` must be an array of `#{expected_type}`" }
           }
 

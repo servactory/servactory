@@ -4,7 +4,7 @@ module Wrong
   class Example6 < ApplicationService::Base
     input :event_name,
           type: Array,
-          of: String,
+          consists_of: String,
           inclusion: %w[created rejected approved]
   end
 end

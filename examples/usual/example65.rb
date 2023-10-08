@@ -2,7 +2,7 @@
 
 module Usual
   class Example65 < ApplicationService::Base
-    input :ids, type: Array, of: String
+    input :ids, type: Array, consists_of: String
     # Input Option Helpers
     # input :ids, as_array_of: String
     # input :users, as_ar_of: User

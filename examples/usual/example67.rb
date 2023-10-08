@@ -4,7 +4,7 @@ module Usual
   class Example67 < ApplicationService::Base
     input :ids,
           type: Set,
-          of: {
+          consists_of: {
             type: String,
             message: ->(input:, expected_type:) { "Input `#{input.name}` must be a collection of `#{expected_type}`" }
           }

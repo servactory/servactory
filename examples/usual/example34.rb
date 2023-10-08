@@ -4,7 +4,7 @@ module Usual
   class Example34 < ApplicationService::Base
     input :invoice_numbers,
           type: Array,
-          of: String,
+          consists_of: String,
           must: {
             be_6_characters: {
               is: ->(value:) { value.all? { |id| id.size == 6 } },

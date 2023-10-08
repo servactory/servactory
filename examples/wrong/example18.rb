@@ -4,7 +4,7 @@ module Wrong
   class Example18 < ApplicationService::Base
     input :ids,
           type: Array,
-          of: String,
+          consists_of: String,
           prepare: ->(value:) { value }
 
     def call; end

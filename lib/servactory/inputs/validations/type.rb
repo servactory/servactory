@@ -6,7 +6,7 @@ module Servactory
       class Type < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, expected_type:, given_type:|
           if input.collection_mode?
-            collection_message = input.of.fetch(:message)
+            collection_message = input.consists_of.fetch(:message)
 
             if collection_message.is_a?(Proc)
               collection_message.call(input: input, expected_type: expected_type)
@@ -85,7 +85,7 @@ module Servactory
         def prepared_types
           @prepared_types ||=
             if @input.collection_mode?
-              prepared_types_from(Array(@input.of.fetch(:type, [])))
+              prepared_types_from(Array(@input.consists_of.fetch(:type, [])))
             else
               prepared_types_from(@types)
             end

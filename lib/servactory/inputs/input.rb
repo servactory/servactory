@@ -129,7 +129,7 @@ module Servactory
 
       def add_collection_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
-          name: :of,
+          name: :consists_of,
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
           define_input_methods: [

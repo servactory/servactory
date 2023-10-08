@@ -2,7 +2,7 @@
 
 module Usual
   class Example15 < ApplicationService::Base
-    input :ids, type: Set, of: String
+    input :ids, type: Set, consists_of: String
 
     output :first_id, type: String
 

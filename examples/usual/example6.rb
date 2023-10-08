@@ -2,7 +2,7 @@
 
 module Usual
   class Example6 < ApplicationService::Base
-    input :ids, type: Array, of: String
+    input :ids, type: Array, consists_of: String
 
     output :first_id, type: String
 
