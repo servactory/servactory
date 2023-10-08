@@ -59,7 +59,7 @@ module Servactory
         # Check Class: Servactory::Inputs::Validations::Type
         add_types_option_with(type)
         add_default_option_with(options)
-        add_collection_option_with(options)
+        add_collection_option_with(type, options)
 
         # Check Class: Servactory::Inputs::Validations::Inclusion
         add_inclusion_option_with(options)
@@ -127,7 +127,7 @@ module Servactory
         )
       end
 
-      def add_collection_option_with(options) # rubocop:disable Metrics/MethodLength
+      def add_collection_option_with(type, options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
           name: :consists_of,
           input: self,
@@ -135,7 +135,7 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :collection_mode?,
-              content: ->(option:) { option[:type].present? }
+              content: ->(**) { [Array, Set].include?(type) }
             )
           ],
           define_input_conflicts: [
@@ -144,7 +144,7 @@ module Servactory
           need_for_checks: false,
           body_key: :type,
           body_value: String,
-          body_fallback: false,
+          body_fallback: String,
           **options
         )
       end

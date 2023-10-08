@@ -24,7 +24,7 @@ module Servactory
         need_for_checks: bool,
         ?body_key: Symbol?,
         ?body_value: (bool | Class)?,
-        ?body_fallback: bool?,
+        ?body_fallback: (bool | Class)?,
         ?original_value: Array[Class]?,
         ?define_input_methods: Array[DefineInputMethod]?,
         ?define_input_conflicts: Array[DefineInputConflict]?,
@@ -41,11 +41,11 @@ module Servactory
       def prepare_value_for: (
         ?original_value: Array[Class]?,
         options: untyped,
-        body_fallback: bool,
+        body_fallback: (bool | Class),
         with_advanced_mode: bool
       ) -> ({ is: Symbol, message: String? } | bool)
 
-      def prepare_advanced_for: (body: ({ is: Symbol, message: String? }? | bool?), body_fallback: bool) -> { is: Symbol, message: String? }
+      def prepare_advanced_for: (body: ({ is: Symbol, message: String? }? | bool?), body_fallback: (bool | Class)) -> { is: Symbol, message: String? }
 
       def prepare_input_methods_for: (Input input) -> void
 

@@ -29,7 +29,7 @@ module Servactory
 
       def add_default_option_with: (untyped options) -> OptionsCollection
 
-      def add_collection_option_with: (untyped options) -> OptionsCollection
+      def add_collection_option_with: ((Class | Array[Class]) type, untyped options) -> OptionsCollection
 
       def add_inclusion_option_with: (untyped options) -> OptionsCollection
 

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# FIXME: REWRITE ME
 RSpec.describe Usual::Example5 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
@@ -40,7 +41,7 @@ RSpec.describe Usual::Example5 do
     context "when the input arguments are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
-        it_behaves_like "input type check", name: :ids, expected_type: Array
+        it_behaves_like "input type check", name: :ids, array: true, expected_type: String
       end
     end
   end
@@ -84,7 +85,7 @@ RSpec.describe Usual::Example5 do
     context "when the input arguments are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
-        it_behaves_like "input type check", name: :ids, expected_type: Array
+        it_behaves_like "input type check", name: :ids, array: true, expected_type: String
       end
     end
   end
