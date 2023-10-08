@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Usual
-  class Example5 < ApplicationService::Base
-    input :ids, type: Array
+  class Example44 < ApplicationService::Base
+    input :ids, type: Set, of: { type: String }
 
     output :first_id, type: String
 

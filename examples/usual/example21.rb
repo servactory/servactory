@@ -11,7 +11,7 @@ module Usual
     private
 
     def assign_first_id
-      outputs.first_id = inputs.array_of_ids[0]
+      outputs.first_id = inputs.array_of_ids.first
     end
   end
 end

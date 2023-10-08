@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 module Usual
-  class Example5 < ApplicationService::Base
-    input :ids, type: Array
+  class Example66 < ApplicationService::Base
+    input :ids,
+          type: Set,
+          of: {
+            type: String,
+            message: "Input `ids` must be a collection of `String`"
+          }
 
     output :first_id, type: String
 
