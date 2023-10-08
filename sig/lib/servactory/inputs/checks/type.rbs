@@ -21,6 +21,8 @@ module Servactory
 
         def prepared_types: -> Array[Class]
 
+        def prepared_types_from: (Array[Class] types) -> Array[Class]
+
         def prepared_value: () -> String
       end
     end

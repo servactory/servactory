@@ -85,22 +85,20 @@ module Servactory
         def prepared_types
           @prepared_types ||=
             if @input.collection_mode?
-              Array(@input.of.fetch(:type, [])).map do |type|
-                if type.is_a?(String)
-                  Object.const_get(type)
-                else
-                  type
-                end
-              end
+              prepared_types_from(Array(@input.of.fetch(:type, [])))
             else
-              @types.map do |type|
-                if type.is_a?(String)
-                  Object.const_get(type)
-                else
-                  type
-                end
-              end
+              prepared_types_from(@types)
             end
+        end
+
+        def prepared_types_from(types)
+          types.map do |type|
+            if type.is_a?(String)
+              Object.const_get(type)
+            else
+              type
+            end
+          end
         end
 
         def prepared_value
