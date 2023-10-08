@@ -1,6 +1,8 @@
 module Servactory
   module Configuration
     class Factory
+      @config: Setup
+
       def input_error_class: (Errors::InputError input_error_class) -> Errors::InputError
 
       def output_error_class: (Errors::OutputError output_error_class) -> Errors::OutputError
@@ -9,7 +11,9 @@ module Servactory
 
       def failure_class: (Errors::Failure failure_class) -> Errors::Failure
 
-      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Servactory::Inputs::OptionHelpersCollection
+      def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> Maintenance::CollectionMode::ClassNamesCollection
+
+      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Inputs::OptionHelpersCollection
 
       def aliases_for_make: (Array[Symbol] aliases_for_make) -> Methods::AliasesForMake::Collection
 

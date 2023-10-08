@@ -5,6 +5,7 @@ module Servactory
 
       attr_reader name: Symbol
       attr_reader internal_name: Symbol?
+      attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
       attr_reader option_helpers: OptionHelpersCollection
 
       def initialize: (

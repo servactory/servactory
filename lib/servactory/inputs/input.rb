@@ -5,6 +5,7 @@ module Servactory
     class Input # rubocop:disable Metrics/ClassLength
       attr_reader :name,
                   :internal_name,
+                  :collection_mode_class_names,
                   :option_helpers
 
       # rubocop:disable Style/KeywordParametersOrder
@@ -13,11 +14,13 @@ module Servactory
         *helpers,
         as: nil,
         type:,
+        collection_mode_class_names:,
         option_helpers:,
         **options
       )
         @name = name
         @internal_name = as.present? ? as : name
+        @collection_mode_class_names = collection_mode_class_names
         @option_helpers = option_helpers
 
         options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
@@ -135,7 +138,7 @@ module Servactory
           define_input_methods: [
             DefineInputMethod.new(
               name: :collection_mode?,
-              content: ->(**) { [Array, Set].include?(type) }
+              content: ->(**) { collection_mode_class_names.include?(type) }
             )
           ],
           define_input_conflicts: [

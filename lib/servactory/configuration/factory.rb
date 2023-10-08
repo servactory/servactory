@@ -23,6 +23,10 @@ module Servactory
         @config.failure_class = failure_class
       end
 
+      def collection_mode_class_names(collection_mode_class_names)
+        @config.collection_mode_class_names.merge(collection_mode_class_names)
+      end
+
       def input_option_helpers(input_option_helpers)
         @config.input_option_helpers.merge(input_option_helpers)
       end

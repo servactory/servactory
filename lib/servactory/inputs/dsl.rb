@@ -21,6 +21,7 @@ module Servactory
           collection_of_inputs << Input.new(
             name,
             *helpers,
+            collection_mode_class_names: config.collection_mode_class_names,
             option_helpers: config.input_option_helpers,
             **options
           )
