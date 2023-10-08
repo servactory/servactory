@@ -13,11 +13,11 @@ en:
         required:
           default_error:
             default: "[%{service_class_name}] Required input `%{input_name}` is missing"
-            for_array: "[%{service_class_name}] Required element in input array `%{input_name}` is missing"
+            for_collection: "[%{service_class_name}] Required element in input collection `%{input_name}` is missing"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
-            for_array: "[%{service_class_name}] Wrong type in input array `%{input_name}`, expected `%{expected_type}`"
+            for_collection: "[%{service_class_name}] Wrong type in input collection `%{input_name}`, expected `%{expected_type}`"
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"

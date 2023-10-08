@@ -5,16 +5,16 @@ module Servactory
     module Validations
       class Type < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, expected_type:, given_type:|
-          if input.array?
-            array_message = input.of.fetch(:message)
+          if input.collection_mode?
+            collection_message = input.of.fetch(:message)
 
-            if array_message.is_a?(Proc)
-              array_message.call(input: input, expected_type: expected_type)
-            elsif array_message.is_a?(String) && array_message.present?
-              array_message
+            if collection_message.is_a?(Proc)
+              collection_message.call(input: input, expected_type: expected_type)
+            elsif collection_message.is_a?(String) && collection_message.present?
+              collection_message
             else
               I18n.t(
-                "servactory.inputs.checks.type.default_error.for_array",
+                "servactory.inputs.checks.type.default_error.for_collection",
                 service_class_name: service_class_name,
                 input_name: input.name,
                 expected_type: expected_type,
@@ -63,7 +63,7 @@ module Servactory
 
         def check # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           return if prepared_types.any? do |type|
-            if @input.array?
+            if @input.collection_mode?
               prepared_value.is_a?(@types.fetch(0, Array)) &&
               prepared_value.respond_to?(:all?) && prepared_value.all?(type)
             else
@@ -84,7 +84,7 @@ module Servactory
 
         def prepared_types
           @prepared_types ||=
-            if @input.array?
+            if @input.collection_mode?
               Array(@input.of.fetch(:type, [])).map do |type|
                 if type.is_a?(String)
                   Object.const_get(type)

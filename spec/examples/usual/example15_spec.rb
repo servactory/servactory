@@ -49,7 +49,7 @@ RSpec.describe Usual::Example15 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example15] Wrong type in input array `ids`, expected `String`"
+                "[Usual::Example15] Wrong type in input collection `ids`, expected `String`"
               )
             )
           end
@@ -68,7 +68,7 @@ RSpec.describe Usual::Example15 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example15] Required element in input array `ids` is missing"
+                "[Usual::Example15] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -87,7 +87,7 @@ RSpec.describe Usual::Example15 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example15] Required element in input array `ids` is missing"
+                "[Usual::Example15] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -152,7 +152,7 @@ RSpec.describe Usual::Example15 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example15] Wrong type in input array `ids`, expected `String`"
+                "[Usual::Example15] Wrong type in input collection `ids`, expected `String`"
               )
             )
           end
@@ -171,7 +171,7 @@ RSpec.describe Usual::Example15 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example15] Required element in input array `ids` is missing"
+                "[Usual::Example15] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -190,7 +190,7 @@ RSpec.describe Usual::Example15 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example15] Required element in input array `ids` is missing"
+                "[Usual::Example15] Required element in input collection `ids` is missing"
               )
             )
           end

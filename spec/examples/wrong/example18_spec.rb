@@ -25,7 +25,7 @@ RSpec.describe Wrong::Example18 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_array`"
+              "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_collection`"
             )
           )
         end
@@ -41,7 +41,7 @@ RSpec.describe Wrong::Example18 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_array`"
+                "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_collection`"
               )
             )
           end
@@ -54,7 +54,7 @@ RSpec.describe Wrong::Example18 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_array`"
+                "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_collection`"
               )
             )
           end
@@ -87,7 +87,7 @@ RSpec.describe Wrong::Example18 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_array`"
+              "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_collection`"
             )
           )
         end
@@ -103,7 +103,7 @@ RSpec.describe Wrong::Example18 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_array`"
+                "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_collection`"
               )
             )
           end
@@ -116,7 +116,7 @@ RSpec.describe Wrong::Example18 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_array`"
+                "[Wrong::Example18] Conflict in `ids` input options: `prepare_vs_collection`"
               )
             )
           end

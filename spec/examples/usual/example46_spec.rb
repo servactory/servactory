@@ -70,7 +70,7 @@ RSpec.describe Usual::Example46 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example46] Wrong type in input array `invoice_numbers`, expected `String`"
+                "[Usual::Example46] Wrong type in input collection `invoice_numbers`, expected `String`"
               )
             )
           end
@@ -89,7 +89,7 @@ RSpec.describe Usual::Example46 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example46] Required element in input array `invoice_numbers` is missing"
+                "[Usual::Example46] Required element in input collection `invoice_numbers` is missing"
               )
             )
           end
@@ -108,7 +108,7 @@ RSpec.describe Usual::Example46 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example46] Required element in input array `invoice_numbers` is missing"
+                "[Usual::Example46] Required element in input collection `invoice_numbers` is missing"
               )
             )
           end
@@ -194,7 +194,7 @@ RSpec.describe Usual::Example46 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example46] Wrong type in input array `invoice_numbers`, expected `String`"
+                "[Usual::Example46] Wrong type in input collection `invoice_numbers`, expected `String`"
               )
             )
           end
@@ -213,7 +213,7 @@ RSpec.describe Usual::Example46 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example46] Required element in input array `invoice_numbers` is missing"
+                "[Usual::Example46] Required element in input collection `invoice_numbers` is missing"
               )
             )
           end
@@ -232,7 +232,7 @@ RSpec.describe Usual::Example46 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example46] Required element in input array `invoice_numbers` is missing"
+                "[Usual::Example46] Required element in input collection `invoice_numbers` is missing"
               )
             )
           end

@@ -68,7 +68,7 @@ RSpec.describe Usual::Example13 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example13] Required element in input array `ids` is missing"
+                "[Usual::Example13] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -87,7 +87,7 @@ RSpec.describe Usual::Example13 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example13] Required element in input array `ids` is missing"
+                "[Usual::Example13] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -175,7 +175,7 @@ RSpec.describe Usual::Example13 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example13] Required element in input array `ids` is missing"
+                "[Usual::Example13] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -194,7 +194,7 @@ RSpec.describe Usual::Example13 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example13] Required element in input array `ids` is missing"
+                "[Usual::Example13] Required element in input collection `ids` is missing"
               )
             )
           end

@@ -83,7 +83,7 @@ module InputAttributeHelper
       if array_message.present?
         array_message
       else
-        "[#{service_class_name}] Wrong type in input array `#{name}`, expected `#{expected_type}`"
+        "[#{service_class_name}] Wrong type in input collection `#{name}`, expected `#{expected_type}`"
       end
     else
       "[#{service_class_name}] Wrong type of input `#{name}`, expected `#{expected_type}`, got `#{given_type}`"

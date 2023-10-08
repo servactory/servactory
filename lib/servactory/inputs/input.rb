@@ -59,7 +59,7 @@ module Servactory
         # Check Class: Servactory::Inputs::Validations::Type
         add_types_option_with(type)
         add_default_option_with(options)
-        add_array_option_with(options)
+        add_collection_option_with(options)
 
         # Check Class: Servactory::Inputs::Validations::Inclusion
         add_inclusion_option_with(options)
@@ -127,20 +127,19 @@ module Servactory
         )
       end
 
-      def add_array_option_with(options) # rubocop:disable Metrics/MethodLength
+      def add_collection_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Option.new(
           name: :of,
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
           define_input_methods: [
             DefineInputMethod.new(
-              name: :array?,
+              name: :collection_mode?,
               content: ->(option:) { option[:type].present? }
             )
           ],
           define_input_conflicts: [
-            # DefineInputConflict.new(content: -> { :array_vs_array if array? && types.include?(Array) }),
-            DefineInputConflict.new(content: -> { :array_vs_inclusion if array? && inclusion_present? })
+            DefineInputConflict.new(content: -> { :collection_vs_inclusion if collection_mode? && inclusion_present? })
           ],
           need_for_checks: false,
           body_key: :type,
@@ -199,7 +198,7 @@ module Servactory
             )
           ],
           define_input_conflicts: [
-            DefineInputConflict.new(content: -> { :prepare_vs_array if prepare_present? && array? }),
+            DefineInputConflict.new(content: -> { :prepare_vs_collection if prepare_present? && collection_mode? }),
             DefineInputConflict.new(content: -> { :prepare_vs_inclusion if prepare_present? && inclusion_present? }),
             DefineInputConflict.new(content: -> { :prepare_vs_must if prepare_present? && must_present? })
           ],
