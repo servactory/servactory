@@ -13,7 +13,7 @@ module Servactory
 
       def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> Maintenance::CollectionMode::ClassNamesCollection
 
-      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Inputs::OptionHelpersCollection
+      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
 
       def aliases_for_make: (Array[Symbol] aliases_for_make) -> Methods::AliasesForMake::Collection
 

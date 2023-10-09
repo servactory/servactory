@@ -11,7 +11,7 @@ module Servactory
 
       attr_accessor collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
 
-      attr_accessor input_option_helpers: Inputs::OptionHelpersCollection
+      attr_accessor input_option_helpers: Maintenance::Attributes::OptionHelpersCollection
 
       attr_accessor aliases_for_make: Methods::AliasesForMake::Collection
 
@@ -23,7 +23,7 @@ module Servactory
 
       def default_collection_mode_class_names: -> Set[Class]
 
-      def default_input_option_helpers: -> Set[Inputs::OptionHelper]
+      def default_input_option_helpers: -> Set[Maintenance::Attributes::OptionHelper]
     end
   end
 end

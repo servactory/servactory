@@ -1,0 +1,15 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      class OptionHelpersCollection
+        extend Forwardable
+
+        @collection: Set[Maintenance::Attributes::OptionHelper]
+
+        def initialize: (Set[Maintenance::Attributes::OptionHelper] collection) -> void
+
+        def find_by: (name: Symbol) -> Maintenance::Attributes::OptionHelper?
+      end
+    end
+  end
+end

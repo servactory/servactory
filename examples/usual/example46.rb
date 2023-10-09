@@ -5,7 +5,7 @@ module Usual
     configuration do
       input_option_helpers(
         [
-          Servactory::Inputs::OptionHelper.new(
+          Servactory::Maintenance::Attributes::OptionHelper.new(
             name: :must_be_6_characters,
             equivalent: {
               must: {
