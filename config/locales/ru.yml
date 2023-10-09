@@ -13,7 +13,7 @@ ru:
         required:
           default_error:
             default: "[%{service_class_name}] Обязательный инпут `%{input_name}` отсутствует"
-            for_collection: "[%{service_class_name}] Обязательный элемент в инпуте-коллекции `%{input_name}` отсутствует"
+            for_collection: "[%{service_class_name}] Обязательный элемент в коллекции инпута `%{input_name}` отсутствует"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
