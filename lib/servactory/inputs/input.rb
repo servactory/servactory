@@ -81,17 +81,19 @@ module Servactory
           input: self,
           validation_class: Servactory::Inputs::Validations::Required,
           define_methods: [
-            DefineInputMethod.new(
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :required?,
               content: ->(option:) { Servactory::Utils.true?(option[:is]) }
             ),
-            DefineInputMethod.new(
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :optional?,
               content: ->(option:) { !Servactory::Utils.true?(option[:is]) }
             )
           ],
           define_conflicts: [
-            DefineInputConflict.new(content: -> { :required_vs_default if required? && default_value_present? })
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :required_vs_default if required? && default_value_present? }
+            )
           ],
           need_for_checks: true,
           body_key: :is,
@@ -118,7 +120,7 @@ module Servactory
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
           define_methods: [
-            DefineInputMethod.new(
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :default_value_present?,
               content: ->(option:) { !option.nil? }
             )
@@ -136,13 +138,15 @@ module Servactory
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
           define_methods: [
-            DefineInputMethod.new(
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :collection_mode?,
               content: ->(**) { collection_mode_class_names.include?(type) }
             )
           ],
           define_conflicts: [
-            DefineInputConflict.new(content: -> { :collection_vs_inclusion if collection_mode? && inclusion_present? })
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :collection_vs_inclusion if collection_mode? && inclusion_present? }
+            )
           ],
           need_for_checks: false,
           body_key: :type,
@@ -158,7 +162,7 @@ module Servactory
           input: self,
           validation_class: Servactory::Inputs::Validations::Inclusion,
           define_methods: [
-            DefineInputMethod.new(
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :inclusion_present?,
               content: ->(option:) { option[:in].is_a?(Array) && option[:in].present? }
             )
@@ -176,7 +180,7 @@ module Servactory
           input: self,
           validation_class: Servactory::Inputs::Validations::Must,
           define_methods: [
-            DefineInputMethod.new(
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :must_present?,
               content: ->(option:) { option.present? }
             )
@@ -195,15 +199,21 @@ module Servactory
           input: self,
           validation_class: nil,
           define_methods: [
-            DefineInputMethod.new(
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :prepare_present?,
               content: ->(option:) { option[:in].present? }
             )
           ],
           define_conflicts: [
-            DefineInputConflict.new(content: -> { :prepare_vs_collection if prepare_present? && collection_mode? }),
-            DefineInputConflict.new(content: -> { :prepare_vs_inclusion if prepare_present? && inclusion_present? }),
-            DefineInputConflict.new(content: -> { :prepare_vs_must if prepare_present? && must_present? })
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :prepare_vs_collection if prepare_present? && collection_mode? }
+            ),
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :prepare_vs_inclusion if prepare_present? && inclusion_present? }
+            ),
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :prepare_vs_must if prepare_present? && must_present? }
+            )
           ],
           need_for_checks: false,
           body_key: :in,
@@ -218,7 +228,7 @@ module Servactory
           input: self,
           validation_class: nil,
           define_methods: [
-            DefineInputMethod.new(
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :internal?,
               content: ->(option:) { Servactory::Utils.true?(option[:is]) }
             )

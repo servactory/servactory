@@ -8,9 +8,9 @@ module Servactory
 
         attr_reader validation_class: Class?
 
-        attr_reader define_methods: Array[DefineInputMethod]?
+        attr_reader define_methods: Array[Attributes::DefineConflict]?
 
-        attr_reader define_conflicts: Array[DefineInputConflict]?
+        attr_reader define_conflicts: Array[Attributes::DefineConflict]?
 
         attr_reader need_for_checks: bool
 
@@ -20,15 +20,15 @@ module Servactory
 
         def initialize: (
           name: Symbol,
-          input: Input,
+          input: Inputs::Input,
           ?validation_class: Class?,
           need_for_checks: bool,
           ?body_key: Symbol?,
           ?body_value: (bool | Class)?,
           ?body_fallback: (bool | Class)?,
           ?original_value: Array[Class]?,
-          ?define_methods: Array[DefineInputMethod]?,
-          ?define_conflicts: Array[DefineInputConflict]?,
+          ?define_methods: Array[DefineMethod]?,
+          ?define_conflicts: Array[DefineConflict]?,
           ?with_advanced_mode: bool,
           **untyped options
         ) -> void
@@ -48,7 +48,7 @@ module Servactory
 
         def prepare_advanced_for: (body: ({ is: Symbol, message: String? }? | bool?), body_fallback: (bool | Class)) -> { is: Symbol, message: String? }
 
-        def prepare_input_methods_for: (Input input) -> void
+        def prepare_input_methods_for: (Inputs::Input input) -> void
 
         def define_input_methods_template: -> String?
       end
