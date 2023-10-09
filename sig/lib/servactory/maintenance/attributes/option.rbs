@@ -8,9 +8,9 @@ module Servactory
 
         attr_reader validation_class: Class?
 
-        attr_reader define_input_methods: Array[DefineInputMethod]?
+        attr_reader define_methods: Array[DefineInputMethod]?
 
-        attr_reader define_input_conflicts: Array[DefineInputConflict]?
+        attr_reader define_conflicts: Array[DefineInputConflict]?
 
         attr_reader need_for_checks: bool
 
@@ -27,8 +27,8 @@ module Servactory
           ?body_value: (bool | Class)?,
           ?body_fallback: (bool | Class)?,
           ?original_value: Array[Class]?,
-          ?define_input_methods: Array[DefineInputMethod]?,
-          ?define_input_conflicts: Array[DefineInputConflict]?,
+          ?define_methods: Array[DefineInputMethod]?,
+          ?define_conflicts: Array[DefineInputConflict]?,
           ?with_advanced_mode: bool,
           **untyped options
         ) -> void

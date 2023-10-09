@@ -10,8 +10,8 @@ module Servactory
 
         attr_reader :name,
                     :validation_class,
-                    :define_input_methods,
-                    :define_input_conflicts,
+                    :define_methods,
+                    :define_conflicts,
                     :need_for_checks,
                     :body_key,
                     :body_value,
@@ -27,15 +27,15 @@ module Servactory
           original_value: nil,
           body_key: nil,
           body_value: true,
-          define_input_methods: nil,
-          define_input_conflicts: nil,
+          define_methods: nil,
+          define_conflicts: nil,
           with_advanced_mode: true,
           **options
         ) # do
           @name = name.to_sym
           @validation_class = validation_class
-          @define_input_methods = define_input_methods
-          @define_input_conflicts = define_input_conflicts
+          @define_methods = define_methods
+          @define_conflicts = define_conflicts
           @need_for_checks = need_for_checks
           @body_key = body_key
           @body_value = body_value
@@ -87,9 +87,9 @@ module Servactory
         end
 
         def define_input_methods_template
-          return if @define_input_methods.blank?
+          return if @define_methods.blank?
 
-          @define_input_methods_template ||= @define_input_methods.map do |define_input_method|
+          @define_input_methods_template ||= @define_methods.map do |define_input_method|
             <<-RUBY
               def #{define_input_method.name}
                 #{define_input_method.content.call(option: @body)}

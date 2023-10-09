@@ -424,8 +424,8 @@
 
 **Implemented enhancements:**
 
-- Improve syntax for `define_input_conflicts` [\#23](https://github.com/servactory/servactory/pull/23) ([afuno](https://github.com/afuno))
-- Improve syntax for `define_input_methods` [\#22](https://github.com/servactory/servactory/pull/22) ([afuno](https://github.com/afuno))
+- Improve syntax for `define_conflicts` [\#23](https://github.com/servactory/servactory/pull/23) ([afuno](https://github.com/afuno))
+- Improve syntax for `define_methods` [\#22](https://github.com/servactory/servactory/pull/22) ([afuno](https://github.com/afuno))
 - Uniform style for adding an element to `Set` [\#21](https://github.com/servactory/servactory/pull/21) ([afuno](https://github.com/afuno))
 - Add `call` method and statuses to the result [\#18](https://github.com/servactory/servactory/pull/18) ([afuno](https://github.com/afuno))
 
