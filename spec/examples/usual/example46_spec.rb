@@ -120,7 +120,7 @@ RSpec.describe Usual::Example46 do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 
-        it_behaves_like "input type check", name: :invoice_numbers, array: true, expected_type: String
+        it_behaves_like "input type check", name: :invoice_numbers, collection: true, expected_type: String
       end
     end
   end
@@ -244,7 +244,7 @@ RSpec.describe Usual::Example46 do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 
-        it_behaves_like "input type check", name: :invoice_numbers, array: true, expected_type: String
+        it_behaves_like "input type check", name: :invoice_numbers, collection: true, expected_type: String
       end
     end
   end

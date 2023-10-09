@@ -3,9 +3,9 @@ module InputAttributeHelper
     check_name: Symbol,
     name: Symbol,
     service_class_name: Class,
-      custom_message: String?,
-    array: bool,
-    array_message: String?,
+    custom_message: String?,
+    collection: bool,
+    collection_message: String?,
     expected_type: Class?,
     given_type: Class?
   ) -> String
@@ -15,8 +15,8 @@ module InputAttributeHelper
     name: Symbol,
     service_class_name: Class,
     custom_message: String?,
-    array: bool,
-    array_message: String?,
+    collection: bool,
+    collection_message: String?,
     expected_type: Class?,
     given_type: Class?
   ) -> void
@@ -28,8 +28,8 @@ module InputAttributeHelper
   def prepare_input_type_check_text_for: (
     name: Symbol,
     service_class_name: Class,
-    array: bool,
-    array_message: String?,
+    collection: bool,
+    collection_message: String?,
     expected_type: Class,
     given_type: Class
   ) -> String

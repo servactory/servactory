@@ -101,8 +101,8 @@ RSpec.describe Usual::Example27 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        array: true,
-                        array_message: "Input `ids` must be an array of `String`",
+                        collection: true,
+                        collection_message: "Input `ids` must be an array of `String`",
                         expected_type: String
       end
     end
@@ -208,8 +208,8 @@ RSpec.describe Usual::Example27 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        array: true,
-                        array_message: "Input `ids` must be an array of `String`",
+                        collection: true,
+                        collection_message: "Input `ids` must be an array of `String`",
                         expected_type: String
       end
     end
