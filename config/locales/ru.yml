@@ -6,7 +6,7 @@ ru:
         setter: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
       checks:
         inclusion:
-          default_error: "[%{service_class_name}] Неверное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
+          default_error: "[%{service_class_name}] Неправильное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Инпут `%{input_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` инпута `%{input_name}`"
@@ -16,8 +16,8 @@ ru:
             for_collection: "[%{service_class_name}] Обязательный элемент в инпуте-коллекции `%{input_name}` отсутствует"
         type:
           default_error:
-            default: "[%{service_class_name}] Неверный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-            for_collection: "[%{service_class_name}] Неверный тип инпута-коллекции `%{input_name}`, ожидалось `%{expected_type}`"
+            default: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+            for_collection: "[%{service_class_name}] Неправильный тип в коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`"
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Неожиданные атрибуты: `%{unnecessary_attributes}`"
@@ -29,14 +29,14 @@ ru:
         setter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
       checks:
         type:
-          default_error: "[%{service_class_name}] Неверный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+          default_error: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
     outputs:
       undefined:
         getter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
         setter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
       checks:
         type:
-          default_error: "[%{service_class_name}] Неверный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+          default_error: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
     methods:
       call:
         not_used: Нечего исполнять. Используйте `make` или создайте метод `call`.
