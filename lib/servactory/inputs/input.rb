@@ -76,7 +76,7 @@ module Servactory
       end
 
       def add_required_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :required,
           input: self,
           validation_class: Servactory::Inputs::Validations::Required,
@@ -101,7 +101,7 @@ module Servactory
       end
 
       def add_types_option_with(type)
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :types,
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
@@ -113,7 +113,7 @@ module Servactory
       end
 
       def add_default_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :default,
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
@@ -131,7 +131,7 @@ module Servactory
       end
 
       def add_collection_option_with(type, options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :consists_of,
           input: self,
           validation_class: Servactory::Inputs::Validations::Type,
@@ -153,7 +153,7 @@ module Servactory
       end
 
       def add_inclusion_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :inclusion,
           input: self,
           validation_class: Servactory::Inputs::Validations::Inclusion,
@@ -171,7 +171,7 @@ module Servactory
       end
 
       def add_must_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :must,
           input: self,
           validation_class: Servactory::Inputs::Validations::Must,
@@ -190,7 +190,7 @@ module Servactory
       end
 
       def add_prepare_option_with(options) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :prepare,
           input: self,
           validation_class: nil,
@@ -213,7 +213,7 @@ module Servactory
       end
 
       def add_internal_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :internal,
           input: self,
           validation_class: nil,
@@ -231,7 +231,7 @@ module Servactory
       end
 
       def collection_of_options
-        @collection_of_options ||= OptionsCollection.new
+        @collection_of_options ||= Servactory::Maintenance::Attributes::OptionsCollection.new
       end
 
       def options_for_checks
