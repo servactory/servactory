@@ -20,7 +20,7 @@ module Servactory
 
         def initialize: (
           name: Symbol,
-          input: Inputs::Input,
+          input: (Inputs::Input | Internals::Internal),
           ?validation_class: Class?,
           need_for_checks: bool,
           ?body_key: Symbol?,
