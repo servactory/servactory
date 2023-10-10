@@ -72,7 +72,6 @@ module Servactory
 
         # Check Class: nil
         add_prepare_option_with(options)
-        add_internal_option_with(options)
       end
 
       def add_required_option_with(options) # rubocop:disable Metrics/MethodLength
@@ -217,24 +216,6 @@ module Servactory
           ],
           need_for_checks: false,
           body_key: :in,
-          body_fallback: false,
-          **options
-        )
-      end
-
-      def add_internal_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
-          name: :internal,
-          input: self,
-          validation_class: nil,
-          define_methods: [
-            Servactory::Maintenance::Attributes::DefineMethod.new(
-              name: :internal?,
-              content: ->(option:) { Servactory::Utils.true?(option[:is]) }
-            )
-          ],
-          need_for_checks: false,
-          body_key: :is,
           body_fallback: false,
           **options
         )

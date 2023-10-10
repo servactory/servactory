@@ -38,8 +38,6 @@ module Servactory
 
       def add_prepare_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_internal_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
-
       def collection_of_options: -> Maintenance::Attributes::OptionsCollection
 
       def options_for_checks: () -> Hash[Symbol, untyped]
