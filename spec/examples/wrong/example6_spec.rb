@@ -12,6 +12,11 @@ RSpec.describe Wrong::Example6 do
 
     let(:event_name) { "created" }
 
+    include_examples "check class info",
+                     inputs: %i[event_name],
+                     internals: %i[],
+                     outputs: %i[]
+
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
@@ -66,6 +71,11 @@ RSpec.describe Wrong::Example6 do
     end
 
     let(:event_name) { "created" }
+
+    include_examples "check class info",
+                     inputs: %i[event_name],
+                     internals: %i[],
+                     outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do

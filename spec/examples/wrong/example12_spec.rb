@@ -19,6 +19,11 @@ RSpec.describe Wrong::Example12 do
       ]
     end
 
+    include_examples "check class info",
+                     inputs: %i[ids],
+                     internals: %i[ids],
+                     outputs: %i[first_id]
+
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
@@ -58,6 +63,11 @@ RSpec.describe Wrong::Example12 do
         b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
       ]
     end
+
+    include_examples "check class info",
+                     inputs: %i[ids],
+                     internals: %i[ids],
+                     outputs: %i[first_id]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
