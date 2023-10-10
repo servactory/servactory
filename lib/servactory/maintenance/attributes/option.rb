@@ -20,7 +20,7 @@ module Servactory
         # rubocop:disable Metrics/MethodLength
         def initialize(
           name:,
-          input:,
+          attribute:,
           validation_class:,
           need_for_checks:,
           body_fallback:,
@@ -47,7 +47,7 @@ module Servactory
             with_advanced_mode: with_advanced_mode
           )
 
-          prepare_input_methods_for(input)
+          prepare_methods_for(attribute)
         end
         # rubocop:enable Metrics/MethodLength
 
@@ -82,17 +82,17 @@ module Servactory
           end
         end
 
-        def prepare_input_methods_for(input)
-          input.instance_eval(define_input_methods_template) if define_input_methods_template.present?
+        def prepare_methods_for(attribute)
+          attribute.instance_eval(define_methods_template) if define_methods_template.present?
         end
 
-        def define_input_methods_template
+        def define_methods_template
           return if @define_methods.blank?
 
-          @define_input_methods_template ||= @define_methods.map do |define_input_method|
+          @define_methods_template ||= @define_methods.map do |define_method|
             <<-RUBY
-              def #{define_input_method.name}
-                #{define_input_method.content.call(option: @body)}
+              def #{define_method.name}
+                #{define_method.content.call(option: @body)}
               end
             RUBY
           end.join("\n")

@@ -47,7 +47,7 @@ module Servactory
       def add_types_option_with(type)
         collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :types,
-          input: self,
+          attribute: self,
           validation_class: Servactory::Internals::Validations::Type,
           original_value: Array(type),
           need_for_checks: true,

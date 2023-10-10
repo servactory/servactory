@@ -20,7 +20,7 @@ module Servactory
 
         def initialize: (
           name: Symbol,
-          input: (Inputs::Input | Internals::Internal),
+          attribute: (Inputs::Input | Internals::Internal),
           ?validation_class: Class?,
           need_for_checks: bool,
           ?body_key: Symbol?,
@@ -37,7 +37,7 @@ module Servactory
 
         private
 
-        @define_input_methods_template: String
+        @define_methods_template: String
 
         def prepare_value_for: (
           ?original_value: Array[Class]?,
@@ -48,9 +48,9 @@ module Servactory
 
         def prepare_advanced_for: (body: ({ is: Symbol, message: String? }? | bool?), body_fallback: (bool | Class)) -> { is: Symbol, message: String? }
 
-        def prepare_input_methods_for: (Inputs::Input input) -> void
+        def prepare_methods_for: ((Inputs::Input | Internals::Internal) attribute) -> void
 
-        def define_input_methods_template: -> String?
+        def define_methods_template: -> String?
       end
     end
   end
