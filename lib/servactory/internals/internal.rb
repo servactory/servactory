@@ -32,7 +32,7 @@ module Servactory
         # Check Class: Servactory::Internals::Validations::Type
         add_types_option_with(type)
         # add_default_option_with(options)
-        # add_collection_option_with(type, options)
+        add_collection_option_with(type, options)
 
         # Check Class: Servactory::Internals::Validations::Inclusion
         # add_inclusion_option_with(options)
@@ -53,6 +53,30 @@ module Servactory
           need_for_checks: true,
           body_fallback: nil,
           with_advanced_mode: false
+        )
+      end
+
+      def add_collection_option_with(type, options) # rubocop:disable Metrics/MethodLength
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
+          name: :consists_of,
+          attribute: self,
+          validation_class: Servactory::Internals::Validations::Type,
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
+              name: :collection_mode?,
+              content: ->(**) { collection_mode_class_names.include?(type) }
+            )
+          ],
+          define_conflicts: [
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :collection_vs_inclusion if collection_mode? && inclusion_present? }
+            )
+          ],
+          need_for_checks: false,
+          body_key: :type,
+          body_value: String,
+          body_fallback: String,
+          **options
         )
       end
 

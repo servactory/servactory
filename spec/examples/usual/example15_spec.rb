@@ -21,7 +21,7 @@ RSpec.describe Usual::Example15 do
 
     include_examples "check class info",
                      inputs: %i[ids],
-                     internals: %i[],
+                     internals: %i[ids],
                      outputs: %i[first_id]
 
     context "when the input arguments are valid" do
@@ -124,7 +124,7 @@ RSpec.describe Usual::Example15 do
 
     include_examples "check class info",
                      inputs: %i[ids],
-                     internals: %i[],
+                     internals: %i[ids],
                      outputs: %i[first_id]
 
     context "when the input arguments are valid" do

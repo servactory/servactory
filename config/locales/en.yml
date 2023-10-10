@@ -29,7 +29,9 @@ en:
         setter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
       checks:
         type:
-          default_error: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
+          default_error:
+            default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
+            for_collection: "[%{service_class_name}] Wrong type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`"
     outputs:
       undefined:
         getter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
