@@ -40,7 +40,11 @@ en:
         setter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
       checks:
         type:
-          default_error: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
+          default_error:
+            default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
+            for_collection:
+              wrong_type: "[%{service_class_name}] Wrong output attribute collection type `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`"
     methods:
       call:
         not_used: Nothing to perform. Use `make` or create a `call` method.

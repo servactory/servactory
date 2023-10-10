@@ -40,7 +40,10 @@ ru:
         setter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
       checks:
         type:
-          default_error: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+          default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+          for_collection:
+            wrong_type: "[%{service_class_name}] Неправильный тип коллекции выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+            wrong_element_type: "[%{service_class_name}] Неправильный тип элемента в коллекции выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`"
     methods:
       call:
         not_used: Нечего исполнять. Используйте `make` или создайте метод `call`.
