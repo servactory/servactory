@@ -26,22 +26,9 @@ module Servactory
       end
 
       def add_basic_options_with(type:, options:)
-        # Check Class: Servactory::Internals::Validations::Required
-        # add_required_option_with(options)
-
         # Check Class: Servactory::Internals::Validations::Type
         add_types_option_with(type)
-        # add_default_option_with(options)
         add_collection_option_with(type, options)
-
-        # Check Class: Servactory::Internals::Validations::Inclusion
-        # add_inclusion_option_with(options)
-
-        # Check Class: Servactory::Internals::Validations::Must
-        # add_must_option_with(options)
-
-        # Check Class: nil
-        # add_prepare_option_with(options)
       end
 
       def add_types_option_with(type)
