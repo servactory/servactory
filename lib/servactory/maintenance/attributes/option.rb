@@ -13,8 +13,6 @@ module Servactory
                     :define_methods,
                     :define_conflicts,
                     :need_for_checks,
-                    :body_key,
-                    :body_value,
                     :body
 
         # rubocop:disable Metrics/MethodLength
@@ -37,12 +35,12 @@ module Servactory
           @define_methods = define_methods
           @define_conflicts = define_conflicts
           @need_for_checks = need_for_checks
-          @body_key = body_key
-          @body_value = body_value
 
           @body = prepare_value_for(
             original_value: original_value,
             options: options,
+            body_key: body_key,
+            body_value: body_value,
             body_fallback: body_fallback,
             with_advanced_mode: with_advanced_mode
           )
@@ -57,18 +55,32 @@ module Servactory
 
         private
 
-        def prepare_value_for(original_value:, options:, body_fallback:, with_advanced_mode:)
+        def prepare_value_for(
+          original_value:,
+          options:,
+          body_key:,
+          body_value:,
+          body_fallback:,
+          with_advanced_mode:
+        )
           return original_value if original_value.present?
 
           return options.fetch(@name, body_fallback) unless with_advanced_mode
 
           prepare_advanced_for(
             body: options.fetch(@name, DEFAULT_BODY.call(key: body_key, body: body_fallback)),
+            body_key: body_key,
+            body_value: body_value,
             body_fallback: body_fallback
           )
         end
 
-        def prepare_advanced_for(body:, body_fallback:)
+        def prepare_advanced_for(
+          body:,
+          body_key:,
+          body_value:,
+          body_fallback:
+        )
           if body.is_a?(Hash)
             message = body.fetch(:message, nil)
 
