@@ -26,7 +26,7 @@ module Servactory
       end
 
       def add_basic_options_with(type:, options:)
-        # Check Class: Servactory::Internals::Validations::Type
+        # Check Class: Servactory::Outputs::Validations::Type
         add_types_option_with(type)
         add_collection_option_with(type, options)
       end
