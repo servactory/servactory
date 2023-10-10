@@ -6,7 +6,7 @@ module Servactory
       class Required < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
           i18n_key = "servactory.inputs.checks.required.default_error."
-          i18n_key += input.array? && value.present? ? "for_array" : "default"
+          i18n_key += input.collection_mode? && value.present? ? "for_collection" : "default"
 
           I18n.t(
             i18n_key,
@@ -38,7 +38,7 @@ module Servactory
         end
 
         def check # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          if @input.array? && Servactory::Utils.value_present?(@value)
+          if @input.collection_mode? && Servactory::Utils.value_present?(@value)
             return if @value.respond_to?(:all?) && @value.all?(&:present?)
           elsif Servactory::Utils.value_present?(@value)
             return

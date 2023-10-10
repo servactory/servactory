@@ -3,8 +3,8 @@
 module Usual
   class Example27 < ApplicationService::Base
     input :ids,
-          type: String,
-          array: {
+          type: Array,
+          consists_of: {
             message: ->(input:, expected_type:) { "Input `#{input.name}` must be an array of `#{expected_type}`" }
           }
 
@@ -15,7 +15,7 @@ module Usual
     private
 
     def assign_first_id
-      outputs.first_id = inputs.ids[0]
+      outputs.first_id = inputs.ids.first
     end
   end
 end

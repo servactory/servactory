@@ -1,13 +1,12 @@
 module Servactory
   module Inputs
     class Input
-      ARRAY_DEFAULT_VALUE: ^(is: bool, message: Proc | String | nil) -> { is: bool, message: String | nil }
-
-      @collection_of_options: OptionsCollection
+      @collection_of_options: Maintenance::Attributes::OptionsCollection
 
       attr_reader name: Symbol
       attr_reader internal_name: Symbol?
-      attr_reader option_helpers: OptionHelpersCollection
+      attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
+      attr_reader option_helpers: Maintenance::Attributes::OptionHelpersCollection
 
       def initialize: (
         Symbol name,
@@ -25,23 +24,21 @@ module Servactory
 
       def add_basic_options_with: (type: (Class | Array[Class]), options: untyped) -> void
 
-      def add_required_option_with: (untyped options) -> OptionsCollection
+      def add_required_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_types_option_with: ((Class | Array[Class]) type) -> OptionsCollection
+      def add_types_option_with: ((Class | Array[Class]) type) -> Maintenance::Attributes::OptionsCollection
 
-      def add_default_option_with: (untyped options) -> OptionsCollection
+      def add_default_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_array_option_with: (untyped options) -> OptionsCollection
+      def add_collection_option_with: ((Class | Array[Class]) type, untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_inclusion_option_with: (untyped options) -> OptionsCollection
+      def add_inclusion_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_must_option_with: (untyped options) -> OptionsCollection
+      def add_must_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_prepare_option_with: (untyped options) -> OptionsCollection
+      def add_prepare_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_internal_option_with: (untyped options) -> OptionsCollection
-
-      def collection_of_options: -> OptionsCollection
+      def collection_of_options: -> Maintenance::Attributes::OptionsCollection
 
       def options_for_checks: () -> Hash[Symbol, untyped]
 

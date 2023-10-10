@@ -3,8 +3,8 @@
 module Wrong
   class Example6 < ApplicationService::Base
     input :event_name,
-          type: String,
-          array: true,
+          type: Array,
+          consists_of: String,
           inclusion: %w[created rejected approved]
   end
 end

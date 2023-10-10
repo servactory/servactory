@@ -4,6 +4,11 @@ RSpec.describe Wrong::Example13 do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
+    include_examples "check class info",
+                     inputs: %i[],
+                     internals: %i[],
+                     outputs: %i[number]
+
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
@@ -20,6 +25,11 @@ RSpec.describe Wrong::Example13 do
 
   describe ".call" do
     subject(:perform) { described_class.call }
+
+    include_examples "check class info",
+                     inputs: %i[],
+                     internals: %i[],
+                     outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do

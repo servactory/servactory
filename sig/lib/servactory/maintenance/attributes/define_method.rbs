@@ -1,0 +1,13 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      class DefineMethod
+        attr_reader name: Symbol
+
+        attr_reader content: Proc
+
+        def initialize: (name: Symbol, content: Proc) -> void
+      end
+    end
+  end
+end

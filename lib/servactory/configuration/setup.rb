@@ -7,6 +7,7 @@ module Servactory
                     :internal_error_class,
                     :output_error_class,
                     :failure_class,
+                    :collection_mode_class_names,
                     :input_option_helpers,
                     :aliases_for_make,
                     :shortcuts_for_make
@@ -18,7 +19,11 @@ module Servactory
 
         @failure_class = Servactory::Errors::Failure
 
-        @input_option_helpers = Servactory::Inputs::OptionHelpersCollection.new(default_input_option_helpers)
+        @collection_mode_class_names =
+          Servactory::Maintenance::CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
+
+        @input_option_helpers =
+          Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)
 
         @aliases_for_make = Servactory::Methods::AliasesForMake::Collection.new
         @shortcuts_for_make = Servactory::Methods::ShortcutsForMake::Collection.new
@@ -26,10 +31,13 @@ module Servactory
 
       private
 
+      def default_collection_mode_class_names
+        Set[Array, Set]
+      end
+
       def default_input_option_helpers
         Set[
-          Servactory::Inputs::OptionHelper.new(name: :optional, equivalent: { required: false }),
-          Servactory::Inputs::OptionHelper.new(name: :as_array, equivalent: { array: true })
+          Servactory::Maintenance::Attributes::OptionHelper.new(name: :optional, equivalent: { required: false }),
         ]
       end
     end

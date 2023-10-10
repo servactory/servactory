@@ -17,6 +17,8 @@ module Servactory
 
           child.config.failure_class = config.failure_class
 
+          child.config.collection_mode_class_names = config.collection_mode_class_names
+
           child.config.input_option_helpers = config.input_option_helpers
 
           child.config.aliases_for_make = config.aliases_for_make

@@ -12,13 +12,18 @@ RSpec.describe Wrong::Example6 do
 
     let(:event_name) { "created" }
 
+    include_examples "check class info",
+                     inputs: %i[event_name],
+                     internals: %i[],
+                     outputs: %i[]
+
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
+              "[Wrong::Example6] Conflict in `event_name` input options: `collection_vs_inclusion`"
             )
           )
         end
@@ -34,7 +39,7 @@ RSpec.describe Wrong::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
+                "[Wrong::Example6] Conflict in `event_name` input options: `collection_vs_inclusion`"
               )
             )
           end
@@ -47,7 +52,7 @@ RSpec.describe Wrong::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
+                "[Wrong::Example6] Conflict in `event_name` input options: `collection_vs_inclusion`"
               )
             )
           end
@@ -67,13 +72,18 @@ RSpec.describe Wrong::Example6 do
 
     let(:event_name) { "created" }
 
+    include_examples "check class info",
+                     inputs: %i[event_name],
+                     internals: %i[],
+                     outputs: %i[]
+
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
+              "[Wrong::Example6] Conflict in `event_name` input options: `collection_vs_inclusion`"
             )
           )
         end
@@ -89,7 +99,7 @@ RSpec.describe Wrong::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
+                "[Wrong::Example6] Conflict in `event_name` input options: `collection_vs_inclusion`"
               )
             )
           end
@@ -102,7 +112,7 @@ RSpec.describe Wrong::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Wrong::Example6] Conflict in `event_name` input options: `array_vs_inclusion`"
+                "[Wrong::Example6] Conflict in `event_name` input options: `collection_vs_inclusion`"
               )
             )
           end

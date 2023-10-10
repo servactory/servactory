@@ -21,7 +21,7 @@ RSpec.describe Usual::Example21 do
 
     include_examples "check class info",
                      inputs: %i[ids],
-                     internals: %i[],
+                     internals: %i[array_of_ids],
                      outputs: %i[first_id]
 
     context "when the input arguments are valid" do
@@ -49,7 +49,7 @@ RSpec.describe Usual::Example21 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example21] Wrong type in input array `ids`, expected `String`"
+                "[Usual::Example21] Wrong type in input collection `ids`, expected `String`"
               )
             )
           end
@@ -68,7 +68,7 @@ RSpec.describe Usual::Example21 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example21] Required element in input array `ids` is missing"
+                "[Usual::Example21] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -87,7 +87,7 @@ RSpec.describe Usual::Example21 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example21] Required element in input array `ids` is missing"
+                "[Usual::Example21] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -99,7 +99,7 @@ RSpec.describe Usual::Example21 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, array: true, expected_type: String
+        it_behaves_like "input type check", name: :ids, collection: true, expected_type: String
       end
     end
   end
@@ -124,7 +124,7 @@ RSpec.describe Usual::Example21 do
 
     include_examples "check class info",
                      inputs: %i[ids],
-                     internals: %i[],
+                     internals: %i[array_of_ids],
                      outputs: %i[first_id]
 
     context "when the input arguments are valid" do
@@ -152,7 +152,7 @@ RSpec.describe Usual::Example21 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example21] Wrong type in input array `ids`, expected `String`"
+                "[Usual::Example21] Wrong type in input collection `ids`, expected `String`"
               )
             )
           end
@@ -171,7 +171,7 @@ RSpec.describe Usual::Example21 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example21] Required element in input array `ids` is missing"
+                "[Usual::Example21] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -190,7 +190,7 @@ RSpec.describe Usual::Example21 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example21] Required element in input array `ids` is missing"
+                "[Usual::Example21] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -202,7 +202,7 @@ RSpec.describe Usual::Example21 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, array: true, expected_type: String
+        it_behaves_like "input type check", name: :ids, collection: true, expected_type: String
       end
     end
   end
