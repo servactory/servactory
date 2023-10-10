@@ -4,36 +4,50 @@ module Servactory
   module Outputs
     class Output
       attr_reader :name,
-                  :types,
-                  :required,
-                  :default
+                  :collection_mode_class_names
 
       def initialize(name, type:, **options)
         @name = name
-        @types = Array(type)
+        @collection_mode_class_names = collection_mode_class_names
 
-        @required = options.fetch(:required, true)
-        @default = required? ? nil : options.fetch(:default, nil)
+        add_basic_options_with(type: type, options: options)
+      end
+
+      def method_missing(name, *args, &block)
+        option = collection_of_options.find_by(name: name)
+
+        return super if option.nil?
+
+        option.body
+      end
+
+      def respond_to_missing?(name, *)
+        collection_of_options.names.include?(name) || super
+      end
+
+      def add_basic_options_with(type:, options:)
+        # Check Class: Servactory::Internals::Validations::Type
+        add_types_option_with(type)
+      end
+
+      def add_types_option_with(type)
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
+          name: :types,
+          attribute: self,
+          validation_class: Servactory::Internals::Validations::Type,
+          original_value: Array(type),
+          need_for_checks: true,
+          body_fallback: nil,
+          with_advanced_mode: false
+        )
+      end
+
+      def collection_of_options
+        @collection_of_options ||= Servactory::Maintenance::Attributes::OptionsCollection.new
       end
 
       def options_for_checks
-        {
-          types: types,
-          required: required,
-          default: default
-        }
-      end
-
-      def required?
-        Servactory::Utils.true?(required)
-      end
-
-      def optional?
-        !required?
-      end
-
-      def default_value_present?
-        !default.nil?
+        collection_of_options.options_for_checks
       end
     end
   end

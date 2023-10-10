@@ -18,7 +18,7 @@ module Servactory
 
         def initialize: (
           name: Symbol,
-          attribute: (Inputs::Input | Internals::Internal),
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
           ?validation_class: Class?,
           need_for_checks: bool,
           ?body_key: Symbol?,
@@ -53,7 +53,7 @@ module Servactory
           body_fallback: (bool | Class)
         ) -> { is: Symbol, message: String? }
 
-        def prepare_methods_for: ((Inputs::Input | Internals::Internal) attribute) -> void
+        def prepare_methods_for: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> void
 
         def define_methods_template: -> String?
       end

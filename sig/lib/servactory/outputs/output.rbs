@@ -1,23 +1,24 @@
 module Servactory
   module Outputs
     class Output
+      @collection_of_options: Maintenance::Attributes::OptionsCollection
+
       attr_reader name: Symbol
-
-      attr_reader types: Array[Class]
-
-      attr_reader required: bool
-
-      attr_reader default: untyped
+      attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
 
       def initialize: (Symbol name, type: Class, **untyped options) -> void
 
-      def options_for_checks: () -> { types: Array[Class], required: bool, default: untyped }
+      def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
 
-      def required?: () -> bool
+      def respond_to_missing?: (Symbol name, *untyped) -> void
 
-      def optional?: () -> bool
+      def add_basic_options_with: (type: (Class | Array[Class]), options: untyped) -> void
 
-      def default_value_present?: () -> bool
+      def add_types_option_with: ((Class | Array[Class]) type) -> Maintenance::Attributes::OptionsCollection
+      
+      def collection_of_options: -> Maintenance::Attributes::OptionsCollection
+
+      def options_for_checks: () -> Hash[Symbol, untyped]
     end
   end
 end

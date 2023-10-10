@@ -17,7 +17,11 @@ module Servactory
         private
 
         def output(name, **options)
-          collection_of_outputs << Output.new(name, **options)
+          collection_of_outputs << Output.new(
+            name,
+            collection_mode_class_names: config.collection_mode_class_names,
+            **options
+          )
         end
 
         def collection_of_outputs
