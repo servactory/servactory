@@ -31,7 +31,9 @@ ru:
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-            for_collection: "[%{service_class_name}] Неправильный тип в коллекции внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`"
+            for_collection:
+              wrong_type: "[%{service_class_name}] Неправильный тип коллекции внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Неправильный тип элемента в коллекции внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`"
     outputs:
       undefined:
         getter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"

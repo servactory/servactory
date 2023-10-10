@@ -4,7 +4,7 @@ module Servactory
   module Internals
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, internal:, expected_type:, given_type:|
+        DEFAULT_MESSAGE = lambda do |service_class_name:, internal:, value:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
           if internal.collection_mode?
             collection_message = internal.consists_of.fetch(:message)
 
@@ -12,13 +12,21 @@ module Servactory
               collection_message.call(internal: internal, expected_type: expected_type)
             elsif collection_message.is_a?(String) && collection_message.present?
               collection_message
-            else
+            elsif value.is_a?(internal.types.fetch(0, Array))
               I18n.t(
-                "servactory.internals.checks.type.default_error.for_collection",
+                "servactory.internals.checks.type.default_error.for_collection.wrong_element_type",
                 service_class_name: service_class_name,
                 internal_name: internal.name,
                 expected_type: expected_type,
                 given_type: given_type
+              )
+            else
+              I18n.t(
+                "servactory.internals.checks.type.default_error.for_collection.wrong_type",
+                service_class_name: service_class_name,
+                internal_name: internal.name,
+                expected_type: internal.types.fetch(0, Array),
+                given_type: value.class.name
               )
             end
           else
@@ -68,6 +76,7 @@ module Servactory
             DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
             internal: @internal,
+            value: @value,
             expected_type: prepared_types.join(", "),
             given_type: @value.class.name
           )
