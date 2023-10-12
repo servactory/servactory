@@ -1,0 +1,30 @@
+module Servactory
+  module Maintenance
+    module Validations
+      class ObjectSchema
+        RESERVED_ATTRIBUTES: Array[Symbol]
+
+        @object: Hash[Symbol, untyped]
+        @schema: Hash[Symbol, untyped]
+
+        def self.valid?: (*untyped) ?{ () -> untyped } -> bool
+
+        def initialize: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) -> void
+
+        def valid?: () -> bool
+
+        private
+
+        def validate_for: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) -> bool
+
+        def validate_with: (object: Hash[Symbol, untyped], schema_key: Symbol, schema_value: Hash[Symbol, untyped], attribute_type: Class, attribute_required: bool) -> bool
+
+        def should_be_checked_for?: (object: Hash[Symbol, untyped], schema_value: Hash[Symbol, untyped], required: bool) -> bool
+
+        def prepare_value_from: (schema_value: Hash[Symbol, untyped], value: any, required: bool) -> any
+
+        def fetch_default_from: (Hash[Symbol, untyped] value) -> any
+      end
+    end
+  end
+end

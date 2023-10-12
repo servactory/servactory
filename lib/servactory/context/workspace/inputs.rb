@@ -4,9 +4,8 @@ module Servactory
   module Context
     module Workspace
       class Inputs
-        def initialize(context:, incoming_arguments:, collection_of_inputs:)
+        def initialize(context:, collection_of_inputs:)
           @context = context
-          @incoming_arguments = incoming_arguments
           @collection_of_inputs = collection_of_inputs
         end
 
@@ -44,17 +43,46 @@ module Servactory
 
           return yield if input.nil?
 
-          input_value = @incoming_arguments.fetch(input.name, nil)
-          input_value = input.default if input.optional? && input_value.blank?
+          input.value = input.default if input.optional? && input.value.blank?
+
+          input.value = prepare_object_values_inside(object: input.value, schema: input.schema) if input.object_mode?
 
           input_prepare = input.prepare.fetch(:in, nil)
-          input_value = input_prepare.call(value: input_value) if input_prepare.present?
+          input.value = input_prepare.call(value: input.value) if input_prepare.present?
 
           if name.to_s.end_with?("?")
-            Servactory::Utils.query_attribute(input_value)
+            Servactory::Utils.query_attribute(input.value)
           else
-            input_value
+            input.value
           end
+        end
+
+        def prepare_object_values_inside(object:, schema:)
+          return object unless object.respond_to?(:fetch)
+
+          schema.to_h do |schema_key, schema_value|
+            attribute_type = schema_value.fetch(:type, String)
+
+            result =
+              if attribute_type == Hash
+                prepare_object_values_inside(object: object.fetch(schema_key, {}), schema: schema_value.except(*%i[type required default]))
+              else
+                fetch_object_values_from(
+                  value: object.fetch(schema_key, {}),
+                  schema_value: schema_value,
+                  attribute_required: schema_value.fetch(:required, true)
+                )
+              end
+
+            [schema_key, result]
+          end
+        end
+
+        def fetch_object_values_from(value:, schema_value:, attribute_required:)
+          return value if attribute_required
+          return value if value.present?
+
+          schema_value.fetch(:default, nil)
         end
 
         def raise_error_for(type, name)

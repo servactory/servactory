@@ -3,9 +3,12 @@ module Servactory
     class Input
       @collection_of_options: Maintenance::Attributes::OptionsCollection
 
+      attr_accessor value: any
+
       attr_reader name: Symbol
       attr_reader internal_name: Symbol?
       attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
+      attr_reader object_mode_class_names: Maintenance::ObjectMode::ClassNamesCollection
       attr_reader option_helpers: Maintenance::Attributes::OptionHelpersCollection
 
       def initialize: (

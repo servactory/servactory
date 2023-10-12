@@ -1,0 +1,16 @@
+module Servactory
+  module Inputs
+    module Tools
+      class Distributor
+        @incoming_arguments: Hash[Symbol, any]
+        @collection_of_inputs: Collection
+
+        def self.assign!: (*untyped) ?{ () -> untyped } -> Collection
+
+        def initialize: (Hash[Symbol, any] incoming_arguments, Collection collection_of_inputs) -> void
+
+        def assign!: () -> Collection
+      end
+    end
+  end
+end

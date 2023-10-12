@@ -8,6 +8,7 @@ module Servactory
                     :output_error_class,
                     :failure_class,
                     :collection_mode_class_names,
+                    :object_mode_class_names,
                     :input_option_helpers,
                     :aliases_for_make,
                     :shortcuts_for_make
@@ -22,6 +23,9 @@ module Servactory
         @collection_mode_class_names =
           Servactory::Maintenance::CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
 
+        @object_mode_class_names =
+          Servactory::Maintenance::ObjectMode::ClassNamesCollection.new(default_object_mode_class_names)
+
         @input_option_helpers =
           Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)
 
@@ -33,6 +37,10 @@ module Servactory
 
       def default_collection_mode_class_names
         Set[Array, Set]
+      end
+
+      def default_object_mode_class_names
+        Set[Hash]
       end
 
       def default_input_option_helpers

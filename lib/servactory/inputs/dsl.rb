@@ -22,6 +22,7 @@ module Servactory
             name,
             *helpers,
             collection_mode_class_names: config.collection_mode_class_names,
+            object_mode_class_names: config.object_mode_class_names,
             option_helpers: config.input_option_helpers,
             **options
           )

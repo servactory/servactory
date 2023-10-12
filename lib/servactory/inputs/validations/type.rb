@@ -34,30 +34,29 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check(context:, input:, value:, check_key:, check_options:)
-          return unless should_be_checked_for?(input, value, check_key)
+        def self.check(context:, input:, check_key:, check_options:)
+          return unless should_be_checked_for?(input, check_key)
 
-          new(context: context, input: input, value: value, types: check_options).check
+          new(context: context, input: input, types: check_options).check
         end
 
-        def self.should_be_checked_for?(input, value, check_key)
+        def self.should_be_checked_for?(input, check_key)
           check_key == :types && (
             input.required? || (
               input.optional? && !input.default.nil?
             ) || (
-              input.optional? && !value.nil?
+              input.optional? && !input.value.nil?
             )
           )
         end
 
         ##########################################################################
 
-        def initialize(context:, input:, value:, types:)
+        def initialize(context:, input:, types:)
           super()
 
           @context = context
           @input = input
-          @value = value
           @types = types
         end
 
@@ -66,6 +65,11 @@ module Servactory
             if @input.collection_mode?
               prepared_value.is_a?(@types.fetch(0, Array)) &&
               prepared_value.respond_to?(:all?) && prepared_value.all?(type)
+            elsif @input.object_mode?
+              Servactory::Maintenance::Validations::ObjectSchema.valid?(
+                object: prepared_value,
+                schema: @input.schema
+              )
             else
               prepared_value.is_a?(type)
             end
@@ -102,7 +106,11 @@ module Servactory
         end
 
         def prepared_value
-          @prepared_value ||= @input.optional? && !@input.default.nil? && @value.blank? ? @input.default : @value
+          @prepared_value ||= if @input.optional? && !@input.default.nil? && @input.value.blank?
+                                @input.default
+                              else
+                                @input.value
+                              end
         end
       end
     end
