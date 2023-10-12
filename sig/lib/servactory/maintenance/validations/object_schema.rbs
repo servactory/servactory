@@ -4,26 +4,26 @@ module Servactory
       class ObjectSchema
         RESERVED_ATTRIBUTES: Array[Symbol]
 
-        @object: Hash[Symbol, untyped]
-        @schema: Hash[Symbol, untyped]
+        @object: Hash[Symbol, any]
+        @schema: Hash[Symbol, any]
 
         def self.valid?: (*untyped) ?{ () -> untyped } -> bool
 
-        def initialize: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) -> void
+        def initialize: (object: Hash[Symbol, any], schema: Hash[Symbol, any]) -> void
 
         def valid?: () -> bool
 
         private
 
-        def validate_for: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) -> bool
+        def validate_for: (object: Hash[Symbol, any], schema: Hash[Symbol, any]) -> bool
 
-        def validate_with: (object: Hash[Symbol, untyped], schema_key: Symbol, schema_value: Hash[Symbol, untyped], attribute_type: Class, attribute_required: bool) -> bool
+        def validate_with: (object: Hash[Symbol, any], schema_key: Symbol, schema_value: Hash[Symbol, any], attribute_type: Class, attribute_required: bool) -> bool
 
-        def should_be_checked_for?: (object: Hash[Symbol, untyped], schema_value: Hash[Symbol, untyped], required: bool) -> bool
+        def should_be_checked_for?: (object: Hash[Symbol, any], schema_value: Hash[Symbol, any], required: bool) -> bool
 
-        def prepare_value_from: (schema_value: Hash[Symbol, untyped], value: any, required: bool) -> any
+        def prepare_value_from: (schema_value: Hash[Symbol, any], value: any, required: bool) -> any
 
-        def fetch_default_from: (Hash[Symbol, untyped] value) -> any
+        def fetch_default_from: (Hash[Symbol, any] value) -> any
       end
     end
   end

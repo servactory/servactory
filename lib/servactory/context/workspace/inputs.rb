@@ -57,7 +57,7 @@ module Servactory
           end
         end
 
-        def prepare_object_values_inside(object:, schema:)
+        def prepare_object_values_inside(object:, schema:) # rubocop:disable Metrics/MethodLength
           return object unless object.respond_to?(:fetch)
 
           schema.to_h do |schema_key, schema_value|
