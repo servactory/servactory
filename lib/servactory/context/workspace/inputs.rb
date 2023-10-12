@@ -4,6 +4,9 @@ module Servactory
   module Context
     module Workspace
       class Inputs
+        RESERVED_ATTRIBUTES = %i[type required default].freeze
+        private_constant :RESERVED_ATTRIBUTES
+
         def initialize(context:, collection_of_inputs:)
           @context = context
           @collection_of_inputs = collection_of_inputs
@@ -65,7 +68,10 @@ module Servactory
 
             result =
               if attribute_type == Hash
-                prepare_object_values_inside(object: object.fetch(schema_key, {}), schema: schema_value.except(*%i[type required default]))
+                prepare_object_values_inside(
+                  object: object.fetch(schema_key, {}),
+                  schema: schema_value.except(*RESERVED_ATTRIBUTES)
+                )
               else
                 fetch_object_values_from(
                   value: object.fetch(schema_key, {}),

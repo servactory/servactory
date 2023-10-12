@@ -2,6 +2,8 @@ module Servactory
   module Context
     module Workspace
       class Inputs
+        RESERVED_ATTRIBUTES: Array[Symbol]
+
         @context: instance
         @collection_of_inputs: Inputs::Collection
 
