@@ -22,7 +22,7 @@ RSpec.describe Wrong::Example17 do
     end
 
     let(:first_name) { "John" }
-    let(:middle_name) { 123 }
+    let(:middle_name) { nil }
     let(:last_name) { "Kennedy" }
 
     include_examples "check class info",
@@ -32,14 +32,32 @@ RSpec.describe Wrong::Example17 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Errors::InputError,
-              "[Wrong::Example17] Wrong type in input object `payload`, " \
-              "expected `String` for `middle_name`, got `Integer`"
+        context "when the value type for `first_name` is wrong" do
+          let(:first_name) { 123 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Wrong::Example17] Wrong type in input object `payload`, " \
+                "expected `String` for `first_name`, got `Integer`"
+              )
             )
-          )
+          end
+        end
+
+        context "when the value type for `middle_name` is wrong" do
+          let(:middle_name) { 123 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Wrong::Example17] Wrong type in input object `payload`, " \
+                "expected `String` for `middle_name`, got `Integer`"
+              )
+            )
+          end
         end
       end
     end
@@ -83,14 +101,32 @@ RSpec.describe Wrong::Example17 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Errors::InputError,
-              "[Wrong::Example17] Wrong type in input object `payload`, " \
-              "expected `String` for `middle_name`, got `Integer`"
+        context "when the value type for `first_name` is wrong" do
+          let(:first_name) { 123 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Wrong::Example17] Wrong type in input object `payload`, " \
+                "expected `String` for `first_name`, got `Integer`"
+              )
             )
-          )
+          end
+        end
+
+        context "when the value type for `middle_name` is wrong" do
+          let(:middle_name) { 123 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Wrong::Example17] Wrong type in input object `payload`, " \
+                "expected `String` for `middle_name`, got `Integer`"
+              )
+            )
+          end
         end
       end
     end
