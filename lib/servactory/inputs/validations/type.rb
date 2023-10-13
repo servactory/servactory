@@ -3,8 +3,8 @@
 module Servactory
   module Inputs
     module Validations
-      class Type < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, expected_type:, given_type:|
+      class Type < Base # rubocop:disable Metrics/ClassLength
+        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, object_name:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
           if input.collection_mode?
             collection_message = input.consists_of.fetch(:message)
 
@@ -21,6 +21,15 @@ module Servactory
                 given_type: given_type
               )
             end
+          elsif input.object_mode? && object_name.present?
+            I18n.t(
+              "servactory.inputs.checks.type.default_error.for_object",
+              service_class_name: service_class_name,
+              input_name: input.name,
+              object_name: object_name,
+              expected_type: expected_type,
+              given_type: given_type
+            )
           else
             I18n.t(
               "servactory.inputs.checks.type.default_error.default",
@@ -60,28 +69,28 @@ module Servactory
           @types = types
         end
 
-        def check # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        def check # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           return if prepared_types.any? do |type|
             if @input.collection_mode?
               prepared_value.is_a?(@types.fetch(0, Array)) &&
               prepared_value.respond_to?(:all?) && prepared_value.all?(type)
             elsif @input.object_mode?
-              Servactory::Maintenance::Validations::ObjectSchema.valid?(
+              @object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate!(
                 object: prepared_value,
                 schema: @input.schema
               )
+
+              @object_schema_validator.valid?
             else
               prepared_value.is_a?(type)
             end
           end
 
-          add_error(
-            DEFAULT_MESSAGE,
-            service_class_name: @context.class.name,
-            input: @input,
-            expected_type: prepared_types.join(", "),
-            given_type: prepared_value.class.name
-          )
+          if (first_error = @object_schema_validator&.errors&.first).present?
+            return add_default_object_error_with(first_error)
+          end
+
+          add_default_error
         end
 
         ########################################################################
@@ -111,6 +120,30 @@ module Servactory
                               else
                                 @input.value
                               end
+        end
+
+        private
+
+        def add_default_object_error_with(error)
+          add_error(
+            DEFAULT_MESSAGE,
+            service_class_name: @context.class.name,
+            input: @input,
+            object_name: error.fetch(:name),
+            expected_type: error.fetch(:expected_type),
+            given_type: error.fetch(:given_type)
+          )
+        end
+
+        def add_default_error
+          add_error(
+            DEFAULT_MESSAGE,
+            service_class_name: @context.class.name,
+            input: @input,
+            object_name: nil,
+            expected_type: prepared_types.join(", "),
+            given_type: prepared_value.class.name
+          )
         end
       end
     end

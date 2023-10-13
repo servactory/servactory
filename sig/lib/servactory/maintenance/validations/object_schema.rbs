@@ -19,7 +19,7 @@ module Servactory
 
         def validate_with: (object: Hash[Symbol, any], schema_key: Symbol, schema_value: Hash[Symbol, any], attribute_type: Class, attribute_required: bool) -> bool
 
-        def should_be_checked_for?: (object: Hash[Symbol, any], schema_value: Hash[Symbol, any], required: bool) -> bool
+        def should_be_checked_for?: (object: Hash[Symbol, any], schema_key: Symbol, schema_value: Hash[Symbol, any], required: bool) -> bool
 
         def prepare_value_from: (schema_value: Hash[Symbol, any], value: any, required: bool) -> any
 

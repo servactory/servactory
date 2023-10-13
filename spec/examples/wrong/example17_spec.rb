@@ -1,0 +1,105 @@
+# frozen_string_literal: true
+
+RSpec.describe Wrong::Example17 do
+  describe ".call!" do
+    subject(:perform) { described_class.call!(**attributes) }
+
+    let(:attributes) do
+      {
+        payload: payload
+      }
+    end
+
+    let(:payload) do
+      {
+        request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        user: {
+          first_name: first_name,
+          middle_name: middle_name,
+          last_name: last_name
+        }
+      }
+    end
+
+    let(:first_name) { "John" }
+    let(:middle_name) { 123 }
+    let(:last_name) { "Kennedy" }
+
+    include_examples "check class info",
+                     inputs: %i[payload],
+                     internals: %i[],
+                     outputs: %i[]
+
+    context "when the input arguments are valid" do
+      describe "but the data required for work is invalid" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Errors::InputError,
+              "[Wrong::Example17] Wrong type in input object `payload`, " \
+              "expected `String` for `middle_name`, got `Integer`"
+            )
+          )
+        end
+      end
+    end
+
+    context "when the input arguments are invalid" do
+      context "when `invoice_number`" do
+        it_behaves_like "input required check", name: :payload
+        it_behaves_like "input type check", name: :payload, expected_type: Hash
+      end
+    end
+  end
+
+  describe ".call" do
+    subject(:perform) { described_class.call(**attributes) }
+
+    let(:attributes) do
+      {
+        payload: payload
+      }
+    end
+
+    let(:payload) do
+      {
+        request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        user: {
+          first_name: first_name,
+          middle_name: middle_name,
+          last_name: last_name
+        }
+      }
+    end
+
+    let(:first_name) { "John" }
+    let(:middle_name) { 123 }
+    let(:last_name) { "Kennedy" }
+
+    include_examples "check class info",
+                     inputs: %i[payload],
+                     internals: %i[],
+                     outputs: %i[]
+
+    context "when the input arguments are valid" do
+      describe "but the data required for work is invalid" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Errors::InputError,
+              "[Wrong::Example17] Wrong type in input object `payload`, " \
+              "expected `String` for `middle_name`, got `Integer`"
+            )
+          )
+        end
+      end
+    end
+
+    context "when the input arguments are invalid" do
+      context "when `invoice_number`" do
+        it_behaves_like "input required check", name: :payload
+        it_behaves_like "input type check", name: :payload, expected_type: Hash
+      end
+    end
+  end
+end

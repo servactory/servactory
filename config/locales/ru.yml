@@ -18,6 +18,9 @@ ru:
           default_error:
             default: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             for_collection: "[%{service_class_name}] Неправильный тип в коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`"
+            for_object:
+              wrong_element_type: "[%{service_class_name}] Неправильный тип в объекте инпута `%{input_name}`, для `%{object_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
+
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Неожиданные атрибуты: `%{unnecessary_attributes}`"

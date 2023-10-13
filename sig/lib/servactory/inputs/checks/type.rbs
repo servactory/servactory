@@ -10,6 +10,8 @@ module Servactory
         @prepared_types: Array[Class]
         @prepared_value: String
 
+        @object_schema_validator: Maintenance::Validations::ObjectSchema
+
         def self.check: (context: instance, input: Input, check_key: Symbol, check_options: untyped) -> void
 
         def self.should_be_checked_for?: (Input input, Symbol check_key) -> bool
@@ -23,6 +25,12 @@ module Servactory
         def prepared_types_from: (Array[Class] types) -> Array[Class]
 
         def prepared_value: () -> String
+
+        private
+
+        def add_default_object_error_with: (Hash[Symbol, any] error) -> void
+
+        def add_default_error: -> void
       end
     end
   end

@@ -7,17 +7,28 @@ module Servactory
         RESERVED_ATTRIBUTES = %i[type required default].freeze
         private_constant :RESERVED_ATTRIBUTES
 
-        def self.valid?(...)
-          new(...).valid?
+        attr_reader :errors
+
+        def self.validate!(...)
+          new(...).validate!
         end
 
         def initialize(object:, schema:)
           @object = object
           @schema = schema
+
+          @valid = false
+          @errors = []
+        end
+
+        def validate!
+          @valid = validate_for(object: @object, schema: @schema)
+
+          self
         end
 
         def valid?
-          validate_for(object: @object, schema: @schema)
+          @valid
         end
 
         private
@@ -31,19 +42,31 @@ module Servactory
             if attribute_type == Hash
               validate_for(object: object.fetch(schema_key, {}), schema: schema_value.except(*RESERVED_ATTRIBUTES))
             else
-              validate_with(
+              is_success = validate_with(
                 object: object,
                 schema_key: schema_key,
                 schema_value: schema_value,
                 attribute_type: attribute_type,
                 attribute_required: schema_value.fetch(:required, true)
               )
+
+              unless is_success
+                @errors.push(
+                  {
+                    name: schema_key,
+                    expected_type: attribute_type,
+                    given_type: object.fetch(schema_key, {}).class
+                  }
+                )
+              end
+
+              is_success
             end
           end
         end
 
         def validate_with(object:, schema_key:, schema_value:, attribute_type:, attribute_required:)
-          unless should_be_checked_for?(object: object, schema_value: schema_value, required: attribute_required)
+          unless should_be_checked_for?(object: object, schema_key: schema_key, schema_value: schema_value, required: attribute_required)
             return true
           end
 
@@ -53,11 +76,11 @@ module Servactory
           Array(attribute_type).any? { |type| prepared_value.is_a?(type) }
         end
 
-        def should_be_checked_for?(object:, schema_value:, required:)
+        def should_be_checked_for?(object:, schema_key:, schema_value:, required:)
           required || (
             !required && !fetch_default_from(schema_value).nil?
           ) || (
-            !required && !object.fetch(:key, nil).nil?
+            !required && !object.fetch(schema_key, nil).nil?
           )
         end
 
