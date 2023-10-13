@@ -4,12 +4,18 @@ module Servactory
       class ObjectSchema
         RESERVED_ATTRIBUTES: Array[Symbol]
 
+        attr_reader errors: Array[Hash[Symbol, any]]
+
         @object: Hash[Symbol, any]
         @schema: Hash[Symbol, any]
 
-        def self.valid?: (*untyped) ?{ () -> untyped } -> bool
+        @valid: bool
+
+        def self.validate: (*untyped) ?{ () -> untyped } -> self
 
         def initialize: (object: Hash[Symbol, any], schema: Hash[Symbol, any]) -> void
+
+        def validate: () -> self
 
         def valid?: () -> bool
 

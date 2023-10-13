@@ -9,8 +9,8 @@ module Servactory
 
         attr_reader :errors
 
-        def self.validate!(...)
-          new(...).validate!
+        def self.validate(...)
+          new(...).validate
         end
 
         def initialize(object:, schema:)
@@ -21,7 +21,7 @@ module Servactory
           @errors = []
         end
 
-        def validate!
+        def validate
           @valid = validate_for(object: @object, schema: @schema)
 
           self

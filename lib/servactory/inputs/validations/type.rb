@@ -75,7 +75,7 @@ module Servactory
               prepared_value.is_a?(@types.fetch(0, Array)) &&
               prepared_value.respond_to?(:all?) && prepared_value.all?(type)
             elsif @input.object_mode?
-              @object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate!(
+              @object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
                 object: prepared_value,
                 schema: @input.schema
               )
