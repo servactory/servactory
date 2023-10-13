@@ -65,8 +65,13 @@ module Servactory
           end
         end
 
-        def validate_with(object:, schema_key:, schema_value:, attribute_type:, attribute_required:)
-          unless should_be_checked_for?(object: object, schema_key: schema_key, schema_value: schema_value, required: attribute_required)
+        def validate_with(object:, schema_key:, schema_value:, attribute_type:, attribute_required:) # rubocop:disable Metrics/MethodLength
+          unless should_be_checked_for?(
+            object: object,
+            schema_key: schema_key,
+            schema_value: schema_value,
+            required: attribute_required
+          ) # do
             return true
           end
 
