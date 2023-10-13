@@ -47,6 +47,12 @@ module Servactory
           return if inclusion_in.nil?
           return if inclusion_in.include?(@input.value)
 
+          add_error_with(message)
+        end
+
+        private
+
+        def add_error_with(message)
           add_error(
             message.presence || DEFAULT_MESSAGE,
             service_class_name: @context.class.name,

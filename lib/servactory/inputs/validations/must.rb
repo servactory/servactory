@@ -47,19 +47,13 @@ module Servactory
           @check_options = check_options
         end
 
-        def check # rubocop:disable Metrics/MethodLength
+        def check
           @check_options.each do |code, options|
             message = call_or_fetch_message_from(code, options)
 
             next if message.blank?
 
-            add_error(
-              message,
-              service_class_name: @context.class.name,
-              input: @input,
-              value: @input.value,
-              code: code
-            )
+            prepare_and_add_error_with(message, code)
           end
 
           errors
@@ -67,20 +61,36 @@ module Servactory
 
         private
 
-        def call_or_fetch_message_from(code, options) # rubocop:disable Metrics/MethodLength
+        def call_or_fetch_message_from(code, options)
           check, message = options.values_at(:is, :message)
 
           return if check.call(value: @input.value)
 
           message.presence || DEFAULT_MESSAGE
         rescue StandardError => e
+          prepare_and_add_syntax_error_with(SYNTAX_ERROR_MESSAGE, code, e.message)
+        end
+
+        ########################################################################
+
+        def prepare_and_add_error_with(message, code)
           add_error(
-            SYNTAX_ERROR_MESSAGE,
+            message,
+            service_class_name: @context.class.name,
+            input: @input,
+            value: @input.value,
+            code: code
+          )
+        end
+
+        def prepare_and_add_syntax_error_with(message, code, exception_message)
+          add_error(
+            message,
             service_class_name: @context.class.name,
             input: @input,
             value: @input.value,
             code: code,
-            exception_message: e.message
+            exception_message: exception_message
           )
         end
       end

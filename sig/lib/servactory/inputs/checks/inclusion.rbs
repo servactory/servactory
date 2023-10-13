@@ -14,6 +14,10 @@ module Servactory
         def initialize: (context: instance, input: Input) -> void
 
         def check: () -> void
+
+        private
+
+        def add_error_with: (String? message) -> void
       end
     end
   end

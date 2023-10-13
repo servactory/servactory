@@ -13,7 +13,7 @@ module Servactory
                     :aliases_for_make,
                     :shortcuts_for_make
 
-      def initialize
+      def initialize # rubocop:disable Metrics/MethodLength
         @input_error_class = Servactory::Errors::InputError
         @internal_error_class = Servactory::Errors::InternalError
         @output_error_class = Servactory::Errors::OutputError

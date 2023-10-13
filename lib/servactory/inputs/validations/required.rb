@@ -36,7 +36,7 @@ module Servactory
           @input = input
         end
 
-        def check # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def check
           if @input.collection_mode? && Servactory::Utils.value_present?(@input.value)
             return if @input.value.respond_to?(:all?) && @input.value.all?(&:present?)
           elsif Servactory::Utils.value_present?(@input.value)
@@ -45,6 +45,12 @@ module Servactory
 
           _, message = @input.required.values_at(:is, :message)
 
+          add_error_with(message)
+        end
+
+        private
+
+        def add_error_with(message)
           add_error(
             message.presence || DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
