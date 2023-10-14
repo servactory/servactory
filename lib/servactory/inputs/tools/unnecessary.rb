@@ -3,7 +3,7 @@
 module Servactory
   module Inputs
     module Tools
-      class FindUnnecessary
+      class Unnecessary
         def self.find!(...)
           new(...).find!
         end

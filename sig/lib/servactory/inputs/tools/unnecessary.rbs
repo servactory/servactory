@@ -1,7 +1,7 @@
 module Servactory
   module Inputs
     module Tools
-      class FindUnnecessary
+      class Unnecessary
         @collection_of_inputs: Collection
         @context: instance
 
