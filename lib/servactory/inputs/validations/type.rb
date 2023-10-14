@@ -70,23 +70,25 @@ module Servactory
         end
 
         def check # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          object_schema_validator = nil
+
           return if prepared_types.any? do |type|
             if @input.collection_mode?
               prepared_value.is_a?(@types.fetch(0, Array)) &&
               prepared_value.respond_to?(:all?) && prepared_value.all?(type)
             elsif @input.object_mode?
-              @object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
+              object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
                 object: prepared_value,
                 schema: @input.schema
               )
 
-              @object_schema_validator.valid?
+              object_schema_validator.valid?
             else
               prepared_value.is_a?(type)
             end
           end
 
-          if (first_error = @object_schema_validator&.errors&.first).present?
+          if (first_error = object_schema_validator&.errors&.first).present?
             return add_default_object_error_with(first_error)
           end
 

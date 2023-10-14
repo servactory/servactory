@@ -53,7 +53,7 @@ module Servactory
 
             next if message.blank?
 
-            prepare_and_add_error_with(message, code)
+            add_error_with(message, code)
           end
 
           errors
@@ -68,12 +68,12 @@ module Servactory
 
           message.presence || DEFAULT_MESSAGE
         rescue StandardError => e
-          prepare_and_add_syntax_error_with(SYNTAX_ERROR_MESSAGE, code, e.message)
+          add_syntax_error_with(SYNTAX_ERROR_MESSAGE, code, e.message)
         end
 
         ########################################################################
 
-        def prepare_and_add_error_with(message, code)
+        def add_error_with(message, code)
           add_error(
             message,
             service_class_name: @context.class.name,
@@ -83,7 +83,7 @@ module Servactory
           )
         end
 
-        def prepare_and_add_syntax_error_with(message, code, exception_message)
+        def add_syntax_error_with(message, code, exception_message)
           add_error(
             message,
             service_class_name: @context.class.name,
