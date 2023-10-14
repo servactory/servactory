@@ -4,8 +4,8 @@ module Servactory
   module Inputs
     module Tools
       class Rules
-        def self.validate!(...)
-          new(...).validate!
+        def self.check!(...)
+          new(...).check!
         end
 
         def initialize(context, collection_of_inputs)
@@ -13,7 +13,7 @@ module Servactory
           @collection_of_inputs = collection_of_inputs
         end
 
-        def validate!
+        def check!
           @collection_of_inputs.each do |input|
             check_for!(input)
           end
