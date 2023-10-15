@@ -36,6 +36,8 @@ en:
             for_collection:
               wrong_type: "[%{service_class_name}] Wrong internal attribute collection type `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`"
+            for_object:
+              wrong_element_type: "[%{service_class_name}] Wrong type in internal attribute object `%{internal_name}`, expected `%{expected_type}` for `%{object_name}`, got `%{given_type}`"
     outputs:
       undefined:
         getter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"

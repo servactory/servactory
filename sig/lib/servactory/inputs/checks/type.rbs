@@ -2,7 +2,7 @@ module Servactory
   module Inputs
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, input: Input, expected_type: String, given_type: String) -> String
+        DEFAULT_MESSAGE: ^(service_class_name: String, input: Input, object_name: Symbol, expected_type: String, given_type: String) -> String
 
         @context: instance
         @input: Input

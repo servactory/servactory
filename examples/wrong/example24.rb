@@ -8,7 +8,10 @@ module Wrong
             request_id: { type: String, required: true },
             user: {
               type: Hash,
-              required: true
+              required: true,
+              first_name: { type: String, required: true },
+              middle_name: { type: String, required: false },
+              last_name: { type: String, required: true }
             }
           }
 
