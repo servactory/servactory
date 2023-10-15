@@ -33,7 +33,7 @@ RSpec.describe Usual::Example70 do
 
     include_examples "check class info",
                      inputs: %i[payload],
-                     internals: %i[],
+                     internals: %i[payload],
                      outputs: %i[full_name]
 
     context "when the input arguments are valid" do
@@ -88,7 +88,7 @@ RSpec.describe Usual::Example70 do
 
     include_examples "check class info",
                      inputs: %i[payload],
-                     internals: %i[],
+                     internals: %i[payload],
                      outputs: %i[full_name]
 
     context "when the input arguments are valid" do

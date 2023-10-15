@@ -55,7 +55,7 @@ module Servactory
                   {
                     name: schema_key,
                     expected_type: attribute_type,
-                    given_type: object.fetch(schema_key, {}).class
+                    given_type: object.fetch(schema_key, nil).class
                   }
                 )
               end
