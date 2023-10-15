@@ -16,7 +16,11 @@ RSpec.describe Usual::Example69 do
         user: {
           first_name: first_name,
           middle_name: middle_name,
-          last_name: last_name
+          last_name: last_name,
+          pass: {
+            series: series,
+            number: number
+          }
         }
       }
     end
@@ -24,6 +28,8 @@ RSpec.describe Usual::Example69 do
     let(:first_name) { "John" }
     let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
+    let(:series) { "HR" }
+    let(:number) { "88467617508" }
 
     include_examples "check class info",
                      inputs: %i[payload],
@@ -75,7 +81,11 @@ RSpec.describe Usual::Example69 do
         user: {
           first_name: first_name,
           middle_name: middle_name,
-          last_name: last_name
+          last_name: last_name,
+          pass: {
+            series: series,
+            number: number
+          }
         }
       }
     end
@@ -83,6 +93,8 @@ RSpec.describe Usual::Example69 do
     let(:first_name) { "John" }
     let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
+    let(:series) { "HR" }
+    let(:number) { "88467617508" }
 
     include_examples "check class info",
                      inputs: %i[payload],
