@@ -21,7 +21,7 @@ module Servactory
 
         private
 
-        def validate_for: (object: Hash[Symbol, any], schema: Hash[Symbol, any]) -> bool
+        def validate_for: (object: Hash[Symbol, any], schema: Hash[Symbol, any], ?root_schema_key: Symbol?) -> bool
 
         def validate_with: (object: Hash[Symbol, any], schema_key: Symbol, schema_value: Hash[Symbol, any], attribute_type: Class, attribute_required: bool) -> bool
 
@@ -30,6 +30,8 @@ module Servactory
         def prepare_value_from: (schema_value: Hash[Symbol, any], value: any, required: bool) -> any
 
         def fetch_default_from: (Hash[Symbol, any] value) -> any
+
+        def add_error: (name: Symbol, expected_type: Class, given_type: Class) -> Array[Hash[Symbol, any]]
       end
     end
   end

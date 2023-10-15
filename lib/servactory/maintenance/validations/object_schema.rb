@@ -33,14 +33,21 @@ module Servactory
 
         private
 
-        def validate_for(object:, schema:) # rubocop:disable Metrics/MethodLength
-          return false unless object.respond_to?(:fetch)
+        def validate_for(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength
+          unless object.respond_to?(:fetch)
+            add_error(name: root_schema_key, expected_type: Hash, given_type: object.class)
+            return false
+          end
 
           schema.all? do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
 
             if attribute_type == Hash
-              validate_for(object: object.fetch(schema_key, {}), schema: schema_value.except(*RESERVED_ATTRIBUTES))
+              validate_for(
+                object: object.fetch(schema_key, {}),
+                schema: schema_value.except(*RESERVED_ATTRIBUTES),
+                root_schema_key: schema_key
+              )
             else
               is_success = validate_with(
                 object: object,
@@ -51,13 +58,7 @@ module Servactory
               )
 
               unless is_success
-                @errors.push(
-                  {
-                    name: schema_key,
-                    expected_type: attribute_type,
-                    given_type: object.fetch(schema_key, nil).class
-                  }
-                )
+                add_error(name: schema_key, expected_type: attribute_type, given_type: object.fetch(schema_key, nil).class)
               end
 
               is_success
@@ -99,6 +100,14 @@ module Servactory
 
         def fetch_default_from(value)
           value.fetch(:default, nil)
+        end
+
+        def add_error(name:, expected_type:, given_type:)
+          @errors << {
+            name: name,
+            expected_type: expected_type,
+            given_type: given_type
+          }
         end
       end
     end
