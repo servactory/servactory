@@ -23,7 +23,7 @@ module Servactory
             end
           elsif input.object_mode? && object_name.present?
             I18n.t(
-              "servactory.inputs.checks.type.default_error.for_object",
+              "servactory.inputs.checks.type.default_error.for_object.wrong_element_type",
               service_class_name: service_class_name,
               input_name: input.name,
               object_name: object_name,

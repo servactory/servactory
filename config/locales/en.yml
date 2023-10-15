@@ -18,7 +18,8 @@ en:
           default_error:
             default: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_collection: "[%{service_class_name}] Wrong type in input collection `%{input_name}`, expected `%{expected_type}`"
-            for_object: "[%{service_class_name}] Wrong type in input object `%{input_name}`, expected `%{expected_type}` for `%{object_name}`, got `%{given_type}`"
+            for_object:
+              wrong_element_type: "[%{service_class_name}] Wrong type in input object `%{input_name}`, expected `%{expected_type}` for `%{object_name}`, got `%{given_type}`"
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"
