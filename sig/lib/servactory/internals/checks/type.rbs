@@ -2,18 +2,18 @@ module Servactory
   module Internals
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, internal: Internal, value: any, object_name: Symbol, expected_type: String, given_type: String) -> Proc
+        DEFAULT_MESSAGE: ^(service_class_name: String, internal: Internal, value: untyped, object_name: Symbol, expected_type: String, given_type: String) -> Proc
 
         @context: instance
         @internal: Internal
         @prepared_types: Array[Class]
-        @value: any
+        @value: untyped
 
         def self.validate!: (*untyped) ?{ () -> untyped } -> void
 
         def should_be_checked?: -> bool
 
-        def initialize: (context: instance, internal: Internal, value: any) -> void
+        def initialize: (context: instance, internal: Internal, value: untyped) -> void
 
         def validate!: () -> void
 

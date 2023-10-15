@@ -4,16 +4,16 @@ module Servactory
       class ObjectSchema
         RESERVED_ATTRIBUTES: Array[Symbol]
 
-        attr_reader errors: Array[Hash[Symbol, any]]
+        attr_reader errors: Array[Hash[Symbol, untyped]]
 
-        @object: Hash[Symbol, any]
-        @schema: Hash[Symbol, any]
+        @object: Hash[Symbol, untyped]
+        @schema: Hash[Symbol, untyped]
 
         @valid: bool
 
         def self.validate: (*untyped) ?{ () -> untyped } -> self
 
-        def initialize: (object: Hash[Symbol, any], schema: Hash[Symbol, any]) -> void
+        def initialize: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) -> void
 
         def validate: () -> self
 
@@ -21,17 +21,17 @@ module Servactory
 
         private
 
-        def validate_for: (object: Hash[Symbol, any], schema: Hash[Symbol, any], ?root_schema_key: Symbol?) -> bool
+        def validate_for: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped], ?root_schema_key: Symbol?) -> bool
 
-        def validate_with: (object: Hash[Symbol, any], schema_key: Symbol, schema_value: Hash[Symbol, any], attribute_type: Class, attribute_required: bool) -> bool
+        def validate_with: (object: Hash[Symbol, untyped], schema_key: Symbol, schema_value: Hash[Symbol, untyped], attribute_type: Class, attribute_required: bool) -> bool
 
-        def should_be_checked_for?: (object: Hash[Symbol, any], schema_key: Symbol, schema_value: Hash[Symbol, any], required: bool) -> bool
+        def should_be_checked_for?: (object: Hash[Symbol, untyped], schema_key: Symbol, schema_value: Hash[Symbol, untyped], required: bool) -> bool
 
-        def prepare_value_from: (schema_value: Hash[Symbol, any], value: any, required: bool) -> any
+        def prepare_value_from: (schema_value: Hash[Symbol, untyped], value: untyped, required: bool) -> untyped
 
-        def fetch_default_from: (Hash[Symbol, any] value) -> any
+        def fetch_default_from: (Hash[Symbol, untyped] value) -> untyped
 
-        def add_error: (name: Symbol, expected_type: Class, given_type: Class) -> Array[Hash[Symbol, any]]
+        def add_error: (name: Symbol, expected_type: Class, given_type: Class) -> Array[Hash[Symbol, untyped]]
       end
     end
   end

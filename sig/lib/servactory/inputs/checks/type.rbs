@@ -26,7 +26,7 @@ module Servactory
 
         private
 
-        def add_default_object_error_with: (Hash[Symbol, any] error) -> void
+        def add_default_object_error_with: (Hash[Symbol, untyped] error) -> void
 
         def add_default_error: -> void
       end

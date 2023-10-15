@@ -8,7 +8,7 @@ module Servactory
         @collection_of_stages: StageCollection
         @methods_workbench: Workbench
 
-        def inherited: -> void
+        def inherited: (untyped child) -> void
 
         private
 

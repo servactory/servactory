@@ -6,7 +6,7 @@ module Servactory
       module ClassMethods
         @collection_of_internals: Collection
 
-        def inherited: -> void
+        def inherited: (untyped child) -> void
 
         private
 

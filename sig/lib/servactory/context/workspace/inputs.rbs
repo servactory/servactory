@@ -21,9 +21,9 @@ module Servactory
 
         def getter_with: (name: Symbol) { () -> untyped } -> void
 
-        def prepare_object_values_inside: (object: Hash[Symbol, any], schema: Hash[Symbol, any]) { () -> untyped } -> void
+        def prepare_object_values_inside: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) { () -> untyped } -> void
 
-        def fetch_object_values_from: (value: any, schema_value: Hash[Symbol, any], attribute_required: bool) { () -> untyped } -> void
+        def fetch_object_values_from: (value: untyped, schema_value: Hash[Symbol, untyped], attribute_required: bool) { () -> untyped } -> void
 
         def raise_error_for: (Symbol type, Symbol name) { () -> untyped } -> Exception
       end

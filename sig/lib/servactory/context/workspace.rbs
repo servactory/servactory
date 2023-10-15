@@ -6,11 +6,11 @@ module Servactory
       @outputs: Outputs
       @servactory_service_storage: { internals: {}, outputs: {} }
 
-      attr_reader incoming_arguments: untyped
-      attr_reader collection_of_inputs: Servactory::Inputs::Collection
-      attr_reader collection_of_internals: Servactory::Internals::Collection
-      attr_reader collection_of_outputs: Servactory::Outputs::Collection
-      attr_reader collection_of_stages: Servactory::Methods::StageCollection
+      attr_reader incoming_arguments: Hash[Symbol, untyped]
+      attr_reader collection_of_inputs: Inputs::Collection
+      attr_reader collection_of_internals: Internals::Collection
+      attr_reader collection_of_outputs: Outputs::Collection
+      attr_reader collection_of_stages: Methods::StageCollection
 
       def inputs: -> Inputs
       alias inp inputs
@@ -30,18 +30,18 @@ module Servactory
       private
 
       def _call!: (
-        incoming_arguments: untyped,
-        collection_of_inputs: Servactory::Inputs::Collection,
-        collection_of_internals: Servactory::Internals::Collection,
-        collection_of_outputs: Servactory::Outputs::Collection,
-        collection_of_stages: Servactory::Methods::StageCollection
+        incoming_arguments: Hash[Symbol, untyped],
+        collection_of_inputs: Inputs::Collection,
+        collection_of_internals: Internals::Collection,
+        collection_of_outputs: Outputs::Collection,
+        collection_of_stages: Methods::StageCollection
       ) -> untyped
 
       def call!: (
-        incoming_arguments: untyped,
-        collection_of_inputs: Servactory::Inputs::Collection,
-        collection_of_internals: Servactory::Internals::Collection,
-        collection_of_outputs: Servactory::Outputs::Collection,
+        incoming_arguments: Hash[Symbol, untyped],
+        collection_of_inputs: Inputs::Collection,
+        collection_of_internals: Internals::Collection,
+        collection_of_outputs: Outputs::Collection,
         ** untyped
       ) -> untyped
 

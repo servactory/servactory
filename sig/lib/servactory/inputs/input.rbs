@@ -3,7 +3,7 @@ module Servactory
     class Input
       @collection_of_options: Maintenance::Attributes::OptionsCollection
 
-      attr_accessor value: any
+      attr_accessor value: untyped
 
       attr_reader name: Symbol
       attr_reader internal_name: Symbol?
