@@ -4,7 +4,7 @@ module Servactory
       def self.included: (untyped base) -> untyped
 
       module ClassMethods
-        def info: () -> Servactory::Info::Result
+        def info: () -> Result
       end
     end
   end
