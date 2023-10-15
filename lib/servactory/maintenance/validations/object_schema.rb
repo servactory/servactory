@@ -58,7 +58,11 @@ module Servactory
               )
 
               unless is_success
-                add_error(name: schema_key, expected_type: attribute_type, given_type: object.fetch(schema_key, nil).class)
+                add_error(
+                  name: schema_key,
+                  expected_type: attribute_type,
+                  given_type: object.fetch(schema_key, nil).class
+                )
               end
 
               is_success
