@@ -34,14 +34,29 @@ RSpec.describe Usual::Example69 do
     include_examples "check class info",
                      inputs: %i[payload],
                      internals: %i[payload],
-                     outputs: %i[full_name]
+                     outputs: %i[payload full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
+        it "returns the expected value in `full_name`", :aggregate_failures do
           result = perform
+
+          expect(result.payload).to match(
+            {
+              request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+              user: {
+                first_name: "John",
+                middle_name: "Fitzgerald",
+                last_name: "Kennedy",
+                pass: {
+                  series: "HR",
+                  number: "88467617508"
+                }
+              }
+            }
+          )
 
           expect(result.full_name).to eq("John Fitzgerald Kennedy")
         end
@@ -49,8 +64,23 @@ RSpec.describe Usual::Example69 do
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`" do
+          it "returns the expected value in `full_name`", :aggregate_failures do
             result = perform
+
+            expect(result.payload).to match(
+              {
+                request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                user: {
+                  first_name: "John",
+                  middle_name: nil,
+                  last_name: "Kennedy",
+                  pass: {
+                    series: "HR",
+                    number: "88467617508"
+                  }
+                }
+              }
+            )
 
             expect(result.full_name).to eq("John Kennedy")
           end
@@ -99,14 +129,29 @@ RSpec.describe Usual::Example69 do
     include_examples "check class info",
                      inputs: %i[payload],
                      internals: %i[payload],
-                     outputs: %i[full_name]
+                     outputs: %i[payload full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
+        it "returns the expected value in `full_name`", :aggregate_failures do
           result = perform
+
+          expect(result.payload).to match(
+            {
+              request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+              user: {
+                first_name: "John",
+                middle_name: "Fitzgerald",
+                last_name: "Kennedy",
+                pass: {
+                  series: "HR",
+                  number: "88467617508"
+                }
+              }
+            }
+          )
 
           expect(result.full_name).to eq("John Fitzgerald Kennedy")
         end
@@ -114,8 +159,23 @@ RSpec.describe Usual::Example69 do
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`" do
+          it "returns the expected value in `full_name`", :aggregate_failures do
             result = perform
+
+            expect(result.payload).to match(
+              {
+                request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                user: {
+                  first_name: "John",
+                  middle_name: nil,
+                  last_name: "Kennedy",
+                  pass: {
+                    series: "HR",
+                    number: "88467617508"
+                  }
+                }
+              }
+            )
 
             expect(result.full_name).to eq("John Kennedy")
           end

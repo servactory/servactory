@@ -28,9 +28,15 @@ module Usual
              type: Hash,
              schema: PAYLOAD_SCHEMA
 
+    output :payload,
+           type: Hash,
+           schema: PAYLOAD_SCHEMA
+
     output :full_name, type: String
 
     make :assign_internal
+
+    make :assign_output
 
     make :assign_full_name
 
@@ -40,11 +46,15 @@ module Usual
       internals.payload = inputs.payload
     end
 
+    def assign_output
+      outputs.payload = internals.payload
+    end
+
     def assign_full_name
       outputs.full_name = [
-        internals.payload.dig(:user, :first_name),
-        internals.payload.dig(:user, :middle_name),
-        internals.payload.dig(:user, :last_name)
+        outputs.payload.dig(:user, :first_name),
+        outputs.payload.dig(:user, :middle_name),
+        outputs.payload.dig(:user, :last_name)
       ].compact.join(" ")
     end
   end

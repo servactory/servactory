@@ -5,6 +5,7 @@ module Servactory
 
       attr_reader name: Symbol
       attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
+      attr_reader object_mode_class_names: Maintenance::ObjectMode::ClassNamesCollection
 
       def initialize: (Symbol name, type: Class, **untyped options) -> void
 
@@ -17,6 +18,8 @@ module Servactory
       def add_types_option_with: ((Class | Array[Class]) type) -> Maintenance::Attributes::OptionsCollection
 
       def add_collection_option_with: ((Class | Array[Class]) type, untyped options) -> Maintenance::Attributes::OptionsCollection
+
+      def add_object_option_with: ((Class | Array[Class]) type, untyped options) -> Maintenance::Attributes::OptionsCollection
 
       def collection_of_options: -> Maintenance::Attributes::OptionsCollection
 

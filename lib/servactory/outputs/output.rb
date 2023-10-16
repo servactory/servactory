@@ -4,11 +4,19 @@ module Servactory
   module Outputs
     class Output
       attr_reader :name,
-                  :collection_mode_class_names
+                  :collection_mode_class_names,
+                  :object_mode_class_names
 
-      def initialize(name, type:, collection_mode_class_names:, **options)
+      def initialize(
+        name,
+        type:,
+        collection_mode_class_names:,
+        object_mode_class_names:,
+        **options
+      )
         @name = name
         @collection_mode_class_names = collection_mode_class_names
+        @object_mode_class_names = object_mode_class_names
 
         add_basic_options_with(type: type, options: options)
       end
@@ -29,6 +37,7 @@ module Servactory
         # Check Class: Servactory::Outputs::Validations::Type
         add_types_option_with(type)
         add_collection_option_with(type, options)
+        add_object_option_with(type, options)
       end
 
       def add_types_option_with(type)
@@ -58,6 +67,24 @@ module Servactory
           body_key: :type,
           body_value: String,
           body_fallback: String,
+          **options
+        )
+      end
+
+      def add_object_option_with(type, options) # rubocop:disable Metrics/MethodLength
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
+          name: :schema,
+          attribute: self,
+          validation_class: Servactory::Inputs::Validations::Type,
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
+              name: :object_mode?,
+              content: ->(**) { object_mode_class_names.include?(type) }
+            )
+          ],
+          need_for_checks: false,
+          body_fallback: {},
+          with_advanced_mode: false,
           **options
         )
       end
