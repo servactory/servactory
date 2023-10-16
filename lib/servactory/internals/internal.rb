@@ -63,11 +63,6 @@ module Servactory
               content: ->(**) { collection_mode_class_names.include?(type) }
             )
           ],
-          define_conflicts: [
-            Servactory::Maintenance::Attributes::DefineConflict.new(
-              content: -> { :collection_vs_inclusion if collection_mode? && inclusion_present? }
-            )
-          ],
           need_for_checks: false,
           body_key: :type,
           body_value: String,
@@ -85,11 +80,6 @@ module Servactory
             Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :object_mode?,
               content: ->(**) { object_mode_class_names.include?(type) }
-            )
-          ],
-          define_conflicts: [
-            Servactory::Maintenance::Attributes::DefineConflict.new(
-              content: -> { :object_vs_inclusion if object_mode? && inclusion_present? }
             )
           ],
           need_for_checks: false,
