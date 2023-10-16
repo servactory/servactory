@@ -15,7 +15,7 @@ RSpec.describe Wrong::Example28 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputError,
-              "[Wrong::Example28] Wrong type in output attribute object `payload`, " \
+              "[Wrong::Example28] Wrong type in output attribute hash `payload`, " \
               "expected `Hash` for `user`, got `NilClass`"
             )
           )
@@ -38,7 +38,7 @@ RSpec.describe Wrong::Example28 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputError,
-              "[Wrong::Example28] Wrong type in output attribute object `payload`, " \
+              "[Wrong::Example28] Wrong type in output attribute hash `payload`, " \
               "expected `Hash` for `user`, got `NilClass`"
             )
           )

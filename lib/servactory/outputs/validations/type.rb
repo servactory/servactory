@@ -4,7 +4,7 @@ module Servactory
   module Outputs
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, output:, value:, object_name:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
+        DEFAULT_MESSAGE = lambda do |service_class_name:, output:, value:, key_name:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
           if output.collection_mode?
             collection_message = output.consists_of.fetch(:message)
 
@@ -29,12 +29,12 @@ module Servactory
                 given_type: value.class.name
               )
             end
-          elsif output.object_mode? && object_name.present?
+          elsif output.hash_mode? && key_name.present?
             I18n.t(
-              "servactory.outputs.checks.type.default_error.for_object.wrong_element_type",
+              "servactory.outputs.checks.type.default_error.for_hash.wrong_element_type",
               service_class_name: service_class_name,
               output_name: output.name,
-              object_name: object_name,
+              key_name: key_name,
               expected_type: expected_type,
               given_type: given_type
             )
@@ -78,7 +78,7 @@ module Servactory
             if @output.collection_mode?
               @value.is_a?(@output.types.fetch(0, Array)) &&
               @value.respond_to?(:all?) && @value.all?(type)
-            elsif @output.object_mode?
+            elsif @output.hash_mode?
               object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
                 object: @value,
                 schema: @output.schema
@@ -126,7 +126,7 @@ module Servactory
             service_class_name: @context.class.name,
             output: @output,
             value: @value,
-            object_name: error.fetch(:name),
+            key_name: error.fetch(:name),
             expected_type: error.fetch(:expected_type),
             given_type: error.fetch(:given_type)
           )
@@ -138,7 +138,7 @@ module Servactory
             service_class_name: @context.class.name,
             output: @output,
             value: @value,
-            object_name: nil,
+            key_name: nil,
             expected_type: prepared_types.join(", "),
             given_type: @value.class.name
           )

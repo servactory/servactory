@@ -5,18 +5,18 @@ module Servactory
     class Internal
       attr_reader :name,
                   :collection_mode_class_names,
-                  :object_mode_class_names
+                  :hash_mode_class_names
 
       def initialize(
         name,
         type:,
         collection_mode_class_names:,
-        object_mode_class_names:,
+        hash_mode_class_names:,
         **options
       )
         @name = name
         @collection_mode_class_names = collection_mode_class_names
-        @object_mode_class_names = object_mode_class_names
+        @hash_mode_class_names = hash_mode_class_names
 
         add_basic_options_with(type: type, options: options)
       end
@@ -78,8 +78,8 @@ module Servactory
           validation_class: Servactory::Inputs::Validations::Type,
           define_methods: [
             Servactory::Maintenance::Attributes::DefineMethod.new(
-              name: :object_mode?,
-              content: ->(**) { object_mode_class_names.include?(type) }
+              name: :hash_mode?,
+              content: ->(**) { hash_mode_class_names.include?(type) }
             )
           ],
           need_for_checks: false,

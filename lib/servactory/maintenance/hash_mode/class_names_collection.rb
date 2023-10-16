@@ -2,7 +2,7 @@
 
 module Servactory
   module Maintenance
-    module ObjectMode
+    module HashMode
       class ClassNamesCollection
         extend Forwardable
         def_delegators :@collection, :include?

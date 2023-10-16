@@ -8,7 +8,7 @@ module Servactory
       attr_reader :name,
                   :internal_name,
                   :collection_mode_class_names,
-                  :object_mode_class_names,
+                  :hash_mode_class_names,
                   :option_helpers
 
       # rubocop:disable Style/KeywordParametersOrder
@@ -18,14 +18,14 @@ module Servactory
         as: nil,
         type:,
         collection_mode_class_names:,
-        object_mode_class_names:,
+        hash_mode_class_names:,
         option_helpers:,
         **options
       )
         @name = name
         @internal_name = as.present? ? as : name
         @collection_mode_class_names = collection_mode_class_names
-        @object_mode_class_names = object_mode_class_names
+        @hash_mode_class_names = hash_mode_class_names
         @option_helpers = option_helpers
 
         options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
@@ -168,13 +168,13 @@ module Servactory
           validation_class: Servactory::Inputs::Validations::Type,
           define_methods: [
             Servactory::Maintenance::Attributes::DefineMethod.new(
-              name: :object_mode?,
-              content: ->(**) { object_mode_class_names.include?(type) }
+              name: :hash_mode?,
+              content: ->(**) { hash_mode_class_names.include?(type) }
             )
           ],
           define_conflicts: [
             Servactory::Maintenance::Attributes::DefineConflict.new(
-              content: -> { :object_vs_inclusion if object_mode? && inclusion_present? }
+              content: -> { :object_vs_inclusion if hash_mode? && inclusion_present? }
             )
           ],
           need_for_checks: false,

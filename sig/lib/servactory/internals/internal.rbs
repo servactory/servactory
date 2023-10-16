@@ -5,7 +5,7 @@ module Servactory
 
       attr_reader name: Symbol
       attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
-      attr_reader object_mode_class_names: Maintenance::ObjectMode::ClassNamesCollection
+      attr_reader hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection
 
       def initialize: (Symbol name, type: Class, **untyped options) -> void
 

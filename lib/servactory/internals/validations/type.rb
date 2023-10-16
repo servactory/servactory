@@ -4,7 +4,7 @@ module Servactory
   module Internals
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, internal:, value:, object_name:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
+        DEFAULT_MESSAGE = lambda do |service_class_name:, internal:, value:, key_name:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
           if internal.collection_mode?
             collection_message = internal.consists_of.fetch(:message)
 
@@ -29,12 +29,12 @@ module Servactory
                 given_type: value.class.name
               )
             end
-          elsif internal.object_mode? && object_name.present?
+          elsif internal.hash_mode? && key_name.present?
             I18n.t(
-              "servactory.internals.checks.type.default_error.for_object.wrong_element_type",
+              "servactory.internals.checks.type.default_error.for_hash.wrong_element_type",
               service_class_name: service_class_name,
               internal_name: internal.name,
-              object_name: object_name,
+              key_name: key_name,
               expected_type: expected_type,
               given_type: given_type
             )
@@ -78,7 +78,7 @@ module Servactory
             if @internal.collection_mode?
               @value.is_a?(@internal.types.fetch(0, Array)) &&
               @value.respond_to?(:all?) && @value.all?(type)
-            elsif @internal.object_mode?
+            elsif @internal.hash_mode?
               object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
                 object: @value,
                 schema: @internal.schema
@@ -126,7 +126,7 @@ module Servactory
             service_class_name: @context.class.name,
             internal: @internal,
             value: @value,
-            object_name: error.fetch(:name),
+            key_name: error.fetch(:name),
             expected_type: error.fetch(:expected_type),
             given_type: error.fetch(:given_type)
           )
@@ -138,7 +138,7 @@ module Servactory
             service_class_name: @context.class.name,
             internal: @internal,
             value: @value,
-            object_name: nil,
+            key_name: nil,
             expected_type: prepared_types.join(", "),
             given_type: @value.class.name
           )

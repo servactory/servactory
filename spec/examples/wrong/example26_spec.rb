@@ -15,7 +15,7 @@ RSpec.describe Wrong::Example26 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalError,
-              "[Wrong::Example26] Wrong type in internal attribute object `payload`, " \
+              "[Wrong::Example26] Wrong type in internal attribute hash `payload`, " \
               "expected `Hash` for `user`, got `NilClass`"
             )
           )
@@ -38,7 +38,7 @@ RSpec.describe Wrong::Example26 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalError,
-              "[Wrong::Example26] Wrong type in internal attribute object `payload`, " \
+              "[Wrong::Example26] Wrong type in internal attribute hash `payload`, " \
               "expected `Hash` for `user`, got `NilClass`"
             )
           )

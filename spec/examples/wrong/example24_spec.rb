@@ -28,7 +28,7 @@ RSpec.describe Wrong::Example24 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Example24] Wrong type in input object `payload`, expected `Hash` for `user`, got `NilClass`"
+              "[Wrong::Example24] Wrong type in input hash `payload`, expected `Hash` for `user`, got `NilClass`"
             )
           )
         end
@@ -74,7 +74,7 @@ RSpec.describe Wrong::Example24 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Example24] Wrong type in input object `payload`, expected `Hash` for `user`, got `NilClass`"
+              "[Wrong::Example24] Wrong type in input hash `payload`, expected `Hash` for `user`, got `NilClass`"
             )
           )
         end

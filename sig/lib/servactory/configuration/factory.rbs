@@ -13,7 +13,7 @@ module Servactory
 
       def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> Maintenance::CollectionMode::ClassNamesCollection
 
-      def object_mode_class_names: (Array[Hash[Symbol, untyped]] object_mode_class_names) -> Maintenance::ObjectMode::ClassNamesCollection
+      def hash_mode_class_names: (Array[Hash[Symbol, untyped]] hash_mode_class_names) -> Maintenance::HashMode::ClassNamesCollection
 
       def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
 
