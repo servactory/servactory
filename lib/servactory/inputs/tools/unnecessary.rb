@@ -3,9 +3,9 @@
 module Servactory
   module Inputs
     module Tools
-      class FindUnnecessary
-        def self.validate!(...)
-          new(...).validate!
+      class Unnecessary
+        def self.find!(...)
+          new(...).find!
         end
 
         def initialize(context, incoming_arguments, collection_of_inputs)
@@ -14,7 +14,7 @@ module Servactory
           @collection_of_inputs = collection_of_inputs
         end
 
-        def validate!
+        def find!
           return if unnecessary_attributes.empty?
 
           message_text = I18n.t(

@@ -27,10 +27,10 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE, :SYNTAX_ERROR_MESSAGE
 
-        def self.check(context:, input:, value:, check_key:, check_options:)
+        def self.check(context:, input:, check_key:, check_options:)
           return unless should_be_checked_for?(input, check_key)
 
-          new(context: context, input: input, value: value, check_options: check_options).check
+          new(context: context, input: input, check_options: check_options).check
         end
 
         def self.should_be_checked_for?(input, check_key)
@@ -39,28 +39,21 @@ module Servactory
 
         ##########################################################################
 
-        def initialize(context:, input:, value:, check_options:)
+        def initialize(context:, input:, check_options:)
           super()
 
           @context = context
           @input = input
-          @value = value
           @check_options = check_options
         end
 
-        def check # rubocop:disable Metrics/MethodLength
+        def check
           @check_options.each do |code, options|
             message = call_or_fetch_message_from(code, options)
 
             next if message.blank?
 
-            add_error(
-              message,
-              service_class_name: @context.class.name,
-              input: @input,
-              value: @value,
-              code: code
-            )
+            add_error_with(message, code)
           end
 
           errors
@@ -68,20 +61,36 @@ module Servactory
 
         private
 
-        def call_or_fetch_message_from(code, options) # rubocop:disable Metrics/MethodLength
+        def call_or_fetch_message_from(code, options)
           check, message = options.values_at(:is, :message)
 
-          return if check.call(value: @value)
+          return if check.call(value: @input.value)
 
           message.presence || DEFAULT_MESSAGE
         rescue StandardError => e
+          add_syntax_error_with(SYNTAX_ERROR_MESSAGE, code, e.message)
+        end
+
+        ########################################################################
+
+        def add_error_with(message, code)
           add_error(
-            SYNTAX_ERROR_MESSAGE,
+            message,
             service_class_name: @context.class.name,
             input: @input,
-            value: @value,
+            value: @input.value,
+            code: code
+          )
+        end
+
+        def add_syntax_error_with(message, code, exception_message)
+          add_error(
+            message,
+            service_class_name: @context.class.name,
+            input: @input,
+            value: @input.value,
             code: code,
-            exception_message: e.message
+            exception_message: exception_message
           )
         end
       end

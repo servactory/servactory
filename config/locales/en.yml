@@ -18,6 +18,8 @@ en:
           default_error:
             default: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_collection: "[%{service_class_name}] Wrong type in input collection `%{input_name}`, expected `%{expected_type}`"
+            for_hash:
+              wrong_element_type: "[%{service_class_name}] Wrong type in input hash `%{input_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"
@@ -34,6 +36,8 @@ en:
             for_collection:
               wrong_type: "[%{service_class_name}] Wrong internal attribute collection type `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`"
+            for_hash:
+              wrong_element_type: "[%{service_class_name}] Wrong type in internal attribute hash `%{internal_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
     outputs:
       undefined:
         getter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
@@ -45,6 +49,8 @@ en:
             for_collection:
               wrong_type: "[%{service_class_name}] Wrong output attribute collection type `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`"
+            for_hash:
+              wrong_element_type: "[%{service_class_name}] Wrong type in output attribute hash `%{output_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
     methods:
       call:
         not_used: Nothing to perform. Use `make` or create a `call` method.

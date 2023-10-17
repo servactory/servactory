@@ -8,11 +8,12 @@ module Servactory
                     :output_error_class,
                     :failure_class,
                     :collection_mode_class_names,
+                    :hash_mode_class_names,
                     :input_option_helpers,
                     :aliases_for_make,
                     :shortcuts_for_make
 
-      def initialize
+      def initialize # rubocop:disable Metrics/MethodLength
         @input_error_class = Servactory::Errors::InputError
         @internal_error_class = Servactory::Errors::InternalError
         @output_error_class = Servactory::Errors::OutputError
@@ -21,6 +22,9 @@ module Servactory
 
         @collection_mode_class_names =
           Servactory::Maintenance::CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
+
+        @hash_mode_class_names =
+          Servactory::Maintenance::HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
 
         @input_option_helpers =
           Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)
@@ -33,6 +37,10 @@ module Servactory
 
       def default_collection_mode_class_names
         Set[Array, Set]
+      end
+
+      def default_hash_mode_class_names
+        Set[Hash]
       end
 
       def default_input_option_helpers

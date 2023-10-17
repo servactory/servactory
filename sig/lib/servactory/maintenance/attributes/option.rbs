@@ -23,7 +23,7 @@ module Servactory
           need_for_checks: bool,
           ?body_key: Symbol?,
           ?body_value: (bool | Class)?,
-          ?body_fallback: (bool | Class)?,
+          ?body_fallback: (bool | Class | Hash[untyped, untyped])?,
           ?original_value: Array[Class]?,
           ?define_methods: Array[DefineMethod]?,
           ?define_conflicts: Array[DefineConflict]?,
@@ -42,7 +42,7 @@ module Servactory
           options: untyped,
           body_key: Symbol?,
           body_value: (bool | Class)?,
-          body_fallback: (bool | Class),
+          body_fallback: (bool | Class | Hash[untyped, untyped]),
           with_advanced_mode: bool
         ) -> ({ is: Symbol, message: String? } | bool)
 
@@ -50,7 +50,7 @@ module Servactory
           body: ({ is: Symbol, message: String? }? | bool?),
           body_key: Symbol?,
           body_value: (bool | Class)?,
-          body_fallback: (bool | Class)
+          body_fallback: (bool | Class | Hash[untyped, untyped])
         ) -> { is: Symbol, message: String? }
 
         def prepare_methods_for: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> void

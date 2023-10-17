@@ -3,9 +3,12 @@
 module Servactory
   module Inputs
     class Input # rubocop:disable Metrics/ClassLength
+      attr_accessor :value
+
       attr_reader :name,
                   :internal_name,
                   :collection_mode_class_names,
+                  :hash_mode_class_names,
                   :option_helpers
 
       # rubocop:disable Style/KeywordParametersOrder
@@ -15,12 +18,14 @@ module Servactory
         as: nil,
         type:,
         collection_mode_class_names:,
+        hash_mode_class_names:,
         option_helpers:,
         **options
       )
         @name = name
         @internal_name = as.present? ? as : name
         @collection_mode_class_names = collection_mode_class_names
+        @hash_mode_class_names = hash_mode_class_names
         @option_helpers = option_helpers
 
         options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
@@ -63,6 +68,7 @@ module Servactory
         add_types_option_with(type)
         add_default_option_with(options)
         add_collection_option_with(type, options)
+        add_object_option_with(type, options)
 
         # Check Class: Servactory::Inputs::Validations::Inclusion
         add_inclusion_option_with(options)
@@ -151,6 +157,29 @@ module Servactory
           body_key: :type,
           body_value: String,
           body_fallback: String,
+          **options
+        )
+      end
+
+      def add_object_option_with(type, options) # rubocop:disable Metrics/MethodLength
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
+          name: :schema,
+          attribute: self,
+          validation_class: Servactory::Inputs::Validations::Type,
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
+              name: :hash_mode?,
+              content: ->(**) { hash_mode_class_names.include?(type) }
+            )
+          ],
+          define_conflicts: [
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :object_vs_inclusion if hash_mode? && inclusion_present? }
+            )
+          ],
+          need_for_checks: false,
+          body_fallback: {},
+          with_advanced_mode: false,
           **options
         )
       end

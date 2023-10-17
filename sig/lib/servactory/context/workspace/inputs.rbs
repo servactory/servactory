@@ -2,11 +2,12 @@ module Servactory
   module Context
     module Workspace
       class Inputs
-        @context: instance
-        @incoming_arguments: untyped
-        @collection_of_inputs: Servactory::Inputs::Collection
+        RESERVED_ATTRIBUTES: Array[Symbol]
 
-        def initialize: (context: instance, incoming_arguments: untyped, collection_of_inputs: Servactory::Inputs::Collection) -> void
+        @context: instance
+        @collection_of_inputs: Inputs::Collection
+
+        def initialize: (context: instance, collection_of_inputs: Inputs::Collection) -> void
 
         def only: (Symbol input_names) -> Hash[Symbol, untyped]
 
@@ -19,6 +20,12 @@ module Servactory
         private
 
         def getter_with: (name: Symbol) { () -> untyped } -> void
+
+        def prepare_object_values_inside: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) { () -> untyped } -> void
+
+        def fetch_object_values_from: (value: untyped, schema_value: Hash[Symbol, untyped], attribute_required: bool) { () -> untyped } -> void
+
+        def raise_error_for: (Symbol type, Symbol name) { () -> untyped } -> Exception
       end
     end
   end

@@ -7,7 +7,7 @@ module Servactory
         @config: Setup
         @configuration_factory: Factory
 
-        def inherited: -> void
+        def inherited: (untyped child) -> void
 
         def config: -> Setup
 

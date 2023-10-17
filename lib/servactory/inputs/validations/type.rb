@@ -3,8 +3,8 @@
 module Servactory
   module Inputs
     module Validations
-      class Type < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, expected_type:, given_type:|
+      class Type < Base # rubocop:disable Metrics/ClassLength
+        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, key_name:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
           if input.collection_mode?
             collection_message = input.consists_of.fetch(:message)
 
@@ -21,6 +21,15 @@ module Servactory
                 given_type: given_type
               )
             end
+          elsif input.hash_mode? && key_name.present?
+            I18n.t(
+              "servactory.inputs.checks.type.default_error.for_hash.wrong_element_type",
+              service_class_name: service_class_name,
+              input_name: input.name,
+              key_name: key_name,
+              expected_type: expected_type,
+              given_type: given_type
+            )
           else
             I18n.t(
               "servactory.inputs.checks.type.default_error.default",
@@ -34,50 +43,56 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check(context:, input:, value:, check_key:, check_options:)
-          return unless should_be_checked_for?(input, value, check_key)
+        def self.check(context:, input:, check_key:, check_options:)
+          return unless should_be_checked_for?(input, check_key)
 
-          new(context: context, input: input, value: value, types: check_options).check
+          new(context: context, input: input, types: check_options).check
         end
 
-        def self.should_be_checked_for?(input, value, check_key)
+        def self.should_be_checked_for?(input, check_key)
           check_key == :types && (
             input.required? || (
               input.optional? && !input.default.nil?
             ) || (
-              input.optional? && !value.nil?
+              input.optional? && !input.value.nil?
             )
           )
         end
 
         ##########################################################################
 
-        def initialize(context:, input:, value:, types:)
+        def initialize(context:, input:, types:)
           super()
 
           @context = context
           @input = input
-          @value = value
           @types = types
         end
 
-        def check # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        def check # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          object_schema_validator = nil
+
           return if prepared_types.any? do |type|
             if @input.collection_mode?
               prepared_value.is_a?(@types.fetch(0, Array)) &&
               prepared_value.respond_to?(:all?) && prepared_value.all?(type)
+            elsif @input.hash_mode?
+              object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
+                object: prepared_value,
+                schema: @input.schema
+              )
+
+              object_schema_validator.valid?
             else
               prepared_value.is_a?(type)
             end
           end
 
-          add_error(
-            DEFAULT_MESSAGE,
-            service_class_name: @context.class.name,
-            input: @input,
-            expected_type: prepared_types.join(", "),
-            given_type: prepared_value.class.name
-          )
+          if (first_error = object_schema_validator&.errors&.first).present?
+            return add_default_object_error_with(first_error)
+          end
+
+          add_default_error
         end
 
         ########################################################################
@@ -102,7 +117,35 @@ module Servactory
         end
 
         def prepared_value
-          @prepared_value ||= @input.optional? && !@input.default.nil? && @value.blank? ? @input.default : @value
+          @prepared_value ||= if @input.optional? && !@input.default.nil? && @input.value.blank?
+                                @input.default
+                              else
+                                @input.value
+                              end
+        end
+
+        private
+
+        def add_default_object_error_with(error)
+          add_error(
+            DEFAULT_MESSAGE,
+            service_class_name: @context.class.name,
+            input: @input,
+            key_name: error.fetch(:name),
+            expected_type: error.fetch(:expected_type),
+            given_type: error.fetch(:given_type)
+          )
+        end
+
+        def add_default_error
+          add_error(
+            DEFAULT_MESSAGE,
+            service_class_name: @context.class.name,
+            input: @input,
+            key_name: nil,
+            expected_type: prepared_types.join(", "),
+            given_type: prepared_value.class.name
+          )
         end
       end
     end

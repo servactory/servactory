@@ -40,7 +40,7 @@ module Servactory
         def setter_with(prepared_name:, value:, &block) # rubocop:disable Lint/UnusedMethodArgument
           return yield unless @collection_of_outputs.names.include?(prepared_name)
 
-          output = @collection_of_outputs.find_by(name: prepared_name) # ::Servactory::Outputs::Output
+          output = @collection_of_outputs.find_by(name: prepared_name)
 
           return yield if output.nil?
 

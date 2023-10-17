@@ -20,6 +20,7 @@ module Servactory
           collection_of_internals << Internal.new(
             name,
             collection_mode_class_names: config.collection_mode_class_names,
+            hash_mode_class_names: config.hash_mode_class_names,
             **options
           )
         end
