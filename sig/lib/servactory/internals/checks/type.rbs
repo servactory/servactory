@@ -21,8 +21,6 @@ module Servactory
 
         def prepared_types: -> Array[Class]
 
-        def prepared_types_from: (Array[Class] types) -> Array[Class]
-
         def raise_default_object_error_with: (Hash[Symbol, untyped] error) -> Exception
 
         def raise_default_error: -> Exception

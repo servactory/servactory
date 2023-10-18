@@ -71,51 +71,23 @@ module Servactory
           @value = value
         end
 
-        def validate! # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          object_schema_validator = nil
-
-          return if prepared_types.any? do |type|
-            if @internal.collection_mode?
-              @value.is_a?(@internal.types.fetch(0, Array)) &&
-              @value.respond_to?(:all?) && @value.all?(type)
-            elsif @internal.hash_mode?
-              object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
-                object: @value,
-                schema: @internal.schema
-              )
-
-              object_schema_validator.valid?
-            else
-              @value.is_a?(type)
-            end
-          end
-
-          if (first_error = object_schema_validator&.errors&.first).present?
-            raise_default_object_error_with(first_error)
-          end
-
-          raise_default_error
+        def validate!
+          Servactory::Maintenance::Validations::Types.validate!(
+            attribute: @internal,
+            types: prepared_types,
+            value: @value,
+            default_object_error: ->(error) { raise_default_object_error_with(error) },
+            default_error: -> { raise_default_error }
+          )
         end
 
         private
 
         def prepared_types
-          @prepared_types ||=
-            if @internal.collection_mode?
-              prepared_types_from(Array(@internal.consists_of.fetch(:type, [])))
-            else
-              prepared_types_from(@internal.types)
-            end
-        end
-
-        def prepared_types_from(types)
-          types.map do |type|
-            if type.is_a?(String)
-              Object.const_get(type)
-            else
-              type
-            end
-          end
+          @prepared_types ||= Servactory::Maintenance::Validations::Types.prepare!(
+            attribute: @internal,
+            types: @internal.types
+          )
         end
 
         ########################################################################

@@ -17,7 +17,8 @@ ru:
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-            for_collection: "[%{service_class_name}] Неправильный тип в коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`"
+            for_collection:
+              wrong_element_type: "[%{service_class_name}] Неправильный тип в коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
 

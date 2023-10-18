@@ -71,51 +71,23 @@ module Servactory
           @value = value
         end
 
-        def validate! # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-          object_schema_validator = nil
-
-          return if prepared_types.any? do |type|
-            if @output.collection_mode?
-              @value.is_a?(@output.types.fetch(0, Array)) &&
-              @value.respond_to?(:all?) && @value.all?(type)
-            elsif @output.hash_mode?
-              object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
-                object: @value,
-                schema: @output.schema
-              )
-
-              object_schema_validator.valid?
-            else
-              @value.is_a?(type)
-            end
-          end
-
-          if (first_error = object_schema_validator&.errors&.first).present?
-            raise_default_object_error_with(first_error)
-          end
-
-          raise_default_error
+        def validate!
+          Servactory::Maintenance::Validations::Types.validate!(
+            attribute: @output,
+            types: prepared_types,
+            value: @value,
+            default_object_error: ->(error) { raise_default_object_error_with(error) },
+            default_error: -> { raise_default_error }
+          )
         end
 
         private
 
         def prepared_types
-          @prepared_types ||=
-            if @output.collection_mode?
-              prepared_types_from(Array(@output.consists_of.fetch(:type, [])))
-            else
-              prepared_types_from(@output.types)
-            end
-        end
-
-        def prepared_types_from(types)
-          types.map do |type|
-            if type.is_a?(String)
-              Object.const_get(type)
-            else
-              type
-            end
-          end
+          @prepared_types ||= Servactory::Maintenance::Validations::Types.prepare!(
+            attribute: @output,
+            types: @output.types
+          )
         end
 
         ########################################################################

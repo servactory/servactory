@@ -14,7 +14,7 @@ module Servactory
               collection_message
             else
               I18n.t(
-                "servactory.inputs.checks.type.default_error.for_collection",
+                "servactory.inputs.checks.type.default_error.for_collection.wrong_element_type",
                 service_class_name: service_class_name,
                 input_name: input.name,
                 expected_type: expected_type,
@@ -43,10 +43,10 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check(context:, input:, check_key:, check_options:)
+        def self.check(context:, input:, check_key:, **)
           return unless should_be_checked_for?(input, check_key)
 
-          new(context: context, input: input, types: check_options).check
+          new(context: context, input: input).check
         end
 
         def self.should_be_checked_for?(input, check_key)
@@ -61,59 +61,30 @@ module Servactory
 
         ##########################################################################
 
-        def initialize(context:, input:, types:)
+        def initialize(context:, input:)
           super()
 
           @context = context
           @input = input
-          @types = types
         end
 
-        def check # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          object_schema_validator = nil
-
-          return if prepared_types.any? do |type|
-            if @input.collection_mode?
-              prepared_value.is_a?(@types.fetch(0, Array)) &&
-              prepared_value.respond_to?(:all?) && prepared_value.all?(type)
-            elsif @input.hash_mode?
-              object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
-                object: prepared_value,
-                schema: @input.schema
-              )
-
-              object_schema_validator.valid?
-            else
-              prepared_value.is_a?(type)
-            end
-          end
-
-          if (first_error = object_schema_validator&.errors&.first).present?
-            return add_default_object_error_with(first_error)
-          end
-
-          add_default_error
+        def check
+          Servactory::Maintenance::Validations::Types.validate!(
+            attribute: @input,
+            types: prepared_types,
+            value: prepared_value,
+            default_object_error: ->(error) { add_default_object_error_with(error) },
+            default_error: -> { add_default_error }
+          )
         end
 
-        ########################################################################
+        private
 
         def prepared_types
-          @prepared_types ||=
-            if @input.collection_mode?
-              prepared_types_from(Array(@input.consists_of.fetch(:type, [])))
-            else
-              prepared_types_from(@types)
-            end
-        end
-
-        def prepared_types_from(types)
-          types.map do |type|
-            if type.is_a?(String)
-              Object.const_get(type)
-            else
-              type
-            end
-          end
+          @prepared_types ||= Servactory::Maintenance::Validations::Types.prepare!(
+            attribute: @input,
+            types: @input.types
+          )
         end
 
         def prepared_value
@@ -124,7 +95,7 @@ module Servactory
                               end
         end
 
-        private
+        ########################################################################
 
         def add_default_object_error_with(error)
           add_error(

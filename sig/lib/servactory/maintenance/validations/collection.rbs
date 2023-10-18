@@ -1,0 +1,23 @@
+module Servactory
+  module Maintenance
+    module Validations
+      class Collection
+        @value: untyped
+
+        @types: Array[Class]
+
+        @type: Class
+
+        @valid: bool
+
+        def self.validate: (*untyped) ?{ () -> untyped } -> self
+
+        def initialize: (value: untyped, types: Array[Class], type: Class) -> void
+
+        def validate: () -> self
+
+        def valid?: () -> bool
+      end
+    end
+  end
+end

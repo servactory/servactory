@@ -1,0 +1,41 @@
+module Servactory
+  module Maintenance
+    module Validations
+      class Types
+        @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
+
+        @types: Array[Class]
+
+        def self.prepare!: (
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          types: Array[Class]
+        ) ?{ () -> untyped } -> void
+
+        def self.validate!: (
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          types: Array[Class],
+          value: untyped,
+          default_object_error: Proc,
+          default_error: Proc
+        ) ?{ () -> untyped } -> void
+
+        def initialize: (
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          types: Array[Class]
+        ) -> void
+
+        def prepare!: () -> Array[Class]
+
+        def validate!: (
+          value: untyped,
+          default_object_error: Proc,
+          default_error: Proc
+        ) -> Array[Class]
+
+        private
+
+        def prepared_types_from: (Array[Class] types) -> Array[Class]
+      end
+    end
+  end
+end
