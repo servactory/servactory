@@ -73,6 +73,7 @@ module Servactory
             attribute: @input,
             types: prepared_types,
             value: prepared_value,
+            default_collection_error: ->(error) { add_default_collection_error_with(error) },
             default_object_error: ->(error) { add_default_object_error_with(error) },
             default_error: -> { add_default_error }
           )
@@ -97,12 +98,23 @@ module Servactory
 
         ########################################################################
 
+        def add_default_collection_error_with(error)
+          add_error(
+            DEFAULT_MESSAGE,
+            service_class_name: @context.class.name,
+            input: @input,
+            key_name: nil,
+            expected_type: error.fetch(:expected_type),
+            given_type: error.fetch(:given_type)
+          )
+        end
+
         def add_default_object_error_with(error)
           add_error(
             DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
             input: @input,
-            key_name: error.fetch(:name),
+            key_name: error.fetch(:key_name),
             expected_type: error.fetch(:expected_type),
             given_type: error.fetch(:given_type)
           )

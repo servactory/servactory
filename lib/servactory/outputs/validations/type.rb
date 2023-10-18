@@ -76,6 +76,7 @@ module Servactory
             attribute: @output,
             types: prepared_types,
             value: @value,
+            default_collection_error: ->(error) { raise_default_collection_error_with(error) },
             default_object_error: ->(error) { raise_default_object_error_with(error) },
             default_error: -> { raise_default_error }
           )
@@ -92,13 +93,25 @@ module Servactory
 
         ########################################################################
 
+        def raise_default_collection_error_with(error)
+          raise_error_with(
+            DEFAULT_MESSAGE,
+            service_class_name: @context.class.name,
+            output: @output,
+            value: @value,
+            key_name: nil,
+            expected_type: error.fetch(:expected_type),
+            given_type: error.fetch(:given_type)
+          )
+        end
+
         def raise_default_object_error_with(error)
           raise_error_with(
             DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
             output: @output,
             value: @value,
-            key_name: error.fetch(:name),
+            key_name: error.fetch(:key_name),
             expected_type: error.fetch(:expected_type),
             given_type: error.fetch(:given_type)
           )

@@ -83,7 +83,8 @@ module InputAttributeHelper
       if collection_message.present?
         collection_message
       else
-        "[#{service_class_name}] Wrong type in input collection `#{name}`, expected `#{expected_type}`"
+        "[#{service_class_name}] Wrong type in input collection `#{name}`, " \
+          "expected `#{expected_type}`, got `#{given_type}`"
       end
     else
       "[#{service_class_name}] Wrong type of input `#{name}`, expected `#{expected_type}`, got `#{given_type}`"

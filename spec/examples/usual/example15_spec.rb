@@ -38,7 +38,7 @@ RSpec.describe Usual::Example15 do
       describe "but the data required for work is invalid" do
         describe "because one element has the wrong type" do
           let(:ids) do
-            [
+            Set[
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               123,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -49,7 +49,7 @@ RSpec.describe Usual::Example15 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example15] Wrong type in input collection `ids`, expected `String`"
+                "[Usual::Example15] Wrong type in input collection `ids`, expected `String`, got `Integer`"
               )
             )
           end
@@ -57,7 +57,7 @@ RSpec.describe Usual::Example15 do
 
         describe "because one element is empty" do
           let(:ids) do
-            [
+            Set[
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               "",
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -76,7 +76,7 @@ RSpec.describe Usual::Example15 do
 
         describe "because one element is nil" do
           let(:ids) do
-            [
+            Set[
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               nil,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -99,7 +99,7 @@ RSpec.describe Usual::Example15 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, collection: true, expected_type: String
+        it_behaves_like "input type check", name: :ids, collection: Set, expected_type: String
       end
     end
   end
@@ -152,7 +152,7 @@ RSpec.describe Usual::Example15 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example15] Wrong type in input collection `ids`, expected `String`"
+                "[Usual::Example15] Wrong type in input collection `ids`, expected `String`, got `Integer`"
               )
             )
           end
@@ -202,7 +202,7 @@ RSpec.describe Usual::Example15 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, collection: true, expected_type: String
+        it_behaves_like "input type check", name: :ids, collection: Set, expected_type: String
       end
     end
   end

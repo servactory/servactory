@@ -23,7 +23,9 @@ module Servactory
 
         def prepared_value: () -> String
 
-        def add_default_object_error_with: (Hash[Symbol, untyped] error) -> void
+        def add_default_collection_error_with: ({ expected_type: Class, given_type: Class } error) -> void
+
+        def add_default_object_error_with: ({ key_name: Symbol, expected_type: Class, given_type: Class } error) -> void
 
         def add_default_error: -> void
       end

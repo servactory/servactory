@@ -31,7 +31,7 @@ module Servactory
 
         def fetch_default_from: (Hash[Symbol, untyped] value) -> untyped
 
-        def add_error: (name: Symbol, expected_type: Class, given_type: Class) -> Array[Hash[Symbol, untyped]]
+        def add_error: (key_name: Symbol, expected_type: Class, given_type: Class) -> Array[Hash[Symbol, untyped]]
       end
     end
   end

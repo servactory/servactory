@@ -8,9 +8,23 @@ module Servactory
           new(...).prepare!
         end
 
-        def self.validate!(attribute:, types:, value:, default_object_error:, default_error:)
-          new(attribute: attribute, types: types)
-            .validate!(value: value, default_object_error: default_object_error, default_error: default_error)
+        def self.validate!(
+          attribute:,
+          types:,
+          value:,
+          default_collection_error:,
+          default_object_error:,
+          default_error:
+        )
+          new(
+            attribute: attribute,
+            types: types
+          ).validate!(
+            value: value,
+            default_collection_error: default_collection_error,
+            default_object_error: default_object_error,
+            default_error: default_error
+          )
         end
 
         def initialize(attribute:, types:)
@@ -26,7 +40,8 @@ module Servactory
           end
         end
 
-        def validate!(value:, default_object_error:, default_error:) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def validate!(value:, default_collection_error:, default_object_error:, default_error:) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          collection_validator = nil
           object_schema_validator = nil
 
           return if @types.any? do |type|
@@ -48,6 +63,10 @@ module Servactory
             else
               value.is_a?(type)
             end
+          end
+
+          if (first_error = collection_validator&.errors&.first).present?
+            return default_collection_error.call(first_error)
           end
 
           if (first_error = object_schema_validator&.errors&.first).present?

@@ -15,6 +15,7 @@ module Servactory
           attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
           types: Array[Class],
           value: untyped,
+          default_collection_error: Proc,
           default_object_error: Proc,
           default_error: Proc
         ) ?{ () -> untyped } -> void
@@ -28,6 +29,7 @@ module Servactory
 
         def validate!: (
           value: untyped,
+          default_collection_error: Proc,
           default_object_error: Proc,
           default_error: Proc
         ) -> Array[Class]

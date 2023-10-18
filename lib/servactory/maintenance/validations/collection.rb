@@ -4,6 +4,8 @@ module Servactory
   module Maintenance
     module Validations
       class Collection
+        attr_reader :errors
+
         def self.validate(...)
           new(...).validate
         end
@@ -13,17 +15,47 @@ module Servactory
           @types = types
           @type = type
 
-          @valid = false
+          @errors = []
         end
 
         def validate
-          @valid = @value.is_a?(@types.fetch(0, Array)) && @value.respond_to?(:all?) && @value.all?(@type)
+          unless @value.is_a?(@types.fetch(0, Array))
+            add_error(
+              expected_type: @types.fetch(0, Array),
+              given_type: @value.class
+            )
+
+            return self
+          end
+
+
+          @valid = @value.respond_to?(:all?) && @value.all? do |asd|
+            is_success = asd.is_a?(@type)
+
+            unless is_success
+              add_error(
+                expected_type: @type,
+                given_type: asd.class
+              )
+            end
+
+            is_success
+          end
 
           self
         end
 
         def valid?
-          @valid
+          @errors.empty?
+        end
+
+        private
+
+        def add_error(expected_type:, given_type:)
+          @errors << {
+            expected_type: expected_type,
+            given_type: given_type
+          }
         end
       end
     end
