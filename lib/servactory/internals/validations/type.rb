@@ -4,19 +4,19 @@ module Servactory
   module Internals
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, internal:, value:, key_name:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
-          if internal.collection_mode?
-            collection_message = internal.consists_of.fetch(:message)
+        DEFAULT_MESSAGE = lambda do |service_class_name:, attribute:, value:, key_name:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
+          if attribute.collection_mode?
+            collection_message = attribute.consists_of.fetch(:message)
 
             if collection_message.is_a?(Proc)
-              collection_message.call(internal: internal, expected_type: expected_type)
+              collection_message.call(internal: attribute, expected_type: expected_type)
             elsif collection_message.is_a?(String) && collection_message.present?
               collection_message
-            elsif value.is_a?(internal.types.fetch(0, Array))
+            elsif value.is_a?(attribute.types.fetch(0, Array))
               I18n.t(
                 "servactory.internals.checks.type.default_error.for_collection.wrong_element_type",
                 service_class_name: service_class_name,
-                internal_name: internal.name,
+                internal_name: attribute.name,
                 expected_type: expected_type,
                 given_type: given_type
               )
@@ -24,16 +24,16 @@ module Servactory
               I18n.t(
                 "servactory.internals.checks.type.default_error.for_collection.wrong_type",
                 service_class_name: service_class_name,
-                internal_name: internal.name,
-                expected_type: internal.types.fetch(0, Array),
+                internal_name: attribute.name,
+                expected_type: attribute.types.fetch(0, Array),
                 given_type: value.class.name
               )
             end
-          elsif internal.hash_mode? && key_name.present?
+          elsif attribute.hash_mode? && key_name.present?
             I18n.t(
               "servactory.internals.checks.type.default_error.for_hash.wrong_element_type",
               service_class_name: service_class_name,
-              internal_name: internal.name,
+              internal_name: attribute.name,
               key_name: key_name,
               expected_type: expected_type,
               given_type: given_type
@@ -42,7 +42,7 @@ module Servactory
             I18n.t(
               "servactory.internals.checks.type.default_error.default",
               service_class_name: service_class_name,
-              internal_name: internal.name,
+              internal_name: attribute.name,
               expected_type: expected_type,
               given_type: given_type
             )
@@ -71,61 +71,18 @@ module Servactory
           @value = value
         end
 
-        def validate!
+        def validate! # rubocop:disable Metrics/MethodLength
           Servactory::Maintenance::Validations::Types.validate!(
             attribute: @internal,
-            types: prepared_types,
+            types: @internal.types,
             value: @value,
-            default_collection_error: ->(error) { raise_default_collection_error_with(error) },
-            default_object_error: ->(error) { raise_default_object_error_with(error) },
-            default_error: -> { raise_default_error }
-          )
-        end
-
-        private
-
-        def prepared_types
-          @prepared_types ||= Servactory::Maintenance::Validations::Types.prepare!(
-            attribute: @internal,
-            types: @internal.types
-          )
-        end
-
-        ########################################################################
-
-        def raise_default_collection_error_with(error)
-          raise_error_with(
-            DEFAULT_MESSAGE,
-            service_class_name: @context.class.name,
-            internal: @internal,
-            value: @value,
-            key_name: nil,
-            expected_type: error.fetch(:expected_type),
-            given_type: error.fetch(:given_type)
-          )
-        end
-
-        def raise_default_object_error_with(error)
-          raise_error_with(
-            DEFAULT_MESSAGE,
-            service_class_name: @context.class.name,
-            internal: @internal,
-            value: @value,
-            key_name: error.fetch(:key_name),
-            expected_type: error.fetch(:expected_type),
-            given_type: error.fetch(:given_type)
-          )
-        end
-
-        def raise_default_error
-          raise_error_with(
-            DEFAULT_MESSAGE,
-            service_class_name: @context.class.name,
-            internal: @internal,
-            value: @value,
-            key_name: nil,
-            expected_type: prepared_types.join(", "),
-            given_type: @value.class.name
+            error_callback: lambda do |**args|
+              raise_error_with(
+                DEFAULT_MESSAGE,
+                service_class_name: @context.class.name,
+                **args
+              )
+            end
           )
         end
       end

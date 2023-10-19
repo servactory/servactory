@@ -3,29 +3,29 @@
 module Servactory
   module Inputs
     module Validations
-      class Type < Base # rubocop:disable Metrics/ClassLength
-        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, key_name:, expected_type:, given_type:| # rubocop:disable Metrics/BlockLength
-          if input.collection_mode?
-            collection_message = input.consists_of.fetch(:message)
+      class Type < Base
+        DEFAULT_MESSAGE = lambda do |service_class_name:, attribute:, key_name:, expected_type:, given_type:, **| # rubocop:disable Metrics/BlockLength
+          if attribute.collection_mode?
+            collection_message = attribute.consists_of.fetch(:message)
 
             if collection_message.is_a?(Proc)
-              collection_message.call(input: input, expected_type: expected_type)
+              collection_message.call(input: attribute, expected_type: expected_type)
             elsif collection_message.is_a?(String) && collection_message.present?
               collection_message
             else
               I18n.t(
                 "servactory.inputs.checks.type.default_error.for_collection.wrong_element_type",
                 service_class_name: service_class_name,
-                input_name: input.name,
+                input_name: attribute.name,
                 expected_type: expected_type,
                 given_type: given_type
               )
             end
-          elsif input.hash_mode? && key_name.present?
+          elsif attribute.hash_mode? && key_name.present?
             I18n.t(
               "servactory.inputs.checks.type.default_error.for_hash.wrong_element_type",
               service_class_name: service_class_name,
-              input_name: input.name,
+              input_name: attribute.name,
               key_name: key_name,
               expected_type: expected_type,
               given_type: given_type
@@ -34,7 +34,7 @@ module Servactory
             I18n.t(
               "servactory.inputs.checks.type.default_error.default",
               service_class_name: service_class_name,
-              input_name: input.name,
+              input_name: attribute.name,
               expected_type: expected_type,
               given_type: given_type
             )
@@ -68,25 +68,22 @@ module Servactory
           @input = input
         end
 
-        def check
+        def check # rubocop:disable Metrics/MethodLength
           Servactory::Maintenance::Validations::Types.validate!(
             attribute: @input,
-            types: prepared_types,
+            types: @input.types,
             value: prepared_value,
-            default_collection_error: ->(error) { add_default_collection_error_with(error) },
-            default_object_error: ->(error) { add_default_object_error_with(error) },
-            default_error: -> { add_default_error }
+            error_callback: lambda do |**args|
+              add_error(
+                DEFAULT_MESSAGE,
+                service_class_name: @context.class.name,
+                **args
+              )
+            end
           )
         end
 
         private
-
-        def prepared_types
-          @prepared_types ||= Servactory::Maintenance::Validations::Types.prepare!(
-            attribute: @input,
-            types: @input.types
-          )
-        end
 
         def prepared_value
           @prepared_value ||= if @input.optional? && !@input.default.nil? && @input.value.blank?
@@ -94,41 +91,6 @@ module Servactory
                               else
                                 @input.value
                               end
-        end
-
-        ########################################################################
-
-        def add_default_collection_error_with(error)
-          add_error(
-            DEFAULT_MESSAGE,
-            service_class_name: @context.class.name,
-            input: @input,
-            key_name: nil,
-            expected_type: error.fetch(:expected_type),
-            given_type: error.fetch(:given_type)
-          )
-        end
-
-        def add_default_object_error_with(error)
-          add_error(
-            DEFAULT_MESSAGE,
-            service_class_name: @context.class.name,
-            input: @input,
-            key_name: error.fetch(:key_name),
-            expected_type: error.fetch(:expected_type),
-            given_type: error.fetch(:given_type)
-          )
-        end
-
-        def add_default_error
-          add_error(
-            DEFAULT_MESSAGE,
-            service_class_name: @context.class.name,
-            input: @input,
-            key_name: nil,
-            expected_type: prepared_types.join(", "),
-            given_type: prepared_value.class.name
-          )
         end
       end
     end

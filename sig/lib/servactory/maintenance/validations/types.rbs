@@ -3,38 +3,30 @@ module Servactory
     module Validations
       class Types
         @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
-
         @types: Array[Class]
-
-        def self.prepare!: (
-          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-          types: Array[Class]
-        ) ?{ () -> untyped } -> void
+        @value: untyped
+        @error_callback: Proc
+        @prepared_types: Array[Class]
 
         def self.validate!: (
           attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
           types: Array[Class],
           value: untyped,
-          default_collection_error: Proc,
-          default_object_error: Proc,
-          default_error: Proc
+          error_callback: Proc
         ) ?{ () -> untyped } -> void
 
         def initialize: (
           attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-          types: Array[Class]
+          types: Array[Class],
+          value: untyped,
+          error_callback: Proc
         ) -> void
 
-        def prepare!: () -> Array[Class]
-
-        def validate!: (
-          value: untyped,
-          default_collection_error: Proc,
-          default_object_error: Proc,
-          default_error: Proc
-        ) -> Array[Class]
+        def validate!: -> (bool | Inputs::Validations::Errors | Exception)
 
         private
+
+        def prepared_types: -> Array[Class]
 
         def prepared_types_from: (Array[Class] types) -> Array[Class]
       end

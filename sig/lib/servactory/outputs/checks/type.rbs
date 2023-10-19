@@ -2,29 +2,19 @@ module Servactory
   module Outputs
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, internal: Output, value: untyped, key_name: Symbol, expected_type: String, given_type: String) -> Proc
+        DEFAULT_MESSAGE: ^(service_class_name: String, attribute: Output, value: untyped, key_name: Symbol, expected_type: String, given_type: String) -> Proc
 
         @context: instance
-
         @output: Output
-        @prepared_types: Array[Class]
         @value: untyped
 
         def self.validate!: (*untyped) ?{ () -> untyped } -> void
 
+        def self.should_be_checked?: -> bool
+
         def initialize: (context: instance, output: Output, value: untyped) -> void
 
         def validate!: () -> void
-
-        private
-
-        def should_be_checked?: -> bool
-
-        def prepared_types: -> Array[Class]
-
-        def raise_default_object_error_with: (Hash[Symbol, untyped] error) -> Exception
-
-        def raise_default_error: -> Exception
       end
     end
   end

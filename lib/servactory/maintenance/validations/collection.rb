@@ -18,7 +18,7 @@ module Servactory
           @errors = []
         end
 
-        def validate
+        def validate # rubocop:disable Metrics/MethodLength
           unless @value.is_a?(@types.fetch(0, Array))
             add_error(
               expected_type: @types.fetch(0, Array),
@@ -27,7 +27,6 @@ module Servactory
 
             return self
           end
-
 
           @valid = @value.respond_to?(:all?) && @value.all? do |asd|
             is_success = asd.is_a?(@type)

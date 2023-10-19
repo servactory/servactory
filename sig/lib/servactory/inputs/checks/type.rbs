@@ -2,11 +2,10 @@ module Servactory
   module Inputs
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, input: Input, key_name: Symbol, expected_type: String, given_type: String) -> String
+        DEFAULT_MESSAGE: ^(service_class_name: String, attribute: Input, key_name: Symbol, expected_type: String, given_type: String, ** untyped) -> String
 
         @context: instance
         @input: Input
-        @prepared_types: Array[Class]
         @prepared_value: String
 
         def self.check: (context: instance, input: Input, check_key: Symbol, **untyped) -> void
@@ -19,15 +18,7 @@ module Servactory
 
         private
 
-        def prepared_types: -> Array[Class]
-
         def prepared_value: () -> String
-
-        def add_default_collection_error_with: ({ expected_type: Class, given_type: Class } error) -> void
-
-        def add_default_object_error_with: ({ key_name: Symbol, expected_type: Class, given_type: Class } error) -> void
-
-        def add_default_error: -> void
       end
     end
   end
