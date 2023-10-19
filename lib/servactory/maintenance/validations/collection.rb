@@ -22,19 +22,19 @@ module Servactory
           unless @value.is_a?(@types.fetch(0, Array))
             add_error(
               expected_type: @types.fetch(0, Array),
-              given_type: @value.class
+              given_type: @value.class.name
             )
 
             return self
           end
 
-          @valid = @value.respond_to?(:all?) && @value.all? do |asd|
-            is_success = asd.is_a?(@type)
+          @valid = @value.respond_to?(:all?) && @value.all? do |value_item|
+            is_success = value_item.is_a?(@type)
 
             unless is_success
               add_error(
                 expected_type: @type,
-                given_type: asd.class
+                given_type: value_item.class.name
               )
             end
 

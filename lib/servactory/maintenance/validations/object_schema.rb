@@ -33,9 +33,9 @@ module Servactory
 
         private
 
-        def validate_for(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength
+        def validate_for(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           unless object.respond_to?(:fetch)
-            add_error(key_name: root_schema_key, expected_type: Hash, given_type: object.class)
+            add_error(key_name: root_schema_key, expected_type: Hash.name, given_type: object.class.name)
             return false
           end
 
@@ -61,7 +61,7 @@ module Servactory
                 add_error(
                   key_name: schema_key,
                   expected_type: attribute_type,
-                  given_type: object.fetch(schema_key, nil).class
+                  given_type: object.fetch(schema_key, nil).class.name
                 )
               end
 

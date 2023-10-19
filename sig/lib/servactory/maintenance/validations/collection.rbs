@@ -19,7 +19,7 @@ module Servactory
 
         private
 
-        def add_error: (expected_type: Class, given_type: Class) -> Array[Hash[Symbol, Class]]
+        def add_error: (expected_type: String, given_type: String) -> Array[Hash[Symbol, String]]
       end
     end
   end
