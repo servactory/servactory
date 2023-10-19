@@ -2,7 +2,7 @@ module Servactory
   module Outputs
     module Validations
       class Base
-        def raise_error_with: (String | Proc message, **untyped attributes) -> untyped
+        def raise_error_with: (message: (String | Proc), **untyped attributes) -> untyped
       end
     end
   end

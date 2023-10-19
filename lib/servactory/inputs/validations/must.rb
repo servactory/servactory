@@ -75,7 +75,7 @@ module Servactory
 
         def add_error_with(message, code)
           add_error(
-            message,
+            message: message,
             service_class_name: @context.class.name,
             input: @input,
             value: @input.value,
@@ -85,7 +85,7 @@ module Servactory
 
         def add_syntax_error_with(message, code, exception_message)
           add_error(
-            message,
+            message: message,
             service_class_name: @context.class.name,
             input: @input,
             value: @input.value,

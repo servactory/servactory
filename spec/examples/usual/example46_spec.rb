@@ -70,7 +70,7 @@ RSpec.describe Usual::Example46 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example46] Wrong type in input collection `invoice_numbers`, expected `String`"
+                "[Usual::Example46] Wrong type in input collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )
           end
@@ -120,7 +120,7 @@ RSpec.describe Usual::Example46 do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 
-        it_behaves_like "input type check", name: :invoice_numbers, collection: true, expected_type: String
+        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
       end
     end
   end
@@ -194,7 +194,7 @@ RSpec.describe Usual::Example46 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example46] Wrong type in input collection `invoice_numbers`, expected `String`"
+                "[Usual::Example46] Wrong type in input collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )
           end
@@ -244,7 +244,7 @@ RSpec.describe Usual::Example46 do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 
-        it_behaves_like "input type check", name: :invoice_numbers, collection: true, expected_type: String
+        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
       end
     end
   end

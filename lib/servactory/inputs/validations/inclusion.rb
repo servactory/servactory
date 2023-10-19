@@ -54,7 +54,7 @@ module Servactory
 
         def add_error_with(message)
           add_error(
-            message.presence || DEFAULT_MESSAGE,
+            message: message.presence || DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
             input: @input,
             value: @input.value

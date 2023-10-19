@@ -9,8 +9,6 @@ module Servactory
         @object: Hash[Symbol, untyped]
         @schema: Hash[Symbol, untyped]
 
-        @valid: bool
-
         def self.validate: (*untyped) ?{ () -> untyped } -> self
 
         def initialize: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) -> void
@@ -21,7 +19,7 @@ module Servactory
 
         private
 
-        def validate_for: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped], ?root_schema_key: Symbol?) -> bool
+        def validate_for: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped], ?root_schema_key: Symbol?) -> void
 
         def validate_with: (object: Hash[Symbol, untyped], schema_key: Symbol, schema_value: Hash[Symbol, untyped], attribute_type: Class, attribute_required: bool) -> bool
 
@@ -31,7 +29,7 @@ module Servactory
 
         def fetch_default_from: (Hash[Symbol, untyped] value) -> untyped
 
-        def add_error: (name: Symbol, expected_type: Class, given_type: Class) -> Array[Hash[Symbol, untyped]]
+        def add_error: (key_name: Symbol, expected_type: String, given_type: String) -> Array[Hash[Symbol, String]]
       end
     end
   end

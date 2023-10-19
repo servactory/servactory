@@ -1,0 +1,31 @@
+module Servactory
+  module Maintenance
+    module Validations
+      class Collection
+        @value: untyped
+        @types: Array[Class]
+        @type: Class
+        @valid: bool
+        @prepared_type: Class
+
+        attr_reader errors: Array[Hash[Symbol, String]]
+
+        def self.validate: (*untyped) ?{ () -> untyped } -> self
+
+        def initialize: (value: untyped, types: Array[Class], type: Class) -> void
+
+        def validate: () -> self
+
+        def valid?: () -> bool
+
+        private
+
+        def prepared_type: -> Class
+
+        def validate_value!: -> void
+
+        def add_error: (expected_type: String, given_type: String) -> Array[Hash[Symbol, String]]
+      end
+    end
+  end
+end
