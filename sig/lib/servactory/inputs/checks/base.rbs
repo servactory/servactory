@@ -6,7 +6,7 @@ module Servactory
 
         attr_reader errors: Errors
 
-        def add_error: (String | Proc message, **untyped attributes) -> Errors
+        def add_error: (message: (String | Proc), **untyped attributes) -> Errors
       end
     end
   end

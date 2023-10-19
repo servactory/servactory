@@ -2,6 +2,17 @@ module Servactory
   module Maintenance
     module Validations
       class Types
+        DEFAULT_MESSAGE: ^(
+          service_class_name: String,
+          attribute_system_name: Symbol,
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          key_name: Symbol,
+          expected_type: String,
+          given_type: String,
+          ** untyped
+        ) -> String
+
+        @context: instance
         @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
         @types: Array[Class]
         @value: untyped
@@ -16,6 +27,7 @@ module Servactory
         ) ?{ () -> untyped } -> void
 
         def initialize: (
+          contect: instance,
           attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
           types: Array[Class],
           value: untyped,
@@ -25,6 +37,8 @@ module Servactory
         def validate!: -> (bool | Inputs::Validations::Errors | Exception)
 
         private
+
+        def attribute_system_name: -> Symbol
 
         def prepared_types: -> Array[Class]
 

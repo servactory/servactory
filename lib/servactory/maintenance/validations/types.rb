@@ -3,12 +3,68 @@
 module Servactory
   module Maintenance
     module Validations
-      class Types
+      class Types # rubocop:disable Metrics/ClassLength
+        DEFAULT_MESSAGE = lambda do | # rubocop:disable Metrics/BlockLength
+          service_class_name:,
+          attribute_system_name:,
+          attribute:,
+          value:,
+          key_name:,
+          expected_type:,
+          given_type:
+        | # do
+          if attribute.collection_mode?
+            collection_message = attribute.consists_of.fetch(:message)
+
+            if collection_message.is_a?(Proc)
+              collection_message.call(attribute_system_name => attribute, expected_type: expected_type)
+            elsif collection_message.is_a?(String) && collection_message.present?
+              collection_message
+            elsif value.is_a?(attribute.types.fetch(0, Array))
+              I18n.t(
+                "servactory.#{attribute_system_name.to_s.pluralize}.checks.type.default_error.for_collection.wrong_element_type",
+                service_class_name: service_class_name,
+                "#{attribute_system_name}_name": attribute.name,
+                expected_type: expected_type,
+                given_type: given_type
+              )
+            else
+              I18n.t(
+                "servactory.#{attribute_system_name.to_s.pluralize}.checks.type.default_error.for_collection.wrong_type",
+                service_class_name: service_class_name,
+                "#{attribute_system_name}_name": attribute.name,
+                expected_type: attribute.types.fetch(0, Array),
+                given_type: value.class.name
+              )
+            end
+          elsif attribute.hash_mode? && key_name.present?
+            I18n.t(
+              "servactory.#{attribute_system_name.to_s.pluralize}.checks.type.default_error.for_hash.wrong_element_type",
+              service_class_name: service_class_name,
+              "#{attribute_system_name}_name": attribute.name,
+              key_name: key_name,
+              expected_type: expected_type,
+              given_type: given_type
+            )
+          else
+            I18n.t(
+              "servactory.#{attribute_system_name.to_s.pluralize}.checks.type.default_error.default",
+              service_class_name: service_class_name,
+              "#{attribute_system_name}_name": attribute.name,
+              expected_type: expected_type,
+              given_type: given_type
+            )
+          end
+        end
+
+        private_constant :DEFAULT_MESSAGE
+
         def self.validate!(...)
           new(...).validate!
         end
 
-        def initialize(attribute:, types:, value:, error_callback:)
+        def initialize(context:, attribute:, types:, value:, error_callback:)
+          @context = context
           @attribute = attribute
           @types = types
           @value = value
@@ -42,6 +98,9 @@ module Servactory
 
           if (first_error = collection_validator&.errors&.first).present?
             return @error_callback.call(
+              message: DEFAULT_MESSAGE,
+              service_class_name: @context.class.name,
+              attribute_system_name: attribute_system_name,
               attribute: @attribute,
               value: @value,
               key_name: nil,
@@ -52,6 +111,9 @@ module Servactory
 
           if (first_error = object_schema_validator&.errors&.first).present?
             return @error_callback.call(
+              message: DEFAULT_MESSAGE,
+              service_class_name: @context.class.name,
+              attribute_system_name: attribute_system_name,
               attribute: @attribute,
               value: @value,
               key_name: first_error.fetch(:key_name),
@@ -61,6 +123,9 @@ module Servactory
           end
 
           @error_callback.call(
+            message: DEFAULT_MESSAGE,
+            service_class_name: @context.class.name,
+            attribute_system_name: attribute_system_name,
             attribute: @attribute,
             value: @value,
             key_name: nil,
@@ -70,6 +135,10 @@ module Servactory
         end
 
         private
+
+        def attribute_system_name
+          @attribute.class.name.demodulize.downcase.to_sym
+        end
 
         def prepared_types
           @prepared_types ||=

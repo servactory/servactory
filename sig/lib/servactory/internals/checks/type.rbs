@@ -2,8 +2,6 @@ module Servactory
   module Internals
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, attribute: Internal, value: untyped, key_name: Symbol, expected_type: String, given_type: String) -> Proc
-
         @context: instance
         @internal: Internal
         @value: untyped

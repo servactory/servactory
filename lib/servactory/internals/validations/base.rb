@@ -6,7 +6,7 @@ module Servactory
       class Base
         protected
 
-        def raise_error_with(message, **attributes)
+        def raise_error_with(message:, **attributes)
           message = message.call(**attributes) if message.is_a?(Proc)
 
           raise @context.class.config.internal_error_class.new(message: message)

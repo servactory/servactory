@@ -2,8 +2,6 @@ module Servactory
   module Outputs
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, attribute: Output, value: untyped, key_name: Symbol, expected_type: String, given_type: String) -> Proc
-
         @context: instance
         @output: Output
         @value: untyped

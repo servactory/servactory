@@ -6,7 +6,7 @@ module Servactory
       class Base
         private
 
-        def add_error(message, **attributes)
+        def add_error(message:, **attributes)
           message = message.call(**attributes) if message.is_a?(Proc)
 
           errors << message
