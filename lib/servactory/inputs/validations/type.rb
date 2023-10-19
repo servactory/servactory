@@ -20,8 +20,6 @@ module Servactory
           )
         end
 
-        ##########################################################################
-
         def initialize(context:, input:)
           super()
 
@@ -35,9 +33,7 @@ module Servactory
             attribute: @input,
             types: @input.types,
             value: prepared_value,
-            error_callback: lambda do |**args|
-              add_error(**args)
-            end
+            error_callback: ->(**args) { add_error(**args) }
           )
         end
 

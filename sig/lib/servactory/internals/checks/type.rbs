@@ -8,8 +8,6 @@ module Servactory
 
         def self.validate!: (*untyped) ?{ () -> untyped } -> void
 
-        def self.should_be_checked?: -> bool
-
         def initialize: (context: instance, internal: Internal, value: untyped) -> void
 
         def validate!: () -> void

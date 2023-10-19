@@ -5,16 +5,8 @@ module Servactory
     module Validations
       class Type < Base
         def self.validate!(...)
-          return unless should_be_checked?
-
           new(...).validate!
         end
-
-        def self.should_be_checked?
-          true
-        end
-
-        ##########################################################################
 
         def initialize(context:, output:, value:)
           super()
@@ -30,9 +22,7 @@ module Servactory
             attribute: @output,
             types: @output.types,
             value: @value,
-            error_callback: lambda do |**args|
-              raise_error_with(**args)
-            end
+            error_callback: ->(**args) { raise_error_with(**args) }
           )
         end
       end
