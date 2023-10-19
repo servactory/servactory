@@ -6,8 +6,9 @@ module Servactory
         @types: Array[Class]
         @type: Class
         @valid: bool
+        @prepared_type: Class
 
-        attr_reader errors: Array[Hash[Symbol, Class]]
+        attr_reader errors: Array[Hash[Symbol, String]]
 
         def self.validate: (*untyped) ?{ () -> untyped } -> self
 
@@ -18,6 +19,8 @@ module Servactory
         def valid?: () -> bool
 
         private
+
+        def prepared_type: -> Class
 
         def add_error: (expected_type: String, given_type: String) -> Array[Hash[Symbol, String]]
       end

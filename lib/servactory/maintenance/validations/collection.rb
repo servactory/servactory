@@ -19,9 +19,9 @@ module Servactory
         end
 
         def validate # rubocop:disable Metrics/MethodLength
-          unless @value.is_a?(@types.fetch(0, Array))
+          unless @value.is_a?(prepared_type)
             add_error(
-              expected_type: @types.fetch(0, Array),
+              expected_type: prepared_type.name,
               given_type: @value.class.name
             )
 
@@ -49,6 +49,10 @@ module Servactory
         end
 
         private
+
+        def prepared_type
+          @prepared_type ||= @types.fetch(0, Array)
+        end
 
         def add_error(expected_type:, given_type:)
           @errors << {
