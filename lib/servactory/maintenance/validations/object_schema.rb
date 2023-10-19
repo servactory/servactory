@@ -17,18 +17,17 @@ module Servactory
           @object = object
           @schema = schema
 
-          @valid = false
           @errors = []
         end
 
         def validate
-          @valid = validate_for(object: @object, schema: @schema)
+          validate_for(object: @object, schema: @schema)
 
           self
         end
 
         def valid?
-          @valid
+          @errors.empty?
         end
 
         private
@@ -36,10 +35,10 @@ module Servactory
         def validate_for(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           unless object.respond_to?(:fetch)
             add_error(key_name: root_schema_key, expected_type: Hash.name, given_type: object.class.name)
-            return false
+            return
           end
 
-          schema.all? do |schema_key, schema_value|
+          schema.each do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
 
             if attribute_type == Hash
@@ -57,15 +56,13 @@ module Servactory
                 attribute_required: schema_value.fetch(:required, true)
               )
 
-              unless is_success
-                add_error(
-                  key_name: schema_key,
-                  expected_type: attribute_type,
-                  given_type: object.fetch(schema_key, nil).class.name
-                )
-              end
+              next if is_success
 
-              is_success
+              add_error(
+                key_name: schema_key,
+                expected_type: attribute_type,
+                given_type: object.fetch(schema_key, nil).class.name
+              )
             end
           end
         end

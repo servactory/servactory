@@ -22,6 +22,8 @@ module Servactory
 
         def prepared_type: -> Class
 
+        def validate_value!: -> void
+
         def add_error: (expected_type: String, given_type: String) -> Array[Hash[Symbol, String]]
       end
     end
