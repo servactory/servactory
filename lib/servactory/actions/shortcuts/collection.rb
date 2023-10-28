@@ -2,7 +2,7 @@
 
 module Servactory
   module Actions
-    module ShortcutsForMake
+    module Shortcuts
       class Collection
         extend Forwardable
         def_delegators :@collection, :<<, :each, :merge, :include?

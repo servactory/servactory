@@ -30,7 +30,7 @@ module Servactory
           Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)
 
         @aliases_for_make = Servactory::Actions::Aliases::Collection.new
-        @shortcuts_for_make = Servactory::Actions::ShortcutsForMake::Collection.new
+        @shortcuts_for_make = Servactory::Actions::Shortcuts::Collection.new
       end
 
       private
