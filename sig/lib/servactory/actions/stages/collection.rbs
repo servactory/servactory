@@ -1,0 +1,15 @@
+module Servactory
+  module Actions
+    module Stages
+      class Collection
+        extend Forwardable
+
+        @collection: Set[Collection]
+
+        def initialize: (Set[Collection] collection) -> void
+
+        def sorted_by_position: -> Collection
+      end
+    end
+  end
+end

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Methods
-    module AliasesForMake
+  module Actions
+    module Shortcuts
       class Collection
         extend Forwardable
-        def_delegators :@collection, :<<, :merge, :include?
+        def_delegators :@collection, :<<, :each, :merge, :include?
 
         def initialize(*)
           @collection = Set.new

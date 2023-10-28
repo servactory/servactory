@@ -8,7 +8,7 @@ module Servactory
     include Inputs::DSL
     include Internals::DSL
     include Outputs::DSL
-    include Methods::DSL
+    include Actions::DSL
 
     private_class_method :new
   end

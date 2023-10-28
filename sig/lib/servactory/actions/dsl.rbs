@@ -1,12 +1,11 @@
 module Servactory
-  module Methods
+  module Actions
     module DSL
       def self.included: (untyped base) -> untyped
 
       module ClassMethods
-        @current_stage: Stage?
-        @collection_of_stages: StageCollection
-        @methods_workbench: Workbench
+        @current_stage: Stages::Stage?
+        @collection_of_stages: Stages::Collection
 
         def inherited: (untyped child) -> void
 
@@ -34,9 +33,7 @@ module Servactory
 
         def next_position: -> Integer
 
-        def collection_of_stages: () -> StageCollection
-
-        def methods_workbench: () -> Workbench
+        def collection_of_stages: () -> Stages::Collection
       end
     end
   end

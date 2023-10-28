@@ -31,7 +31,10 @@ module ApplicationService
             is_active = inputs.send(status_active_model_name).active?
             return if is_active
 
-            fail!(message: "User is not active")
+            fail_input!(
+              status_active_model_name,
+              message: "#{status_active_model_name.to_s.camelize.singularize} is not active"
+            )
           end
         end
       end

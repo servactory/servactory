@@ -29,8 +29,8 @@ module Servactory
         @input_option_helpers =
           Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)
 
-        @aliases_for_make = Servactory::Methods::AliasesForMake::Collection.new
-        @shortcuts_for_make = Servactory::Methods::ShortcutsForMake::Collection.new
+        @aliases_for_make = Servactory::Actions::Aliases::Collection.new
+        @shortcuts_for_make = Servactory::Actions::Shortcuts::Collection.new
       end
 
       private

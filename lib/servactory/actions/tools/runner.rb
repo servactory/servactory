@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Methods
+  module Actions
     module Tools
       class Runner
         def self.run!(...)

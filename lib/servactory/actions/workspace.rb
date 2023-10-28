@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Methods
+  module Actions
     module Workspace
       private
 
       def call!(collection_of_stages:, **)
         super
 
-        Servactory::Methods::Tools::Runner.run!(self, collection_of_stages)
+        Servactory::Actions::Tools::Runner.run!(self, collection_of_stages)
       end
     end
   end

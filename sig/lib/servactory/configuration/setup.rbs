@@ -15,9 +15,9 @@ module Servactory
 
       attr_accessor input_option_helpers: Maintenance::Attributes::OptionHelpersCollection
 
-      attr_accessor aliases_for_make: Methods::AliasesForMake::Collection
+      attr_accessor aliases_for_make: Actions::Aliases::Collection
 
-      attr_accessor shortcuts_for_make: Methods::ShortcutsForMake::Collection
+      attr_accessor shortcuts_for_make: Actions::Shortcuts::Collection
 
       def initialize: () -> void
 
