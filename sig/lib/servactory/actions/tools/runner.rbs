@@ -3,11 +3,11 @@ module Servactory
     module Tools
       class Runner
         @context: instance
-        @collection_of_stages: StageCollection
+        @collection_of_stages: Stages::Collection
 
         def self.run!: (*untyped) ?{ () -> untyped } -> void
 
-        def initialize: (instance context, StageCollection collection_of_stages) -> void
+        def initialize: (instance context, Stages::Collection collection_of_stages) -> void
 
         def run!: () -> void
 

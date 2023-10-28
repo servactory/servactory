@@ -18,7 +18,7 @@ module Servactory
         private
 
         def stage(&block)
-          @current_stage = Stage.new(position: next_position)
+          @current_stage = Stages::Stage.new(position: next_position)
 
           instance_eval(&block)
 
@@ -56,7 +56,7 @@ module Servactory
         def make(name, position: nil, **options)
           position = position.presence || next_position
 
-          current_stage = @current_stage.presence || Stage.new(position: position)
+          current_stage = @current_stage.presence || Stages::Stage.new(position: position)
 
           current_stage.methods << Action.new(
             name,
@@ -101,7 +101,7 @@ module Servactory
         end
 
         def collection_of_stages
-          @collection_of_stages ||= StageCollection.new
+          @collection_of_stages ||= Stages::Collection.new
         end
       end
     end

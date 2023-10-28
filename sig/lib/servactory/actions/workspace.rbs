@@ -3,7 +3,7 @@ module Servactory
     module Workspace
       private
 
-      def call!: (collection_of_stages: StageCollection, ** untyped) -> void
+      def call!: (collection_of_stages: Stages::Collection, ** untyped) -> void
     end
   end
 end
