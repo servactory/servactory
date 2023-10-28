@@ -2,7 +2,7 @@
 
 module Servactory
   module Actions
-    module AliasesForMake
+    module Aliases
       class Collection
         extend Forwardable
         def_delegators :@collection, :<<, :merge, :include?

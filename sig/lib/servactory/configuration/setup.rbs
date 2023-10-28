@@ -15,7 +15,7 @@ module Servactory
 
       attr_accessor input_option_helpers: Maintenance::Attributes::OptionHelpersCollection
 
-      attr_accessor aliases_for_make: Actions::AliasesForMake::Collection
+      attr_accessor aliases_for_make: Actions::Aliases::Collection
 
       attr_accessor shortcuts_for_make: Actions::ShortcutsForMake::Collection
 
