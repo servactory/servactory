@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Wrong
-  class Example27 < ApplicationService::Base
+  class Example32 < ApplicationService::Base
     internal :payload,
              type: Hash,
              schema: {
@@ -15,7 +15,10 @@ module Wrong
                    last_name: { type: String, required: true }
                  }
                },
-               message: "Problem with the value in the schema"
+               message: lambda do |internal_name:, key_name:, expected_type:, given_type:|
+                 "Problem with the value in the `#{internal_name}` schema: " \
+                   "`#{key_name}` has `#{given_type}` instead of `#{expected_type}`"
+               end
              }
 
     make :assign_internal
@@ -25,11 +28,7 @@ module Wrong
     def assign_internal
       internals.payload = {
         request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-        user: {
-          first_name: "John",
-          middle_name: "Fitzgerald",
-          last_name: nil
-        }
+        user: nil
       }
     end
   end

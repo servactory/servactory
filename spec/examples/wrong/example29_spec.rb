@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Example27 do
+RSpec.describe Wrong::Example29 do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
@@ -15,7 +15,8 @@ RSpec.describe Wrong::Example27 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalError,
-              "Problem with the value in the schema"
+              "[Wrong::Example29] Wrong type in internal attribute hash `payload`, " \
+              "expected `Hash` for `user`, got `NilClass`"
             )
           )
         end
@@ -37,7 +38,8 @@ RSpec.describe Wrong::Example27 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalError,
-              "Problem with the value in the schema"
+              "[Wrong::Example29] Wrong type in internal attribute hash `payload`, " \
+              "expected `Hash` for `user`, got `NilClass`"
             )
           )
         end

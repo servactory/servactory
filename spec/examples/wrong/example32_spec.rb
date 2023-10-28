@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Example27 do
+RSpec.describe Wrong::Example32 do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
@@ -15,7 +15,7 @@ RSpec.describe Wrong::Example27 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalError,
-              "Problem with the value in the schema"
+              "Problem with the value in the `payload` schema: `user` has `NilClass` instead of `Hash`"
             )
           )
         end
@@ -37,7 +37,7 @@ RSpec.describe Wrong::Example27 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalError,
-              "Problem with the value in the schema"
+              "Problem with the value in the `payload` schema: `user` has `NilClass` instead of `Hash`"
             )
           )
         end
