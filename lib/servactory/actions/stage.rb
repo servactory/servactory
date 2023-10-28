@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Methods
+  module Actions
     class Stage
       attr_accessor :position,
                     :wrapper,

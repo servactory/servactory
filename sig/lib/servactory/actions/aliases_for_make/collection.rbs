@@ -1,5 +1,5 @@
 module Servactory
-  module Methods
+  module Actions
     module AliasesForMake
       class Collection
         extend Forwardable

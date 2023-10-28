@@ -14,7 +14,7 @@ module Servactory
 
       extensions.each { |extension| base.include(extension) }
 
-      base.include(Methods::DSL)
+      base.include(Actions::DSL)
     end
 
     def self.with_extensions(*extensions)

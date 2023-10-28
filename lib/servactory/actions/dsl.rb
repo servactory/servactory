@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Methods
+  module Actions
     module DSL
       def self.included(base)
         base.extend(ClassMethods)
@@ -58,7 +58,7 @@ module Servactory
 
           current_stage = @current_stage.presence || Stage.new(position: position)
 
-          current_stage.methods << Method.new(
+          current_stage.methods << Action.new(
             name,
             position: position,
             **options

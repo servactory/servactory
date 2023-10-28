@@ -1,5 +1,5 @@
 module Servactory
-  module Methods
+  module Actions
     module DSL
       def self.included: (untyped base) -> untyped
 

@@ -10,7 +10,7 @@ module Servactory
       attr_reader collection_of_inputs: Inputs::Collection
       attr_reader collection_of_internals: Internals::Collection
       attr_reader collection_of_outputs: Outputs::Collection
-      attr_reader collection_of_stages: Methods::StageCollection
+      attr_reader collection_of_stages: Actions::StageCollection
 
       def inputs: -> Inputs
       alias inp inputs
@@ -34,7 +34,7 @@ module Servactory
         collection_of_inputs: Inputs::Collection,
         collection_of_internals: Internals::Collection,
         collection_of_outputs: Outputs::Collection,
-        collection_of_stages: Methods::StageCollection
+        collection_of_stages: Actions::StageCollection
       ) -> untyped
 
       def call!: (

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Methods
+  module Actions
     class MethodCollection
       extend Forwardable
       def_delegators :@collection, :<<, :each, :sort_by

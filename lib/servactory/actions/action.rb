@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Methods
-    class Method
+  module Actions
+    class Action
       attr_reader :name,
                   :position,
                   :condition,
