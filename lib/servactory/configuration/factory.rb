@@ -39,8 +39,8 @@ module Servactory
         @config.action_aliases.merge(action_aliases)
       end
 
-      def shortcuts_for_make(shortcuts_for_make)
-        @config.shortcuts_for_make.merge(shortcuts_for_make)
+      def action_shortcuts(action_shortcuts)
+        @config.action_shortcuts.merge(action_shortcuts)
       end
     end
   end

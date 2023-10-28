@@ -19,7 +19,7 @@ module Servactory
 
       def action_aliases: (Array[Symbol] action_aliases) -> Actions::Aliases::Collection
 
-      def shortcuts_for_make: (Array[Symbol] shortcuts_for_make) -> Actions::Shortcuts::Collection
+      def action_shortcuts: (Array[Symbol] action_shortcuts) -> Actions::Shortcuts::Collection
     end
   end
 end

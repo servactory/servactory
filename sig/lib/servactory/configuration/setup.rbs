@@ -17,7 +17,7 @@ module Servactory
 
       attr_accessor action_aliases: Actions::Aliases::Collection
 
-      attr_accessor shortcuts_for_make: Actions::Shortcuts::Collection
+      attr_accessor action_shortcuts: Actions::Shortcuts::Collection
 
       def initialize: () -> void
 

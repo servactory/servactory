@@ -70,7 +70,7 @@ module Servactory
         def method_missing(name, *args, &block)
           return method_missing_for_aliases_for_make(name, *args, &block) if config.action_aliases.include?(name)
 
-          return method_missing_for_shortcuts_for_make(name, *args, &block) if config.shortcuts_for_make.include?(name)
+          return method_missing_for_shortcuts_for_make(name, *args, &block) if config.action_shortcuts.include?(name)
 
           super
         end
@@ -93,7 +93,7 @@ module Servactory
         end
 
         def respond_to_missing?(name, *)
-          config.action_aliases.include?(name) || config.shortcuts_for_make.include?(name) || super
+          config.action_aliases.include?(name) || config.action_shortcuts.include?(name) || super
         end
 
         def next_position

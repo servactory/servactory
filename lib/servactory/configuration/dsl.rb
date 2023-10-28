@@ -22,7 +22,7 @@ module Servactory
           child.config.input_option_helpers = config.input_option_helpers
 
           child.config.action_aliases = config.action_aliases
-          child.config.shortcuts_for_make = config.shortcuts_for_make
+          child.config.action_shortcuts = config.action_shortcuts
         end
 
         def config
