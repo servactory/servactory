@@ -75,6 +75,7 @@ module Servactory
           )
         end
 
+        # rubocop:disable Metrics/MethodLength
         def prepare_advanced_for(
           body:,
           body_key:,
@@ -82,17 +83,22 @@ module Servactory
           body_fallback:
         )
           if body.is_a?(Hash)
-            message = body.fetch(:message, nil)
+            if @name == :schema && body.fetch(body_key, nil).nil?
+              DEFAULT_BODY.call(key: body_key, body: body)
+            else
+              message = body.fetch(:message, nil)
 
-            DEFAULT_BODY.call(
-              key: body_key,
-              body: body.fetch(body_key, message.present? ? body_value : body_fallback),
-              message: message
-            )
+              DEFAULT_BODY.call(
+                key: body_key,
+                body: body.fetch(body_key, message.present? ? body_value : body_fallback),
+                message: message
+              )
+            end
           else
             DEFAULT_BODY.call(key: body_key, body: body)
           end
         end
+        # rubocop:enable Metrics/MethodLength
 
         def prepare_methods_for(attribute)
           attribute.instance_eval(define_methods_template) if define_methods_template.present?

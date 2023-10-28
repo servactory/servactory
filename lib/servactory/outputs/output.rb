@@ -83,8 +83,8 @@ module Servactory
             )
           ],
           need_for_checks: false,
+          body_key: :is,
           body_fallback: {},
-          with_advanced_mode: false,
           **options
         )
       end

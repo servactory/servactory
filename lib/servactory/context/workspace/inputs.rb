@@ -48,7 +48,9 @@ module Servactory
 
           input.value = input.default if input.optional? && input.value.blank?
 
-          input.value = prepare_object_values_inside(object: input.value, schema: input.schema) if input.hash_mode?
+          if input.hash_mode?
+            input.value = prepare_object_values_inside(object: input.value, schema: input.schema.fetch(:is))
+          end
 
           input_prepare = input.prepare.fetch(:in, nil)
           input.value = input_prepare.call(value: input.value) if input_prepare.present?
