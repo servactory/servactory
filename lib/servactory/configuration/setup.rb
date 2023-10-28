@@ -10,7 +10,7 @@ module Servactory
                     :collection_mode_class_names,
                     :hash_mode_class_names,
                     :input_option_helpers,
-                    :aliases_for_make,
+                    :action_aliases,
                     :shortcuts_for_make
 
       def initialize # rubocop:disable Metrics/MethodLength
@@ -29,7 +29,7 @@ module Servactory
         @input_option_helpers =
           Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)
 
-        @aliases_for_make = Servactory::Actions::Aliases::Collection.new
+        @action_aliases = Servactory::Actions::Aliases::Collection.new
         @shortcuts_for_make = Servactory::Actions::Shortcuts::Collection.new
       end
 

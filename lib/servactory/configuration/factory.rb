@@ -35,8 +35,8 @@ module Servactory
         @config.input_option_helpers.merge(input_option_helpers)
       end
 
-      def aliases_for_make(aliases_for_make)
-        @config.aliases_for_make.merge(aliases_for_make)
+      def action_aliases(action_aliases)
+        @config.action_aliases.merge(action_aliases)
       end
 
       def shortcuts_for_make(shortcuts_for_make)

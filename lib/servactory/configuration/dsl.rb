@@ -21,7 +21,7 @@ module Servactory
 
           child.config.input_option_helpers = config.input_option_helpers
 
-          child.config.aliases_for_make = config.aliases_for_make
+          child.config.action_aliases = config.action_aliases
           child.config.shortcuts_for_make = config.shortcuts_for_make
         end
 
