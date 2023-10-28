@@ -5,13 +5,15 @@ module Wrong
     internal :payload,
              type: Hash,
              schema: {
-               request_id: { type: String, required: true },
-               user: {
-                 type: Hash,
-                 required: true,
-                 first_name: { type: String, required: true },
-                 middle_name: { type: String, required: false },
-                 last_name: { type: String, required: true }
+               is: {
+                 request_id: { type: String, required: true },
+                 user: {
+                   type: Hash,
+                   required: true,
+                   first_name: { type: String, required: true },
+                   middle_name: { type: String, required: false },
+                   last_name: { type: String, required: true }
+                 }
                }
              }
 
@@ -22,7 +24,11 @@ module Wrong
     def assign_internal
       internals.payload = {
         request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-        user: nil
+        user: {
+          first_name: "John",
+          middle_name: "Fitzgerald",
+          last_name: nil
+        }
       }
     end
   end

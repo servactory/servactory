@@ -48,7 +48,9 @@ module Servactory
 
           input.value = input.default if input.optional? && input.value.blank?
 
-          input.value = prepare_object_values_inside(object: input.value, schema: input.schema) if input.hash_mode?
+          if input.hash_mode?
+            input.value = prepare_hash_values_inside(object: input.value, schema: input.schema.fetch(:is))
+          end
 
           input_prepare = input.prepare.fetch(:in, nil)
           input.value = input_prepare.call(value: input.value) if input_prepare.present?
@@ -60,7 +62,7 @@ module Servactory
           end
         end
 
-        def prepare_object_values_inside(object:, schema:) # rubocop:disable Metrics/MethodLength
+        def prepare_hash_values_inside(object:, schema:) # rubocop:disable Metrics/MethodLength
           return object unless object.respond_to?(:fetch)
 
           schema.to_h do |schema_key, schema_value|
@@ -68,12 +70,12 @@ module Servactory
 
             result =
               if attribute_type == Hash
-                prepare_object_values_inside(
+                prepare_hash_values_inside(
                   object: object.fetch(schema_key, {}),
                   schema: schema_value.except(*RESERVED_ATTRIBUTES)
                 )
               else
-                fetch_object_values_from(
+                fetch_hash_values_from(
                   value: object.fetch(schema_key, {}),
                   schema_value: schema_value,
                   attribute_required: schema_value.fetch(:required, true)
@@ -84,7 +86,7 @@ module Servactory
           end
         end
 
-        def fetch_object_values_from(value:, schema_value:, attribute_required:)
+        def fetch_hash_values_from(value:, schema_value:, attribute_required:)
           return value if attribute_required
           return value if value.present?
 

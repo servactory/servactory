@@ -11,7 +11,7 @@ module Servactory
 
         def self.validate: (*untyped) ?{ () -> untyped } -> self
 
-        def initialize: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) -> void
+        def initialize: (object: Hash[Symbol, untyped], schema: { is: Hash[Symbol, untyped] }) -> void
 
         def validate: () -> self
 

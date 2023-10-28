@@ -15,7 +15,7 @@ module Servactory
 
         def initialize(object:, schema:)
           @object = object
-          @schema = schema
+          @schema = schema.fetch(:is)
 
           @errors = []
         end

@@ -37,7 +37,7 @@ module Servactory
         # Check Class: Servactory::Internals::Validations::Type
         add_types_option_with(type)
         add_collection_option_with(type, options)
-        add_object_option_with(type, options)
+        add_hash_option_with(type, options)
       end
 
       def add_types_option_with(type)
@@ -71,7 +71,7 @@ module Servactory
         )
       end
 
-      def add_object_option_with(type, options) # rubocop:disable Metrics/MethodLength
+      def add_hash_option_with(type, options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :schema,
           attribute: self,
@@ -83,8 +83,8 @@ module Servactory
             )
           ],
           need_for_checks: false,
+          body_key: :is,
           body_fallback: {},
-          with_advanced_mode: false,
           **options
         )
       end

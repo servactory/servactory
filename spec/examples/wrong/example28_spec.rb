@@ -6,17 +6,16 @@ RSpec.describe Wrong::Example28 do
 
     include_examples "check class info",
                      inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[payload]
+                     internals: %i[payload],
+                     outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
-              "[Wrong::Example28] Wrong type in output attribute hash `payload`, " \
-              "expected `Hash` for `user`, got `NilClass`"
+              ApplicationService::Errors::InternalError,
+              "Problem with the value in the `payload` schema: `last_name` has `NilClass` instead of `String`"
             )
           )
         end
@@ -29,17 +28,16 @@ RSpec.describe Wrong::Example28 do
 
     include_examples "check class info",
                      inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[payload]
+                     internals: %i[payload],
+                     outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
-              "[Wrong::Example28] Wrong type in output attribute hash `payload`, " \
-              "expected `Hash` for `user`, got `NilClass`"
+              ApplicationService::Errors::InternalError,
+              "Problem with the value in the `payload` schema: `last_name` has `NilClass` instead of `String`"
             )
           )
         end
