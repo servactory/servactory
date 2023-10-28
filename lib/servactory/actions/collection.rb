@@ -2,7 +2,7 @@
 
 module Servactory
   module Actions
-    class MethodCollection
+    class Collection
       extend Forwardable
       def_delegators :@collection, :<<, :each, :sort_by
 
@@ -11,7 +11,7 @@ module Servactory
       end
 
       def sorted_by_position
-        MethodCollection.new(sort_by(&:position))
+        Collection.new(sort_by(&:position))
       end
     end
   end

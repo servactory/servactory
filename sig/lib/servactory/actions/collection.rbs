@@ -1,13 +1,13 @@
 module Servactory
   module Actions
-    class MethodCollection
+    class Collection
       extend Forwardable
 
       @collection: Set[Action]
 
       def initialize: (Set[Action] collection) -> void
 
-      def sorted_by_position: -> MethodCollection
+      def sorted_by_position: -> Collection
     end
   end
 end

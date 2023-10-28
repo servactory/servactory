@@ -17,9 +17,9 @@ module Servactory
 
         def call_stage: (Stage stage) -> void
 
-        def call_wrapper_with_methods: (Proc wrapper, Symbol? rollback, MethodCollection methods) -> void
+        def call_wrapper_with_methods: (Proc wrapper, Symbol? rollback, Collection methods) -> void
 
-        def call_methods: (MethodCollection methods) -> void
+        def call_methods: (Collection methods) -> void
 
         def unnecessary_for_stage?: (Stage stage) -> bool
 
