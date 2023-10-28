@@ -3,7 +3,7 @@
 module Usual
   class Example28 < ApplicationService::Base
     configuration do
-      shortcuts_for_make %i[assign]
+      action_shortcuts %i[assign]
     end
 
     output :number, type: Integer
