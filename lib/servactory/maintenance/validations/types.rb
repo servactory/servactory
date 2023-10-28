@@ -17,7 +17,11 @@ module Servactory
             collection_message = attribute.consists_of.fetch(:message)
 
             if collection_message.is_a?(Proc)
-              collection_message.call(attribute_system_name => attribute, expected_type: expected_type)
+              collection_message.call(
+                "#{attribute_system_name}_name": attribute.name,
+                expected_type: expected_type,
+                given_type: given_type
+              )
             elsif collection_message.is_a?(String) && collection_message.present?
               collection_message
             elsif value.is_a?(attribute.types.fetch(0, Array))
@@ -41,7 +45,12 @@ module Servactory
             hash_message = attribute.schema.fetch(:message)
 
             if hash_message.is_a?(Proc)
-              hash_message.call(attribute_system_name => attribute, expected_type: expected_type)
+              hash_message.call(
+                "#{attribute_system_name}_name": attribute.name,
+                key_name: key_name,
+                expected_type: expected_type,
+                given_type: given_type
+              )
             elsif hash_message.is_a?(String) && hash_message.present?
               hash_message
             else
