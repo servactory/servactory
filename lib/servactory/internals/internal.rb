@@ -7,7 +7,7 @@ module Servactory
                   :types,
                   :required
 
-      def initialize(name, type:, **_options)
+      def initialize(name, type:, **options)
         @name = name
         @types = Array(type)
 
