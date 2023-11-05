@@ -2,37 +2,37 @@ module Servactory
   module Inputs
     module OptionHelpers
       module Types
-        def self?.mandatory: (Symbol name, Class type) -> Servactory::Inputs::OptionHelper
+        def self?.mandatory: (Symbol name, (Class | Array[Class]) type) -> Maintenance::Attributes::OptionHelper
 
-        def self?.not_mandatory: (Symbol name, Class type) -> Servactory::Inputs::OptionHelper
+        def self?.not_mandatory: (Symbol name, Class type) -> Maintenance::Attributes::OptionHelper
 
-        def self?.all: () -> Set[Servactory::Inputs::OptionHelper]
+        def self?.all: () -> Set[Maintenance::Attributes::OptionHelper]
 
-        def self?.symbol: () -> Servactory::Inputs::OptionHelper
+        def self?.symbol: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.symbol?: () -> Servactory::Inputs::OptionHelper
+        def self?.symbol?: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.string: () -> Servactory::Inputs::OptionHelper
+        def self?.string: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.string?: () -> Servactory::Inputs::OptionHelper
+        def self?.string?: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.integer: () -> Servactory::Inputs::OptionHelper
+        def self?.integer: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.integer?: () -> Servactory::Inputs::OptionHelper
+        def self?.integer?: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.float: () -> Servactory::Inputs::OptionHelper
+        def self?.float: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.float?: () -> Servactory::Inputs::OptionHelper
+        def self?.float?: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.boolean: () -> Servactory::Inputs::OptionHelper
+        def self?.boolean: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.array: () -> Servactory::Inputs::OptionHelper
+        def self?.array: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.array?: () -> Servactory::Inputs::OptionHelper
+        def self?.array?: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.hash: () -> Servactory::Inputs::OptionHelper
+        def self?.hash: () -> Maintenance::Attributes::OptionHelper
 
-        def self?.hash?: () -> Servactory::Inputs::OptionHelper
+        def self?.hash?: () -> Maintenance::Attributes::OptionHelper
       end
     end
   end
