@@ -2,7 +2,7 @@
 
 require "zeitwerk"
 
-require "active_support/core_ext/string"
+require "active_support/all"
 
 loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect(
