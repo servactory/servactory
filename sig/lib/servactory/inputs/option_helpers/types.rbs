@@ -16,6 +16,10 @@ module Servactory
 
         def self?.string?: () -> Maintenance::Attributes::OptionHelper
 
+        def self?.numeric: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.numeric?: () -> Maintenance::Attributes::OptionHelper
+
         def self?.integer: () -> Maintenance::Attributes::OptionHelper
 
         def self?.integer?: () -> Maintenance::Attributes::OptionHelper

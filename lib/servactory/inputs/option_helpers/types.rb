@@ -30,6 +30,7 @@ module Servactory
           Set[
             symbol, symbol?,
             string, string?,
+            numeric, numeric?,
             integer, integer?,
             float, float?,
             boolean,
@@ -61,6 +62,14 @@ module Servactory
 
         def integer?
           not_mandatory(:integer, Integer)
+        end
+
+        def numeric
+          mandatory(:numeric, Numeric)
+        end
+
+        def numeric?
+          not_mandatory(:numeric, Numeric)
         end
 
         def float
