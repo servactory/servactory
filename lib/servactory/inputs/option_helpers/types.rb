@@ -34,6 +34,7 @@ module Servactory
             float, float?,
             boolean,
             array, array?,
+            set, set?,
             hash, hash?
           ]
         end
@@ -80,6 +81,14 @@ module Servactory
 
         def array?
           not_mandatory(:array, Array)
+        end
+
+        def set
+          mandatory(:array, Set)
+        end
+
+        def set?
+          not_mandatory(:array, Set)
         end
 
         def hash

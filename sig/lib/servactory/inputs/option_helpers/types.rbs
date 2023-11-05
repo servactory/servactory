@@ -30,6 +30,10 @@ module Servactory
 
         def self?.array?: () -> Maintenance::Attributes::OptionHelper
 
+        def self?.set: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.set?: () -> Maintenance::Attributes::OptionHelper
+
         def self?.hash: () -> Maintenance::Attributes::OptionHelper
 
         def self?.hash?: () -> Maintenance::Attributes::OptionHelper
