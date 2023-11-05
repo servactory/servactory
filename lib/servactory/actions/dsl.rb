@@ -68,14 +68,14 @@ module Servactory
         end
 
         def method_missing(name, *args, &block)
-          return method_missing_for_aliases_for_make(name, *args, &block) if config.action_aliases.include?(name)
+          return method_missing_for_action_aliases(name, *args, &block) if config.action_aliases.include?(name)
 
           return method_missing_for_shortcuts_for_make(name, *args, &block) if config.action_shortcuts.include?(name)
 
           super
         end
 
-        def method_missing_for_aliases_for_make(_alias_name, *args, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def method_missing_for_action_aliases(_alias_name, *args, &block) # rubocop:disable Lint/UnusedMethodArgument
           method_name = args.first
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
