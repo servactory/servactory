@@ -9,7 +9,6 @@ module Servactory
 
       def initialize: (
         Symbol name,
-        type: Class,
         collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection,
         hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection,
         **untyped options
@@ -19,13 +18,13 @@ module Servactory
 
       def respond_to_missing?: (Symbol name, *untyped) -> void
 
-      def add_basic_options_with: (type: (Class | Array[Class]), options: untyped) -> void
+      def add_basic_options_with: (untyped options) -> void
 
-      def add_types_option_with: ((Class | Array[Class]) type) -> Maintenance::Attributes::OptionsCollection
+      def add_types_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_collection_option_with: ((Class | Array[Class]) type, untyped options) -> Maintenance::Attributes::OptionsCollection
+      def add_collection_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_hash_option_with: ((Class | Array[Class]) type, untyped options) -> Maintenance::Attributes::OptionsCollection
+      def add_hash_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
       def collection_of_options: -> Maintenance::Attributes::OptionsCollection
 
