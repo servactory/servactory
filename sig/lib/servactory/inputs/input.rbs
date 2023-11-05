@@ -15,6 +15,9 @@ module Servactory
         Symbol name,
         *Symbol helpers,
         as: Symbol?,
+        collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection,
+        hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection,
+        option_helpers: Maintenance::Attributes::OptionHelpersCollection,
         **untyped options
       ) -> void
 

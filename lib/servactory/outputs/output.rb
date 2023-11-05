@@ -9,7 +9,6 @@ module Servactory
 
       def initialize(
         name,
-        type:,
         collection_mode_class_names:,
         hash_mode_class_names:,
         **options
@@ -18,7 +17,7 @@ module Servactory
         @collection_mode_class_names = collection_mode_class_names
         @hash_mode_class_names = hash_mode_class_names
 
-        add_basic_options_with(type: type, options: options)
+        add_basic_options_with(options)
       end
 
       def method_missing(name, *args, &block)
@@ -33,26 +32,26 @@ module Servactory
         collection_of_options.names.include?(name) || super
       end
 
-      def add_basic_options_with(type:, options:)
+      def add_basic_options_with(options)
         # Check Class: Servactory::Outputs::Validations::Type
-        add_types_option_with(type)
-        add_collection_option_with(type, options)
-        add_hash_option_with(type, options)
+        add_types_option_with(options)
+        add_collection_option_with(options)
+        add_hash_option_with(options)
       end
 
-      def add_types_option_with(type)
+      def add_types_option_with(options)
         collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :types,
           attribute: self,
           validation_class: Servactory::Internals::Validations::Type,
-          original_value: Array(type),
+          original_value: Array(options.fetch(:type)),
           need_for_checks: true,
           body_fallback: nil,
           with_advanced_mode: false
         )
       end
 
-      def add_collection_option_with(type, options) # rubocop:disable Metrics/MethodLength
+      def add_collection_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :consists_of,
           attribute: self,
@@ -60,7 +59,7 @@ module Servactory
           define_methods: [
             Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :collection_mode?,
-              content: ->(**) { collection_mode_class_names.include?(type) }
+              content: ->(**) { collection_mode_class_names.include?(options.fetch(:type)) }
             )
           ],
           need_for_checks: false,
@@ -71,7 +70,7 @@ module Servactory
         )
       end
 
-      def add_hash_option_with(type, options) # rubocop:disable Metrics/MethodLength
+      def add_hash_option_with(options) # rubocop:disable Metrics/MethodLength
         collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :schema,
           attribute: self,
@@ -79,7 +78,7 @@ module Servactory
           define_methods: [
             Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :hash_mode?,
-              content: ->(**) { hash_mode_class_names.include?(type) }
+              content: ->(**) { hash_mode_class_names.include?(options.fetch(:type)) }
             )
           ],
           need_for_checks: false,
