@@ -3,12 +3,12 @@
 module Servactory
   module Inputs
     class Input # rubocop:disable Metrics/ClassLength
-      ARRAY_DEFAULT_VALUE = ->(is: false, message: nil) { { is: is, message: message } }
-
-      private_constant :ARRAY_DEFAULT_VALUE
+      attr_accessor :value
 
       attr_reader :name,
                   :internal_name,
+                  :collection_mode_class_names,
+                  :hash_mode_class_names,
                   :option_helpers
 
       # rubocop:disable Style/KeywordParametersOrder
@@ -16,11 +16,15 @@ module Servactory
         name,
         *helpers,
         as: nil,
+        collection_mode_class_names:,
+        hash_mode_class_names:,
         option_helpers:,
         **options
       )
         @name = name
         @internal_name = as.present? ? as : name
+        @collection_mode_class_names = collection_mode_class_names
+        @hash_mode_class_names = hash_mode_class_names
         @option_helpers = option_helpers
 
         options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
@@ -34,7 +38,7 @@ module Servactory
 
         return super if option.nil?
 
-        option.value
+        option.body
       end
 
       def respond_to_missing?(name, *)
@@ -62,7 +66,8 @@ module Servactory
         # Check Class: Servactory::Inputs::Validations::Type
         add_types_option_with(options)
         add_default_option_with(options)
-        add_array_option_with(options)
+        add_collection_option_with(options)
+        add_hash_option_with(options)
 
         # Check Class: Servactory::Inputs::Validations::Inclusion
         add_inclusion_option_with(options)
@@ -72,166 +77,180 @@ module Servactory
 
         # Check Class: nil
         add_prepare_option_with(options)
-        add_internal_option_with(options)
       end
 
       def add_required_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :required,
-          input: self,
+          attribute: self,
           validation_class: Servactory::Inputs::Validations::Required,
-          define_input_methods: [
-            DefineInputMethod.new(
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :required?,
-              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
+              content: ->(option:) { Servactory::Utils.true?(option[:is]) }
             ),
-            DefineInputMethod.new(
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :optional?,
-              content: ->(value:) { !Servactory::Utils.true?(value[:is]) }
+              content: ->(option:) { !Servactory::Utils.true?(option[:is]) }
             )
           ],
-          define_input_conflicts: [
-            DefineInputConflict.new(content: -> { :required_vs_default if required? && default_value_present? })
+          define_conflicts: [
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :required_vs_default if required? && default_value_present? }
+            )
           ],
           need_for_checks: true,
-          value_key: :is,
-          value_fallback: true,
+          body_key: :is,
+          body_fallback: true,
           **options
         )
       end
 
       def add_types_option_with(options)
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :types,
-          input: self,
+          attribute: self,
           validation_class: Servactory::Inputs::Validations::Type,
           original_value: Array(options.fetch(:type)),
           need_for_checks: true,
-          value_fallback: nil,
+          body_fallback: nil,
           with_advanced_mode: false
         )
       end
 
       def add_default_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :default,
-          input: self,
+          attribute: self,
           validation_class: Servactory::Inputs::Validations::Type,
-          define_input_methods: [
-            DefineInputMethod.new(
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :default_value_present?,
-              content: ->(value:) { !value.nil? }
+              content: ->(option:) { !option.nil? }
             )
           ],
           need_for_checks: true,
-          value_fallback: nil,
+          body_fallback: nil,
           with_advanced_mode: false,
           **options
         )
       end
 
-      def add_array_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
-          name: :array,
-          input: self,
+      def add_collection_option_with(options) # rubocop:disable Metrics/MethodLength
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
+          name: :consists_of,
+          attribute: self,
           validation_class: Servactory::Inputs::Validations::Type,
-          define_input_methods: [
-            DefineInputMethod.new(
-              name: :array?,
-              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
+              name: :collection_mode?,
+              content: ->(**) { collection_mode_class_names.include?(options.fetch(:type)) }
             )
           ],
-          define_input_conflicts: [
-            DefineInputConflict.new(content: -> { :array_vs_array if array? && types.include?(Array) }),
-            DefineInputConflict.new(content: -> { :array_vs_inclusion if array? && inclusion_present? })
+          define_conflicts: [
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :collection_vs_inclusion if collection_mode? && inclusion_present? }
+            )
           ],
           need_for_checks: false,
-          value_key: :is,
-          value_fallback: false,
+          body_key: :type,
+          body_value: String,
+          body_fallback: String,
+          **options
+        )
+      end
+
+      def add_hash_option_with(options) # rubocop:disable Metrics/MethodLength
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
+          name: :schema,
+          attribute: self,
+          validation_class: Servactory::Inputs::Validations::Type,
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
+              name: :hash_mode?,
+              content: ->(**) { hash_mode_class_names.include?(options.fetch(:type)) }
+            )
+          ],
+          define_conflicts: [
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :object_vs_inclusion if hash_mode? && inclusion_present? }
+            )
+          ],
+          need_for_checks: false,
+          body_key: :is,
+          body_fallback: {},
           **options
         )
       end
 
       def add_inclusion_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :inclusion,
-          input: self,
+          attribute: self,
           validation_class: Servactory::Inputs::Validations::Inclusion,
-          define_input_methods: [
-            DefineInputMethod.new(
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :inclusion_present?,
-              content: ->(value:) { value[:in].is_a?(Array) && value[:in].present? }
+              content: ->(option:) { option[:in].is_a?(Array) && option[:in].present? }
             )
           ],
           need_for_checks: true,
-          value_key: :in,
-          value_fallback: nil,
+          body_key: :in,
+          body_fallback: nil,
           **options
         )
       end
 
       def add_must_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :must,
-          input: self,
+          attribute: self,
           validation_class: Servactory::Inputs::Validations::Must,
-          define_input_methods: [
-            DefineInputMethod.new(
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :must_present?,
-              content: ->(value:) { value.present? }
+              content: ->(option:) { option.present? }
             )
           ],
           need_for_checks: true,
-          value_key: :is,
-          value_fallback: nil,
+          body_key: :is,
+          body_fallback: nil,
           with_advanced_mode: false,
           **options
         )
       end
 
       def add_prepare_option_with(options) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        collection_of_options << Option.new(
+        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
           name: :prepare,
-          input: self,
+          attribute: self,
           validation_class: nil,
-          define_input_methods: [
-            DefineInputMethod.new(
+          define_methods: [
+            Servactory::Maintenance::Attributes::DefineMethod.new(
               name: :prepare_present?,
-              content: ->(value:) { value[:in].present? }
+              content: ->(option:) { option[:in].present? }
             )
           ],
-          define_input_conflicts: [
-            DefineInputConflict.new(content: -> { :prepare_vs_array if prepare_present? && array? }),
-            DefineInputConflict.new(content: -> { :prepare_vs_inclusion if prepare_present? && inclusion_present? }),
-            DefineInputConflict.new(content: -> { :prepare_vs_must if prepare_present? && must_present? })
-          ],
-          need_for_checks: false,
-          value_key: :in,
-          value_fallback: false,
-          **options
-        )
-      end
-
-      def add_internal_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Option.new(
-          name: :internal,
-          input: self,
-          validation_class: nil,
-          define_input_methods: [
-            DefineInputMethod.new(
-              name: :internal?,
-              content: ->(value:) { Servactory::Utils.true?(value[:is]) }
+          define_conflicts: [
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :prepare_vs_collection if prepare_present? && collection_mode? }
+            ),
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :prepare_vs_inclusion if prepare_present? && inclusion_present? }
+            ),
+            Servactory::Maintenance::Attributes::DefineConflict.new(
+              content: -> { :prepare_vs_must if prepare_present? && must_present? }
             )
           ],
           need_for_checks: false,
-          value_key: :is,
-          value_fallback: false,
+          body_key: :in,
+          body_fallback: false,
           **options
         )
       end
 
       def collection_of_options
-        @collection_of_options ||= OptionsCollection.new
+        @collection_of_options ||= Servactory::Maintenance::Attributes::OptionsCollection.new
       end
 
       def options_for_checks

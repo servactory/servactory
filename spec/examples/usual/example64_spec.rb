@@ -37,7 +37,7 @@ RSpec.describe Usual::Example64 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::Failure,
+                ApplicationService::Errors::InputError,
                 "User is not active"
               )
             )
@@ -87,14 +87,12 @@ RSpec.describe Usual::Example64 do
         describe "because the user is not active" do
           let(:user) { Usual::Example64::User.new(active: false) }
 
-          include_examples "failure result class"
-
-          it "returns the expected value in `errors`", :aggregate_failures do
-            result = perform
-
-            expect(result.error).to be_a(ApplicationService::Errors::Failure)
-            expect(result.error).to an_object_having_attributes(
-              message: "User is not active"
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "User is not active"
+              )
             )
           end
         end

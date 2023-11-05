@@ -7,29 +7,45 @@ module Servactory
                     :internal_error_class,
                     :output_error_class,
                     :failure_class,
+                    :collection_mode_class_names,
+                    :hash_mode_class_names,
                     :input_option_helpers,
-                    :aliases_for_make,
-                    :shortcuts_for_make
+                    :action_aliases,
+                    :action_shortcuts
 
-      def initialize
+      def initialize # rubocop:disable Metrics/MethodLength
         @input_error_class = Servactory::Errors::InputError
         @internal_error_class = Servactory::Errors::InternalError
         @output_error_class = Servactory::Errors::OutputError
 
         @failure_class = Servactory::Errors::Failure
 
-        @input_option_helpers = Servactory::Inputs::OptionHelpersCollection.new(default_input_option_helpers)
+        @collection_mode_class_names =
+          Servactory::Maintenance::CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
 
-        @aliases_for_make = Servactory::Methods::AliasesForMake::Collection.new
-        @shortcuts_for_make = Servactory::Methods::ShortcutsForMake::Collection.new
+        @hash_mode_class_names =
+          Servactory::Maintenance::HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
+
+        @input_option_helpers =
+          Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)
+
+        @action_aliases = Servactory::Actions::Aliases::Collection.new
+        @action_shortcuts = Servactory::Actions::Shortcuts::Collection.new
       end
 
       private
 
+      def default_collection_mode_class_names
+        Set[Array, Set]
+      end
+
+      def default_hash_mode_class_names
+        Set[Hash]
+      end
+
       def default_input_option_helpers
         Set[
-          Servactory::Inputs::OptionHelper.new(name: :optional, equivalent: { required: false }),
-          Servactory::Inputs::OptionHelper.new(name: :as_array, equivalent: { array: true })
+          Servactory::Maintenance::Attributes::OptionHelper.new(name: :optional, equivalent: { required: false }),
         ]
       end
     end

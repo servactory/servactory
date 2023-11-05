@@ -7,7 +7,7 @@ module Servactory
         module_function
 
         def mandatory(name, type)
-          Servactory::Inputs::OptionHelper.new(
+          Servactory::Maintenance::Attributes::OptionHelper.new(
             name: name.to_sym,
             equivalent: {
               type: type
@@ -16,7 +16,7 @@ module Servactory
         end
 
         def not_mandatory(name, type)
-          Servactory::Inputs::OptionHelper.new(
+          Servactory::Maintenance::Attributes::OptionHelper.new(
             name: "#{name}?".to_sym,
             equivalent: {
               type: type,

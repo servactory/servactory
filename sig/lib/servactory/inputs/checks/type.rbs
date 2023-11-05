@@ -2,24 +2,19 @@ module Servactory
   module Inputs
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, input: Input, expected_type: String, given_type: String) -> String
-
         @context: instance
         @input: Input
-        @prepared_types: Array[Class]
         @prepared_value: String
-        @types: Array[Class]
-        @value: untyped
 
-        def self.check: (context: instance, input: Input, value: untyped, check_key: Symbol, check_options: untyped) -> void
+        def self.check: (context: instance, input: Input, check_key: Symbol, **untyped) -> void
 
-        def self.should_be_checked_for?: (Input input, untyped value, Symbol check_key) -> bool
+        def self.should_be_checked_for?: (Input input, Symbol check_key) -> bool
 
-        def initialize: (context: instance, input: Input, value: untyped, types: Array[Class]) -> void
+        def initialize: (context: instance, input: Input) -> void
 
         def check: () -> void
 
-        def prepared_types: -> Array[Class]
+        private
 
         def prepared_value: () -> String
       end

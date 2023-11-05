@@ -68,7 +68,7 @@ RSpec.describe Usual::Example26 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example26] Required element in input array `ids` is missing"
+                "[Usual::Example26] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -87,7 +87,7 @@ RSpec.describe Usual::Example26 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example26] Required element in input array `ids` is missing"
+                "[Usual::Example26] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -101,8 +101,8 @@ RSpec.describe Usual::Example26 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        array: true,
-                        array_message: "Input `ids` must be an array of `String`",
+                        collection: Array,
+                        collection_message: "Input `ids` must be an array of `String`",
                         expected_type: String
       end
     end
@@ -175,7 +175,7 @@ RSpec.describe Usual::Example26 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example26] Required element in input array `ids` is missing"
+                "[Usual::Example26] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -194,7 +194,7 @@ RSpec.describe Usual::Example26 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Example26] Required element in input array `ids` is missing"
+                "[Usual::Example26] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -208,8 +208,8 @@ RSpec.describe Usual::Example26 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        array: true,
-                        array_message: "Input `ids` must be an array of `String`",
+                        collection: Array,
+                        collection_message: "Input `ids` must be an array of `String`",
                         expected_type: String
       end
     end

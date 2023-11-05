@@ -23,16 +23,24 @@ module Servactory
         @config.failure_class = failure_class
       end
 
+      def collection_mode_class_names(collection_mode_class_names)
+        @config.collection_mode_class_names.merge(collection_mode_class_names)
+      end
+
+      def hash_mode_class_names(hash_mode_class_names)
+        @config.hash_mode_class_names.merge(hash_mode_class_names)
+      end
+
       def input_option_helpers(input_option_helpers)
         @config.input_option_helpers.merge(input_option_helpers)
       end
 
-      def aliases_for_make(aliases_for_make)
-        @config.aliases_for_make.merge(aliases_for_make)
+      def action_aliases(action_aliases)
+        @config.action_aliases.merge(action_aliases)
       end
 
-      def shortcuts_for_make(shortcuts_for_make)
-        @config.shortcuts_for_make.merge(shortcuts_for_make)
+      def action_shortcuts(action_shortcuts)
+        @config.action_shortcuts.merge(action_shortcuts)
       end
     end
   end

@@ -6,7 +6,7 @@ module Servactory
       class Required < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
           i18n_key = "servactory.inputs.checks.required.default_error."
-          i18n_key += input.array? && value.present? ? "for_array" : "default"
+          i18n_key += input.collection_mode? && value.present? ? "for_collection" : "default"
 
           I18n.t(
             i18n_key,
@@ -17,10 +17,10 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check(context:, input:, value:, check_key:, **)
+        def self.check(context:, input:, check_key:, **)
           return unless should_be_checked_for?(input, check_key)
 
-          new(context: context, input: input, value: value).check
+          new(context: context, input: input).check
         end
 
         def self.should_be_checked_for?(input, check_key)
@@ -29,28 +29,33 @@ module Servactory
 
         ##########################################################################
 
-        def initialize(context:, input:, value:)
+        def initialize(context:, input:)
           super()
 
           @context = context
           @input = input
-          @value = value
         end
 
-        def check # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          if @input.array? && Servactory::Utils.value_present?(@value)
-            return if @value.respond_to?(:all?) && @value.all?(&:present?)
-          elsif Servactory::Utils.value_present?(@value)
+        def check
+          if @input.collection_mode? && Servactory::Utils.value_present?(@input.value)
+            return if @input.value.respond_to?(:all?) && @input.value.all?(&:present?)
+          elsif Servactory::Utils.value_present?(@input.value)
             return
           end
 
           _, message = @input.required.values_at(:is, :message)
 
+          add_error_with(message)
+        end
+
+        private
+
+        def add_error_with(message)
           add_error(
-            message.presence || DEFAULT_MESSAGE,
+            message: message.presence || DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
             input: @input,
-            value: @value
+            value: @input.value
           )
         end
       end

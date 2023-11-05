@@ -3,8 +3,8 @@
 module Wrong
   class Example18 < ApplicationService::Base
     input :ids,
-          type: String,
-          array: true,
+          type: Array,
+          consists_of: String,
           prepare: ->(value:) { value }
 
     def call; end

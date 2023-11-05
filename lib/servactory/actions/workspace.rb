@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+module Servactory
+  module Actions
+    module Workspace
+      private
+
+      def call!(collection_of_stages:, **)
+        super
+
+        Servactory::Actions::Tools::Runner.run!(self, collection_of_stages)
+      end
+    end
+  end
+end

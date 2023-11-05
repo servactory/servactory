@@ -6,11 +6,9 @@ module Servactory
       def inputs
         @inputs ||= Inputs.new(
           context: self,
-          incoming_arguments: incoming_arguments,
           collection_of_inputs: collection_of_inputs
         )
       end
-      alias inp inputs
 
       def internals
         @internals ||= Internals.new(
@@ -18,7 +16,6 @@ module Servactory
           collection_of_internals: collection_of_internals
         )
       end
-      alias int internals
 
       def outputs
         @outputs ||= Outputs.new(
@@ -26,7 +23,6 @@ module Servactory
           collection_of_outputs: collection_of_outputs
         )
       end
-      alias out outputs
 
       def fail_input!(input_name, message:)
         raise self.class.config.input_error_class.new(

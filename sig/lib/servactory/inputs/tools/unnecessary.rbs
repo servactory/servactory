@@ -1,0 +1,24 @@
+module Servactory
+  module Inputs
+    module Tools
+      class Unnecessary
+        @collection_of_inputs: Collection
+        @context: instance
+
+        @incoming_arguments: Hash[Symbol, untyped]
+
+        @unnecessary_attributes: Array[Symbol]
+
+        def self.find!: (*untyped) ?{ () -> untyped } -> void
+
+        def initialize: (instance context, Hash[Symbol, untyped] incoming_arguments, Collection collection_of_inputs) -> void
+
+        def find!: () -> void
+
+        private
+
+        def unnecessary_attributes: () -> Array[Symbol]
+      end
+    end
+  end
+end

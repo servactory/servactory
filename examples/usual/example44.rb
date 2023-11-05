@@ -2,16 +2,23 @@
 
 module Usual
   class Example44 < ApplicationService::Base
-    input :ids, :as_array, type: String
+    input :ids, type: Set, consists_of: { type: String }
+
+    internal :ids, type: Set, consists_of: { type: String }
 
     output :first_id, type: String
 
+    make :assign_internal
     make :assign_first_id
 
     private
 
+    def assign_internal
+      internals.ids = inputs.ids
+    end
+
     def assign_first_id
-      outputs.first_id = inputs.ids[0]
+      outputs.first_id = internals.ids.first
     end
   end
 end

@@ -1,0 +1,32 @@
+module Servactory
+  module Actions
+    module Tools
+      class Runner
+        @context: instance
+        @collection_of_stages: Stages::Collection
+
+        def self.run!: (*untyped) ?{ () -> untyped } -> void
+
+        def initialize: (instance context, Stages::Collection collection_of_stages) -> void
+
+        def run!: () -> void
+
+        private
+
+        def use_call: () -> void
+
+        def call_stage: (Stage stage) -> void
+
+        def call_wrapper_with_methods: (Proc wrapper, Symbol? rollback, Collection methods) -> void
+
+        def call_methods: (Collection methods) -> void
+
+        def unnecessary_for_stage?: (Stage stage) -> bool
+
+        def unnecessary_for_make?: (Action method) -> bool
+
+        def prepare_condition_for: ((Proc | bool)? condition) -> bool
+      end
+    end
+  end
+end

@@ -6,59 +6,66 @@ RSpec.describe Wrong::Example17 do
 
     let(:attributes) do
       {
-        ids: ids
+        payload: payload
       }
     end
 
-    let(:ids) do
-      %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-      ]
+    let(:payload) do
+      {
+        request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        user: {
+          first_name: first_name,
+          middle_name: middle_name,
+          last_name: last_name
+        }
+      }
     end
+
+    let(:first_name) { "John" }
+    let(:middle_name) { nil }
+    let(:last_name) { "Kennedy" }
+
+    include_examples "check class info",
+                     inputs: %i[payload],
+                     internals: %i[],
+                     outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Errors::InputError,
-              "[Wrong::Example17] Conflict in `ids` input options: `array_vs_array`"
+        context "when the value type for `first_name` is wrong" do
+          let(:first_name) { 123 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Wrong::Example17] Wrong type in input hash `payload`, " \
+                "expected `String` for `first_name`, got `Integer`"
+              )
             )
-          )
+          end
+        end
+
+        context "when the value type for `middle_name` is wrong" do
+          let(:middle_name) { 123 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Wrong::Example17] Wrong type in input hash `payload`, " \
+                "expected `String` for `middle_name`, got `Integer`"
+              )
+            )
+          end
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        describe "is not passed" do
-          let(:ids) { nil }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example17] Conflict in `ids` input options: `array_vs_array`"
-              )
-            )
-          end
-        end
-
-        describe "is of the wrong type" do
-          let(:ids) { 123 }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example17] Conflict in `ids` input options: `array_vs_array`"
-              )
-            )
-          end
-        end
+      context "when `invoice_number`" do
+        it_behaves_like "input required check", name: :payload
+        it_behaves_like "input type check", name: :payload, expected_type: Hash
       end
     end
   end
@@ -68,59 +75,66 @@ RSpec.describe Wrong::Example17 do
 
     let(:attributes) do
       {
-        ids: ids
+        payload: payload
       }
     end
 
-    let(:ids) do
-      %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-      ]
+    let(:payload) do
+      {
+        request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        user: {
+          first_name: first_name,
+          middle_name: middle_name,
+          last_name: last_name
+        }
+      }
     end
+
+    let(:first_name) { "John" }
+    let(:middle_name) { 123 }
+    let(:last_name) { "Kennedy" }
+
+    include_examples "check class info",
+                     inputs: %i[payload],
+                     internals: %i[],
+                     outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Errors::InputError,
-              "[Wrong::Example17] Conflict in `ids` input options: `array_vs_array`"
+        context "when the value type for `first_name` is wrong" do
+          let(:first_name) { 123 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Wrong::Example17] Wrong type in input hash `payload`, " \
+                "expected `String` for `first_name`, got `Integer`"
+              )
             )
-          )
+          end
+        end
+
+        context "when the value type for `middle_name` is wrong" do
+          let(:middle_name) { 123 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Wrong::Example17] Wrong type in input hash `payload`, " \
+                "expected `String` for `middle_name`, got `Integer`"
+              )
+            )
+          end
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        describe "is not passed" do
-          let(:ids) { nil }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example17] Conflict in `ids` input options: `array_vs_array`"
-              )
-            )
-          end
-        end
-
-        describe "is of the wrong type" do
-          let(:ids) { 123 }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example17] Conflict in `ids` input options: `array_vs_array`"
-              )
-            )
-          end
-        end
+      context "when `invoice_number`" do
+        it_behaves_like "input required check", name: :payload
+        it_behaves_like "input type check", name: :payload, expected_type: Hash
       end
     end
   end

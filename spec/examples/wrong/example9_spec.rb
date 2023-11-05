@@ -12,6 +12,11 @@ RSpec.describe Wrong::Example9 do
 
     let(:invoice_number) { "ABC-123" }
 
+    include_examples "check class info",
+                     inputs: %i[invoice_number],
+                     internals: %i[],
+                     outputs: %i[prepared_invoice_number]
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         it "returns the expected value in `full_name`" do
@@ -59,6 +64,11 @@ RSpec.describe Wrong::Example9 do
     end
 
     let(:invoice_number) { "ABC-123" }
+
+    include_examples "check class info",
+                     inputs: %i[invoice_number],
+                     internals: %i[],
+                     outputs: %i[prepared_invoice_number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

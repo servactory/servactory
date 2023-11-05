@@ -1,25 +1,33 @@
 module Servactory
   module Configuration
     class Setup
-      attr_accessor input_error_class: singleton(Servactory::Errors::InputError)
+      attr_accessor input_error_class: Errors::InputError
 
-      attr_accessor internal_error_class: singleton(Servactory::Errors::InternalError)
+      attr_accessor internal_error_class: Errors::InternalError
 
-      attr_accessor output_error_class: singleton(Servactory::Errors::OutputError)
+      attr_accessor output_error_class: Errors::OutputError
 
-      attr_accessor failure_class: singleton(Servactory::Errors::Failure)
+      attr_accessor failure_class: Errors::Failure
 
-      attr_accessor input_option_helpers: Servactory::Inputs::OptionHelpersCollection
+      attr_accessor collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
 
-      attr_accessor aliases_for_make: Methods::AliasesForMake::Collection
+      attr_accessor hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection
 
-      attr_accessor shortcuts_for_make: Methods::ShortcutsForMake::Collection
+      attr_accessor input_option_helpers: Maintenance::Attributes::OptionHelpersCollection
+
+      attr_accessor action_aliases: Actions::Aliases::Collection
+
+      attr_accessor action_shortcuts: Actions::Shortcuts::Collection
 
       def initialize: () -> void
 
       private
 
-      def default_input_option_helpers: -> Set[Inputs::OptionHelper]
+      def default_collection_mode_class_names: -> Set[Class]
+
+      def default_hash_mode_class_names: -> Set[Class]
+
+      def default_input_option_helpers: -> Set[Maintenance::Attributes::OptionHelper]
     end
   end
 end

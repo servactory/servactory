@@ -5,7 +5,7 @@ module Usual
     configuration do
       input_option_helpers(
         [
-          Servactory::Inputs::OptionHelper.new(
+          Servactory::Maintenance::Attributes::OptionHelper.new(
             name: :must_be_6_characters,
             equivalent: {
               must: {
@@ -24,8 +24,8 @@ module Usual
 
     input :invoice_numbers,
           :must_be_6_characters,
-          type: String,
-          array: true
+          type: Array,
+          consists_of: String
 
     output :first_invoice_number, type: String
 

@@ -1,0 +1,40 @@
+module Servactory
+  module Actions
+    module DSL
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        @current_stage: Stages::Stage?
+        @collection_of_stages: Stages::Collection
+
+        def inherited: (untyped child) -> void
+
+        private
+
+        def stage: () { () -> untyped } -> nil
+
+        def wrap_in: (Proc? wrapper) -> Proc?
+
+        def rollback: (Symbol? rollback) -> Symbol?
+
+        def only_if: ((bool | Proc)? condition) -> (bool | Proc)?
+
+        def only_unless: ((bool | Proc)? condition) -> (bool | Proc)?
+
+        def make: (Symbol name, position: Integer?, **untyped options) -> void
+
+        def method_missing: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
+
+        def method_missing_for_aliases_for_make: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
+
+        def method_missing_for_shortcuts_for_make: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
+
+        def respond_to_missing?: (Symbol name, *untyped) -> bool
+
+        def next_position: -> Integer
+
+        def collection_of_stages: () -> Stages::Collection
+      end
+    end
+  end
+end

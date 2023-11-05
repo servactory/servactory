@@ -8,9 +8,8 @@ module Servactory
           new(...).validate!
         end
 
-        def initialize(context, incoming_arguments, collection_of_inputs)
+        def initialize(context, collection_of_inputs)
           @context = context
-          @incoming_arguments = incoming_arguments
           @collection_of_inputs = collection_of_inputs
         end
 
@@ -32,8 +31,8 @@ module Servactory
 
         def process_option(check_key, check_options, input:)
           validation_classes_from(input).each do |validation_class|
-            errors_from_checks = process_validation_classes(
-              validation_class,
+            errors_from_checks = process_validation_class(
+              validation_class: validation_class,
               input: input,
               check_key: check_key,
               check_options: check_options
@@ -43,8 +42,8 @@ module Servactory
           end
         end
 
-        def process_validation_classes(
-          validation_class,
+        def process_validation_class(
+          validation_class:,
           input:,
           check_key:,
           check_options:
@@ -52,7 +51,6 @@ module Servactory
           validation_class.check(
             context: @context,
             input: input,
-            value: @incoming_arguments.fetch(input.name, nil),
             check_key: check_key,
             check_options: check_options
           )

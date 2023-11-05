@@ -19,6 +19,11 @@ RSpec.describe Wrong::Example10 do
       ]
     end
 
+    include_examples "check class info",
+                     inputs: %i[invoice_numbers],
+                     internals: %i[],
+                     outputs: %i[first_invoice_number]
+
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
@@ -50,6 +55,11 @@ RSpec.describe Wrong::Example10 do
         BD2D6B
       ]
     end
+
+    include_examples "check class info",
+                     inputs: %i[invoice_numbers],
+                     internals: %i[],
+                     outputs: %i[first_invoice_number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do

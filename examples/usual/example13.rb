@@ -3,10 +3,12 @@
 module Usual
   class Example13 < ApplicationService::Base
     input :ids,
-          type: String,
-          array: {
-            is: true,
-            message: ->(input:, expected_type:) { "Input `#{input.name}` must be an array of `#{expected_type}`" }
+          type: Array,
+          consists_of: {
+            type: String,
+            message: lambda do |input_name:, expected_type:, **|
+              "Input `#{input_name}` must be an array of `#{expected_type}`"
+            end
           }
 
     output :first_id, type: String
@@ -16,7 +18,7 @@ module Usual
     private
 
     def assign_first_id
-      outputs.first_id = inputs.ids[0]
+      outputs.first_id = inputs.ids.first
     end
   end
 end

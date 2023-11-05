@@ -3,9 +3,9 @@ module Servactory
     module Workspace
       class Internals
         @context: instance
-        @collection_of_internals: Servactory::Internals::Collection
+        @collection_of_internals: Internals::Collection
 
-        def initialize: (context: instance, collection_of_internals: Servactory::Internals::Collection) -> void
+        def initialize: (context: instance, collection_of_internals: Internals::Collection) -> void
 
         def only: (Symbol internal_names) -> Hash[Symbol, untyped]
 

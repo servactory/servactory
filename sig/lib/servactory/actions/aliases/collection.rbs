@@ -1,0 +1,13 @@
+module Servactory
+  module Actions
+    module Aliases
+      class Collection
+        extend Forwardable
+
+        @collection: Set[Symbol]
+
+        def initialize: (*untyped) -> void
+      end
+    end
+  end
+end

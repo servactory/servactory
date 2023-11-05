@@ -2,12 +2,8 @@ module Servactory
   module Outputs
     module Validations
       class Type < Base
-        DEFAULT_MESSAGE: Proc
-
         @context: instance
-
         @output: Output
-        @prepared_types: Array[Class]
         @value: untyped
 
         def self.validate!: (*untyped) ?{ () -> untyped } -> void
@@ -15,12 +11,6 @@ module Servactory
         def initialize: (context: instance, output: Output, value: untyped) -> void
 
         def validate!: () -> void
-
-        private
-
-        def should_be_checked?: -> bool
-
-        def prepared_types: -> Array[Class]
       end
     end
   end

@@ -3,8 +3,8 @@
 module Usual
   class Example34 < ApplicationService::Base
     input :invoice_numbers,
-          type: String,
-          array: true,
+          type: Array,
+          consists_of: String,
           must: {
             be_6_characters: {
               is: ->(value:) { value.all? { |id| id.size == 6 } },

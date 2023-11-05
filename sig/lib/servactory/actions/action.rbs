@@ -1,0 +1,15 @@
+module Servactory
+  module Actions
+    class Action
+      attr_reader name: Symbol
+
+      attr_reader position: Integer
+
+      attr_reader condition: (Proc | bool)?
+
+      attr_reader is_condition_opposite: bool
+
+      def initialize: (Symbol name, position: Integer, **untyped options) -> void
+    end
+  end
+end

@@ -1,0 +1,62 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      class Option
+        DEFAULT_BODY: ^(key: Symbol, value: bool?, message: String?) -> Proc
+
+        attr_reader name: Symbol
+
+        attr_reader validation_class: Class?
+
+        attr_reader define_methods: Array[DefineMethod]?
+
+        attr_reader define_conflicts: Array[DefineConflict]?
+
+        attr_reader need_for_checks: bool
+
+        attr_reader body: ({ is: Symbol, message: String? } | Array[Class] | bool?)
+
+        def initialize: (
+          name: Symbol,
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          ?validation_class: Class?,
+          need_for_checks: bool,
+          ?body_key: Symbol?,
+          ?body_value: (bool | Class)?,
+          ?body_fallback: (bool | Class | Hash[untyped, untyped])?,
+          ?original_value: Array[Class]?,
+          ?define_methods: Array[DefineMethod]?,
+          ?define_conflicts: Array[DefineConflict]?,
+          ?with_advanced_mode: bool,
+          **untyped options
+        ) -> void
+
+        def need_for_checks?: -> bool
+
+        private
+
+        @define_methods_template: String
+
+        def prepare_value_for: (
+          ?original_value: Array[Class]?,
+          options: untyped,
+          body_key: Symbol?,
+          body_value: (bool | Class)?,
+          body_fallback: (bool | Class | Hash[untyped, untyped]),
+          with_advanced_mode: bool
+        ) -> ({ is: Symbol, message: String? } | bool)
+
+        def prepare_advanced_for: (
+          body: ({ is: Symbol, message: String? }? | bool?),
+          body_key: Symbol?,
+          body_value: (bool | Class)?,
+          body_fallback: (bool | Class | Hash[untyped, untyped])
+        ) -> { is: Symbol, message: String? }
+
+        def prepare_methods_for: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> void
+
+        def define_methods_template: -> String?
+      end
+    end
+  end
+end

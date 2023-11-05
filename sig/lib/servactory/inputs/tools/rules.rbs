@@ -5,11 +5,11 @@ module Servactory
         @collection_of_inputs: Inputs
         @context: instance
 
-        def self.validate!: (*untyped) ?{ () -> void } -> void
+        def self.check!: (*untyped) ?{ () -> void } -> void
 
         def initialize: (instance context, Inputs collection_of_inputs) -> void
 
-        def validate!: () -> void
+        def check!: () -> void
 
         private
 

@@ -19,13 +19,18 @@ RSpec.describe Wrong::Example8 do
       ]
     end
 
+    include_examples "check class info",
+                     inputs: %i[ids],
+                     internals: %i[ids],
+                     outputs: %i[]
+
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
-              "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
+              ApplicationService::Errors::InternalError,
+              "[Wrong::Example8] Wrong internal attribute collection type `ids`, expected `Set`, got `Array`"
             )
           )
         end
@@ -34,31 +39,9 @@ RSpec.describe Wrong::Example8 do
 
     context "when the input arguments are invalid" do
       context "when `ids`" do
-        describe "is not passed" do
-          let(:ids) { nil }
+        it_behaves_like "input required check", name: :ids
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
-              )
-            )
-          end
-        end
-
-        describe "is of the wrong type" do
-          let(:ids) { 123 }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
-              )
-            )
-          end
-        end
+        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
       end
     end
   end
@@ -81,13 +64,18 @@ RSpec.describe Wrong::Example8 do
       ]
     end
 
+    include_examples "check class info",
+                     inputs: %i[ids],
+                     internals: %i[ids],
+                     outputs: %i[]
+
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
-              "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
+              ApplicationService::Errors::InternalError,
+              "[Wrong::Example8] Wrong internal attribute collection type `ids`, expected `Set`, got `Array`"
             )
           )
         end
@@ -96,31 +84,9 @@ RSpec.describe Wrong::Example8 do
 
     context "when the input arguments are invalid" do
       context "when `ids`" do
-        describe "is not passed" do
-          let(:ids) { nil }
+        it_behaves_like "input required check", name: :ids
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
-              )
-            )
-          end
-        end
-
-        describe "is of the wrong type" do
-          let(:ids) { 123 }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example8] Conflict in `ids` input options: `array_vs_array`"
-              )
-            )
-          end
-        end
+        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
       end
     end
   end
