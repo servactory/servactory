@@ -36,7 +36,8 @@ module Servactory
             boolean,
             array, array?,
             set, set?,
-            hash, hash?
+            hash, hash?,
+            time, time?
           ]
         end
 
@@ -106,6 +107,14 @@ module Servactory
 
         def hash?
           not_mandatory(:hash, Hash)
+        end
+
+        def time
+          mandatory(:time, Time)
+        end
+
+        def time?
+          not_mandatory(:time, Time)
         end
       end
     end

@@ -41,6 +41,10 @@ module Servactory
         def self?.hash: () -> Maintenance::Attributes::OptionHelper
 
         def self?.hash?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.time: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.time?: () -> Maintenance::Attributes::OptionHelper
       end
     end
   end
