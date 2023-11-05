@@ -1,11 +1,76 @@
 # Changelog
 
-## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
+## [v2.0.1](https://github.com/servactory/servactory/tree/v2.0.1) (2023-11-05)
 
-[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.5...HEAD)
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.7...v2.0.1)
 
 **Breaking changes:**
 
+- Delete `inputs`, `internals` and `outputs` aliases [\#131](https://github.com/servactory/servactory/pull/131) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Fix method name [\#133](https://github.com/servactory/servactory/pull/133) ([afuno](https://github.com/afuno))
+- Minor improvements in code [\#132](https://github.com/servactory/servactory/pull/132) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Add support for Rails 7.1 [\#134](https://github.com/servactory/servactory/pull/134) ([afuno](https://github.com/afuno))
+
+## [v1.9.7](https://github.com/servactory/servactory/tree/v1.9.7) (2023-11-03)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.0.rc6...v1.9.7)
+
+## [v2.0.0.rc6](https://github.com/servactory/servactory/tree/v2.0.0.rc6) (2023-10-29)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.0.rc5...v2.0.0.rc6)
+
+## [v2.0.0.rc5](https://github.com/servactory/servactory/tree/v2.0.0.rc5) (2023-10-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.0.rc4...v2.0.0.rc5)
+
+## [v2.0.0.rc4](https://github.com/servactory/servactory/tree/v2.0.0.rc4) (2023-10-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.0.rc3...v2.0.0.rc4)
+
+**Breaking changes:**
+
+- Change names of configs for Actions [\#127](https://github.com/servactory/servactory/pull/127) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Fix config usage [\#128](https://github.com/servactory/servactory/pull/128) ([afuno](https://github.com/afuno))
+- Improve structure and naming of Actions [\#126](https://github.com/servactory/servactory/pull/126) ([afuno](https://github.com/afuno))
+- Implement advanced mode support for hash mode [\#125](https://github.com/servactory/servactory/pull/125) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 28.10.2023 [\#124](https://github.com/servactory/servactory/pull/124) ([afuno](https://github.com/afuno))
+- Update libraries from 20.10.2023 [\#123](https://github.com/servactory/servactory/pull/123) ([afuno](https://github.com/afuno))
+
+## [v2.0.0.rc3](https://github.com/servactory/servactory/tree/v2.0.0.rc3) (2023-10-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.0.rc2...v2.0.0.rc3)
+
+**Implemented enhancements:**
+
+- Improvements for collections and code optimization [\#122](https://github.com/servactory/servactory/pull/122) ([afuno](https://github.com/afuno))
+
+## [v2.0.0.rc2](https://github.com/servactory/servactory/tree/v2.0.0.rc2) (2023-10-17)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.0.rc1...v2.0.0.rc2)
+
+**Implemented enhancements:**
+
+- Implement work with Hash [\#121](https://github.com/servactory/servactory/pull/121) ([afuno](https://github.com/afuno))
+
+## [v2.0.0.rc1](https://github.com/servactory/servactory/tree/v2.0.0.rc1) (2023-10-10)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.6...v2.0.0.rc1)
+
+**Breaking changes:**
+
+- Implement new way of working with collections [\#120](https://github.com/servactory/servactory/pull/120) ([afuno](https://github.com/afuno))
 - Refuse `required` option from `internal` [\#116](https://github.com/servactory/servactory/pull/116) ([afuno](https://github.com/afuno))
 
 **Implemented enhancements:**
@@ -16,6 +81,10 @@
 
 - Update libraries from 07.10.2023 [\#119](https://github.com/servactory/servactory/pull/119) ([afuno](https://github.com/afuno))
 - Update libraries from 11.09.2023 [\#115](https://github.com/servactory/servactory/pull/115) ([afuno](https://github.com/afuno))
+
+## [v1.9.6](https://github.com/servactory/servactory/tree/v1.9.6) (2023-10-10)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v1.9.5...v1.9.6)
 
 ## [v1.9.5](https://github.com/servactory/servactory/tree/v1.9.5) (2023-08-19)
 
