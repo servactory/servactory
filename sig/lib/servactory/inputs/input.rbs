@@ -15,7 +15,9 @@ module Servactory
         Symbol name,
         *Symbol helpers,
         as: Symbol?,
-        type: (Class | Array[Class]),
+        collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection,
+        hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection,
+        option_helpers: Maintenance::Attributes::OptionHelpersCollection,
         **untyped options
       ) -> void
 
@@ -29,13 +31,13 @@ module Servactory
 
       def add_required_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_types_option_with: ((Class | Array[Class]) type) -> Maintenance::Attributes::OptionsCollection
+      def add_types_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
       def add_default_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_collection_option_with: ((Class | Array[Class]) type, untyped options) -> Maintenance::Attributes::OptionsCollection
+      def add_collection_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
-      def add_hash_option_with: ((Class | Array[Class]) type, untyped options) -> Maintenance::Attributes::OptionsCollection
+      def add_hash_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
       def add_inclusion_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
 
