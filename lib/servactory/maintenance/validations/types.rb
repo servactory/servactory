@@ -92,23 +92,23 @@ module Servactory
           collection_validator = nil
           object_schema_validator = nil
 
-          return if prepared_types.any? do |type|
-            if @attribute.collection_mode?
-              collection_validator = Servactory::Maintenance::Validations::Collection.validate(
-                value: @value,
-                types: @attribute.types,
-                type: type
-              )
+          if @attribute.collection_mode?
+            collection_validator = Servactory::Maintenance::Validations::Collection.validate(
+              attribute: @attribute,
+              types: @types,
+              value: @value
+            )
 
-              collection_validator.valid?
-            elsif @attribute.hash_mode?
-              object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
-                object: @value,
-                schema: @attribute.schema
-              )
+            return if collection_validator.valid?
+          elsif @attribute.hash_mode?
+            object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
+              object: @value,
+              schema: @attribute.schema
+            )
 
-              object_schema_validator.valid?
-            else
+            return if object_schema_validator.valid?
+          else
+            return if prepared_types.any? do |type| # rubocop:disable Style/IfInsideElse
               @value.is_a?(type)
             end
           end

@@ -2,17 +2,23 @@ module Servactory
   module Maintenance
     module Validations
       class Collection
-        @value: untyped
+        @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
         @types: Array[Class]
-        @type: Class
+        @value: untyped
         @valid: bool
         @prepared_type: Class
+        @attribute_consists_of_types: Array[Class]
+        @unnecessary_types: Array[Class]
 
         attr_reader errors: Array[Hash[Symbol, String]]
 
         def self.validate: (*untyped) ?{ () -> untyped } -> self
 
-        def initialize: (value: untyped, types: Array[Class], type: Class) -> void
+        def initialize: (
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          types: Array[Class],
+          value: untyped
+        ) -> void
 
         def validate: () -> self
 
@@ -20,9 +26,15 @@ module Servactory
 
         private
 
+        def validate_value!: -> void
+
         def prepared_type: -> Class
 
-        def validate_value!: -> void
+        def attribute_consists_of_types: -> Array[Class]
+
+        def unnecessary_types: -> Array[Class]
+
+        def prepared_types_from: (Array[Class] types) -> Array[Class]
 
         def add_error: (expected_type: String, given_type: String) -> Array[Hash[Symbol, String]]
       end
