@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.0.2](https://github.com/servactory/servactory/tree/v2.0.2) (2023-11-13)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.1...v2.0.2)
+
+**Implemented enhancements:**
+
+- Improve work of types in collection mode [\#135](https://github.com/servactory/servactory/pull/135) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 13.11.2023 [\#136](https://github.com/servactory/servactory/pull/136) ([afuno](https://github.com/afuno))
+
 ## [v2.0.1](https://github.com/servactory/servactory/tree/v2.0.1) (2023-11-05)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v1.9.7...v2.0.1)
