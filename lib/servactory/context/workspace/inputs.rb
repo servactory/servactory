@@ -40,7 +40,8 @@ module Servactory
 
         private
 
-        def getter_with(name:, &block) # rubocop:disable Metrics/MethodLength, Lint/UnusedMethodArgument, Metrics/AbcSize
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
+        def getter_with(name:, &block)
           input_name = name.to_s.chomp("?").to_sym
           input = @collection_of_inputs.find_by(name: input_name)
 
@@ -61,6 +62,7 @@ module Servactory
             input.value
           end
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
 
         def prepare_hash_values_inside(object:, schema:) # rubocop:disable Metrics/MethodLength
           return object unless object.respond_to?(:fetch)
