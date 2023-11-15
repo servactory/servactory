@@ -3,9 +3,7 @@
 module Servactory
   module Internals
     class Internal
-      attr_reader :name,
-                  :collection_mode_class_names,
-                  :hash_mode_class_names
+      attr_reader :name
 
       def initialize(
         name,
@@ -17,11 +15,11 @@ module Servactory
         @collection_mode_class_names = collection_mode_class_names
         @hash_mode_class_names = hash_mode_class_names
 
-        add_basic_options_with(options)
+        register_options(options: options)
       end
 
       def method_missing(name, *args, &block)
-        option = collection_of_options.find_by(name: name)
+        option = @collection_of_options.find_by(name: name)
 
         return super if option.nil?
 
@@ -29,71 +27,27 @@ module Servactory
       end
 
       def respond_to_missing?(name, *)
-        collection_of_options.names.include?(name) || super
+        @collection_of_options.names.include?(name) || super
       end
 
-      def add_basic_options_with(options)
-        # Check Class: Servactory::Internals::Validations::Type
-        add_types_option_with(options)
-        add_collection_option_with(options)
-        add_hash_option_with(options)
-      end
-
-      def add_types_option_with(options)
-        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
-          name: :types,
+      def register_options(options:) # rubocop:disable Metrics/MethodLength
+        options_registrar = Servactory::Maintenance::Attributes::Options::Registrar.register(
           attribute: self,
-          validation_class: Servactory::Internals::Validations::Type,
-          original_value: Array(options.fetch(:type)),
-          need_for_checks: true,
-          body_fallback: nil,
-          with_advanced_mode: false
+          collection_mode_class_names: @collection_mode_class_names,
+          hash_mode_class_names: @hash_mode_class_names,
+          options: options,
+          features: {
+            types: true,
+            collection: true,
+            hash: true
+          }
         )
-      end
 
-      def add_collection_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
-          name: :consists_of,
-          attribute: self,
-          validation_class: Servactory::Internals::Validations::Type,
-          define_methods: [
-            Servactory::Maintenance::Attributes::DefineMethod.new(
-              name: :collection_mode?,
-              content: ->(**) { collection_mode_class_names.include?(options.fetch(:type)) }
-            )
-          ],
-          need_for_checks: false,
-          body_key: :type,
-          body_value: String,
-          body_fallback: String,
-          **options
-        )
-      end
-
-      def add_hash_option_with(options) # rubocop:disable Metrics/MethodLength
-        collection_of_options << Servactory::Maintenance::Attributes::Option.new(
-          name: :schema,
-          attribute: self,
-          validation_class: Servactory::Inputs::Validations::Type,
-          define_methods: [
-            Servactory::Maintenance::Attributes::DefineMethod.new(
-              name: :hash_mode?,
-              content: ->(**) { hash_mode_class_names.include?(options.fetch(:type)) }
-            )
-          ],
-          need_for_checks: false,
-          body_key: :is,
-          body_fallback: {},
-          **options
-        )
-      end
-
-      def collection_of_options
-        @collection_of_options ||= Servactory::Maintenance::Attributes::OptionsCollection.new
+        @collection_of_options = options_registrar.collection
       end
 
       def options_for_checks
-        collection_of_options.options_for_checks
+        @collection_of_options.options_for_checks
       end
     end
   end
