@@ -4,7 +4,7 @@ module Servactory
   module VERSION
     MAJOR = 2
     MINOR = 0
-    PATCH = 2
+    PATCH = 3
     PRE = nil
 
     STRING = [MAJOR, MINOR, PATCH, PRE].compact.join(".")
