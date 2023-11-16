@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.0.3](https://github.com/servactory/servactory/tree/v2.0.3) (2023-11-16)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.2...v2.0.3)
+
+**Implemented enhancements:**
+
+- Optimize adding options to `input`, `internal` and `output` attributes [\#137](https://github.com/servactory/servactory/pull/137) ([afuno](https://github.com/afuno))
+
 ## [v2.0.2](https://github.com/servactory/servactory/tree/v2.0.2) (2023-11-13)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.0.1...v2.0.2)
