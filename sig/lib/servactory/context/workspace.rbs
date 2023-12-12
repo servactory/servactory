@@ -27,6 +27,8 @@ module Servactory
 
       def fail!: (message: String, meta: untyped?) -> Exception
 
+      def fail_result!: (Result service_result) -> Exception
+
       private
 
       def _call!: (
