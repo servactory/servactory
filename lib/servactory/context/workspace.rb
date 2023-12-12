@@ -35,6 +35,10 @@ module Servactory
         raise self.class.config.failure_class.new(message: message, meta: meta)
       end
 
+      def fail_result!(service_result)
+        fail!(message: service_result.error.message, meta: service_result.error.meta)
+      end
+
       private
 
       attr_reader :incoming_arguments,
