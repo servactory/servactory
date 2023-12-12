@@ -33,7 +33,6 @@ RSpec.describe Wrong::Example35 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-
         it "returns the expected value in `errors`", :aggregate_failures do
           result = perform
 
