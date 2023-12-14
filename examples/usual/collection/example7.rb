@@ -3,23 +3,23 @@
 module Usual
   module Collection
     class Example7 < ApplicationService::Base
-      input :invoice_numbers,
-            type: Array,
-            consists_of: String,
-            must: {
-              be_6_characters: {
-                is: ->(value:) { value.all? { |id| id.size == 6 } }
-              }
-            }
+      input :ids, type: Set, consists_of: String
 
-      output :first_invoice_number, type: String
+      internal :ids, type: Set, consists_of: String
 
-      make :assign_first_invoice_number
+      output :first_id, type: String
+
+      make :assign_internal
+      make :assign_first_id
 
       private
 
-      def assign_first_invoice_number
-        outputs.first_invoice_number = inputs.invoice_numbers.first
+      def assign_internal
+        internals.ids = inputs.ids
+      end
+
+      def assign_first_id
+        outputs.first_id = internals.ids.first
       end
     end
   end

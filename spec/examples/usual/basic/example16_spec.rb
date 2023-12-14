@@ -6,56 +6,45 @@ RSpec.describe Usual::Basic::Example16 do
 
     let(:attributes) do
       {
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name
+        invoice_number: invoice_number
       }
     end
 
-    let(:first_name) { "John" }
-    let(:middle_name) { "Fitzgerald" }
-    let(:last_name) { "Kennedy" }
+    let(:invoice_number) { "AA-7650AE" }
 
     include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name],
-                     internals: %i[prepared_full_name],
-                     outputs: %i[full_name]
+                     inputs: %i[invoice_number],
+                     internals: %i[invoice_number],
+                     outputs: %i[invoice_number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John Fitzgerald Kennedy")
-        end
-
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
-
-          it "returns the expected value in `full_name`" do
+        context "when `invoice_number` is `String`" do
+          it "returns the expected value in `invoice_number`" do
             result = perform
 
-            expect(result.full_name).to eq("John Kennedy")
+            expect(result.invoice_number).to eq("AA-7650AE")
+          end
+        end
+
+        context "when `invoice_number` is `Integer`" do
+          let(:invoice_number) { 123 }
+
+          it "returns the expected value in `invoice_number`" do
+            result = perform
+
+            expect(result.invoice_number).to eq(123)
           end
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `first_name`" do
-        it_behaves_like "input required check", name: :first_name
-        it_behaves_like "input type check", name: :first_name, expected_type: String
-      end
-
-      context "when `middle_name`" do
-        it_behaves_like "input type check", name: :middle_name, expected_type: String
-      end
-
-      context "when `last_name`" do
-        it_behaves_like "input required check", name: :last_name
-        it_behaves_like "input type check", name: :last_name, expected_type: String
+      context "when `invoice_number`" do
+        it_behaves_like "input required check", name: :invoice_number
+        it_behaves_like "input type check", name: :invoice_number, expected_type: [String, Integer]
       end
     end
   end
@@ -65,51 +54,45 @@ RSpec.describe Usual::Basic::Example16 do
 
     let(:attributes) do
       {
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name
+        invoice_number: invoice_number
       }
     end
 
-    let(:first_name) { "John" }
-    let(:middle_name) { "Fitzgerald" }
-    let(:last_name) { "Kennedy" }
+    let(:invoice_number) { "AA-7650AE" }
+
+    include_examples "check class info",
+                     inputs: %i[invoice_number],
+                     internals: %i[invoice_number],
+                     outputs: %i[invoice_number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John Fitzgerald Kennedy")
-        end
-
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
-
-          it "returns the expected value in `full_name`" do
+        context "when `invoice_number` is `String`" do
+          it "returns the expected value in `invoice_number`" do
             result = perform
 
-            expect(result.full_name).to eq("John Kennedy")
+            expect(result.invoice_number).to eq("AA-7650AE")
+          end
+        end
+
+        context "when `invoice_number` is `Integer`" do
+          let(:invoice_number) { 123 }
+
+          it "returns the expected value in `invoice_number`" do
+            result = perform
+
+            expect(result.invoice_number).to eq(123)
           end
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `first_name`" do
-        it_behaves_like "input required check", name: :first_name
-        it_behaves_like "input type check", name: :first_name, expected_type: String
-      end
-
-      context "when `middle_name`" do
-        it_behaves_like "input type check", name: :middle_name, expected_type: String
-      end
-
-      context "when `last_name`" do
-        it_behaves_like "input required check", name: :last_name
-        it_behaves_like "input type check", name: :last_name, expected_type: String
+      context "when `invoice_number`" do
+        it_behaves_like "input required check", name: :invoice_number
+        it_behaves_like "input type check", name: :invoice_number, expected_type: [String, Integer]
       end
     end
   end

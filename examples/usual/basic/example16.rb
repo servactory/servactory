@@ -3,29 +3,23 @@
 module Usual
   module Basic
     class Example16 < ApplicationService::Base
-      input :first_name, type: String
-      input :middle_name, type: String, required: { is: false }
-      input :last_name, type: String
+      input :invoice_number, type: [String, Integer]
 
-      internal :prepared_full_name, type: String
+      internal :invoice_number, type: [String, Integer]
 
-      output :full_name, type: String
+      output :invoice_number, type: [String, Integer]
 
-      make :prepare_full_name
-      make :assign_full_name
+      make :assign_internal_invoice_number
+      make :assign_output_invoice_number
 
       private
 
-      def prepare_full_name
-        internals.prepared_full_name = [
-          inputs.first_name,
-          inputs.middle_name,
-          inputs.last_name
-        ].compact.join(" ")
+      def assign_internal_invoice_number
+        internals.invoice_number = inputs.invoice_number
       end
 
-      def assign_full_name
-        outputs.full_name = internals.prepared_full_name
+      def assign_output_invoice_number
+        outputs.invoice_number = internals.invoice_number
       end
     end
   end

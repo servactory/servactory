@@ -3,9 +3,9 @@
 module Usual
   module Collection
     class Example11 < ApplicationService::Base
-      input :ids, type: Array, consists_of: { type: String }
+      input :ids, type: Set, consists_of: { type: String }
 
-      internal :ids, type: Array, consists_of: { type: String }
+      internal :ids, type: Set, consists_of: { type: String }
 
       output :first_id, type: String
 

@@ -6,23 +6,23 @@ RSpec.describe Usual::Collection::Example7 do
 
     let(:attributes) do
       {
-        invoice_numbers: invoice_numbers
+        ids: ids
       }
     end
 
-    let(:invoice_numbers) do
-      %w[
-        7650AE
-        B4EA1B
-        A7BC86
-        BD2D6B
+    let(:ids) do
+      Set[
+        "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
+        "e864b5e7-e515-4d5e-9a7e-7da440323390",
+        "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
       ]
     end
 
     include_examples "check class info",
-                     inputs: %i[invoice_numbers],
-                     internals: %i[],
-                     outputs: %i[first_invoice_number]
+                     inputs: %i[ids],
+                     internals: %i[ids],
+                     outputs: %i[first_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -31,37 +31,17 @@ RSpec.describe Usual::Collection::Example7 do
         it "returns the expected value in `first_id`" do
           result = perform
 
-          expect(result.first_invoice_number).to eq("7650AE")
+          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         end
       end
 
       describe "but the data required for work is invalid" do
-        describe "because one element does not match the condition" do
-          let(:invoice_numbers) do
-            %w[
-              7650AE
-              B4EA1B
-              A7BC86XXX
-              BD2D6B
-            ]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example7] Input `invoice_numbers` must \"be_6_characters\""
-              )
-            )
-          end
-        end
-
         describe "because one element has the wrong type" do
-          let(:invoice_numbers) do
-            [
-              "7650AE",
+          let(:ids) do
+            Set[
+              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               123,
-              "A7BC86"
+              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end
 
@@ -69,18 +49,18 @@ RSpec.describe Usual::Collection::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example7] Wrong type in input collection `invoice_numbers`, expected `String`, got `Integer`"
+                "[Usual::Collection::Example7] Wrong type in input collection `ids`, expected `String`, got `Integer`"
               )
             )
           end
         end
 
         describe "because one element is empty" do
-          let(:invoice_numbers) do
-            [
-              "7650AE",
+          let(:ids) do
+            Set[
+              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               "",
-              "A7BC86"
+              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end
 
@@ -88,18 +68,18 @@ RSpec.describe Usual::Collection::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example7] Required element in input collection `invoice_numbers` is missing"
+                "[Usual::Collection::Example7] Required element in input collection `ids` is missing"
               )
             )
           end
         end
 
         describe "because one element is nil" do
-          let(:invoice_numbers) do
-            [
-              "7650AE",
+          let(:ids) do
+            Set[
+              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               nil,
-              "A7BC86"
+              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end
 
@@ -107,7 +87,7 @@ RSpec.describe Usual::Collection::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example7] Required element in input collection `invoice_numbers` is missing"
+                "[Usual::Collection::Example7] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -116,10 +96,10 @@ RSpec.describe Usual::Collection::Example7 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_numbers`" do
-        it_behaves_like "input required check", name: :invoice_numbers
+      context "when `ids`" do
+        it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
+        it_behaves_like "input type check", name: :ids, collection: Set, expected_type: String
       end
     end
   end
@@ -129,23 +109,23 @@ RSpec.describe Usual::Collection::Example7 do
 
     let(:attributes) do
       {
-        invoice_numbers: invoice_numbers
+        ids: ids
       }
     end
 
-    let(:invoice_numbers) do
-      %w[
-        7650AE
-        B4EA1B
-        A7BC86
-        BD2D6B
+    let(:ids) do
+      Set[
+        "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
+        "e864b5e7-e515-4d5e-9a7e-7da440323390",
+        "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
       ]
     end
 
     include_examples "check class info",
-                     inputs: %i[invoice_numbers],
-                     internals: %i[],
-                     outputs: %i[first_invoice_number]
+                     inputs: %i[ids],
+                     internals: %i[ids],
+                     outputs: %i[first_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -154,37 +134,17 @@ RSpec.describe Usual::Collection::Example7 do
         it "returns the expected value in `first_id`" do
           result = perform
 
-          expect(result.first_invoice_number).to eq("7650AE")
+          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         end
       end
 
       describe "but the data required for work is invalid" do
-        describe "because one element does not match the condition" do
-          let(:invoice_numbers) do
-            %w[
-              7650AE
-              B4EA1B
-              A7BC86XXX
-              BD2D6B
-            ]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example7] Input `invoice_numbers` must \"be_6_characters\""
-              )
-            )
-          end
-        end
-
         describe "because one element has the wrong type" do
-          let(:invoice_numbers) do
-            [
-              "7650AE",
+          let(:ids) do
+            Set[
+              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               123,
-              "A7BC86"
+              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end
 
@@ -192,18 +152,18 @@ RSpec.describe Usual::Collection::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example7] Wrong type in input collection `invoice_numbers`, expected `String`, got `Integer`"
+                "[Usual::Collection::Example7] Wrong type in input collection `ids`, expected `String`, got `Integer`"
               )
             )
           end
         end
 
         describe "because one element is empty" do
-          let(:invoice_numbers) do
-            [
-              "7650AE",
+          let(:ids) do
+            Set[
+              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               "",
-              "A7BC86"
+              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end
 
@@ -211,18 +171,18 @@ RSpec.describe Usual::Collection::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example7] Required element in input collection `invoice_numbers` is missing"
+                "[Usual::Collection::Example7] Required element in input collection `ids` is missing"
               )
             )
           end
         end
 
         describe "because one element is nil" do
-          let(:invoice_numbers) do
-            [
-              "7650AE",
+          let(:ids) do
+            Set[
+              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               nil,
-              "A7BC86"
+              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end
 
@@ -230,7 +190,7 @@ RSpec.describe Usual::Collection::Example7 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example7] Required element in input collection `invoice_numbers` is missing"
+                "[Usual::Collection::Example7] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -239,10 +199,10 @@ RSpec.describe Usual::Collection::Example7 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_numbers`" do
-        it_behaves_like "input required check", name: :invoice_numbers
+      context "when `ids`" do
+        it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
+        it_behaves_like "input type check", name: :ids, collection: Set, expected_type: String
       end
     end
   end

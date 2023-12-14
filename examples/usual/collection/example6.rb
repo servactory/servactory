@@ -3,23 +3,23 @@
 module Usual
   module Collection
     class Example6 < ApplicationService::Base
-      input :ids, type: Array, consists_of: String
-
-      internal :ids, type: Array, consists_of: String
+      input :ids,
+            type: Array,
+            consists_of: {
+              type: String,
+              message: lambda do |input_name:, expected_type:, **|
+                "Input `#{input_name}` must be an array of `#{expected_type}`"
+              end
+            }
 
       output :first_id, type: String
 
-      make :assign_internal
       make :assign_first_id
 
       private
 
-      def assign_internal
-        internals.ids = inputs.ids
-      end
-
       def assign_first_id
-        outputs.first_id = internals.ids.first
+        outputs.first_id = inputs.ids.first
       end
     end
   end

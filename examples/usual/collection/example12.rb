@@ -3,21 +3,23 @@
 module Usual
   module Collection
     class Example12 < ApplicationService::Base
-      input :ids,
-            type: Array,
-            consists_of: {
-              type: String,
-              message: "Input `ids` must be an array of `String`"
-            }
+      input :ids, type: Set
+
+      internal :ids, type: Set
 
       output :first_id, type: String
 
+      make :assign_internal
       make :assign_first_id
 
       private
 
+      def assign_internal
+        internals.ids = inputs.ids
+      end
+
       def assign_first_id
-        outputs.first_id = inputs.ids.first
+        outputs.first_id = internals.ids.first
       end
     end
   end

@@ -21,7 +21,7 @@ RSpec.describe Usual::Collection::Example6 do
 
     include_examples "check class info",
                      inputs: %i[ids],
-                     internals: %i[ids],
+                     internals: %i[],
                      outputs: %i[first_id]
 
     context "when the input arguments are valid" do
@@ -49,7 +49,7 @@ RSpec.describe Usual::Collection::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example6] Wrong type in input collection `ids`, expected `String`, got `Integer`"
+                "Input `ids` must be an array of `String`"
               )
             )
           end
@@ -99,7 +99,11 @@ RSpec.describe Usual::Collection::Example6 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :ids,
+                        collection: Array,
+                        collection_message: "Input `ids` must be an array of `String`",
+                        expected_type: String
       end
     end
   end
@@ -124,7 +128,7 @@ RSpec.describe Usual::Collection::Example6 do
 
     include_examples "check class info",
                      inputs: %i[ids],
-                     internals: %i[ids],
+                     internals: %i[],
                      outputs: %i[first_id]
 
     context "when the input arguments are valid" do
@@ -152,7 +156,7 @@ RSpec.describe Usual::Collection::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example6] Wrong type in input collection `ids`, expected `String`, got `Integer`"
+                "Input `ids` must be an array of `String`"
               )
             )
           end
@@ -202,7 +206,11 @@ RSpec.describe Usual::Collection::Example6 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :ids,
+                        collection: Array,
+                        collection_message: "Input `ids` must be an array of `String`",
+                        expected_type: String
       end
     end
   end

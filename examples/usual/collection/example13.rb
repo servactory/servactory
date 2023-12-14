@@ -4,12 +4,10 @@ module Usual
   module Collection
     class Example13 < ApplicationService::Base
       input :ids,
-            type: Array,
+            type: Set,
             consists_of: {
               type: String,
-              message: lambda do |input_name:, expected_type:, **|
-                "Input `#{input_name}` must be an array of `#{expected_type}`"
-              end
+              message: "Input `ids` must be a collection of `String`"
             }
 
       output :first_id, type: String

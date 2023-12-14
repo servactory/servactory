@@ -13,12 +13,12 @@ RSpec.describe Usual::Basic::Example4 do
     end
 
     let(:first_name) { "John" }
-    let(:middle_name) { nil }
+    let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
 
     include_examples "check class info",
                      inputs: %i[first_name middle_name last_name],
-                     internals: %i[],
+                     internals: %i[prepared_full_name],
                      outputs: %i[full_name]
 
     context "when the input arguments are valid" do
@@ -28,7 +28,17 @@ RSpec.describe Usual::Basic::Example4 do
         it "returns the expected value in `full_name`" do
           result = perform
 
-          expect(result.full_name).to eq("John <unknown> Kennedy")
+          expect(result.full_name).to eq("John Fitzgerald Kennedy")
+        end
+
+        describe "even if `middle_name` is not specified" do
+          let(:middle_name) { nil }
+
+          it "returns the expected value in `full_name`" do
+            result = perform
+
+            expect(result.full_name).to eq("John Kennedy")
+          end
         end
       end
     end
@@ -37,6 +47,10 @@ RSpec.describe Usual::Basic::Example4 do
       context "when `first_name`" do
         it_behaves_like "input required check", name: :first_name
         it_behaves_like "input type check", name: :first_name, expected_type: String
+      end
+
+      context "when `middle_name`" do
+        it_behaves_like "input type check", name: :middle_name, expected_type: String
       end
 
       context "when `last_name`" do
@@ -58,13 +72,8 @@ RSpec.describe Usual::Basic::Example4 do
     end
 
     let(:first_name) { "John" }
-    let(:middle_name) { nil }
+    let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
-
-    include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name],
-                     internals: %i[],
-                     outputs: %i[full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -73,7 +82,17 @@ RSpec.describe Usual::Basic::Example4 do
         it "returns the expected value in `full_name`" do
           result = perform
 
-          expect(result.full_name).to eq("John <unknown> Kennedy")
+          expect(result.full_name).to eq("John Fitzgerald Kennedy")
+        end
+
+        describe "even if `middle_name` is not specified" do
+          let(:middle_name) { nil }
+
+          it "returns the expected value in `full_name`" do
+            result = perform
+
+            expect(result.full_name).to eq("John Kennedy")
+          end
         end
       end
     end
@@ -82,6 +101,10 @@ RSpec.describe Usual::Basic::Example4 do
       context "when `first_name`" do
         it_behaves_like "input required check", name: :first_name
         it_behaves_like "input type check", name: :first_name, expected_type: String
+      end
+
+      context "when `middle_name`" do
+        it_behaves_like "input type check", name: :middle_name, expected_type: String
       end
 
       context "when `last_name`" do
