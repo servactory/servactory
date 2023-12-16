@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Example9 do
+RSpec.describe Wrong::Basic::Example9 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -18,30 +18,14 @@ RSpec.describe Wrong::Example9 do
                      outputs: %i[prepared_invoice_number]
 
     context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.prepared_invoice_number).to eq("123")
-        end
-      end
-
       describe "but the data required for work is invalid" do
-        describe "because there is an unexpected key in the attributes" do
-          let(:attributes) do
-            {
-              invoice_code: invoice_number
-            }
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example9] Unexpected attributes: `invoice_code`"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              NameError,
+              /undefined local variable or method `invoice_number'/
             )
-          end
+          )
         end
       end
     end
@@ -71,30 +55,14 @@ RSpec.describe Wrong::Example9 do
                      outputs: %i[prepared_invoice_number]
 
     context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.prepared_invoice_number).to eq("123")
-        end
-      end
-
       describe "but the data required for work is invalid" do
-        describe "because there is an unexpected key in the attributes" do
-          let(:attributes) do
-            {
-              invoice_code: invoice_number
-            }
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::InputError,
-                "[Wrong::Example9] Unexpected attributes: `invoice_code`"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              NameError,
+              /undefined local variable or method `invoice_number'/
             )
-          end
+          )
         end
       end
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Basic::Example4 do
+RSpec.describe Wrong::Basic::Example11 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -23,7 +23,7 @@ RSpec.describe Wrong::Basic::Example4 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputError,
-              "[Wrong::Basic::Example4] Undefined output attribute `number`"
+              "[Wrong::Basic::Example11] Wrong type of output attribute `invoice_number`, expected `Integer`, got `NilClass`"
             )
           )
         end
@@ -60,7 +60,7 @@ RSpec.describe Wrong::Basic::Example4 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputError,
-              "[Wrong::Basic::Example4] Undefined output attribute `number`"
+              "[Wrong::Basic::Example11] Wrong type of output attribute `invoice_number`, expected `Integer`, got `NilClass`"
             )
           )
         end

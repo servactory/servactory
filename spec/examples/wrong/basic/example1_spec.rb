@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Example1 do
+RSpec.describe Wrong::Basic::Example1 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -23,7 +23,7 @@ RSpec.describe Wrong::Example1 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalError,
-              "[Wrong::Example1] Wrong type of internal attribute `prepared_invoice_number`, " \
+              "[Wrong::Basic::Example1] Wrong type of internal attribute `prepared_invoice_number`, " \
               "expected `Integer`, got `String`"
             )
           )
@@ -61,7 +61,7 @@ RSpec.describe Wrong::Example1 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InternalError,
-              "[Wrong::Example1] Wrong type of internal attribute `prepared_invoice_number`, " \
+              "[Wrong::Basic::Example1] Wrong type of internal attribute `prepared_invoice_number`, " \
               "expected `Integer`, got `String`"
             )
           )

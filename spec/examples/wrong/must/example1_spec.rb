@@ -1,21 +1,28 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Basic::Example2 do
+RSpec.describe Wrong::Must::Example1 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
     let(:attributes) do
       {
-        invoice_number: invoice_number
+        invoice_numbers: invoice_numbers
       }
     end
 
-    let(:invoice_number) { "ABC-123" }
+    let(:invoice_numbers) do
+      %w[
+        7650AE
+        B4EA1B
+        A7BC86
+        BD2D6B
+      ]
+    end
 
     include_examples "check class info",
-                     inputs: %i[invoice_number],
+                     inputs: %i[invoice_numbers],
                      internals: %i[],
-                     outputs: %i[invoice_number]
+                     outputs: %i[first_invoice_number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -23,17 +30,10 @@ RSpec.describe Wrong::Basic::Example2 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Basic::Example2] Undefined input attribute `number`"
+              "[Wrong::Must::Example1] Syntax error inside `be_6_characters` of `invoice_numbers` input"
             )
           )
         end
-      end
-    end
-
-    context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
       end
     end
   end
@@ -43,16 +43,23 @@ RSpec.describe Wrong::Basic::Example2 do
 
     let(:attributes) do
       {
-        invoice_number: invoice_number
+        invoice_numbers: invoice_numbers
       }
     end
 
-    let(:invoice_number) { "ABC-123" }
+    let(:invoice_numbers) do
+      %w[
+        7650AE
+        B4EA1B
+        A7BC86
+        BD2D6B
+      ]
+    end
 
     include_examples "check class info",
-                     inputs: %i[invoice_number],
+                     inputs: %i[invoice_numbers],
                      internals: %i[],
-                     outputs: %i[invoice_number]
+                     outputs: %i[first_invoice_number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -60,17 +67,10 @@ RSpec.describe Wrong::Basic::Example2 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Basic::Example2] Undefined input attribute `number`"
+              "[Wrong::Must::Example1] Syntax error inside `be_6_characters` of `invoice_numbers` input"
             )
           )
         end
-      end
-    end
-
-    context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
       end
     end
   end

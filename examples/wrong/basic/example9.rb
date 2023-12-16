@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
 module Wrong
-  class Example9 < ApplicationService::Base
-    input :invoice_number, type: String
+  module Basic
+    class Example9 < ApplicationService::Base
+      input :invoice_number, type: String
 
-    output :prepared_invoice_number, type: String
+      output :prepared_invoice_number, type: Integer
 
-    make :prepare_invoice_number
+      make :assign_invoice_number
 
-    private
+      private
 
-    def prepare_invoice_number
-      outputs.prepared_invoice_number = inputs.invoice_number.split("-").last
+      def assign_invoice_number
+        outputs.prepared_invoice_number = invoice_number
+      end
     end
   end
 end

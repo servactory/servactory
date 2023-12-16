@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Example5 do
+RSpec.describe Wrong::Basic::Example5 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -23,7 +23,7 @@ RSpec.describe Wrong::Example5 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputError,
-              "[Wrong::Example5] Wrong type of output attribute `invoice_number`, expected `Integer`, got `String`"
+              "[Wrong::Basic::Example5] Wrong type of output attribute `invoice_number`, expected `Integer`, got `String`"
             )
           )
         end
@@ -60,7 +60,7 @@ RSpec.describe Wrong::Example5 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputError,
-              "[Wrong::Example5] Wrong type of output attribute `invoice_number`, expected `Integer`, got `String`"
+              "[Wrong::Basic::Example5] Wrong type of output attribute `invoice_number`, expected `Integer`, got `String`"
             )
           )
         end

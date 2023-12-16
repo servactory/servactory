@@ -1,29 +1,29 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Basic::Example2 do
+RSpec.describe Wrong::Prepare::Example4 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
     let(:attributes) do
       {
-        invoice_number: invoice_number
+        balance_cents: balance_cents
       }
     end
 
-    let(:invoice_number) { "ABC-123" }
+    let(:balance_cents) { 2_000_00 }
 
     include_examples "check class info",
-                     inputs: %i[invoice_number],
+                     inputs: %i[balance_cents],
                      internals: %i[],
-                     outputs: %i[invoice_number]
+                     outputs: %i[balance_with_bonus]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
-              "[Wrong::Basic::Example2] Undefined input attribute `number`"
+              NoMethodError,
+              "undefined method `+' for nil:NilClass"
             )
           )
         end
@@ -31,9 +31,9 @@ RSpec.describe Wrong::Basic::Example2 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
+      context "when `balance_cents`" do
+        it_behaves_like "input required check", name: :balance_cents
+        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
       end
     end
   end
@@ -43,24 +43,24 @@ RSpec.describe Wrong::Basic::Example2 do
 
     let(:attributes) do
       {
-        invoice_number: invoice_number
+        balance_cents: balance_cents
       }
     end
 
-    let(:invoice_number) { "ABC-123" }
+    let(:balance_cents) { 2_000_00 }
 
     include_examples "check class info",
-                     inputs: %i[invoice_number],
+                     inputs: %i[balance_cents],
                      internals: %i[],
-                     outputs: %i[invoice_number]
+                     outputs: %i[balance_with_bonus]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
-              "[Wrong::Basic::Example2] Undefined input attribute `number`"
+              NoMethodError,
+              "undefined method `+' for nil:NilClass"
             )
           )
         end
@@ -68,9 +68,9 @@ RSpec.describe Wrong::Basic::Example2 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
+      context "when `balance_cents`" do
+        it_behaves_like "input required check", name: :balance_cents
+        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
       end
     end
   end

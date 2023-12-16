@@ -2,8 +2,10 @@
 
 module Wrong
   module Basic
-    class Example2 < ApplicationService::Base
+    class Example11 < ApplicationService::Base
       input :invoice_number, type: String
+
+      internal :prepared_invoice_number, type: String
 
       output :invoice_number, type: Integer
 
@@ -12,7 +14,7 @@ module Wrong
       private
 
       def assign_invoice_number
-        outputs.invoice_number = inputs.number
+        outputs.invoice_number = internals.prepared_invoice_number
       end
     end
   end

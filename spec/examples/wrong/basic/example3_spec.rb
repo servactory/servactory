@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Example3 do
+RSpec.describe Wrong::Basic::Example3 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -23,7 +23,7 @@ RSpec.describe Wrong::Example3 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Example3] Undefined internal attribute `prepared_number`"
+              "[Wrong::Basic::Example3] Undefined internal attribute `prepared_number`"
             )
           )
         end
@@ -60,7 +60,7 @@ RSpec.describe Wrong::Example3 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::InputError,
-              "[Wrong::Example3] Undefined internal attribute `prepared_number`"
+              "[Wrong::Basic::Example3] Undefined internal attribute `prepared_number`"
             )
           )
         end
