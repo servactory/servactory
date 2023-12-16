@@ -28,7 +28,7 @@ module Servactory
             return self
           end
 
-          validate_for(values: @value)
+          validate_for!(values: @value)
 
           self
         end
@@ -39,12 +39,12 @@ module Servactory
 
         private
 
-        def validate_for(values:) # rubocop:disable Metrics/MethodLength
+        def validate_for!(values:) # rubocop:disable Metrics/MethodLength
           values.each do |value|
             value_type = value.class
 
             if value_type == Array
-              validate_for(values: value)
+              validate_for!(values: value)
             else
               is_success = attribute_consists_of_types.include?(value_type)
 
