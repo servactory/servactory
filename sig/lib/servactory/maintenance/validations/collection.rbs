@@ -2,9 +2,9 @@ module Servactory
   module Maintenance
     module Validations
       class Collection
-        @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
         @types: Array[Class]
         @value: untyped
+        @consists_of: untyped
         @valid: bool
         @prepared_type: Class
         @attribute_consists_of_types: Array[Class]
@@ -15,9 +15,9 @@ module Servactory
         def self.validate: (*untyped) ?{ () -> untyped } -> self
 
         def initialize: (
-          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
           types: Array[Class],
-          value: untyped
+          value: untyped,
+          consists_of: untyped
         ) -> void
 
         def validate: () -> self

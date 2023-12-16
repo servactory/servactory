@@ -10,10 +10,10 @@ module Servactory
           new(...).validate
         end
 
-        def initialize(attribute:, types:, value:)
-          @attribute = attribute
+        def initialize(types:, value:, consists_of:)
           @types = types
           @value = value
+          @consists_of = consists_of
 
           @errors = []
         end
@@ -55,7 +55,7 @@ module Servactory
         end
 
         def attribute_consists_of_types
-          @attribute_consists_of_types ||= prepared_types_from(Array(@attribute.consists_of.fetch(:type, [])))
+          @attribute_consists_of_types ||= prepared_types_from(Array(@consists_of.fetch(:type, [])))
         end
 
         def unnecessary_types
