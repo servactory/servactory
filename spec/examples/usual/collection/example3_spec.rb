@@ -69,7 +69,8 @@ RSpec.describe Usual::Collection::Example3 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example3] Wrong type in input collection `invoice_numbers`, expected `String`, got `Integer`"
+                "[Usual::Collection::Example3] Wrong type in input collection `invoice_numbers`, " \
+                "expected `String`, got `Integer`"
               )
             )
           end
@@ -192,7 +193,8 @@ RSpec.describe Usual::Collection::Example3 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example3] Wrong type in input collection `invoice_numbers`, expected `String`, got `Integer`"
+                "[Usual::Collection::Example3] Wrong type in input collection `invoice_numbers`, " \
+                "expected `String`, got `Integer`"
               )
             )
           end

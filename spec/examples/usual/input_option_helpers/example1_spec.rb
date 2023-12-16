@@ -70,7 +70,8 @@ RSpec.describe Usual::InputOptionHelpers::Example1 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::InputOptionHelpers::Example1] Wrong type in input collection `invoice_numbers`, expected `String`, got `Integer`"
+                "[Usual::InputOptionHelpers::Example1] Wrong type in input " \
+                "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )
           end
@@ -89,7 +90,8 @@ RSpec.describe Usual::InputOptionHelpers::Example1 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::InputOptionHelpers::Example1] Required element in input collection `invoice_numbers` is missing"
+                "[Usual::InputOptionHelpers::Example1] Required element in input " \
+                "collection `invoice_numbers` is missing"
               )
             )
           end
@@ -108,7 +110,8 @@ RSpec.describe Usual::InputOptionHelpers::Example1 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::InputOptionHelpers::Example1] Required element in input collection `invoice_numbers` is missing"
+                "[Usual::InputOptionHelpers::Example1] Required element in input " \
+                "collection `invoice_numbers` is missing"
               )
             )
           end
@@ -194,7 +197,8 @@ RSpec.describe Usual::InputOptionHelpers::Example1 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::InputOptionHelpers::Example1] Wrong type in input collection `invoice_numbers`, expected `String`, got `Integer`"
+                "[Usual::InputOptionHelpers::Example1] Wrong type in input " \
+                "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )
           end
@@ -213,7 +217,8 @@ RSpec.describe Usual::InputOptionHelpers::Example1 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::InputOptionHelpers::Example1] Required element in input collection `invoice_numbers` is missing"
+                "[Usual::InputOptionHelpers::Example1] Required element in input " \
+                "collection `invoice_numbers` is missing"
               )
             )
           end
@@ -232,7 +237,8 @@ RSpec.describe Usual::InputOptionHelpers::Example1 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::InputOptionHelpers::Example1] Required element in input collection `invoice_numbers` is missing"
+                "[Usual::InputOptionHelpers::Example1] Required element in input " \
+                "collection `invoice_numbers` is missing"
               )
             )
           end
