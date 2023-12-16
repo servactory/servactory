@@ -26,13 +26,11 @@ module Servactory
 
         private
 
-        def validate_value!: -> void
+        def validate_for: (values: Array[untyped]) -> void
 
         def prepared_type: -> Class
 
         def attribute_consists_of_types: -> Array[Class]
-
-        def unnecessary_types: -> Array[Class]
 
         def prepared_types_from: (Array[Class] types) -> Array[Class]
 
