@@ -40,7 +40,7 @@ RSpec.describe Usual::Collection::Example17 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example17] Wrong type in input collection `letters`, "\
+                "[Usual::Collection::Example17] Wrong type in input collection `letters`, " \
                 "expected `String`, got `Symbol`"
               )
             )
@@ -127,7 +127,7 @@ RSpec.describe Usual::Collection::Example17 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Collection::Example17] Wrong type in input collection `letters`, "\
+                "[Usual::Collection::Example17] Wrong type in input collection `letters`, " \
                 "expected `String`, got `Symbol`"
               )
             )
