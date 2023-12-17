@@ -25,7 +25,7 @@ module Servactory
               collection_message
             elsif value.is_a?(attribute.types.fetch(0, Array))
               I18n.t(
-                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_element_type", # rubocop:disable Layout/LineLength
+                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_element_type",
                 service_class_name: service_class_name,
                 "#{attribute.system_name}_name": attribute.name,
                 expected_type: expected_type,
@@ -33,7 +33,7 @@ module Servactory
               )
             else
               I18n.t(
-                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_type", # rubocop:disable Layout/LineLength
+                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_type",
                 service_class_name: service_class_name,
                 "#{attribute.system_name}_name": attribute.name,
                 expected_type: attribute.types.fetch(0, Array),
@@ -54,7 +54,7 @@ module Servactory
               hash_message
             else
               I18n.t(
-                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_hash.wrong_element_type", # rubocop:disable Layout/LineLength
+                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_hash.wrong_element_type",
                 service_class_name: service_class_name,
                 "#{attribute.system_name}_name": attribute.name,
                 key_name: key_name,

@@ -46,11 +46,12 @@ module Servactory
           private
 
           def prepared_value
-            @prepared_value ||= if @attribute.input? && @attribute.optional? && !@attribute.default.nil? && @value.blank?
-                                  @attribute.default
-                                else
-                                  @value
-                                end
+            @prepared_value ||=
+              if @attribute.input? && @attribute.optional? && !@attribute.default.nil? && @value.blank?
+                @attribute.default
+              else
+                @value
+              end
           end
         end
       end
