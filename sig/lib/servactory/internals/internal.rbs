@@ -21,6 +21,10 @@ module Servactory
 
       def options_for_checks: () -> Hash[Symbol, untyped]
 
+      def system_name: -> Symbol
+
+      def i18n_name: -> String
+
       def input?: -> bool
 
       def internal?: -> bool

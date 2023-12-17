@@ -32,6 +32,10 @@ module Servactory
 
       def conflict_code: -> (Symbol | nil)
 
+      def system_name: -> Symbol
+
+      def i18n_name: -> String
+
       def with_conflicts?: -> bool
 
       def input?: -> bool
