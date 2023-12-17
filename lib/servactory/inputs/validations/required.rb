@@ -5,7 +5,7 @@ module Servactory
     module Validations
       class Required < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
-          i18n_key = "servactory.inputs.checks.required.default_error."
+          i18n_key = "servactory.inputs.validations.required.default_error."
           i18n_key += input.collection_mode? && value.present? ? "for_collection" : "default"
 
           I18n.t(

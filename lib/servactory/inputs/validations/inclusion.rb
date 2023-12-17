@@ -6,7 +6,7 @@ module Servactory
       class Inclusion < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
           I18n.t(
-            "servactory.inputs.checks.inclusion.default_error",
+            "servactory.inputs.validations.inclusion.default_error",
             service_class_name: service_class_name,
             input_name: input.name,
             input_inclusion: input.inclusion[:in],

@@ -6,7 +6,6 @@ module Servactory
       class Types # rubocop:disable Metrics/ClassLength
         DEFAULT_MESSAGE = lambda do | # rubocop:disable Metrics/BlockLength
           service_class_name:,
-          attribute_system_name:,
           attribute:,
           value:,
           key_name:,
@@ -18,7 +17,7 @@ module Servactory
 
             if collection_message.is_a?(Proc)
               collection_message.call(
-                "#{attribute_system_name}_name": attribute.name,
+                "#{attribute.system_name}_name": attribute.name,
                 expected_type: expected_type,
                 given_type: given_type
               )
@@ -26,17 +25,17 @@ module Servactory
               collection_message
             elsif value.is_a?(attribute.types.fetch(0, Array))
               I18n.t(
-                "servactory.#{attribute_system_name.to_s.pluralize}.checks.type.default_error.for_collection.wrong_element_type", # rubocop:disable Layout/LineLength
+                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_element_type", # rubocop:disable Layout/LineLength
                 service_class_name: service_class_name,
-                "#{attribute_system_name}_name": attribute.name,
+                "#{attribute.system_name}_name": attribute.name,
                 expected_type: expected_type,
                 given_type: given_type
               )
             else
               I18n.t(
-                "servactory.#{attribute_system_name.to_s.pluralize}.checks.type.default_error.for_collection.wrong_type", # rubocop:disable Layout/LineLength
+                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_type", # rubocop:disable Layout/LineLength
                 service_class_name: service_class_name,
-                "#{attribute_system_name}_name": attribute.name,
+                "#{attribute.system_name}_name": attribute.name,
                 expected_type: attribute.types.fetch(0, Array),
                 given_type: value.class.name
               )
@@ -46,7 +45,7 @@ module Servactory
 
             if hash_message.is_a?(Proc)
               hash_message.call(
-                "#{attribute_system_name}_name": attribute.name,
+                "#{attribute.system_name}_name": attribute.name,
                 key_name: key_name,
                 expected_type: expected_type,
                 given_type: given_type
@@ -55,9 +54,9 @@ module Servactory
               hash_message
             else
               I18n.t(
-                "servactory.#{attribute_system_name.to_s.pluralize}.checks.type.default_error.for_hash.wrong_element_type", # rubocop:disable Layout/LineLength
+                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_hash.wrong_element_type", # rubocop:disable Layout/LineLength
                 service_class_name: service_class_name,
-                "#{attribute_system_name}_name": attribute.name,
+                "#{attribute.system_name}_name": attribute.name,
                 key_name: key_name,
                 expected_type: expected_type,
                 given_type: given_type
@@ -65,9 +64,9 @@ module Servactory
             end
           else
             I18n.t(
-              "servactory.#{attribute_system_name.to_s.pluralize}.checks.type.default_error.default",
+              "servactory.#{attribute.i18n_name}.validations.type.default_error.default",
               service_class_name: service_class_name,
-              "#{attribute_system_name}_name": attribute.name,
+              "#{attribute.system_name}_name": attribute.name,
               expected_type: expected_type,
               given_type: given_type
             )
@@ -117,7 +116,6 @@ module Servactory
             return @error_callback.call(
               message: DEFAULT_MESSAGE,
               service_class_name: @context.class.name,
-              attribute_system_name: attribute_system_name,
               attribute: @attribute,
               value: @value,
               key_name: nil,
@@ -130,7 +128,6 @@ module Servactory
             return @error_callback.call(
               message: DEFAULT_MESSAGE,
               service_class_name: @context.class.name,
-              attribute_system_name: attribute_system_name,
               attribute: @attribute,
               value: @value,
               key_name: first_error.fetch(:key_name),
@@ -142,7 +139,6 @@ module Servactory
           @error_callback.call(
             message: DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
-            attribute_system_name: attribute_system_name,
             attribute: @attribute,
             value: @value,
             key_name: nil,
@@ -152,10 +148,6 @@ module Servactory
         end
 
         private
-
-        def attribute_system_name
-          @attribute.class.name.demodulize.downcase.to_sym
-        end
 
         def prepared_types
           @prepared_types ||=
