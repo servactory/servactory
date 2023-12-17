@@ -44,7 +44,7 @@ module Servactory
 
           return yield if output.nil?
 
-          Servactory::Outputs::Validations::Type.validate!(
+          Servactory::Outputs::Tools::Validation.validate!(
             context: @context,
             output: output,
             value: value

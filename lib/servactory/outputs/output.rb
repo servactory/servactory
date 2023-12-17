@@ -3,7 +3,8 @@
 module Servactory
   module Outputs
     class Output
-      attr_reader :name
+      attr_reader :name,
+                  :collection_of_options
 
       def initialize(
         name,
