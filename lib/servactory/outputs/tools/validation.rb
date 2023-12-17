@@ -63,7 +63,7 @@ module Servactory
         ########################################################################
 
         def errors
-          @errors ||= CheckErrors.new
+          @errors ||= Servactory::Maintenance::Attributes::Tools::CheckErrors.new
         end
 
         def raise_errors

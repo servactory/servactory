@@ -14,7 +14,7 @@ module Servactory
 
         private
 
-        @errors: CheckErrors
+        @errors: Maintenance::Attributes::Tools::CheckErrors
 
         def process: -> void
 
@@ -24,7 +24,7 @@ module Servactory
 
         def validation_classes: -> Array[Class]
 
-        def errors: -> CheckErrors
+        def errors: -> Maintenance::Attributes::Tools::CheckErrors
 
         def raise_errors: () -> void
       end
