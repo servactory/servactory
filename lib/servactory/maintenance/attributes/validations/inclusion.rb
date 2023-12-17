@@ -4,7 +4,19 @@ module Servactory
   module Maintenance
     module Attributes
       module Validations
-        class Type < Base
+        class Inclusion < Base
+          DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
+            I18n.t(
+              "servactory.#{input.i18n_name}.validations.inclusion.default_error",
+              service_class_name: service_class_name,
+              "#{input.system_name}_name": input.name,
+              input_inclusion: input.inclusion[:in],
+              value: value
+            )
+          end
+
+          private_constant :DEFAULT_MESSAGE
+
           def self.check(context:, attribute:, value:, check_key:, **)
             return unless should_be_checked_for?(attribute, value, check_key)
 
@@ -13,7 +25,7 @@ module Servactory
 
           # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def self.should_be_checked_for?(attribute, value, check_key)
-            check_key == :types && (
+            check_key == :inclusion && (
               (
                 attribute.input? && (
                   attribute.required? || (
@@ -27,6 +39,8 @@ module Servactory
           end
           # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+          ##########################################################################
+
           def initialize(context:, attribute:, value:)
             super()
 
@@ -36,24 +50,23 @@ module Servactory
           end
 
           def check
-            Servactory::Maintenance::Validations::Types.validate!(
-              context: @context,
-              attribute: @attribute,
-              types: @attribute.types,
-              value: prepared_value,
-              error_callback: ->(**args) { add_error(**args) }
-            )
+            inclusion_in, message = @attribute.inclusion.values_at(:in, :message)
+
+            return if inclusion_in.nil?
+            return if inclusion_in.include?(@value)
+
+            add_error_with(message)
           end
 
           private
 
-          def prepared_value
-            @prepared_value ||=
-              if @attribute.input? && @attribute.optional? && !@attribute.default.nil? && @value.blank?
-                @attribute.default
-              else
-                @value
-              end
+          def add_error_with(message)
+            add_error(
+              message: message.presence || DEFAULT_MESSAGE,
+              service_class_name: @context.class.name,
+              "#{@attribute.system_name}": @attribute,
+              value: @value
+            )
           end
         end
       end

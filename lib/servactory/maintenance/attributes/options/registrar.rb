@@ -42,7 +42,7 @@ module Servactory
             register_collection_option if @features.fetch(:collection)
             register_hash_option if @features.fetch(:hash)
 
-            # Validation Class: Servactory::Inputs::Validations::Inclusion
+            # Validation Class: Servactory::Maintenance::Attributes::Validations::Inclusion
             register_inclusion_option if @features.fetch(:inclusion)
 
             # Validation Class: Servactory::Maintenance::Attributes::Validations::Must
@@ -166,7 +166,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :inclusion,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Inclusion,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Inclusion,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :inclusion_present?,
