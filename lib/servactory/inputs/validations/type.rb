@@ -10,15 +10,17 @@ module Servactory
           new(context: context, input: input, value: value).check
         end
 
-        def self.should_be_checked_for?(input, value, check_key) # rubocop:disable Metrics/CyclomaticComplexity
-          return true if input.internal? || input.output?
-
+        def self.should_be_checked_for?(input, value, check_key) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           check_key == :types && (
-            input.required? || (
-              input.optional? && !input.default.nil?
-            ) || (
-              input.optional? && !value.nil?
-            )
+            (
+              input.input? && (
+                input.required? || (
+                  input.optional? && !input.default.nil?
+                ) || (
+                  input.optional? && !value.nil?
+                )
+              )
+            ) || input.internal? || input.output?
           )
         end
 
