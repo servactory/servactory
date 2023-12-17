@@ -27,10 +27,10 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE, :SYNTAX_ERROR_MESSAGE
 
-        def self.check(context:, input:, check_key:, check_options:)
+        def self.check(context:, input:, value:, check_key:, check_options:)
           return unless should_be_checked_for?(input, check_key)
 
-          new(context: context, input: input, check_options: check_options).check
+          new(context: context, input: input, value: value, check_options: check_options).check
         end
 
         def self.should_be_checked_for?(input, check_key)
@@ -39,11 +39,12 @@ module Servactory
 
         ##########################################################################
 
-        def initialize(context:, input:, check_options:)
+        def initialize(context:, input:, value:, check_options:)
           super()
 
           @context = context
           @input = input
+          @value = value
           @check_options = check_options
         end
 
@@ -64,7 +65,7 @@ module Servactory
         def call_or_fetch_message_from(code, options)
           check, message = options.values_at(:is, :message)
 
-          return if check.call(value: @input.value)
+          return if check.call(value: @value)
 
           message.presence || DEFAULT_MESSAGE
         rescue StandardError => e
@@ -78,7 +79,7 @@ module Servactory
             message: message,
             service_class_name: @context.class.name,
             input: @input,
-            value: @input.value,
+            value: @value,
             code: code
           )
         end
@@ -88,7 +89,7 @@ module Servactory
             message: message,
             service_class_name: @context.class.name,
             input: @input,
-            value: @input.value,
+            value: @value,
             code: code,
             exception_message: exception_message
           )

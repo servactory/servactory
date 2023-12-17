@@ -1,39 +1,37 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Inputs
+  module Internals
     module Tools
       class Validation
         def self.validate!(...)
           new(...).validate!
         end
 
-        def initialize(context, collection_of_inputs)
+        def initialize(context:, internal:, value:)
           @context = context
-          @collection_of_inputs = collection_of_inputs
+          @internal = internal
+          @value = value
         end
 
         def validate!
-          @collection_of_inputs.each do |input|
-            process_input(input)
-          end
+          process
 
           raise_errors
         end
 
         private
 
-        def process_input(input)
-          input.options_for_checks.each do |check_key, check_options|
-            process_option(check_key, check_options, input: input)
+        def process
+          @internal.options_for_checks.each do |check_key, check_options|
+            process_option(check_key, check_options)
           end
         end
 
-        def process_option(check_key, check_options, input:)
-          validation_classes_from(input).each do |validation_class|
+        def process_option(check_key, check_options)
+          validation_classes.each do |validation_class|
             errors_from_checks = process_validation_class(
               validation_class: validation_class,
-              input: input,
               check_key: check_key,
               check_options: check_options
             )
@@ -44,14 +42,13 @@ module Servactory
 
         def process_validation_class(
           validation_class:,
-          input:,
           check_key:,
           check_options:
         )
           validation_class.check(
             context: @context,
-            input: input,
-            value: input.value,
+            input: @internal,
+            value: @value,
             check_key: check_key,
             check_options: check_options
           )
@@ -59,8 +56,8 @@ module Servactory
 
         ########################################################################
 
-        def validation_classes_from(input)
-          input.collection_of_options.validation_classes
+        def validation_classes
+          @internal.collection_of_options.validation_classes
         end
 
         ########################################################################
@@ -72,7 +69,7 @@ module Servactory
         def raise_errors
           return if (tmp_errors = errors.not_blank).empty?
 
-          raise @context.class.config.input_error_class.new(message: tmp_errors.first)
+          raise @context.class.config.internal_error_class.new(message: tmp_errors.first)
         end
       end
     end

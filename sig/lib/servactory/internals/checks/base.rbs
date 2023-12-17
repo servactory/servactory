@@ -1,9 +1,0 @@
-module Servactory
-  module Internals
-    module Validations
-      class Base
-        def raise_error_with: (message: (String | Proc), **untyped attributes) -> untyped
-      end
-    end
-  end
-end

@@ -4,27 +4,30 @@ module Servactory
   module Inputs
     module Validations
       class Type < Base
-        def self.check(context:, input:, check_key:, **)
-          return unless should_be_checked_for?(input, check_key)
+        def self.check(context:, input:, value:, check_key:, **)
+          return unless should_be_checked_for?(input, value, check_key)
 
-          new(context: context, input: input).check
+          new(context: context, input: input, value: value).check
         end
 
-        def self.should_be_checked_for?(input, check_key)
+        def self.should_be_checked_for?(input, value, check_key)
+          return true if input.internal?
+
           check_key == :types && (
             input.required? || (
               input.optional? && !input.default.nil?
             ) || (
-              input.optional? && !input.value.nil?
+              input.optional? && !value.nil?
             )
           )
         end
 
-        def initialize(context:, input:)
+        def initialize(context:, input:, value:)
           super()
 
           @context = context
           @input = input
+          @value = value
         end
 
         def check
@@ -40,10 +43,10 @@ module Servactory
         private
 
         def prepared_value
-          @prepared_value ||= if @input.optional? && !@input.default.nil? && @input.value.blank?
+          @prepared_value ||= if @input.input? && @input.optional? && !@input.default.nil? && @value.blank?
                                 @input.default
                               else
-                                @input.value
+                                @value
                               end
         end
       end

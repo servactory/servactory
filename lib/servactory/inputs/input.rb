@@ -89,6 +89,18 @@ module Servactory
       def with_conflicts?
         conflict_code.present?
       end
+
+      def input?
+        true
+      end
+
+      def internal?
+        false
+      end
+
+      def output?
+        false
+      end
     end
   end
 end

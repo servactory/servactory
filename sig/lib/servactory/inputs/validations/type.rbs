@@ -4,13 +4,14 @@ module Servactory
       class Type < Base
         @context: instance
         @input: Input
+        @value: untyped
         @prepared_value: String
 
-        def self.check: (context: instance, input: Input, check_key: Symbol, **untyped) -> void
+        def self.check: (context: instance, input: Input, value: untyped, check_key: Symbol, **untyped) -> void
 
-        def self.should_be_checked_for?: (Input input, Symbol check_key) -> bool
+        def self.should_be_checked_for?: (Input input, untyped value, Symbol check_key) -> bool
 
-        def initialize: (context: instance, input: Input) -> void
+        def initialize: (context: instance, input: Input, value: untyped) -> void
 
         def check: () -> void
 

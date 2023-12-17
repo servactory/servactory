@@ -44,7 +44,7 @@ module Servactory
 
           return yield if internal.nil?
 
-          Servactory::Internals::Validations::Type.validate!(
+          Servactory::Internals::Tools::Validation.validate!(
             context: @context,
             internal: internal,
             value: value

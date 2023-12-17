@@ -49,6 +49,18 @@ module Servactory
       def options_for_checks
         @collection_of_options.options_for_checks
       end
+
+      def input?
+        false
+      end
+
+      def internal?
+        false
+      end
+
+      def output?
+        true
+      end
     end
   end
 end

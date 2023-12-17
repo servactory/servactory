@@ -33,6 +33,12 @@ module Servactory
       def conflict_code: -> (Symbol | nil)
 
       def with_conflicts?: -> bool
+
+      def input?: -> bool
+
+      def internal?: -> bool
+
+      def output?: -> bool
     end
   end
 end

@@ -20,6 +20,12 @@ module Servactory
       def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Maintenance::Attributes::OptionsCollection
 
       def options_for_checks: () -> Hash[Symbol, untyped]
+
+      def input?: -> bool
+
+      def internal?: -> bool
+
+      def output?: -> bool
     end
   end
 end
