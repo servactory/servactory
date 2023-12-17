@@ -47,7 +47,7 @@ module Servactory
         )
           validation_class.check(
             context: @context,
-            input: @internal,
+            attribute: @internal,
             value: @value,
             check_key: check_key,
             check_options: check_options

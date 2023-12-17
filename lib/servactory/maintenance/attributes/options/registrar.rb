@@ -36,7 +36,7 @@ module Servactory
             # Check Class: Servactory::Inputs::Validations::Required
             register_required_option if @features.fetch(:required)
 
-            # Check Class: Servactory::Inputs::Validations::Type
+            # Check Class: Servactory::Maintenance::Attributes::Validations::Type
             register_types_option if @features.fetch(:types)
             register_default_option if @features.fetch(:default)
             register_collection_option if @features.fetch(:collection)
@@ -87,7 +87,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :types,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Type,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
               original_value: Array(@options.fetch(:type)),
               need_for_checks: true,
               body_fallback: nil,
@@ -99,7 +99,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :default,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Type,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :default_value_present?,
@@ -117,7 +117,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :consists_of,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Type,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :collection_mode?,
@@ -143,7 +143,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :schema,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Type,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :hash_mode?,

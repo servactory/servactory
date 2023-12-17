@@ -27,10 +27,10 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE, :SYNTAX_ERROR_MESSAGE
 
-        def self.check(context:, input:, value:, check_key:, check_options:)
-          return unless should_be_checked_for?(input, check_key)
+        def self.check(context:, attribute:, value:, check_key:, check_options:)
+          return unless should_be_checked_for?(attribute, check_key)
 
-          new(context: context, input: input, value: value, check_options: check_options).check
+          new(context: context, input: attribute, value: value, check_options: check_options).check
         end
 
         def self.should_be_checked_for?(input, check_key)

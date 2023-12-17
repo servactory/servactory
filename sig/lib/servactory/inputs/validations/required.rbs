@@ -7,7 +7,7 @@ module Servactory
         @context: instance
         @input: Input
 
-        def self.check: (context: instance, input: Input, check_key: Symbol, **untyped _) -> void
+        def self.check: (context: instance, attribute: Input, check_key: Symbol, **untyped _) -> void
 
         def self.should_be_checked_for?: (Input input, Symbol check_key) -> bool
 

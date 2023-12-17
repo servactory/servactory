@@ -17,10 +17,10 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check(context:, input:, check_key:, **)
-          return unless should_be_checked_for?(input, check_key)
+        def self.check(context:, attribute:, check_key:, **)
+          return unless should_be_checked_for?(attribute, check_key)
 
-          new(context: context, input: input).check
+          new(context: context, input: attribute).check
         end
 
         def self.should_be_checked_for?(input, check_key)
