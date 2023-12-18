@@ -50,7 +50,8 @@ module Servactory
         )
           validation_class.check(
             context: @context,
-            input: input,
+            attribute: input,
+            value: input.value,
             check_key: check_key,
             check_options: check_options
           )
@@ -65,7 +66,7 @@ module Servactory
         ########################################################################
 
         def errors
-          @errors ||= CheckErrors.new
+          @errors ||= Servactory::Maintenance::Attributes::Tools::CheckErrors.new
         end
 
         def raise_errors

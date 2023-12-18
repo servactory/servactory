@@ -5,7 +5,7 @@ module Servactory
     module Validations
       class Required < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
-          i18n_key = "servactory.inputs.checks.required.default_error."
+          i18n_key = "servactory.inputs.validations.required.default_error."
           i18n_key += input.collection_mode? && value.present? ? "for_collection" : "default"
 
           I18n.t(
@@ -17,10 +17,10 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check(context:, input:, check_key:, **)
-          return unless should_be_checked_for?(input, check_key)
+        def self.check(context:, attribute:, check_key:, **)
+          return unless should_be_checked_for?(attribute, check_key)
 
-          new(context: context, input: input).check
+          new(context: context, input: attribute).check
         end
 
         def self.should_be_checked_for?(input, check_key)

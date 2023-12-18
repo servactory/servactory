@@ -3,7 +3,8 @@
 module Servactory
   module Internals
     class Internal
-      attr_reader :name
+      attr_reader :name,
+                  :collection_of_options
 
       def initialize(
         name,
@@ -48,6 +49,26 @@ module Servactory
 
       def options_for_checks
         @collection_of_options.options_for_checks
+      end
+
+      def system_name
+        self.class.name.demodulize.downcase.to_sym
+      end
+
+      def i18n_name
+        system_name.to_s.pluralize
+      end
+
+      def input?
+        false
+      end
+
+      def internal?
+        true
+      end
+
+      def output?
+        false
       end
     end
   end

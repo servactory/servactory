@@ -4,7 +4,7 @@ en:
       undefined:
         getter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
         setter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
-      checks:
+      validations:
         inclusion:
           default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
         must:
@@ -30,7 +30,7 @@ en:
       undefined:
         getter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
         setter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
-      checks:
+      validations:
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -43,7 +43,7 @@ en:
       undefined:
         getter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
         setter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
-      checks:
+      validations:
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"

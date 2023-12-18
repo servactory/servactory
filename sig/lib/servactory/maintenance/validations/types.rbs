@@ -4,7 +4,6 @@ module Servactory
       class Types
         DEFAULT_MESSAGE: ^(
           service_class_name: String,
-          attribute_system_name: Symbol,
           attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
           key_name: Symbol,
           expected_type: String,
@@ -37,8 +36,6 @@ module Servactory
         def validate!: -> (bool | Inputs::Validations::Errors | Exception)
 
         private
-
-        def attribute_system_name: -> Symbol
 
         def prepared_types: -> Array[Class]
 

@@ -33,22 +33,22 @@ module Servactory
           ########################################################################
 
           def register # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-            # Check Class: Servactory::Inputs::Validations::Required
+            # Validation Class: Servactory::Inputs::Validations::Required
             register_required_option if @features.fetch(:required)
 
-            # Check Class: Servactory::Inputs::Validations::Type
+            # Validation Class: Servactory::Maintenance::Attributes::Validations::Type
             register_types_option if @features.fetch(:types)
             register_default_option if @features.fetch(:default)
             register_collection_option if @features.fetch(:collection)
             register_hash_option if @features.fetch(:hash)
 
-            # Check Class: Servactory::Inputs::Validations::Inclusion
+            # Validation Class: Servactory::Maintenance::Attributes::Validations::Inclusion
             register_inclusion_option if @features.fetch(:inclusion)
 
-            # Check Class: Servactory::Inputs::Validations::Must
+            # Validation Class: Servactory::Maintenance::Attributes::Validations::Must
             register_must_option if @features.fetch(:must)
 
-            # Check Class: nil
+            # Validation Class: nil
             register_prepare_option if @features.fetch(:prepare)
 
             self
@@ -87,7 +87,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :types,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Type,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
               original_value: Array(@options.fetch(:type)),
               need_for_checks: true,
               body_fallback: nil,
@@ -99,7 +99,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :default,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Type,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :default_value_present?,
@@ -117,7 +117,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :consists_of,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Type,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :collection_mode?,
@@ -143,7 +143,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :schema,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Type,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :hash_mode?,
@@ -166,7 +166,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :inclusion,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Inclusion,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Inclusion,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :inclusion_present?,
@@ -184,7 +184,7 @@ module Servactory
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :must,
               attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Must,
+              validation_class: Servactory::Maintenance::Attributes::Validations::Must,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :must_present?,
