@@ -6,6 +6,7 @@ module Servactory
       def inputs
         @inputs ||= Inputs.new(
           context: self,
+          incoming_arguments: incoming_arguments,
           collection_of_inputs: collection_of_inputs
         )
       end
