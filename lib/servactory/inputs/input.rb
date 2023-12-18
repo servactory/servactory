@@ -3,8 +3,6 @@
 module Servactory
   module Inputs
     class Input
-      attr_accessor :value
-
       attr_reader :name,
                   :internal_name,
                   :collection_of_options

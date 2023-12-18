@@ -17,10 +17,10 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check(context:, attribute:, check_key:, **)
+        def self.check(context:, attribute:, value:, check_key:, **)
           return unless should_be_checked_for?(attribute, check_key)
 
-          new(context: context, input: attribute).check
+          new(context: context, input: attribute, value: value).check
         end
 
         def self.should_be_checked_for?(input, check_key)
@@ -29,17 +29,18 @@ module Servactory
 
         ##########################################################################
 
-        def initialize(context:, input:)
+        def initialize(context:, input:, value:)
           super()
 
           @context = context
           @input = input
+          @value = value
         end
 
         def check
-          if @input.collection_mode? && Servactory::Utils.value_present?(@input.value)
-            return if @input.value.respond_to?(:all?) && @input.value.all?(&:present?)
-          elsif Servactory::Utils.value_present?(@input.value)
+          if @input.collection_mode? && Servactory::Utils.value_present?(@value)
+            return if @value.respond_to?(:all?) && @value.all?(&:present?)
+          elsif Servactory::Utils.value_present?(@value)
             return
           end
 
@@ -55,7 +56,7 @@ module Servactory
             message: message.presence || DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
             input: @input,
-            value: @input.value
+            value: @value
           )
         end
       end
