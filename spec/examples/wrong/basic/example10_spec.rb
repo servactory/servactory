@@ -18,7 +18,7 @@ RSpec.describe Wrong::Basic::Example10 do
             raise_error(
               NoMethodError,
               if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
-                /undefined method `fake_value' for #<Servactory::Result/
+                /undefined method `fake_value' for #<Servactory::Result:(.*)>/
               else
                 "undefined method `fake_value' for #<Servactory::Result @failure?=false, @success?=true>"
               end
@@ -46,7 +46,7 @@ RSpec.describe Wrong::Basic::Example10 do
             raise_error(
               NoMethodError,
               if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
-                /undefined method `fake_value' for #<Servactory::Result/
+                /undefined method `fake_value' for #<Servactory::Result:(.*)>/
               else
                 "undefined method `fake_value' for #<Servactory::Result @failure?=false, @success?=true>"
               end
