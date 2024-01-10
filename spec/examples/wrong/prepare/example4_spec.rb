@@ -23,7 +23,11 @@ RSpec.describe Wrong::Prepare::Example4 do
           expect { perform }.to(
             raise_error(
               NoMethodError,
-              "undefined method `+' for nil:NilClass"
+              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
+                "undefined method `+' for nil"
+              else
+                "undefined method `+' for nil:NilClass"
+              end
             )
           )
         end
@@ -60,7 +64,11 @@ RSpec.describe Wrong::Prepare::Example4 do
           expect { perform }.to(
             raise_error(
               NoMethodError,
-              "undefined method `+' for nil:NilClass"
+              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
+                "undefined method `+' for nil"
+              else
+                "undefined method `+' for nil:NilClass"
+              end
             )
           )
         end
