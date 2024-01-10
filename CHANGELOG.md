@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.1.0...HEAD)
+
+**Implemented enhancements:**
+
+- Add support for Ruby 3.3 [\#146](https://github.com/servactory/servactory/pull/146) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 10.01.2024 [\#147](https://github.com/servactory/servactory/pull/147) ([afuno](https://github.com/afuno))
+
 ## [v2.1.0](https://github.com/servactory/servactory/tree/v2.1.0) (2023-12-18)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.0.4...v2.1.0)
