@@ -1,11 +1,15 @@
-name: "RuboCop"
+name: RuboCop
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - v1-stable
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main" ]
+    branches:
+      - main
+      - v1-stable
 
 jobs:
   rubocop:
@@ -18,12 +22,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # If running on a self-hosted runner, check it meets the requirements
     # listed at https://github.com/ruby/setup-ruby#using-self-hosted-runners
     - name: Set up Ruby
-      uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+      uses: ruby/setup-ruby@360dc864d5da99d54fcb8e9148c14a84b90d3e88 # v1.165.1
       with:
         ruby-version: 2.7
 
