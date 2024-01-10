@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
+## [v2.1.1](https://github.com/servactory/servactory/tree/v2.1.1) (2024-01-10)
 
-[Full Changelog](https://github.com/servactory/servactory/compare/v2.1.0...HEAD)
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.1.0...v2.1.1)
 
 **Implemented enhancements:**
 
