@@ -6,7 +6,11 @@ RSpec.describe Servactory::TestKit::Result do
       expect { described_class.new }.to(
         raise_error(
           NoMethodError,
-          "private method `new' called for Servactory::TestKit::Result:Class"
+          if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
+            "private method `new' called for class Servactory::TestKit::Result"
+          else
+            "private method `new' called for Servactory::TestKit::Result:Class"
+          end
         )
       )
     end
