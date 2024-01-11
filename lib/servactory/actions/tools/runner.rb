@@ -94,6 +94,7 @@ module Servactory
           puts
           puts
           puts exception.missing_name.inspect
+          puts (exception.missing_name == NilClass).inspect
           puts
           puts
 
