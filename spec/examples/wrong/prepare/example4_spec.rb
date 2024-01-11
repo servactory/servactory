@@ -24,9 +24,9 @@ RSpec.describe Wrong::Prepare::Example4 do
             raise_error(
               ApplicationService::Errors::Failure,
               if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
-                "[Wrong::Prepare::Example4] Undefined method `+` for `NilClass`"
-              else
                 "[Wrong::Prepare::Example4] Undefined method `+` for `nil`"
+              else
+                "[Wrong::Prepare::Example4] Undefined method `+` for `NilClass`"
               end
             )
           )
@@ -68,9 +68,9 @@ RSpec.describe Wrong::Prepare::Example4 do
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
             message: if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
-                       "[Wrong::Prepare::Example4] Undefined method `+` for `NilClass`"
-                     else
                        "[Wrong::Prepare::Example4] Undefined method `+` for `nil`"
+                     else
+                       "[Wrong::Prepare::Example4] Undefined method `+` for `NilClass`"
                      end
           )
         end
