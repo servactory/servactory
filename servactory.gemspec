@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
-  spec.add_runtime_dependency "activesupport", ">= 6.0", "< 7.2"
+  spec.add_runtime_dependency "activesupport", ">= 4.2", "< 7.2"
   spec.add_runtime_dependency "i18n", "~> 1.14"
   spec.add_runtime_dependency "zeitwerk", "~> 2.6"
 
