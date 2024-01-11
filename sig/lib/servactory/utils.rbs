@@ -2,6 +2,8 @@ module Servactory
   module Utils
     FALSE_VALUES: Set[false | Symbol | String | Integer]
 
+    def self?.define_attribute_with: (input: Inputs::Input, internal: Internals::Internal, output: Outputs::Output) -> (Inputs::Input | Internals::Internal | Outputs::Output | Exception)
+
     # @param value [#to_s]
     # @return [Boolean]
     def self?.true?: (untyped value) -> untyped
