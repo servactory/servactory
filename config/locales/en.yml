@@ -1,5 +1,12 @@
 en:
   servactory:
+    common:
+      undefined_local_variable_or_method: "[%{service_class_name}] Undefined local variable or method `%{method_name}`"
+      undefined_method:
+        missing_name: "[%{service_class_name}] Undefined method `%{method_name}` for `%{missing_name}`"
+    methods:
+      call:
+        not_used: "[%{service_class_name}] Nothing to perform. Use `make` or create a `call` method."
     inputs:
       undefined:
         getter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
@@ -52,6 +59,3 @@ en:
               wrong_element_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Wrong type in output attribute hash `%{output_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
-    methods:
-      call:
-        not_used: Nothing to perform. Use `make` or create a `call` method.

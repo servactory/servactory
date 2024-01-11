@@ -18,5 +18,7 @@ module Servactory
     def as_failure: () -> self
 
     def draw_result: () -> String
+
+    def rescue_no_method_error_with: (exception: Exception) -> Exception
   end
 end
