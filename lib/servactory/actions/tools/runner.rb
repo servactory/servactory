@@ -91,6 +91,12 @@ module Servactory
         ########################################################################
 
         def rescue_no_method_error_with(exception:)
+          puts
+          puts
+          puts exception.missing_name.inspect
+          puts
+          puts
+
           raise @context.class.config.failure_class.new(
             message: I18n.t(
               "servactory.common.undefined_method.missing_name",
