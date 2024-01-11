@@ -96,7 +96,7 @@ module Servactory
               "servactory.common.undefined_method.missing_name",
               service_class_name: @context.class.name,
               method_name: exception.name,
-              missing_name: exception.missing_name.inspect
+              missing_name: exception.missing_name.nil? ? exception.missing_name.inspect : exception.missing_name
             )
           )
         end
