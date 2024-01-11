@@ -11,6 +11,8 @@ module Servactory
 
     def inspect: () -> String
 
+    def respond_to_missing?: -> void
+
     private
 
     def as_success: () -> self

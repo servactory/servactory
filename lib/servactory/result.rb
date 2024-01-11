@@ -25,7 +25,7 @@ module Servactory
       rescue_no_method_error_with(exception: e)
     end
 
-    def respond_to_missing?(_name, *)
+    def respond_to_missing?(*)
       super
     end
 
