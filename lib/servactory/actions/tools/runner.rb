@@ -99,7 +99,7 @@ module Servactory
               missing_name: if exception.missing_name.nil?
                               exception.missing_name.inspect
                             elsif exception.missing_name == "NilClass"
-                              nil
+                              nil.inspect
                             else
                               exception.missing_name
                             end
