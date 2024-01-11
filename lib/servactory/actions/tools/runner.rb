@@ -94,7 +94,7 @@ module Servactory
           puts
           puts
           puts exception.missing_name
-          puts exception.missing_name == NilClass
+          puts exception.missing_name == "NilClass"
           puts
           puts
 
