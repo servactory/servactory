@@ -93,8 +93,8 @@ module Servactory
         def rescue_no_method_error_with(exception:)
           puts
           puts
-          puts exception.missing_name.inspect
-          puts (exception.missing_name == NilClass).inspect
+          puts exception.missing_name
+          puts exception.missing_name == NilClass
           puts
           puts
 
