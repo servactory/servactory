@@ -46,9 +46,7 @@ module Servactory
             if value_type == Array
               validate_for!(values: value)
             else
-              is_success = attribute_consists_of_types.include?(value_type)
-
-              next if is_success
+              next if attribute_consists_of_types.include?(value_type)
 
               add_error(
                 expected_type: attribute_consists_of_types.join(", "),

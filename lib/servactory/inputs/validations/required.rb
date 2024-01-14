@@ -56,13 +56,7 @@ module Servactory
         end
 
         def collection_valid_for?(values:)
-          values.respond_to?(:all?) && values.all? do |value|
-            if value.is_a?(Array)
-              collection_valid_for?(values: value)
-            else
-              value.present?
-            end
-          end
+          values.respond_to?(:all?) && values.flatten.all?(&:present?)
         end
 
         def add_error_with(message)
