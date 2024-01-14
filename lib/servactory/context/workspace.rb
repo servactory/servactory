@@ -78,6 +78,7 @@ module Servactory
 
       def call
         raise self.class.config.failure_class.new(
+          type: :base,
           message: I18n.t(
             "servactory.methods.call.not_used",
             service_class_name: self.class.name
