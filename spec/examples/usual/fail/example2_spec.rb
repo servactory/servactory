@@ -36,6 +36,7 @@ RSpec.describe Usual::Fail::Example2 do
             expect { perform }.to(
               raise_error do |exception|
                 expect(exception).to be_a(ApplicationService::Errors::Failure)
+                expect(exception.type).to eq(:base)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(invoice_number: "BB-7650AE")
               end
@@ -91,6 +92,7 @@ RSpec.describe Usual::Fail::Example2 do
 
             expect(result.error).to be_a(ApplicationService::Errors::Failure)
             expect(result.error).to an_object_having_attributes(
+              type: :base,
               message: "Invalid invoice number",
               meta: {
                 invoice_number: "BB-7650AE"

@@ -25,7 +25,7 @@ module Servactory
 
       def fail_input!: (Symbol input_name, message: String) -> Exception
 
-      def fail!: (message: String, meta: untyped?) -> Exception
+      def fail!: (Symbol type, message: String, meta: untyped?) -> Exception
 
       def fail_result!: (Result service_result) -> Exception
 
