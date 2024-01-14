@@ -22,12 +22,8 @@ RSpec.describe Wrong::Prepare::Example4 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
-                "undefined method `+' for nil"
-              else
-                "undefined method `+' for nil:NilClass"
-              end
+              ApplicationService::Errors::Failure,
+              "[Wrong::Prepare::Example4] Undefined method `+` for `nil`"
             )
           )
         end
@@ -60,16 +56,14 @@ RSpec.describe Wrong::Prepare::Example4 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              NoMethodError,
-              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
-                "undefined method `+' for nil"
-              else
-                "undefined method `+' for nil:NilClass"
-              end
-            )
+        include_examples "failure result class"
+
+        it "returns the expected value in `errors`", :aggregate_failures do
+          result = perform
+
+          expect(result.error).to be_a(ApplicationService::Errors::Failure)
+          expect(result.error).to an_object_having_attributes(
+            message: "[Wrong::Prepare::Example4] Undefined method `+` for `nil`"
           )
         end
       end

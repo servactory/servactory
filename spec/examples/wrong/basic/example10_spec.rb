@@ -16,12 +16,8 @@ RSpec.describe Wrong::Basic::Example10 do
 
           expect { result.fake_value }.to(
             raise_error(
-              NoMethodError,
-              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
-                /undefined method `fake_value' for #<Servactory::Result:(.*)>/
-              else
-                "undefined method `fake_value' for #<Servactory::Result @failure?=false, @success?=true>"
-              end
+              ApplicationService::Errors::Failure,
+              "[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`"
             )
           )
         end
@@ -44,12 +40,8 @@ RSpec.describe Wrong::Basic::Example10 do
 
           expect { result.fake_value }.to(
             raise_error(
-              NoMethodError,
-              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
-                /undefined method `fake_value' for #<Servactory::Result:(.*)>/
-              else
-                "undefined method `fake_value' for #<Servactory::Result @failure?=false, @success?=true>"
-              end
+              ApplicationService::Errors::Failure,
+              "[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`"
             )
           )
         end
