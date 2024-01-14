@@ -32,6 +32,13 @@ module Servactory
         )
       end
 
+      def fail_internal!(internal_name, message:)
+        raise self.class.config.internal_error_class.new(
+          internal_name: internal_name,
+          message: message
+        )
+      end
+
       def fail!(message:, meta: nil)
         raise self.class.config.failure_class.new(message: message, meta: meta)
       end
