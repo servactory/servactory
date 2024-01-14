@@ -132,7 +132,7 @@ RSpec.describe Usual::Inclusion::Example6 do
               raise_error(
                 ApplicationService::Errors::InternalError,
                 "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-                  "`[\"rejected\", \"approved\"]`"
+                "`[\"rejected\", \"approved\"]`"
               )
             )
           end
@@ -146,7 +146,7 @@ RSpec.describe Usual::Inclusion::Example6 do
               raise_error(
                 ApplicationService::Errors::OutputError,
                 "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-                  "`[\"approved\"]`"
+                "`[\"approved\"]`"
               )
             )
           end

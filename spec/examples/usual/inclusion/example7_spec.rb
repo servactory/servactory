@@ -37,7 +37,7 @@ RSpec.describe Usual::Inclusion::Example7 do
               raise_error(
                 ApplicationService::Errors::InputError,
                 "[Usual::Inclusion::Example7] Wrong value in `event_name`, must be one of " \
-                  "`[\"created\", \"rejected\", \"approved\"]`"
+                "`[\"created\", \"rejected\", \"approved\"]`"
               )
             )
           end
@@ -105,7 +105,7 @@ RSpec.describe Usual::Inclusion::Example7 do
             raise_error(
               ApplicationService::Errors::InputError,
               "[Usual::Inclusion::Example7] Wrong value in `event_name`, must be one of " \
-                "`[\"created\", \"rejected\", \"approved\"]`"
+              "`[\"created\", \"rejected\", \"approved\"]`"
             )
           )
         end
