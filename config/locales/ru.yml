@@ -39,6 +39,9 @@ ru:
         getter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
         setter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
       validations:
+        must:
+          default_error: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` должен \"%{code}\""
+          syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` внутреннего атрибута `%{internal_name}`"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
@@ -52,6 +55,9 @@ ru:
         getter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
         setter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
       validations:
+        must:
+          default_error: "[%{service_class_name}] Выходящий атрибут `%{output_name}` должен \"%{code}\""
+          syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` выходящего атрибута `%{output_name}`"
         type:
           default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
           for_collection:

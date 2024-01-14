@@ -38,6 +38,9 @@ en:
         getter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
         setter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
       validations:
+        must:
+          default_error: "[%{service_class_name}] Internal attribute `%{internal_name}` must \"%{code}\""
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -51,6 +54,9 @@ en:
         getter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
         setter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
       validations:
+        must:
+          default_error: "[%{service_class_name}] Output attribute `%{output_name}` must \"%{code}\""
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
