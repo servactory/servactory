@@ -41,6 +41,7 @@ module Servactory
             types: true,
             collection: true,
             hash: true,
+            inclusion: true,
             must: true
           }
         )
