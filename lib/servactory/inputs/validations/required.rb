@@ -5,7 +5,7 @@ module Servactory
     module Validations
       class Required < Base
         DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
-          i18n_key = "servactory.inputs.checks.required.default_error."
+          i18n_key = "servactory.inputs.validations.required.default_error."
           i18n_key += input.collection_mode? && value.present? ? "for_collection" : "default"
 
           I18n.t(
@@ -17,10 +17,10 @@ module Servactory
 
         private_constant :DEFAULT_MESSAGE
 
-        def self.check(context:, input:, check_key:, **)
-          return unless should_be_checked_for?(input, check_key)
+        def self.check(context:, attribute:, value:, check_key:, **)
+          return unless should_be_checked_for?(attribute, check_key)
 
-          new(context: context, input: input).check
+          new(context: context, input: attribute, value: value).check
         end
 
         def self.should_be_checked_for?(input, check_key)
@@ -29,17 +29,18 @@ module Servactory
 
         ##########################################################################
 
-        def initialize(context:, input:)
+        def initialize(context:, input:, value:)
           super()
 
           @context = context
           @input = input
+          @value = value
         end
 
         def check
-          if @input.collection_mode? && Servactory::Utils.value_present?(@input.value)
+          if @input.collection_mode? && Servactory::Utils.value_present?(@value)
             return if collection_valid?
-          elsif Servactory::Utils.value_present?(@input.value)
+          elsif Servactory::Utils.value_present?(@value)
             return
           end
 
@@ -51,7 +52,7 @@ module Servactory
         private
 
         def collection_valid?
-          collection_valid_for?(values: @input.value)
+          collection_valid_for?(values: @value)
         end
 
         def collection_valid_for?(values:)
@@ -69,7 +70,7 @@ module Servactory
             message: message.presence || DEFAULT_MESSAGE,
             service_class_name: @context.class.name,
             input: @input,
-            value: @input.value
+            value: @value
           )
         end
       end

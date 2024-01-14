@@ -1,0 +1,15 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Validations
+        class Base
+          def initialize: () -> void
+
+          attr_reader errors: Errors
+
+          def add_error: (message: (String | Proc), **untyped attributes) -> Errors
+        end
+      end
+    end
+  end
+end

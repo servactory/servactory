@@ -16,8 +16,8 @@ RSpec.describe Wrong::Basic::Example10 do
 
           expect { result.fake_value }.to(
             raise_error(
-              NoMethodError,
-              "undefined method `fake_value' for #<Servactory::Result @failure?=false, @success?=true>"
+              ApplicationService::Errors::Failure,
+              "[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`"
             )
           )
         end
@@ -40,8 +40,8 @@ RSpec.describe Wrong::Basic::Example10 do
 
           expect { result.fake_value }.to(
             raise_error(
-              NoMethodError,
-              "undefined method `fake_value' for #<Servactory::Result @failure?=false, @success?=true>"
+              ApplicationService::Errors::Failure,
+              "[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`"
             )
           )
         end

@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    servactory (2.0.3)
-      activesupport (>= 6.0, < 7.2)
+    servactory (2.1.1)
+      activesupport (>= 5.1, < 7.2)
       i18n (~> 1.14)
       zeitwerk (~> 2.6)
 
@@ -47,7 +47,7 @@ GEM
     minitest (5.20.0)
     mutex_m (0.2.0)
     parallel (1.24.0)
-    parser (3.2.2.4)
+    parser (3.3.0.2)
       ast (~> 2.4.1)
       racc
     pry (0.14.2)
@@ -60,7 +60,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbs (3.1.3)
-    regexp_parser (2.8.3)
+    regexp_parser (2.9.0)
     rexml (3.2.6)
     rspec (3.12.0)
       rspec-core (~> 3.12.0)
@@ -88,16 +88,16 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
-    rubocop-capybara (2.19.0)
+    rubocop-capybara (2.20.0)
       rubocop (~> 1.41)
-    rubocop-factory_bot (2.24.0)
-      rubocop (~> 1.33)
-    rubocop-performance (1.20.0)
+    rubocop-factory_bot (2.25.1)
+      rubocop (~> 1.41)
+    rubocop-performance (1.20.2)
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.30.0, < 2.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
-    rubocop-rspec (2.25.0)
+    rubocop-rspec (2.26.1)
       rubocop (~> 1.40)
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
@@ -132,6 +132,7 @@ GEM
 PLATFORMS
   x86_64-darwin-21
   x86_64-darwin-22
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
@@ -149,4 +150,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.4.17
+   2.5.4

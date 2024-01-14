@@ -1,8 +1,6 @@
 module Servactory
   module Inputs
     class Input
-      attr_accessor value: untyped
-
       attr_reader name: Symbol
       attr_reader internal_name: Symbol?
       attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
@@ -32,7 +30,17 @@ module Servactory
 
       def conflict_code: -> (Symbol | nil)
 
+      def system_name: -> Symbol
+
+      def i18n_name: -> String
+
       def with_conflicts?: -> bool
+
+      def input?: -> bool
+
+      def internal?: -> bool
+
+      def output?: -> bool
     end
   end
 end

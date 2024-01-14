@@ -3,8 +3,6 @@
 module Servactory
   module Inputs
     class Input
-      attr_accessor :value
-
       attr_reader :name,
                   :internal_name,
                   :collection_of_options
@@ -86,8 +84,28 @@ module Servactory
         @collection_of_options.defined_conflict_code
       end
 
+      def system_name
+        self.class.name.demodulize.downcase.to_sym
+      end
+
+      def i18n_name
+        system_name.to_s.pluralize
+      end
+
       def with_conflicts?
         conflict_code.present?
+      end
+
+      def input?
+        true
+      end
+
+      def internal?
+        false
+      end
+
+      def output?
+        false
       end
     end
   end

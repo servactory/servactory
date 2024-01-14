@@ -1,0 +1,33 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Validations
+        class Must < Base
+          DEFAULT_MESSAGE: ^(service_class_name: String, input: Inputs::Input?, internal: Internals::Internal?, output: Outputs::Output?, value: untyped, code: Symbol) -> Proc
+          SYNTAX_ERROR_MESSAGE: ^(service_class_name: String, input: Inputs::Input?, internal: Internals::Internal?, output: Outputs::Output?, value: untyped, code: Symbol, exception_message: String) -> Proc
+
+          @check_options: untyped
+          @context: instance
+          @attribute: Inputs::Input
+          @value: untyped
+
+          def self.check: (context: instance, attribute: Inputs::Input, value: untyped, check_key: Symbol, check_options: untyped) -> void
+
+          def self.should_be_checked_for?: (Inputs::Input attribute, Symbol check_key) -> bool
+
+          def initialize: (context: instance, attribute: Inputs::Input, value: untyped, check_options: untyped) -> void
+
+          def check: () -> void
+
+          private
+
+          def call_or_fetch_message_from: (Symbol code, untyped options) -> (String | void)
+
+          def add_error_with: ((String | Proc) message, Symbol code) -> void
+
+          def add_syntax_error_with: ((String | Proc) message, Symbol code, exception_message: String) -> void
+        end
+      end
+    end
+  end
+end

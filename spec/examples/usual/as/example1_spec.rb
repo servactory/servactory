@@ -6,16 +6,16 @@ RSpec.describe Usual::As::Example1 do
 
     let(:attributes) do
       {
-        balance_cents: balance_cents
+        email_address: email_address
       }
     end
 
-    let(:balance_cents) { 2_000_00 }
+    let(:email_address) { "noreply@servactory.com" }
 
     include_examples "check class info",
-                     inputs: %i[balance_cents],
+                     inputs: %i[email_address],
                      internals: %i[],
-                     outputs: [:balance_with_bonus]
+                     outputs: [:formatted_email]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -24,17 +24,15 @@ RSpec.describe Usual::As::Example1 do
         it "returns the expected values", :aggregate_failures do
           result = perform
 
-          expect(result.balance_with_bonus).to be_a(Usual::As::Example1::Money)
-          expect(result.balance_with_bonus.cents).to eq(3_000_00)
-          expect(result.balance_with_bonus.currency).to eq(:USD)
+          expect(result.formatted_email).to eq("No Reply <noreply@servactory.com>")
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `balance_cents`" do
-        it_behaves_like "input required check", name: :balance_cents
-        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
+      context "when `email_address`" do
+        it_behaves_like "input required check", name: :email_address
+        it_behaves_like "input type check", name: :email_address, expected_type: String
       end
     end
   end
@@ -44,16 +42,16 @@ RSpec.describe Usual::As::Example1 do
 
     let(:attributes) do
       {
-        balance_cents: balance_cents
+        email_address: email_address
       }
     end
 
-    let(:balance_cents) { 2_000_00 }
+    let(:email_address) { "noreply@servactory.com" }
 
     include_examples "check class info",
-                     inputs: %i[balance_cents],
+                     inputs: %i[email_address],
                      internals: %i[],
-                     outputs: [:balance_with_bonus]
+                     outputs: [:formatted_email]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -62,17 +60,15 @@ RSpec.describe Usual::As::Example1 do
         it "returns the expected values", :aggregate_failures do
           result = perform
 
-          expect(result.balance_with_bonus).to be_a(Usual::As::Example1::Money)
-          expect(result.balance_with_bonus.cents).to eq(3_000_00)
-          expect(result.balance_with_bonus.currency).to eq(:USD)
+          expect(result.formatted_email).to eq("No Reply <noreply@servactory.com>")
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `balance_cents`" do
-        it_behaves_like "input required check", name: :balance_cents
-        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
+      context "when `email_address`" do
+        it_behaves_like "input required check", name: :email_address
+        it_behaves_like "input type check", name: :email_address, expected_type: String
       end
     end
   end

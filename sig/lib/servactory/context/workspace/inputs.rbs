@@ -5,9 +5,10 @@ module Servactory
         RESERVED_ATTRIBUTES: Array[Symbol]
 
         @context: instance
+        @incoming_arguments: Hash[Symbol, untyped]
         @collection_of_inputs: Inputs::Collection
 
-        def initialize: (context: instance, collection_of_inputs: Inputs::Collection) -> void
+        def initialize: (context: instance, incoming_arguments: Hash[Symbol, untyped], collection_of_inputs: Inputs::Collection) -> void
 
         def only: (Symbol input_names) -> Hash[Symbol, untyped]
 

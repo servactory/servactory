@@ -1,10 +1,17 @@
 ru:
   servactory:
+    common:
+      undefined_local_variable_or_method: "[%{service_class_name}] Неопределенная локальная переменная или метод `%{method_name}`"
+      undefined_method:
+        missing_name: "[%{service_class_name}] Неопределенный метод `%{method_name}` для `%{missing_name}`"
+    methods:
+      call:
+        not_used: "[%{service_class_name}] Нечего выполнять. Используйте `make` или создайте метод `call`."
     inputs:
       undefined:
         getter: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
         setter: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
-      checks:
+      validations:
         inclusion:
           default_error: "[%{service_class_name}] Неправильное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
         must:
@@ -31,7 +38,10 @@ ru:
       undefined:
         getter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
         setter: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
-      checks:
+      validations:
+        must:
+          default_error: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` должен \"%{code}\""
+          syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` внутреннего атрибута `%{internal_name}`"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
@@ -44,7 +54,10 @@ ru:
       undefined:
         getter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
         setter: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
-      checks:
+      validations:
+        must:
+          default_error: "[%{service_class_name}] Выходящий атрибут `%{output_name}` должен \"%{code}\""
+          syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` выходящего атрибута `%{output_name}`"
         type:
           default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
           for_collection:
@@ -52,6 +65,3 @@ ru:
             wrong_element_type: "[%{service_class_name}] Неправильный тип элемента в коллекции выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
           for_hash:
             wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
-    methods:
-      call:
-        not_used: Нечего исполнять. Используйте `make` или создайте метод `call`.

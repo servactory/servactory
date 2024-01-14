@@ -1,5 +1,41 @@
 # Changelog
 
+## [v2.1.1](https://github.com/servactory/servactory/tree/v2.1.1) (2024-01-10)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.1.0...v2.1.1)
+
+**Implemented enhancements:**
+
+- Add support for Ruby 3.3 [\#146](https://github.com/servactory/servactory/pull/146) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 10.01.2024 [\#147](https://github.com/servactory/servactory/pull/147) ([afuno](https://github.com/afuno))
+
+## [v2.1.0](https://github.com/servactory/servactory/tree/v2.1.0) (2023-12-18)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.4...v2.1.0)
+
+**Implemented enhancements:**
+
+- Delete `value` from `input` in favor of local definition [\#145](https://github.com/servactory/servactory/pull/145) ([afuno](https://github.com/afuno))
+- Single validation for all attributes [\#143](https://github.com/servactory/servactory/pull/143) ([afuno](https://github.com/afuno))
+- Cataloging of examples and tests [\#140](https://github.com/servactory/servactory/pull/140) ([afuno](https://github.com/afuno))
+- Add `fail_result!` method [\#139](https://github.com/servactory/servactory/pull/139) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Fix definition of input value [\#144](https://github.com/servactory/servactory/pull/144) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 16.12.2023 [\#141](https://github.com/servactory/servactory/pull/141) ([afuno](https://github.com/afuno))
+- Update libraries from 12.12.2023 [\#138](https://github.com/servactory/servactory/pull/138) ([afuno](https://github.com/afuno))
+
+## [v2.0.4](https://github.com/servactory/servactory/tree/v2.0.4) (2023-12-18)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.0.3...v2.0.4)
+
 ## [v2.0.3](https://github.com/servactory/servactory/tree/v2.0.3) (2023-11-16)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.0.2...v2.0.3)

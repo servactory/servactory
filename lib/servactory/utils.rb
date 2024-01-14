@@ -4,6 +4,14 @@ module Servactory
   module Utils
     module_function
 
+    def define_attribute_with(input:, internal:, output:)
+      return input if input.present?
+      return internal if internal.present?
+      return output if output.present?
+
+      raise ArgumentError, "missing keyword: :input, :internal or :output"
+    end
+
     FALSE_VALUES = [
       false,
       nil, "",
