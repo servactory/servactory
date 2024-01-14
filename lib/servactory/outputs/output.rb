@@ -40,7 +40,8 @@ module Servactory
           features: {
             types: true,
             collection: true,
-            hash: true
+            hash: true,
+            must: true
           }
         )
 
