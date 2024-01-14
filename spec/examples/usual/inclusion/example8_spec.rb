@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Inclusion::Example2 do
+RSpec.describe Usual::Inclusion::Example8 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -10,12 +10,12 @@ RSpec.describe Usual::Inclusion::Example2 do
       }
     end
 
-    let(:event_name) { "created" }
+    let(:event_name) { "approved" }
 
     include_examples "check class info",
                      inputs: %i[event_name],
-                     internals: %i[],
-                     outputs: %i[event]
+                     internals: %i[event_name],
+                     outputs: %i[event_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -24,10 +24,7 @@ RSpec.describe Usual::Inclusion::Example2 do
         it "returns the expected values", :aggregate_failures do
           result = perform
 
-          expect(result.event?).to be(true)
-          expect(result.event).to be_a(Usual::Inclusion::Example2::Event)
-          expect(result.event.id).to be_present
-          expect(result.event.event_name).to eq("created")
+          expect(result.event_name).to eq("approved")
         end
       end
 
@@ -39,21 +36,36 @@ RSpec.describe Usual::Inclusion::Example2 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Inclusion::Example2] Wrong value in `event_name`, must be one of " \
+                "[Usual::Inclusion::Example8] Wrong value in `event_name`, must be one of " \
                 "`[\"created\", \"rejected\", \"approved\"]`"
               )
             )
           end
         end
 
-        describe "because the `event_name` value `rejected` is currently not usable" do
+        describe "because the value of `event_name` is not suitable for `internal`" do
+          let(:event_name) { "created" }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InternalError,
+                "[Usual::Inclusion::Example8] Wrong value in `event_name`, must be one of " \
+                "`[\"rejected\", \"approved\"]`"
+              )
+            )
+          end
+        end
+
+        describe "because the value of `event_name` is not suitable for `output`" do
           let(:event_name) { "rejected" }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
-                "The `rejected` event cannot be used now"
+                ApplicationService::Errors::OutputError,
+                "[Usual::Inclusion::Example8] Wrong value in `event_name`, must be one of " \
+                "`[\"approved\"]`"
               )
             )
           end
@@ -79,12 +91,12 @@ RSpec.describe Usual::Inclusion::Example2 do
       }
     end
 
-    let(:event_name) { "created" }
+    let(:event_name) { "approved" }
 
     include_examples "check class info",
                      inputs: %i[event_name],
-                     internals: %i[],
-                     outputs: %i[event]
+                     internals: %i[event_name],
+                     outputs: %i[event_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -93,10 +105,7 @@ RSpec.describe Usual::Inclusion::Example2 do
         it "returns the expected values", :aggregate_failures do
           result = perform
 
-          expect(result.event?).to be(true)
-          expect(result.event).to be_a(Usual::Inclusion::Example2::Event)
-          expect(result.event.id).to be_present
-          expect(result.event.event_name).to eq("created")
+          expect(result.event_name).to eq("approved")
         end
       end
 
@@ -108,21 +117,36 @@ RSpec.describe Usual::Inclusion::Example2 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Errors::InputError,
-                "[Usual::Inclusion::Example2] Wrong value in `event_name`, must be one of " \
+                "[Usual::Inclusion::Example8] Wrong value in `event_name`, must be one of " \
                 "`[\"created\", \"rejected\", \"approved\"]`"
               )
             )
           end
         end
 
-        describe "because the `event_name` value `rejected` is currently not usable" do
+        describe "because the value of `event_name` is not suitable for `internal`" do
+          let(:event_name) { "created" }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InternalError,
+                "[Usual::Inclusion::Example8] Wrong value in `event_name`, must be one of " \
+                "`[\"rejected\", \"approved\"]`"
+              )
+            )
+          end
+        end
+
+        describe "because the value of `event_name` is not suitable for `output`" do
           let(:event_name) { "rejected" }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
-                "The `rejected` event cannot be used now"
+                ApplicationService::Errors::OutputError,
+                "[Usual::Inclusion::Example8] Wrong value in `event_name`, must be one of " \
+                "`[\"approved\"]`"
               )
             )
           end
