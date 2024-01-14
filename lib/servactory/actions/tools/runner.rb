@@ -59,8 +59,8 @@ module Servactory
           @context.send(method.name)
         rescue NoMethodError => e
           rescue_no_method_error_with(exception: e)
-        rescue NameError => e
-          rescue_name_error_with(_exception: e, method: method)
+        rescue NameError
+          rescue_name_error_with(method: method)
         end
 
         def unnecessary_for_stage?(stage)
@@ -107,7 +107,7 @@ module Servactory
           )
         end
 
-        def rescue_name_error_with(_exception:, method:)
+        def rescue_name_error_with(method:)
           raise @context.class.config.failure_class.new(
             message: I18n.t(
               "servactory.common.undefined_local_variable_or_method",
