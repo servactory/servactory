@@ -3,31 +3,16 @@
 module Usual
   module As
     class Example1 < ApplicationService::Base
-      Money = Struct.new(:cents, :currency, keyword_init: true) do
-        def +(other)
-          self.class.new(cents: cents + other.cents, currency: currency)
-        end
-      end
+      input :email_address, as: :email, type: String
 
-      BONUS = Money.new(cents: 1_000_00, currency: :USD)
+      output :formatted_email, type: String
 
-      private_constant :BONUS
-
-      ############################################################################
-
-      input :balance_cents,
-            as: :balance,
-            type: Integer,
-            prepare: ->(value:) { Money.new(cents: value, currency: :USD) }
-
-      output :balance_with_bonus, type: Money
-
-      make :assign_balance_with_bonus
+      make :format_email
 
       private
 
-      def assign_balance_with_bonus
-        outputs.balance_with_bonus = inputs.balance + BONUS
+      def format_email
+        outputs.formatted_email = "No Reply <#{inputs.email}>"
       end
     end
   end
