@@ -19,6 +19,18 @@ module Servactory
       "#<#{self.class.name} #{draw_result}>"
     end
 
+    def on_success
+      yield if success?
+
+      self
+    end
+
+    def on_failure(type = :all)
+      yield(exception: @exception) if failure? && [:all, @exception&.type].include?(type)
+
+      self
+    end
+
     def method_missing(name, *_args)
       super
     rescue NoMethodError => e
@@ -61,6 +73,8 @@ module Servactory
     ########################################################################
 
     def rescue_no_method_error_with(exception:)
+      raise exception if @context.blank?
+
       raise @context.class.config.failure_class.new(
         type: :base,
         message: I18n.t(
