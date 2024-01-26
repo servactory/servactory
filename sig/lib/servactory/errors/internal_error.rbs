@@ -2,9 +2,9 @@ module Servactory
   module Errors
     class InternalError < Base
       attr_reader message: String
-      attr_reader input_name: Symbol?
+      attr_reader internal_name: Symbol?
 
-      def initialize: (message: String, input_name: Symbol?) -> void
+      def initialize: (message: String, internal_name: Symbol?) -> void
     end
   end
 end
