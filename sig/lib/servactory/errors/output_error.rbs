@@ -2,8 +2,9 @@ module Servactory
   module Errors
     class OutputError < Base
       attr_reader message: String
+      attr_reader output_name: Symbol?
 
-      def initialize: (message: String) -> void
+      def initialize: (message: String, output_name: Symbol?) -> void
     end
   end
 end

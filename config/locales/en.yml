@@ -38,6 +38,8 @@ en:
         getter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
         setter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
       validations:
+        inclusion:
+          default_error: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Internal attribute `%{internal_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute"
@@ -54,6 +56,8 @@ en:
         getter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
         setter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
       validations:
+        inclusion:
+          default_error: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Output attribute `%{output_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute"
