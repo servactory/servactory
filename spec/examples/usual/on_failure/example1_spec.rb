@@ -34,7 +34,18 @@ RSpec.describe Usual::OnFailure::Example1 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        include_examples "failure result class"
+        # include_examples "failure result class"
+
+        it "returns failure result class", :aggregate_failures do
+          result = perform
+
+          expect(result).to be_a(Servactory::Result)
+          expect(result.success?).to be(false)
+          expect(result.failure?).to be(true)
+          expect(result.failure?(:all)).to be(true)
+          expect(result.failure?(:base)).to be(false)
+          expect(result.failure?(:validation)).to be(true)
+        end
 
         it "calls expected methods", :aggregate_failures do
           result = perform

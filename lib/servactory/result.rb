@@ -59,7 +59,12 @@ module Servactory
       define_singleton_method(:error) { @exception }
 
       define_singleton_method(:success?) { false }
-      define_singleton_method(:failure?) { true }
+
+      define_singleton_method(:failure?) do |type = :all|
+        return true if [:all, @exception&.type].include?(type)
+
+        false
+      end
 
       self
     end
