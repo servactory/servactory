@@ -32,12 +32,13 @@ RSpec.describe Usual::Conditions::Example5 do
         describe "because invalid invoice number" do
           let(:invoice_number) { "BB-7650AE" }
 
-          it "returns expected error" do
+          it "returns expected error", :aggregate_failures do
             expect { perform }.to(
-              raise_error(
-                ApplicationService::Errors::Failure,
-                "Invalid invoice number"
-              )
+              raise_error do |exception|
+                expect(exception).to be_a(ApplicationService::Errors::Failure)
+                expect(exception.type).to eq(:base)
+                expect(exception.message).to eq("Invalid invoice number")
+              end
             )
           end
         end
@@ -90,6 +91,7 @@ RSpec.describe Usual::Conditions::Example5 do
 
             expect(result.error).to be_a(ApplicationService::Errors::Failure)
             expect(result.error).to an_object_having_attributes(
+              type: :base,
               message: "Invalid invoice number"
             )
           end

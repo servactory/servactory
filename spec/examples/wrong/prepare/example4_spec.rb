@@ -19,12 +19,13 @@ RSpec.describe Wrong::Prepare::Example4 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        it "returns expected error" do
+        it "returns expected error", :aggregate_failures do
           expect { perform }.to(
-            raise_error(
-              ApplicationService::Errors::Failure,
-              "[Wrong::Prepare::Example4] Undefined method `+` for `nil`"
-            )
+            raise_error do |exception|
+              expect(exception).to be_a(ApplicationService::Errors::Failure)
+              expect(exception.type).to eq(:base)
+              expect(exception.message).to eq("[Wrong::Prepare::Example4] Undefined method `+` for `nil`")
+            end
           )
         end
       end
@@ -63,6 +64,7 @@ RSpec.describe Wrong::Prepare::Example4 do
 
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
+            type: :base,
             message: "[Wrong::Prepare::Example4] Undefined method `+` for `nil`"
           )
         end

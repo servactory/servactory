@@ -3,7 +3,7 @@ module Servactory
     module Attributes
       module Validations
         class Inclusion < Base
-          DEFAULT_MESSAGE: ^(service_class_name: String, input: Inputs::Input, value: untyped) -> String
+          DEFAULT_MESSAGE: ^(service_class_name: String, value: untyped, input: Inputs::Input?, internal: Internals::Internal?, output: Outputs::Output?) -> String
 
           @context: instance
           @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)

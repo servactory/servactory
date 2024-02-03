@@ -5,12 +5,14 @@ module Servactory
     module Attributes
       module Validations
         class Inclusion < Base
-          DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
+          DEFAULT_MESSAGE = lambda do |service_class_name:, value:, input: nil, internal: nil, output: nil|
+            attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
+
             I18n.t(
-              "servactory.#{input.i18n_name}.validations.inclusion.default_error",
+              "servactory.#{attribute.i18n_name}.validations.inclusion.default_error",
               service_class_name: service_class_name,
-              "#{input.system_name}_name": input.name,
-              input_inclusion: input.inclusion[:in],
+              "#{attribute.system_name}_name": attribute.name,
+              "#{attribute.system_name}_inclusion": attribute.inclusion[:in],
               value: value
             )
           end
