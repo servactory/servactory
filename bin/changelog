@@ -15,6 +15,6 @@ github_changelog_generator \
     \"documentation\": { \"prefix\": \"**Documentation:**\", \"labels\":[\"documentation\"] } \
   }"
 
-echo -e "---\ntitle: Changelog\nslug: changelog\nsidebar_label: Changelog\nsidebar_position: 4\npagination_label: Changelog\n---\n\n$(cat CHANGELOG.md)" > ../servactory.com/docs/CHANGELOG.md
+echo -e "---\ntitle: Changelog\nprev: false\nnext: false\n---\n\n$(cat CHANGELOG.md)" > ../servactory.com/docs/CHANGELOG.md
 
 cp ../servactory.com/docs/CHANGELOG.md ../servactory.com/i18n/ru/docusaurus-plugin-content-docs/current/CHANGELOG.md

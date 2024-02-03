@@ -7,8 +7,9 @@ module Servactory
         RESERVED_ATTRIBUTES = %i[type required default].freeze
         private_constant :RESERVED_ATTRIBUTES
 
-        def initialize(context:, collection_of_inputs:)
+        def initialize(context:, incoming_arguments:, collection_of_inputs:)
           @context = context
+          @incoming_arguments = incoming_arguments
           @collection_of_inputs = collection_of_inputs
         end
 
@@ -40,27 +41,30 @@ module Servactory
 
         private
 
-        def getter_with(name:, &block) # rubocop:disable Metrics/MethodLength, Lint/UnusedMethodArgument, Metrics/AbcSize
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
+        def getter_with(name:, &block)
           input_name = name.to_s.chomp("?").to_sym
           input = @collection_of_inputs.find_by(name: input_name)
 
           return yield if input.nil?
 
-          input.value = input.default if input.optional? && input.value.blank?
+          input_value = @incoming_arguments.fetch(input.name, nil)
+          input_value = input.default if input.optional? && input_value.blank?
 
           if input.hash_mode? && (tmp_schema = input.schema.fetch(:is)).present?
-            input.value = prepare_hash_values_inside(object: input.value, schema: tmp_schema)
+            input_value = prepare_hash_values_inside(object: input_value, schema: tmp_schema)
           end
 
           input_prepare = input.prepare.fetch(:in, nil)
-          input.value = input_prepare.call(value: input.value) if input_prepare.present?
+          input_value = input_prepare.call(value: input_value) if input_prepare.present?
 
           if name.to_s.end_with?("?")
-            Servactory::Utils.query_attribute(input.value)
+            Servactory::Utils.query_attribute(input_value)
           else
-            input.value
+            input_value
           end
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
 
         def prepare_hash_values_inside(object:, schema:) # rubocop:disable Metrics/MethodLength
           return object unless object.respond_to?(:fetch)

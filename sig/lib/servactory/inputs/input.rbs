@@ -1,15 +1,12 @@
 module Servactory
   module Inputs
     class Input
-      @collection_of_options: Maintenance::Attributes::OptionsCollection
-
-      attr_accessor value: untyped
-
       attr_reader name: Symbol
       attr_reader internal_name: Symbol?
       attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
       attr_reader hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection
       attr_reader option_helpers: Maintenance::Attributes::OptionHelpersCollection
+      attr_reader collection_of_options: Maintenance::Attributes::OptionsCollection
 
       def initialize: (
         Symbol name,
@@ -25,33 +22,25 @@ module Servactory
 
       def respond_to_missing?: (Symbol name, *untyped) -> void
 
+      def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Maintenance::Attributes::OptionsCollection
+
       def apply_helpers_for_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
-
-      def add_basic_options_with: (untyped options) -> void
-
-      def add_required_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
-
-      def add_types_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
-
-      def add_default_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
-
-      def add_collection_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
-
-      def add_hash_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
-
-      def add_inclusion_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
-
-      def add_must_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
-
-      def add_prepare_option_with: (untyped options) -> Maintenance::Attributes::OptionsCollection
-
-      def collection_of_options: -> Maintenance::Attributes::OptionsCollection
 
       def options_for_checks: () -> Hash[Symbol, untyped]
 
       def conflict_code: -> (Symbol | nil)
 
+      def system_name: -> Symbol
+
+      def i18n_name: -> String
+
       def with_conflicts?: -> bool
+
+      def input?: -> bool
+
+      def internal?: -> bool
+
+      def output?: -> bool
     end
   end
 end

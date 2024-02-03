@@ -1,0 +1,53 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Options
+        class Registrar
+          DEFAULT_FEATURES: Hash[Symbol, bool]
+
+          @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
+
+          @collection_mode_class_names: untyped
+
+          @hash_mode_class_names: untyped
+
+          @options: untyped
+
+          @features: untyped
+
+          @collection: Maintenance::Attributes::OptionsCollection
+
+          def self.register: (*untyped) ?{ () -> untyped } -> untyped
+
+          def initialize: (
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection,
+            hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection,
+            options: untyped,
+            features: Hash[Symbol, bool]
+          ) -> void
+
+          def register: () -> self
+
+          def register_required_option: () -> Maintenance::Attributes::OptionsCollection
+
+          def register_types_option: () -> Maintenance::Attributes::OptionsCollection
+
+          def register_default_option: () -> Maintenance::Attributes::OptionsCollection
+
+          def register_collection_option: () -> Maintenance::Attributes::OptionsCollection
+
+          def register_hash_option: () -> Maintenance::Attributes::OptionsCollection
+
+          def register_inclusion_option: () -> Maintenance::Attributes::OptionsCollection
+
+          def register_must_option: () -> Maintenance::Attributes::OptionsCollection
+
+          def register_prepare_option: () -> Maintenance::Attributes::OptionsCollection
+
+          def collection: () -> Maintenance::Attributes::OptionsCollection
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,15 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Validations
+        class Errors
+          extend Forwardable
+
+          @collection: Set[String]
+
+          def initialize: (*untyped) -> void
+        end
+      end
+    end
+  end
+end

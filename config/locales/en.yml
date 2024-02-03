@@ -1,10 +1,17 @@
 en:
   servactory:
+    common:
+      undefined_local_variable_or_method: "[%{service_class_name}] Undefined local variable or method `%{method_name}`"
+      undefined_method:
+        missing_name: "[%{service_class_name}] Undefined method `%{method_name}` for `%{missing_name}`"
+    methods:
+      call:
+        not_used: "[%{service_class_name}] Nothing to perform. Use `make` or create a `call` method."
     inputs:
       undefined:
         getter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
         setter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
-      checks:
+      validations:
         inclusion:
           default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
         must:
@@ -30,7 +37,12 @@ en:
       undefined:
         getter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
         setter: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
-      checks:
+      validations:
+        inclusion:
+          default_error: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`"
+        must:
+          default_error: "[%{service_class_name}] Internal attribute `%{internal_name}` must \"%{code}\""
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -43,7 +55,12 @@ en:
       undefined:
         getter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
         setter: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
-      checks:
+      validations:
+        inclusion:
+          default_error: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`"
+        must:
+          default_error: "[%{service_class_name}] Output attribute `%{output_name}` must \"%{code}\""
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -52,6 +69,3 @@ en:
               wrong_element_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Wrong type in output attribute hash `%{output_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
-    methods:
-      call:
-        not_used: Nothing to perform. Use `make` or create a `call` method.

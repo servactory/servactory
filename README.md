@@ -13,15 +13,15 @@
 </p>
 
 <p align="center">
-    <a href="https://rubygems.org/gems/servactory"><img src="https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff" alt="Gem version"></a>
-    <a href="https://github.com/afuno/servactory/releases"><img src="https://img.shields.io/github/release-date/afuno/servactory" alt="Release Date"></a>
+  <a href="https://rubygems.org/gems/servactory"><img src="https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff" alt="Gem version"></a>
+  <a href="https://github.com/afuno/servactory/releases"><img src="https://img.shields.io/github/release-date/afuno/servactory" alt="Release Date"></a>
 </p>
 
 ## Documentation
 
 See [servactory.com](https://servactory.com) for documentation.
 
-## Example
+## Quick Start
 
 ### Installation
 
@@ -29,7 +29,7 @@ See [servactory.com](https://servactory.com) for documentation.
 gem "servactory"
 ```
 
-### Service
+### Define service
 
 ```ruby
 class UserService::Authenticate < Servactory::Base
@@ -50,7 +50,7 @@ class UserService::Authenticate < Servactory::Base
 end
 ```
 
-### Usage
+### Usage in controller
 
 ```ruby
 class SessionsController < ApplicationController

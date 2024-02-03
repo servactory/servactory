@@ -3,10 +3,12 @@
 module Servactory
   module Errors
     class Failure < Base
-      attr_reader :message,
+      attr_reader :type,
+                  :message,
                   :meta
 
-      def initialize(message:, meta: nil)
+      def initialize(type:, message:, meta: nil)
+        @type = type
         @message = message
         @meta = meta
 

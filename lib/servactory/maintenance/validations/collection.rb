@@ -10,10 +10,10 @@ module Servactory
           new(...).validate
         end
 
-        def initialize(value:, types:, type:)
-          @value = value
+        def initialize(attribute:, types:, value:)
+          @attribute = attribute
           @types = types
-          @type = type
+          @value = value
 
           @errors = []
         end
@@ -39,20 +39,40 @@ module Servactory
 
         private
 
+        def validate_value!
+          return if unnecessary_types.empty?
+
+          add_error(
+            expected_type: attribute_consists_of_types.join(", "),
+            given_type: unnecessary_types.join(", ")
+          )
+        end
+
+        ########################################################################
+
         def prepared_type
           @prepared_type ||= @types.fetch(0, Array)
         end
 
-        def validate_value!
-          @value.each do |value_item|
-            next if value_item.is_a?(@type)
+        def attribute_consists_of_types
+          @attribute_consists_of_types ||= prepared_types_from(Array(@attribute.consists_of.fetch(:type, [])))
+        end
 
-            add_error(
-              expected_type: @type,
-              given_type: value_item.class.name
-            )
+        def unnecessary_types
+          @unnecessary_types ||= @value&.map(&:class)&.difference(attribute_consists_of_types).presence || []
+        end
+
+        def prepared_types_from(types)
+          types.map do |type|
+            if type.is_a?(String)
+              Object.const_get(type)
+            else
+              type
+            end
           end
         end
+
+        ########################################################################
 
         def add_error(expected_type:, given_type:)
           @errors << {
