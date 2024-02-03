@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Fail::Example2 do
+RSpec.describe Usual::Fail::Example3 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -36,7 +36,7 @@ RSpec.describe Usual::Fail::Example2 do
             expect { perform }.to(
               raise_error do |exception|
                 expect(exception).to be_a(ApplicationService::Errors::Failure)
-                expect(exception.type).to eq(:base)
+                expect(exception.type).to eq(:validation)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(invoice_number: "BB-7650AE")
               end
@@ -92,7 +92,7 @@ RSpec.describe Usual::Fail::Example2 do
 
             expect(result.error).to be_a(ApplicationService::Errors::Failure)
             expect(result.error).to an_object_having_attributes(
-              type: :base,
+              type: :validation,
               message: "Invalid invoice number",
               meta: {
                 invoice_number: "BB-7650AE"

@@ -46,8 +46,8 @@ module Servactory
         )
       end
 
-      def fail!(message:, meta: nil)
-        raise self.class.config.failure_class.new(message: message, meta: meta)
+      def fail!(type = :base, message:, meta: nil)
+        raise self.class.config.failure_class.new(type: type, message: message, meta: meta)
       end
 
       def fail_result!(service_result)
@@ -92,6 +92,7 @@ module Servactory
 
       def call
         raise self.class.config.failure_class.new(
+          type: :base,
           message: I18n.t(
             "servactory.methods.call.not_used",
             service_class_name: self.class.name

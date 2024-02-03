@@ -62,6 +62,7 @@ module Servactory
 
     def rescue_no_method_error_with(exception:)
       raise @context.class.config.failure_class.new(
+        type: :base,
         message: I18n.t(
           "servactory.common.undefined_method.missing_name",
           service_class_name: @context.class.name,

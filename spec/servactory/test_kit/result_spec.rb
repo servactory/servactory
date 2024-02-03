@@ -47,6 +47,7 @@ RSpec.describe Servactory::TestKit::Result do
     it :aggregate_failures do # rubocop:disable RSpec/RepeatedDescription
       result = described_class.as_failure(
         exception: Servactory::Errors::Failure.new(
+          type: :base,
           message: "Test error message"
         )
       )

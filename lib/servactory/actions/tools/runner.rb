@@ -92,6 +92,7 @@ module Servactory
 
         def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
           raise @context.class.config.failure_class.new(
+            type: :base,
             message: I18n.t(
               "servactory.common.undefined_method.missing_name",
               service_class_name: @context.class.name,
@@ -109,6 +110,7 @@ module Servactory
 
         def rescue_name_error_with(method:)
           raise @context.class.config.failure_class.new(
+            type: :base,
             message: I18n.t(
               "servactory.common.undefined_local_variable_or_method",
               service_class_name: @context.class.name,
