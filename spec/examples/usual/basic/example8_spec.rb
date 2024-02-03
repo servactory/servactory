@@ -50,7 +50,7 @@ RSpec.describe Usual::Basic::Example8 do
         describe "because wrong password" do
           let(:password) { "wrong_password" }
 
-          it "returns expected error" do
+          it "returns expected error", :aggregate_failures do
             expect { perform }.to(
               raise_error do |exception|
                 expect(exception).to be_a(ApplicationService::Errors::Failure)
