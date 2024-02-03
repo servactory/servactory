@@ -17,7 +17,7 @@ module Servactory
 
         def not_mandatory(name, type)
           Servactory::Maintenance::Attributes::OptionHelper.new(
-            name: "#{name}?".to_sym,
+            name: :"#{name}?",
             equivalent: {
               type: type,
               required: false,
@@ -26,7 +26,7 @@ module Servactory
           )
         end
 
-        def all
+        def all # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           Set[
             symbol, symbol?,
             string, string?,
