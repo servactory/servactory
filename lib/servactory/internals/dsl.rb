@@ -16,11 +16,13 @@ module Servactory
 
         private
 
-        def internal(name, **options)
+        def internal(name, *helpers, **options)
           collection_of_internals << Internal.new(
             name,
+            *helpers,
             collection_mode_class_names: config.collection_mode_class_names,
             hash_mode_class_names: config.hash_mode_class_names,
+            option_helpers: config.internal_option_helpers,
             **options
           )
         end
