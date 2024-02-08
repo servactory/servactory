@@ -11,6 +11,10 @@ module Servactory
 
     def inspect: () -> String
 
+    def on_success: () -> self
+
+    def on_failure: (Symbol type) -> self
+
     def respond_to_missing?: -> void
 
     private
