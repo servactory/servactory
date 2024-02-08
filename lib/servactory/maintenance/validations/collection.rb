@@ -10,10 +10,10 @@ module Servactory
           new(...).validate
         end
 
-        def initialize(attribute:, types:, value:)
-          @attribute = attribute
+        def initialize(types:, value:, consists_of:)
           @types = types
           @value = value
+          @consists_of = consists_of
 
           @errors = []
         end
@@ -28,7 +28,7 @@ module Servactory
             return self
           end
 
-          validate_value!
+          validate_for!(values: @value)
 
           self
         end
@@ -39,13 +39,21 @@ module Servactory
 
         private
 
-        def validate_value!
-          return if unnecessary_types.empty?
+        def validate_for!(values:) # rubocop:disable Metrics/MethodLength
+          values.each do |value|
+            value_type = value.class
 
-          add_error(
-            expected_type: attribute_consists_of_types.join(", "),
-            given_type: unnecessary_types.join(", ")
-          )
+            if value_type == Array
+              validate_for!(values: value)
+            else
+              next if attribute_consists_of_types.include?(value_type)
+
+              add_error(
+                expected_type: attribute_consists_of_types.join(", "),
+                given_type: value_type.name
+              )
+            end
+          end
         end
 
         ########################################################################
@@ -55,11 +63,7 @@ module Servactory
         end
 
         def attribute_consists_of_types
-          @attribute_consists_of_types ||= prepared_types_from(Array(@attribute.consists_of.fetch(:type, [])))
-        end
-
-        def unnecessary_types
-          @unnecessary_types ||= @value&.map(&:class)&.difference(attribute_consists_of_types).presence || []
+          @attribute_consists_of_types ||= prepared_types_from(Array(@consists_of.fetch(:type, [])))
         end
 
         def prepared_types_from(types)
