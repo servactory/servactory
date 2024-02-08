@@ -9,10 +9,10 @@ module Servactory
 
       def initialize: (
         Symbol name,
-          *Symbol helpers,
+        *Symbol helpers,
         collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection,
         hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection,
-          option_helpers: Maintenance::Attributes::OptionHelpersCollection,
+        option_helpers: Maintenance::Attributes::OptionHelpersCollection,
         **untyped options
       ) -> void
 
