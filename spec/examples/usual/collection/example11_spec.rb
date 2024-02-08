@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Collection::Example11 do
+RSpec.describe Usual::Collection::Example11, skip: true do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 

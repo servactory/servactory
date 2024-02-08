@@ -71,7 +71,9 @@ module Servactory
           def call_or_fetch_message_from(code, options)
             check, message = options.values_at(:is, :message)
 
-            return if check.call(value: @value)
+            return check.call(input: @attribute, value: @value) if @attribute.input?
+            return check.call(internal: @attribute, value: @value) if @attribute.internal?
+            return check.call(output: @attribute, value: @value) if @attribute.output?
 
             message.presence || DEFAULT_MESSAGE
           rescue StandardError => e

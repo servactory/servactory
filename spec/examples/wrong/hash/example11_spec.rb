@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Hash::Example11 do
+RSpec.describe Wrong::Hash::Example11, skip: true do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 

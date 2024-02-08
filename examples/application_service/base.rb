@@ -14,6 +14,12 @@ module ApplicationService
       internal_error_class ApplicationService::Errors::InternalError
 
       failure_class ApplicationService::Errors::Failure
+
+      input_option_helpers(
+        [
+          Servactory::Maintenance::Attributes::OptionHelpers::Validations::Types.apply
+        ]
+      )
     end
   end
 end
