@@ -3,10 +3,6 @@
 module Usual
   module ActionAliases
     class Example1 < ApplicationService::Base
-      configuration do
-        action_aliases %i[play do_it!]
-      end
-
       output :number, type: Integer
 
       play :assign_number

@@ -3,26 +3,6 @@
 module Usual
   module InputOptionHelpers
     class Example1 < ApplicationService::Base
-      configuration do
-        input_option_helpers(
-          [
-            Servactory::Maintenance::Attributes::OptionHelper.new(
-              name: :must_be_6_characters,
-              equivalent: {
-                must: {
-                  be_6_characters: {
-                    is: ->(value:) { value.all? { |id| id.size == 6 } },
-                    message: lambda do |input:, **|
-                      "Wrong IDs in `#{input.name}`"
-                    end
-                  }
-                }
-              }
-            )
-          ]
-        )
-      end
-
       input :invoice_numbers,
             :must_be_6_characters,
             type: Array,

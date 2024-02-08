@@ -3,10 +3,6 @@
 module Usual
   module ActionShortcuts
     class Example1 < ApplicationService::Base
-      configuration do
-        action_shortcuts %i[assign]
-      end
-
       output :number, type: Integer
 
       assign :number

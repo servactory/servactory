@@ -24,7 +24,7 @@ module Servactory
 
       def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Maintenance::Attributes::OptionsCollection
 
-      def apply_helpers_for_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def apply_helpers_for_options: (helpers: (Array[Symbol] | Hash[Symbol, untyped]), options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
 
       def options_for_checks: () -> Hash[Symbol, untyped]
 
