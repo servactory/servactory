@@ -2,6 +2,39 @@
 
 module Servactory
   class Result
+    class Outputs
+      def initialize(outputs)
+        assign_instance_variables_from(outputs)
+        define_methods_from(outputs)
+      end
+
+      def assign_instance_variables_from(outputs)
+        outputs.each do |key, value|
+          instance_variable_set(:"@#{key}", value)
+        end
+      end
+
+      def define_methods_from(outputs)
+        instance_eval(define_methods_template_from(outputs))
+
+        self
+      end
+
+      def define_methods_template_from(outputs)
+        outputs.map do |key, value|
+          <<-RUBY
+            def #{key}
+              #{value}
+            end
+          RUBY
+        end.join("\n")
+      end
+    end
+
+    private_constant :Outputs
+
+    ############################################################################
+
     def self.success_for(...)
       new(...).send(:as_success)
     end
@@ -20,7 +53,10 @@ module Servactory
     end
 
     def on_success
-      yield if success?
+      if success?
+        outputs = Outputs.new(@context.send(:servactory_service_storage).fetch(:outputs))
+        yield(outputs: outputs)
+      end
 
       self
     end

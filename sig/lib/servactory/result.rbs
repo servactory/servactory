@@ -3,6 +3,16 @@ module Servactory
     @context: instance?
     @exception: Exception?
 
+    class Outputs
+      def initialize: (Hash[Symbol, untyped] outputs) -> void
+
+      def assign_instance_variables_from: (Hash[Symbol, untyped] outputs) -> void
+
+      def define_methods_from: (Hash[Symbol, untyped] outputs) -> self
+
+      def define_methods_template_from: (Hash[Symbol, untyped] outputs) -> String
+    end
+
     def self.success_for: (*untyped) -> self
 
     def self.failure_for: (*untyped) -> self
