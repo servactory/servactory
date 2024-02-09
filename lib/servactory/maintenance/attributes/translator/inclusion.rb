@@ -8,8 +8,14 @@ module Servactory
           module_function
 
           def default # rubocop:disable Metrics/MethodLength
-            lambda do
-            |service_class_name:, value:, attribute_inclusion:, input_name: nil, internal_name: nil, output_name: nil|
+            lambda do |
+              service_class_name:,
+              value:,
+              attribute_inclusion:,
+              input_name: nil,
+              internal_name: nil,
+              output_name: nil
+            | # do
               attribute_key, attribute_i18n, attribute_name = Servactory::Utils.define_attribute_name_with(
                 input_name: input_name,
                 internal_name: internal_name,

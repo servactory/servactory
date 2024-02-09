@@ -15,7 +15,7 @@ RSpec.describe Wrong::Must::Example7 do
           expect { perform }.to(
             raise_error(
               ArgumentError,
-              "missing keyword: :internal"
+              "missing keyword: :internal_name"
             )
           )
         end
@@ -37,7 +37,7 @@ RSpec.describe Wrong::Must::Example7 do
           expect { perform }.to(
             raise_error(
               ArgumentError,
-              "missing keyword: :internal"
+              "missing keyword: :internal_name"
             )
           )
         end

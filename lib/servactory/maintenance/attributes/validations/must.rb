@@ -56,7 +56,7 @@ module Servactory
             add_error(
               message: message,
               service_class_name: @context.class.name,
-              "#{@attribute.system_name}": @attribute,
+              "#{@attribute.system_name}_name": @attribute.name,
               value: @value,
               code: code
             )
@@ -66,7 +66,7 @@ module Servactory
             add_error(
               message: message,
               service_class_name: @context.class.name,
-              "#{@attribute.system_name}": @attribute,
+              "#{@attribute.system_name}_name": @attribute.name,
               value: @value,
               code: code,
               exception_message: exception_message

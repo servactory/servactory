@@ -9,8 +9,8 @@ module Wrong
              must: {
                be_6_characters: {
                  is: ->(value:) { value.all? { |id| id.size == 6 } },
-                 message: lambda do |output:, **|
-                   "Wrong IDs in `#{output.name}`"
+                 message: lambda do |output_name:, **|
+                   "Wrong IDs in `#{output_name}`"
                  end
                }
              }

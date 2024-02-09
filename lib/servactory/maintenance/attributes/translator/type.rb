@@ -10,14 +10,28 @@ module Servactory
           def default # rubocop:disable Metrics/MethodLength
             lambda do |service_class_name:, attribute:, value:, key_name:, expected_type:, given_type:|
               if attribute.collection_mode?
-                for_collection_mode_with(service_class_name: service_class_name, attribute: attribute, value: value,
-                                         expected_type: expected_type, given_type: given_type)
+                for_collection_mode_with(
+                  service_class_name: service_class_name,
+                  attribute: attribute,
+                  value: value,
+                  expected_type: expected_type,
+                  given_type: given_type
+                )
               elsif attribute.hash_mode? && key_name.present?
-                for_hash_mode_with(service_class_name: service_class_name, attribute: attribute, key_name: key_name,
-                                   expected_type: expected_type, given_type: given_type)
+                for_hash_mode_with(
+                  service_class_name: service_class_name,
+                  attribute: attribute,
+                  key_name: key_name,
+                  expected_type: expected_type,
+                  given_type: given_type
+                )
               else
-                for_others_with(service_class_name: service_class_name, attribute: attribute,
-                                expected_type: expected_type, given_type: given_type)
+                for_others_with(
+                  service_class_name: service_class_name,
+                  attribute: attribute,
+                  expected_type: expected_type,
+                  given_type: given_type
+                )
               end
             end
           end

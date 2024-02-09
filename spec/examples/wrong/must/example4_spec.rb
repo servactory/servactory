@@ -15,7 +15,7 @@ RSpec.describe Wrong::Must::Example4 do
           expect { perform }.to(
             raise_error(
               ArgumentError,
-              "missing keyword: :input"
+              "missing keyword: :input_name"
             )
           )
         end
@@ -37,7 +37,7 @@ RSpec.describe Wrong::Must::Example4 do
           expect { perform }.to(
             raise_error(
               ArgumentError,
-              "missing keyword: :input"
+              "missing keyword: :input_name"
             )
           )
         end
