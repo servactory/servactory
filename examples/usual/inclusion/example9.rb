@@ -7,8 +7,8 @@ module Usual
             type: String,
             inclusion: {
               in: %w[created rejected approved],
-              message: lambda do |input:, value:, **|
-                value.present? ? "Incorrect `#{input.name}` specified: `#{value}`" : "Event name not specified"
+              message: lambda do |input_name:, value:, **|
+                value.present? ? "Incorrect `#{input_name}` specified: `#{value}`" : "Event name not specified"
               end
             }
 
@@ -16,8 +16,8 @@ module Usual
                type: String,
                inclusion: {
                  in: %w[rejected approved],
-                 message: lambda do |internal:, value:, **|
-                   value.present? ? "Incorrect `#{internal.name}` specified: `#{value}`" : "Event name not specified"
+                 message: lambda do |internal_name:, value:, **|
+                   value.present? ? "Incorrect `#{internal_name}` specified: `#{value}`" : "Event name not specified"
                  end
                }
 
@@ -25,8 +25,8 @@ module Usual
              type: String,
              inclusion: {
                in: %w[approved],
-               message: lambda do |output:, value:, **|
-                 value.present? ? "Incorrect `#{output.name}` specified: `#{value}`" : "Event name not specified"
+               message: lambda do |output_name:, value:, **|
+                 value.present? ? "Incorrect `#{output_name}` specified: `#{value}`" : "Event name not specified"
                end
              }
 

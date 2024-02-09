@@ -9,8 +9,8 @@ module Usual
             type: String,
             inclusion: {
               in: %w[created rejected approved],
-              message: lambda do |input:, value:, **|
-                value.present? ? "Incorrect `#{input.name}` specified: `#{value}`" : "Event name not specified"
+              message: lambda do |input_name:, value:, **|
+                value.present? ? "Incorrect `#{input_name}` specified: `#{value}`" : "Event name not specified"
               end
             }
 

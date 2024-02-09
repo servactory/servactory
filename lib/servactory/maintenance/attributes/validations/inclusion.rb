@@ -52,7 +52,8 @@ module Servactory
             add_error(
               message: message.presence || Servactory::Maintenance::Attributes::Translator::Inclusion.default,
               service_class_name: @context.class.name,
-              "#{@attribute.system_name}": @attribute,
+              "#{@attribute.system_name}_name": @attribute.name,
+              attribute_inclusion: @attribute.inclusion[:in],
               value: @value
             )
           end

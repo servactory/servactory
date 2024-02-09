@@ -7,15 +7,20 @@ module Servactory
         module Inclusion
           module_function
 
-          def default
-            lambda do |service_class_name:, value:, input: nil, internal: nil, output: nil|
-              attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
+          def default # rubocop:disable Metrics/MethodLength
+            lambda do
+            |service_class_name:, value:, attribute_inclusion:, input_name: nil, internal_name: nil, output_name: nil|
+              attribute_key, attribute_i18n, attribute_name = Servactory::Utils.define_attribute_name_with(
+                input_name: input_name,
+                internal_name: internal_name,
+                output_name: output_name
+              )
 
               I18n.t(
-                "servactory.#{attribute.i18n_name}.validations.inclusion.default_error",
+                "servactory.#{attribute_i18n}.validations.inclusion.default_error",
                 service_class_name: service_class_name,
-                "#{attribute.system_name}_name": attribute.name,
-                "#{attribute.system_name}_inclusion": attribute.inclusion[:in],
+                "#{attribute_key}_name": attribute_name,
+                "#{attribute_key}_inclusion": attribute_inclusion,
                 value: value
               )
             end

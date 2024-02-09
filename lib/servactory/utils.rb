@@ -4,6 +4,14 @@ module Servactory
   module Utils
     module_function
 
+    def define_attribute_name_with(input_name:, internal_name:, output_name:)
+      return [:input, :inputs, input_name] if input_name.present?
+      return [:internal, :internals, internal_name] if internal_name.present?
+      return [:output, :outputs, output_name] if output_name.present?
+
+      raise ArgumentError, "missing keyword: :input_name, :internal_name or :output_name"
+    end
+
     def define_attribute_with(input:, internal:, output:)
       return input if input.present?
       return internal if internal.present?
