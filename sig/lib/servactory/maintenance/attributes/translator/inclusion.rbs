@@ -1,0 +1,11 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Translator
+        module Inclusion
+          def self?.default: () -> Proc
+        end
+      end
+    end
+  end
+end

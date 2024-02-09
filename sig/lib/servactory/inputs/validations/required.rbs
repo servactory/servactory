@@ -2,8 +2,6 @@ module Servactory
   module Inputs
     module Validations
       class Required < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, input: Input, value: untyped) -> String
-
         @context: instance
         @input: Input
         @value: untyped

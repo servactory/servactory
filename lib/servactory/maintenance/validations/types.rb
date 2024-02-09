@@ -3,78 +3,7 @@
 module Servactory
   module Maintenance
     module Validations
-      class Types # rubocop:disable Metrics/ClassLength
-        DEFAULT_MESSAGE = lambda do | # rubocop:disable Metrics/BlockLength
-          service_class_name:,
-          attribute:,
-          value:,
-          key_name:,
-          expected_type:,
-          given_type:
-        | # do
-          if attribute.collection_mode?
-            collection_message = attribute.consists_of.fetch(:message)
-
-            if collection_message.is_a?(Proc)
-              collection_message.call(
-                "#{attribute.system_name}_name": attribute.name,
-                expected_type: expected_type,
-                given_type: given_type
-              )
-            elsif collection_message.is_a?(String) && collection_message.present?
-              collection_message
-            elsif value.is_a?(attribute.types.fetch(0, Array))
-              I18n.t(
-                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_element_type",
-                service_class_name: service_class_name,
-                "#{attribute.system_name}_name": attribute.name,
-                expected_type: expected_type,
-                given_type: given_type
-              )
-            else
-              I18n.t(
-                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_type",
-                service_class_name: service_class_name,
-                "#{attribute.system_name}_name": attribute.name,
-                expected_type: attribute.types.fetch(0, Array),
-                given_type: value.class.name
-              )
-            end
-          elsif attribute.hash_mode? && key_name.present?
-            hash_message = attribute.schema.fetch(:message)
-
-            if hash_message.is_a?(Proc)
-              hash_message.call(
-                "#{attribute.system_name}_name": attribute.name,
-                key_name: key_name,
-                expected_type: expected_type,
-                given_type: given_type
-              )
-            elsif hash_message.is_a?(String) && hash_message.present?
-              hash_message
-            else
-              I18n.t(
-                "servactory.#{attribute.i18n_name}.validations.type.default_error.for_hash.wrong_element_type",
-                service_class_name: service_class_name,
-                "#{attribute.system_name}_name": attribute.name,
-                key_name: key_name,
-                expected_type: expected_type,
-                given_type: given_type
-              )
-            end
-          else
-            I18n.t(
-              "servactory.#{attribute.i18n_name}.validations.type.default_error.default",
-              service_class_name: service_class_name,
-              "#{attribute.system_name}_name": attribute.name,
-              expected_type: expected_type,
-              given_type: given_type
-            )
-          end
-        end
-
-        private_constant :DEFAULT_MESSAGE
-
+      class Types
         def self.validate!(...)
           new(...).validate!
         end
@@ -114,7 +43,7 @@ module Servactory
 
           if (first_error = collection_validator&.errors&.first).present?
             return @error_callback.call(
-              message: DEFAULT_MESSAGE,
+              message: Servactory::Maintenance::Attributes::Translator::Type.default,
               service_class_name: @context.class.name,
               attribute: @attribute,
               value: @value,
@@ -126,7 +55,7 @@ module Servactory
 
           if (first_error = object_schema_validator&.errors&.first).present?
             return @error_callback.call(
-              message: DEFAULT_MESSAGE,
+              message: Servactory::Maintenance::Attributes::Translator::Type.default,
               service_class_name: @context.class.name,
               attribute: @attribute,
               value: @value,
@@ -137,7 +66,7 @@ module Servactory
           end
 
           @error_callback.call(
-            message: DEFAULT_MESSAGE,
+            message: Servactory::Maintenance::Attributes::Translator::Type.default,
             service_class_name: @context.class.name,
             attribute: @attribute,
             value: @value,

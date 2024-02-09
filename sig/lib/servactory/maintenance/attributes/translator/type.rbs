@@ -1,0 +1,38 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Translator
+        module Type
+          extend ::Servactory::Maintenance::Attributes::Translator::Type
+
+          def default: () -> Proc
+
+          private
+
+          def for_collection_mode_with: (
+              service_class_name: String,
+              attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+              value: untyped,
+              expected_type: String,
+              given_type: String
+            ) -> String
+
+          def for_hash_mode_with: (
+              service_class_name: String,
+              attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+              key_name: untyped,
+              expected_type: String,
+              given_type: String
+            ) -> String
+
+          def for_others_with: (
+              service_class_name: String,
+              attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+              expected_type: String,
+              given_type: String
+            ) -> String
+        end
+      end
+    end
+  end
+end

@@ -4,19 +4,6 @@ module Servactory
   module Inputs
     module Validations
       class Required < Base
-        DEFAULT_MESSAGE = lambda do |service_class_name:, input:, value:|
-          i18n_key = "servactory.inputs.validations.required.default_error."
-          i18n_key += input.collection_mode? && value.present? ? "for_collection" : "default"
-
-          I18n.t(
-            i18n_key,
-            service_class_name: service_class_name,
-            input_name: input.name
-          )
-        end
-
-        private_constant :DEFAULT_MESSAGE
-
         def self.check(context:, attribute:, value:, check_key:, **)
           return unless should_be_checked_for?(attribute, check_key)
 
@@ -53,7 +40,7 @@ module Servactory
 
         def add_error_with(message)
           add_error(
-            message: message.presence || DEFAULT_MESSAGE,
+            message: message.presence || Servactory::Inputs::Translator::Required.default,
             service_class_name: @context.class.name,
             input: @input,
             value: @value

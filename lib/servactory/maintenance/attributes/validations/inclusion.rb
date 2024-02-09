@@ -5,20 +5,6 @@ module Servactory
     module Attributes
       module Validations
         class Inclusion < Base
-          DEFAULT_MESSAGE = lambda do |service_class_name:, value:, input: nil, internal: nil, output: nil|
-            attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
-
-            I18n.t(
-              "servactory.#{attribute.i18n_name}.validations.inclusion.default_error",
-              service_class_name: service_class_name,
-              "#{attribute.system_name}_name": attribute.name,
-              "#{attribute.system_name}_inclusion": attribute.inclusion[:in],
-              value: value
-            )
-          end
-
-          private_constant :DEFAULT_MESSAGE
-
           def self.check(context:, attribute:, value:, check_key:, **)
             return unless should_be_checked_for?(attribute, value, check_key)
 
@@ -64,7 +50,7 @@ module Servactory
 
           def add_error_with(message)
             add_error(
-              message: message.presence || DEFAULT_MESSAGE,
+              message: message.presence || Servactory::Maintenance::Attributes::Translator::Inclusion.default,
               service_class_name: @context.class.name,
               "#{@attribute.system_name}": @attribute,
               value: @value

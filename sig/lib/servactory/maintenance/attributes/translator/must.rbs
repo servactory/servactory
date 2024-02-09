@@ -1,0 +1,13 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Translator
+        module Must
+          def self?.default: () -> Proc
+
+          def self?.syntax_error: () -> Proc
+        end
+      end
+    end
+  end
+end
