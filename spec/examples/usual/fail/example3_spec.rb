@@ -85,7 +85,18 @@ RSpec.describe Usual::Fail::Example3 do
         describe "because invalid invoice number" do
           let(:invoice_number) { "BB-7650AE" }
 
-          include_examples "failure result class"
+          # include_examples "failure result class"
+
+          it "returns failure result class", :aggregate_failures do
+            result = perform
+
+            expect(result).to be_a(Servactory::Result)
+            expect(result.success?).to be(false)
+            expect(result.failure?).to be(true)
+            expect(result.failure?(:all)).to be(true)
+            expect(result.failure?(:base)).to be(false)
+            expect(result.failure?(:validation)).to be(true)
+          end
 
           it "returns the expected value in `errors`", :aggregate_failures do
             result = perform

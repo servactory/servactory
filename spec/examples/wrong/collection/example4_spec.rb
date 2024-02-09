@@ -15,7 +15,8 @@ RSpec.describe Wrong::Collection::Example4 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputError,
-              "[Wrong::Collection::Example4] Wrong element type in output attribute collection `ids`, expected `String`"
+              "[Wrong::Collection::Example4] Wrong element type in output attribute " \
+              "collection `ids`, expected `String`, got `Integer`"
             )
           )
         end
@@ -37,7 +38,8 @@ RSpec.describe Wrong::Collection::Example4 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Errors::OutputError,
-              "[Wrong::Collection::Example4] Wrong element type in output attribute collection `ids`, expected `String`"
+              "[Wrong::Collection::Example4] Wrong element type in output attribute " \
+              "collection `ids`, expected `String`, got `Integer`"
             )
           )
         end

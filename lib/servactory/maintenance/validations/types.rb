@@ -22,9 +22,9 @@ module Servactory
 
           if @attribute.collection_mode?
             collection_validator = Servactory::Maintenance::Validations::Collection.validate(
-              attribute: @attribute,
               types: @types,
-              value: @value
+              value: @value,
+              consists_of: @attribute.consists_of
             )
 
             return if collection_validator.valid?

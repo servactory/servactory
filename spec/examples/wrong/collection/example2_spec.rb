@@ -31,7 +31,7 @@ RSpec.describe Wrong::Collection::Example2 do
             raise_error(
               ApplicationService::Errors::InternalError,
               "[Wrong::Collection::Example2] Wrong element type in internal attribute " \
-              "collection `ids`, expected `String`"
+              "collection `ids`, expected `String`, got `Integer`"
             )
           )
         end
@@ -77,7 +77,7 @@ RSpec.describe Wrong::Collection::Example2 do
             raise_error(
               ApplicationService::Errors::InternalError,
               "[Wrong::Collection::Example2] Wrong element type in internal attribute " \
-              "collection `ids`, expected `String`"
+              "collection `ids`, expected `String`, got `Integer`"
             )
           )
         end
