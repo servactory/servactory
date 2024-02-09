@@ -16,6 +16,10 @@ module Servactory
 
         private
 
+        def collection_valid?: -> bool
+
+        def collection_valid_for?: (values: Array[untyped]) -> bool
+
         def add_error_with: (String? message) -> void
       end
     end

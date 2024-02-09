@@ -19,6 +19,18 @@ module Servactory
       "#<#{self.class.name} #{draw_result}>"
     end
 
+    def on_success
+      yield if success?
+
+      self
+    end
+
+    def on_failure(type = :all)
+      yield(exception: @exception) if failure? && [:all, @exception&.type].include?(type)
+
+      self
+    end
+
     def method_missing(name, *_args)
       super
     rescue NoMethodError => e
@@ -47,7 +59,12 @@ module Servactory
       define_singleton_method(:error) { @exception }
 
       define_singleton_method(:success?) { false }
-      define_singleton_method(:failure?) { true }
+
+      define_singleton_method(:failure?) do |type = :all|
+        return true if [:all, @exception&.type].include?(type)
+
+        false
+      end
 
       self
     end
@@ -61,6 +78,8 @@ module Servactory
     ########################################################################
 
     def rescue_no_method_error_with(exception:)
+      raise exception if @context.blank?
+
       raise @context.class.config.failure_class.new(
         type: :base,
         message: I18n.t(

@@ -48,7 +48,7 @@ en:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_collection:
               wrong_type: "[%{service_class_name}] Wrong internal attribute collection type `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
-              wrong_element_type: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Wrong type in internal attribute hash `%{internal_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
     outputs:
@@ -66,6 +66,6 @@ en:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_collection:
               wrong_type: "[%{service_class_name}] Wrong output attribute collection type `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
-              wrong_element_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Wrong type in output attribute hash `%{output_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
