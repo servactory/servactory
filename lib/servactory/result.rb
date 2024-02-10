@@ -4,30 +4,10 @@ module Servactory
   class Result
     class Outputs
       def initialize(outputs)
-        assign_instance_variables_from(outputs)
-        define_methods_from(outputs)
-      end
-
-      def assign_instance_variables_from(outputs)
-        outputs.each do |key, value|
-          instance_variable_set(:"@#{key}", value)
+        outputs.each_pair do |key, value|
+          define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) }
+          define_singleton_method(key) { value }
         end
-      end
-
-      def define_methods_from(outputs)
-        instance_eval(define_methods_template_from(outputs))
-
-        self
-      end
-
-      def define_methods_template_from(outputs)
-        outputs.map do |key, value|
-          <<-RUBY
-            def #{key}
-              #{value}
-            end
-          RUBY
-        end.join("\n")
       end
     end
 
