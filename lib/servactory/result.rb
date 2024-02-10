@@ -15,12 +15,12 @@ module Servactory
 
     ############################################################################
 
-    def self.success_for(...)
-      new(...).send(:as_success)
+    def self.success_for(context:)
+      new(context: context).send(:as_success)
     end
 
-    def self.failure_for(...)
-      new(...).send(:as_failure)
+    def self.failure_for(exception:)
+      new(exception: exception).send(:as_failure)
     end
 
     def initialize(context: nil, exception: nil)

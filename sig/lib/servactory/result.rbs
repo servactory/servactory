@@ -8,9 +8,9 @@ module Servactory
       def initialize: (Hash[Symbol, untyped] outputs) -> void
     end
 
-    def self.success_for: (*untyped) -> self
+    def self.success_for: (context: instance) -> self
 
-    def self.failure_for: (*untyped) -> self
+    def self.failure_for: (exception: Exception) -> self
 
     def initialize: (?context: instance?, ?exception: Exception?) -> void
 
