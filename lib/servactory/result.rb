@@ -33,10 +33,7 @@ module Servactory
     end
 
     def on_success
-      if success?
-        outputs = Outputs.new(@context.send(:servactory_service_storage).fetch(:outputs))
-        yield(outputs: outputs)
-      end
+      yield(outputs: outputs) if success?
 
       self
     end
@@ -63,9 +60,11 @@ module Servactory
       define_singleton_method(:success?) { true }
       define_singleton_method(:failure?) { false }
 
-      @context.send(:servactory_service_storage).fetch(:outputs).each_pair do |key, value|
-        define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) }
-        define_singleton_method(key) { value }
+      outputs.methods(false).each do |method_name|
+        method_value = outputs.send(method_name)
+
+        define_singleton_method(:"#{method_name}?") { Servactory::Utils.query_attribute(method_value) }
+        define_singleton_method(method_name) { method_value }
       end
 
       self
@@ -89,6 +88,10 @@ module Servactory
       methods(false).sort.map do |method_name|
         "@#{method_name}=#{send(method_name)}"
       end.join(", ")
+    end
+
+    def outputs
+      @outputs ||= Outputs.new(@context.send(:servactory_service_storage).fetch(:outputs))
     end
 
     ########################################################################
