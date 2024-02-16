@@ -2,7 +2,7 @@
 
 module Servactory
   module Errors
-    class OutputError < Base
+    class OutputError < Servactory::Exceptions::Base
       attr_reader :message,
                   :output_name
 
