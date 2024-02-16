@@ -9,6 +9,8 @@ module Servactory
 
       def internal_error_class: (Errors::InternalError internal_error_class) -> Errors::InternalError
 
+      def success_class: (Exceptions::Success success_class) -> Exceptions::Success
+
       def failure_class: (Errors::Failure failure_class) -> Errors::Failure
 
       def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> Maintenance::CollectionMode::ClassNamesCollection

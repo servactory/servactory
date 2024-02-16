@@ -6,6 +6,7 @@ module Servactory
       attr_accessor :input_error_class,
                     :internal_error_class,
                     :output_error_class,
+                    :success_class,
                     :failure_class,
                     :collection_mode_class_names,
                     :hash_mode_class_names,
@@ -20,6 +21,7 @@ module Servactory
         @internal_error_class = Servactory::Errors::InternalError
         @output_error_class = Servactory::Errors::OutputError
 
+        @success_class = Servactory::Exceptions::Success
         @failure_class = Servactory::Errors::Failure
 
         @collection_mode_class_names =

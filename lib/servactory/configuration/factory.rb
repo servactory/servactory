@@ -19,6 +19,10 @@ module Servactory
         @config.internal_error_class = internal_error_class
       end
 
+      def success_class(success_class)
+        @config.success_class = success_class
+      end
+
       def failure_class(failure_class)
         @config.failure_class = failure_class
       end
