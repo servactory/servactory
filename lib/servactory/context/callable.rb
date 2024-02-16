@@ -16,6 +16,8 @@ module Servactory
         )
 
         Servactory::Result.success_for(context: context)
+      rescue config.success_class => e
+        Servactory::Result.success_for(context: e.context)
       end
 
       def call(arguments = {})
