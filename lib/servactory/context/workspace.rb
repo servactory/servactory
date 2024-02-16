@@ -25,6 +25,10 @@ module Servactory
         )
       end
 
+      def success!
+        raise self.class.config.success_class.new(context: self)
+      end
+
       def fail_input!(input_name, message:)
         raise self.class.config.input_error_class.new(
           input_name: input_name,
