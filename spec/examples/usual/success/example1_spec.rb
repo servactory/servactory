@@ -30,7 +30,7 @@ RSpec.describe Usual::Success::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
+      context "when `number`" do
         it_behaves_like "input required check", name: :number
         it_behaves_like "input type check", name: :number, expected_type: Integer
       end
@@ -66,7 +66,7 @@ RSpec.describe Usual::Success::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
+      context "when `number`" do
         it_behaves_like "input required check", name: :number
         it_behaves_like "input type check", name: :number, expected_type: Integer
       end
