@@ -3,7 +3,7 @@
 module Servactory
   module Context
     module Callable
-      def call!(arguments = {})
+      def call!(arguments = {}) # rubocop:disable Metrics/MethodLength
         context = send(:new)
 
         context.send(

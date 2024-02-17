@@ -2,7 +2,7 @@
 
 module Servactory
   module Context
-    module Workspace
+    module Workspace # rubocop:disable Metrics/ModuleLength
       def inputs
         @inputs ||= Inputs.new(
           context: self,
