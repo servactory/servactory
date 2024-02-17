@@ -21,10 +21,22 @@ RSpec.describe Usual::Success::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `number`" do
-          result = perform
+        context "when `number` has a value for early success" do
+          it "returns the expected value in `number`" do
+            result = perform
 
-          expect(result.number).to eq(2)
+            expect(result.number).to eq(2)
+          end
+        end
+
+        context "when `number` has no value for early success" do
+          let(:number) { 2 }
+
+          it "returns the expected value in `number`" do
+            result = perform
+
+            expect(result.number).to eq(16)
+          end
         end
       end
     end
@@ -57,10 +69,22 @@ RSpec.describe Usual::Success::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `number`" do
-          result = perform
+        context "when `number` has a value for early success" do
+          it "returns the expected value in `number`" do
+            result = perform
 
-          expect(result.number).to eq(2)
+            expect(result.number).to eq(2)
+          end
+        end
+
+        context "when `number` has no value for early success" do
+          let(:number) { 2 }
+
+          it "returns the expected value in `number`" do
+            result = perform
+
+            expect(result.number).to eq(16)
+          end
         end
       end
     end
