@@ -7,7 +7,7 @@ module Servactory
         module Inclusion
           module_function
 
-          def default
+          def default_message
             lambda do |service_class_name:, value:, input: nil, internal: nil, output: nil|
               attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
 

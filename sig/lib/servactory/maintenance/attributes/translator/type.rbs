@@ -5,7 +5,7 @@ module Servactory
         module Type
           extend ::Servactory::Maintenance::Attributes::Translator::Type
 
-          def default: () -> Proc
+          def default_message: () -> Proc
 
           private
 

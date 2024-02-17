@@ -48,7 +48,7 @@ module Servactory
 
         def add_error_with(message)
           add_error(
-            message: message.presence || Servactory::Inputs::Translator::Required.default,
+            message: message.presence || Servactory::Inputs::Translator::Required.default_message,
             service_class_name: @context.class.name,
             input: @input,
             value: @value

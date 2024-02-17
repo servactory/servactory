@@ -50,7 +50,7 @@ module Servactory
 
           def add_error_with(message)
             add_error(
-              message: message.presence || Servactory::Maintenance::Attributes::Translator::Inclusion.default,
+              message: message.presence || Servactory::Maintenance::Attributes::Translator::Inclusion.default_message,
               service_class_name: @context.class.name,
               "#{@attribute.system_name}": @attribute,
               value: @value
