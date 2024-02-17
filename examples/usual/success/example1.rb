@@ -11,7 +11,7 @@ module Usual
 
       make :complete_service!
 
-      make :assign_number_2
+      make :multiply_by_4
 
       private
 
