@@ -8,7 +8,6 @@ module ApplicationService
       ApplicationService::Extensions::StatusActive::DSL
     )
 
-
     configuration do
       # DEPRECATED: Use `Servactory::Exceptions::Input` instead
       # input_error_class ApplicationService::Errors::InputError
