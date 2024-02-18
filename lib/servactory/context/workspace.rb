@@ -2,7 +2,7 @@
 
 module Servactory
   module Context
-    module Workspace
+    module Workspace # rubocop:disable Metrics/ModuleLength
       def inputs
         @inputs ||= Inputs.new(
           context: self,
@@ -23,6 +23,10 @@ module Servactory
           context: self,
           collection_of_outputs: collection_of_outputs
         )
+      end
+
+      def success!
+        raise self.class.config.success_class.new(context: self)
       end
 
       def fail_input!(input_name, message:)

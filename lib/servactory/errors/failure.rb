@@ -2,7 +2,7 @@
 
 module Servactory
   module Errors
-    class Failure < Base
+    class Failure < Servactory::Exceptions::Base
       attr_reader :type,
                   :message,
                   :meta
