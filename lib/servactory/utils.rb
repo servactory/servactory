@@ -12,14 +12,6 @@ module Servactory
       raise ArgumentError, "missing keyword: :input_name, :internal_name or :output_name"
     end
 
-    def define_attribute_with(input:, internal:, output:)
-      return input if input.present?
-      return internal if internal.present?
-      return output if output.present?
-
-      raise ArgumentError, "missing keyword: :input, :internal or :output"
-    end
-
     FALSE_VALUES = [
       false,
       nil, "",
