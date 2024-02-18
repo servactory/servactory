@@ -5,34 +5,6 @@ module Servactory
     module Attributes
       module Validations
         class Must < Base
-          DEFAULT_MESSAGE = lambda do |service_class_name:, value:, code:, input: nil, internal: nil, output: nil|
-            attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
-
-            I18n.t(
-              "servactory.#{attribute.i18n_name}.validations.must.default_error",
-              service_class_name: service_class_name,
-              "#{attribute.system_name}_name": attribute.name,
-              value: value,
-              code: code
-            )
-          end
-
-          SYNTAX_ERROR_MESSAGE = lambda do
-            |service_class_name:, value:, code:, exception_message:, input: nil, internal: nil, output: nil|
-            attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
-
-            I18n.t(
-              "servactory.#{attribute.i18n_name}.validations.must.syntax_error",
-              service_class_name: service_class_name,
-              "#{attribute.system_name}_name": attribute.name,
-              value: value,
-              code: code,
-              exception_message: exception_message
-            )
-          end
-
-          private_constant :DEFAULT_MESSAGE, :SYNTAX_ERROR_MESSAGE
-
           def self.check(context:, attribute:, value:, check_key:, check_options:)
             return unless should_be_checked_for?(attribute, check_key)
 
@@ -73,9 +45,13 @@ module Servactory
 
             return if check.call(value: @value)
 
-            message.presence || DEFAULT_MESSAGE
+            message.presence || Servactory::Maintenance::Attributes::Translator::Must.default_message
           rescue StandardError => e
-            add_syntax_error_with(SYNTAX_ERROR_MESSAGE, code, e.message)
+            add_syntax_error_with(
+              Servactory::Maintenance::Attributes::Translator::Must.syntax_error_message,
+              code,
+              e.message
+            )
           end
 
           ########################################################################

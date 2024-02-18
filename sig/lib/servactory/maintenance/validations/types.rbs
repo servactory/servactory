@@ -2,15 +2,6 @@ module Servactory
   module Maintenance
     module Validations
       class Types
-        DEFAULT_MESSAGE: ^(
-          service_class_name: String,
-          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-          key_name: Symbol,
-          expected_type: String,
-          given_type: String,
-          ** untyped
-        ) -> String
-
         @context: instance
         @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
         @types: Array[Class]

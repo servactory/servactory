@@ -3,9 +3,6 @@ module Servactory
     module Attributes
       module Validations
         class Must < Base
-          DEFAULT_MESSAGE: ^(service_class_name: String, value: untyped, code: Symbol, input: Inputs::Input?, internal: Internals::Internal?, output: Outputs::Output?) -> Proc
-          SYNTAX_ERROR_MESSAGE: ^(service_class_name: String, value: untyped, code: Symbol, exception_message: String, input: Inputs::Input?, internal: Internals::Internal?, output: Outputs::Output?) -> Proc
-
           @check_options: untyped
           @context: instance
           @attribute: Inputs::Input
