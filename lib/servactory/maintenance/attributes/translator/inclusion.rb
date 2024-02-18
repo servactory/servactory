@@ -7,7 +7,7 @@ module Servactory
         module Inclusion
           module_function
 
-          def default # rubocop:disable Metrics/MethodLength
+          def default_message # rubocop:disable Metrics/MethodLength
             lambda do |
               service_class_name:,
               value:,

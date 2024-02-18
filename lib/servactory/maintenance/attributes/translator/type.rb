@@ -7,7 +7,7 @@ module Servactory
         module Type
           extend self
 
-          def default # rubocop:disable Metrics/MethodLength
+          def default_message # rubocop:disable Metrics/MethodLength
             lambda do |service_class_name:, attribute:, value:, key_name:, expected_type:, given_type:|
               if attribute.collection_mode?
                 for_collection_mode_with(

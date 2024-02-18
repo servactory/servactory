@@ -7,7 +7,7 @@ module Servactory
         module Must
           module_function
 
-          def default
+          def default_message
             lambda do |service_class_name:, value:, code:, input_name: nil, internal_name: nil, output_name: nil|
               attribute_key, attribute_i18n, attribute_name = Servactory::Utils.define_attribute_name_with(
                 input_name: input_name,
@@ -25,7 +25,7 @@ module Servactory
             end
           end
 
-          def syntax_error # rubocop:disable Metrics/MethodLength
+          def syntax_error_message # rubocop:disable Metrics/MethodLength
             lambda do |
               service_class_name:,
               value:,

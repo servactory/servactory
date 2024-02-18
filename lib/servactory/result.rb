@@ -2,12 +2,25 @@
 
 module Servactory
   class Result
-    def self.success_for(...)
-      new(...).send(:as_success)
+    class Outputs
+      def initialize(outputs)
+        outputs.each_pair do |key, value|
+          define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) }
+          define_singleton_method(key) { value }
+        end
+      end
     end
 
-    def self.failure_for(...)
-      new(...).send(:as_failure)
+    private_constant :Outputs
+
+    ############################################################################
+
+    def self.success_for(context:)
+      new(context: context).send(:as_success)
+    end
+
+    def self.failure_for(exception:)
+      new(exception: exception).send(:as_failure)
     end
 
     def initialize(context: nil, exception: nil)
@@ -20,7 +33,7 @@ module Servactory
     end
 
     def on_success
-      yield if success?
+      yield(outputs: outputs) if success?
 
       self
     end
@@ -47,9 +60,11 @@ module Servactory
       define_singleton_method(:success?) { true }
       define_singleton_method(:failure?) { false }
 
-      @context.send(:servactory_service_storage).fetch(:outputs).each_pair do |key, value|
-        define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) }
-        define_singleton_method(key) { value }
+      outputs.methods(false).each do |method_name|
+        method_value = outputs.send(method_name)
+
+        define_singleton_method(:"#{method_name}?") { Servactory::Utils.query_attribute(method_value) }
+        define_singleton_method(method_name) { method_value }
       end
 
       self
@@ -73,6 +88,10 @@ module Servactory
       methods(false).sort.map do |method_name|
         "@#{method_name}=#{send(method_name)}"
       end.join(", ")
+    end
+
+    def outputs
+      @outputs ||= Outputs.new(@context.send(:servactory_service_storage).fetch(:outputs))
     end
 
     ########################################################################

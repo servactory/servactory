@@ -45,9 +45,13 @@ module Servactory
 
             return if check.call(value: @value)
 
-            message.presence || Servactory::Maintenance::Attributes::Translator::Must.default
+            message.presence || Servactory::Maintenance::Attributes::Translator::Must.default_message
           rescue StandardError => e
-            add_syntax_error_with(Servactory::Maintenance::Attributes::Translator::Must.syntax_error, code, e.message)
+            add_syntax_error_with(
+              Servactory::Maintenance::Attributes::Translator::Must.syntax_error_message,
+              code,
+              e.message
+            )
           end
 
           ########################################################################
