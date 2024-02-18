@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Errors
-    # DEPRECATED: Use `Servactory::Exceptions::Output` instead
-    class OutputError < Servactory::Exceptions::Base
+  module Exceptions
+    class Output < Base
       attr_reader :message,
                   :output_name
 

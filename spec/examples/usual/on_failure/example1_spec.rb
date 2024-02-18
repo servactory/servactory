@@ -14,7 +14,7 @@ RSpec.describe Usual::OnFailure::Example1 do
         it "returns expected error", :aggregate_failures do
           expect { perform }.to(
             raise_error do |exception|
-              expect(exception).to be_a(ApplicationService::Errors::Failure)
+              expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:validation)
               expect(exception.message).to eq("Validation error")
             end

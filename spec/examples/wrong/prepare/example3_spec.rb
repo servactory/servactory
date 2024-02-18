@@ -29,7 +29,7 @@ RSpec.describe Wrong::Prepare::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Prepare::Example3] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
             )
           )
@@ -45,7 +45,7 @@ RSpec.describe Wrong::Prepare::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Prepare::Example3] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
               )
             )
@@ -58,7 +58,7 @@ RSpec.describe Wrong::Prepare::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Prepare::Example3] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
               )
             )
@@ -96,7 +96,7 @@ RSpec.describe Wrong::Prepare::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Prepare::Example3] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
             )
           )
@@ -112,7 +112,7 @@ RSpec.describe Wrong::Prepare::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Prepare::Example3] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
               )
             )
@@ -125,7 +125,7 @@ RSpec.describe Wrong::Prepare::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Prepare::Example3] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
               )
             )

@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Errors
-    # DEPRECATED: Use `Servactory::Exceptions::Failure` instead
-    class Failure < Servactory::Exceptions::Base
+  module Exceptions
+    class Failure < Base
       attr_reader :type,
                   :message,
                   :meta

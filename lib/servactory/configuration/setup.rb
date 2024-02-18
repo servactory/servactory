@@ -17,12 +17,12 @@ module Servactory
                     :action_shortcuts
 
       def initialize # rubocop:disable Metrics/MethodLength
-        @input_error_class = Servactory::Errors::InputError
-        @internal_error_class = Servactory::Errors::InternalError
-        @output_error_class = Servactory::Errors::OutputError
+        @input_error_class = Servactory::Exceptions::Input
+        @internal_error_class = Servactory::Exceptions::Internal
+        @output_error_class = Servactory::Exceptions::Output
 
         @success_class = Servactory::Exceptions::Success
-        @failure_class = Servactory::Errors::Failure
+        @failure_class = Servactory::Exceptions::Failure
 
         @collection_mode_class_names =
           Servactory::Maintenance::CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)

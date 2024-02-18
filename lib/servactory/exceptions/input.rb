@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Errors
-    # DEPRECATED: Use `Servactory::Exceptions::Input` instead
-    class InputError < Servactory::Exceptions::Base
+  module Exceptions
+    class Input < Base
       attr_reader :message,
                   :input_name
 

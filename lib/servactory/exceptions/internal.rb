@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Errors
-    # DEPRECATED: Use `Servactory::Exceptions::Internal` instead
-    class InternalError < Servactory::Exceptions::Base
+  module Exceptions
+    class Internal < Base
       attr_reader :message,
                   :internal_name
 

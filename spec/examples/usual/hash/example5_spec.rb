@@ -54,7 +54,7 @@ RSpec.describe Usual::Hash::Example5 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "Problem with the value in the `payload` schema: `number` has `Integer` instead of `String`"
               )
             )
@@ -124,7 +124,7 @@ RSpec.describe Usual::Hash::Example5 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "Problem with the value in the `payload` schema: `number` has `Integer` instead of `String`"
               )
             )
