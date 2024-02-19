@@ -61,10 +61,7 @@ module Servactory
       define_singleton_method(:failure?) { false }
 
       outputs.methods(false).each do |method_name|
-        method_value = outputs.send(method_name)
-
-        define_singleton_method(:"#{method_name}?") { Servactory::Utils.query_attribute(method_value) }
-        define_singleton_method(method_name) { method_value }
+        define_singleton_method(method_name) { outputs.send(method_name) }
       end
 
       self
