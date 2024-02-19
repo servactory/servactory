@@ -1,5 +1,32 @@
 # Changelog
 
+## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.1.1...HEAD)
+
+**Implemented enhancements:**
+
+- Add `success!` method for early success [\#162](https://github.com/servactory/servactory/pull/162) ([afuno](https://github.com/afuno))
+- Add `outputs` attribute for `on_success` [\#161](https://github.com/servactory/servactory/pull/161) ([afuno](https://github.com/afuno))
+- Move error translations to separate place [\#159](https://github.com/servactory/servactory/pull/159) ([afuno](https://github.com/afuno))
+- Add helper support for `internal` and `output` [\#158](https://github.com/servactory/servactory/pull/158) ([afuno](https://github.com/afuno))
+- Add support for `on_success` and `on_failure` methods for `Result` [\#155](https://github.com/servactory/servactory/pull/155) ([afuno](https://github.com/afuno))
+- Add support for `type` option for `fail!` method [\#154](https://github.com/servactory/servactory/pull/154) ([afuno](https://github.com/afuno))
+- Add support for `inclusion` option for `internal` and `output` [\#153](https://github.com/servactory/servactory/pull/153) ([afuno](https://github.com/afuno))
+- Improve examples in tests [\#152](https://github.com/servactory/servactory/pull/152) ([afuno](https://github.com/afuno))
+- Improve exception handling and exception texts [\#150](https://github.com/servactory/servactory/pull/150) ([afuno](https://github.com/afuno))
+- Add support for `must` option for `output` [\#149](https://github.com/servactory/servactory/pull/149) ([afuno](https://github.com/afuno))
+- Add support for `must` option for `internal` [\#148](https://github.com/servactory/servactory/pull/148) ([afuno](https://github.com/afuno))
+- Add support for nested types for `consists_of` option [\#142](https://github.com/servactory/servactory/pull/142) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[03.02.2024\] Update libraries [\#157](https://github.com/servactory/servactory/pull/157) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
+- Add support for Rails versions from 4.2 to 5.2 [\#151](https://github.com/servactory/servactory/pull/151) ([afuno](https://github.com/afuno))
+
 ## [v2.1.1](https://github.com/servactory/servactory/tree/v2.1.1) (2024-01-10)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.1.0...v2.1.1)
@@ -29,8 +56,8 @@
 
 **Dependencies:**
 
-- Update libraries from 16.12.2023 [\#141](https://github.com/servactory/servactory/pull/141) ([afuno](https://github.com/afuno))
 - Update libraries from 12.12.2023 [\#138](https://github.com/servactory/servactory/pull/138) ([afuno](https://github.com/afuno))
+- Update libraries from 16.12.2023 [\#141](https://github.com/servactory/servactory/pull/141) ([afuno](https://github.com/afuno))
 
 ## [v2.0.4](https://github.com/servactory/servactory/tree/v2.0.4) (2023-12-18)
 
