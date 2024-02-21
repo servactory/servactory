@@ -150,7 +150,7 @@ PLATFORMS
 
 DEPENDENCIES
   appraisal (~> 2.5)
-  async (~> 2.1)
+  async (~> 2.0)
   pry (~> 0.14)
   rake (~> 13.0)
   rbs (~> 3.1.3)

@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "zeitwerk", "~> 2.6"
 
   spec.add_development_dependency "appraisal", "~> 2.5"
-  spec.add_development_dependency "async", "~> 2.1"
+  spec.add_development_dependency "async", "~> 2.0"
   spec.add_development_dependency "pry", "~> 0.14"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rbs", "~> 3.1.3"
