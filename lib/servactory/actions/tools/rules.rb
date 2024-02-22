@@ -48,6 +48,10 @@ module Servactory
 
           formatted_text = method_names.map { |method_name| "`#{method_name}`" }.join(", ")
 
+          raise_message_with!(formatted_text)
+        end
+
+        def raise_message_with!(formatted_text)
           raise @context.class.config.failure_class.new(
             type: :base,
             message: I18n.t(
