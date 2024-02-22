@@ -42,11 +42,11 @@ module Servactory
         end
 
         def check_in!(list_of_methods)
-          method_names = RESERVED_METHOD_NAMES & list_of_methods
+          found_reserved_names = RESERVED_METHOD_NAMES & list_of_methods
 
-          return if method_names.empty?
+          return if found_reserved_names.empty?
 
-          formatted_text = method_names.map { |method_name| "`#{method_name}`" }.join(", ")
+          formatted_text = found_reserved_names.map { |method_name| "`#{method_name}`" }.join(", ")
 
           raise_message_with!(formatted_text)
         end
