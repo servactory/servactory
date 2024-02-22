@@ -12,6 +12,7 @@ module Servactory
           fail_output!
           fail_result!
         ].freeze
+        private_constant :RESERVED_METHOD_NAMES
 
         def self.check!(...)
           new(...).check!
