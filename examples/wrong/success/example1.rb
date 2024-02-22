@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 module Wrong
-  module Fail
+  module Success
     class Example1 < ApplicationService::Base
       make :smth
 
       private
 
       def smth
-        # ...
+        success!
       end
 
-      def fail!
+      def success!
         # ...
       end
     end

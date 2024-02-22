@@ -2,7 +2,7 @@
 
 module Wrong
   module Fail
-    class Example1 < ApplicationService::Base
+    class Example2 < ApplicationService::Base
       make :smth
 
       private
@@ -11,7 +11,7 @@ module Wrong
         # ...
       end
 
-      def fail!
+      def fail_input!
         # ...
       end
     end

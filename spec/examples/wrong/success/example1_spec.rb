@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Fail::Example1 do
+RSpec.describe Wrong::Success::Example1 do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
@@ -17,7 +17,7 @@ RSpec.describe Wrong::Fail::Example1 do
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
               expect(exception.message).to(
-                eq("[Wrong::Fail::Example1] The following methods cannot be overwritten: `fail!`")
+                eq("[Wrong::Success::Example1] The following methods cannot be overwritten: `success!`")
               )
             end
           )
@@ -42,7 +42,7 @@ RSpec.describe Wrong::Fail::Example1 do
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :base,
-            message: "[Wrong::Fail::Example1] The following methods cannot be overwritten: `fail!`"
+            message: "[Wrong::Success::Example1] The following methods cannot be overwritten: `success!`"
           )
         end
       end
