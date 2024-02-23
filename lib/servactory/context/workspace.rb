@@ -55,7 +55,7 @@ module Servactory
       end
 
       def fail_result!(service_result)
-        fail!(message: service_result.error.message, meta: service_result.error.meta)
+        fail!(service_result.error.type, message: service_result.error.message, meta: service_result.error.meta)
       end
 
       private
