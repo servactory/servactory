@@ -1,0 +1,255 @@
+# frozen_string_literal: true
+
+RSpec.describe Usual::OutputOptionHelpers::Example1 do
+  describe ".call!" do
+    subject(:perform) { described_class.call!(**attributes) }
+
+    let(:attributes) do
+      {
+        invoice_numbers: invoice_numbers
+      }
+    end
+
+    let(:invoice_numbers) do
+      %w[
+        7650AE
+        B4EA1B
+        A7BC86
+        BD2D6B
+      ]
+    end
+
+    include_examples "check class info",
+                     inputs: %i[invoice_numbers],
+                     internals: %i[],
+                     outputs: [:invoice_numbers]
+
+    context "when the input arguments are valid" do
+      describe "and the data required for work is also valid" do
+        include_examples "success result class"
+
+        it "returns the expected value in `invoice_numbers`", :aggregate_failures do
+          result = perform
+
+          expect(result.invoice_numbers).to contain_exactly("7650AE", "B4EA1B", "A7BC86", "BD2D6B")
+        end
+      end
+
+      describe "but the data required for work is invalid" do
+        describe "because one element does not match the condition" do
+          let(:invoice_numbers) do
+            %w[
+              7650AE
+              B4EA1B
+              A7BC86XXX
+              BD2D6B
+            ]
+          end
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::OutputError,
+                "Wrong IDs in `invoice_numbers`"
+              )
+            )
+          end
+        end
+
+        describe "because one element has the wrong type" do
+          let(:invoice_numbers) do
+            [
+              "7650AE",
+              123,
+              "A7BC86"
+            ]
+          end
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Usual::OutputOptionHelpers::Example1] Wrong type in input " \
+                "collection `invoice_numbers`, expected `String`, got `Integer`"
+              )
+            )
+          end
+        end
+
+        describe "because one element is empty" do
+          let(:invoice_numbers) do
+            [
+              "7650AE",
+              "",
+              "A7BC86"
+            ]
+          end
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Usual::OutputOptionHelpers::Example1] Required element in input " \
+                "collection `invoice_numbers` is missing"
+              )
+            )
+          end
+        end
+
+        describe "because one element is nil" do
+          let(:invoice_numbers) do
+            [
+              "7650AE",
+              nil,
+              "A7BC86"
+            ]
+          end
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Usual::OutputOptionHelpers::Example1] Required element in input " \
+                "collection `invoice_numbers` is missing"
+              )
+            )
+          end
+        end
+      end
+    end
+
+    context "when the input arguments are invalid" do
+      context "when `invoice_numbers`" do
+        it_behaves_like "input required check", name: :invoice_numbers
+
+        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
+      end
+    end
+  end
+
+  describe ".call" do
+    subject(:perform) { described_class.call(**attributes) }
+
+    let(:attributes) do
+      {
+        invoice_numbers: invoice_numbers
+      }
+    end
+
+    let(:invoice_numbers) do
+      %w[
+        7650AE
+        B4EA1B
+        A7BC86
+        BD2D6B
+      ]
+    end
+
+    include_examples "check class info",
+                     inputs: %i[invoice_numbers],
+                     internals: %i[],
+                     outputs: [:invoice_numbers]
+
+    context "when the input arguments are valid" do
+      describe "and the data required for work is also valid" do
+        include_examples "success result class"
+
+        it "returns the expected value in `invoice_numbers`", :aggregate_failures do
+          result = perform
+
+          expect(result.invoice_numbers).to contain_exactly("7650AE", "B4EA1B", "A7BC86", "BD2D6B")
+        end
+      end
+
+      describe "but the data required for work is invalid" do
+        describe "because one element does not match the condition" do
+          let(:invoice_numbers) do
+            %w[
+              7650AE
+              B4EA1B
+              A7BC86XXX
+              BD2D6B
+            ]
+          end
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::OutputError,
+                "Wrong IDs in `invoice_numbers`"
+              )
+            )
+          end
+        end
+
+        describe "because one element has the wrong type" do
+          let(:invoice_numbers) do
+            [
+              "7650AE",
+              123,
+              "A7BC86"
+            ]
+          end
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Usual::OutputOptionHelpers::Example1] Wrong type in input " \
+                "collection `invoice_numbers`, expected `String`, got `Integer`"
+              )
+            )
+          end
+        end
+
+        describe "because one element is empty" do
+          let(:invoice_numbers) do
+            [
+              "7650AE",
+              "",
+              "A7BC86"
+            ]
+          end
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Usual::OutputOptionHelpers::Example1] Required element in input " \
+                "collection `invoice_numbers` is missing"
+              )
+            )
+          end
+        end
+
+        describe "because one element is nil" do
+          let(:invoice_numbers) do
+            [
+              "7650AE",
+              nil,
+              "A7BC86"
+            ]
+          end
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Errors::InputError,
+                "[Usual::OutputOptionHelpers::Example1] Required element in input " \
+                "collection `invoice_numbers` is missing"
+              )
+            )
+          end
+        end
+      end
+    end
+
+    context "when the input arguments are invalid" do
+      context "when `invoice_numbers`" do
+        it_behaves_like "input required check", name: :invoice_numbers
+
+        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
+      end
+    end
+  end
+end
