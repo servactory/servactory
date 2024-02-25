@@ -8,7 +8,7 @@ module Wrong
       private
 
       def smth
-        success!
+        # ...
       end
 
       def success!
