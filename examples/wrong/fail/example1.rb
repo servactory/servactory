@@ -11,7 +11,23 @@ module Wrong
         # ...
       end
 
+      def fail_input!
+        # ...
+      end
+
+      def fail_internal!
+        # ...
+      end
+
+      def fail_output!
+        # ...
+      end
+
       def fail!
+        # ...
+      end
+
+      def fail_result!
         # ...
       end
     end

@@ -3,16 +3,16 @@
 module Wrong
   module Fail
     class Example2 < ApplicationService::Base
-      make :smth
+      output :number, type: Integer
+
+      make :assign_number
 
       private
 
-      def smth
-        # ...
-      end
+      def assign_number
+        fail!(message: "There's some problem with `number`")
 
-      def fail_input!
-        # ...
+        outputs.number = 123
       end
     end
   end

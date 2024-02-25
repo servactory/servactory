@@ -16,9 +16,8 @@ RSpec.describe Wrong::Fail::Example3 do
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
-              expect(exception.message).to(
-                eq("[Wrong::Fail::Example3] The following methods cannot be overwritten: `fail_internal!`")
-              )
+              expect(exception.message).to eq("Some error")
+              expect(exception.meta).to match({ some: :data })
             end
           )
         end
@@ -42,7 +41,10 @@ RSpec.describe Wrong::Fail::Example3 do
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :base,
-            message: "[Wrong::Fail::Example3] The following methods cannot be overwritten: `fail_internal!`"
+            message: "Some error",
+            meta: {
+              some: :data
+            }
           )
         end
       end

@@ -7,7 +7,7 @@ RSpec.describe Wrong::Fail::Example2 do
     include_examples "check class info",
                      inputs: %i[],
                      internals: %i[],
-                     outputs: %i[]
+                     outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -16,9 +16,7 @@ RSpec.describe Wrong::Fail::Example2 do
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
-              expect(exception.message).to(
-                eq("[Wrong::Fail::Example2] The following methods cannot be overwritten: `fail_input!`")
-              )
+              expect(exception.message).to eq("There's some problem with `number`")
             end
           )
         end
@@ -32,7 +30,7 @@ RSpec.describe Wrong::Fail::Example2 do
     include_examples "check class info",
                      inputs: %i[],
                      internals: %i[],
-                     outputs: %i[]
+                     outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -42,7 +40,7 @@ RSpec.describe Wrong::Fail::Example2 do
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :base,
-            message: "[Wrong::Fail::Example2] The following methods cannot be overwritten: `fail_input!`"
+            message: "There's some problem with `number`"
           )
         end
       end

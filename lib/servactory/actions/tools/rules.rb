@@ -5,11 +5,14 @@ module Servactory
     module Tools
       class Rules
         RESERVED_METHOD_NAMES = %i[
+          inputs
+          internals
+          outputs
           success!
-          fail!
           fail_input!
           fail_internal!
           fail_output!
+          fail!
           fail_result!
         ].freeze
         private_constant :RESERVED_METHOD_NAMES
