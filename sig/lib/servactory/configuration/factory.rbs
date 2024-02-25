@@ -17,6 +17,10 @@ module Servactory
 
       def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
 
+      def internal_option_helpers: (Array[Hash[Symbol, untyped]] internal_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+
+      def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+
       def action_aliases: (Array[Symbol] action_aliases) -> Actions::Aliases::Collection
 
       def action_shortcuts: (Array[Symbol] action_shortcuts) -> Actions::Shortcuts::Collection
