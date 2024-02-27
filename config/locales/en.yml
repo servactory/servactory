@@ -7,6 +7,7 @@ en:
     methods:
       call:
         not_used: "[%{service_class_name}] Nothing to perform. Use `make` or create a `call` method."
+      cannot_be_overwritten: "[%{service_class_name}] The following methods cannot be overwritten: %{list_of_methods}"
     inputs:
       undefined:
         getter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"

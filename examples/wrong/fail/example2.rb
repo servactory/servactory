@@ -2,7 +2,7 @@
 
 module Wrong
   module Fail
-    class Example7 < ApplicationService::Base
+    class Example2 < ApplicationService::Base
       output :number, type: Integer
 
       make :assign_number

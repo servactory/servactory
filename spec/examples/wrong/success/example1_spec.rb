@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Fail::Example7 do
+RSpec.describe Wrong::Success::Example1 do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
     include_examples "check class info",
                      inputs: %i[],
                      internals: %i[],
-                     outputs: %i[number]
+                     outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -16,7 +16,9 @@ RSpec.describe Wrong::Fail::Example7 do
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
-              expect(exception.message).to eq("There's some problem with `number`")
+              expect(exception.message).to(
+                eq("[Wrong::Success::Example1] The following methods cannot be overwritten: `success!`")
+              )
             end
           )
         end
@@ -30,7 +32,7 @@ RSpec.describe Wrong::Fail::Example7 do
     include_examples "check class info",
                      inputs: %i[],
                      internals: %i[],
-                     outputs: %i[number]
+                     outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -40,7 +42,7 @@ RSpec.describe Wrong::Fail::Example7 do
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :base,
-            message: "There's some problem with `number`"
+            message: "[Wrong::Success::Example1] The following methods cannot be overwritten: `success!`"
           )
         end
       end
