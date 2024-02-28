@@ -22,6 +22,7 @@ RSpec.describe Wrong::Basic::Example12 do
                   "`inputs`, `internals`, `outputs`"
                 )
               )
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -46,7 +47,8 @@ RSpec.describe Wrong::Basic::Example12 do
           expect(result.error).to an_object_having_attributes(
             type: :base,
             message: "[Wrong::Basic::Example12] The following methods cannot be overwritten: " \
-                     "`inputs`, `internals`, `outputs`"
+                     "`inputs`, `internals`, `outputs`",
+            meta: nil
           )
         end
       end

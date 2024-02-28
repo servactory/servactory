@@ -19,6 +19,7 @@ RSpec.describe Wrong::Success::Example1 do
               expect(exception.message).to(
                 eq("[Wrong::Success::Example1] The following methods cannot be overwritten: `success!`")
               )
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -42,7 +43,8 @@ RSpec.describe Wrong::Success::Example1 do
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :base,
-            message: "[Wrong::Success::Example1] The following methods cannot be overwritten: `success!`"
+            message: "[Wrong::Success::Example1] The following methods cannot be overwritten: `success!`",
+            meta: nil
           )
         end
       end

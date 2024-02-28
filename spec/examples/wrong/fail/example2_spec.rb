@@ -17,6 +17,7 @@ RSpec.describe Wrong::Fail::Example2 do
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
               expect(exception.message).to eq("There's some problem with `number`")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -40,7 +41,8 @@ RSpec.describe Wrong::Fail::Example2 do
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :base,
-            message: "There's some problem with `number`"
+            message: "There's some problem with `number`",
+            meta: nil
           )
         end
       end

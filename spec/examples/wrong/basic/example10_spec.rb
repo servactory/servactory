@@ -19,6 +19,7 @@ RSpec.describe Wrong::Basic::Example10 do
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
               expect(exception.message).to eq("[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -44,6 +45,7 @@ RSpec.describe Wrong::Basic::Example10 do
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
               expect(exception.message).to eq("[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`")
+              expect(exception.meta).to be_nil
             end
           )
         end

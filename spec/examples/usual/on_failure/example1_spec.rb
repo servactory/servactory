@@ -17,6 +17,7 @@ RSpec.describe Usual::OnFailure::Example1 do
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:validation)
               expect(exception.message).to eq("Validation error")
+              expect(exception.meta).to be_nil
             end
           )
         end
