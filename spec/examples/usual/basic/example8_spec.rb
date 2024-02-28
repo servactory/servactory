@@ -123,7 +123,7 @@ RSpec.describe Usual::Basic::Example8 do
               type: :base,
               message: "Authentication failed",
               meta: nil
-                                    )
+            )
           end
         end
 
