@@ -22,6 +22,7 @@ RSpec.describe Wrong::Fail::Example1 do
                   "`fail_input!`, `fail_internal!`, `fail_output!`, `fail!`, `fail_result!`"
                 )
               )
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -46,7 +47,8 @@ RSpec.describe Wrong::Fail::Example1 do
           expect(result.error).to an_object_having_attributes(
             type: :base,
             message: "[Wrong::Fail::Example1] The following methods cannot be overwritten: " \
-                     "`fail_input!`, `fail_internal!`, `fail_output!`, `fail!`, `fail_result!`"
+                     "`fail_input!`, `fail_internal!`, `fail_output!`, `fail!`, `fail_result!`",
+            meta: nil
           )
         end
       end
