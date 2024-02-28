@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.2.1](https://github.com/servactory/servactory/tree/v2.2.1) (2024-02-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.2.0...v2.2.1)
+
+**Fixed:**
+
+- Add default value for `type` in `Failure` [\#170](https://github.com/servactory/servactory/pull/170) ([afuno](https://github.com/afuno))
+
 ## [v2.2.0](https://github.com/servactory/servactory/tree/v2.2.0) (2024-02-28)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.2.0.rc4...v2.2.0)
