@@ -1,24 +1,22 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Basic::Example10 do
+RSpec.describe Wrong::Fail::Example2 do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
     include_examples "check class info",
                      inputs: %i[],
                      internals: %i[],
-                     outputs: %i[value]
+                     outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         it "returns expected error", :aggregate_failures do
-          result = perform
-
-          expect { result.fake_value }.to(
+          expect { perform }.to(
             raise_error do |exception|
-              expect(exception).to be_a(ApplicationService::Exceptions::Failure)
+              expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
-              expect(exception.message).to eq("[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`")
+              expect(exception.message).to eq("There's some problem with `number`")
               expect(exception.meta).to be_nil
             end
           )
@@ -33,20 +31,18 @@ RSpec.describe Wrong::Basic::Example10 do
     include_examples "check class info",
                      inputs: %i[],
                      internals: %i[],
-                     outputs: %i[value]
+                     outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        it "returns expected error", :aggregate_failures do
+        it "returns the expected value in `errors`", :aggregate_failures do
           result = perform
 
-          expect { result.fake_value }.to(
-            raise_error do |exception|
-              expect(exception).to be_a(ApplicationService::Exceptions::Failure)
-              expect(exception.type).to eq(:base)
-              expect(exception.message).to eq("[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`")
-              expect(exception.meta).to be_nil
-            end
+          expect(result.error).to be_a(ApplicationService::Errors::Failure)
+          expect(result.error).to an_object_having_attributes(
+            type: :base,
+            message: "There's some problem with `number`",
+            meta: nil
           )
         end
       end

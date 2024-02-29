@@ -1,5 +1,68 @@
 # Changelog
 
+## [v2.2.1](https://github.com/servactory/servactory/tree/v2.2.1) (2024-02-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.2.0...v2.2.1)
+
+**Fixed:**
+
+- Add default value for `type` in `Failure` [\#170](https://github.com/servactory/servactory/pull/170) ([afuno](https://github.com/afuno))
+
+## [v2.2.0](https://github.com/servactory/servactory/tree/v2.2.0) (2024-02-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.2.0.rc4...v2.2.0)
+
+**Implemented enhancements:**
+
+- Add example of service behavior when calling `fail!` before assigning `output` [\#167](https://github.com/servactory/servactory/pull/167) ([afuno](https://github.com/afuno))
+- Prevent overwriting reserved methods [\#166](https://github.com/servactory/servactory/pull/166) ([afuno](https://github.com/afuno))
+- Added tests to check async work [\#165](https://github.com/servactory/servactory/pull/165) ([afuno](https://github.com/afuno))
+- Add `success!` method for early success [\#162](https://github.com/servactory/servactory/pull/162) ([afuno](https://github.com/afuno))
+- Add `outputs` attribute for `on_success` [\#161](https://github.com/servactory/servactory/pull/161) ([afuno](https://github.com/afuno))
+- Move error translations to separate place [\#159](https://github.com/servactory/servactory/pull/159) ([afuno](https://github.com/afuno))
+- Add helper support for `internal` and `output` [\#158](https://github.com/servactory/servactory/pull/158) ([afuno](https://github.com/afuno))
+- Add support for `on_success` and `on_failure` methods for `Result` [\#155](https://github.com/servactory/servactory/pull/155) ([afuno](https://github.com/afuno))
+- Add support for `type` option for `fail!` method [\#154](https://github.com/servactory/servactory/pull/154) ([afuno](https://github.com/afuno))
+- Add support for `inclusion` option for `internal` and `output` [\#153](https://github.com/servactory/servactory/pull/153) ([afuno](https://github.com/afuno))
+- Improve examples in tests [\#152](https://github.com/servactory/servactory/pull/152) ([afuno](https://github.com/afuno))
+- Improve exception handling and exception texts [\#150](https://github.com/servactory/servactory/pull/150) ([afuno](https://github.com/afuno))
+- Add support for `must` option for `output` [\#149](https://github.com/servactory/servactory/pull/149) ([afuno](https://github.com/afuno))
+- Add support for `must` option for `internal` [\#148](https://github.com/servactory/servactory/pull/148) ([afuno](https://github.com/afuno))
+- Add support for nested types for `consists_of` option [\#142](https://github.com/servactory/servactory/pull/142) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Added passing `type` inside `fail_result!` [\#169](https://github.com/servactory/servactory/pull/169) ([afuno](https://github.com/afuno))
+- Add configs and examples for helper options [\#168](https://github.com/servactory/servactory/pull/168) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
+- Add support for Rails versions from 4.2 to 5.2 [\#151](https://github.com/servactory/servactory/pull/151) ([afuno](https://github.com/afuno))
+
+## [v2.2.0.rc4](https://github.com/servactory/servactory/tree/v2.2.0.rc4) (2024-02-27)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.2.0.rc3...v2.2.0.rc4)
+
+## [v2.2.0.rc3](https://github.com/servactory/servactory/tree/v2.2.0.rc3) (2024-02-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.2.0.rc2...v2.2.0.rc3)
+
+## [v2.2.0.rc2](https://github.com/servactory/servactory/tree/v2.2.0.rc2) (2024-02-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.2.0.rc1...v2.2.0.rc2)
+
+**Fixed:**
+
+- Fix data definition for `as_success` method in `Result` [\#164](https://github.com/servactory/servactory/pull/164) ([afuno](https://github.com/afuno))
+
+## [v2.2.0.rc1](https://github.com/servactory/servactory/tree/v2.2.0.rc1) (2024-02-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.1.1...v2.2.0.rc1)
+
+**Dependencies:**
+
+- \[03.02.2024\] Update libraries [\#157](https://github.com/servactory/servactory/pull/157) ([afuno](https://github.com/afuno))
+
 ## [v2.1.1](https://github.com/servactory/servactory/tree/v2.1.1) (2024-01-10)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.1.0...v2.1.1)
@@ -29,8 +92,8 @@
 
 **Dependencies:**
 
-- Update libraries from 16.12.2023 [\#141](https://github.com/servactory/servactory/pull/141) ([afuno](https://github.com/afuno))
 - Update libraries from 12.12.2023 [\#138](https://github.com/servactory/servactory/pull/138) ([afuno](https://github.com/afuno))
+- Update libraries from 16.12.2023 [\#141](https://github.com/servactory/servactory/pull/141) ([afuno](https://github.com/afuno))
 
 ## [v2.0.4](https://github.com/servactory/servactory/tree/v2.0.4) (2023-12-18)
 

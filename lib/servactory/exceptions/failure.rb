@@ -7,7 +7,7 @@ module Servactory
                   :message,
                   :meta
 
-      def initialize(type:, message:, meta: nil)
+      def initialize(type: :base, message:, meta: nil) # rubocop:disable Style/KeywordParametersOrder
         @type = type
         @message = message
         @meta = meta

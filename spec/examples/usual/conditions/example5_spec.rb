@@ -38,6 +38,7 @@ RSpec.describe Usual::Conditions::Example5 do
                 expect(exception).to be_a(ApplicationService::Exceptions::Failure)
                 expect(exception.type).to eq(:base)
                 expect(exception.message).to eq("Invalid invoice number")
+                expect(exception.meta).to be_nil
               end
             )
           end
@@ -92,7 +93,8 @@ RSpec.describe Usual::Conditions::Example5 do
             expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
             expect(result.error).to an_object_having_attributes(
               type: :base,
-              message: "Invalid invoice number"
+              message: "Invalid invoice number",
+              meta: nil
             )
           end
         end
