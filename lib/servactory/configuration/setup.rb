@@ -3,9 +3,9 @@
 module Servactory
   module Configuration
     class Setup
-      attr_accessor :input_error_class,
-                    :internal_error_class,
-                    :output_error_class,
+      attr_accessor :input_exception_class,
+                    :internal_exception_class,
+                    :output_exception_class,
                     :success_class,
                     :failure_class,
                     :collection_mode_class_names,
@@ -17,9 +17,9 @@ module Servactory
                     :action_shortcuts
 
       def initialize # rubocop:disable Metrics/MethodLength
-        @input_error_class = Servactory::Exceptions::Input
-        @internal_error_class = Servactory::Exceptions::Internal
-        @output_error_class = Servactory::Exceptions::Output
+        @input_exception_class = Servactory::Exceptions::Input
+        @internal_exception_class = Servactory::Exceptions::Internal
+        @output_exception_class = Servactory::Exceptions::Output
 
         @success_class = Servactory::Exceptions::Success
         @failure_class = Servactory::Exceptions::Failure

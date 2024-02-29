@@ -7,16 +7,46 @@ module Servactory
         @config = config
       end
 
+      # DEPRECATED: These configs must be deleted after release 2.4.
       def input_error_class(input_error_class)
-        @config.input_error_class = input_error_class
+        warn "DEPRECATION WARNING: " \
+             "Configuration `input_error_class` is deprecated; " \
+             "use `internal_exception_class` instead. " \
+             "It will be removed in one of the next releases."
+
+        @config.input_exception_class = input_error_class
       end
 
-      def output_error_class(output_error_class)
-        @config.output_error_class = output_error_class
-      end
-
+      # DEPRECATED: These configs must be deleted after release 2.4.
       def internal_error_class(internal_error_class)
-        @config.internal_error_class = internal_error_class
+        warn "DEPRECATION WARNING: " \
+             "Configuration `internal_error_class` is deprecated; " \
+             "use `internal_exception_class` instead. " \
+             "It will be removed in one of the next releases."
+
+        @config.internal_exception_class = internal_error_class
+      end
+
+      # DEPRECATED: These configs must be deleted after release 2.4.
+      def output_error_class(output_error_class)
+        warn "DEPRECATION WARNING: " \
+             "Configuration `output_error_class` is deprecated; " \
+             "use `output_exception_class` instead. " \
+             "It will be removed in one of the next releases."
+
+        @config.output_exception_class = output_error_class
+      end
+
+      def input_exception_class(input_exception_class)
+        @config.input_exception_class = input_exception_class
+      end
+
+      def internal_exception_class(internal_exception_class)
+        @config.internal_exception_class = internal_exception_class
+      end
+
+      def output_exception_class(output_exception_class)
+        @config.output_exception_class = output_exception_class
       end
 
       def failure_class(failure_class)

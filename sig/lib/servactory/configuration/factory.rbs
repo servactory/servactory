@@ -9,6 +9,12 @@ module Servactory
 
       def internal_error_class: (singleton(Exceptions::Internal) internal_error_class) -> singleton(Exceptions::Internal)
 
+      def input_exception__class: (singleton(Exceptions::Input) input_exception__class) -> singleton(Exceptions::Input)
+
+      def output_exception__class: (singleton(Exceptions::Output) output_exception__class) -> singleton(Exceptions::Output)
+
+      def internal_exception__class: (singleton(Exceptions::Internal) internal_exception__class) -> singleton(Exceptions::Internal)
+
       def failure_class: (singleton(Exceptions::Failure) failure_class) -> singleton(Exceptions::Failure)
 
       def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> Maintenance::CollectionMode::ClassNamesCollection
