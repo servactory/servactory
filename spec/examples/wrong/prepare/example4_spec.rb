@@ -27,7 +27,7 @@ RSpec.describe Wrong::Prepare::Example4 do
               expect(exception.message).to(
                 match(/\[Wrong::Prepare::Example4\] undefined method `\+' for nil|:NilClass/)
               )
-              expect(exception.meta).to be_nil
+              expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
             end
           )
         end
@@ -69,7 +69,7 @@ RSpec.describe Wrong::Prepare::Example4 do
           expect(result.error).to an_object_having_attributes(
             type: :base,
             message: /\[Wrong::Prepare::Example4\] undefined method `\+' for nil|:NilClass/,
-            meta: nil
+            meta: match(original_exception: be_an_instance_of(NoMethodError))
           )
         end
       end

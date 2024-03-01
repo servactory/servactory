@@ -59,8 +59,8 @@ module Servactory
           @context.send(method.name)
         rescue NoMethodError => e
           rescue_no_method_error_with(exception: e)
-        rescue NameError
-          rescue_name_error_with(method: method)
+        rescue NameError => e
+          rescue_name_error_with(exception: e, method: method)
         end
 
         def unnecessary_for_stage?(stage)
@@ -90,25 +90,31 @@ module Servactory
 
         ########################################################################
 
-        def rescue_no_method_error_with(exception:)
+        def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
           raise @context.class.config.failure_class.new(
             type: :base,
             message: I18n.t(
               "servactory.common.undefined_method.missing_name",
               service_class_name: @context.class.name,
               error_text: exception.message
-            )
+            ),
+            meta: {
+              original_exception: exception
+            }
           )
         end
 
-        def rescue_name_error_with(method:)
+        def rescue_name_error_with(exception:, method:) # rubocop:disable Metrics/MethodLength
           raise @context.class.config.failure_class.new(
             type: :base,
             message: I18n.t(
               "servactory.common.undefined_local_variable_or_method",
               service_class_name: @context.class.name,
               method_name: method.name
-            )
+            ),
+            meta: {
+              original_exception: exception
+            }
           )
         end
       end

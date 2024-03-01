@@ -23,7 +23,7 @@ RSpec.describe Wrong::Basic::Example10 do
                   /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<Servactory::Result(.*)>/
                 )
               )
-              expect(exception.meta).to be_nil
+              expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
             end
           )
         end
@@ -53,7 +53,7 @@ RSpec.describe Wrong::Basic::Example10 do
                   /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<Servactory::Result(.*)>/
                 )
               )
-              expect(exception.meta).to be_nil
+              expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
             end
           )
         end
