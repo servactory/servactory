@@ -23,7 +23,7 @@ RSpec.describe Wrong::Prepare::Example4 do
           expect { perform }.to(
             raise_error do |exception|
               expect(exception).to be_a(NoMethodError)
-              expect(exception.message).to eq("undefined method `+' for nil")
+              expect(exception.message).to match(/undefined method `\+' for nil|:NilClass/)
             end
           )
         end
@@ -60,7 +60,7 @@ RSpec.describe Wrong::Prepare::Example4 do
           expect { perform }.to(
             raise_error do |exception|
               expect(exception).to be_a(NoMethodError)
-              expect(exception.message).to eq("undefined method `+' for nil")
+              expect(exception.message).to match(/undefined method `\+' for nil|:NilClass/)
             end
           )
         end
