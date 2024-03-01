@@ -31,7 +31,7 @@ module Servactory
 
         def rescue_no_method_error_with: (exception: Exception) -> Exception
 
-        def rescue_name_error_with: (method: Action) -> Exception
+        def rescue_name_error_with: (exception: Exception, method: Action) -> Exception
       end
     end
   end

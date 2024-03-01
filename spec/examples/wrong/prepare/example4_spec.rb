@@ -24,8 +24,10 @@ RSpec.describe Wrong::Prepare::Example4 do
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
-              expect(exception.message).to eq("[Wrong::Prepare::Example4] Undefined method `+` for `nil`")
-              expect(exception.meta).to be_nil
+              expect(exception.message).to(
+                match(/\[Wrong::Prepare::Example4\] undefined method `\+' for nil|:NilClass/)
+              )
+              expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
             end
           )
         end
@@ -66,8 +68,8 @@ RSpec.describe Wrong::Prepare::Example4 do
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :base,
-            message: "[Wrong::Prepare::Example4] Undefined method `+` for `nil`",
-            meta: nil
+            message: /\[Wrong::Prepare::Example4\] undefined method `\+' for nil|:NilClass/,
+            meta: match(original_exception: be_an_instance_of(NoMethodError))
           )
         end
       end

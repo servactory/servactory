@@ -27,7 +27,7 @@ RSpec.describe Wrong::Basic::Example9 do
               expect(exception.message).to(
                 eq("[Wrong::Basic::Example9] Undefined local variable or method `assign_invoice_number`")
               )
-              expect(exception.meta).to be_nil
+              expect(exception.meta).to match(original_exception: be_an_instance_of(NameError))
             end
           )
         end
@@ -69,7 +69,7 @@ RSpec.describe Wrong::Basic::Example9 do
           expect(result.error).to an_object_having_attributes(
             type: :base,
             message: "[Wrong::Basic::Example9] Undefined local variable or method `assign_invoice_number`",
-            meta: nil
+            meta: match(original_exception: be_an_instance_of(NameError))
           )
         end
       end
