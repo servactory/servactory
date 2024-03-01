@@ -1,7 +1,6 @@
 ru:
   servactory:
     common:
-      undefined_local_variable_or_method: "[%{service_class_name}] Неопределенная локальная переменная или метод `%{method_name}`"
       undefined_method:
         missing_name: "[%{service_class_name}] %{error_text}"
     methods:
