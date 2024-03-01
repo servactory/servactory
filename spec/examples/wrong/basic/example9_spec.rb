@@ -22,12 +22,10 @@ RSpec.describe Wrong::Basic::Example9 do
         it "returns expected error", :aggregate_failures do
           expect { perform }.to(
             raise_error do |exception|
-              expect(exception).to be_a(ApplicationService::Errors::Failure)
-              expect(exception.type).to eq(:base)
+              expect(exception).to be_a(NameError)
               expect(exception.message).to(
-                eq("[Wrong::Basic::Example9] Undefined local variable or method `assign_invoice_number`")
+                eq("undefined local variable or method `invoice_number' for an instance of Wrong::Basic::Example9")
               )
-              expect(exception.meta).to match(original_exception: be_an_instance_of(NameError))
             end
           )
         end
@@ -60,16 +58,14 @@ RSpec.describe Wrong::Basic::Example9 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
-        include_examples "failure result class"
-
-        it "returns the expected value in `errors`", :aggregate_failures do
-          result = perform
-
-          expect(result.error).to be_a(ApplicationService::Errors::Failure)
-          expect(result.error).to an_object_having_attributes(
-            type: :base,
-            message: "[Wrong::Basic::Example9] Undefined local variable or method `assign_invoice_number`",
-            meta: match(original_exception: be_an_instance_of(NameError))
+        it "returns expected error", :aggregate_failures do
+          expect { perform }.to(
+            raise_error do |exception|
+              expect(exception).to be_a(NameError)
+              expect(exception.message).to(
+                eq("undefined local variable or method `invoice_number' for an instance of Wrong::Basic::Example9")
+              )
+            end
           )
         end
       end
