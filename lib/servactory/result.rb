@@ -101,8 +101,7 @@ module Servactory
         message: I18n.t(
           "servactory.common.undefined_method.missing_name",
           service_class_name: @context.class.name,
-          method_name: exception.name,
-          missing_name: exception.missing_name.inspect
+          error_text: exception.message
         )
       )
     end
