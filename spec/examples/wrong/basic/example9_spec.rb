@@ -24,7 +24,7 @@ RSpec.describe Wrong::Basic::Example9 do
             raise_error do |exception|
               expect(exception).to be_a(NameError)
               expect(exception.message).to(
-                eq("undefined local variable or method `invoice_number' for an instance of Wrong::Basic::Example9")
+                match(/undefined local variable or method `invoice_number' for (.*)Wrong::Basic::Example9(.*)/)
               )
             end
           )
@@ -63,7 +63,7 @@ RSpec.describe Wrong::Basic::Example9 do
             raise_error do |exception|
               expect(exception).to be_a(NameError)
               expect(exception.message).to(
-                eq("undefined local variable or method `invoice_number' for an instance of Wrong::Basic::Example9")
+                match(/undefined local variable or method `invoice_number' for (.*)Wrong::Basic::Example9(.*)/)
               )
             end
           )
