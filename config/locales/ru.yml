@@ -1,9 +1,8 @@
 ru:
   servactory:
     common:
-      undefined_local_variable_or_method: "[%{service_class_name}] Неопределенная локальная переменная или метод `%{method_name}`"
       undefined_method:
-        missing_name: "[%{service_class_name}] Неопределенный метод `%{method_name}` для `%{missing_name}`"
+        missing_name: "[%{service_class_name}] %{error_text}"
     methods:
       call:
         not_used: "[%{service_class_name}] Нечего выполнять. Используйте `make` или создайте метод `call`."

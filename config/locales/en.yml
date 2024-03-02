@@ -1,9 +1,8 @@
 en:
   servactory:
     common:
-      undefined_local_variable_or_method: "[%{service_class_name}] Undefined local variable or method `%{method_name}`"
       undefined_method:
-        missing_name: "[%{service_class_name}] Undefined method `%{method_name}` for `%{missing_name}`"
+        missing_name: "[%{service_class_name}] %{error_text}"
     methods:
       call:
         not_used: "[%{service_class_name}] Nothing to perform. Use `make` or create a `call` method."

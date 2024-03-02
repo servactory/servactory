@@ -93,7 +93,7 @@ module Servactory
 
     ########################################################################
 
-    def rescue_no_method_error_with(exception:)
+    def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
       raise exception if @context.blank?
 
       raise @context.class.config.failure_class.new(
@@ -101,9 +101,11 @@ module Servactory
         message: I18n.t(
           "servactory.common.undefined_method.missing_name",
           service_class_name: @context.class.name,
-          method_name: exception.name,
-          missing_name: exception.missing_name.inspect
-        )
+          error_text: exception.message
+        ),
+        meta: {
+          original_exception: exception
+        }
       )
     end
   end

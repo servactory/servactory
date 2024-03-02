@@ -18,8 +18,12 @@ RSpec.describe Wrong::Basic::Example10 do
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:base)
-              expect(exception.message).to eq("[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`")
-              expect(exception.meta).to be_nil
+              expect(exception.message).to(
+                match(
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<Servactory::Result(.*)>/
+                )
+              )
+              expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
             end
           )
         end
@@ -44,8 +48,12 @@ RSpec.describe Wrong::Basic::Example10 do
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:base)
-              expect(exception.message).to eq("[Wrong::Basic::Example10] Undefined method `fake_value` for `nil`")
-              expect(exception.meta).to be_nil
+              expect(exception.message).to(
+                match(
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<Servactory::Result(.*)>/
+                )
+              )
+              expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
             end
           )
         end
