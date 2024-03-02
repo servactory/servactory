@@ -9,30 +9,30 @@ module Servactory
 
       # DEPRECATED: These configs must be deleted after release 2.4.
       def input_error_class(input_error_class)
-        warn "DEPRECATION WARNING: " \
-             "Configuration `input_error_class` is deprecated; " \
-             "use `internal_exception_class` instead. " \
-             "It will be removed in one of the next releases."
+        Kernel.warn "DEPRECATION WARNING: " \
+                    "Configuration `input_error_class` is deprecated; " \
+                    "use `internal_exception_class` instead. " \
+                    "It will be removed in one of the next releases."
 
         @config.input_exception_class = input_error_class
       end
 
       # DEPRECATED: These configs must be deleted after release 2.4.
       def internal_error_class(internal_error_class)
-        warn "DEPRECATION WARNING: " \
-             "Configuration `internal_error_class` is deprecated; " \
-             "use `internal_exception_class` instead. " \
-             "It will be removed in one of the next releases."
+        Kernel.warn "DEPRECATION WARNING: " \
+                    "Configuration `internal_error_class` is deprecated; " \
+                    "use `internal_exception_class` instead. " \
+                    "It will be removed in one of the next releases."
 
         @config.internal_exception_class = internal_error_class
       end
 
       # DEPRECATED: These configs must be deleted after release 2.4.
       def output_error_class(output_error_class)
-        warn "DEPRECATION WARNING: " \
-             "Configuration `output_error_class` is deprecated; " \
-             "use `output_exception_class` instead. " \
-             "It will be removed in one of the next releases."
+        Kernel.warn "DEPRECATION WARNING: " \
+                    "Configuration `output_error_class` is deprecated; " \
+                    "use `output_exception_class` instead. " \
+                    "It will be removed in one of the next releases."
 
         @config.output_exception_class = output_error_class
       end
