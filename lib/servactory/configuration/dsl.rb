@@ -15,6 +15,7 @@ module Servactory
           child.config.internal_error_class = config.internal_error_class
           child.config.output_error_class = config.output_error_class
 
+          child.config.success_class = config.success_class
           child.config.failure_class = config.failure_class
 
           child.config.collection_mode_class_names = config.collection_mode_class_names

@@ -1,12 +1,12 @@
 en:
   servactory:
     common:
-      undefined_local_variable_or_method: "[%{service_class_name}] Undefined local variable or method `%{method_name}`"
       undefined_method:
-        missing_name: "[%{service_class_name}] Undefined method `%{method_name}` for `%{missing_name}`"
+        missing_name: "[%{service_class_name}] %{error_text}"
     methods:
       call:
         not_used: "[%{service_class_name}] Nothing to perform. Use `make` or create a `call` method."
+      cannot_be_overwritten: "[%{service_class_name}] The following methods cannot be overwritten: %{list_of_methods}"
     inputs:
       undefined:
         getter: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
@@ -48,7 +48,7 @@ en:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_collection:
               wrong_type: "[%{service_class_name}] Wrong internal attribute collection type `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
-              wrong_element_type: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Wrong type in internal attribute hash `%{internal_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
     outputs:
@@ -66,6 +66,6 @@ en:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_collection:
               wrong_type: "[%{service_class_name}] Wrong output attribute collection type `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
-              wrong_element_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Wrong type in output attribute hash `%{output_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"

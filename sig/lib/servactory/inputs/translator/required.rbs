@@ -1,0 +1,9 @@
+module Servactory
+  module Inputs
+    module Translator
+      module Required
+        def self?.default_message: () -> Proc
+      end
+    end
+  end
+end

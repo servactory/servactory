@@ -19,7 +19,7 @@ module Servactory
 
         private
 
-        def validate_for: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped], ?root_schema_key: Symbol?) -> void
+        def validate_for!: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped], ?root_schema_key: Symbol?) -> void
 
         def validate_with: (object: Hash[Symbol, untyped], schema_key: Symbol, schema_value: Hash[Symbol, untyped], attribute_type: Class, attribute_required: bool) -> bool
 

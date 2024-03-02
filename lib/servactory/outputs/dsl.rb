@@ -16,11 +16,13 @@ module Servactory
 
         private
 
-        def output(name, **options)
+        def output(name, *helpers, **options)
           collection_of_outputs << Output.new(
             name,
+            *helpers,
             collection_mode_class_names: config.collection_mode_class_names,
             hash_mode_class_names: config.hash_mode_class_names,
+            option_helpers: config.output_option_helpers,
             **options
           )
         end

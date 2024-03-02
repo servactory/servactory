@@ -2,12 +2,12 @@
 
 module Servactory
   module Errors
-    class Failure < Base
+    class Failure < Servactory::Exceptions::Base
       attr_reader :type,
                   :message,
                   :meta
 
-      def initialize(type:, message:, meta: nil)
+      def initialize(type: :base, message:, meta: nil) # rubocop:disable Style/KeywordParametersOrder
         @type = type
         @message = message
         @meta = meta

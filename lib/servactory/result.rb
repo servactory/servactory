@@ -2,12 +2,25 @@
 
 module Servactory
   class Result
-    def self.success_for(...)
-      new(...).send(:as_success)
+    class Outputs
+      def initialize(outputs)
+        outputs.each_pair do |key, value|
+          define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) }
+          define_singleton_method(key) { value }
+        end
+      end
     end
 
-    def self.failure_for(...)
-      new(...).send(:as_failure)
+    private_constant :Outputs
+
+    ############################################################################
+
+    def self.success_for(context:)
+      new(context: context).send(:as_success)
+    end
+
+    def self.failure_for(exception:)
+      new(exception: exception).send(:as_failure)
     end
 
     def initialize(context: nil, exception: nil)
@@ -17,6 +30,18 @@ module Servactory
 
     def inspect
       "#<#{self.class.name} #{draw_result}>"
+    end
+
+    def on_success
+      yield(outputs: outputs) if success?
+
+      self
+    end
+
+    def on_failure(type = :all)
+      yield(exception: @exception) if failure? && [:all, @exception&.type].include?(type)
+
+      self
     end
 
     def method_missing(name, *_args)
@@ -35,9 +60,8 @@ module Servactory
       define_singleton_method(:success?) { true }
       define_singleton_method(:failure?) { false }
 
-      @context.send(:servactory_service_storage).fetch(:outputs).each_pair do |key, value|
-        define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) }
-        define_singleton_method(key) { value }
+      outputs.methods(false).each do |method_name|
+        define_singleton_method(method_name) { outputs.send(method_name) }
       end
 
       self
@@ -47,7 +71,12 @@ module Servactory
       define_singleton_method(:error) { @exception }
 
       define_singleton_method(:success?) { false }
-      define_singleton_method(:failure?) { true }
+
+      define_singleton_method(:failure?) do |type = :all|
+        return true if [:all, @exception&.type].include?(type)
+
+        false
+      end
 
       self
     end
@@ -58,17 +87,25 @@ module Servactory
       end.join(", ")
     end
 
+    def outputs
+      @outputs ||= Outputs.new(@context.send(:servactory_service_storage).fetch(:outputs))
+    end
+
     ########################################################################
 
-    def rescue_no_method_error_with(exception:)
+    def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
+      raise exception if @context.blank?
+
       raise @context.class.config.failure_class.new(
         type: :base,
         message: I18n.t(
           "servactory.common.undefined_method.missing_name",
           service_class_name: @context.class.name,
-          method_name: exception.name,
-          missing_name: exception.missing_name.inspect
-        )
+          error_text: exception.message
+        ),
+        meta: {
+          original_exception: exception
+        }
       )
     end
   end
