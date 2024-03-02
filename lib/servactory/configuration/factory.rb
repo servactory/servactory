@@ -35,6 +35,14 @@ module Servactory
         @config.input_option_helpers.merge(input_option_helpers)
       end
 
+      def internal_option_helpers(internal_option_helpers)
+        @config.internal_option_helpers.merge(internal_option_helpers)
+      end
+
+      def output_option_helpers(output_option_helpers)
+        @config.output_option_helpers.merge(output_option_helpers)
+      end
+
       def action_aliases(action_aliases)
         @config.action_aliases.merge(action_aliases)
       end

@@ -28,10 +28,6 @@ module Servactory
         def unnecessary_for_make?: (Action method) -> bool
 
         def prepare_condition_for: ((Proc | bool)? condition) -> bool
-
-        def rescue_no_method_error_with: (exception: Exception) -> Exception
-
-        def rescue_name_error_with: (method: Action) -> Exception
       end
     end
   end

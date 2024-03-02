@@ -57,10 +57,6 @@ module Servactory
 
         def call_method(method)
           @context.send(method.name)
-        rescue NoMethodError => e
-          rescue_no_method_error_with(exception: e)
-        rescue NameError
-          rescue_name_error_with(method: method)
         end
 
         def unnecessary_for_stage?(stage)
@@ -86,37 +82,6 @@ module Servactory
           return !Servactory::Utils.true?(condition) unless condition.is_a?(Proc)
 
           !condition.call(context: @context)
-        end
-
-        ########################################################################
-
-        def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
-          raise @context.class.config.failure_class.new(
-            type: :base,
-            message: I18n.t(
-              "servactory.common.undefined_method.missing_name",
-              service_class_name: @context.class.name,
-              method_name: exception.name,
-              missing_name: if exception.missing_name.nil?
-                              exception.missing_name.inspect
-                            elsif exception.missing_name == "NilClass"
-                              nil.inspect
-                            else
-                              exception.missing_name
-                            end
-            )
-          )
-        end
-
-        def rescue_name_error_with(method:)
-          raise @context.class.config.failure_class.new(
-            type: :base,
-            message: I18n.t(
-              "servactory.common.undefined_local_variable_or_method",
-              service_class_name: @context.class.name,
-              method_name: method.name
-            )
-          )
         end
       end
     end

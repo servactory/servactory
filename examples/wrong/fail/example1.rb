@@ -2,25 +2,33 @@
 
 module Wrong
   module Fail
-    class Example1Child < ApplicationService::Base
-      make :method_fail!
-
-      private
-
-      def method_fail!
-        fail!(message: "Some error", meta: { some: :data })
-      end
-    end
-
     class Example1 < ApplicationService::Base
-      make :child_fail!
+      make :smth
 
       private
 
-      def child_fail!
-        service_result = Example1Child.call
+      def smth
+        # ...
+      end
 
-        fail_result!(service_result) if service_result.failure?
+      def fail_input!
+        # ...
+      end
+
+      def fail_internal!
+        # ...
+      end
+
+      def fail_output!
+        # ...
+      end
+
+      def fail!
+        # ...
+      end
+
+      def fail_result!
+        # ...
       end
     end
   end

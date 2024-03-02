@@ -1,0 +1,11 @@
+module Servactory
+  module Exceptions
+    class Success
+      @context: instance
+
+      attr_reader context: instance
+
+      def initialize: (context: instance) -> void
+    end
+  end
+end

@@ -1,11 +1,11 @@
 module Servactory
   module Errors
     class Failure < Base
-      attr_reader type: Symbol
+      attr_reader type: Symbol?
       attr_reader message: String
-      attr_reader meta: untyped
+      attr_reader meta: untyped?
 
-      def initialize: (type: Symbol, message: String, meta: untyped?) -> void
+      def initialize: (type: Symbol?, message: String, meta: untyped?) -> void
     end
   end
 end
