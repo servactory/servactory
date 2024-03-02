@@ -14,7 +14,7 @@ module Servactory
                     "use `internal_exception_class` instead. " \
                     "It will be removed in one of the next releases."
 
-        @config.input_exception_class = input_error_class
+        input_exception_class(input_error_class)
       end
 
       # DEPRECATED: These configs must be deleted after release 2.4.
@@ -24,7 +24,7 @@ module Servactory
                     "use `internal_exception_class` instead. " \
                     "It will be removed in one of the next releases."
 
-        @config.internal_exception_class = internal_error_class
+        internal_exception_class(internal_error_class)
       end
 
       # DEPRECATED: These configs must be deleted after release 2.4.
@@ -34,7 +34,7 @@ module Servactory
                     "use `output_exception_class` instead. " \
                     "It will be removed in one of the next releases."
 
-        @config.output_exception_class = output_error_class
+        output_exception_class(output_error_class)
       end
 
       def input_exception_class(input_exception_class)
