@@ -38,19 +38,29 @@ module Servactory
       end
 
       def input_exception_class(input_exception_class)
-        @config.input_exception_class = input_exception_class
+        return @config.input_exception_class = input_exception_class if subclass_of_exception?(input_exception_class)
+
+        raise_error_about_wrong_exception_class_with(:input_exception_class, input_exception_class)
       end
 
       def internal_exception_class(internal_exception_class)
-        @config.internal_exception_class = internal_exception_class
+        if subclass_of_exception?(internal_exception_class)
+          return @config.internal_exception_class = internal_exception_class
+        end
+
+        raise_error_about_wrong_exception_class_with(:internal_exception_class, internal_exception_class)
       end
 
       def output_exception_class(output_exception_class)
-        @config.output_exception_class = output_exception_class
+        return @config.output_exception_class = output_exception_class if subclass_of_exception?(output_exception_class)
+
+        raise_error_about_wrong_exception_class_with(:output_exception_class, output_exception_class)
       end
 
       def failure_class(failure_class)
-        @config.failure_class = failure_class
+        return @config.failure_class = failure_class if subclass_of_exception?(failure_class)
+
+        raise_error_about_wrong_exception_class_with(:failure_class, failure_class)
       end
 
       def collection_mode_class_names(collection_mode_class_names)
@@ -79,6 +89,21 @@ module Servactory
 
       def action_shortcuts(action_shortcuts)
         @config.action_shortcuts.merge(action_shortcuts)
+      end
+
+      ##########################################################################
+
+      def subclass_of_exception?(value)
+        value.is_a?(Class) && value <= Exception
+      end
+
+      ##########################################################################
+
+      def raise_error_about_wrong_exception_class_with(config_name, value)
+        raise ArgumentError,
+              "Error in `#{config_name}` configuration. " \
+              "The `#{value}` value must be a subclass of `Exception`. " \
+              "See example configuration here: https://servactory.com/guide/configuration"
       end
     end
   end
