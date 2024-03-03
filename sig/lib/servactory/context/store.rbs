@@ -1,0 +1,25 @@
+module Servactory
+  module Context
+    class Store
+      @context: instance
+
+      @state: Hash[Symbol, untyped]
+
+      def initialize: (instance context) -> void
+
+      def outputs: () -> Hash[Symbol, untyped]
+
+      def fetch_internal: (Symbol key) -> untyped
+
+      def assign_internal: (Symbol key, untyped value) -> untyped
+
+      def fetch_output: (Symbol key) -> untyped
+
+      def assign_output: (Symbol key, untyped value) -> untyped
+
+      private
+
+      def state: () -> Hash[Symbol, untyped]
+    end
+  end
+end
