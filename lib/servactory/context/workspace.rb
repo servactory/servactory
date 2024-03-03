@@ -29,24 +29,27 @@ module Servactory
         raise self.class.config.success_class.new(context: self)
       end
 
-      def fail_input!(input_name, message:)
+      def fail_input!(input_name, message:, meta: nil)
         raise self.class.config.input_error_class.new(
           input_name: input_name,
-          message: message
+          message: message,
+          meta: meta
         )
       end
 
-      def fail_internal!(internal_name, message:)
+      def fail_internal!(internal_name, message:, meta: nil)
         raise self.class.config.internal_error_class.new(
           internal_name: internal_name,
-          message: message
+          message: message,
+          meta: meta
         )
       end
 
-      def fail_output!(output_name, message:)
+      def fail_output!(output_name, message:, meta: nil)
         raise self.class.config.output_error_class.new(
           output_name: output_name,
-          message: message
+          message: message,
+          meta: meta
         )
       end
 

@@ -3,8 +3,9 @@ module Servactory
     class InputError < Base
       attr_reader message: String
       attr_reader input_name: Symbol?
+      attr_reader meta: untyped?
 
-      def initialize: (message: String, input_name: Symbol?) -> void
+      def initialize: (message: String, input_name: Symbol?, meta: untyped?) -> void
     end
   end
 end
