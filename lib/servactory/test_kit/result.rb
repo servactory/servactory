@@ -12,8 +12,8 @@ module Servactory
       end
 
       def initialize(attributes = {})
-        attributes.each_pair do |name, value|
-          servactory_service_storage[:outputs].merge!({ name => value })
+        attributes.each_pair do |key, value|
+          servactory_service_storage.assign_output(key, value)
         end
       end
 
@@ -22,7 +22,7 @@ module Servactory
       private
 
       def servactory_service_storage
-        @servactory_service_storage ||= { outputs: {} }
+        @servactory_service_storage ||= Servactory::Context::Store.new(self)
       end
     end
   end

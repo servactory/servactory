@@ -104,24 +104,24 @@ module Servactory
         )
       end
 
-      def servactory_service_storage
-        @servactory_service_storage ||= { internals: {}, outputs: {} }
+      def fetch_servactory_service_storage_internal(key)
+        servactory_service_storage.fetch_internal(key)
       end
 
       def assign_servactory_service_storage_internal(key, value)
-        servactory_service_storage[:internals].merge!({ key => value })
-      end
-
-      def fetch_servactory_service_storage_internal(key)
-        servactory_service_storage.fetch(:internals).fetch(key, nil)
-      end
-
-      def assign_servactory_service_storage_output(key, value)
-        servactory_service_storage[:outputs].merge!({ key => value })
+        servactory_service_storage.assign_internal(key, value)
       end
 
       def fetch_servactory_service_storage_output(key)
-        servactory_service_storage.fetch(:outputs).fetch(key, nil)
+        servactory_service_storage.fetch_output(key)
+      end
+
+      def assign_servactory_service_storage_output(key, value)
+        servactory_service_storage.assign_output(key, value)
+      end
+
+      def servactory_service_storage
+        @servactory_service_storage ||= Store.new(self)
       end
     end
   end
