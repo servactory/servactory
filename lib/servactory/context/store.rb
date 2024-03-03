@@ -11,20 +11,20 @@ module Servactory
         @outputs ||= context_data.fetch(:outputs)
       end
 
-      def fetch_internal(key)
-        internals.fetch(key, nil)
+      def fetch_internal(name)
+        internals.fetch(name, nil)
       end
 
-      def assign_internal(key, value)
-        context_data[:internals].merge!({ key => value })
+      def assign_internal(name, value)
+        context_data[:internals].merge!({ name => value })
       end
 
-      def fetch_output(key)
-        outputs.fetch(key, nil)
+      def fetch_output(name)
+        outputs.fetch(name, nil)
       end
 
-      def assign_output(key, value)
-        context_data[:outputs].merge!({ key => value })
+      def assign_output(name, value)
+        context_data[:outputs].merge!({ name => value })
       end
 
       private

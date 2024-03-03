@@ -12,8 +12,8 @@ module Servactory
       end
 
       def initialize(attributes = {})
-        attributes.each_pair do |key, value|
-          servactory_service_storage.assign_output(key, value)
+        attributes.each_pair do |name, value|
+          servactory_service_storage.assign_output(name, value)
         end
       end
 
