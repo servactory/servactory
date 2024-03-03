@@ -55,7 +55,7 @@ module Servactory
 
       def call: -> Exception
 
-      def servactory_service_storage: -> { internals: {}, outputs: {} }
+      def servactory_service_storage: -> Store
 
       def assign_servactory_service_storage_internal: (Symbol key, untyped value) -> untyped
 

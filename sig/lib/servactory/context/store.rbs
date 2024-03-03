@@ -3,7 +3,13 @@ module Servactory
     class Store
       @context: instance
 
-      @state: Hash[Symbol, untyped]
+      @internals: Hash[Symbol, untyped]
+
+      @outputs: Hash[Symbol, untyped]
+
+      @context_data: Hash[Symbol, untyped]
+
+      @context_id: String
 
       def initialize: (instance context) -> void
 
@@ -19,7 +25,13 @@ module Servactory
 
       private
 
-      def state: () -> Hash[Symbol, untyped]
+      def internals: () -> Hash[Symbol, untyped]
+
+      def context_data: () -> Hash[Symbol, untyped]
+
+      def state: () -> Hash[String, Hash[Symbol, untyped]]
+
+      def context_id: () -> String
     end
   end
 end

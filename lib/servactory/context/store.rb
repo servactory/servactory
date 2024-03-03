@@ -8,15 +8,15 @@ module Servactory
       end
 
       def outputs
-        state.fetch(:outputs)
+        @outputs ||= context_data.fetch(:outputs)
       end
 
       def fetch_internal(key)
-        state.fetch(:internals).fetch(key, nil)
+        internals.fetch(key, nil)
       end
 
       def assign_internal(key, value)
-        state[:internals].merge!({ key => value })
+        context_data[:internals].merge!({ key => value })
       end
 
       def fetch_output(key)
@@ -24,16 +24,30 @@ module Servactory
       end
 
       def assign_output(key, value)
-        state[:outputs].merge!({ key => value })
+        context_data[:outputs].merge!({ key => value })
       end
 
       private
 
+      def internals
+        @internals ||= context_data.fetch(:internals)
+      end
+
+      def context_data
+        @context_data ||= state.fetch(context_id)
+      end
+
       def state
-        @state ||= {
-          internals: {},
-          outputs: {}
+        {
+          context_id => {
+            internals: {},
+            outputs: {}
+          }
         }
+      end
+
+      def context_id
+        @context_id ||= "context_#{@context.object_id}"
       end
     end
   end

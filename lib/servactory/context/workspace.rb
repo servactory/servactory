@@ -2,7 +2,7 @@
 
 module Servactory
   module Context
-    module Workspace # rubocop:disable Metrics/ModuleLength
+    module Workspace
       def inputs
         @inputs ||= Inputs.new(
           context: self,
@@ -102,22 +102,6 @@ module Servactory
             service_class_name: self.class.name
           )
         )
-      end
-
-      def fetch_servactory_service_storage_internal(key)
-        servactory_service_storage.fetch_internal(key)
-      end
-
-      def assign_servactory_service_storage_internal(key, value)
-        servactory_service_storage.assign_internal(key, value)
-      end
-
-      def fetch_servactory_service_storage_output(key)
-        servactory_service_storage.fetch_output(key)
-      end
-
-      def assign_servactory_service_storage_output(key, value)
-        servactory_service_storage.assign_output(key, value)
       end
 
       def servactory_service_storage
