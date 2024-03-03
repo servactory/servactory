@@ -7,10 +7,6 @@ module Servactory
         @context = context
       end
 
-      def outputs
-        @outputs ||= context_data.fetch(:outputs)
-      end
-
       def fetch_internal(name)
         internals.fetch(name, nil)
       end
@@ -25,6 +21,10 @@ module Servactory
 
       def assign_output(name, value)
         context_data[:outputs].merge!({ name => value })
+      end
+
+      def outputs
+        @outputs ||= context_data.fetch(:outputs)
       end
 
       private
