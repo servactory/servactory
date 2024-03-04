@@ -5,7 +5,7 @@ module Servactory
     module DynamicOptions
       class Max < Base
         def self.setup
-          new(:min).setup
+          new(:max).setup
         end
 
         def equivalent # rubocop:disable Metrics/MethodLength
