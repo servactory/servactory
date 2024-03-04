@@ -56,13 +56,12 @@ module ApplicationService
               {
                 must: {
                   be_less_than_or_equal_to: {
-                    is: ->(value:) { value >= received_value },
+                    is: ->(value:) { value <= received_value },
                     message: lambda do |service_class_name:, input:, value:, **|
                       "[#{service_class_name}] #{input.system_name.to_s.titleize} attribute `#{input.name}` " \
                         "received value `#{value}`, which is greater than `#{received_value}`"
                     end
                   }
-                }
                 }
               }
             end
