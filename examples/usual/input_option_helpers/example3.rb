@@ -8,13 +8,15 @@ module Usual
             min: {
               is: 2,
               message: lambda do |input_name:, expected_value:, given_value:|
-                "The value of `#{input_name}` must be greater than or equal to `#{expected_value}` (got: `#{given_value}`)"
+                "The value of `#{input_name}` must be greater than or " \
+                  "equal to `#{expected_value}` (got: `#{given_value}`)"
               end
             },
             max: {
               is: 21,
               message: lambda do |input_name:, expected_value:, given_value:|
-                "The value of `#{input_name}` must be less than or equal to `#{expected_value}` (got: `#{given_value}`)"
+                "The value of `#{input_name}` must be less than or " \
+                  "equal to `#{expected_value}` (got: `#{given_value}`)"
               end
             }
 

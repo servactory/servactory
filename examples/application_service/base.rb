@@ -8,7 +8,7 @@ module ApplicationService
       ApplicationService::Extensions::StatusActive::DSL
     )
 
-    configuration do
+    configuration do # rubocop:disable Metrics/BlockLength
       input_error_class ApplicationService::Errors::InputError
       output_error_class ApplicationService::Errors::OutputError
       internal_error_class ApplicationService::Errors::InternalError
@@ -33,18 +33,17 @@ module ApplicationService
           Servactory::Maintenance::Attributes::OptionHelper.new(
             name: :min,
             equivalent: lambda do |data|
-              unless data.is_a?(Hash)
-                data = {
-                  is: ->(value:) { value >= data },
-                  message: lambda do |input:, value:, **|
-                    message.call(input_name: input.name, expected_value: data, given_value: value)
-                  end
-                }
-              end
+              received_value = (data.is_a?(Hash) && data.key?(:is) ? data[:is] : data)
 
               {
                 must: {
-                  "be_greater_than_or_equal_to": data
+                  be_greater_than_or_equal_to: {
+                    is: ->(value:) { value >= received_value },
+                    message: lambda do |service_class_name:, input:, value:, **|
+                      "[#{service_class_name}] #{input.system_name.to_s.titleize} attribute `#{input.name}` " \
+                        "received value `#{value}`, which is less than `#{received_value}`"
+                    end
+                  }
                 }
               }
             end
@@ -52,25 +51,23 @@ module ApplicationService
           Servactory::Maintenance::Attributes::OptionHelper.new(
             name: :max,
             equivalent: lambda do |data|
-              unless data.is_a?(Hash)
-                data = {
-                  is: ->(value:) {
-                    puts
-                    puts
-                    puts data.inspect
-                    puts
-                    puts
-
-                    value <= data },
-                  message: lambda do |input:, value:, **|
-                    message.call(input_name: input.name, expected_value: data, given_value: value)
-                  end
-                }
-              end
+              new_data =
+                if data.is_a?(Hash)
+                  data[:is] = ->(**) { data[:is] } unless data[:is].is_a?(Proc)
+                  data
+                else
+                  {
+                    is: ->(value:) { value <= data },
+                    message: lambda do |service_class_name:, input:, value:, **|
+                      "[#{service_class_name}] #{input.system_name.to_s.titleize} attribute `#{input.name}` " \
+                        "received value `#{value}`, which is less than `#{data}`"
+                    end
+                  }
+                end
 
               {
                 must: {
-                  "be_less_than_or_equal_to": data
+                  be_less_than_or_equal_to: new_data
                 }
               }
             end
@@ -83,31 +80,3 @@ module ApplicationService
     end
   end
 end
-
-# module ApplicationService
-#   class Base < Servactory::Base.with_extensions(
-#     ApplicationService::Extensions::StatusActive::DSL
-#   ).with_configuration(
-#     input_error_class: ApplicationService::Errors::InputError,
-#     output_error_class: ApplicationService::Errors::OutputError,
-#     internal_error_class: ApplicationService::Errors::InternalError,
-#
-#     failure_class: ApplicationService::Errors::Failure
-#   )
-#   end
-# end
-
-# module ApplicationService
-#   class Base
-#     include Servactory::DSL
-#       .with_extensions(
-#         ApplicationService::Extensions::StatusActive::DSL
-#       ).with_configuration do
-#         input_error_class ApplicationService::Errors::InputError
-#         output_error_class ApplicationService::Errors::OutputError
-#         internal_error_class ApplicationService::Errors::InternalError
-#
-#         failure_class ApplicationService::Errors::Failure
-#       end
-#   end
-# end

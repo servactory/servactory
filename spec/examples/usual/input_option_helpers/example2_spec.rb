@@ -38,7 +38,8 @@ RSpec.describe Usual::InputOptionHelpers::Example2 do
               expect { perform }.to(
                 raise_error(
                   ApplicationService::Errors::InputError,
-                  "The value of `number_of_calls` must be greater than or equal to `1` (got: `0`)"
+                  "[Usual::InputOptionHelpers::Example2] Input attribute `number_of_calls` " \
+                  "received value `0`, which is less than `1`"
                 )
               )
             end
@@ -51,7 +52,8 @@ RSpec.describe Usual::InputOptionHelpers::Example2 do
               expect { perform }.to(
                 raise_error(
                   ApplicationService::Errors::InputError,
-                  "The value of `number_of_calls` must be greater than or equal to `1` (got: `-1`)"
+                  "[Usual::InputOptionHelpers::Example2] Input attribute `number_of_calls` " \
+                  "received value `-1`, which is less than `1`"
                 )
               )
             end
@@ -175,7 +177,8 @@ RSpec.describe Usual::InputOptionHelpers::Example2 do
               expect { perform }.to(
                 raise_error(
                   ApplicationService::Errors::InputError,
-                  "The value of `number_of_calls` must be greater than or equal to `1` (got: `0`)"
+                  "[Usual::InputOptionHelpers::Example2] Input attribute `number_of_calls` " \
+                  "received value `0`, which is less than `1`"
                 )
               )
             end
@@ -188,7 +191,8 @@ RSpec.describe Usual::InputOptionHelpers::Example2 do
               expect { perform }.to(
                 raise_error(
                   ApplicationService::Errors::InputError,
-                  "The value of `number_of_calls` must be greater than or equal to `1` (got: `-1`)"
+                  "[Usual::InputOptionHelpers::Example2] Input attribute `number_of_calls` " \
+                  "received value `-1`, which is less than `1`"
                 )
               )
             end
@@ -203,7 +207,7 @@ RSpec.describe Usual::InputOptionHelpers::Example2 do
               raise_error(
                 ApplicationService::Errors::InputError,
                 "[Usual::InputOptionHelpers::Example2] Wrong type of input " \
-                  "`number_of_calls`, expected `Integer`, got `String`"
+                "`number_of_calls`, expected `Integer`, got `String`"
               )
             )
           end
