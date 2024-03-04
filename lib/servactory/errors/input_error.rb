@@ -2,7 +2,7 @@
 
 module Servactory
   module Errors
-    class InputError < Base
+    class InputError < Servactory::Exceptions::Base
       attr_reader :message,
                   :input_name
 

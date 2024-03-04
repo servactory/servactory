@@ -2,7 +2,7 @@
 
 module Servactory
   module Errors
-    class InternalError < Base
+    class InternalError < Servactory::Exceptions::Base
       attr_reader :message,
                   :internal_name
 

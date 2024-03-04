@@ -2,8 +2,6 @@ module Servactory
   module Inputs
     module Validations
       class Required < Base
-        DEFAULT_MESSAGE: ^(service_class_name: String, input: Input, value: untyped) -> String
-
         @context: instance
         @input: Input
         @value: untyped
@@ -17,6 +15,10 @@ module Servactory
         def check: () -> void
 
         private
+
+        def collection_valid?: -> bool
+
+        def collection_valid_for?: (values: Array[untyped]) -> bool
 
         def add_error_with: (String? message) -> void
       end

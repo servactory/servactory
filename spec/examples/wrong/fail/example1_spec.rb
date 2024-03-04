@@ -16,7 +16,13 @@ RSpec.describe Wrong::Fail::Example1 do
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Errors::Failure)
               expect(exception.type).to eq(:base)
-              expect(exception.message).to eq("Some error")
+              expect(exception.message).to(
+                eq(
+                  "[Wrong::Fail::Example1] The following methods cannot be overwritten: " \
+                  "`fail_input!`, `fail_internal!`, `fail_output!`, `fail!`, `fail_result!`"
+                )
+              )
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -40,10 +46,9 @@ RSpec.describe Wrong::Fail::Example1 do
           expect(result.error).to be_a(ApplicationService::Errors::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :base,
-            message: "Some error",
-            meta: {
-              some: :data
-            }
+            message: "[Wrong::Fail::Example1] The following methods cannot be overwritten: " \
+                     "`fail_input!`, `fail_internal!`, `fail_output!`, `fail!`, `fail_result!`",
+            meta: nil
           )
         end
       end

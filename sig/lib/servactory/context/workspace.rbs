@@ -23,6 +23,8 @@ module Servactory
 
       def initialize: () -> void
 
+      def success!: () -> Exception
+
       def fail_input!: (Symbol input_name, message: String) -> Exception
 
       def fail_internal!: (Symbol internal_name, message: String) -> Exception

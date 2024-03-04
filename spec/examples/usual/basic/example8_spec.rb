@@ -42,6 +42,7 @@ RSpec.describe Usual::Basic::Example8 do
                 expect(exception).to be_a(ApplicationService::Errors::Failure)
                 expect(exception.type).to eq(:base)
                 expect(exception.message).to eq("Authentication failed")
+                expect(exception.meta).to be_nil
               end
             )
           end
@@ -56,6 +57,7 @@ RSpec.describe Usual::Basic::Example8 do
                 expect(exception).to be_a(ApplicationService::Errors::Failure)
                 expect(exception.type).to eq(:base)
                 expect(exception.message).to eq("Authentication failed")
+                expect(exception.meta).to be_nil
               end
             )
           end
@@ -119,7 +121,8 @@ RSpec.describe Usual::Basic::Example8 do
             expect(result.error).to be_a(ApplicationService::Errors::Failure)
             expect(result.error).to an_object_having_attributes(
               type: :base,
-              message: "Authentication failed"
+              message: "Authentication failed",
+              meta: nil
             )
           end
         end
@@ -135,7 +138,8 @@ RSpec.describe Usual::Basic::Example8 do
             expect(result.error).to be_a(ApplicationService::Errors::Failure)
             expect(result.error).to an_object_having_attributes(
               type: :base,
-              message: "Authentication failed"
+              message: "Authentication failed",
+              meta: nil
             )
           end
         end

@@ -21,7 +21,7 @@ module Servactory
         end
 
         def validate
-          validate_for(object: @object, schema: @schema)
+          validate_for!(object: @object, schema: @schema)
 
           self
         end
@@ -32,7 +32,7 @@ module Servactory
 
         private
 
-        def validate_for(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        def validate_for!(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           unless object.respond_to?(:fetch)
             add_error(key_name: root_schema_key, expected_type: Hash.name, given_type: object.class.name)
             return
@@ -42,7 +42,7 @@ module Servactory
             attribute_type = schema_value.fetch(:type, String)
 
             if attribute_type == Hash
-              validate_for(
+              validate_for!(
                 object: object.fetch(schema_key, {}),
                 schema: schema_value.except(*RESERVED_ATTRIBUTES),
                 root_schema_key: schema_key

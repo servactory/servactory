@@ -8,6 +8,7 @@ module Servactory
       def call!(collection_of_stages:, **)
         super
 
+        Servactory::Actions::Tools::Rules.check!(self)
         Servactory::Actions::Tools::Runner.run!(self, collection_of_stages)
       end
     end
