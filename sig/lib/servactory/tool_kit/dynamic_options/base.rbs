@@ -1,0 +1,15 @@
+module Servactory
+  module ToolKit
+    module DynamicOptions
+      class Base
+        @name: Symbol
+
+        def initialize: (Symbol name) -> void
+
+        def setup: () -> Maintenance::Attributes::OptionHelper
+
+        def equivalent: () -> Proc
+      end
+    end
+  end
+end
