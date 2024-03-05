@@ -9,7 +9,7 @@ module Servactory
                     :types,
                     :inclusion
 
-        def initialize(input)
+        def initialize(input) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           @name = input.name
           @internal_name = input.internal_name
           @types = input.types
