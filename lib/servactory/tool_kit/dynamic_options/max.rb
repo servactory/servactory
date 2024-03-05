@@ -9,7 +9,14 @@ module Servactory
         end
 
         def condition_with(value, received_value)
-          value <= received_value
+          case value.class
+          when Integer
+            value <= received_value
+          when String, Array
+            value.size <= received_value
+          else
+            false
+          end
         end
 
         def message_for(service_class_name:, attribute_name:, input_name:, value:, received_value:, **)
