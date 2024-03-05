@@ -2,7 +2,7 @@ module Servactory
   module Utils
     FALSE_VALUES: Set[false | Symbol | String | Integer]
 
-    def self?.fetch_hash_with_desired_attribute: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> Hash[Symbol, ((Inputs::Input | Internals::Internal | Outputs::Output))]
+    def self?.fetch_hash_with_desired_attribute: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> Hash[Symbol, untyped]
 
     def self?.define_attribute_with: (input: Inputs::Input, internal: Internals::Internal, output: Outputs::Output) -> (Inputs::Input | Internals::Internal | Outputs::Output | Exception)
 

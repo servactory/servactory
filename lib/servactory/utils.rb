@@ -6,11 +6,11 @@ module Servactory
 
     def fetch_hash_with_desired_attribute(attribute)
       if attribute.input?
-        { input: @attribute }
+        { input: attribute.class::Work.new(attribute) }
       elsif attribute.internal?
-        { internal: @attribute }
+        { internal: attribute.class::Work.new(attribute) }
       elsif attribute.output?
-        { output: @attribute }
+        { output: attribute.class::Work.new(attribute) }
       end
     end
 
