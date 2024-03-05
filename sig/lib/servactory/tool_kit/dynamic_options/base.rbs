@@ -11,6 +11,10 @@ module Servactory
         def equivalent_with: (Symbol name) -> Proc
 
         def must_content_with: (untyped received_value) -> Hash[Symbol, untyped]
+
+        def condition_with: (untyped value, untyped received_value) -> bool
+
+        def message_for: (** untyped) -> String
       end
     end
   end
