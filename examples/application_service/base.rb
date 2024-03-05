@@ -35,6 +35,20 @@ module ApplicationService
         ]
       )
 
+      internal_option_helpers(
+        [
+          Servactory::ToolKit::DynamicOptions::Min.setup,
+          Servactory::ToolKit::DynamicOptions::Max.setup
+        ]
+      )
+
+      output_option_helpers(
+        [
+          Servactory::ToolKit::DynamicOptions::Min.setup,
+          Servactory::ToolKit::DynamicOptions::Max.setup
+        ]
+      )
+
       action_shortcuts %i[assign]
       action_aliases %i[play do_it!]
     end

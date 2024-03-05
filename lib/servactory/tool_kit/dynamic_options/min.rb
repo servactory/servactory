@@ -9,7 +9,7 @@ module Servactory
         end
 
         def condition_with(value, received_value)
-          case value.class
+          case value
           when Integer
             value >= received_value
           when String, Array
