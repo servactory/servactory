@@ -4,6 +4,16 @@ module Servactory
   module Utils
     module_function
 
+    def fetch_hash_with_desired_attribute(attribute)
+      if attribute.input?
+        { input: @attribute }
+      elsif attribute.internal?
+        { internal: @attribute }
+      elsif attribute.output?
+        { output: @attribute }
+      end
+    end
+
     def define_attribute_with(input:, internal:, output:)
       return input if input.present?
       return internal if internal.present?
