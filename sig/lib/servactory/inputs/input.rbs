@@ -1,6 +1,12 @@
 module Servactory
   module Inputs
     class Input
+      class Work
+        attr_reader name: Symbol
+        attr_reader internal_name: Symbol
+        attr_reader types: Array[Class]
+      end
+
       attr_reader name: Symbol
       attr_reader internal_name: Symbol?
       attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection

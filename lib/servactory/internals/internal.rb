@@ -3,6 +3,16 @@
 module Servactory
   module Internals
     class Internal
+      class Work
+        attr_reader :name,
+                    :types
+
+        def initialize(input)
+          @name = input.name
+          @types = input.types
+        end
+      end
+
       attr_reader :name,
                   :collection_of_options
 

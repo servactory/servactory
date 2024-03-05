@@ -3,6 +3,21 @@
 module Servactory
   module Inputs
     class Input
+      class Work
+        attr_reader :name,
+                    :internal_name,
+                    :types
+
+        def initialize(input)
+          @name = input.name
+          @internal_name = input.internal_name
+          @types = input.types
+
+          define_singleton_method(:optional?) { input.optional? }
+          define_singleton_method(:required?) { input.required? }
+        end
+      end
+
       attr_reader :name,
                   :internal_name,
                   :collection_of_options
