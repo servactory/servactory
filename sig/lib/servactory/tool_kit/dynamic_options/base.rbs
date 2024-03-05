@@ -2,13 +2,15 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Base
-        @name: Symbol
+        @option_name: Symbol
 
-        def initialize: (Symbol name) -> void
+        def initialize: (Symbol option_name) -> void
 
-        def setup: () -> Maintenance::Attributes::OptionHelper
+        def setup: (Symbol name) -> Maintenance::Attributes::OptionHelper
 
-        def equivalent: () -> Proc
+        def equivalent_with: (Symbol name) -> Proc
+
+        def must_content_with: (untyped received_value) -> Hash[Symbol, untyped]
       end
     end
   end

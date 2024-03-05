@@ -4,19 +4,31 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Base
-        def initialize(name)
-          @name = name
+        def initialize(option_name)
+          @option_name = option_name
         end
 
-        def setup
+        def setup(name)
           Servactory::Maintenance::Attributes::OptionHelper.new(
-            name: @name,
-            equivalent: equivalent
+            name: @option_name,
+            equivalent: equivalent_with(name)
           )
         end
 
-        def equivalent
-          raise "Need to implement `equivalent` method"
+        def equivalent_with(name)
+          lambda do |data|
+            received_value = (data.is_a?(Hash) && data.key?(:is) ? data[:is] : data)
+
+            {
+              must: {
+                name => must_content_with(received_value)
+              }
+            }
+          end
+        end
+
+        def must_content_with(_received_value)
+          raise "Need to implement `must_content_with(received_value)` method"
         end
       end
     end
