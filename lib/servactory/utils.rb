@@ -15,9 +15,9 @@ module Servactory
     end
 
     def define_attribute_with(input:, internal:, output:)
-      return input if input.present?
-      return internal if internal.present?
-      return output if output.present?
+      return input if input.present? && input.input?
+      return internal if internal.present? && internal.internal?
+      return output if output.present? && output.output?
 
       raise ArgumentError, "missing keyword: :input, :internal or :output"
     end
