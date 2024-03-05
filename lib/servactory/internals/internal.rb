@@ -5,11 +5,16 @@ module Servactory
     class Internal
       class Work
         attr_reader :name,
-                    :types
+                    :types,
+                    :inclusion
 
-        def initialize(input)
-          @name = input.name
-          @types = input.types
+        def initialize(internal)
+          @name = internal.name
+          @types = internal.types
+          @inclusion = internal.inclusion.slice(:in) if internal.inclusion_present?
+
+          define_singleton_method(:system_name) { internal.system_name }
+          define_singleton_method(:i18n_name) { internal.i18n_name }
         end
       end
 

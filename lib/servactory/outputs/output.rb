@@ -5,11 +5,16 @@ module Servactory
     class Output
       class Work
         attr_reader :name,
-                    :types
+                    :types,
+                    :inclusion
 
-        def initialize(input)
-          @name = input.name
-          @types = input.types
+        def initialize(output)
+          @name = output.name
+          @types = output.types
+          @inclusion = output.inclusion.slice(:in) if output.inclusion_present?
+
+          define_singleton_method(:system_name) { output.system_name }
+          define_singleton_method(:i18n_name) { output.i18n_name }
         end
       end
 

@@ -60,7 +60,7 @@ module Servactory
             add_error(
               message: message,
               service_class_name: @context.class.name,
-              "#{@attribute.system_name}": @attribute,
+              **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value,
               code: code
             )
@@ -70,7 +70,7 @@ module Servactory
             add_error(
               message: message,
               service_class_name: @context.class.name,
-              "#{@attribute.system_name}": @attribute,
+              **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value,
               code: code,
               exception_message: exception_message

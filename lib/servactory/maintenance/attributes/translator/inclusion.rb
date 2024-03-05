@@ -11,6 +11,12 @@ module Servactory
             lambda do |service_class_name:, value:, input: nil, internal: nil, output: nil|
               attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
 
+              puts
+              puts
+              puts attribute.inspect
+              puts
+              puts
+
               I18n.t(
                 "servactory.#{attribute.i18n_name}.validations.inclusion.default_error",
                 service_class_name: service_class_name,

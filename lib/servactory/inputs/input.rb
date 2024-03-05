@@ -6,13 +6,17 @@ module Servactory
       class Work
         attr_reader :name,
                     :internal_name,
-                    :types
+                    :types,
+                    :inclusion
 
         def initialize(input)
           @name = input.name
           @internal_name = input.internal_name
           @types = input.types
+          @inclusion = input.inclusion.slice(:in) if input.inclusion_present?
 
+          define_singleton_method(:system_name) { input.system_name }
+          define_singleton_method(:i18n_name) { input.i18n_name }
           define_singleton_method(:optional?) { input.optional? }
           define_singleton_method(:required?) { input.required? }
         end
