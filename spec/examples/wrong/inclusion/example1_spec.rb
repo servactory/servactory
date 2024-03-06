@@ -22,7 +22,7 @@ RSpec.describe Wrong::Inclusion::Example1 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Inclusion::Example1] Conflict in `event_name` input options: `collection_vs_inclusion`"
             )
           )
@@ -38,7 +38,7 @@ RSpec.describe Wrong::Inclusion::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Inclusion::Example1] Conflict in `event_name` input options: `collection_vs_inclusion`"
               )
             )
@@ -51,7 +51,7 @@ RSpec.describe Wrong::Inclusion::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Inclusion::Example1] Conflict in `event_name` input options: `collection_vs_inclusion`"
               )
             )
@@ -82,7 +82,7 @@ RSpec.describe Wrong::Inclusion::Example1 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Inclusion::Example1] Conflict in `event_name` input options: `collection_vs_inclusion`"
             )
           )
@@ -98,7 +98,7 @@ RSpec.describe Wrong::Inclusion::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Inclusion::Example1] Conflict in `event_name` input options: `collection_vs_inclusion`"
               )
             )
@@ -111,7 +111,7 @@ RSpec.describe Wrong::Inclusion::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Inclusion::Example1] Conflict in `event_name` input options: `collection_vs_inclusion`"
               )
             )

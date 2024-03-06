@@ -54,7 +54,7 @@ RSpec.describe Usual::Hash::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Hash::Example3] Wrong type in input hash `payload`, " \
                 "expected `String` for `number`, got `Integer`"
               )
@@ -125,7 +125,7 @@ RSpec.describe Usual::Hash::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Hash::Example3] Wrong type in input hash `payload`, " \
                 "expected `String` for `number`, got `Integer`"
               )

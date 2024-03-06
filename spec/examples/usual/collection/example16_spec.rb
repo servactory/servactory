@@ -67,7 +67,7 @@ RSpec.describe Usual::Collection::Example16 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example16] Required element in input collection `ids` is missing"
               )
             )
@@ -86,7 +86,7 @@ RSpec.describe Usual::Collection::Example16 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example16] Required element in input collection `ids` is missing"
               )
             )
@@ -169,7 +169,7 @@ RSpec.describe Usual::Collection::Example16 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example16] Required element in input collection `ids` is missing"
               )
             )
@@ -188,7 +188,7 @@ RSpec.describe Usual::Collection::Example16 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example16] Required element in input collection `ids` is missing"
               )
             )

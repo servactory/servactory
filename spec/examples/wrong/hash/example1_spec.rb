@@ -38,7 +38,7 @@ RSpec.describe Wrong::Hash::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Hash::Example1] Wrong type in input hash `payload`, " \
                 "expected `String` for `first_name`, got `Integer`"
               )
@@ -52,7 +52,7 @@ RSpec.describe Wrong::Hash::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Hash::Example1] Wrong type in input hash `payload`, " \
                 "expected `String` for `middle_name`, got `Integer`"
               )
@@ -107,7 +107,7 @@ RSpec.describe Wrong::Hash::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Hash::Example1] Wrong type in input hash `payload`, " \
                 "expected `String` for `first_name`, got `Integer`"
               )
@@ -121,7 +121,7 @@ RSpec.describe Wrong::Hash::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Hash::Example1] Wrong type in input hash `payload`, " \
                 "expected `String` for `middle_name`, got `Integer`"
               )
