@@ -14,7 +14,7 @@ RSpec.describe Wrong::Must::Example5 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "[Wrong::Must::Example5] Syntax error inside `be_6_characters` of `invoice_numbers` output attribute"
             )
           )
@@ -36,7 +36,7 @@ RSpec.describe Wrong::Must::Example5 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "[Wrong::Must::Example5] Syntax error inside `be_6_characters` of `invoice_numbers` output attribute"
             )
           )
