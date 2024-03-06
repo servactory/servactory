@@ -39,7 +39,7 @@ RSpec.describe Usual::Collection::Example17 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example17] Wrong type in input collection `letters`, " \
                 "expected `String`, got `Symbol`"
               )
@@ -55,7 +55,7 @@ RSpec.describe Usual::Collection::Example17 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example17] Required element in input collection `letters` is missing"
               )
             )
@@ -70,7 +70,7 @@ RSpec.describe Usual::Collection::Example17 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example17] Required element in input collection `letters` is missing"
               )
             )
@@ -126,7 +126,7 @@ RSpec.describe Usual::Collection::Example17 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example17] Wrong type in input collection `letters`, " \
                 "expected `String`, got `Symbol`"
               )
@@ -142,7 +142,7 @@ RSpec.describe Usual::Collection::Example17 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example17] Required element in input collection `letters` is missing"
               )
             )
@@ -157,7 +157,7 @@ RSpec.describe Usual::Collection::Example17 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example17] Required element in input collection `letters` is missing"
               )
             )

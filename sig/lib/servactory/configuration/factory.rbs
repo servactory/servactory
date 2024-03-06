@@ -3,13 +3,19 @@ module Servactory
     class Factory
       @config: Setup
 
-      def input_error_class: (singleton(Errors::InputError) input_error_class) -> singleton(Errors::InputError)
+      def input_error_class: (singleton(Exceptions::Input) input_error_class) -> (singleton(Exceptions::Input) | Exception)
 
-      def output_error_class: (singleton(Errors::OutputError) output_error_class) -> singleton(Errors::OutputError)
+      def internal_error_class: (singleton(Exceptions::Internal) internal_error_class) -> (singleton(Exceptions::Internal) | Exception)
 
-      def internal_error_class: (singleton(Errors::InternalError) internal_error_class) -> singleton(Errors::InternalError)
+      def output_error_class: (singleton(Exceptions::Output) output_error_class) -> (singleton(Exceptions::Output) | Exception)
 
-      def failure_class: (singleton(Errors::Failure) failure_class) -> singleton(Errors::Failure)
+      def input_exception_class: (singleton(Exceptions::Input) input_exception__class) -> (singleton(Exceptions::Input) | Exception)
+
+      def internal_exception_class: (singleton(Exceptions::Internal) internal_exception__class) -> (singleton(Exceptions::Internal) | Exception)
+
+      def output_exception_class: (singleton(Exceptions::Output) output_exception__class) -> (singleton(Exceptions::Output) | Exception)
+
+      def failure_class: (singleton(Exceptions::Failure) failure_class) -> (singleton(Exceptions::Failure) | Exception)
 
       def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> Maintenance::CollectionMode::ClassNamesCollection
 
@@ -24,6 +30,10 @@ module Servactory
       def action_aliases: (Array[Symbol] action_aliases) -> Actions::Aliases::Collection
 
       def action_shortcuts: (Array[Symbol] action_shortcuts) -> Actions::Shortcuts::Collection
+
+      def subclass_of_exception?: (Class value) -> bool
+
+      def raise_error_about_wrong_exception_class_with: (Symbol config_name, Class value) -> Exception
     end
   end
 end

@@ -22,7 +22,7 @@ RSpec.describe Wrong::Basic::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Basic::Example3] Undefined internal attribute `prepared_number`"
             )
           )
@@ -59,7 +59,7 @@ RSpec.describe Wrong::Basic::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Basic::Example3] Undefined internal attribute `prepared_number`"
             )
           )

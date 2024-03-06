@@ -37,7 +37,7 @@ RSpec.describe Usual::Extensions::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "User is not active"
               )
             )
@@ -90,7 +90,7 @@ RSpec.describe Usual::Extensions::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "User is not active"
               )
             )

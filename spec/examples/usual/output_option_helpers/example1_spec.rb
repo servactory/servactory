@@ -49,7 +49,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::OutputError,
+                ApplicationService::Exceptions::Output,
                 "Wrong IDs in `invoice_numbers`"
               )
             )
@@ -68,7 +68,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::OutputOptionHelpers::Example1] Wrong type in input " \
                 "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
@@ -88,7 +88,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::OutputOptionHelpers::Example1] Required element in input " \
                 "collection `invoice_numbers` is missing"
               )
@@ -108,7 +108,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::OutputOptionHelpers::Example1] Required element in input " \
                 "collection `invoice_numbers` is missing"
               )
@@ -175,7 +175,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::OutputError,
+                ApplicationService::Exceptions::Output,
                 "Wrong IDs in `invoice_numbers`"
               )
             )
@@ -194,7 +194,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::OutputOptionHelpers::Example1] Wrong type in input " \
                 "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
@@ -214,7 +214,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::OutputOptionHelpers::Example1] Required element in input " \
                 "collection `invoice_numbers` is missing"
               )
@@ -234,7 +234,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::OutputOptionHelpers::Example1] Required element in input " \
                 "collection `invoice_numbers` is missing"
               )

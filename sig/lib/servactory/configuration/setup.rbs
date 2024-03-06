@@ -1,15 +1,15 @@
 module Servactory
   module Configuration
     class Setup
-      attr_accessor input_error_class: singleton(Errors::InputError)
+      attr_accessor input_exception_class: singleton(Exceptions::Input)
 
-      attr_accessor internal_error_class: singleton(Errors::InternalError)
+      attr_accessor internal_exception_class: singleton(Exceptions::Internal)
 
-      attr_accessor output_error_class: singleton(Errors::OutputError)
+      attr_accessor output_exception_class: singleton(Exceptions::Output)
 
       attr_accessor success_class: singleton(Exceptions::Success)
 
-      attr_accessor failure_class: singleton(Errors::Failure)
+      attr_accessor failure_class: singleton(Exceptions::Failure)
 
       attr_accessor collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
 

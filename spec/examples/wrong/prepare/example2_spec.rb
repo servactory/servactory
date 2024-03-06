@@ -29,7 +29,7 @@ RSpec.describe Wrong::Prepare::Example2 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
             )
           )
@@ -45,7 +45,7 @@ RSpec.describe Wrong::Prepare::Example2 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
               )
             )
@@ -58,7 +58,7 @@ RSpec.describe Wrong::Prepare::Example2 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
               )
             )
@@ -96,7 +96,7 @@ RSpec.describe Wrong::Prepare::Example2 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
             )
           )
@@ -112,7 +112,7 @@ RSpec.describe Wrong::Prepare::Example2 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
               )
             )
@@ -125,7 +125,7 @@ RSpec.describe Wrong::Prepare::Example2 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
               )
             )

@@ -8,12 +8,12 @@ module Servactory
       end
 
       module ClassMethods
-        def inherited(child) # rubocop:disable Metrics/AbcSize
+        def inherited(child) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           super
 
-          child.config.input_error_class = config.input_error_class
-          child.config.internal_error_class = config.internal_error_class
-          child.config.output_error_class = config.output_error_class
+          child.config.input_exception_class = config.input_exception_class
+          child.config.internal_exception_class = config.internal_exception_class
+          child.config.output_exception_class = config.output_exception_class
 
           child.config.success_class = config.success_class
           child.config.failure_class = config.failure_class
@@ -21,6 +21,8 @@ module Servactory
           child.config.collection_mode_class_names = config.collection_mode_class_names
 
           child.config.input_option_helpers = config.input_option_helpers
+          child.config.internal_option_helpers = config.internal_option_helpers
+          child.config.output_option_helpers = config.output_option_helpers
 
           child.config.action_aliases = config.action_aliases
           child.config.action_shortcuts = config.action_shortcuts
