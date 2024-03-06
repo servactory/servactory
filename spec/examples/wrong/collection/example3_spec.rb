@@ -14,7 +14,7 @@ RSpec.describe Wrong::Collection::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "[Wrong::Collection::Example3] Wrong output attribute collection type `ids`, expected `Set`, got `Array`"
             )
           )
@@ -36,7 +36,7 @@ RSpec.describe Wrong::Collection::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "[Wrong::Collection::Example3] Wrong output attribute collection type `ids`, expected `Set`, got `Array`"
             )
           )

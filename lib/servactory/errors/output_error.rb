@@ -2,6 +2,7 @@
 
 module Servactory
   module Errors
+    # DEPRECATED: This class will be deleted after release 2.4.
     class OutputError < Servactory::Exceptions::Base
       attr_reader :message,
                   :output_name,

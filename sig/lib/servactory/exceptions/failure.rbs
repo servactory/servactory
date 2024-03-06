@@ -1,5 +1,5 @@
 module Servactory
-  module Errors
+  module Exceptions
     class Failure < Base
       attr_reader type: Symbol?
       attr_reader message: String

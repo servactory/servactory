@@ -14,7 +14,7 @@ RSpec.describe Wrong::Must::Example6 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "Wrong IDs in `invoice_numbers`"
             )
           )
@@ -36,7 +36,7 @@ RSpec.describe Wrong::Must::Example6 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "Wrong IDs in `invoice_numbers`"
             )
           )

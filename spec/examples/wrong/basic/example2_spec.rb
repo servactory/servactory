@@ -22,7 +22,7 @@ RSpec.describe Wrong::Basic::Example2 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Basic::Example2] Undefined input attribute `number`"
             )
           )
@@ -59,7 +59,7 @@ RSpec.describe Wrong::Basic::Example2 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::Basic::Example2] Undefined input attribute `number`"
             )
           )

@@ -75,7 +75,7 @@ module Servactory
             output_name: name
           )
 
-          raise @context.class.config.output_error_class.new(message: message_text)
+          raise @context.class.config.output_exception_class.new(message: message_text)
         end
       end
     end
