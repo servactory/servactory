@@ -35,7 +35,7 @@ RSpec.describe Usual::FailInput::Example1 do
           it "returns expected error", :aggregate_failures do
             expect { perform }.to(
               raise_error do |exception|
-                expect(exception).to be_a(ApplicationService::Errors::InputError)
+                expect(exception).to be_a(ApplicationService::Exceptions::Input)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(received_invoice_number: "BB-7650AE")
               end
@@ -87,7 +87,7 @@ RSpec.describe Usual::FailInput::Example1 do
           it "returns expected error", :aggregate_failures do
             expect { perform }.to(
               raise_error do |exception|
-                expect(exception).to be_a(ApplicationService::Errors::InputError)
+                expect(exception).to be_a(ApplicationService::Exceptions::Input)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(received_invoice_number: "BB-7650AE")
               end
