@@ -22,7 +22,7 @@ RSpec.describe Wrong::Basic::Example11 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "[Wrong::Basic::Example11] Wrong type of output attribute `invoice_number`, " \
               "expected `Integer`, got `NilClass`"
             )
@@ -60,7 +60,7 @@ RSpec.describe Wrong::Basic::Example11 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "[Wrong::Basic::Example11] Wrong type of output attribute `invoice_number`, " \
               "expected `Integer`, got `NilClass`"
             )

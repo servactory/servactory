@@ -29,7 +29,7 @@ RSpec.describe Wrong::As::Example1 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::As::Example1] Undefined input attribute `ids`"
             )
           )
@@ -74,7 +74,7 @@ RSpec.describe Wrong::As::Example1 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InputError,
+              ApplicationService::Exceptions::Input,
               "[Wrong::As::Example1] Undefined input attribute `ids`"
             )
           )

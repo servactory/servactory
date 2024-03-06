@@ -22,7 +22,7 @@ RSpec.describe Wrong::Basic::Example4 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "[Wrong::Basic::Example4] Undefined output attribute `number`"
             )
           )
@@ -59,7 +59,7 @@ RSpec.describe Wrong::Basic::Example4 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::OutputError,
+              ApplicationService::Exceptions::Output,
               "[Wrong::Basic::Example4] Undefined output attribute `number`"
             )
           )

@@ -14,7 +14,7 @@ RSpec.describe Wrong::Hash::Example10 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InternalError,
+              ApplicationService::Exceptions::Internal,
               "Problem with the value in the `payload` schema: `user` has `NilClass` instead of `Hash`"
             )
           )
@@ -36,7 +36,7 @@ RSpec.describe Wrong::Hash::Example10 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InternalError,
+              ApplicationService::Exceptions::Internal,
               "Problem with the value in the `payload` schema: `user` has `NilClass` instead of `Hash`"
             )
           )
