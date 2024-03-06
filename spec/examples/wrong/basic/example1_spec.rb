@@ -22,7 +22,7 @@ RSpec.describe Wrong::Basic::Example1 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InternalError,
+              ApplicationService::Exceptions::Internal,
               "[Wrong::Basic::Example1] Wrong type of internal attribute `prepared_invoice_number`, " \
               "expected `Integer`, got `String`"
             )
@@ -60,7 +60,7 @@ RSpec.describe Wrong::Basic::Example1 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InternalError,
+              ApplicationService::Exceptions::Internal,
               "[Wrong::Basic::Example1] Wrong type of internal attribute `prepared_invoice_number`, " \
               "expected `Integer`, got `String`"
             )

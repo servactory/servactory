@@ -35,7 +35,7 @@ RSpec.describe Usual::Inclusion::Example9 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "Incorrect `event_name` specified: `sent`"
               )
             )
@@ -48,7 +48,7 @@ RSpec.describe Usual::Inclusion::Example9 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InternalError,
+                ApplicationService::Exceptions::Internal,
                 "Incorrect `event_name` specified: `created`"
               )
             )
@@ -61,7 +61,7 @@ RSpec.describe Usual::Inclusion::Example9 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::OutputError,
+                ApplicationService::Exceptions::Output,
                 "Incorrect `event_name` specified: `rejected`"
               )
             )
@@ -113,7 +113,7 @@ RSpec.describe Usual::Inclusion::Example9 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "Incorrect `event_name` specified: `sent`"
               )
             )
@@ -126,7 +126,7 @@ RSpec.describe Usual::Inclusion::Example9 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InternalError,
+                ApplicationService::Exceptions::Internal,
                 "Incorrect `event_name` specified: `created`"
               )
             )
@@ -139,7 +139,7 @@ RSpec.describe Usual::Inclusion::Example9 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::OutputError,
+                ApplicationService::Exceptions::Output,
                 "Incorrect `event_name` specified: `rejected`"
               )
             )

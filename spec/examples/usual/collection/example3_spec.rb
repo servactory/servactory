@@ -49,7 +49,7 @@ RSpec.describe Usual::Collection::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example3] Input `invoice_numbers` must \"be_6_characters\""
               )
             )
@@ -68,7 +68,7 @@ RSpec.describe Usual::Collection::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example3] Wrong type in input collection `invoice_numbers`, " \
                 "expected `String`, got `Integer`"
               )
@@ -88,7 +88,7 @@ RSpec.describe Usual::Collection::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example3] Required element in input collection `invoice_numbers` is missing"
               )
             )
@@ -107,7 +107,7 @@ RSpec.describe Usual::Collection::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example3] Required element in input collection `invoice_numbers` is missing"
               )
             )
@@ -173,7 +173,7 @@ RSpec.describe Usual::Collection::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example3] Input `invoice_numbers` must \"be_6_characters\""
               )
             )
@@ -192,7 +192,7 @@ RSpec.describe Usual::Collection::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example3] Wrong type in input collection `invoice_numbers`, " \
                 "expected `String`, got `Integer`"
               )
@@ -212,7 +212,7 @@ RSpec.describe Usual::Collection::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example3] Required element in input collection `invoice_numbers` is missing"
               )
             )
@@ -231,7 +231,7 @@ RSpec.describe Usual::Collection::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::Collection::Example3] Required element in input collection `invoice_numbers` is missing"
               )
             )

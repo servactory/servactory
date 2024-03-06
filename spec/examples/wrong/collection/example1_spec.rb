@@ -29,7 +29,7 @@ RSpec.describe Wrong::Collection::Example1 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InternalError,
+              ApplicationService::Exceptions::Internal,
               "[Wrong::Collection::Example1] Wrong internal attribute collection " \
               "type `ids`, expected `Set`, got `Array`"
             )
@@ -75,7 +75,7 @@ RSpec.describe Wrong::Collection::Example1 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Errors::InternalError,
+              ApplicationService::Exceptions::Internal,
               "[Wrong::Collection::Example1] Wrong internal attribute collection " \
               "type `ids`, expected `Set`, got `Array`"
             )

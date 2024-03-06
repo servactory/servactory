@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Errors
-    # DEPRECATED: This class will be deleted after release 2.4.
-    class Failure < Servactory::Exceptions::Base
+  module Exceptions
+    class Failure < Base
       attr_reader :type,
                   :message,
                   :meta

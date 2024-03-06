@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.3.0](https://github.com/servactory/servactory/tree/v2.3.0) (2024-03-06)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.2.3...v2.3.0)
+
+**Breaking changes:**
+
+- Rename exception classes and configs [\#163](https://github.com/servactory/servactory/pull/163) ([afuno](https://github.com/afuno))
+
+## [v2.2.3](https://github.com/servactory/servactory/tree/v2.2.3) (2024-03-05)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.2.2...v2.2.3)
+
+**Fixed:**
+
+- Fix inheritance of `internal_option_helpers` and `output_option_helpers` configurations [\#177](https://github.com/servactory/servactory/pull/177) ([afuno](https://github.com/afuno))
+
 ## [v2.2.2](https://github.com/servactory/servactory/tree/v2.2.2) (2024-03-01)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.2.1...v2.2.2)

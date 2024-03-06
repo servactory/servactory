@@ -37,7 +37,7 @@ RSpec.describe Usual::Inclusion::Example4 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "Incorrect `event_name` specified: `sent`"
               )
             )
@@ -91,7 +91,7 @@ RSpec.describe Usual::Inclusion::Example4 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "Incorrect `event_name` specified: `sent`"
               )
             )
