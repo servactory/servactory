@@ -17,15 +17,20 @@ RSpec.describe Usual::Collection::Example17 do
     include_examples "check class info",
                      inputs: %i[letters],
                      internals: %i[letters],
-                     outputs: %i[desired_letter]
+                     outputs: %i[letters desired_letter]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `desired_letter`" do
+        it "returns expected values", :aggregate_failures do
           result = perform
 
+          expect(result.letters?).to be(true)
+          expect(result.letters).to(
+            contain_exactly(%w[A B], ["C", "D", %w[E F]])
+          )
+          expect(result.desired_letter?).to be(true)
           expect(result.desired_letter).to eq("E")
         end
       end
@@ -104,15 +109,20 @@ RSpec.describe Usual::Collection::Example17 do
     include_examples "check class info",
                      inputs: %i[letters],
                      internals: %i[letters],
-                     outputs: %i[desired_letter]
+                     outputs: %i[letters desired_letter]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `desired_letter`" do
+        it "returns expected values", :aggregate_failures do
           result = perform
 
+          expect(result.letters?).to be(true)
+          expect(result.letters).to(
+            contain_exactly(%w[A B], ["C", "D", %w[E F]])
+          )
+          expect(result.desired_letter?).to be(true)
           expect(result.desired_letter).to eq("E")
         end
       end

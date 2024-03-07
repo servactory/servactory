@@ -7,9 +7,11 @@ module Usual
 
       internal :letters, type: Array, consists_of: String
 
+      output :letters, type: Array, consists_of: String
       output :desired_letter, type: String
 
       make :assign_internal
+      make :assign_output
       make :assign_desired_letter
 
       private
@@ -18,8 +20,12 @@ module Usual
         internals.letters = inputs.letters
       end
 
+      def assign_output
+        outputs.letters = internals.letters
+      end
+
       def assign_desired_letter
-        outputs.desired_letter = internals.letters.second.third.first
+        outputs.desired_letter = outputs.letters.second.third.first
       end
     end
   end
