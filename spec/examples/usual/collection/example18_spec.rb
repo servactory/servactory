@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Collection::Example17 do
+RSpec.describe Usual::Collection::Example18 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -11,7 +11,7 @@ RSpec.describe Usual::Collection::Example17 do
     end
 
     let(:letters) do
-      [%w[A B], ["C", "D", %w[E F]]]
+      [%w[A B], ["C", "D", %w[E F], nil, ""]]
     end
 
     include_examples "check class info",
@@ -28,7 +28,7 @@ RSpec.describe Usual::Collection::Example17 do
 
           expect(result.letters?).to be(true)
           expect(result.letters).to(
-            contain_exactly(%w[A B], ["C", "D", %w[E F]])
+            contain_exactly(%w[A B], ["C", "D", %w[E F], nil, ""])
           )
           expect(result.desired_letter?).to be(true)
           expect(result.desired_letter).to eq("E")
@@ -45,38 +45,8 @@ RSpec.describe Usual::Collection::Example17 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example17] Wrong type in input collection `letters`, " \
-                "expected `String`, got `Symbol`"
-              )
-            )
-          end
-        end
-
-        describe "because one element is empty" do
-          let(:letters) do
-            [%w[A B], ["C", "", %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example17] Required element in input collection `letters` is missing"
-              )
-            )
-          end
-        end
-
-        describe "because one element is nil" do
-          let(:letters) do
-            [%w[A B], ["C", nil, %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example17] Required element in input collection `letters` is missing"
+                "[Usual::Collection::Example18] Wrong type in input collection `letters`, " \
+                "expected `String, NilClass`, got `Symbol`"
               )
             )
           end
@@ -86,9 +56,7 @@ RSpec.describe Usual::Collection::Example17 do
 
     context "when the input arguments are invalid" do
       context "when `letters`" do
-        it_behaves_like "input required check", name: :letters
-
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: String
+        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: [String, NilClass]
       end
     end
   end
@@ -103,7 +71,7 @@ RSpec.describe Usual::Collection::Example17 do
     end
 
     let(:letters) do
-      [%w[A B], ["C", "D", %w[E F]]]
+      [%w[A B], ["C", "D", %w[E F], nil, ""]]
     end
 
     include_examples "check class info",
@@ -120,7 +88,7 @@ RSpec.describe Usual::Collection::Example17 do
 
           expect(result.letters?).to be(true)
           expect(result.letters).to(
-            contain_exactly(%w[A B], ["C", "D", %w[E F]])
+            contain_exactly(%w[A B], ["C", "D", %w[E F], nil, ""])
           )
           expect(result.desired_letter?).to be(true)
           expect(result.desired_letter).to eq("E")
@@ -137,38 +105,8 @@ RSpec.describe Usual::Collection::Example17 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example17] Wrong type in input collection `letters`, " \
-                "expected `String`, got `Symbol`"
-              )
-            )
-          end
-        end
-
-        describe "because one element is empty" do
-          let(:letters) do
-            [%w[A B], ["C", "", %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example17] Required element in input collection `letters` is missing"
-              )
-            )
-          end
-        end
-
-        describe "because one element is nil" do
-          let(:letters) do
-            [%w[A B], ["C", nil, %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example17] Required element in input collection `letters` is missing"
+                "[Usual::Collection::Example18] Wrong type in input collection `letters`, " \
+                "expected `String, NilClass`, got `Symbol`"
               )
             )
           end
@@ -178,9 +116,7 @@ RSpec.describe Usual::Collection::Example17 do
 
     context "when the input arguments are invalid" do
       context "when `letters`" do
-        it_behaves_like "input required check", name: :letters
-
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: String
+        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: [String, NilClass]
       end
     end
   end

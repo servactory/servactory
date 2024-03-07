@@ -2,12 +2,12 @@
 
 module Usual
   module Collection
-    class Example7 < ApplicationService::Base
-      input :ids, type: Set, consists_of: String
+    class Example19 < ApplicationService::Base
+      input :ids, type: Array, consists_of: false
 
-      internal :ids, type: Set, consists_of: String
+      internal :ids, type: Array, consists_of: false
 
-      output :ids, type: Set, consists_of: String
+      output :ids, type: Array, consists_of: false
       output :first_id, type: String
 
       make :assign_internal
