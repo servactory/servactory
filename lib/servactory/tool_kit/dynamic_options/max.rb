@@ -8,29 +8,19 @@ module Servactory
           new(:max).setup(:be_less_than_or_equal_to)
         end
 
-        def condition_for_input_with(value:, received_value:, **)
-          case value.class
-          when Integer
-            value <= received_value
-          when String, Array
-            value.size <= received_value
-          else
-            false
-          end
+        def condition_for_input_with(...)
+          common_condition_with(...)
         end
 
-        def condition_for_internal_with(value:, received_value:, **)
-          case value.class
-          when Integer
-            value <= received_value
-          when String, Array
-            value.size <= received_value
-          else
-            false
-          end
+        def condition_for_internal_with(...)
+          common_condition_with(...)
         end
 
-        def condition_for_output_with(value:, received_value:, **)
+        def condition_for_output_with(...)
+          common_condition_with(...)
+        end
+
+        def common_condition_with(value:, received_value:, **)
           case value.class
           when Integer
             value <= received_value
