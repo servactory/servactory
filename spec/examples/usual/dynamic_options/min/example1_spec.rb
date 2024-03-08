@@ -82,14 +82,10 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
                   raise_error(
                     ApplicationService::Errors::InputError,
                     "[Usual::DynamicOptions::Min::Example1] Input attribute `data` " \
-                      "received value `0`, which is less than `1`"
+                    "received value `0`, which is less than `1`"
                   )
                 )
               end
-            end
-
-            describe "for `output` attribute" do
-              let(:data) { 2 }
             end
           end
         end
