@@ -2,12 +2,12 @@
 
 module Usual
   module Collection
-    class Example17 < ApplicationService::Base
-      input :letters, type: Array, consists_of: String
+    class Example18 < ApplicationService::Base
+      input :letters, type: Array, consists_of: [String, NilClass], required: false
 
-      internal :letters, type: Array, consists_of: String
+      internal :letters, type: Array, consists_of: [String, NilClass]
 
-      output :letters, type: Array, consists_of: String
+      output :letters, type: Array, consists_of: [String, NilClass]
       output :desired_letter, type: String
 
       make :assign_internal

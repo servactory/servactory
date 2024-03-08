@@ -3,8 +3,9 @@ module Servactory
     class Internal < Base
       attr_reader message: String
       attr_reader internal_name: Symbol?
+      attr_reader meta: untyped?
 
-      def initialize: (message: String, internal_name: Symbol?) -> void
+      def initialize: (message: String, internal_name: Symbol?, meta: untyped?) -> void
     end
   end
 end

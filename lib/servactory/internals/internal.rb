@@ -3,6 +3,25 @@
 module Servactory
   module Internals
     class Internal
+      class Work
+        attr_reader :name,
+                    :types,
+                    :inclusion
+
+        def initialize(internal)
+          @name = internal.name
+          @types = internal.types
+          @inclusion = internal.inclusion.slice(:in) if internal.inclusion_present?
+
+          define_singleton_method(:system_name) { internal.system_name }
+          define_singleton_method(:i18n_name) { internal.i18n_name }
+          # The methods below are required to support the internal work.
+          define_singleton_method(:input?) { false }
+          define_singleton_method(:internal?) { true }
+          define_singleton_method(:output?) { false }
+        end
+      end
+
       attr_reader :name,
                   :collection_of_options
 

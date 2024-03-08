@@ -20,8 +20,8 @@ module Usual
             }
           }
         },
-        message: lambda do |input_name:, key_name:, expected_type:, given_type:|
-          "Problem with the value in the `#{input_name}` schema: " \
+        message: lambda do |input:, key_name:, expected_type:, given_type:|
+          "Problem with the value in the `#{input.name}` schema: " \
             "`#{key_name}` has `#{given_type}` instead of `#{expected_type}`"
         end
       }.freeze

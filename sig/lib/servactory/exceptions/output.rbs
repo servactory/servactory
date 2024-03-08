@@ -3,8 +3,9 @@ module Servactory
     class Output < Base
       attr_reader message: String
       attr_reader output_name: Symbol?
+      attr_reader meta: untyped?
 
-      def initialize: (message: String, output_name: Symbol?) -> void
+      def initialize: (message: String, output_name: Symbol?, meta: untyped?) -> void
     end
   end
 end
