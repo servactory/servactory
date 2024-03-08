@@ -1,6 +1,12 @@
 module Servactory
   module Internals
     class Internal
+      class Work
+        attr_reader name: Symbol
+        attr_reader types: Array[Class]
+        attr_reader inclusion: { in: untyped }
+      end
+
       attr_reader name: Symbol
       attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
       attr_reader hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection

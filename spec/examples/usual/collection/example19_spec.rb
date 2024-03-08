@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# FIXME: REWRITE ME
-RSpec.describe Usual::Collection::Example1 do
+RSpec.describe Usual::Collection::Example19 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -12,11 +11,13 @@ RSpec.describe Usual::Collection::Example1 do
     end
 
     let(:ids) do
-      %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+      [
+        "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        123,
+        "",
+        :identifier,
+        nil,
+        12.3
       ]
     end
 
@@ -34,14 +35,7 @@ RSpec.describe Usual::Collection::Example1 do
 
           expect(result.ids?).to be(true)
           expect(result.ids).to(
-            match_array(
-              %w[
-                6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-                bdd30bb6-c6ab-448d-8302-7018de07b9a4
-                e864b5e7-e515-4d5e-9a7e-7da440323390
-                b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-              ]
-            )
+            contain_exactly("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3)
           )
           expect(result.first_id?).to be(true)
           expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
@@ -52,7 +46,9 @@ RSpec.describe Usual::Collection::Example1 do
     context "when the input arguments are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+
+        # NOTE: In this example, collection mode is disabled.
+        it_behaves_like "input type check", name: :ids, expected_type: Array
       end
     end
   end
@@ -67,11 +63,13 @@ RSpec.describe Usual::Collection::Example1 do
     end
 
     let(:ids) do
-      %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+      [
+        "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        123,
+        "",
+        :identifier,
+        nil,
+        12.3
       ]
     end
 
@@ -89,14 +87,7 @@ RSpec.describe Usual::Collection::Example1 do
 
           expect(result.ids?).to be(true)
           expect(result.ids).to(
-            match_array(
-              %w[
-                6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-                bdd30bb6-c6ab-448d-8302-7018de07b9a4
-                e864b5e7-e515-4d5e-9a7e-7da440323390
-                b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-              ]
-            )
+            contain_exactly("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3)
           )
           expect(result.first_id?).to be(true)
           expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
@@ -107,7 +98,9 @@ RSpec.describe Usual::Collection::Example1 do
     context "when the input arguments are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+
+        # NOTE: In this example, collection mode is disabled.
+        it_behaves_like "input type check", name: :ids, expected_type: Array
       end
     end
   end

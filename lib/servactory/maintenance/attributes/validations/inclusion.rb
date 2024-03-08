@@ -52,7 +52,7 @@ module Servactory
             add_error(
               message: message.presence || Servactory::Maintenance::Attributes::Translator::Inclusion.default_message,
               service_class_name: @context.class.name,
-              "#{@attribute.system_name}": @attribute,
+              **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value
             )
           end

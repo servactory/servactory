@@ -132,7 +132,10 @@ module Servactory
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :collection_mode?,
-                  content: ->(**) { @collection_mode_class_names.include?(@options.fetch(:type)) }
+                  content: lambda do |**|
+                    @collection_mode_class_names.include?(@options.fetch(:type)) &&
+                      @options.fetch(:consists_of, true) != false
+                  end
                 )
               ],
               define_conflicts: [

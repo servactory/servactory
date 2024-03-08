@@ -8,7 +8,7 @@ module Wrong
              consists_of: String,
              must: {
                be_6_characters: {
-                 is: ->(value:) { value.all? { |id| id.size == 6 } },
+                 is: ->(value:, **) { value.all? { |id| id.size == 6 } },
                  message: lambda do |output:, **|
                    "Wrong IDs in `#{output.name}`"
                  end
