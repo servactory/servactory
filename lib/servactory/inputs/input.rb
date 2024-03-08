@@ -19,6 +19,7 @@ module Servactory
           define_singleton_method(:i18n_name) { input.i18n_name }
           define_singleton_method(:optional?) { input.optional? }
           define_singleton_method(:required?) { input.required? }
+          # The methods below are required to support the internal work.
           define_singleton_method(:input?) { true }
           define_singleton_method(:internal?) { false }
           define_singleton_method(:output?) { false }
