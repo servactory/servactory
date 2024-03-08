@@ -49,13 +49,13 @@ module Servactory
               elsif internal.present? && internal.internal?
                 message_for_internal_with(
                   **attributes,
-                  input_name: internal.name,
+                  internal_name: internal.name,
                   received_value: received_value
                 )
               elsif output.present? && output.output?
                 message_for_output_with(
                   **attributes,
-                  input_name: output.name,
+                  output_name: output.name,
                   received_value: received_value
                 )
               end

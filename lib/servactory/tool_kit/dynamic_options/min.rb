@@ -38,13 +38,13 @@ module Servactory
             "received value `#{value}`, which is less than `#{received_value}`"
         end
 
-        def message_for_internal_with(service_class_name:, input_name:, value:, received_value:, **)
-          "[#{service_class_name}] Internal attribute `#{input_name}` " \
+        def message_for_internal_with(service_class_name:, internal_name:, value:, received_value:, **)
+          "[#{service_class_name}] Internal attribute `#{internal_name}` " \
             "received value `#{value}`, which is less than `#{received_value}`"
         end
 
-        def message_for_output_with(service_class_name:, input_name:, value:, received_value:, **)
-          "[#{service_class_name}] Output attribute `#{input_name}` " \
+        def message_for_output_with(service_class_name:, output_name:, value:, received_value:, **)
+          "[#{service_class_name}] Output attribute `#{output_name}` " \
             "received value `#{value}`, which is less than `#{received_value}`"
         end
       end
