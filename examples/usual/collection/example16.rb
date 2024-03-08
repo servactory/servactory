@@ -7,9 +7,11 @@ module Usual
 
       internal :ids, type: Array, consists_of: [String, Integer]
 
+      output :ids, type: Array, consists_of: [String, Integer]
       output :first_id, type: [String, Integer]
 
       make :assign_internal
+      make :assign_output
       make :assign_first_id
 
       private
@@ -18,8 +20,12 @@ module Usual
         internals.ids = inputs.ids
       end
 
+      def assign_output
+        outputs.ids = internals.ids
+      end
+
       def assign_first_id
-        outputs.first_id = internals.ids.first
+        outputs.first_id = outputs.ids.first
       end
     end
   end

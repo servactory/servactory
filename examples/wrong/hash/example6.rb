@@ -16,8 +16,8 @@ module Wrong
                      last_name: { type: String, required: true }
                    }
                  },
-                 message: lambda do |internal_name:, key_name:, expected_type:, given_type:|
-                   "Problem with the value in the `#{internal_name}` schema: " \
+                 message: lambda do |internal:, key_name:, expected_type:, given_type:|
+                   "Problem with the value in the `#{internal.name}` schema: " \
                      "`#{key_name}` has `#{given_type}` instead of `#{expected_type}`"
                  end
                }

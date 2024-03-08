@@ -43,7 +43,7 @@ module Servactory
           def call_or_fetch_message_from(code, options)
             check, message = options.values_at(:is, :message)
 
-            return if check.call(value: @value)
+            return if check.call(value: @value, **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute))
 
             message.presence || Servactory::Maintenance::Attributes::Translator::Must.default_message
           rescue StandardError => e
@@ -60,7 +60,7 @@ module Servactory
             add_error(
               message: message,
               service_class_name: @context.class.name,
-              "#{@attribute.system_name}": @attribute,
+              **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value,
               code: code
             )
@@ -70,7 +70,7 @@ module Servactory
             add_error(
               message: message,
               service_class_name: @context.class.name,
-              "#{@attribute.system_name}": @attribute,
+              **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value,
               code: code,
               exception_message: exception_message
