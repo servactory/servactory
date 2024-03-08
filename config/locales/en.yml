@@ -43,7 +43,7 @@ en:
           default_error: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Internal attribute `%{internal_name}` must \"%{code}\""
-          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute"
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute: %{exception_message}"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -61,7 +61,7 @@ en:
           default_error: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Output attribute `%{output_name}` must \"%{code}\""
-          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute"
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute: %{exception_message}"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"

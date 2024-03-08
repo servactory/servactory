@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::InputOptionHelpers::Example3 do
+RSpec.describe Usual::DynamicOptions::Max::Example2 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -37,7 +37,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
             it "returns expected error" do
               expect { perform }.to(
                 raise_error(
-                  ApplicationService::Errors::InputError,
+                  ApplicationService::Exceptions::Input,
                   "[Usual::InputOptionHelpers::Example3] Input attribute `number_of_calls` " \
                   "received value `0`, which is less than `2`"
                 )
@@ -51,7 +51,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
             it "returns expected error" do
               expect { perform }.to(
                 raise_error(
-                  ApplicationService::Errors::InputError,
+                  ApplicationService::Exceptions::Input,
                   "[Usual::InputOptionHelpers::Example3] Input attribute `number_of_calls` " \
                   "received value `-1`, which is less than `2`"
                 )
@@ -66,7 +66,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::InputOptionHelpers::Example3] Wrong type of input " \
                 "`number_of_calls`, expected `Integer`, got `String`"
               )
@@ -80,7 +80,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::InputOptionHelpers::Example3] Required input `number_of_calls` is missing"
               )
             )
@@ -93,7 +93,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::InputOptionHelpers::Example3] Required input `number_of_calls` is missing"
               )
             )
@@ -108,7 +108,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
         #     it "returns expected error" do
         #       expect { perform }.to(
         #         raise_error(
-        #           ApplicationService::Errors::InputError,
+        #           ApplicationService::Exceptions::Input,
         #           "[Usual::InputOptionHelpers::Example3] Required input `number_of_calls` is missing"
         #         )
         #       )
@@ -121,7 +121,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
         #     it "returns expected error" do
         #       expect { perform }.to(
         #         raise_error(
-        #           ApplicationService::Errors::InputError,
+        #           ApplicationService::Exceptions::Input,
         #           "[Usual::InputOptionHelpers::Example3] Required input `number_of_calls` is missing"
         #         )
         #       )
@@ -176,7 +176,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
             it "returns expected error" do
               expect { perform }.to(
                 raise_error(
-                  ApplicationService::Errors::InputError,
+                  ApplicationService::Exceptions::Input,
                   "[Usual::InputOptionHelpers::Example3] Input attribute `number_of_calls` " \
                   "received value `0`, which is less than `2`"
                 )
@@ -190,7 +190,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
             it "returns expected error" do
               expect { perform }.to(
                 raise_error(
-                  ApplicationService::Errors::InputError,
+                  ApplicationService::Exceptions::Input,
                   "[Usual::InputOptionHelpers::Example3] Input attribute `number_of_calls` " \
                   "received value `-1`, which is less than `2`"
                 )
@@ -205,7 +205,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::InputOptionHelpers::Example3] Wrong type of input " \
                 "`number_of_calls`, expected `Integer`, got `String`"
               )
@@ -219,7 +219,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::InputOptionHelpers::Example3] Required input `number_of_calls` is missing"
               )
             )
@@ -232,7 +232,7 @@ RSpec.describe Usual::InputOptionHelpers::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Errors::InputError,
+                ApplicationService::Exceptions::Input,
                 "[Usual::InputOptionHelpers::Example3] Required input `number_of_calls` is missing"
               )
             )
