@@ -3,6 +3,29 @@
 module Servactory
   module Inputs
     class Input
+      class Work
+        attr_reader :name,
+                    :internal_name,
+                    :types,
+                    :inclusion
+
+        def initialize(input) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+          @name = input.name
+          @internal_name = input.internal_name
+          @types = input.types
+          @inclusion = input.inclusion.slice(:in) if input.inclusion_present?
+
+          define_singleton_method(:system_name) { input.system_name }
+          define_singleton_method(:i18n_name) { input.i18n_name }
+          define_singleton_method(:optional?) { input.optional? }
+          define_singleton_method(:required?) { input.required? }
+          # The methods below are required to support the internal work.
+          define_singleton_method(:input?) { true }
+          define_singleton_method(:internal?) { false }
+          define_singleton_method(:output?) { false }
+        end
+      end
+
       attr_reader :name,
                   :internal_name,
                   :collection_of_options

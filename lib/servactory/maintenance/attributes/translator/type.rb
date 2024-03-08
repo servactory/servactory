@@ -29,7 +29,7 @@ module Servactory
 
             if collection_message.is_a?(Proc)
               collection_message.call(
-                "#{attribute.system_name}_name": attribute.name,
+                **Servactory::Utils.fetch_hash_with_desired_attribute(attribute),
                 expected_type: expected_type,
                 given_type: given_type
               )
@@ -59,7 +59,7 @@ module Servactory
 
             if hash_message.is_a?(Proc)
               hash_message.call(
-                "#{attribute.system_name}_name": attribute.name,
+                **Servactory::Utils.fetch_hash_with_desired_attribute(attribute),
                 key_name: key_name,
                 expected_type: expected_type,
                 given_type: given_type

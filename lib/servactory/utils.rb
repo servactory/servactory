@@ -4,10 +4,22 @@ module Servactory
   module Utils
     module_function
 
+    def fetch_hash_with_desired_attribute(attribute)
+      if attribute.input?
+        { input: attribute.class::Work.new(attribute) }
+      elsif attribute.internal?
+        { internal: attribute.class::Work.new(attribute) }
+      elsif attribute.output?
+        { output: attribute.class::Work.new(attribute) }
+      else
+        raise ArgumentError, "Failed to define attribute"
+      end
+    end
+
     def define_attribute_with(input:, internal:, output:)
-      return input if input.present?
-      return internal if internal.present?
-      return output if output.present?
+      return input if input.present? && input.input?
+      return internal if internal.present? && internal.internal?
+      return output if output.present? && output.output?
 
       raise ArgumentError, "missing keyword: :input, :internal or :output"
     end
