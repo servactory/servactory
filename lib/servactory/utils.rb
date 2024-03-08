@@ -11,6 +11,8 @@ module Servactory
         { internal: attribute.class::Work.new(attribute) }
       elsif attribute.output?
         { output: attribute.class::Work.new(attribute) }
+      else
+        raise ArgumentError, "Failed to define attribute"
       end
     end
 
