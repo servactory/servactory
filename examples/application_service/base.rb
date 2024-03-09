@@ -8,7 +8,7 @@ module ApplicationService
       ApplicationService::Extensions::StatusActive::DSL
     )
 
-    configuration do
+    configuration do # rubocop:disable Metrics/BlockLength
       input_exception_class ApplicationService::Exceptions::Input
       internal_exception_class ApplicationService::Exceptions::Internal
       output_exception_class ApplicationService::Exceptions::Output

@@ -165,14 +165,14 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
             end
 
             describe "for `internal` attribute" do
-              let(:data) { [1] }
+              let(:data) { [0] }
 
               it "returns expected error" do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Internal,
                     "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
-                    "received value `[1]`, which is less than `2`"
+                    "received value `[0]`, which is less than `2`"
                   )
                 )
               end
@@ -272,7 +272,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
                   raise_error(
                     ApplicationService::Exceptions::Input,
                     "[Usual::DynamicOptions::Min::Example1] Input attribute `data` " \
-                      "received value `0`, which is less than `1`"
+                    "received value `0`, which is less than `1`"
                   )
                 )
               end
@@ -286,7 +286,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
                   raise_error(
                     ApplicationService::Exceptions::Internal,
                     "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
-                      "received value `1`, which is less than `2`"
+                    "received value `1`, which is less than `2`"
                   )
                 )
               end
@@ -300,7 +300,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
                   raise_error(
                     ApplicationService::Exceptions::Output,
                     "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
-                      "received value `2`, which is less than `3`"
+                    "received value `2`, which is less than `3`"
                   )
                 )
               end
@@ -331,7 +331,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
                   raise_error(
                     ApplicationService::Exceptions::Internal,
                     "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
-                      "received value `S`, which is less than `2`"
+                    "received value `S`, which is less than `2`"
                   )
                 )
               end
@@ -345,7 +345,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
                   raise_error(
                     ApplicationService::Exceptions::Output,
                     "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
-                      "received value `Se`, which is less than `3`"
+                    "received value `Se`, which is less than `3`"
                   )
                 )
               end
@@ -369,14 +369,14 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
             end
 
             describe "for `internal` attribute" do
-              let(:data) { [1] }
+              let(:data) { [0] }
 
               it "returns expected error" do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Internal,
                     "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
-                      "received value `[1]`, which is less than `2`"
+                    "received value `[0]`, which is less than `2`"
                   )
                 )
               end
@@ -390,7 +390,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
                   raise_error(
                     ApplicationService::Exceptions::Output,
                     "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
-                      "received value `[1, 2]`, which is less than `3`"
+                    "received value `[1, 2]`, which is less than `3`"
                   )
                 )
               end

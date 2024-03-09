@@ -4,24 +4,24 @@ module Usual
   module DynamicOptions
     module Max
       class Example1 < ApplicationService::Base
-        input :number_of_calls, type: Integer, min: 1, max: 20
+        input :data, type: [Integer, String, Array], max: 10
 
-        internal :number_of_calls, type: Integer, min: 2, max: 19
+        internal :data, type: [Integer, String, Array], max: 9
 
-        output :number_of_calls, type: Integer, min: 3, max: 18
+        output :data, type: [Integer, String, Array], max: 8
 
-        make :assign_internal_number_of_calls
+        make :assign_internal_data
 
-        make :assign_output_number_of_calls
+        make :assign_output_data
 
         private
 
-        def assign_internal_number_of_calls
-          internals.number_of_calls = inputs.number_of_calls
+        def assign_internal_data
+          internals.data = inputs.data
         end
 
-        def assign_output_number_of_calls
-          outputs.number_of_calls = internals.number_of_calls
+        def assign_output_data
+          outputs.data = internals.data
         end
       end
     end
