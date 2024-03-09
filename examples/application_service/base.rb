@@ -42,6 +42,19 @@ module ApplicationService
 
       internal_option_helpers(
         [
+          Servactory::Maintenance::Attributes::OptionHelper.new(
+            name: :must_be_6_characters,
+            equivalent: {
+              must: {
+                be_6_characters: {
+                  is: ->(value:, **) { value.all? { |id| id.size == 6 } },
+                  message: lambda do |internal:, **|
+                    "Wrong IDs in `#{internal.name}`"
+                  end
+                }
+              }
+            }
+          ),
           Servactory::ToolKit::DynamicOptions::Min.setup,
           Servactory::ToolKit::DynamicOptions::Max.setup
         ]
@@ -49,6 +62,19 @@ module ApplicationService
 
       output_option_helpers(
         [
+          Servactory::Maintenance::Attributes::OptionHelper.new(
+            name: :must_be_6_characters,
+            equivalent: {
+              must: {
+                be_6_characters: {
+                  is: ->(value:, **) { value.all? { |id| id.size == 6 } },
+                  message: lambda do |output:, **|
+                    "Wrong IDs in `#{output.name}`"
+                  end
+                }
+              }
+            }
+          ),
           Servactory::ToolKit::DynamicOptions::Min.setup,
           Servactory::ToolKit::DynamicOptions::Max.setup
         ]
