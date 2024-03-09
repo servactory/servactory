@@ -20,32 +20,32 @@ module Servactory
           common_condition_with(...)
         end
 
-        def common_condition_with(value:, received_value:, **)
+        def common_condition_with(value:, option_value:, **)
           case value
           when Integer
-            value >= received_value
+            value >= option_value
           else
             return false unless value.respond_to?(:size)
 
-            value.size >= received_value
+            value.size >= option_value
           end
         end
 
         ########################################################################
 
-        def message_for_input_with(service_class_name:, input:, value:, received_value:, **)
+        def message_for_input_with(service_class_name:, input:, value:, option_value:, **)
           "[#{service_class_name}] Input attribute `#{input.name}` " \
-            "received value `#{value}`, which is less than `#{received_value}`"
+            "received value `#{value}`, which is less than `#{option_value}`"
         end
 
-        def message_for_internal_with(service_class_name:, internal:, value:, received_value:, **)
+        def message_for_internal_with(service_class_name:, internal:, value:, option_value:, **)
           "[#{service_class_name}] Internal attribute `#{internal.name}` " \
-            "received value `#{value}`, which is less than `#{received_value}`"
+            "received value `#{value}`, which is less than `#{option_value}`"
         end
 
-        def message_for_output_with(service_class_name:, output:, value:, received_value:, **)
+        def message_for_output_with(service_class_name:, output:, value:, option_value:, **)
           "[#{service_class_name}] Output attribute `#{output.name}` " \
-            "received value `#{value}`, which is less than `#{received_value}`"
+            "received value `#{value}`, which is less than `#{option_value}`"
         end
       end
     end
