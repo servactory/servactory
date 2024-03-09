@@ -4,39 +4,48 @@ module Usual
   module DynamicOptions
     module Min
       class Example2 < ApplicationService::Base
-        input :number_of_calls,
-              type: Integer,
+        input :data,
+              type: [Integer, String, Array, ::Hash],
               min: {
-                is: 2,
-                message: lambda do |input_name:, expected_value:, given_value:|
-                  "The value of `#{input_name}` must be greater than or " \
-                    "equal to `#{expected_value}` (got: `#{given_value}`)"
-                end
-              },
-              max: {
-                is: 21,
-                message: lambda do |input_name:, expected_value:, given_value:|
-                  "The value of `#{input_name}` must be less than or " \
-                    "equal to `#{expected_value}` (got: `#{given_value}`)"
+                is: 1,
+                message: lambda do |input:, value:, option_value:, **|
+                  "The size of the `#{input.name}` value must be greater than or " \
+                    "equal to `#{option_value}` (got: `#{value}`)"
                 end
               }
 
-        internal :number_of_calls, type: Integer, min: 2, max: 19
+        internal :data,
+                 type: [Integer, String, Array, ::Hash],
+                 min: {
+                   is: 2,
+                   message: lambda do |internal:, value:, option_value:, **|
+                     "The size of the `#{internal.name}` value must be greater than or " \
+                       "equal to `#{option_value}` (got: `#{value}`)"
+                   end
+                 }
 
-        output :number_of_calls, type: Integer, min: 3, max: 18
+        output :data,
+               type: [Integer, String, Array, ::Hash],
+               min: {
+                 is: 3,
+                 message: lambda do |output:, value:, option_value:, **|
+                   "The size of the `#{output.name}` value must be greater than or " \
+                     "equal to `#{option_value}` (got: `#{value}`)"
+                 end
+               }
 
-        make :assign_internal_number_of_calls
+        make :assign_internal_data
 
-        make :assign_output_number_of_calls
+        make :assign_output_data
 
         private
 
-        def assign_internal_number_of_calls
-          internals.number_of_calls = inputs.number_of_calls
+        def assign_internal_data
+          internals.data = inputs.data
         end
 
-        def assign_output_number_of_calls
-          outputs.number_of_calls = internals.number_of_calls
+        def assign_output_data
+          outputs.data = internals.data
         end
       end
     end

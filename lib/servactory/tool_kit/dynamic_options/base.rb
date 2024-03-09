@@ -18,19 +18,20 @@ module Servactory
         def equivalent_with(name)
           lambda do |data|
             option_value = (data.is_a?(Hash) && data.key?(:is) ? data[:is] : data)
+            option_message = (data.is_a?(Hash) && data.key?(:message) ? data[:message] : nil)
 
             {
               must: {
-                name => must_content_with(option_value)
+                name => must_content_with(option_value, option_message)
               }
             }
           end
         end
 
-        def must_content_with(option_value)
+        def must_content_with(option_value, option_message)
           {
             is: must_content_value_with(option_value: option_value),
-            message: must_content_message_with(option_value: option_value)
+            message: must_content_message_with(option_value: option_value, option_message: option_message)
           }
         end
 
@@ -48,29 +49,35 @@ module Servactory
           end
         end
 
-        def must_content_message_with(option_value:) # rubocop:disable Metrics/MethodLength
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def must_content_message_with(option_value:, option_message:)
+          is_option_message_present = option_message.present?
+
           lambda do |input: nil, internal: nil, output: nil, **attributes|
+            default_attributes = { **attributes, option_value: option_value }
+
             if input.present? && input.input?
-              message_for_input_with(
-                **attributes,
-                input: input,
-                option_value: option_value
-              )
+              if is_option_message_present
+                option_message.call(**default_attributes.merge(input: input))
+              else
+                message_for_input_with(**default_attributes.merge(input: input))
+              end
             elsif internal.present? && internal.internal?
-              message_for_internal_with(
-                **attributes,
-                internal: internal,
-                option_value: option_value
-              )
+              if is_option_message_present
+                option_message.call(**default_attributes.merge(internal: internal))
+              else
+                message_for_internal_with(**default_attributes.merge(internal: internal))
+              end
             elsif output.present? && output.output?
-              message_for_output_with(
-                **attributes,
-                output: output,
-                option_value: option_value
-              )
+              if is_option_message_present
+                option_message.call(**default_attributes.merge(output: output))
+              else
+                message_for_output_with(**default_attributes.merge(output: output))
+              end
             end
           end
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         ########################################################################
 
