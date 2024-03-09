@@ -55,6 +55,19 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
             expect(result.data).to eq([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
           end
         end
+
+        context "when `data` is `Hash`" do
+          let(:data) { { a: 1, b: 2, c: 3, d: 4 } }
+
+          include_examples "success result class"
+
+          it "returns the expected value", :aggregate_failures do
+            result = perform
+
+            expect(result.data?).to be(true)
+            expect(result.data).to match({ a: 1, b: 2, c: 3, d: 4 })
+          end
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -193,6 +206,51 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
             end
           end
         end
+
+        context "when `data` is `Hash`" do
+          describe "because the value is less than specified" do
+            describe "for `input` attribute" do
+              let(:data) { {} }
+
+              it "returns expected error" do
+                expect { perform }.to(
+                  raise_error(
+                    ApplicationService::Exceptions::Input,
+                    "[Usual::DynamicOptions::Min::Example1] Required input `data` is missing"
+                  )
+                )
+              end
+            end
+
+            describe "for `internal` attribute" do
+              let(:data) { { a: 1 } }
+
+              it "returns expected error" do
+                expect { perform }.to(
+                  raise_error(
+                    ApplicationService::Exceptions::Internal,
+                    "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
+                    "received value `{:a=>1}`, which is less than `2`"
+                  )
+                )
+              end
+            end
+
+            describe "for `output` attribute" do
+              let(:data) { { a: 1, b: 2 } }
+
+              it "returns expected error" do
+                expect { perform }.to(
+                  raise_error(
+                    ApplicationService::Exceptions::Output,
+                    "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                    "received value `{:a=>1, :b=>2}`, which is less than `3`"
+                  )
+                )
+              end
+            end
+          end
+        end
       end
     end
 
@@ -200,7 +258,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
       context "when `data`" do
         it_behaves_like "input required check", name: :data
 
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array]
+        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
       end
     end
   end
@@ -259,6 +317,19 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
             expect(result.data).to eq([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
           end
         end
+
+        context "when `data` is `Hash`" do
+          let(:data) { { a: 1, b: 2, c: 3, d: 4 } }
+
+          include_examples "success result class"
+
+          it "returns the expected value", :aggregate_failures do
+            result = perform
+
+            expect(result.data?).to be(true)
+            expect(result.data).to match({ a: 1, b: 2, c: 3, d: 4 })
+          end
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -397,6 +468,51 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
             end
           end
         end
+
+        context "when `data` is `Hash`" do
+          describe "because the value is less than specified" do
+            describe "for `input` attribute" do
+              let(:data) { {} }
+
+              it "returns expected error" do
+                expect { perform }.to(
+                  raise_error(
+                    ApplicationService::Exceptions::Input,
+                    "[Usual::DynamicOptions::Min::Example1] Required input `data` is missing"
+                  )
+                )
+              end
+            end
+
+            describe "for `internal` attribute" do
+              let(:data) { { a: 1 } }
+
+              it "returns expected error" do
+                expect { perform }.to(
+                  raise_error(
+                    ApplicationService::Exceptions::Internal,
+                    "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
+                    "received value `{:a=>1}`, which is less than `2`"
+                  )
+                )
+              end
+            end
+
+            describe "for `output` attribute" do
+              let(:data) { { a: 1, b: 2 } }
+
+              it "returns expected error" do
+                expect { perform }.to(
+                  raise_error(
+                    ApplicationService::Exceptions::Output,
+                    "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                    "received value `{:a=>1, :b=>2}`, which is less than `3`"
+                  )
+                )
+              end
+            end
+          end
+        end
       end
     end
 
@@ -404,7 +520,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
       context "when `data`" do
         it_behaves_like "input required check", name: :data
 
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array]
+        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
       end
     end
   end

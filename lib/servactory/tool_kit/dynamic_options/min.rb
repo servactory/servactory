@@ -24,10 +24,10 @@ module Servactory
           case value
           when Integer
             value >= received_value
-          when String, Array
-            value.size >= received_value
           else
-            false
+            return false unless value.respond_to?(:size)
+
+            value.size >= received_value
           end
         end
 
