@@ -15,7 +15,9 @@ RSpec.describe Wrong::Must::Example2 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Internal,
-              "[Wrong::Must::Example2] Syntax error inside `be_6_characters` of `invoice_numbers` internal attribute"
+              "[Wrong::Must::Example2] Syntax error inside `be_6_characters` of " \
+              "`invoice_numbers` internal attribute: undefined local variable or " \
+              "method `this_method_does_not_exist' for class Wrong::Must::Example2"
             )
           )
         end
@@ -37,7 +39,9 @@ RSpec.describe Wrong::Must::Example2 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Internal,
-              "[Wrong::Must::Example2] Syntax error inside `be_6_characters` of `invoice_numbers` internal attribute"
+              "[Wrong::Must::Example2] Syntax error inside `be_6_characters` of " \
+              "`invoice_numbers` internal attribute: undefined local variable or " \
+              "method `this_method_does_not_exist' for class Wrong::Must::Example2"
             )
           )
         end
