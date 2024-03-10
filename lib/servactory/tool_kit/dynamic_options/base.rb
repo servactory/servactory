@@ -52,25 +52,26 @@ module Servactory
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def must_content_message_with(option_value:, option_message:)
           is_option_message_present = option_message.present?
+          is_option_message_proc = is_option_message_present && option_message.is_a?(Proc)
 
           lambda do |input: nil, internal: nil, output: nil, **attributes|
             default_attributes = { **attributes, option_value: option_value }
 
-            if input.present? && input.input?
+            if Servactory::Utils.really_input?(input)
               if is_option_message_present
-                option_message.call(**default_attributes.merge(input: input))
+                is_option_message_proc ? option_message.call(**default_attributes.merge(input: input)) : option_message
               else
                 message_for_input_with(**default_attributes.merge(input: input))
               end
-            elsif internal.present? && internal.internal?
+            elsif Servactory::Utils.really_internal?(internal)
               if is_option_message_present
-                option_message.call(**default_attributes.merge(internal: internal))
+                is_option_message_proc ? option_message.call(**default_attributes.merge(internal: internal)) : option_message # rubocop:disable Layout/LineLength
               else
                 message_for_internal_with(**default_attributes.merge(internal: internal))
               end
-            elsif output.present? && output.output?
+            elsif Servactory::Utils.really_output?(output)
               if is_option_message_present
-                option_message.call(**default_attributes.merge(output: output))
+                is_option_message_proc ? option_message.call(**default_attributes.merge(output: output)) : option_message # rubocop:disable Layout/LineLength
               else
                 message_for_output_with(**default_attributes.merge(output: output))
               end
