@@ -55,8 +55,8 @@ module ApplicationService
               }
             }
           ),
-          Servactory::ToolKit::DynamicOptions::Min.setup,
-          Servactory::ToolKit::DynamicOptions::Max.setup
+          Servactory::ToolKit::DynamicOptions::Min.setup(:minimum), # Examples of
+          Servactory::ToolKit::DynamicOptions::Max.setup(:maximum)  # custom names
         ]
       )
 

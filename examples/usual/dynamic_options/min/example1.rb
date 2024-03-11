@@ -6,7 +6,7 @@ module Usual
       class Example1 < ApplicationService::Base
         input :data, type: [Integer, String, Array, ::Hash], min: 1
 
-        internal :data, type: [Integer, String, Array, ::Hash], min: 2
+        internal :data, type: [Integer, String, Array, ::Hash], minimum: 2
 
         output :data, type: [Integer, String, Array, ::Hash], min: 3
 

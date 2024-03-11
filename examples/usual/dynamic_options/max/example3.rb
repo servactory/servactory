@@ -13,7 +13,7 @@ module Usual
 
         internal :data,
                  type: [Integer, String, Array, ::Hash],
-                 max: {
+                 maximum: {
                    is: 9,
                    message: "The internal value must not be greater than the specified value"
                  }

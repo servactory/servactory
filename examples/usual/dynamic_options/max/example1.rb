@@ -6,7 +6,7 @@ module Usual
       class Example1 < ApplicationService::Base
         input :data, type: [Integer, String, Array, ::Hash], max: 10
 
-        internal :data, type: [Integer, String, Array, ::Hash], max: 9
+        internal :data, type: [Integer, String, Array, ::Hash], maximum: 9
 
         output :data, type: [Integer, String, Array, ::Hash], max: 8
 

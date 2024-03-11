@@ -13,7 +13,7 @@ module Usual
 
         internal :data,
                  type: [Integer, String, Array, ::Hash],
-                 min: {
+                 minimum: {
                    is: 2,
                    message: "The internal value must not be less than the specified value"
                  }

@@ -4,8 +4,8 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Max < Must
-        def self.setup
-          new(:max).setup(:be_less_than_or_equal_to)
+        def self.setup(option_name = :max)
+          new(option_name).setup(:be_less_than_or_equal_to)
         end
 
         def condition_for_input_with(...)

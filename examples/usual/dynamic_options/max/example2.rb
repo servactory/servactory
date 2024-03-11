@@ -16,7 +16,7 @@ module Usual
 
         internal :data,
                  type: [Integer, String, Array, ::Hash],
-                 max: {
+                 maximum: {
                    is: 9,
                    message: lambda do |internal:, value:, option_value:, **|
                      "The size of the `#{internal.name}` value must be less than or " \
