@@ -1,7 +1,7 @@
 module Servactory
   module ToolKit
     module DynamicOptions
-      class Base
+      class Must
         @option_name: Symbol
 
         def initialize: (Symbol option_name) -> void

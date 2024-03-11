@@ -3,7 +3,7 @@
 module Servactory
   module ToolKit
     module DynamicOptions
-      class Base
+      class Must
         def initialize(option_name)
           @option_name = option_name
         end
@@ -52,7 +52,7 @@ module Servactory
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def must_content_message_with(option_value:, option_message:)
           is_option_message_present = option_message.present?
-          is_option_message_proc = is_option_message_present && option_message.is_a?(Proc)
+          is_option_message_proc = option_message.is_a?(Proc) if is_option_message_present
 
           lambda do |input: nil, internal: nil, output: nil, **attributes|
             default_attributes = { **attributes, option_value: option_value }

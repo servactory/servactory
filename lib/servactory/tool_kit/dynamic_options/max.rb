@@ -3,7 +3,7 @@
 module Servactory
   module ToolKit
     module DynamicOptions
-      class Max < Base
+      class Max < Must
         def self.setup
           new(:max).setup(:be_less_than_or_equal_to)
         end
