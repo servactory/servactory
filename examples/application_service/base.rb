@@ -36,7 +36,8 @@ module ApplicationService
             }
           ),
           Servactory::ToolKit::DynamicOptions::Min.setup,
-          Servactory::ToolKit::DynamicOptions::Max.setup
+          Servactory::ToolKit::DynamicOptions::Max.setup,
+          ApplicationService::DynamicOptions::CustomEq.setup
         ]
       )
 
@@ -56,7 +57,8 @@ module ApplicationService
             }
           ),
           Servactory::ToolKit::DynamicOptions::Min.setup(:minimum), # Examples of
-          Servactory::ToolKit::DynamicOptions::Max.setup(:maximum)  # custom names
+          Servactory::ToolKit::DynamicOptions::Max.setup(:maximum), # custom names
+          ApplicationService::DynamicOptions::CustomEq.setup(:best_custom_eq)
         ]
       )
 
@@ -76,7 +78,8 @@ module ApplicationService
             }
           ),
           Servactory::ToolKit::DynamicOptions::Min.setup,
-          Servactory::ToolKit::DynamicOptions::Max.setup
+          Servactory::ToolKit::DynamicOptions::Max.setup,
+          ApplicationService::DynamicOptions::CustomEq.setup
         ]
       )
 
