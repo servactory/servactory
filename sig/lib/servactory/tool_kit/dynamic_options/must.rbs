@@ -6,11 +6,11 @@ module Servactory
 
         def initialize: (Symbol option_name) -> void
 
-        def setup: (Symbol option_name) -> Maintenance::Attributes::OptionHelper
+        def must: (Symbol option_name) -> Maintenance::Attributes::OptionHelper
 
         def equivalent_with: (Symbol name) -> Proc
 
-        def must_content_with: (untyped received_value) -> Hash[Symbol, untyped
+        def must_content_with: (untyped received_value) -> Hash[Symbol, untyped]
 
         def must_content_value_with: (option_message: untyped) -> Proc
 

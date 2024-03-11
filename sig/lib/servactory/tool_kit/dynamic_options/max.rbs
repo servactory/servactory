@@ -1,0 +1,9 @@
+module Servactory
+  module ToolKit
+    module DynamicOptions
+      class Max < Must
+        def self.setup: (?::Symbol option_name) -> Maintenance::Attributes::OptionHelper
+      end
+    end
+  end
+end

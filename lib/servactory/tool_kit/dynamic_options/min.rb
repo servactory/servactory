@@ -5,7 +5,7 @@ module Servactory
     module DynamicOptions
       class Min < Must
         def self.setup(option_name = :min)
-          new(option_name).setup(:be_greater_than_or_equal_to)
+          new(option_name).must(:be_greater_than_or_equal_to)
         end
 
         def condition_for_input_with(...)

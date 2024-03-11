@@ -8,7 +8,7 @@ module Servactory
           @option_name = option_name
         end
 
-        def setup(name)
+        def must(name)
           Servactory::Maintenance::Attributes::OptionHelper.new(
             name: @option_name,
             equivalent: equivalent_with(name)
