@@ -7,8 +7,8 @@ module Usual
             type: Set,
             consists_of: {
               type: String,
-              message: lambda do |input:, expected_type:, **|
-                "Input `#{input.name}` must be a collection of `#{expected_type}`"
+              message: lambda do |input:, option_value:, **|
+                "Input `#{input.name}` must be a collection of `#{Array(option_value).join(', ')}`"
               end
             }
 

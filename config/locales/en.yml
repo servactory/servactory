@@ -18,6 +18,9 @@ en:
           default_error: "[%{service_class_name}] Input `%{input_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{input_name}` input: %{exception_message}"
           dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] Required element in input collection `%{input_name}` is missing"
+              type_mismatch: "[%{service_class_name}] Wrong type in input collection `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
             min:
               default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -46,6 +49,9 @@ en:
           default_error: "[%{service_class_name}] Internal attribute `%{internal_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute: %{exception_message}"
           dynamic_options:
+            consists_of:
+              required: ""
+              type_mismatch: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
             min:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -66,6 +72,9 @@ en:
           default_error: "[%{service_class_name}] Output attribute `%{output_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute: %{exception_message}"
           dynamic_options:
+            consists_of:
+              required: ""
+              type_mismatch: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
             min:
               default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:

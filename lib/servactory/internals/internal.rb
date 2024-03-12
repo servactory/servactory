@@ -90,7 +90,7 @@ module Servactory
           prepared_options.deep_merge!(prepared_option)
         end
 
-        options.merge(prepared_options)
+        options.deep_merge(prepared_options)
       end
 
       def options_for_checks

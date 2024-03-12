@@ -3,7 +3,7 @@
 module Usual
   module Collection
     class Example18 < ApplicationService::Base
-      input :letters, type: Array, consists_of: [String, NilClass], required: false
+      input :letters, type: Array, consists_of: [String, NilClass]
 
       internal :letters, type: Array, consists_of: [String, NilClass]
 

@@ -4,8 +4,10 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Must
-        def initialize(option_name)
+        def initialize(option_name, body_key = :is, body_fallback = nil)
           @option_name = option_name
+          @body_key = body_key
+          @body_fallback = body_fallback
         end
 
         def must(name)
@@ -15,9 +17,15 @@ module Servactory
           )
         end
 
-        def equivalent_with(name)
+        def equivalent_with(name) # rubocop:disable Metrics/MethodLength
           lambda do |data|
-            option_value = (data.is_a?(Hash) && data.key?(:is) ? data[:is] : data)
+            option_value =
+              if data.is_a?(Hash)
+                data.fetch(@body_key, @body_fallback)
+              else
+                data.present? ? data : @body_fallback
+              end
+
             option_message = (data.is_a?(Hash) && data.key?(:message) ? data[:message] : nil)
 
             {

@@ -18,6 +18,9 @@ ru:
           default_error: "[%{service_class_name}] Инпут `%{input_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` инпута `%{input_name}`: %{exception_message}"
           dynamic_options:
+            consists_of:
+              type_mismatch: "[%{service_class_name}] Неправильный тип в коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+              required: "[%{service_class_name}] Обязательный элемент в коллекции инпута `%{input_name}` отсутствует"
             min:
               default: "[%{service_class_name}] Инпут `%{input_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:

@@ -3,8 +3,10 @@ module Servactory
     module DynamicOptions
       class Must
         @option_name: Symbol
+        @body_key: Symbol
+        @body_fallback: Symbol?
 
-        def initialize: (Symbol option_name) -> void
+        def initialize: (Symbol option_name, Symbol body_key) -> void
 
         def must: (Symbol option_name) -> Maintenance::Attributes::OptionHelper
 
@@ -16,11 +18,11 @@ module Servactory
 
         def must_content_message_with: (option_message: untyped) -> Proc
 
-        def condition_for_input_with: (** untyped) -> bool
+        def condition_for_input_with: (** untyped) -> (bool | [bool, Symbol])
 
-        def condition_for_internal_with: (** untyped) -> bool
+        def condition_for_internal_with: (** untyped) -> (bool | [bool, Symbol])
 
-        def condition_for_output_with: (** untyped) -> bool
+        def condition_for_output_with: (** untyped) -> (bool | [bool, Symbol])
 
         def message_for_input_with: (** untyped) -> String
 
