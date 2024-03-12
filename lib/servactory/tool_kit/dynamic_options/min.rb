@@ -33,7 +33,7 @@ module Servactory
 
         ########################################################################
 
-        def message_for_input_with(service_class_name:, input:, value:, option_value:, **attr)
+        def message_for_input_with(service_class_name:, input:, value:, option_value:, **)
           I18n.t(
             "servactory.inputs.validations.must.dynamic_options.min.default",
             service_class_name: service_class_name,
