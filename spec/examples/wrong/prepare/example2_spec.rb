@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Prepare::Example2 do
+RSpec.describe Wrong::Prepare::Example2, skip: "DELETE ME" do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 

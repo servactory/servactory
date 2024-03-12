@@ -30,8 +30,7 @@ RSpec.describe Wrong::Collection::Example1 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Internal,
-              "[Wrong::Collection::Example1] Wrong internal attribute collection " \
-              "type `ids`, expected `Set`, got `Array`"
+              "[Wrong::Collection::Example1] Wrong type of internal attribute `ids`, expected `Set`, got `Array`"
             )
           )
         end
@@ -44,8 +43,7 @@ RSpec.describe Wrong::Collection::Example1 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end
@@ -79,8 +77,7 @@ RSpec.describe Wrong::Collection::Example1 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Internal,
-              "[Wrong::Collection::Example1] Wrong internal attribute collection " \
-              "type `ids`, expected `Set`, got `Array`"
+              "[Wrong::Collection::Example1] Wrong type of internal attribute `ids`, expected `Set`, got `Array`"
             )
           )
         end
@@ -93,8 +90,7 @@ RSpec.describe Wrong::Collection::Example1 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end

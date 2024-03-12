@@ -59,8 +59,11 @@ module Servactory
         end
 
         def message_for_internal_with(service_class_name:, internal:, value:, option_value:, **)
+          i18n_key = "servactory.internals.validations.must.dynamic_options.consists_of"
+          i18n_key += reason.present? ? ".#{reason}" : ".default"
+
           I18n.t(
-            "servactory.internals.validations.must.dynamic_options.consists_of.default",
+            i18n_key,
             service_class_name: service_class_name,
             internal_name: internal.name,
             expected_type: Array(option_value).uniq.join(", "),
@@ -69,8 +72,11 @@ module Servactory
         end
 
         def message_for_output_with(service_class_name:, output:, value:, option_value:, **)
+          i18n_key = "servactory.outputs.validations.must.dynamic_options.consists_of"
+          i18n_key += reason.present? ? ".#{reason}" : ".default"
+
           I18n.t(
-            "servactory.outputs.validations.must.dynamic_options.consists_of.default",
+            i18n_key,
             service_class_name: service_class_name,
             output_name: output.name,
             expected_type: Array(option_value).uniq.join(", "),

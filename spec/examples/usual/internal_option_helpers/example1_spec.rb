@@ -125,8 +125,7 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
 
         it_behaves_like "input type check",
                         name: :invoice_numbers,
-                        # collection: Array,
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end
@@ -255,8 +254,7 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
 
         it_behaves_like "input type check",
                         name: :invoice_numbers,
-                        # collection: Array,
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end

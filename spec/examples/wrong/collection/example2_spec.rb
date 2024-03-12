@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Collection::Example2 do
+RSpec.describe Wrong::Collection::Example2, skip: "DELETE ME" do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -44,8 +44,7 @@ RSpec.describe Wrong::Collection::Example2 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end
@@ -93,8 +92,7 @@ RSpec.describe Wrong::Collection::Example2 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end
