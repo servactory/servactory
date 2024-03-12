@@ -34,18 +34,33 @@ module Servactory
         ########################################################################
 
         def message_for_input_with(service_class_name:, input:, value:, option_value:, **)
-          "[#{service_class_name}] Input attribute `#{input.name}` " \
-            "received value `#{value}`, which is less than `#{option_value}`"
+          I18n.t(
+            "servactory.inputs.validations.must.dynamic_options.min.default",
+            service_class_name: service_class_name,
+            input_name: input.name,
+            value: value,
+            option_value: option_value
+          )
         end
 
         def message_for_internal_with(service_class_name:, internal:, value:, option_value:, **)
-          "[#{service_class_name}] Internal attribute `#{internal.name}` " \
-            "received value `#{value}`, which is less than `#{option_value}`"
+          I18n.t(
+            "servactory.internals.validations.must.dynamic_options.min.default",
+            service_class_name: service_class_name,
+            internal_name: internal.name,
+            value: value,
+            option_value: option_value
+          )
         end
 
         def message_for_output_with(service_class_name:, output:, value:, option_value:, **)
-          "[#{service_class_name}] Output attribute `#{output.name}` " \
-            "received value `#{value}`, which is less than `#{option_value}`"
+          I18n.t(
+            "servactory.outputs.validations.must.dynamic_options.min.default",
+            service_class_name: service_class_name,
+            output_name: output.name,
+            value: value,
+            option_value: option_value
+          )
         end
       end
     end

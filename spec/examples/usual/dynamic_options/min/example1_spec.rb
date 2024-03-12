@@ -80,7 +80,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Input,
-                    "[Usual::DynamicOptions::Min::Example1] Input attribute `data` " \
+                    "[Usual::DynamicOptions::Min::Example1] Input `data` " \
                     "received value `0`, which is less than `1`"
                   )
                 )
@@ -342,7 +342,7 @@ RSpec.describe Usual::DynamicOptions::Min::Example1 do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Input,
-                    "[Usual::DynamicOptions::Min::Example1] Input attribute `data` " \
+                    "[Usual::DynamicOptions::Min::Example1] Input `data` " \
                     "received value `0`, which is less than `1`"
                   )
                 )
