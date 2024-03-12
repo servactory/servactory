@@ -63,7 +63,10 @@ module Servactory
       end
 
       def register_options(helpers:, options:) # rubocop:disable Metrics/MethodLength
+        advanced_helpers = options.except(*Servactory::Maintenance::Attributes::Options::Registrar::RESERVED_OPTIONS)
+
         options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
+        options = apply_helpers_for_options(helpers: advanced_helpers, options: options) if advanced_helpers.present?
 
         options_registrar = Servactory::Maintenance::Attributes::Options::Registrar.register(
           attribute: self,
@@ -85,15 +88,22 @@ module Servactory
         @collection_of_options = options_registrar.collection
       end
 
-      def apply_helpers_for_options(helpers:, options:)
+      def apply_helpers_for_options(helpers:, options:) # rubocop:disable Metrics/MethodLength
         prepared_options = {}
 
-        helpers.each do |helper|
+        helpers.each do |(helper, values)|
           found_helper = @option_helpers.find_by(name: helper)
 
           next if found_helper.blank?
 
-          prepared_options.merge!(found_helper.equivalent)
+          prepared_option =
+            if found_helper.equivalent.is_a?(Proc)
+              values.is_a?(Hash) ? found_helper.equivalent.call(**values) : found_helper.equivalent.call(values)
+            else
+              found_helper.equivalent
+            end
+
+          prepared_options.deep_merge!(prepared_option)
         end
 
         options.merge(prepared_options)
