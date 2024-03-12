@@ -88,7 +88,9 @@ RSpec.describe Usual::Collection::Example17 do
       context "when `letters`" do
         it_behaves_like "input required check", name: :letters
 
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :letters,
+                        expected_type: Array
       end
     end
   end
@@ -180,7 +182,9 @@ RSpec.describe Usual::Collection::Example17 do
       context "when `letters`" do
         it_behaves_like "input required check", name: :letters
 
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :letters,
+                        expected_type: Array
       end
     end
   end

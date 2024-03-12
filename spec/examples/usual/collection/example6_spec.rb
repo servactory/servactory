@@ -68,7 +68,7 @@ RSpec.describe Usual::Collection::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example6] Required element in input collection `ids` is missing"
+                "Input `ids` must be an array of `String`"
               )
             )
           end
@@ -87,7 +87,7 @@ RSpec.describe Usual::Collection::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example6] Required element in input collection `ids` is missing"
+                "Input `ids` must be an array of `String`"
               )
             )
           end
@@ -101,9 +101,7 @@ RSpec.describe Usual::Collection::Example6 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        # collection_message: "Input `ids` must be an array of `String`",
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end
@@ -175,7 +173,7 @@ RSpec.describe Usual::Collection::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example6] Required element in input collection `ids` is missing"
+                "Input `ids` must be an array of `String`"
               )
             )
           end
@@ -194,7 +192,7 @@ RSpec.describe Usual::Collection::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Collection::Example6] Required element in input collection `ids` is missing"
+                "Input `ids` must be an array of `String`"
               )
             )
           end
@@ -208,9 +206,7 @@ RSpec.describe Usual::Collection::Example6 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        # collection_message: "Input `ids` must be an array of `String`",
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end

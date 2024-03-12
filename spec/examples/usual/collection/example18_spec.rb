@@ -56,7 +56,11 @@ RSpec.describe Usual::Collection::Example18 do
 
     context "when the input arguments are invalid" do
       context "when `letters`" do
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: [String, NilClass]
+        it_behaves_like "input required check", name: :letters
+
+        it_behaves_like "input type check",
+                        name: :letters,
+                        expected_type: Array
       end
     end
   end
@@ -116,7 +120,11 @@ RSpec.describe Usual::Collection::Example18 do
 
     context "when the input arguments are invalid" do
       context "when `letters`" do
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: [String, NilClass]
+        it_behaves_like "input required check", name: :letters
+
+        it_behaves_like "input type check",
+                        name: :letters,
+                        expected_type: Array
       end
     end
   end

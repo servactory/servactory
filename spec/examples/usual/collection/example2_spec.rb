@@ -111,7 +111,9 @@ RSpec.describe Usual::Collection::Example2 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :ids,
+                        expected_type: Array
       end
     end
   end
@@ -226,7 +228,9 @@ RSpec.describe Usual::Collection::Example2 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :ids,
+                        expected_type: Array
       end
     end
   end

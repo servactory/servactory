@@ -61,7 +61,6 @@ module InputAttributeHelper
     custom_message.presence || "[#{service_class_name}] Required input `#{name}` is missing"
   end
 
-  # rubocop:disable Metrics/MethodLength
   def prepare_input_type_check_text_for(
     name:,
     service_class_name:,
@@ -72,7 +71,6 @@ module InputAttributeHelper
 
     "[#{service_class_name}] Wrong type of input `#{name}`, expected `#{expected_type}`, got `#{given_type}`"
   end
-  # rubocop:enable Metrics/MethodLength
 end
 
 RSpec.configure do |config|

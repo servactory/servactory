@@ -60,7 +60,7 @@ RSpec.describe Usual::Collection::Example3 do
           let(:invoice_numbers) do
             [
               "7650AE",
-              123,
+              123_456,
               "A7BC86"
             ]
           end
@@ -120,7 +120,9 @@ RSpec.describe Usual::Collection::Example3 do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 
-        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :invoice_numbers,
+                        expected_type: Array
       end
     end
   end
@@ -184,7 +186,7 @@ RSpec.describe Usual::Collection::Example3 do
           let(:invoice_numbers) do
             [
               "7650AE",
-              123,
+              123456,
               "A7BC86"
             ]
           end
@@ -244,7 +246,9 @@ RSpec.describe Usual::Collection::Example3 do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 
-        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :invoice_numbers,
+                        expected_type: Array
       end
     end
   end

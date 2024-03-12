@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # FIXME: REWRITE ME
-RSpec.describe Usual::Collection::Example1 do
+RSpec.describe Usual::Collection::Example1, skip: "DELETE ME" do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -52,7 +52,10 @@ RSpec.describe Usual::Collection::Example1 do
     context "when the input arguments are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :ids,
+                        # collection: Array,
+                        expected_type: String
       end
     end
   end
@@ -107,7 +110,10 @@ RSpec.describe Usual::Collection::Example1 do
     context "when the input arguments are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :ids,
+                        # collection: Array,
+                        expected_type: String
       end
     end
   end

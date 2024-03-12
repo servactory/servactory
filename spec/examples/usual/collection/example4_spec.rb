@@ -52,7 +52,7 @@ RSpec.describe Usual::Collection::Example4 do
           let(:ids) do
             [
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              123,
+              123456,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end
@@ -111,7 +111,9 @@ RSpec.describe Usual::Collection::Example4 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :ids,
+                        expected_type: Array
       end
     end
   end
@@ -167,7 +169,7 @@ RSpec.describe Usual::Collection::Example4 do
           let(:ids) do
             [
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              123,
+              123456,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end
@@ -226,7 +228,9 @@ RSpec.describe Usual::Collection::Example4 do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
 
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :ids,
+                        expected_type: Array
       end
     end
   end
