@@ -61,7 +61,7 @@ RSpec.describe Usual::InputOptionHelpers::Example1 do
           let(:invoice_numbers) do
             [
               "7650AE",
-              123456,
+              123_456,
               "A7BC86"
             ]
           end
@@ -190,7 +190,7 @@ RSpec.describe Usual::InputOptionHelpers::Example1 do
           let(:invoice_numbers) do
             [
               "7650AE",
-              123456,
+              123_456,
               "A7BC86"
             ]
           end

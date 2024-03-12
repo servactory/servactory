@@ -41,7 +41,7 @@ module Servactory
 
           ########################################################################
 
-          def register # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          def register # rubocop:disable Metrics/CyclomaticComplexity
             # Validation Class: Servactory::Inputs::Validations::Required
             register_required_option if @features.fetch(:required)
 
@@ -181,7 +181,7 @@ module Servactory
             )
           end
 
-          def register_prepare_option # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+          def register_prepare_option # rubocop:disable Metrics/MethodLength
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :prepare,
               attribute: @attribute,

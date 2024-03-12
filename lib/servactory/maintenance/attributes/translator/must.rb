@@ -8,7 +8,7 @@ module Servactory
           module_function
 
           def default_message # rubocop:disable Metrics/MethodLength
-            lambda do |service_class_name:, value:, code:, input: nil, internal: nil, output: nil, reason: nil| # rubocop:disable Layout/LineLength
+            lambda do |service_class_name:, value:, code:, input: nil, internal: nil, output: nil, reason: nil|
               attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
 
               I18n.t(
