@@ -7,7 +7,7 @@ module Servactory
         module_function
 
         def default_message
-          lambda do |service_class_name:, input:, _value:|
+          lambda do |service_class_name:, input:, **|
             I18n.t(
               "servactory.inputs.validations.required.default_error.default",
               service_class_name: service_class_name,

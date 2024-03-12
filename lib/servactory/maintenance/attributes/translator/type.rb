@@ -8,7 +8,7 @@ module Servactory
           extend self
 
           def default_message
-            lambda do |service_class_name:, attribute:, _value:, key_name:, expected_type:, given_type:|
+            lambda do |service_class_name:, attribute:, key_name:, expected_type:, given_type:, **|
               if attribute.hash_mode? && key_name.present?
                 for_hash_mode_with(service_class_name: service_class_name, attribute: attribute, key_name: key_name,
                                    expected_type: expected_type, given_type: given_type)
