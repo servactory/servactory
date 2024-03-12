@@ -9,8 +9,6 @@ module InputAttributeHelper
     name:,
     service_class_name:,
     custom_message: nil,
-    collection: false,
-    collection_message: nil,
     expected_type: nil,
     given_type: nil
   ) # do
@@ -21,8 +19,6 @@ module InputAttributeHelper
         name: name,
         service_class_name: service_class_name,
         custom_message: custom_message,
-        collection: collection,
-        collection_message: collection_message,
         expected_type: expected_type,
         given_type: given_type
       )
@@ -36,8 +32,6 @@ module InputAttributeHelper
     name:,
     service_class_name:,
     custom_message: nil,
-    collection: false,
-    collection_message: nil,
     expected_type: nil,
     given_type: nil
   ) # do
@@ -52,8 +46,6 @@ module InputAttributeHelper
       prepare_input_type_check_text_for(
         name: name,
         service_class_name: service_class_name,
-        collection: collection,
-        collection_message: collection_message,
         expected_type: expected_type,
         given_type: given_type
       )
@@ -73,23 +65,12 @@ module InputAttributeHelper
   def prepare_input_type_check_text_for(
     name:,
     service_class_name:,
-    collection:,
-    collection_message:,
     expected_type:,
     given_type:
   ) # do
     expected_type = expected_type.join(", ") if expected_type.is_a?(Array)
 
-    if collection
-      if collection_message.present?
-        collection_message
-      else
-        "[#{service_class_name}] Wrong type in input collection `#{name}`, " \
-          "expected `#{expected_type}`, got `#{given_type}`"
-      end
-    else
-      "[#{service_class_name}] Wrong type of input `#{name}`, expected `#{expected_type}`, got `#{given_type}`"
-    end
+    "[#{service_class_name}] Wrong type of input `#{name}`, expected `#{expected_type}`, got `#{given_type}`"
   end
   # rubocop:enable Metrics/MethodLength
 end

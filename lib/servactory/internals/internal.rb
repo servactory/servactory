@@ -28,13 +28,11 @@ module Servactory
       def initialize(
         name,
         *helpers,
-        collection_mode_class_names:,
         hash_mode_class_names:,
         option_helpers:,
         **options
       )
         @name = name
-        @collection_mode_class_names = collection_mode_class_names
         @hash_mode_class_names = hash_mode_class_names
         @option_helpers = option_helpers
 
@@ -61,12 +59,10 @@ module Servactory
 
         options_registrar = Servactory::Maintenance::Attributes::Options::Registrar.register(
           attribute: self,
-          collection_mode_class_names: @collection_mode_class_names,
           hash_mode_class_names: @hash_mode_class_names,
           options: options,
           features: {
             types: true,
-            collection: true,
             hash: true,
             inclusion: true,
             must: true

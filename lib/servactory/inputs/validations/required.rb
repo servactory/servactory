@@ -25,11 +25,7 @@ module Servactory
         end
 
         def check
-          if @input.collection_mode? && Servactory::Utils.value_present?(@value)
-            return if collection_valid?
-          elsif Servactory::Utils.value_present?(@value)
-            return
-          end
+          return if Servactory::Utils.value_present?(@value)
 
           _, message = @input.required.values_at(:is, :message)
 
@@ -37,14 +33,6 @@ module Servactory
         end
 
         private
-
-        def collection_valid?
-          collection_valid_for?(values: @value)
-        end
-
-        def collection_valid_for?(values:)
-          values.respond_to?(:all?) && values.flatten.all?(&:present?)
-        end
 
         def add_error_with(message)
           add_error(

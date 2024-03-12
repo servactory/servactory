@@ -11,8 +11,6 @@ module Servactory
 
       attr_accessor failure_class: singleton(Exceptions::Failure)
 
-      attr_accessor collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
-
       attr_accessor hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection
 
       attr_accessor input_option_helpers: Maintenance::Attributes::OptionHelpersCollection
@@ -28,8 +26,6 @@ module Servactory
       def initialize: () -> void
 
       private
-
-      def default_collection_mode_class_names: -> Set[Class]
 
       def default_hash_mode_class_names: -> Set[Class]
 

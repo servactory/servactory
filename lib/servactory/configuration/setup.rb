@@ -8,7 +8,6 @@ module Servactory
                     :output_exception_class,
                     :success_class,
                     :failure_class,
-                    :collection_mode_class_names,
                     :hash_mode_class_names,
                     :input_option_helpers,
                     :internal_option_helpers,
@@ -23,9 +22,6 @@ module Servactory
 
         @success_class = Servactory::Exceptions::Success
         @failure_class = Servactory::Exceptions::Failure
-
-        @collection_mode_class_names =
-          Servactory::Maintenance::CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
 
         @hash_mode_class_names =
           Servactory::Maintenance::HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
@@ -44,10 +40,6 @@ module Servactory
       end
 
       private
-
-      def default_collection_mode_class_names
-        Set[Array, Set]
-      end
 
       def default_hash_mode_class_names
         Set[Hash]
