@@ -17,6 +17,11 @@ en:
         must:
           default_error: "[%{service_class_name}] Input `%{input_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{input_name}` input: %{exception_message}"
+          dynamic_options:
+            min:
+              default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is less than `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is greater than `%{option_value}`"
         required:
           default_error:
             default: "[%{service_class_name}] Required input `%{input_name}` is missing"
@@ -44,6 +49,11 @@ en:
         must:
           default_error: "[%{service_class_name}] Internal attribute `%{internal_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute: %{exception_message}"
+          dynamic_options:
+            min:
+              default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is less than `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is greater than `%{option_value}`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -62,6 +72,11 @@ en:
         must:
           default_error: "[%{service_class_name}] Output attribute `%{output_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute: %{exception_message}"
+          dynamic_options:
+            min:
+              default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is less than `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is greater than `%{option_value}`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
