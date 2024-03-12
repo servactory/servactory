@@ -17,6 +17,11 @@ ru:
         must:
           default_error: "[%{service_class_name}] Инпут `%{input_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` инпута `%{input_name}`: %{exception_message}"
+          dynamic_options:
+            min:
+              default: "[%{service_class_name}] Инпут `%{input_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] Инпут `%{input_name}` получил значение `%{value}`, которое больше `%{option_value}`"
         required:
           default_error:
             default: "[%{service_class_name}] Обязательный инпут `%{input_name}` отсутствует"
@@ -45,6 +50,11 @@ ru:
         must:
           default_error: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` внутреннего атрибута `%{internal_name}`: %{exception_message}"
+          dynamic_options:
+            min:
+              default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` получил значение `%{value}`, которое больше `%{option_value}`"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
@@ -63,6 +73,11 @@ ru:
         must:
           default_error: "[%{service_class_name}] Выходящий атрибут `%{output_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` выходящего атрибута `%{output_name}`: %{exception_message}"
+          dynamic_options:
+            min:
+              default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое больше `%{option_value}`"
         type:
           default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
           for_collection:
