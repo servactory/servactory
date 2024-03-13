@@ -38,7 +38,7 @@ module Servactory
             consists_of_types.include?(value.class)
           end
 
-          [false, :type_mismatch]
+          [false, :wrong_type]
         end
 
         ########################################################################

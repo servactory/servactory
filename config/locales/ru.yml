@@ -19,8 +19,8 @@ ru:
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` инпута `%{input_name}`: %{exception_message}"
           dynamic_options:
             consists_of:
-              type_mismatch: "[%{service_class_name}] Неправильный тип в коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-              required: "[%{service_class_name}] Обязательный элемент в коллекции инпута `%{input_name}` отсутствует"
+              required: "[%{service_class_name}] Отсутствует обязательный элемент в коллекции инпута `%{input_name}`"
+              wrong_type: "[%{service_class_name}] Неправильный тип элемента в коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             min:
               default: "[%{service_class_name}] Инпут `%{input_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -33,7 +33,6 @@ ru:
             default: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
-
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Неожиданные атрибуты: `%{unnecessary_attributes}`"
@@ -50,6 +49,9 @@ ru:
           default_error: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` внутреннего атрибута `%{internal_name}`: %{exception_message}"
           dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] Отсутствует обязательный элемент в коллекции внутреннего атрибута `%{internal_name}`"
+              wrong_type: "[%{service_class_name}] Неправильный тип элемента в коллекции внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             min:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -70,6 +72,9 @@ ru:
           default_error: "[%{service_class_name}] Выходящий атрибут `%{output_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` выходящего атрибута `%{output_name}`: %{exception_message}"
           dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] Отсутствует обязательный элемент в коллекции выходящего атрибута `%{output_name}`"
+              wrong_type: "[%{service_class_name}] Неправильный тип элемента в коллекции выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             min:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
