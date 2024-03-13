@@ -4,7 +4,13 @@ module Servactory
 
     def self?.fetch_hash_with_desired_attribute: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> Hash[Symbol, untyped]
 
-    def self?.define_attribute_with: (input: Inputs::Input, internal: Internals::Internal, output: Outputs::Output) -> (Inputs::Input | Internals::Internal | Outputs::Output | Exception)
+    def self?.define_attribute_with: (input: Inputs::Input?, internal: Internals::Internal?, output: Outputs::Output?) -> (Inputs::Input | Internals::Internal | Outputs::Output | Exception)
+
+    def self?.really_input?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
+
+    def self?.really_internal?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
+
+    def self?.really_output?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
 
     # @param value [#to_s]
     # @return [Boolean]

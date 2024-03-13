@@ -4,9 +4,9 @@ module Servactory
       class OptionHelper
         attr_reader name: Symbol
 
-        attr_reader equivalent: Hash[Symbol, untyped]
+        attr_reader equivalent: (Proc | Hash[Symbol, untyped])
 
-        def initialize: (name: Symbol, equivalent: Hash[Symbol, untyped]) -> void
+        def initialize: (name: Symbol, equivalent: (Proc | Hash[Symbol, untyped])) -> void
       end
     end
   end

@@ -5,23 +5,37 @@ module Servactory
     module_function
 
     def fetch_hash_with_desired_attribute(attribute)
-      if attribute.input?
-        { input: attribute.class::Work.new(attribute) }
-      elsif attribute.internal?
-        { internal: attribute.class::Work.new(attribute) }
-      elsif attribute.output?
-        { output: attribute.class::Work.new(attribute) }
-      else
-        raise ArgumentError, "Failed to define attribute"
-      end
+      return { input: attribute.class::Work.new(attribute) } if really_input?(attribute)
+      return { internal: attribute.class::Work.new(attribute) } if really_internal?(attribute)
+      return { output: attribute.class::Work.new(attribute) } if really_output?(attribute)
+
+      raise ArgumentError, "Failed to define attribute"
     end
 
-    def define_attribute_with(input:, internal:, output:)
-      return input if input.present? && input.input?
-      return internal if internal.present? && internal.internal?
-      return output if output.present? && output.output?
+    def define_attribute_with(input: nil, internal: nil, output: nil)
+      return input if really_input?(input)
+      return internal if really_internal?(internal)
+      return output if really_output?(output)
 
       raise ArgumentError, "missing keyword: :input, :internal or :output"
+    end
+
+    def really_input?(attribute = nil)
+      return true if attribute.present? && attribute.input?
+
+      false
+    end
+
+    def really_internal?(attribute = nil)
+      return true if attribute.present? && attribute.internal?
+
+      false
+    end
+
+    def really_output?(attribute = nil)
+      return true if attribute.present? && attribute.output?
+
+      false
     end
 
     FALSE_VALUES = [

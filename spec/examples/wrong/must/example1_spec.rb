@@ -26,14 +26,16 @@ RSpec.describe Wrong::Must::Example1 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
+        # rubocop:disable Layout/LineLength
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              "[Wrong::Must::Example1] Syntax error inside `be_6_characters` of `invoice_numbers` input"
+              /\[Wrong::Must::Example1\] Syntax error inside `be_6_characters` of `invoice_numbers` input: undefined local variable or method `this_method_does_not_exist' for (.*)Wrong::Must::Example1(.*)/
             )
           )
         end
+        # rubocop:enable Layout/LineLength
       end
     end
   end
@@ -63,14 +65,16 @@ RSpec.describe Wrong::Must::Example1 do
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
+        # rubocop:disable Layout/LineLength
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              "[Wrong::Must::Example1] Syntax error inside `be_6_characters` of `invoice_numbers` input"
+              /\[Wrong::Must::Example1\] Syntax error inside `be_6_characters` of `invoice_numbers` input: undefined local variable or method `this_method_does_not_exist' for (.*)Wrong::Must::Example1(.*)/
             )
           )
         end
+        # rubocop:enable Layout/LineLength
       end
     end
   end
