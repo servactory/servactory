@@ -52,10 +52,10 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example1, skip: "DELETE ME" do
     context "when the input arguments are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
+
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end
@@ -110,10 +110,10 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example1, skip: "DELETE ME" do
     context "when the input arguments are invalid" do
       context "when `ids`" do
         it_behaves_like "input required check", name: :ids
+
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end

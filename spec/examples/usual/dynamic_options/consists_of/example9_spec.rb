@@ -101,9 +101,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, skip: "DELETE ME" do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        # collection_message: "Input `ids` must be an array of `String`",
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end
@@ -208,9 +206,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, skip: "DELETE ME" do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        # collection: Array,
-                        # collection_message: "Input `ids` must be an array of `String`",
-                        expected_type: String
+                        expected_type: Array
       end
     end
   end
