@@ -4,7 +4,7 @@ module Servactory
       @inputs: Inputs
       @internals: Internals
       @outputs: Outputs
-      @servactory_service_store: { internals: {}, outputs: {} }
+      @servactory_service_store: Context::Store
 
       attr_reader incoming_arguments: Hash[Symbol, untyped]
       attr_reader collection_of_inputs: Inputs::Collection
