@@ -61,7 +61,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example8] Wrong type in input collection `ids`, " \
+                "[Usual::DynamicOptions::ConsistsOf::Example8] Wrong element type in input collection `ids`, " \
                 "expected `String`, got `Integer`"
               )
             )
@@ -179,7 +179,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example8] Wrong type in input collection `ids`, " \
+                "[Usual::DynamicOptions::ConsistsOf::Example8] Wrong element type in input collection `ids`, " \
                 "expected `String`, got `Integer`"
               )
             )

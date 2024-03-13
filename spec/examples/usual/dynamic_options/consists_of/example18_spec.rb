@@ -45,7 +45,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example18 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example18] Wrong type in input collection `letters`, " \
+                "[Usual::DynamicOptions::ConsistsOf::Example18] Wrong element type in input collection `letters`, " \
                 "expected `String, NilClass`, got `Symbol`"
               )
             )
@@ -109,7 +109,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example18 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example18] Wrong type in input collection `letters`, " \
+                "[Usual::DynamicOptions::ConsistsOf::Example18] Wrong element type in input collection `letters`, " \
                 "expected `String, NilClass`, got `Symbol`"
               )
             )

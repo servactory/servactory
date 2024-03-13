@@ -69,7 +69,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example3 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example3] Wrong type in input collection `invoice_numbers`, " \
+                "[Usual::DynamicOptions::ConsistsOf::Example3] Wrong element type in input collection `invoice_numbers`, " \
                 "expected `String`, got `Integer`"
               )
             )
@@ -197,7 +197,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example3 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example3] Wrong type in input collection `invoice_numbers`, " \
+                "[Usual::DynamicOptions::ConsistsOf::Example3] Wrong element type in input collection `invoice_numbers`, " \
                 "expected `String`, got `Integer`"
               )
             )
