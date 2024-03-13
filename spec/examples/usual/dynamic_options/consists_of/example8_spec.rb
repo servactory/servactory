@@ -6,23 +6,18 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8 do
 
     let(:attributes) do
       {
-        ids: ids
+        letters: letters
       }
     end
 
-    let(:ids) do
-      %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-      ]
+    let(:letters) do
+      [%w[A B], ["C", "D", %w[E F]]]
     end
 
     include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[array_of_ids],
-                     outputs: %i[array_of_ids first_id]
+                     inputs: %i[letters],
+                     internals: %i[letters],
+                     outputs: %i[letters desired_letter]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -31,76 +26,59 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8 do
         it "returns expected values", :aggregate_failures do
           result = perform
 
-          expect(result.array_of_ids?).to be(true)
-          expect(result.array_of_ids).to(
-            match_array(
-              %w[
-                6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-                bdd30bb6-c6ab-448d-8302-7018de07b9a4
-                e864b5e7-e515-4d5e-9a7e-7da440323390
-                b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-              ]
-            )
+          expect(result.letters?).to be(true)
+          expect(result.letters).to(
+            contain_exactly(%w[A B], ["C", "D", %w[E F]])
           )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+          expect(result.desired_letter?).to be(true)
+          expect(result.desired_letter).to eq("E")
         end
       end
 
       describe "but the data required for work is invalid" do
         describe "because one element has the wrong type" do
-          let(:ids) do
-            [
-              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              123,
-              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
-            ]
+          let(:letters) do
+            [%w[A B], ["C", :D, %w[E F]]]
           end
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example8] Wrong element type in input collection `ids`, " \
-                "expected `String`, got `Integer`"
+                "[Usual::DynamicOptions::ConsistsOf::Example8] Wrong element type in input collection `letters`, " \
+                "expected `String`, got `Symbol`"
               )
             )
           end
         end
 
         describe "because one element is empty" do
-          let(:ids) do
-            [
-              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              "",
-              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
-            ]
+          let(:letters) do
+            [%w[A B], ["C", "", %w[E F]]]
           end
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example8] Required element in input collection `ids` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example8] Required element in input " \
+                "collection `letters` is missing"
               )
             )
           end
         end
 
         describe "because one element is nil" do
-          let(:ids) do
-            [
-              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              nil,
-              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
-            ]
+          let(:letters) do
+            [%w[A B], ["C", nil, %w[E F]]]
           end
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example8] Required element in input collection `ids` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example8] Required element in input " \
+                "collection `letters` is missing"
               )
             )
           end
@@ -109,11 +87,11 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
+      context "when `letters`" do
+        it_behaves_like "input required check", name: :letters
 
         it_behaves_like "input type check",
-                        name: :ids,
+                        name: :letters,
                         expected_type: Array
       end
     end
@@ -124,23 +102,18 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8 do
 
     let(:attributes) do
       {
-        ids: ids
+        letters: letters
       }
     end
 
-    let(:ids) do
-      %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-      ]
+    let(:letters) do
+      [%w[A B], ["C", "D", %w[E F]]]
     end
 
     include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[array_of_ids],
-                     outputs: %i[array_of_ids first_id]
+                     inputs: %i[letters],
+                     internals: %i[letters],
+                     outputs: %i[letters desired_letter]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -149,76 +122,59 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8 do
         it "returns expected values", :aggregate_failures do
           result = perform
 
-          expect(result.array_of_ids?).to be(true)
-          expect(result.array_of_ids).to(
-            match_array(
-              %w[
-                6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-                bdd30bb6-c6ab-448d-8302-7018de07b9a4
-                e864b5e7-e515-4d5e-9a7e-7da440323390
-                b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-              ]
-            )
+          expect(result.letters?).to be(true)
+          expect(result.letters).to(
+            contain_exactly(%w[A B], ["C", "D", %w[E F]])
           )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+          expect(result.desired_letter?).to be(true)
+          expect(result.desired_letter).to eq("E")
         end
       end
 
       describe "but the data required for work is invalid" do
         describe "because one element has the wrong type" do
-          let(:ids) do
-            [
-              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              123,
-              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
-            ]
+          let(:letters) do
+            [%w[A B], ["C", :D, %w[E F]]]
           end
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example8] Wrong element type in input collection `ids`, " \
-                "expected `String`, got `Integer`"
+                "[Usual::DynamicOptions::ConsistsOf::Example8] Wrong element type in input collection `letters`, " \
+                "expected `String`, got `Symbol`"
               )
             )
           end
         end
 
         describe "because one element is empty" do
-          let(:ids) do
-            [
-              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              "",
-              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
-            ]
+          let(:letters) do
+            [%w[A B], ["C", "", %w[E F]]]
           end
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example8] Required element in input collection `ids` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example8] Required element in input " \
+                "collection `letters` is missing"
               )
             )
           end
         end
 
         describe "because one element is nil" do
-          let(:ids) do
-            [
-              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              nil,
-              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
-            ]
+          let(:letters) do
+            [%w[A B], ["C", nil, %w[E F]]]
           end
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example8] Required element in input collection `ids` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example8] Required element in input " \
+                "collection `letters` is missing"
               )
             )
           end
@@ -227,11 +183,11 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
+      context "when `letters`" do
+        it_behaves_like "input required check", name: :letters
 
         it_behaves_like "input type check",
-                        name: :ids,
+                        name: :letters,
                         expected_type: Array
       end
     end

@@ -3,7 +3,7 @@
 module Wrong
   module DynamicOptions
     module ConsistsOf
-      class Example3 < ApplicationService::Base
+      class Example2 < ApplicationService::Base
         internal :ids, type: Array
 
         output :ids, type: Set

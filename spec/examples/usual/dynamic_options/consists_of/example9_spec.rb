@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17 do
+RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -11,7 +11,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17 do
     end
 
     let(:letters) do
-      [%w[A B], ["C", "D", %w[E F]]]
+      [%w[A B], ["C", "D", %w[E F], nil, ""]]
     end
 
     include_examples "check class info",
@@ -28,7 +28,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17 do
 
           expect(result.letters?).to be(true)
           expect(result.letters).to(
-            contain_exactly(%w[A B], ["C", "D", %w[E F]])
+            contain_exactly(%w[A B], ["C", "D", %w[E F], nil, ""])
           )
           expect(result.desired_letter?).to be(true)
           expect(result.desired_letter).to eq("E")
@@ -45,40 +45,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example17] Wrong element type in input collection `letters`, " \
-                "expected `String`, got `Symbol`"
-              )
-            )
-          end
-        end
-
-        describe "because one element is empty" do
-          let(:letters) do
-            [%w[A B], ["C", "", %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example17] Required element in input " \
-                "collection `letters` is missing"
-              )
-            )
-          end
-        end
-
-        describe "because one element is nil" do
-          let(:letters) do
-            [%w[A B], ["C", nil, %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example17] Required element in input " \
-                "collection `letters` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example9] Wrong element type in input collection `letters`, " \
+                "expected `String, NilClass`, got `Symbol`"
               )
             )
           end
@@ -107,7 +75,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17 do
     end
 
     let(:letters) do
-      [%w[A B], ["C", "D", %w[E F]]]
+      [%w[A B], ["C", "D", %w[E F], nil, ""]]
     end
 
     include_examples "check class info",
@@ -124,7 +92,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17 do
 
           expect(result.letters?).to be(true)
           expect(result.letters).to(
-            contain_exactly(%w[A B], ["C", "D", %w[E F]])
+            contain_exactly(%w[A B], ["C", "D", %w[E F], nil, ""])
           )
           expect(result.desired_letter?).to be(true)
           expect(result.desired_letter).to eq("E")
@@ -141,40 +109,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example17] Wrong element type in input collection `letters`, " \
-                "expected `String`, got `Symbol`"
-              )
-            )
-          end
-        end
-
-        describe "because one element is empty" do
-          let(:letters) do
-            [%w[A B], ["C", "", %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example17] Required element in input " \
-                "collection `letters` is missing"
-              )
-            )
-          end
-        end
-
-        describe "because one element is nil" do
-          let(:letters) do
-            [%w[A B], ["C", nil, %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example17] Required element in input " \
-                "collection `letters` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example9] Wrong element type in input collection `letters`, " \
+                "expected `String, NilClass`, got `Symbol`"
               )
             )
           end

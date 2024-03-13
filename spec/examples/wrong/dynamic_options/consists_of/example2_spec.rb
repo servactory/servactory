@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example3 do
+RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example2 do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
@@ -15,7 +15,7 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example3 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Output,
-              "[Wrong::DynamicOptions::ConsistsOf::Example3] Wrong type of output attribute `ids`, " \
+              "[Wrong::DynamicOptions::ConsistsOf::Example2] Wrong type of output attribute `ids`, " \
               "expected `Set`, got `Array`"
             )
           )
@@ -38,7 +38,7 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example3 do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Output,
-              "[Wrong::DynamicOptions::ConsistsOf::Example3] Wrong type of output attribute `ids`, " \
+              "[Wrong::DynamicOptions::ConsistsOf::Example2] Wrong type of output attribute `ids`, " \
               "expected `Set`, got `Array`"
             )
           )

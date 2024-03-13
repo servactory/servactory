@@ -11,11 +11,11 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7 do
     end
 
     let(:ids) do
-      Set[
-        "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-        "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
-        "e864b5e7-e515-4d5e-9a7e-7da440323390",
-        "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
+      %w[
+        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
+        bdd30bb6-c6ab-448d-8302-7018de07b9a4
+        e864b5e7-e515-4d5e-9a7e-7da440323390
+        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
       ]
     end
 
@@ -28,49 +28,52 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
+        context "when `ids` is `String`" do
+          it "returns expected values", :aggregate_failures do
+            result = perform
 
-          expect(result.ids?).to be(true)
-          expect(result.ids).to(
-            match_array(
-              Set[
-                "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-                "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
-                "e864b5e7-e515-4d5e-9a7e-7da440323390",
-                "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
-              ]
+            expect(result.ids?).to be(true)
+            expect(result.ids).to(
+              match_array(
+                %w[
+                  6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
+                  bdd30bb6-c6ab-448d-8302-7018de07b9a4
+                  e864b5e7-e515-4d5e-9a7e-7da440323390
+                  b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+                ]
+              )
             )
-          )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+            expect(result.first_id?).to be(true)
+            expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+          end
+        end
+
+        context "when `ids` is `Integer`" do
+          let(:ids) do
+            [
+              123,
+              456,
+              789
+            ]
+          end
+
+          it "returns expected values", :aggregate_failures do
+            result = perform
+
+            expect(result.ids?).to be(true)
+            expect(result.ids).to(
+              contain_exactly(123, 456, 789)
+            )
+            expect(result.first_id?).to be(true)
+            expect(result.first_id).to eq(123)
+          end
         end
       end
 
       describe "but the data required for work is invalid" do
-        describe "because one element has the wrong type" do
-          let(:ids) do
-            Set[
-              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              123,
-              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
-            ]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example7] Wrong element type in input collection `ids`, " \
-                "expected `String`, got `Integer`"
-              )
-            )
-          end
-        end
-
         describe "because one element is empty" do
           let(:ids) do
-            Set[
+            [
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               "",
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -89,7 +92,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7 do
 
         describe "because one element is nil" do
           let(:ids) do
-            Set[
+            [
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               nil,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -114,7 +117,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        expected_type: Set
+                        expected_type: Array
       end
     end
   end
@@ -129,11 +132,11 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7 do
     end
 
     let(:ids) do
-      Set[
-        "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-        "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
-        "e864b5e7-e515-4d5e-9a7e-7da440323390",
-        "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
+      %w[
+        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
+        bdd30bb6-c6ab-448d-8302-7018de07b9a4
+        e864b5e7-e515-4d5e-9a7e-7da440323390
+        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
       ]
     end
 
@@ -146,49 +149,52 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
+        context "when `ids` is `String`" do
+          it "returns expected values", :aggregate_failures do
+            result = perform
 
-          expect(result.ids?).to be(true)
-          expect(result.ids).to(
-            match_array(
-              Set[
-                "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-                "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
-                "e864b5e7-e515-4d5e-9a7e-7da440323390",
-                "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
-              ]
+            expect(result.ids?).to be(true)
+            expect(result.ids).to(
+              match_array(
+                %w[
+                  6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
+                  bdd30bb6-c6ab-448d-8302-7018de07b9a4
+                  e864b5e7-e515-4d5e-9a7e-7da440323390
+                  b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+                ]
+              )
             )
-          )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+            expect(result.first_id?).to be(true)
+            expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+          end
+        end
+
+        context "when `ids` is `Integer`" do
+          let(:ids) do
+            [
+              123,
+              456,
+              789
+            ]
+          end
+
+          it "returns expected values", :aggregate_failures do
+            result = perform
+
+            expect(result.ids?).to be(true)
+            expect(result.ids).to(
+              contain_exactly(123, 456, 789)
+            )
+            expect(result.first_id?).to be(true)
+            expect(result.first_id).to eq(123)
+          end
         end
       end
 
       describe "but the data required for work is invalid" do
-        describe "because one element has the wrong type" do
-          let(:ids) do
-            Set[
-              "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              123,
-              "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
-            ]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example7] Wrong element type in input collection `ids`, " \
-                "expected `String`, got `Integer`"
-              )
-            )
-          end
-        end
-
         describe "because one element is empty" do
           let(:ids) do
-            Set[
+            [
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               "",
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -207,7 +213,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7 do
 
         describe "because one element is nil" do
           let(:ids) do
-            Set[
+            [
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               nil,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -232,7 +238,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        expected_type: Set
+                        expected_type: Array
       end
     end
   end

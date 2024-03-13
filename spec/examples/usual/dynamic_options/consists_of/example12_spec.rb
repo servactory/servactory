@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
+RSpec.describe Usual::DynamicOptions::ConsistsOf::Example12 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -11,18 +11,18 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
     end
 
     let(:ids) do
-      %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+      Set[
+        "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
+        "e864b5e7-e515-4d5e-9a7e-7da440323390",
+        "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
       ]
     end
 
     include_examples "check class info",
                      inputs: %i[ids],
-                     internals: %i[array_of_ids],
-                     outputs: %i[array_of_ids first_id]
+                     internals: %i[ids],
+                     outputs: %i[ids first_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -31,14 +31,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
         it "returns expected values", :aggregate_failures do
           result = perform
 
-          expect(result.array_of_ids?).to be(true)
-          expect(result.array_of_ids).to(
+          expect(result.ids?).to be(true)
+          expect(result.ids).to(
             match_array(
-              %w[
-                6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-                bdd30bb6-c6ab-448d-8302-7018de07b9a4
-                e864b5e7-e515-4d5e-9a7e-7da440323390
-                b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+              Set[
+                "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
+                "e864b5e7-e515-4d5e-9a7e-7da440323390",
+                "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
               ]
             )
           )
@@ -50,7 +50,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
       describe "but the data required for work is invalid" do
         describe "because one element has the wrong type" do
           let(:ids) do
-            [
+            Set[
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               123,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -61,7 +61,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example6] Wrong element type in input collection `ids`, " \
+                "[Usual::DynamicOptions::ConsistsOf::Example12] Wrong element type in input collection `ids`, " \
                 "expected `String`, got `Integer`"
               )
             )
@@ -70,7 +70,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
 
         describe "because one element is empty" do
           let(:ids) do
-            [
+            Set[
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               "",
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -81,7 +81,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example6] Required element in input collection `ids` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example12] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -89,7 +89,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
 
         describe "because one element is nil" do
           let(:ids) do
-            [
+            Set[
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               nil,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -100,7 +100,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example6] Required element in input collection `ids` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example12] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -114,7 +114,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        expected_type: Array
+                        expected_type: Set
       end
     end
   end
@@ -129,18 +129,18 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
     end
 
     let(:ids) do
-      %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+      Set[
+        "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+        "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
+        "e864b5e7-e515-4d5e-9a7e-7da440323390",
+        "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
       ]
     end
 
     include_examples "check class info",
                      inputs: %i[ids],
-                     internals: %i[array_of_ids],
-                     outputs: %i[array_of_ids first_id]
+                     internals: %i[ids],
+                     outputs: %i[ids first_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -149,14 +149,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
         it "returns expected values", :aggregate_failures do
           result = perform
 
-          expect(result.array_of_ids?).to be(true)
-          expect(result.array_of_ids).to(
+          expect(result.ids?).to be(true)
+          expect(result.ids).to(
             match_array(
-              %w[
-                6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-                bdd30bb6-c6ab-448d-8302-7018de07b9a4
-                e864b5e7-e515-4d5e-9a7e-7da440323390
-                b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+              Set[
+                "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                "bdd30bb6-c6ab-448d-8302-7018de07b9a4",
+                "e864b5e7-e515-4d5e-9a7e-7da440323390",
+                "b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81"
               ]
             )
           )
@@ -168,7 +168,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
       describe "but the data required for work is invalid" do
         describe "because one element has the wrong type" do
           let(:ids) do
-            [
+            Set[
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               123,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -179,7 +179,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example6] Wrong element type in input collection `ids`, " \
+                "[Usual::DynamicOptions::ConsistsOf::Example12] Wrong element type in input collection `ids`, " \
                 "expected `String`, got `Integer`"
               )
             )
@@ -188,7 +188,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
 
         describe "because one element is empty" do
           let(:ids) do
-            [
+            Set[
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               "",
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -199,7 +199,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example6] Required element in input collection `ids` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example12] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -207,7 +207,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
 
         describe "because one element is nil" do
           let(:ids) do
-            [
+            Set[
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
               nil,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
@@ -218,7 +218,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example6] Required element in input collection `ids` is missing"
+                "[Usual::DynamicOptions::ConsistsOf::Example12] Required element in input collection `ids` is missing"
               )
             )
           end
@@ -232,7 +232,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6 do
 
         it_behaves_like "input type check",
                         name: :ids,
-                        expected_type: Array
+                        expected_type: Set
       end
     end
   end

@@ -4,23 +4,29 @@ module Usual
   module DynamicOptions
     module ConsistsOf
       class Example6 < ApplicationService::Base
-        input :ids,
-              type: Array,
-              consists_of: {
-                type: String,
-                message: lambda do |input:, option_value:, **|
-                  "Input `#{input.name}` must be an array of `#{Array(option_value).join(', ')}`"
-                end
-              }
+        input :ids, as: :array_of_ids, type: Array, consists_of: String
 
+        internal :array_of_ids, type: Array, consists_of: String
+
+        output :array_of_ids, type: Array, consists_of: String
         output :first_id, type: String
 
+        make :assign_internal
+        make :assign_output
         make :assign_first_id
 
         private
 
+        def assign_internal
+          internals.array_of_ids = inputs.array_of_ids
+        end
+
+        def assign_output
+          outputs.array_of_ids = internals.array_of_ids
+        end
+
         def assign_first_id
-          outputs.first_id = inputs.ids.first
+          outputs.first_id = outputs.array_of_ids.first
         end
       end
     end

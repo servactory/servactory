@@ -3,13 +3,13 @@
 module Usual
   module DynamicOptions
     module ConsistsOf
-      class Example7 < ApplicationService::Base
-        input :ids, type: Array, consists_of: [String, Integer]
+      class Example1 < ApplicationService::Base
+        input :ids, type: Array, consists_of: String
 
-        internal :ids, type: Array, consists_of: [String, Integer]
+        internal :ids, type: Array, consists_of: String
 
-        output :ids, type: Array, consists_of: [String, Integer]
-        output :first_id, type: [String, Integer]
+        output :ids, type: Array, consists_of: String
+        output :first_id, type: String
 
         make :assign_internal
         make :assign_output

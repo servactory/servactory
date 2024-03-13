@@ -3,7 +3,7 @@
 module Usual
   module DynamicOptions
     module ConsistsOf
-      class Example19 < ApplicationService::Base
+      class Example10 < ApplicationService::Base
         input :ids, type: Array, consists_of: false
 
         internal :ids, type: Array, consists_of: false

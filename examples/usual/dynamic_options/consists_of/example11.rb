@@ -4,11 +4,11 @@ module Usual
   module DynamicOptions
     module ConsistsOf
       class Example11 < ApplicationService::Base
-        input :ids, type: Set, consists_of: { type: String }
+        input :ids, type: Set, consists_of: String
 
-        internal :ids, type: Set, consists_of: { type: String }
+        internal :ids, type: Set, consists_of: String
 
-        output :ids, type: Set, consists_of: { type: String }
+        output :ids, type: Set, consists_of: String
         output :first_id, type: String
 
         make :assign_internal

@@ -3,7 +3,7 @@
 module Usual
   module DynamicOptions
     module ConsistsOf
-      class Example18 < ApplicationService::Base
+      class Example9 < ApplicationService::Base
         input :letters, type: Array, consists_of: [String, NilClass]
 
         internal :letters, type: Array, consists_of: [String, NilClass]

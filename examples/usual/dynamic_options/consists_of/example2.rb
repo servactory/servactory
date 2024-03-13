@@ -4,29 +4,29 @@ module Usual
   module DynamicOptions
     module ConsistsOf
       class Example2 < ApplicationService::Base
-        input :ids, type: Array, consists_of: String
+        input :invoice_numbers,
+              type: Array,
+              consists_of: String,
+              must: {
+                be_6_characters: {
+                  is: lambda do |value:, **|
+                    value.all? do |id|
+                      return true if id.blank? # NOTE: This is not the responsibility of this `must` validator
 
-        internal :ids, type: Array, consists_of: String
+                      (id.is_a?(Integer) ? id.abs.digits.length : id.size) == 6
+                    end
+                  end
+                }
+              }
 
-        output :ids, type: Array, consists_of: String
-        output :first_id, type: String
+        output :first_invoice_number, type: String
 
-        make :assign_internal
-        make :assign_output
-        make :assign_first_id
+        make :assign_first_invoice_number
 
         private
 
-        def assign_internal
-          internals.ids = inputs.ids
-        end
-
-        def assign_output
-          outputs.ids = internals.ids
-        end
-
-        def assign_first_id
-          outputs.first_id = outputs.ids.first
+        def assign_first_invoice_number
+          outputs.first_invoice_number = inputs.invoice_numbers.first
         end
       end
     end

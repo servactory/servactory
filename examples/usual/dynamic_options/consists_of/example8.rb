@@ -4,29 +4,29 @@ module Usual
   module DynamicOptions
     module ConsistsOf
       class Example8 < ApplicationService::Base
-        input :ids, as: :array_of_ids, type: Array, consists_of: String
+        input :letters, type: Array, consists_of: String
 
-        internal :array_of_ids, type: Array, consists_of: String
+        internal :letters, type: Array, consists_of: String
 
-        output :array_of_ids, type: Array, consists_of: String
-        output :first_id, type: String
+        output :letters, type: Array, consists_of: String
+        output :desired_letter, type: String
 
         make :assign_internal
         make :assign_output
-        make :assign_first_id
+        make :assign_desired_letter
 
         private
 
         def assign_internal
-          internals.array_of_ids = inputs.array_of_ids
+          internals.letters = inputs.letters
         end
 
         def assign_output
-          outputs.array_of_ids = internals.array_of_ids
+          outputs.letters = internals.letters
         end
 
-        def assign_first_id
-          outputs.first_id = outputs.array_of_ids.first
+        def assign_desired_letter
+          outputs.desired_letter = outputs.letters.second.third.first
         end
       end
     end

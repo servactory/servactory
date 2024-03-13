@@ -40,7 +40,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example5 do
           let(:ids) do
             [
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              123_456,
+              123,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end
@@ -145,7 +145,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example5 do
           let(:ids) do
             [
               "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              123_456,
+              123,
               "bdd30bb6-c6ab-448d-8302-7018de07b9a4"
             ]
           end

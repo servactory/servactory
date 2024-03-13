@@ -8,7 +8,9 @@ module Usual
               type: Array,
               consists_of: {
                 type: String,
-                message: "Input `ids` must be an array of `String`"
+                message: lambda do |input:, option_value:, **|
+                  "Input `#{input.name}` must be an array of `#{Array(option_value).join(', ')}`"
+                end
               }
 
         output :first_id, type: String
