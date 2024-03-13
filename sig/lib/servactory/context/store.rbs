@@ -25,6 +25,8 @@ module Servactory
 
       private
 
+      def assign_attribute: (Symbol section, Symbol key, untyped value) -> untyped
+
       def internals: () -> Hash[Symbol, untyped]
 
       def context_data: () -> Hash[Symbol, untyped]

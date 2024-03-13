@@ -12,7 +12,7 @@ module Servactory
       end
 
       def assign_internal(name, value)
-        context_data[:internals].merge!({ name => value })
+        assign_attribute(:internals, name, value)
       end
 
       def fetch_output(name)
@@ -20,7 +20,7 @@ module Servactory
       end
 
       def assign_output(name, value)
-        context_data[:outputs].merge!({ name => value })
+        assign_attribute(:outputs, name, value)
       end
 
       def outputs
@@ -28,6 +28,10 @@ module Servactory
       end
 
       private
+
+      def assign_attribute(section, name, value)
+        context_data[section].merge!({ name => value })
+      end
 
       def internals
         @internals ||= context_data.fetch(:internals)
