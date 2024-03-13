@@ -11,22 +11,20 @@ module Servactory
         end
 
         def condition_for_input_with(input:, value:, option_value:)
-          return true if option_value == false
-          return false if COLLECTION_CLASS_NAMES.intersection(input.types).empty?
-
-          validate_for!(values: value, option_value: option_value)
+          common_condition_with(attribute: input, value: value, option_value: option_value)
         end
 
         def condition_for_internal_with(internal:, value:, option_value:)
-          return true if option_value == false
-          return false if COLLECTION_CLASS_NAMES.intersection(internal.types).empty?
-
-          validate_for!(values: value, option_value: option_value)
+          common_condition_with(attribute: internal, value: value, option_value: option_value)
         end
 
         def condition_for_output_with(output:, value:, option_value:)
+          common_condition_with(attribute: output, value: value, option_value: option_value)
+        end
+
+        def common_condition_with(attribute:, value:, option_value:)
           return true if option_value == false
-          return false if COLLECTION_CLASS_NAMES.intersection(output.types).empty?
+          return false if COLLECTION_CLASS_NAMES.intersection(attribute.types).empty?
 
           validate_for!(values: value, option_value: option_value)
         end
