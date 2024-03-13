@@ -4,7 +4,7 @@ module Servactory
       @inputs: Inputs
       @internals: Internals
       @outputs: Outputs
-      @servactory_service_storage: { internals: {}, outputs: {} }
+      @servactory_service_store: { internals: {}, outputs: {} }
 
       attr_reader incoming_arguments: Hash[Symbol, untyped]
       attr_reader collection_of_inputs: Inputs::Collection
@@ -55,15 +55,7 @@ module Servactory
 
       def call: -> Exception
 
-      def servactory_service_storage: -> Store
-
-      def assign_servactory_service_storage_internal: (Symbol key, untyped value) -> untyped
-
-      def fetch_servactory_service_storage_internal: (Symbol key) -> untyped
-
-      def assign_servactory_service_storage_output: (Symbol key, untyped value) -> untyped
-
-      def fetch_servactory_service_storage_output: (Symbol key) -> untyped
+      def servactory_service_store: -> Store
     end
   end
 end

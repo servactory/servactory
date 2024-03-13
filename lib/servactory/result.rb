@@ -88,7 +88,7 @@ module Servactory
     end
 
     def outputs
-      @outputs ||= Outputs.new(@context.send(:servactory_service_storage).outputs)
+      @outputs ||= Outputs.new(@context.send(:servactory_service_store).outputs)
     end
 
     ########################################################################

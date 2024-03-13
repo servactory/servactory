@@ -13,7 +13,7 @@ module Servactory
 
       def initialize(attributes = {})
         attributes.each_pair do |name, value|
-          servactory_service_storage.assign_output(name, value)
+          servactory_service_store.assign_output(name, value)
         end
       end
 
@@ -21,8 +21,8 @@ module Servactory
 
       private
 
-      def servactory_service_storage
-        @servactory_service_storage ||= Servactory::Context::Store.new(self)
+      def servactory_service_store
+        @servactory_service_store ||= Servactory::Context::Store.new(self)
       end
     end
   end

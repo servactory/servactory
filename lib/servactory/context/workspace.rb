@@ -107,8 +107,8 @@ module Servactory
         )
       end
 
-      def servactory_service_storage
-        @servactory_service_storage ||= Store.new(self)
+      def servactory_service_store
+        @servactory_service_store ||= Store.new(self)
       end
     end
   end
