@@ -30,10 +30,10 @@ module Servactory
           Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)
 
         @internal_option_helpers =
-          Servactory::Maintenance::Attributes::OptionHelpersCollection.new
+          Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_internal_option_helpers)
 
         @output_option_helpers =
-          Servactory::Maintenance::Attributes::OptionHelpersCollection.new
+          Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_output_option_helpers)
 
         @action_aliases = Servactory::Actions::Aliases::Collection.new
         @action_shortcuts = Servactory::Actions::Shortcuts::Collection.new
@@ -48,6 +48,19 @@ module Servactory
       def default_input_option_helpers
         Set[
           Servactory::Maintenance::Attributes::OptionHelper.new(name: :optional, equivalent: { required: false }),
+          Servactory::ToolKit::DynamicOptions::ConsistsOf.setup
+        ]
+      end
+
+      def default_internal_option_helpers
+        Set[
+          Servactory::ToolKit::DynamicOptions::ConsistsOf.setup
+        ]
+      end
+
+      def default_output_option_helpers
+        Set[
+          Servactory::ToolKit::DynamicOptions::ConsistsOf.setup
         ]
       end
     end

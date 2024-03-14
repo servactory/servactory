@@ -5,6 +5,7 @@ module Servactory
     module DynamicOptions
       class ConsistsOf < Must
         COLLECTION_CLASS_NAMES = [Array, Set].freeze
+        private_constant :COLLECTION_CLASS_NAMES
 
         def self.setup(option_name = :consists_of)
           new(option_name, :type, false).must(:consists_of)
