@@ -32,6 +32,8 @@ module Servactory
         end
 
         def common_condition_with(value:, option_value:, **)
+          option_value = option_value&.to_sym
+
           return [false, :unknown] unless FORMATS.key?(option_value)
 
           format_options = FORMATS.fetch(option_value)
@@ -52,7 +54,7 @@ module Servactory
             service_class_name: service_class_name,
             input_name: input.name,
             value: value,
-            format_name: option_value
+            format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
 
@@ -65,7 +67,7 @@ module Servactory
             service_class_name: service_class_name,
             internal_name: internal.name,
             value: value,
-            format_name: option_value
+            format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
 
@@ -78,7 +80,7 @@ module Servactory
             service_class_name: service_class_name,
             output_name: output.name,
             value: value,
-            format_name: option_value
+            format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
       end
