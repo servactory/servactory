@@ -20,14 +20,14 @@ module Servactory
           common_condition_with(...)
         end
 
-        def common_condition_with(value:, option_value:, **)
+        def common_condition_with(value:, option:, **)
           case value
           when Integer
-            value >= option_value
+            value >= option.value
           else
             return false unless value.respond_to?(:size)
 
-            value.size >= option_value
+            value.size >= option.value
           end
         end
 

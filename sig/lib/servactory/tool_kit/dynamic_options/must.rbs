@@ -10,11 +10,11 @@ module Servactory
 
         def equivalent_with: (Symbol name) -> Proc
 
-        def must_content_with: (untyped received_value) -> Hash[Symbol, untyped]
+        def must_content_with: (untyped option_value, untyped option_message, Hash[Symbol, untyped] option_properties) -> Hash[Symbol, untyped]
 
-        def must_content_value_with: (option_message: untyped) -> Proc
+        def must_content_value_with: (option_message: untyped, option_properties: Hash[Symbol, untyped]) -> Proc
 
-        def must_content_message_with: (option_message: untyped) -> Proc
+        def must_content_message_with: (option_value: untyped, option_message: untyped) -> Proc
 
         def condition_for_input_with: (** untyped) -> (bool | [bool, Symbol])
 

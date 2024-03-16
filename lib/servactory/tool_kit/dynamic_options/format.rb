@@ -31,8 +31,8 @@ module Servactory
           common_condition_with(...)
         end
 
-        def common_condition_with(value:, option_value:, **)
-          option_value = option_value&.to_sym
+        def common_condition_with(value:, option:, **attr)
+          option_value = option.value&.to_sym
 
           return [false, :unknown] unless FORMATS.key?(option_value)
 
