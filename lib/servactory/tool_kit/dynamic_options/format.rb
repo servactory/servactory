@@ -31,14 +31,16 @@ module Servactory
           common_condition_with(...)
         end
 
-        def common_condition_with(value:, option:, **attr)
+        def common_condition_with(value:, option:, **)
           option_value = option.value&.to_sym
 
           return [false, :unknown] unless FORMATS.key?(option_value)
 
           format_options = FORMATS.fetch(option_value)
 
-          return [false, :wrong_pattern] unless value.match?(format_options.fetch(:pattern))
+          format_pattern = option.properties.fetch(:pattern, format_options.fetch(:pattern))
+
+          return [false, :wrong_pattern] if format_pattern.present? && !value.match?(Regexp.compile(format_pattern))
 
           format_options.fetch(:validator).call(value)
         end
