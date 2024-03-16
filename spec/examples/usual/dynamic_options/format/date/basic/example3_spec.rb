@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Format::Date::Example3 do
+RSpec.describe Usual::DynamicOptions::Format::Date::Basic::Example3 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -35,7 +35,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Example3 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Date::Example3] Output attribute `started_on` " \
+                "[Usual::DynamicOptions::Format::Date::Basic::Example3] Output attribute `started_on` " \
                 "does not match `date` format"
               )
             )
@@ -87,7 +87,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Example3 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Date::Example3] Output attribute `started_on` " \
+                "[Usual::DynamicOptions::Format::Date::Basic::Example3] Output attribute `started_on` " \
                 "does not match `date` format"
               )
             )

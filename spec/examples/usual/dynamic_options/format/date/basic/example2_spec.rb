@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Format::Date::Example1 do
+RSpec.describe Usual::DynamicOptions::Format::Date::Basic::Example2 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -14,7 +14,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Example1 do
 
     include_examples "check class info",
                      inputs: %i[started_on],
-                     internals: %i[],
+                     internals: %i[started_on],
                      outputs: %i[started_on]
 
     context "when the input arguments are valid" do
@@ -34,8 +34,9 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Format::Date::Example1] Input `started_on` does not match `date` format"
+                ApplicationService::Exceptions::Internal,
+                "[Usual::DynamicOptions::Format::Date::Basic::Example2] Internal attribute `started_on` " \
+                "does not match `date` format"
               )
             )
           end
@@ -65,7 +66,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Example1 do
 
     include_examples "check class info",
                      inputs: %i[started_on],
-                     internals: %i[],
+                     internals: %i[started_on],
                      outputs: %i[started_on]
 
     context "when the input arguments are valid" do
@@ -85,8 +86,9 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Example1 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Format::Date::Example1] Input `started_on` does not match `date` format"
+                ApplicationService::Exceptions::Internal,
+                "[Usual::DynamicOptions::Format::Date::Basic::Example2] Internal attribute `started_on` " \
+                "does not match `date` format"
               )
             )
           end
