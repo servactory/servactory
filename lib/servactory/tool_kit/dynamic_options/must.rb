@@ -9,15 +9,23 @@ module Servactory
                       :message,
                       :properties
 
-          def initialize(value:, message:, properties:)
-            @value = value
-            @message = message
-            @properties = properties
+          def initialize(data, body_key:, body_fallback:)
+            @value =
+              if data.is_a?(Hash) && data.key?(body_key)
+                data.delete(body_key)
+              else
+                data.present? ? data : body_fallback
+              end
+
+            @message = (data.is_a?(Hash) && data.key?(:message) ? data.delete(:message) : nil)
+            @properties = data.is_a?(Hash) ? data : {}
           end
         end
 
-        def initialize(option_name)
+        def initialize(option_name, body_key = :is, body_fallback = nil)
           @option_name = option_name
+          @body_key = body_key
+          @body_fallback = body_fallback
         end
 
         def must(name)
@@ -27,17 +35,9 @@ module Servactory
           )
         end
 
-        def equivalent_with(name) # rubocop:disable Metrics/MethodLength
+        def equivalent_with(name)
           lambda do |data|
-            option_value = (data.is_a?(Hash) && data.key?(:is) ? data.delete(:is) : data)
-            option_message = (data.is_a?(Hash) && data.key?(:message) ? data.delete(:message) : nil)
-            option_properties = data.is_a?(Hash) ? data : {}
-
-            option = WorkOption.new(
-              value: option_value,
-              message: option_message,
-              properties: option_properties
-            )
+            option = WorkOption.new(data, body_key: @body_key, body_fallback: @body_fallback)
 
             {
               must: {
