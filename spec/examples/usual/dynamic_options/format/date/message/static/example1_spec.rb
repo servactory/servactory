@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Format::Date::Message::Example3 do
+RSpec.describe Usual::DynamicOptions::Format::Date::Message::Static::Example1 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -23,7 +23,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Example3 do
           result = perform
 
           expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023-04-14")
+          expect(result.started_on).to eq(Date.parse(started_on))
         end
       end
 
@@ -34,7 +34,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Exceptions::Output,
+                ApplicationService::Exceptions::Input,
                 "Invalid date format"
               )
             )
@@ -74,7 +74,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Example3 do
           result = perform
 
           expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023-04-14")
+          expect(result.started_on).to eq(Date.parse(started_on))
         end
       end
 
@@ -85,7 +85,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Exceptions::Output,
+                ApplicationService::Exceptions::Input,
                 "Invalid date format"
               )
             )
