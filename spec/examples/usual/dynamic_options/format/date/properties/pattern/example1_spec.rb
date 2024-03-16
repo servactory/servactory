@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Format::Date::Options::Example3 do
+RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example1 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -23,7 +23,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Options::Example3 do
           result = perform
 
           expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023/04/14")
+          expect(result.started_on).to eq(Date.parse(started_on))
         end
       end
 
@@ -34,9 +34,9 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Options::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Date::Options::Example3] " \
-                "Output attribute `started_on` does not match `date` format"
+                ApplicationService::Exceptions::Input,
+                "[Usual::DynamicOptions::Format::Date::Properties::Pattern::Example1] " \
+                "Input `started_on` does not match `date` format"
               )
             )
           end
@@ -75,7 +75,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Options::Example3 do
           result = perform
 
           expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023/04/14")
+          expect(result.started_on).to eq(Date.parse(started_on))
         end
       end
 
@@ -86,9 +86,9 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Options::Example3 do
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Date::Options::Example3] " \
-                "Output attribute `started_on` does not match `date` format"
+                ApplicationService::Exceptions::Input,
+                "[Usual::DynamicOptions::Format::Date::Properties::Pattern::Example1] " \
+                "Input `started_on` does not match `date` format"
               )
             )
           end
