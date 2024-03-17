@@ -3,20 +3,20 @@
 module Usual
   module DynamicOptions
     module Format
-      module Date
-        module Properties
-          module Pattern
+      module Time
+        module Message
+          module Static
             class Example2 < ApplicationService::Base
-              input :started_on, type: String
+              input :started_at, type: String
 
-              internal :started_on,
+              internal :started_at,
                        type: String,
                        check_format: {
-                         is: :date,
-                         pattern: /^([0-9]{4})-?(1[0-2]|0[1-9])-?(3[01]|0[1-9]|[12][0-9])$/
+                         is: :time,
+                         message: "Invalid time format"
                        }
 
-              output :started_on, type: ::Date
+              output :started_at, type: ::Time
 
               make :assign_internal
 
@@ -25,11 +25,11 @@ module Usual
               private
 
               def assign_internal
-                internals.started_on = inputs.started_on
+                internals.started_at = inputs.started_at
               end
 
               def assign_output
-                outputs.started_on = ::Date.parse(internals.started_on)
+                outputs.started_at = ::Time.parse(internals.started_at)
               end
             end
           end

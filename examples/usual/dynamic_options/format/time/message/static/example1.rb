@@ -3,25 +3,25 @@
 module Usual
   module DynamicOptions
     module Format
-      module Date
-        module Properties
-          module Pattern
+      module Time
+        module Message
+          module Static
             class Example1 < ApplicationService::Base
-              input :started_on,
+              input :started_at,
                     type: String,
                     format: {
-                      is: :date,
-                      pattern: /^([0-9]{4})-?(1[0-2]|0[1-9])-?(3[01]|0[1-9]|[12][0-9])$/
+                      is: :time,
+                      message: "Invalid time format"
                     }
 
-              output :started_on, type: ::Date
+              output :started_at, type: ::Time
 
               make :assign_output
 
               private
 
               def assign_output
-                outputs.started_on = ::Date.parse(inputs.started_on)
+                outputs.started_at = ::Time.parse(inputs.started_at)
               end
             end
           end
