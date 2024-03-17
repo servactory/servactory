@@ -5,6 +5,10 @@ module Servactory
     module DynamicOptions
       class Format < Must
         FORMATS = {
+          email: {
+            pattern: URI::MailTo::EMAIL_REGEXP,
+            validator: ->(value:) { value.present? }
+          },
           date: {
             pattern: /^([0-9]{4})-?(1[0-2]|0[1-9])-?(3[01]|0[1-9]|[12][0-9])$/,
             validator: lambda do |value:|
@@ -14,6 +18,7 @@ module Servactory
             end
           }
         }.freeze
+        private_constant :FORMATS
 
         def self.setup(option_name = :format)
           new(option_name).must(:be_in_format)
