@@ -29,13 +29,13 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Lambda::Example1 do
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023/04/14" }
+          let(:started_on) { "2023-14-14" }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "Value `2023/04/14` does not match the format of `date` in `started_on`"
+                "Value `2023-14-14` does not match the format of `date` in `started_on`"
               )
             )
           end
@@ -80,13 +80,13 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Lambda::Example1 do
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023/04/14" }
+          let(:started_on) { "2023-14-14" }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "Value `2023/04/14` does not match the format of `date` in `started_on`"
+                "Value `2023-14-14` does not match the format of `date` in `started_on`"
               )
             )
           end

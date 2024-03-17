@@ -10,7 +10,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
       }
     end
 
-    let(:started_on) { "2023/04/14" }
+    let(:started_on) { "2023-04-14" }
 
     include_examples "check class info",
                      inputs: %i[started_on],
@@ -23,13 +23,13 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
           result = perform
 
           expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023/04/14")
+          expect(result.started_on).to eq("2023-04-14")
         end
       end
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `date`" do
-          let(:started_on) { "14.14.23" }
+          let(:started_on) { "2023/04/14" }
 
           it "returns expected error" do
             expect { perform }.to(
@@ -62,7 +62,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
       }
     end
 
-    let(:started_on) { "2023/04/14" }
+    let(:started_on) { "2023-04-14" }
 
     include_examples "check class info",
                      inputs: %i[started_on],
@@ -75,13 +75,13 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
           result = perform
 
           expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023/04/14")
+          expect(result.started_on).to eq("2023-04-14")
         end
       end
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `date`" do
-          let(:started_on) { "14.14.23" }
+          let(:started_on) { "2023/04/14" }
 
           it "returns expected error" do
             expect { perform }.to(
