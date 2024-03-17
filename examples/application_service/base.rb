@@ -8,7 +8,7 @@ module ApplicationService
       ApplicationService::Extensions::StatusActive::DSL
     )
 
-    configuration do
+    configuration do # rubocop:disable Metrics/BlockLength
       input_exception_class ApplicationService::Exceptions::Input
       internal_exception_class ApplicationService::Exceptions::Internal
       output_exception_class ApplicationService::Exceptions::Output
@@ -19,6 +19,75 @@ module ApplicationService
       # output_error_class ApplicationService::Errors::OutputError
 
       failure_class ApplicationService::Exceptions::Failure
+
+      input_option_helpers(
+        [
+          Servactory::Maintenance::Attributes::OptionHelper.new(
+            name: :must_be_6_characters,
+            equivalent: {
+              must: {
+                be_6_characters: {
+                  is: ->(value:, **) { value.all? { |id| id.size == 6 } },
+                  message: lambda do |input:, **|
+                    "Wrong IDs in `#{input.name}`"
+                  end
+                }
+              }
+            }
+          ),
+          Servactory::ToolKit::DynamicOptions::Format.setup,
+          Servactory::ToolKit::DynamicOptions::Min.setup,
+          Servactory::ToolKit::DynamicOptions::Max.setup,
+          ApplicationService::DynamicOptions::CustomEq.setup
+        ]
+      )
+
+      internal_option_helpers(
+        [
+          Servactory::Maintenance::Attributes::OptionHelper.new(
+            name: :must_be_6_characters,
+            equivalent: {
+              must: {
+                be_6_characters: {
+                  is: ->(value:, **) { value.all? { |id| id.size == 6 } },
+                  message: lambda do |internal:, **|
+                    "Wrong IDs in `#{internal.name}`"
+                  end
+                }
+              }
+            }
+          ),
+          Servactory::ToolKit::DynamicOptions::Format.setup(:check_format),
+          Servactory::ToolKit::DynamicOptions::Min.setup(:minimum), # Examples of
+          Servactory::ToolKit::DynamicOptions::Max.setup(:maximum), # custom names
+          ApplicationService::DynamicOptions::CustomEq.setup(:best_custom_eq)
+        ]
+      )
+
+      output_option_helpers(
+        [
+          Servactory::Maintenance::Attributes::OptionHelper.new(
+            name: :must_be_6_characters,
+            equivalent: {
+              must: {
+                be_6_characters: {
+                  is: ->(value:, **) { value.all? { |id| id.size == 6 } },
+                  message: lambda do |output:, **|
+                    "Wrong IDs in `#{output.name}`"
+                  end
+                }
+              }
+            }
+          ),
+          Servactory::ToolKit::DynamicOptions::Format.setup,
+          Servactory::ToolKit::DynamicOptions::Min.setup,
+          Servactory::ToolKit::DynamicOptions::Max.setup,
+          ApplicationService::DynamicOptions::CustomEq.setup
+        ]
+      )
+
+      action_shortcuts %i[assign]
+      action_aliases %i[play do_it!]
     end
   end
 end

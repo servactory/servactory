@@ -2,7 +2,7 @@
 
 module Servactory
   module Context
-    module Workspace # rubocop:disable Metrics/ModuleLength
+    module Workspace
       def inputs
         @inputs ||= Inputs.new(
           context: self,
@@ -107,24 +107,8 @@ module Servactory
         )
       end
 
-      def servactory_service_storage
-        @servactory_service_storage ||= { internals: {}, outputs: {} }
-      end
-
-      def assign_servactory_service_storage_internal(key, value)
-        servactory_service_storage[:internals].merge!({ key => value })
-      end
-
-      def fetch_servactory_service_storage_internal(key)
-        servactory_service_storage.fetch(:internals).fetch(key, nil)
-      end
-
-      def assign_servactory_service_storage_output(key, value)
-        servactory_service_storage[:outputs].merge!({ key => value })
-      end
-
-      def fetch_servactory_service_storage_output(key)
-        servactory_service_storage.fetch(:outputs).fetch(key, nil)
+      def servactory_service_store
+        @servactory_service_store ||= Store.new(self)
       end
     end
   end

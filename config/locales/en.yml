@@ -16,7 +16,16 @@ en:
           default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Input `%{input_name}` must \"%{code}\""
-          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{input_name}` input"
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{input_name}` input: %{exception_message}"
+          dynamic_options:
+            format:
+              default: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
+              wrong_pattern: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for input `%{input_name}`"
+            min:
+              default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is less than `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is greater than `%{option_value}`"
         required:
           default_error:
             default: "[%{service_class_name}] Required input `%{input_name}` is missing"
@@ -43,7 +52,16 @@ en:
           default_error: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Internal attribute `%{internal_name}` must \"%{code}\""
-          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute"
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute: %{exception_message}"
+          dynamic_options:
+            format:
+              default: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
+              wrong_pattern: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{internal_name}`"
+            min:
+              default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is less than `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is greater than `%{option_value}`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -61,7 +79,16 @@ en:
           default_error: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Output attribute `%{output_name}` must \"%{code}\""
-          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute"
+          syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute: %{exception_message}"
+          dynamic_options:
+            format:
+              default: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
+              wrong_pattern: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{output_name}`"
+            min:
+              default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is less than `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is greater than `%{option_value}`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"

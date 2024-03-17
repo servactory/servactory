@@ -5,6 +5,17 @@ module Servactory
     module Attributes
       module Options
         class Registrar # rubocop:disable Metrics/ClassLength
+          RESERVED_OPTIONS = %i[
+            type
+            required
+            default
+            collection
+            hash
+            inclusion
+            must
+            prepare
+          ].freeze
+
           DEFAULT_FEATURES = {
             required: false,
             types: false,
