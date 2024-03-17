@@ -88,7 +88,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Validator::Examp
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Usual::DynamicOptions::Format::Date::Properties::Validator::Example1] " \
-                  "Input `started_on` does not match `date` format"
+                "Input `started_on` does not match `date` format"
               )
             )
           end
