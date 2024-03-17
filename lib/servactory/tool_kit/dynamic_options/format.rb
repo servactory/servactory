@@ -13,6 +13,14 @@ module Servactory
               false
             end
           },
+          datetime: {
+            pattern: nil,
+            validator: lambda do |value:|
+              DateTime.parse(value) and return true
+            rescue Date::Error
+              false
+            end
+          },
           password: {
             # NOTE: Pattern 4 » https://dev.to/rasaf_ibrahim/write-regex-password-validation-like-a-pro-5175
             #       Password must contain one digit from 1 to 9, one lowercase letter, one
