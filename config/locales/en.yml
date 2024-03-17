@@ -21,6 +21,10 @@ en:
             consists_of:
               required: "[%{service_class_name}] Required element in input collection `%{input_name}` is missing"
               wrong_type: "[%{service_class_name}] Wrong element type in input collection `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
+            format:
+              default: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
+              wrong_pattern: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for input `%{input_name}`"
             min:
               default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -52,6 +56,10 @@ en:
             consists_of:
               required: "[%{service_class_name}] Required element in internal attribute collection `%{internal_name}` is missing"
               wrong_type: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
+            format:
+              default: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
+              wrong_pattern: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{internal_name}`"
             min:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -75,6 +83,10 @@ en:
             consists_of:
               required: "[%{service_class_name}] Required element in output attribute collection `%{output_name}` is missing"
               wrong_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
+            format:
+              default: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
+              wrong_pattern: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{output_name}`"
             min:
               default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
