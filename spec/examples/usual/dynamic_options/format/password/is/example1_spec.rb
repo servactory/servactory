@@ -36,7 +36,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Is::Example1 do
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Usual::DynamicOptions::Format::Password::Is::Example1] " \
-                  "Input `password` does not match `password` format"
+                "Input `password` does not match `password` format"
               )
             )
           end
@@ -88,7 +88,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Is::Example1 do
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Usual::DynamicOptions::Format::Password::Is::Example1] " \
-                  "Input `password` does not match `password` format"
+                "Input `password` does not match `password` format"
               )
             )
           end

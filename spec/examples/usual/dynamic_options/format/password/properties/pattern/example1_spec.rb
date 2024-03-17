@@ -88,7 +88,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Pattern::Exa
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Usual::DynamicOptions::Format::Password::Properties::Pattern::Example1] " \
-                  "Input `password` does not match `password` format"
+                "Input `password` does not match `password` format"
               )
             )
           end

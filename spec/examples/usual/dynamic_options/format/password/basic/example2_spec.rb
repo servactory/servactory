@@ -36,7 +36,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example2 do
               raise_error(
                 ApplicationService::Exceptions::Internal,
                 "[Usual::DynamicOptions::Format::Password::Basic::Example2] " \
-                  "Internal attribute `password` does not match `password` format"
+                "Internal attribute `password` does not match `password` format"
               )
             )
           end
@@ -88,7 +88,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example2 do
               raise_error(
                 ApplicationService::Exceptions::Internal,
                 "[Usual::DynamicOptions::Format::Password::Basic::Example2] " \
-                  "Internal attribute `password` does not match `password` format"
+                "Internal attribute `password` does not match `password` format"
               )
             )
           end
