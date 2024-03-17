@@ -29,7 +29,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Static::Example2 do
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023/04/14" }
+          let(:started_on) { "2023-14-14" }
 
           it "returns expected error" do
             expect { perform }.to(
@@ -80,7 +80,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Static::Example2 do
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023/04/14" }
+          let(:started_on) { "2023-14-14" }
 
           it "returns expected error" do
             expect { perform }.to(

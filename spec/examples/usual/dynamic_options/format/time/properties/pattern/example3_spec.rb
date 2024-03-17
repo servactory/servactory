@@ -1,42 +1,42 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example3 do
+RSpec.describe Usual::DynamicOptions::Format::Time::Properties::Pattern::Example3 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
     let(:attributes) do
       {
-        started_on: started_on
+        started_at: started_at
       }
     end
 
-    let(:started_on) { "2023-04-14" }
+    let(:started_at) { "08:58:00" }
 
     include_examples "check class info",
-                     inputs: %i[started_on],
+                     inputs: %i[started_at],
                      internals: %i[],
-                     outputs: %i[started_on]
+                     outputs: %i[started_at]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         it "returns the expected value", :aggregate_failures do
           result = perform
 
-          expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023-04-14")
+          expect(result.started_at?).to be(true)
+          expect(result.started_at).to eq("08:58:00")
         end
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023-14-14" }
+        describe "because the format is not suitable for `time`" do
+          let(:started_at) { "8:58" }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Date::Is::Example3] Output attribute `started_on` " \
-                "does not match `date` format"
+                "[Usual::DynamicOptions::Format::Time::Properties::Pattern::Example3] " \
+                "Output attribute `started_at` does not match `time` format"
               )
             )
           end
@@ -46,9 +46,9 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example3 do
 
     context "when the input arguments are invalid" do
       context "when `data`" do
-        it_behaves_like "input required check", name: :started_on
+        it_behaves_like "input required check", name: :started_at
 
-        it_behaves_like "input type check", name: :started_on, expected_type: String
+        it_behaves_like "input type check", name: :started_at, expected_type: String
       end
     end
   end
@@ -58,37 +58,37 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example3 do
 
     let(:attributes) do
       {
-        started_on: started_on
+        started_at: started_at
       }
     end
 
-    let(:started_on) { "2023-04-14" }
+    let(:started_at) { "08:58:00" }
 
     include_examples "check class info",
-                     inputs: %i[started_on],
+                     inputs: %i[started_at],
                      internals: %i[],
-                     outputs: %i[started_on]
+                     outputs: %i[started_at]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         it "returns the expected value", :aggregate_failures do
           result = perform
 
-          expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023-04-14")
+          expect(result.started_at?).to be(true)
+          expect(result.started_at).to eq("08:58:00")
         end
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023-14-14" }
+        describe "because the format is not suitable for `time`" do
+          let(:started_at) { "8:58" }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Date::Is::Example3] Output attribute `started_on` " \
-                "does not match `date` format"
+                "[Usual::DynamicOptions::Format::Time::Properties::Pattern::Example3] " \
+                "Output attribute `started_at` does not match `time` format"
               )
             )
           end
@@ -98,9 +98,9 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example3 do
 
     context "when the input arguments are invalid" do
       context "when `data`" do
-        it_behaves_like "input required check", name: :started_on
+        it_behaves_like "input required check", name: :started_at
 
-        it_behaves_like "input type check", name: :started_on, expected_type: String
+        it_behaves_like "input type check", name: :started_at, expected_type: String
       end
     end
   end

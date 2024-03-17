@@ -6,7 +6,7 @@ module Servactory
       class Format < Must
         FORMATS = {
           date: {
-            pattern: /^([0-9]{4})-?(1[0-2]|0[1-9])-?(3[01]|0[1-9]|[12][0-9])$/,
+            pattern: nil,
             validator: lambda do |value:|
               Date.parse(value) and return true
             rescue Date::Error
@@ -20,8 +20,17 @@ module Servactory
             #       Usage of any other special character and usage of space is optional.
             pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
             validator: ->(value:) { value.present? }
+          },
+          time: {
+            pattern: nil,
+            validator: lambda do |value:|
+              Time.parse(value) and return true
+            rescue ArgumentError
+              false
+            end
           }
         }.freeze
+        private_constant :FORMATS
 
         def self.setup(option_name = :format)
           new(option_name).must(:be_in_format)
