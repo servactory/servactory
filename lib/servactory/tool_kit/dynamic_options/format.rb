@@ -5,6 +5,10 @@ module Servactory
     module DynamicOptions
       class Format < Must
         FORMATS = {
+          email: {
+            pattern: URI::MailTo::EMAIL_REGEXP,
+            validator: ->(value:) { value.present? }
+          },
           date: {
             pattern: nil,
             validator: lambda do |value:|
