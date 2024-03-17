@@ -36,7 +36,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Is::Example3 do
               raise_error(
                 ApplicationService::Exceptions::Output,
                 "[Usual::DynamicOptions::Format::Time::Is::Example3] " \
-                  "Output attribute `started_at` does not match `time` format"
+                "Output attribute `started_at` does not match `time` format"
               )
             )
           end
@@ -88,7 +88,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Is::Example3 do
               raise_error(
                 ApplicationService::Exceptions::Output,
                 "[Usual::DynamicOptions::Format::Time::Is::Example3] " \
-                  "Output attribute `started_at` does not match `time` format"
+                "Output attribute `started_at` does not match `time` format"
               )
             )
           end
