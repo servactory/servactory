@@ -12,8 +12,17 @@ module Servactory
             rescue Date::Error
               false
             end
+          },
+          time: {
+            pattern: nil,
+            validator: lambda do |value:|
+              Time.parse(value) and return true
+            rescue ArgumentError
+              false
+            end
           }
         }.freeze
+        private_constant :FORMATS
 
         def self.setup(option_name = :format)
           new(option_name).must(:be_in_format)
