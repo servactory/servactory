@@ -11,7 +11,7 @@ module Usual
 
               internal :started_on,
                        type: String,
-                       format: {
+                       check_format: {
                          is: :date,
                          message: lambda do |internal:, value:, option_value:, **|
                            "Value `#{value}` does not match the format of `#{option_value}` in `#{internal.name}`"

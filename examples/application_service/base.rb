@@ -57,7 +57,7 @@ module ApplicationService
               }
             }
           ),
-          Servactory::ToolKit::DynamicOptions::Format.setup,
+          Servactory::ToolKit::DynamicOptions::Format.setup(:check_format),
           Servactory::ToolKit::DynamicOptions::Min.setup(:minimum), # Examples of
           Servactory::ToolKit::DynamicOptions::Max.setup(:maximum), # custom names
           ApplicationService::DynamicOptions::CustomEq.setup(:best_custom_eq)

@@ -8,7 +8,7 @@ module Usual
           class Example2 < ApplicationService::Base
             input :started_on, type: String
 
-            internal :started_on, type: String, format: { is: :date }
+            internal :started_on, type: String, check_format: { is: :date }
 
             output :started_on, type: ::Date
 

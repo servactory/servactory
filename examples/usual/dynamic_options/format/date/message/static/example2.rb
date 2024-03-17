@@ -11,7 +11,7 @@ module Usual
 
               internal :started_on,
                        type: String,
-                       format: {
+                       check_format: {
                          is: :date,
                          message: "Invalid date format"
                        }

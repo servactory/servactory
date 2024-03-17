@@ -11,7 +11,7 @@ module Usual
 
               internal :started_on,
                        type: String,
-                       format: {
+                       check_format: {
                          is: :date,
                          pattern: nil, # This will disable the value checking based on the pattern
                          validator: lambda do |value:|
