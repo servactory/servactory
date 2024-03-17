@@ -6,7 +6,7 @@ module Servactory
       class Format < Must
         FORMATS = {
           date: {
-            pattern: /^([0-9]{4})-?(1[0-2]|0[1-9])-?(3[01]|0[1-9]|[12][0-9])$/,
+            pattern: nil,
             validator: lambda do |value:|
               Date.parse(value) and return true
             rescue Date::Error
