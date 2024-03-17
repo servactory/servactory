@@ -17,6 +17,14 @@ module Servactory
               false
             end
           },
+          datetime: {
+            pattern: nil,
+            validator: lambda do |value:|
+              DateTime.parse(value) and return true
+            rescue Date::Error
+              false
+            end
+          },
           time: {
             pattern: nil,
             validator: lambda do |value:|
