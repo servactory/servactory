@@ -18,6 +18,10 @@ ru:
           default_error: "[%{service_class_name}] Инпут `%{input_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` инпута `%{input_name}`: %{exception_message}"
           dynamic_options:
+            format:
+              default: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
+              wrong_pattern: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
+              unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у инпута `%{input_name}`"
             min:
               default: "[%{service_class_name}] Инпут `%{input_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -51,6 +55,10 @@ ru:
           default_error: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` внутреннего атрибута `%{internal_name}`: %{exception_message}"
           dynamic_options:
+            format:
+              default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
+              wrong_pattern: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
+              unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у внутреннего атрибута `%{internal_name}`"
             min:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -74,6 +82,10 @@ ru:
           default_error: "[%{service_class_name}] Выходящий атрибут `%{output_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` выходящего атрибута `%{output_name}`: %{exception_message}"
           dynamic_options:
+            format:
+              default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
+              wrong_pattern: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
+              unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у выходящего атрибута `%{output_name}`"
             min:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:

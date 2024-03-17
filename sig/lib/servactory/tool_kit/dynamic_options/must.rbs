@@ -2,7 +2,15 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Must
+        class WorkOption
+          attr_reader value: untyped
+          attr_reader message: (Proc | String | nil)
+          attr_reader properties: Hash[Symbol, untyped]
+        end
+
         @option_name: Symbol
+        @body_key: Symbol
+        @body_fallback: untyped
 
         def initialize: (Symbol option_name) -> void
 
@@ -10,17 +18,17 @@ module Servactory
 
         def equivalent_with: (Symbol name) -> Proc
 
-        def must_content_with: (untyped received_value) -> Hash[Symbol, untyped]
+        def must_content_with: (WorkOption option) -> Hash[Symbol, untyped]
 
-        def must_content_value_with: (option_message: untyped) -> Proc
+        def must_content_value_with: (WorkOption option) -> Proc
 
-        def must_content_message_with: (option_message: untyped) -> Proc
+        def must_content_message_with: (WorkOption option) -> Proc
 
-        def condition_for_input_with: (** untyped) -> bool
+        def condition_for_input_with: (** untyped) -> (bool | [bool, Symbol])
 
-        def condition_for_internal_with: (** untyped) -> bool
+        def condition_for_internal_with: (** untyped) -> (bool | [bool, Symbol])
 
-        def condition_for_output_with: (** untyped) -> bool
+        def condition_for_output_with: (** untyped) -> (bool | [bool, Symbol])
 
         def message_for_input_with: (** untyped) -> String
 

@@ -18,6 +18,10 @@ en:
           default_error: "[%{service_class_name}] Input `%{input_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{input_name}` input: %{exception_message}"
           dynamic_options:
+            format:
+              default: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
+              wrong_pattern: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for input `%{input_name}`"
             min:
               default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -50,6 +54,10 @@ en:
           default_error: "[%{service_class_name}] Internal attribute `%{internal_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute: %{exception_message}"
           dynamic_options:
+            format:
+              default: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
+              wrong_pattern: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{internal_name}`"
             min:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -73,6 +81,10 @@ en:
           default_error: "[%{service_class_name}] Output attribute `%{output_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute: %{exception_message}"
           dynamic_options:
+            format:
+              default: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
+              wrong_pattern: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{output_name}`"
             min:
               default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:

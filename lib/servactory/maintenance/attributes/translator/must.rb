@@ -7,8 +7,8 @@ module Servactory
         module Must
           module_function
 
-          def default_message
-            lambda do |service_class_name:, value:, code:, input: nil, internal: nil, output: nil|
+          def default_message # rubocop:disable Metrics/MethodLength
+            lambda do |service_class_name:, value:, code:, input: nil, internal: nil, output: nil, reason: nil|
               attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
 
               I18n.t(
@@ -16,7 +16,8 @@ module Servactory
                 service_class_name: service_class_name,
                 "#{attribute.system_name}_name": attribute.name,
                 value: value,
-                code: code
+                code: code,
+                reason: reason
               )
             end
           end
