@@ -11,27 +11,27 @@ module Servactory
           new(option_name, :type, false).must(:consists_of)
         end
 
-        def condition_for_input_with(input:, value:, option_value:)
-          common_condition_with(attribute: input, value: value, option_value: option_value)
+        def condition_for_input_with(input:, value:, option:)
+          common_condition_with(attribute: input, value: value, option: option)
         end
 
-        def condition_for_internal_with(internal:, value:, option_value:)
-          common_condition_with(attribute: internal, value: value, option_value: option_value)
+        def condition_for_internal_with(internal:, value:, option:)
+          common_condition_with(attribute: internal, value: value, option: option)
         end
 
-        def condition_for_output_with(output:, value:, option_value:)
-          common_condition_with(attribute: output, value: value, option_value: option_value)
+        def condition_for_output_with(output:, value:, option:)
+          common_condition_with(attribute: output, value: value, option: option)
         end
 
-        def common_condition_with(attribute:, value:, option_value:)
-          return true if option_value == false
+        def common_condition_with(attribute:, value:, option:)
+          return true if option.value == false
           return false if COLLECTION_CLASS_NAMES.intersection(attribute.types).empty?
 
-          validate_for!(values: value, option_value: option_value)
+          validate_for!(values: value, option: option)
         end
 
-        def validate_for!(values:, option_value:)
-          consists_of_types = Array(option_value)
+        def validate_for!(values:, option:)
+          consists_of_types = Array(option.value)
 
           return [false, :required] if !consists_of_types.include?(NilClass) && !values.flatten.all?(&:present?)
 
