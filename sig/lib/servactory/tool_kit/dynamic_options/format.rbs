@@ -2,7 +2,7 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Format < Must
-        FORMATS: Hash[Symbol, untyped]
+        DEFAULT_FORMATS: Hash[Symbol, untyped]
 
         @formats: Hash[Symbol, untyped]
 

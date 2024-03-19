@@ -4,7 +4,7 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Format < Must
-        FORMATS = {
+        DEFAULT_FORMATS = {
           email: {
             pattern: URI::MailTo::EMAIL_REGEXP,
             validator: ->(value:) { value.present? }
@@ -42,7 +42,7 @@ module Servactory
             end
           }
         }.freeze
-        private_constant :FORMATS
+        private_constant :DEFAULT_FORMATS
 
         def self.use(option_name = :format, customize: {})
           result = new(option_name)
@@ -51,7 +51,7 @@ module Servactory
         end
 
         def customize(formats = {})
-          @formats = formats.is_a?(Hash) ? FORMATS.merge(formats) : FORMATS
+          @formats = formats.is_a?(Hash) ? DEFAULT_FORMATS.merge(formats) : DEFAULT_FORMATS
         end
 
         def condition_for_input_with(...)
