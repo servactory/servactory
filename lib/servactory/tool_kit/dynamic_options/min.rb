@@ -4,7 +4,7 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Min < Must
-        def self.setup(option_name = :min)
+        def self.use(option_name = :min)
           new(option_name).must(:be_greater_than_or_equal_to)
         end
 

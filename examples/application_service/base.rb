@@ -35,10 +35,10 @@ module ApplicationService
               }
             }
           ),
-          Servactory::ToolKit::DynamicOptions::Format.setup,
-          Servactory::ToolKit::DynamicOptions::Min.setup,
-          Servactory::ToolKit::DynamicOptions::Max.setup,
-          ApplicationService::DynamicOptions::CustomEq.setup
+          Servactory::ToolKit::DynamicOptions::Format.use,
+          Servactory::ToolKit::DynamicOptions::Min.use,
+          Servactory::ToolKit::DynamicOptions::Max.use,
+          ApplicationService::DynamicOptions::CustomEq.use
         ]
       )
 
@@ -57,10 +57,10 @@ module ApplicationService
               }
             }
           ),
-          Servactory::ToolKit::DynamicOptions::Format.setup(:check_format),
-          Servactory::ToolKit::DynamicOptions::Min.setup(:minimum), # Examples of
-          Servactory::ToolKit::DynamicOptions::Max.setup(:maximum), # custom names
-          ApplicationService::DynamicOptions::CustomEq.setup(:best_custom_eq)
+          Servactory::ToolKit::DynamicOptions::Format.use(:check_format),
+          Servactory::ToolKit::DynamicOptions::Min.use(:minimum), # Examples of
+          Servactory::ToolKit::DynamicOptions::Max.use(:maximum), # custom names
+          ApplicationService::DynamicOptions::CustomEq.use(:best_custom_eq)
         ]
       )
 
@@ -79,10 +79,10 @@ module ApplicationService
               }
             }
           ),
-          Servactory::ToolKit::DynamicOptions::Format.setup,
-          Servactory::ToolKit::DynamicOptions::Min.setup,
-          Servactory::ToolKit::DynamicOptions::Max.setup,
-          ApplicationService::DynamicOptions::CustomEq.setup
+          Servactory::ToolKit::DynamicOptions::Format.use,
+          Servactory::ToolKit::DynamicOptions::Min.use,
+          Servactory::ToolKit::DynamicOptions::Max.use,
+          ApplicationService::DynamicOptions::CustomEq.use
         ]
       )
 

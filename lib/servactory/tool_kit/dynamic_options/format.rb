@@ -44,7 +44,7 @@ module Servactory
         }.freeze
         private_constant :FORMATS
 
-        def self.setup(option_name = :format)
+        def self.use(option_name = :format)
           new(option_name).must(:be_in_format)
         end
 
