@@ -45,7 +45,13 @@ module Servactory
         private_constant :FORMATS
 
         def self.use(option_name = :format)
-          new(option_name).must(:be_in_format)
+          result = new(option_name)
+          result.assign(block_given? ? yield : {})
+          result.must(:be_in_format)
+        end
+
+        def assign(formats = {})
+          @formats = formats.is_a?(Hash) ? FORMATS.merge(formats) : FORMATS
         end
 
         def condition_for_input_with(...)
@@ -63,9 +69,9 @@ module Servactory
         def common_condition_with(value:, option:, **)
           option_value = option.value&.to_sym
 
-          return [false, :unknown] unless FORMATS.key?(option_value)
+          return [false, :unknown] unless @formats.key?(option_value)
 
-          format_options = FORMATS.fetch(option_value)
+          format_options = @formats.fetch(option_value)
 
           format_pattern = option.properties.fetch(:pattern, format_options.fetch(:pattern))
 

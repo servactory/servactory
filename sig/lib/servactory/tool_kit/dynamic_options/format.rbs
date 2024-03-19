@@ -4,7 +4,11 @@ module Servactory
       class Format < Must
         FORMATS: Hash[Symbol, untyped]
 
+        @formats: Hash[Symbol, untyped]
+
         def self.use: (?::Symbol option_name) -> untyped
+
+        def assign: (Hash[Symbol, untyped] formats) -> Hash[Symbol, untyped]
 
         def common_condition_with: (value: untyped, option: Must::WorkOption, **untyped `**`) -> ::Array[Symbol | bool]
       end
