@@ -2,9 +2,13 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Format < Must
-        FORMATS: Hash[Symbol, untyped]
+        DEFAULT_FORMATS: Hash[Symbol, untyped]
 
-        def self.use: (?::Symbol option_name) -> untyped
+        @formats: Hash[Symbol, untyped]
+
+        def self.use: (?::Symbol option_name, formats: Hash[Symbol, untyped]) -> untyped
+
+        def assign: (Hash[Symbol, untyped] formats) -> Hash[Symbol, untyped]
 
         def common_condition_with: (value: untyped, option: Must::WorkOption, **untyped `**`) -> ::Array[Symbol | bool]
       end

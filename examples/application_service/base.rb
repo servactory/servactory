@@ -79,7 +79,14 @@ module ApplicationService
               }
             }
           ),
-          Servactory::ToolKit::DynamicOptions::Format.use,
+          Servactory::ToolKit::DynamicOptions::Format.use(
+            formats: {
+              email: {
+                pattern: /@/,
+                validator: ->(value:) { value.present? }
+              }
+            }
+          ),
           Servactory::ToolKit::DynamicOptions::Min.use,
           Servactory::ToolKit::DynamicOptions::Max.use,
           ApplicationService::DynamicOptions::CustomEq.use
