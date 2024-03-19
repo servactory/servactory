@@ -80,7 +80,7 @@ module ApplicationService
             }
           ),
           Servactory::ToolKit::DynamicOptions::Format.use(
-            customize: {
+            formats: {
               email: {
                 pattern: /@/,
                 validator: ->(value:) { value.present? }
