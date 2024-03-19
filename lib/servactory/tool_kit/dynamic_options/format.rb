@@ -44,13 +44,13 @@ module Servactory
         }.freeze
         private_constant :FORMATS
 
-        def self.use(option_name = :format)
+        def self.use(option_name = :format, customize: {})
           result = new(option_name)
-          result.assign(block_given? ? yield : {})
+          result.customize(customize)
           result.must(:be_in_format)
         end
 
-        def assign(formats = {})
+        def customize(formats = {})
           @formats = formats.is_a?(Hash) ? FORMATS.merge(formats) : FORMATS
         end
 
