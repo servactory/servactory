@@ -39,7 +39,6 @@ jobs:
           - rails_6.1
           - rails_7.0
           - rails_7.1
-          - rails_7.2
         ruby-version:
           - "2.7"
           - "3.0"
