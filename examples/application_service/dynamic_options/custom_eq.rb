@@ -3,7 +3,7 @@
 module ApplicationService
   module DynamicOptions
     class CustomEq < Servactory::ToolKit::DynamicOptions::Must
-      def self.setup(option_name = :custom_eq)
+      def self.use(option_name = :custom_eq)
         new(option_name).must(:be_custom_eq)
       end
 
