@@ -28,7 +28,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
+        describe "because the format is not suitable for `password`" do
           let(:password) { "my-best-password" }
 
           it "returns expected error" do
@@ -79,7 +79,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
+        describe "because the format is not suitable for `password`" do
           let(:password) { "my-best-password" }
 
           it "returns expected error" do
