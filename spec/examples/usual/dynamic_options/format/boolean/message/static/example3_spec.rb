@@ -28,7 +28,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example3
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
+        describe "because the format is not suitable for `boolean`" do
           let(:boolean) { "off" }
 
           it "returns expected error" do
@@ -79,7 +79,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example3
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
+        describe "because the format is not suitable for `boolean`" do
           let(:boolean) { "off" }
 
           it "returns expected error" do
