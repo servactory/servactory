@@ -5,6 +5,10 @@ module Servactory
     module DynamicOptions
       class Format < Must
         DEFAULT_FORMATS = {
+          boolean: {
+            pattern: /^(true|false|0|1)$/i,
+            validator: ->(value:) { %w[true 1].include?(value&.downcase) }
+          },
           email: {
             pattern: URI::MailTo::EMAIL_REGEXP,
             validator: ->(value:) { value.present? }
