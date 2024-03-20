@@ -28,7 +28,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Static::Example3 do
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
+        describe "because the format is not suitable for `time`" do
           let(:started_at) { "2023-04-14 26:70" }
 
           it "returns expected error" do
@@ -79,7 +79,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Static::Example3 do
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
+        describe "because the format is not suitable for `time`" do
           let(:started_at) { "2023-04-14 26:70" }
 
           it "returns expected error" do

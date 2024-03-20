@@ -4,7 +4,11 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Format < Must
-        FORMATS = {
+        DEFAULT_FORMATS = {
+          boolean: {
+            pattern: /^(true|false|0|1)$/i,
+            validator: ->(value:) { %w[true 1].include?(value&.downcase) }
+          },
           email: {
             pattern: URI::MailTo::EMAIL_REGEXP,
             validator: ->(value:) { value.present? }
@@ -42,10 +46,16 @@ module Servactory
             end
           }
         }.freeze
-        private_constant :FORMATS
+        private_constant :DEFAULT_FORMATS
 
-        def self.setup(option_name = :format)
-          new(option_name).must(:be_in_format)
+        def self.use(option_name = :format, formats: {})
+          instance = new(option_name)
+          instance.assign(formats)
+          instance.must(:be_in_format)
+        end
+
+        def assign(formats = {})
+          @formats = formats.is_a?(Hash) ? DEFAULT_FORMATS.merge(formats) : DEFAULT_FORMATS
         end
 
         def condition_for_input_with(...)
@@ -63,9 +73,9 @@ module Servactory
         def common_condition_with(value:, option:, **)
           option_value = option.value&.to_sym
 
-          return [false, :unknown] unless FORMATS.key?(option_value)
+          return [false, :unknown] unless @formats.key?(option_value)
 
-          format_options = FORMATS.fetch(option_value)
+          format_options = @formats.fetch(option_value)
 
           format_pattern = option.properties.fetch(:pattern, format_options.fetch(:pattern))
 
