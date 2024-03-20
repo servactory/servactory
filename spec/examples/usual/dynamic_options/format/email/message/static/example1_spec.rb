@@ -28,7 +28,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Static::Example1 d
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
+        describe "because the format is not suitable for `email`" do
           let(:email) { "noreply at servactory.com" }
 
           it "returns expected error" do
@@ -79,7 +79,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Static::Example1 d
       end
 
       describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
+        describe "because the format is not suitable for `email`" do
           let(:email) { "noreply at servactory.com" }
 
           it "returns expected error" do
