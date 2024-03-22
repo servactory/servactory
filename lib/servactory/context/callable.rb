@@ -3,7 +3,6 @@
 module Servactory
   module Context
     module Callable
-
       def call!(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         unless Object.const_defined?("#{name}::Result")
           class_eval <<-RUBY, __FILE__, __LINE__ + 1
