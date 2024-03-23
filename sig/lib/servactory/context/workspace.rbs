@@ -43,7 +43,7 @@ module Servactory
         collection_of_internals: Internals::Collection,
         collection_of_outputs: Outputs::Collection,
         collection_of_stages: Actions::Stages::Collection
-      ) -> untyped
+      ) -> void
 
       def call!: (
         incoming_arguments: Hash[Symbol, untyped],
@@ -51,7 +51,7 @@ module Servactory
         collection_of_internals: Internals::Collection,
         collection_of_outputs: Outputs::Collection,
         ** untyped
-      ) -> untyped
+      ) -> void
 
       def call: -> Exception
 
