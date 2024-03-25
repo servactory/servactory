@@ -1,0 +1,17 @@
+module Servactory
+  module ToolKit
+    module DynamicOptions
+      class ConsistsOf < Must
+        COLLECTION_CLASS_NAMES: ::Array[Class]
+
+        def self.setup: (?::Symbol option_name) -> untyped
+
+        def common_condition_with: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), value: untyped, option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
+
+        def validate_for!: (values: Array[untyped], option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
+
+        def given_type_for: (values: Array[untyped], option_value: untyped) -> String
+      end
+    end
+  end
+end

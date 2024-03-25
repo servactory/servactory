@@ -7,12 +7,9 @@ module Servactory
         module_function
 
         def default_message
-          lambda do |service_class_name:, input:, value:|
-            i18n_key = "servactory.inputs.validations.required.default_error."
-            i18n_key += input.collection_mode? && value.present? ? "for_collection" : "default"
-
+          lambda do |service_class_name:, input:, **|
             I18n.t(
-              i18n_key,
+              "servactory.inputs.validations.required.default_error.default",
               service_class_name: service_class_name,
               input_name: input.name
             )

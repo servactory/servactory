@@ -70,7 +70,7 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::InternalOptionHelpers::Example1] Wrong type in input " \
+                "[Usual::InternalOptionHelpers::Example1] Wrong element type in input " \
                 "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )
@@ -123,7 +123,9 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 
-        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :invoice_numbers,
+                        expected_type: Array
       end
     end
   end
@@ -197,7 +199,7 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::InternalOptionHelpers::Example1] Wrong type in input " \
+                "[Usual::InternalOptionHelpers::Example1] Wrong element type in input " \
                 "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )
@@ -250,7 +252,9 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
       context "when `invoice_numbers`" do
         it_behaves_like "input required check", name: :invoice_numbers
 
-        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
+        it_behaves_like "input type check",
+                        name: :invoice_numbers,
+                        expected_type: Array
       end
     end
   end
