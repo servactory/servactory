@@ -20,7 +20,7 @@ RSpec.describe Wrong::Basic::Example10 do
               expect(exception.type).to eq(:base)
               expect(exception.message).to(
                 match(
-                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<Wrong::Basic::Example10::Result(.*)>/
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<Servactory::Result(.*)>/
                 )
               )
               expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
@@ -50,7 +50,7 @@ RSpec.describe Wrong::Basic::Example10 do
               expect(exception.type).to eq(:base)
               expect(exception.message).to(
                 match(
-                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<Wrong::Basic::Example10::Result(.*)>/
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<Servactory::Result(.*)>/
                 )
               )
               expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
