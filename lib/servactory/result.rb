@@ -9,6 +9,18 @@ module Servactory
           define_singleton_method(key) { value }
         end
       end
+
+      def inspect
+        "#<#{self.class.name} #{draw_result}>"
+      end
+
+      private
+
+      def draw_result
+        methods(false).sort.map do |method_name|
+          "@#{method_name}=#{send(method_name)}"
+        end.join(", ")
+      end
     end
 
     private_constant :Outputs
@@ -39,7 +51,7 @@ module Servactory
     end
 
     def on_failure(type = :all)
-      yield(exception: @exception) if failure? && [:all, @exception&.type].include?(type)
+      yield(outputs: outputs, exception: @exception) if failure? && [:all, @exception&.type].include?(type)
 
       self
     end
