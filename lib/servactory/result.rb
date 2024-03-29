@@ -19,11 +19,11 @@ module Servactory
       new(context: context).send(:as_success)
     end
 
-    def self.failure_for(exception:)
-      new(exception: exception).send(:as_failure)
+    def self.failure_for(context:, exception:)
+      new(context: context, exception: exception).send(:as_failure)
     end
 
-    def initialize(context: nil, exception: nil)
+    def initialize(context:, exception: nil)
       @context = context
       @exception = exception
     end
@@ -76,6 +76,10 @@ module Servactory
         return true if [:all, @exception&.type].include?(type)
 
         false
+      end
+
+      outputs.methods(false).each do |method_name|
+        define_singleton_method(method_name) { outputs.send(method_name) }
       end
 
       self

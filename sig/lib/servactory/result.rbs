@@ -10,9 +10,9 @@ module Servactory
 
     def self.success_for: (context: instance) -> self
 
-    def self.failure_for: (exception: Exception) -> self
+    def self.failure_for: (context: instance, exception: Exception) -> self
 
-    def initialize: (?context: instance?, ?exception: Exception?) -> void
+    def initialize: (context: instance, ?exception: Exception?) -> void
 
     def inspect: () -> String
 

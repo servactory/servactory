@@ -5,7 +5,7 @@ module Servactory
 
       def self.as_success: (?::Hash[Symbol, untyped] attributes) -> singleton(Servactory::Result)
 
-      def self.as_failure: (?exception: Exceptions::Failure?) -> singleton(Servactory::Result)
+      def self.as_failure: (?::Hash[Symbol, untyped] attributes, ?exception: Exceptions::Failure?) -> singleton(Servactory::Result)
 
       def initialize: (?::Hash[Symbol, untyped] attributes) -> void
 

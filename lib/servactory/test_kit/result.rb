@@ -7,8 +7,8 @@ module Servactory
         Servactory::Result.success_for(context: new(attributes))
       end
 
-      def self.as_failure(exception: nil)
-        Servactory::Result.failure_for(exception: exception)
+      def self.as_failure(attributes = {}, exception: nil)
+        Servactory::Result.failure_for(context: new(attributes), exception: exception)
       end
 
       def initialize(attributes = {})

@@ -22,7 +22,7 @@ module Servactory
       rescue config.success_class => e
         Servactory::Result.success_for(context: e.context)
       rescue config.failure_class => e
-        Servactory::Result.failure_for(exception: e)
+        Servactory::Result.failure_for(context: context, exception: e)
       end
 
       private
