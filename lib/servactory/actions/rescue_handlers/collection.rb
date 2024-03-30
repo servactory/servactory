@@ -5,7 +5,7 @@ module Servactory
     module RescueHandlers
       class Collection
         extend Forwardable
-        def_delegators :@collection, :+, :detect # :each, :merge
+        def_delegators :@collection, :+, :detect, :reverse_each
 
         def initialize(*)
           @collection = Set.new
