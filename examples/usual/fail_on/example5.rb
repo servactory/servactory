@@ -15,7 +15,7 @@ module Usual
       def check_invoice_number!
         return if inputs.invoice_number.start_with?("AA")
 
-        raise FailOnCustomException, "Invalid invoice number"
+        raise FailOnLikeAnActiveRecordException, "Invalid invoice number"
       end
 
       def assign_invoice_number

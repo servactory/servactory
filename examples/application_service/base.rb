@@ -8,9 +8,9 @@ module ApplicationService
       ApplicationService::Extensions::StatusActive::DSL
     )
 
-    FailOnCustomException = Class.new(ArgumentError)
+    FailOnLikeAnActiveRecordException = Class.new(ArgumentError)
 
-    fail_on!(FailOnCustomException) { |exception:| exception.message }
+    fail_on! FailOnLikeAnActiveRecordException
 
     configuration do # rubocop:disable Metrics/BlockLength
       input_exception_class ApplicationService::Exceptions::Input

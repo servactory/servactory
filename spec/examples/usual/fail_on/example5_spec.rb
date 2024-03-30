@@ -39,7 +39,7 @@ RSpec.describe Usual::FailOn::Example5 do
                 expect(exception.type).to eq(:base)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to(
-                  match(original_exception: be_an_instance_of(ApplicationService::Base::FailOnCustomException))
+                  match(original_exception: be_an_instance_of(ApplicationService::Base::FailOnLikeAnActiveRecordException))
                 )
               end
             )
@@ -97,7 +97,7 @@ RSpec.describe Usual::FailOn::Example5 do
               type: :base,
               message: "Invalid invoice number",
               meta: {
-                original_exception: be_an_instance_of(ApplicationService::Base::FailOnCustomException)
+                original_exception: be_an_instance_of(ApplicationService::Base::FailOnLikeAnActiveRecordException)
               }
             )
           end
