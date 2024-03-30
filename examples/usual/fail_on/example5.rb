@@ -2,11 +2,7 @@
 
 module Usual
   module FailOn
-    class Example3 < ApplicationService::Base
-      MyException = Class.new(ArgumentError)
-
-      fail_on! MyException, with: ->(exception:) { exception.message }
-
+    class Example5 < ApplicationService::Base
       input :invoice_number, type: String
 
       output :invoice_number, type: String
@@ -19,7 +15,7 @@ module Usual
       def check_invoice_number!
         return if inputs.invoice_number.start_with?("AA")
 
-        raise MyException, "Invalid invoice number"
+        raise FailOnCustomException, "Invalid invoice number"
       end
 
       def assign_invoice_number

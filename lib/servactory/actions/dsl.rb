@@ -19,11 +19,7 @@ module Servactory
 
         # NOTE: Based on https://github.com/rails/rails/blob/main/activesupport/lib/active_support/rescuable.rb
         def fail_on!(*class_names, with: nil, &block) # rubocop:disable Metrics/MethodLength
-          unless with
-            raise ArgumentError, "Need a handler. Pass the with: keyword argument or provide a block." unless block
-
-            with = block
-          end
+          with ||= block || ->(exception:) { exception.message }
 
           class_names.each do |class_name|
             key = if class_name.is_a?(Module) && class_name.respond_to?(:===)
