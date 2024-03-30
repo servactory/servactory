@@ -8,6 +8,10 @@ module ApplicationService
       ApplicationService::Extensions::StatusActive::DSL
     )
 
+    FailOnCustomException = Class.new(ArgumentError)
+
+    fail_on!(FailOnCustomException) { |exception:| exception.message }
+
     configuration do # rubocop:disable Metrics/BlockLength
       input_exception_class ApplicationService::Exceptions::Input
       internal_exception_class ApplicationService::Exceptions::Internal
