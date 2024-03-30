@@ -4,7 +4,6 @@ module Usual
   module RescueFrom
     class Example2 < ApplicationService::Base
       MyException = Class.new(ArgumentError)
-      private_constant :MyException
 
       fail! MyException, with: ->(exception:) { exception.message }
 
