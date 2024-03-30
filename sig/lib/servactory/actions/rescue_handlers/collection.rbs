@@ -4,7 +4,7 @@ module Servactory
       class Collection
         extend Forwardable
 
-        @collection: Set[Symbol]
+        @collection: Set[untyped]
 
         def initialize: (*untyped) -> void
       end
