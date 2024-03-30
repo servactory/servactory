@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Usual
-  module RescueFrom
-    class Example1 < ApplicationService::Base
+  module FailOn
+    class Example2 < ApplicationService::Base
       MyException = Class.new(ArgumentError)
 
-      fail_on!(MyException) { |exception:| exception.message }
+      fail_on! MyException, with: ->(exception:) { exception.message }
 
       input :invoice_number, type: String
 

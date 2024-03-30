@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::RescueFrom::Example2 do
+RSpec.describe Usual::FailOn::Example1 do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -39,7 +39,7 @@ RSpec.describe Usual::RescueFrom::Example2 do
                 expect(exception.type).to eq(:base)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to(
-                  match(original_exception: be_an_instance_of(Usual::RescueFrom::Example2::MyException))
+                  match(original_exception: be_an_instance_of(Usual::FailOn::Example1::MyException))
                 )
               end
             )
@@ -97,7 +97,7 @@ RSpec.describe Usual::RescueFrom::Example2 do
               type: :base,
               message: "Invalid invoice number",
               meta: {
-                original_exception: be_an_instance_of(Usual::RescueFrom::Example2::MyException)
+                original_exception: be_an_instance_of(Usual::FailOn::Example1::MyException)
               }
             )
           end
