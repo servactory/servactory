@@ -5,7 +5,7 @@ module Usual
     class Example1 < ApplicationService::Base
       MyException = Class.new(ArgumentError)
 
-      fail!(MyException) { |exception:| exception.message }
+      fail_on!(MyException) { |exception:| exception.message }
 
       input :invoice_number, type: String
 

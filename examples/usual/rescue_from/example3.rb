@@ -6,8 +6,8 @@ module Usual
       MyException1 = Class.new(ArgumentError)
       MyException2 = Class.new(ArgumentError)
 
-      fail! MyException1, with: ->(exception:) { "#{exception.message} as 1" }
-      fail! MyException2, with: ->(exception:) { "#{exception.message} as 2" }
+      fail_on! MyException1, with: ->(exception:) { "#{exception.message} as 1" }
+      fail_on! MyException2, with: ->(exception:) { "#{exception.message} as 2" }
 
       input :invoice_number, type: String
 

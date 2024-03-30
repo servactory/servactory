@@ -18,7 +18,7 @@ module Servactory
         private
 
         # NOTE: Based on https://github.com/rails/rails/blob/main/activesupport/lib/active_support/rescuable.rb
-        def fail!(*class_names, with: nil, &block) # rubocop:disable Metrics/MethodLength
+        def fail_on!(*class_names, with: nil, &block) # rubocop:disable Metrics/MethodLength
           unless with
             raise ArgumentError, "Need a handler. Pass the with: keyword argument or provide a block." unless block
 
