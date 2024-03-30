@@ -17,7 +17,7 @@ module Servactory
                     :action_shortcuts,
                     :action_rescue_handlers
 
-      def initialize # rubocop:disable Metrics/MethodLength
+      def initialize # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         @input_exception_class = Servactory::Exceptions::Input
         @internal_exception_class = Servactory::Exceptions::Internal
         @output_exception_class = Servactory::Exceptions::Output
