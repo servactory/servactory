@@ -84,5 +84,18 @@ module Servactory
         end
       end
     end
+
+    def constantize_class(class_or_name)
+      case class_or_name
+      when String, Symbol
+        begin
+          Object.const_get(class_or_name)
+        rescue NameError
+          class_or_name.safe_constantize
+        end
+      else
+        class_or_name
+      end
+    end
   end
 end

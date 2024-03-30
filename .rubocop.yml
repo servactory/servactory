@@ -42,6 +42,12 @@ Naming/VariableNumber:
 Style/ArgumentsForwarding:
   UseAnonymousForwarding: false
 
+Style/CaseEquality:
+  Description: 'Avoid explicit use of the case equality operator(===).'
+  Enabled: true
+  AllowOnConstant: true
+  AllowOnSelfClass: false
+
 Style/Documentation:
   Enabled: false
 

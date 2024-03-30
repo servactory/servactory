@@ -25,5 +25,7 @@ module Servactory
     # @param value [#to_s]
     # @return [Boolean]
     def self?.query_attribute: (untyped value) -> untyped
+
+    def self?.constantize_class: (untyped class_or_name) -> (Class | nil)
   end
 end

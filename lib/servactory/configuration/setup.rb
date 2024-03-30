@@ -14,7 +14,8 @@ module Servactory
                     :internal_option_helpers,
                     :output_option_helpers,
                     :action_aliases,
-                    :action_shortcuts
+                    :action_shortcuts,
+                    :action_rescue_handlers
 
       def initialize # rubocop:disable Metrics/MethodLength
         @input_exception_class = Servactory::Exceptions::Input
@@ -41,6 +42,7 @@ module Servactory
 
         @action_aliases = Servactory::Actions::Aliases::Collection.new
         @action_shortcuts = Servactory::Actions::Shortcuts::Collection.new
+        @action_rescue_handlers = Servactory::Actions::RescueHandlers::Collection.new
       end
 
       private
