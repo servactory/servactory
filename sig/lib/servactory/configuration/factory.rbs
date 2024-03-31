@@ -31,6 +31,10 @@ module Servactory
 
       def action_shortcuts: (Array[Symbol] action_shortcuts) -> Actions::Shortcuts::Collection
 
+      private
+
+      # def action_rescue_handlers: (Array[Symbol] action_rescue_handlers) -> Actions::RescueHandlers::Collection
+
       def subclass_of_exception?: (Class value) -> bool
 
       def raise_error_about_wrong_exception_class_with: (Symbol config_name, Class value) -> Exception
