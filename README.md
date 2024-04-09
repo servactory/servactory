@@ -38,13 +38,15 @@ class UserService::Authenticate < Servactory::Base
 
   output :user, type: User
 
+  make :authenticate!
+
   private
 
-  def call
+  def authenticate!
     if (user = User.authenticate_by(email: inputs.email, password: inputs.password)).present?
       outputs.user = user
     else
-      fail!(message: "Authentication failed")
+      fail!(message: "Authentication failed", meta: { email: inputs.email })
     end
   end
 end
@@ -55,14 +57,14 @@ end
 ```ruby
 class SessionsController < ApplicationController
   def create
-    service_result = UserService::Authenticate.call(**session_params)
+    service = UserService::Authenticate.call(**session_params)
 
-    if service_result.success?
-      session[:current_user_id] = service_result.user.id
-      redirect_to service_result.user
+    if service.success?
+      session[:current_user_id] = service.user.id
+      redirect_to service.user
     else
-      flash.now[:message] = service_result.error.message
-      render :new
+      flash.now[:alert] = service.error.message
+      render :new, status: :unprocessable_entity
     end
   end
 
