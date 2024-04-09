@@ -1,5 +1,72 @@
 # Changelog
 
+## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.4.3...HEAD)
+
+**Implemented enhancements:**
+
+- Add `fail_on!` method to catch unexpected service exceptions [\#196](https://github.com/servactory/servactory/pull/196) ([afuno](https://github.com/afuno))
+
+## [v2.4.3](https://github.com/servactory/servactory/tree/v2.4.3) (2024-03-29)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.4.2...v2.4.3)
+
+**Implemented enhancements:**
+
+- Add output data transfer to `on_failure` in `Result` [\#195](https://github.com/servactory/servactory/pull/195) ([afuno](https://github.com/afuno))
+
+## [v2.4.2](https://github.com/servactory/servactory/tree/v2.4.2) (2024-03-29)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.4.1...v2.4.2)
+
+**Implemented enhancements:**
+
+- Add output data transfer to Result in case of failure [\#194](https://github.com/servactory/servactory/pull/194) ([afuno](https://github.com/afuno))
+
+## [v2.4.1](https://github.com/servactory/servactory/tree/v2.4.1) (2024-03-26)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.4.0...v2.4.1)
+
+**Fixed:**
+
+- Refuse change to rename `Result` [\#193](https://github.com/servactory/servactory/pull/193) ([afuno](https://github.com/afuno))
+
+## [v2.4.0](https://github.com/servactory/servactory/tree/v2.4.0) (2024-03-26)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.3.1...v2.4.0)
+
+**Implemented enhancements:**
+
+- Improve name of Result class by adding name of service class [\#192](https://github.com/servactory/servactory/pull/192) ([afuno](https://github.com/afuno))
+- Add `boolean` format for dynamic option `format` [\#189](https://github.com/servactory/servactory/pull/189) ([afuno](https://github.com/afuno))
+- Add ability to customize formats in dynamic option `format` [\#188](https://github.com/servactory/servactory/pull/188) ([afuno](https://github.com/afuno))
+- Rename `setup` method to `use` for dynamic options [\#187](https://github.com/servactory/servactory/pull/187) ([afuno](https://github.com/afuno))
+- Add `datetime` format for dynamic option `format` [\#186](https://github.com/servactory/servactory/pull/186) ([afuno](https://github.com/afuno))
+- Simplify `date` format for dynamic option `format` [\#185](https://github.com/servactory/servactory/pull/185) ([afuno](https://github.com/afuno))
+- Add `time` format for dynamic option `format` [\#184](https://github.com/servactory/servactory/pull/184) ([afuno](https://github.com/afuno))
+- Add `password` format for dynamic option `format` [\#183](https://github.com/servactory/servactory/pull/183) ([afuno](https://github.com/afuno))
+- Add `email` format for dynamic option `format` [\#182](https://github.com/servactory/servactory/pull/182) ([afuno](https://github.com/afuno))
+- Add dynamic option `format` with first format for `date` [\#181](https://github.com/servactory/servactory/pull/181) ([afuno](https://github.com/afuno))
+- Add translations for dynamic options [\#179](https://github.com/servactory/servactory/pull/179) ([afuno](https://github.com/afuno))
+- Improve collections and `consists_of` option [\#178](https://github.com/servactory/servactory/pull/178) ([afuno](https://github.com/afuno))
+- Improve handling of `input`, `internal` and `output` in their options [\#176](https://github.com/servactory/servactory/pull/176) ([afuno](https://github.com/afuno))
+- Implement dynamic options [\#175](https://github.com/servactory/servactory/pull/175) ([afuno](https://github.com/afuno))
+- Implement new approach to storing service data [\#174](https://github.com/servactory/servactory/pull/174) ([afuno](https://github.com/afuno))
+- Add support for `meta` option for `fail_input!`, `fail_internal!` and `fail_output!` methods [\#173](https://github.com/servactory/servactory/pull/173) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Fix mock call [\#191](https://github.com/servactory/servactory/pull/191) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 20.03.2024 [\#190](https://github.com/servactory/servactory/pull/190) ([afuno](https://github.com/afuno))
+
+## [v2.3.1](https://github.com/servactory/servactory/tree/v2.3.1) (2024-03-22)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.3.0...v2.3.1)
+
 ## [v2.3.0](https://github.com/servactory/servactory/tree/v2.3.0) (2024-03-06)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.2.3...v2.3.0)
