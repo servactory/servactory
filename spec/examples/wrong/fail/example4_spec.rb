@@ -13,7 +13,7 @@ RSpec.describe Wrong::Fail::Example4 do
       describe "but the data required for work is invalid" do
         before do
           allow(Wrong::Fail::Example4Child).to(
-            receive(:call!).and_raise(
+            receive(:call).and_raise(
               ApplicationService::Exceptions::Failure.new(message: "Some overridden error")
             )
           )
@@ -45,7 +45,7 @@ RSpec.describe Wrong::Fail::Example4 do
       describe "but the data required for work is invalid" do
         before do
           allow(Wrong::Fail::Example4Child).to(
-            receive(:call!).and_raise(
+            receive(:call).and_raise(
               ApplicationService::Exceptions::Failure.new(message: "Some overridden error")
             )
           )

@@ -87,7 +87,11 @@ module Servactory
         @config.action_shortcuts.merge(action_shortcuts)
       end
 
-      ##########################################################################
+      private
+
+      # def action_rescue_handlers(action_rescue_handlers)
+      #   @config.action_rescue_handlers.merge(action_rescue_handlers)
+      # end
 
       def subclass_of_exception?(value)
         value.is_a?(Class) && value <= Exception

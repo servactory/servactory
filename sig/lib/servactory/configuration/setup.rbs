@@ -23,6 +23,8 @@ module Servactory
 
       attr_accessor action_shortcuts: Actions::Shortcuts::Collection
 
+      attr_accessor action_rescue_handlers: Actions::RescueHandlers::Collection
+
       def initialize: () -> void
 
       private

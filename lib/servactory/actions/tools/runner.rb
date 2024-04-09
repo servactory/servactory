@@ -57,6 +57,8 @@ module Servactory
 
         def call_method(method)
           @context.send(method.name)
+        rescue StandardError => e
+          rescue_with_handler(e) || raise
         end
 
         def unnecessary_for_stage?(stage)
@@ -82,6 +84,23 @@ module Servactory
           return !Servactory::Utils.true?(condition) unless condition.is_a?(Proc)
 
           !condition.call(context: @context)
+        end
+
+        def rescue_with_handler(exception) # rubocop:disable Metrics/MethodLength
+          _, handler = @context.class.config.action_rescue_handlers.reverse_each.detect do |class_or_name, _|
+            if (detected_exception = Servactory::Utils.constantize_class(class_or_name))
+              detected_exception === exception # rubocop:disable Style/CaseEquality
+            end
+          end
+
+          return if handler.nil?
+
+          @context.fail!(
+            message: handler.call(exception: exception),
+            meta: {
+              original_exception: exception
+            }
+          )
         end
       end
     end

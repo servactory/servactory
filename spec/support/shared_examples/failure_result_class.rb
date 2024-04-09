@@ -9,5 +9,6 @@ RSpec.shared_examples "failure result class" do
     expect(result.failure?).to be(true)
     expect(result.failure?(:all)).to be(true)
     expect(result.failure?(:base)).to be(true)
+    expect(result.failure?(:non_existent)).to be(false)
   end
 end

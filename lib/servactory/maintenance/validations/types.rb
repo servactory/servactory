@@ -63,11 +63,7 @@ module Servactory
 
         def prepared_types_from(types)
           types.map do |type|
-            if type.is_a?(String)
-              Object.const_get(type)
-            else
-              type
-            end
+            Servactory::Utils.constantize_class(type)
           end
         end
       end
