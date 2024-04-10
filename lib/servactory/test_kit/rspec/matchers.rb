@@ -42,38 +42,47 @@ module Servactory
             @expected_meta = expected_meta
           end
 
-          failure_message do |actual|
+          failure_message do |actual| # rubocop:disable Metrics/BlockLength
             message = []
 
-            if actual.error.is_a?(Servactory::Exceptions::Failure)
-              if defined?(@expected_failure_class)
-                unless actual.error.instance_of?(@expected_failure_class)
-                  message << "Error is not an instance of `#{@expected_failure_class}`"
+            if actual.instance_of?(Servactory::Result)
+              message << "result of the service is not successful" unless actual.success?
+              message << "result of the service is a failure" if actual.failure?
+
+              if actual.error.is_a?(Servactory::Exceptions::Failure)
+                # rubocop:disable Metrics/BlockNesting
+                if defined?(@expected_failure_class)
+                  unless actual.error.instance_of?(@expected_failure_class)
+                    message << "error is not an instance of `#{@expected_failure_class}`"
+                  end
+                else
+                  unless actual.error.instance_of?(Servactory::Exceptions::Failure)
+                    message << "error is not an instance of `Servactory::Exceptions::Failure`"
+                  end
                 end
+                # rubocop:enable Metrics/BlockNesting
+
+                if defined?(@expected_type) && actual.error.type != @expected_type
+                  message << "does not have the expected type `#{@expected_type.inspect}`"
+                end
+
+                if defined?(@expected_message) && actual.error.message != @expected_message
+                  message << "does not contain the expected error message `#{@expected_message.inspect}`"
+                end
+
+                if defined?(@expected_meta) && actual.error.meta != @expected_meta
+                  message << "does not contain the expected metadata `#{@expected_meta.inspect}`"
+                end
+
+                message
               else
-                unless actual.error.instance_of?(Servactory::Exceptions::Failure)
-                  message << "Error is not an instance of `Servactory::Exceptions::Failure`"
-                end
+                message << "error is not a `Servactory::Exceptions::Failure` object"
               end
-
-              if defined?(@expected_type) && actual.error.type != @expected_type
-                message << "Does not have the expected type `#{@expected_type.inspect}`"
-              end
-
-              if defined?(@expected_message) && actual.error.message != @expected_message
-                message << "Does not contain the expected error message `#{@expected_message.inspect}`"
-              end
-
-              if defined?(@expected_meta) && actual.error.meta != @expected_meta
-                message << "Does not contain the expected metadata `#{@expected_meta.inspect}`"
-              end
-
-              message
             else
-              message << "Error is not a `Servactory::Exceptions::Failure` object"
+              message << "result of the service is not an instance of `Servactory::Result`"
             end
 
-            "[#{described_class}] #{message.join('; ')}."
+            "[#{described_class}] #{message.join(', ').upcase_first}."
           end
         end
 
@@ -112,21 +121,21 @@ module Servactory
             message = []
 
             if actual.instance_of?(Servactory::Result)
-              message << "Result of the service is not successful" unless actual.success?
-              message << "Result of the service is a failure" if actual.failure?
+              message << "result of the service is not successful" unless actual.success?
+              message << "result of the service is a failure" if actual.failure?
 
               if defined?(expected_data)
                 expected_data.each do |key, value|
                   next if actual.send(key) == value
 
-                  message << "Does not contain the expected value of `#{value.inspect}` in `#{key.inspect}`"
+                  message << "does not contain the expected value of `#{value.inspect}` in `#{key.inspect}`"
                 end
               end
             else
-              message << "Result of the service is not an instance of `Servactory::Result`"
+              message << "result of the service is not an instance of `Servactory::Result`"
             end
 
-            "[#{described_class}] #{message.join('; ')}."
+            "[#{described_class}] #{message.join(', ').upcase_first}."
           end
         end
       end
