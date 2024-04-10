@@ -4,8 +4,8 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers
-        RSpec::Matchers.define :service_failure do
-          description { "service failed" }
+        RSpec::Matchers.define :be_failure_service do
+          description { "service failure" }
 
           match do |actual|
             expected_failure_class =
@@ -16,6 +16,8 @@ module Servactory
             expected_meta = defined?(@expected_meta) ? @expected_meta : nil
 
             matched = actual.is_a?(Servactory::Result)
+            matched &&= !actual.success?
+            matched &&= actual.failure?
             matched &&= actual.error.is_a?(Servactory::Exceptions::Failure)
             matched &&= actual.error.instance_of?(expected_failure_class)
             matched &&= actual.error.type == expected_type
@@ -25,7 +27,7 @@ module Servactory
           end
 
           chain :as do |expected_failure_class|
-            @expected_failure_class = expected_failure_class # Servactory::Exceptions::Failure
+            @expected_failure_class = expected_failure_class
           end
 
           chain :with_type do |expected_type|
@@ -55,15 +57,15 @@ module Servactory
               end
 
               if defined?(@expected_type) && actual.error.type != @expected_type
-                message << "does not have the expected type `#{@expected_type.inspect}`"
+                message << "Does not have the expected type `#{@expected_type.inspect}`"
               end
 
               if defined?(@expected_message) && actual.error.message != @expected_message
-                message << "does not contain the expected error message `#{@expected_message.inspect}`"
+                message << "Does not contain the expected error message `#{@expected_message.inspect}`"
               end
 
               if defined?(@expected_meta) && actual.error.meta != @expected_meta
-                message << "does not contain the expected metadata `#{@expected_meta.inspect}`"
+                message << "Does not contain the expected metadata `#{@expected_meta.inspect}`"
               end
 
               message
@@ -71,7 +73,50 @@ module Servactory
               message << "Error is not a `Servactory::Exceptions::Failure` object"
             end
 
-            message.join(", ")
+            "[#{described_class}] #{message.join('; ')}."
+          end
+        end
+
+        RSpec::Matchers.define :be_success_service do
+          description { "service success" }
+
+          match do |actual|
+            matched = actual.instance_of?(Servactory::Result)
+            matched &&= actual.success?
+            matched &&= !actual.failure?
+
+            if defined?(@expected_data)
+              matched &&= @expected_data.all? do |key, value|
+                actual.send(key) == value
+              end
+            end
+
+            matched
+          end
+
+          chain :with do |expected_data = {}|
+            @expected_data = expected_data
+          end
+
+          failure_message do |actual|
+            message = []
+
+            if actual.instance_of?(Servactory::Result)
+              message << "Result of the service is not successful" unless actual.success?
+              message << "Result of the service is a failure" if actual.failure?
+
+              if defined?(@expected_data)
+                @expected_data.each do |key, value|
+                  next if actual.send(key) == value
+
+                  message << "Does not contain the expected value of `#{value.inspect}` in `#{key.inspect}`"
+                end
+              end
+            else
+              message << "Result of the service is not an instance of `Servactory::Result`"
+            end
+
+            "[#{described_class}] #{message.join('; ')}."
           end
         end
       end

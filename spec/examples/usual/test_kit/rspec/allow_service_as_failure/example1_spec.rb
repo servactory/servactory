@@ -49,7 +49,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailure::Example1, type: :se
 
         it "returns expected failure" do
           expect(perform).to(
-            service_failure
+            be_failure_service
               .as(ApplicationService::Exceptions::Failure)
               .with_type(:base)
               .with_message("Some overridden error")

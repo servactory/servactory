@@ -61,6 +61,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example2, type: :se
           expect(result.child_result.failure?).to be(false)
           expect(result.child_result.data).to eq("New data!")
         end
+
+        it "returns success of child class" do
+          result = perform
+
+          expect(result.child_result).to be_success_service.with(data: "New data!")
+        end
       end
     end
   end
