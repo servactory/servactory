@@ -3,8 +3,8 @@
 module Servactory
   module TestKit
     module Rspec
-      module Matchers
-        RSpec::Matchers.define :be_failure_service do
+      module Matchers # rubocop:disable Metrics/ModuleLength
+        RSpec::Matchers.define :be_failure_service do # rubocop:disable Metrics/BlockLength
           description { "service failure" }
 
           match do |actual|
@@ -86,7 +86,7 @@ module Servactory
           end
         end
 
-        RSpec::Matchers.define :be_success_service do
+        RSpec::Matchers.define :be_success_service do # rubocop:disable Metrics/BlockLength
           description { "service success" }
 
           def expected_data
