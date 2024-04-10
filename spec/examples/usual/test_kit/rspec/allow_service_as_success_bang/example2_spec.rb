@@ -28,7 +28,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccessBang::Example2, type:
         it "returns success of child class" do
           result = perform
 
-          expect(result.child_result).to be_success_service.with(data: "New data!")
+          expect(result.child_result).to be_success_service.with_output(:data, "New data!")
         end
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccessBang::Example2, type:
         it "returns success of child class" do
           result = perform
 
-          expect(result.child_result).to be_success_service.with(data: "New data!")
+          expect(result.child_result).to be_success_service.with_output(:data, "New data!")
         end
       end
     end

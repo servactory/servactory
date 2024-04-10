@@ -80,13 +80,17 @@ module Servactory
         RSpec::Matchers.define :be_success_service do
           description { "service success" }
 
+          def expected_data
+            @expected_data ||= {}
+          end
+
           match do |actual|
             matched = actual.instance_of?(Servactory::Result)
             matched &&= actual.success?
             matched &&= !actual.failure?
 
-            if defined?(@expected_data)
-              matched &&= @expected_data.all? do |key, value|
+            if defined?(expected_data)
+              matched &&= expected_data.all? do |key, value|
                 actual.send(key) == value
               end
             end
@@ -94,8 +98,14 @@ module Servactory
             matched
           end
 
-          chain :with do |expected_data = {}|
-            @expected_data = expected_data
+          chain :with_output do |key, value|
+            expected_data[key] = value
+          end
+
+          chain :with_outputs do |attributes|
+            attributes.each do |key, value|
+              expected_data[key] = value
+            end
           end
 
           failure_message do |actual|
@@ -105,8 +115,8 @@ module Servactory
               message << "Result of the service is not successful" unless actual.success?
               message << "Result of the service is a failure" if actual.failure?
 
-              if defined?(@expected_data)
-                @expected_data.each do |key, value|
+              if defined?(expected_data)
+                expected_data.each do |key, value|
                   next if actual.send(key) == value
 
                   message << "Does not contain the expected value of `#{value.inspect}` in `#{key.inspect}`"
