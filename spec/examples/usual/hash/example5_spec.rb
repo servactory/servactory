@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Hash::Example5 do
+RSpec.describe Usual::Hash::Example5, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 

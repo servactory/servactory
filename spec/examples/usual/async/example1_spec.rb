@@ -4,7 +4,7 @@ require "async"
 require "async/barrier"
 require "async/semaphore"
 
-RSpec.describe Usual::Async::Example1 do
+RSpec.describe Usual::Async::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 

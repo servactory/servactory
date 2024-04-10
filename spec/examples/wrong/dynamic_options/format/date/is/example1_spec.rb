@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::DynamicOptions::Format::Date::Is::Example1 do
+RSpec.describe Wrong::DynamicOptions::Format::Date::Is::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 

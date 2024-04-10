@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Basic::Example9 do
+RSpec.describe Wrong::Basic::Example9, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
