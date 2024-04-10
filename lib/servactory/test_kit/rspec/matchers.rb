@@ -4,7 +4,6 @@ module Servactory
   module TestKit
     module Rspec
       class Matchers
-
       end
     end
   end
