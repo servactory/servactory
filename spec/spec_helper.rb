@@ -29,4 +29,5 @@ RSpec.configure do |config|
   end
 
   config.include Servactory::TestKit::Rspec::Helpers, type: :service
+  config.include Servactory::TestKit::Rspec::Matchers, type: :service
 end

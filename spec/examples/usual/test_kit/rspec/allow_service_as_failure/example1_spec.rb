@@ -47,14 +47,13 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailure::Example1, type: :se
           end
         end
 
-        it "returns the expected value in `errors`", :aggregate_failures do
-          result = perform
-
-          expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
-          expect(result.error).to an_object_having_attributes(
-            type: :base,
-            message: "Some overridden error",
-            meta: nil
+        it "returns expected failure" do
+          expect(perform).to(
+            service_failure
+              .as(ApplicationService::Exceptions::Failure)
+              .with_type(:base)
+              .with_message("Some overridden error")
+              .with_meta(nil)
           )
         end
       end
