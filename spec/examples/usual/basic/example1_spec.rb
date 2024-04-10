@@ -4,6 +4,10 @@ RSpec.describe Usual::Basic::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
+    # def perform(**attributes)
+    #   described_class.call!(**attributes)
+    # end
+
     let(:attributes) do
       {
         first_name: first_name,
@@ -56,6 +60,12 @@ RSpec.describe Usual::Basic::Example1, type: :service do
       context "when `last_name`" do
         it_behaves_like "input required check", name: :last_name
         it_behaves_like "input type check", name: :last_name, expected_type: String
+      end
+
+      it "returns expected inputs", :aggregate_failures do
+        expect { subject.perform }.to be_service_input(:first_name).type(String).required
+        expect { subject.perform }.to be_service_input(:middle_name).type(String).optional
+        expect { subject.perform }.to be_service_input(:last_name).type(String).required
       end
     end
   end

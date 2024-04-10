@@ -4,6 +4,51 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers # rubocop:disable Metrics/ModuleLength
+        RSpec::Matchers.define :be_service_input do |input_name|
+          description { "service input" }
+
+          supports_block_expectations
+
+          match do |_actual|
+            if defined?(@required) && @required
+              attributes = described_class.info.inputs.to_h do |name, options|
+                first_type = options.fetch(:types).first
+                value = "Test" if first_type == String
+
+                [name, value]
+              end
+
+              attributes[input_name] = nil
+
+              expect { described_class.call!(**attributes) }.to(
+                raise_error(
+                  Servactory::Exceptions::Input,
+                  "[#{described_class.name}] Required input `#{input_name}` is missing"
+                )
+              )
+            else
+              true
+            end
+          end
+
+          chain :type do |types|
+            types = types.split(",").collect(&:squish) if types.is_a?(String)
+
+            @types = Array(types)
+          end
+
+          chain :required do
+            @required = true
+          end
+
+          chain :optional do
+            @required = false
+          end
+
+          failure_message do |actual|
+          end
+        end
+
         RSpec::Matchers.define :be_failure_service do # rubocop:disable Metrics/BlockLength
           description { "service failure" }
 
