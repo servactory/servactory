@@ -27,11 +27,11 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
 
     context "when the input arguments are invalid" do
       it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:api_identifier).type(String).required
-        expect(perform).to be_service_input(:first_name).type(String).required
-        expect(perform).to be_service_input(:middle_name).type(String).required
-        expect(perform).to be_service_input(:last_name).type(String).required
-        expect(perform).to be_service_input(:date).type(DateTime).required
+        expect(perform).to have_service_input(:api_identifier).type(String).required
+        expect(perform).to have_service_input(:first_name).type(String).required
+        expect(perform).to have_service_input(:middle_name).type(String).required
+        expect(perform).to have_service_input(:last_name).type(String).required
+        expect(perform).to have_service_input(:date).type(DateTime).required
       end
     end
   end
@@ -62,11 +62,11 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
 
     context "when the input arguments are invalid" do
       it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:api_identifier).type(String).required
-        expect(perform).to be_service_input(:first_name).type(String).required
-        expect(perform).to be_service_input(:middle_name).type(String).required
-        expect(perform).to be_service_input(:last_name).type(String).required
-        expect(perform).to be_service_input(:date).type(String).required
+        expect(perform).to have_service_input(:api_identifier).type(String).required
+        expect(perform).to have_service_input(:first_name).type(String).required
+        expect(perform).to have_service_input(:middle_name).type(String).required
+        expect(perform).to have_service_input(:last_name).type(String).required
+        expect(perform).to have_service_input(:date).type(String).required
       end
     end
   end

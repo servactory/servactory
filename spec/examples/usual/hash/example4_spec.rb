@@ -64,10 +64,7 @@ RSpec.describe Usual::Hash::Example4, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `payload`" do
-        it_behaves_like "input required check", name: :payload
-        it_behaves_like "input type check", name: :payload, expected_type: Hash
-      end
+      it { expect(perform).to have_service_input(:payload).type(Hash).required }
     end
   end
 
@@ -134,10 +131,7 @@ RSpec.describe Usual::Hash::Example4, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `payload`" do
-        it_behaves_like "input required check", name: :payload
-        it_behaves_like "input type check", name: :payload, expected_type: Hash
-      end
+      it { expect(perform).to have_service_input(:payload).type(Hash).required }
     end
   end
 end

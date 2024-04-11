@@ -35,7 +35,7 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Is::Example3, type: :service
 
     context "when the input arguments are invalid" do
       it "returns expected inputs", :aggregate_failures do
-        expect { perform }.to be_service_input(:started_on).type(String).required
+        expect { perform }.to have_service_input(:started_on).type(String).required
       end
     end
   end
@@ -74,7 +74,7 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Is::Example3, type: :service
 
     context "when the input arguments are invalid" do
       it "returns expected inputs", :aggregate_failures do
-        expect { perform }.to be_service_input(:started_on).type(String).required
+        expect { perform }.to have_service_input(:started_on).type(String).required
       end
     end
   end

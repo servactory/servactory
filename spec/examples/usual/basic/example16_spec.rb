@@ -43,7 +43,7 @@ RSpec.describe Usual::Basic::Example16, type: :service do
 
     context "when the input arguments are invalid" do
       it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:invoice_number).types(String, Integer).required
+        expect(perform).to have_service_input(:invoice_number).types(String, Integer).required
       end
     end
   end
@@ -90,7 +90,7 @@ RSpec.describe Usual::Basic::Example16, type: :service do
 
     context "when the input arguments are invalid" do
       it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:invoice_number).types(String, Integer).required
+        expect(perform).to have_service_input(:invoice_number).types(String, Integer).required
       end
     end
   end

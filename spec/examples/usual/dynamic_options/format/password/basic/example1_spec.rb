@@ -45,9 +45,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example1, type: :
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:password).type(String).required
-      end
+      it { expect(perform).to have_service_input(:password).type(String).required }
     end
   end
 
@@ -95,9 +93,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example1, type: :
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:password).type(String).required
-      end
+      it { expect(perform).to have_service_input(:password).type(String).required }
     end
   end
 end

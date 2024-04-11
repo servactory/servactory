@@ -30,9 +30,7 @@ RSpec.describe Usual::As::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:email_address).type(String).required
-      end
+      it { expect { perform }.to have_service_input(:email_address).type(String).required }
     end
   end
 
@@ -65,9 +63,7 @@ RSpec.describe Usual::As::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:email_address).type(String).required
-      end
+      it { expect { perform }.to have_service_input(:email_address).type(String).required }
     end
   end
 end

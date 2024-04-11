@@ -4,10 +4,12 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers # rubocop:disable Metrics/ModuleLength
-        RSpec::Matchers.define :be_service_input do |input_name| # rubocop:disable Metrics/BlockLength
+        RSpec::Matchers.define :have_service_input do |input_name| # rubocop:disable Metrics/BlockLength
           description { "service input" }
 
-          supports_block_expectations
+          def supports_block_expectations?
+            true
+          end
 
           match do |_actual| # rubocop:disable Metrics/BlockLength
             if defined?(@required) && @required
@@ -56,12 +58,14 @@ module Servactory
                 expect { described_class.call!(**attributes) }.not_to raise_error
               else
                 expect { described_class.call!(**attributes) }.to(
-                  raise_error(
-                    Servactory::Exceptions::Input,
-                    "[#{described_class.name}] Wrong type of input `#{input_name}`, " \
-                    "expected `#{described_class.info.inputs.dig(input_name, :types).join(', ')}`, " \
-                    "got `Servactory::TestKit::FakeType`"
-                  )
+                  raise_error do |exception|
+                    expect(exception).to be_a(Servactory::Exceptions::Input)
+                    expect(exception.message).to eq(
+                      "[#{described_class.name}] Wrong type of input `#{input_name}`, " \
+                      "expected `#{described_class.info.inputs.dig(input_name, :types).join(', ')}`, " \
+                      "got `Servactory::TestKit::FakeType`"
+                    )
+                  end
                 )
               end
 

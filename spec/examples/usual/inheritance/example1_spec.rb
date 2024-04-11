@@ -36,11 +36,9 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:input_1).type(String).required
-        expect(perform).to be_service_input(:input_2).type(String).required
-        expect(perform).to be_service_input(:input_3).type(String).required
-      end
+      it { expect(perform).to have_service_input(:input_1).type(String).required }
+      it { expect(perform).to have_service_input(:input_2).type(String).required }
+      it { expect(perform).to have_service_input(:input_3).type(String).required }
     end
   end
 
@@ -79,11 +77,9 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:input_1).type(String).required
-        expect(perform).to be_service_input(:input_2).type(String).required
-        expect(perform).to be_service_input(:input_3).type(String).required
-      end
+      it { expect(perform).to have_service_input(:input_1).type(String).required }
+      it { expect(perform).to have_service_input(:input_2).type(String).required }
+      it { expect(perform).to have_service_input(:input_3).type(String).required }
     end
   end
 end

@@ -261,9 +261,7 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:data).types(Integer, String, Array, Hash).required
-      end
+      it { expect { perform }.to have_service_input(:data).types(Integer, String, Array, Hash).required }
     end
   end
 
@@ -527,9 +525,7 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to be_service_input(:data).types(Integer, String, Array, Hash).required
-      end
+      it { expect { perform }.to have_service_input(:data).types(Integer, String, Array, Hash).required }
     end
   end
 end
