@@ -66,14 +66,9 @@ RSpec.describe Usual::Basic::Example8, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `email`" do
-        it_behaves_like "input required check", name: :email
-        it_behaves_like "input type check", name: :email, expected_type: String
-      end
-
-      context "when `password`" do
-        it_behaves_like "input required check", name: :password
-        it_behaves_like "input type check", name: :password, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:email).type(String).required
+        expect(perform).to be_service_input(:password).type(String).required
       end
     end
   end
@@ -147,14 +142,9 @@ RSpec.describe Usual::Basic::Example8, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `email`" do
-        it_behaves_like "input required check", name: :email
-        it_behaves_like "input type check", name: :email, expected_type: String
-      end
-
-      context "when `password`" do
-        it_behaves_like "input required check", name: :password
-        it_behaves_like "input type check", name: :password, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:email).type(String).required
+        expect(perform).to be_service_input(:password).type(String).required
       end
     end
   end

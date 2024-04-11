@@ -44,21 +44,11 @@ RSpec.describe Usual::Basic::Example5, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `first_name`" do
-        it_behaves_like "input required check",
-                        name: :first_name,
-                        custom_message: "Input `first_name` is required"
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:first_name).type(String).required("Input `first_name` is required")
 
-        it_behaves_like "input type check", name: :first_name, expected_type: String
-      end
-
-      context "when `middle_name`" do
-        it_behaves_like "input type check", name: :middle_name, expected_type: String
-      end
-
-      context "when `last_name`" do
-        it_behaves_like "input required check", name: :last_name
-        it_behaves_like "input type check", name: :last_name, expected_type: String
+        expect(perform).to be_service_input(:middle_name).type(String).optional
+        expect(perform).to be_service_input(:last_name).type(String).required
       end
     end
   end
@@ -106,21 +96,11 @@ RSpec.describe Usual::Basic::Example5, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `first_name`" do
-        it_behaves_like "input required check",
-                        name: :first_name,
-                        custom_message: "Input `first_name` is required"
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:first_name).type(String).required("Input `first_name` is required")
 
-        it_behaves_like "input type check", name: :first_name, expected_type: String
-      end
-
-      context "when `middle_name`" do
-        it_behaves_like "input type check", name: :middle_name, expected_type: String
-      end
-
-      context "when `last_name`" do
-        it_behaves_like "input required check", name: :last_name
-        it_behaves_like "input type check", name: :last_name, expected_type: String
+        expect(perform).to be_service_input(:middle_name).type(String).optional
+        expect(perform).to be_service_input(:last_name).type(String).required
       end
     end
   end

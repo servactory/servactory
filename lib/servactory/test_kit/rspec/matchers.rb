@@ -4,12 +4,12 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers # rubocop:disable Metrics/ModuleLength
-        RSpec::Matchers.define :be_service_input do |input_name|
+        RSpec::Matchers.define :be_service_input do |input_name| # rubocop:disable Metrics/BlockLength
           description { "service input" }
 
           supports_block_expectations
 
-          match do |_actual|
+          match do |_actual| # rubocop:disable Metrics/BlockLength
             if defined?(@required) && @required
               attributes = described_class.info.inputs.to_h do |name, options|
                 first_type = options.fetch(:types).first
@@ -20,32 +20,76 @@ module Servactory
 
               attributes[input_name] = nil
 
+              required_message = if defined?(@required_message) && @required_message.present?
+                                   @required_message
+                                 else
+                                   "[#{described_class.name}] Required input `#{input_name}` is missing"
+                                 end
+
               expect { described_class.call!(**attributes) }.to(
-                raise_error(
-                  Servactory::Exceptions::Input,
-                  "[#{described_class.name}] Required input `#{input_name}` is missing"
-                )
+                raise_error do |exception|
+                  expect(exception).to be_a(Servactory::Exceptions::Input)
+                  expect(exception.message).to eq(required_message)
+                end
               )
             else
-              true
+              attributes = described_class.info.inputs.to_h do |name, options|
+                first_type = options.fetch(:types).first
+                value = if name == input_name
+                          defined?(@default) ? @default : Servactory::TestKit::FakeType.new
+                        else
+                          first_type.new("Test value")
+                        end
+
+                [name, value]
+              end
+
+              if defined?(@default)
+                expect { described_class.call!(**attributes) }.not_to raise_error
+              else
+                expect { described_class.call!(**attributes) }.to(
+                  raise_error(
+                    Servactory::Exceptions::Input,
+                    "[#{described_class.name}] Wrong type of input `#{input_name}`, " \
+                    "expected `#{described_class.info.inputs.dig(input_name, :types).join(', ')}`, " \
+                    "got `Servactory::TestKit::FakeType`"
+                  )
+                )
+              end
+
+              # NOTE: Check for erroneous use of `optional`
+              attributes[input_name] = nil
+              expect { described_class.call!(**attributes) }.not_to raise_error
             end
           end
 
-          chain :type do |types|
+          chain :type do |*types|
             types = types.split(",").collect(&:squish) if types.is_a?(String)
 
             @types = Array(types)
           end
 
-          chain :required do
+          chain :types do |*types|
+            types = types.split(",").collect(&:squish) if types.is_a?(String)
+
+            @types = Array(types)
+          end
+
+          chain :required do |message = nil|
             @required = true
+            @required_message = message
           end
 
           chain :optional do
             @required = false
           end
 
-          failure_message do |actual|
+          chain :default do |value|
+            @default = value
+          end
+
+          failure_message do |_actual|
+            "Add error"
           end
         end
 
