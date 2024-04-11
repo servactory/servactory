@@ -43,19 +43,10 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `enable`" do
-        it_behaves_like "input required check", name: :enable
-        it_behaves_like "input type check", name: :enable, expected_type: [TrueClass, FalseClass]
-      end
-
-      context "when `text`" do
-        it_behaves_like "input required check", name: :text
-        it_behaves_like "input type check", name: :text, expected_type: String
-      end
-
-      context "when `number`" do
-        it_behaves_like "input required check", name: :number
-        it_behaves_like "input type check", name: :number, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        # expect(perform).to be_service_input(:enable).types(TrueClass, FalseClass).required
+        # expect(perform).to be_service_input(:text).type(String).required
+        expect { perform }.to be_service_input(:number).type(Integer).required
       end
     end
   end
@@ -102,19 +93,10 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `enable`" do
-        it_behaves_like "input required check", name: :enable
-        it_behaves_like "input type check", name: :enable, expected_type: [TrueClass, FalseClass]
-      end
-
-      context "when `text`" do
-        it_behaves_like "input required check", name: :text
-        it_behaves_like "input type check", name: :text, expected_type: String
-      end
-
-      context "when `number`" do
-        it_behaves_like "input required check", name: :number
-        it_behaves_like "input type check", name: :number, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:enable).types(TrueClass, FalseClass).required
+        expect(perform).to be_service_input(:text).type(String).required
+        expect(perform).to be_service_input(:number).type(Integer).required
       end
     end
   end

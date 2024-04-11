@@ -31,9 +31,8 @@ RSpec.describe Wrong::Prepare::Example4, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `balance_cents`" do
-        it_behaves_like "input required check", name: :balance_cents
-        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        expect { perform }.to be_service_input(:balance_cents).type(Integer).required
       end
     end
   end
@@ -68,9 +67,8 @@ RSpec.describe Wrong::Prepare::Example4, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `balance_cents`" do
-        it_behaves_like "input required check", name: :balance_cents
-        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        expect { perform }.to be_service_input(:balance_cents).type(Integer).required
       end
     end
   end

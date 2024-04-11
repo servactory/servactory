@@ -47,9 +47,8 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `user`" do
-        it_behaves_like "input required check", name: :user
-        it_behaves_like "input type check", name: :user, expected_type: Usual::Extensions::Example1::User
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:user).type(Usual::Extensions::Example1::User).required
       end
     end
   end
@@ -100,9 +99,8 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `user`" do
-        it_behaves_like "input required check", name: :user
-        it_behaves_like "input type check", name: :user, expected_type: Usual::Extensions::Example1::User
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:user).type(Usual::Extensions::Example1::User).required
       end
     end
   end

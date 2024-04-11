@@ -146,10 +146,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :data
-
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:data).types(Integer, String, Array, Hash).required
       end
     end
   end
@@ -299,10 +297,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :data
-
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:data).types(Integer, String, Array, Hash).required
       end
     end
   end

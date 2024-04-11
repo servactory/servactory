@@ -44,10 +44,8 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example1
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :boolean
-
-        it_behaves_like "input type check", name: :boolean, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:boolean).type(String).required
       end
     end
   end
@@ -95,10 +93,8 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example1
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :boolean
-
-        it_behaves_like "input type check", name: :boolean, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:boolean).type(String).required
       end
     end
   end

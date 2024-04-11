@@ -74,10 +74,8 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `event_name`" do
-        it_behaves_like "input required check", name: :event_name
-
-        it_behaves_like "input type check", name: :event_name, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect { perform }.to be_service_input(:event_name).type(String).required
       end
     end
   end
@@ -155,10 +153,8 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `event_name`" do
-        it_behaves_like "input required check", name: :event_name
-
-        it_behaves_like "input type check", name: :event_name, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect { perform }.to be_service_input(:event_name).type(String).required
       end
     end
   end

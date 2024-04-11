@@ -49,9 +49,8 @@ RSpec.describe Usual::FailOn::Example4, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:invoice_number).type(String).required
       end
     end
   end
@@ -106,9 +105,8 @@ RSpec.describe Usual::FailOn::Example4, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:invoice_number).type(String).required
       end
     end
   end

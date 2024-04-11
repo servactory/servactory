@@ -42,9 +42,8 @@ RSpec.describe Usual::Success::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `number`" do
-        it_behaves_like "input required check", name: :number
-        it_behaves_like "input type check", name: :number, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        expect { perform }.to be_service_input(:number).type(Integer).required
       end
     end
   end
@@ -90,9 +89,8 @@ RSpec.describe Usual::Success::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `number`" do
-        it_behaves_like "input required check", name: :number
-        it_behaves_like "input type check", name: :number, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        expect { perform }.to be_service_input(:number).type(Integer).required
       end
     end
   end

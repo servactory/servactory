@@ -50,9 +50,8 @@ RSpec.describe Usual::Async::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `id`" do
-        it_behaves_like "input required check", name: :id
-        it_behaves_like "input type check", name: :id, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:id).type(Integer).required
       end
     end
   end
@@ -102,9 +101,8 @@ RSpec.describe Usual::Async::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `id`" do
-        it_behaves_like "input required check", name: :id
-        it_behaves_like "input type check", name: :id, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:id).type(Integer).required
       end
     end
   end

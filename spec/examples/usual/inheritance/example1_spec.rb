@@ -36,19 +36,10 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `input_1`" do
-        it_behaves_like "input required check", name: :input_1
-        it_behaves_like "input type check", name: :input_1, expected_type: String
-      end
-
-      context "when `input_2`" do
-        it_behaves_like "input required check", name: :input_2
-        it_behaves_like "input type check", name: :input_2, expected_type: String
-      end
-
-      context "when `input_3`" do
-        it_behaves_like "input required check", name: :input_3
-        it_behaves_like "input type check", name: :input_3, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:input_1).type(String).required
+        expect(perform).to be_service_input(:input_2).type(String).required
+        expect(perform).to be_service_input(:input_3).type(String).required
       end
     end
   end
@@ -88,19 +79,10 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `input_1`" do
-        it_behaves_like "input required check", name: :input_1
-        it_behaves_like "input type check", name: :input_1, expected_type: String
-      end
-
-      context "when `input_2`" do
-        it_behaves_like "input required check", name: :input_2
-        it_behaves_like "input type check", name: :input_2, expected_type: String
-      end
-
-      context "when `input_3`" do
-        it_behaves_like "input required check", name: :input_3
-        it_behaves_like "input type check", name: :input_3, expected_type: String
+      it "returns expected inputs", :aggregate_failures do
+        expect(perform).to be_service_input(:input_1).type(String).required
+        expect(perform).to be_service_input(:input_2).type(String).required
+        expect(perform).to be_service_input(:input_3).type(String).required
       end
     end
   end

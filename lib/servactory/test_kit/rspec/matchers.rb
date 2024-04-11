@@ -13,7 +13,15 @@ module Servactory
             if defined?(@required) && @required
               attributes = described_class.info.inputs.to_h do |name, options|
                 first_type = options.fetch(:types).first
-                value = "Test" if first_type == String
+                value = if first_type == TrueClass
+                          true
+                        elsif first_type == FalseClass
+                          false
+                        elsif first_type == Integer
+                          123
+                        else
+                          "Test"
+                        end
 
                 [name, value]
               end
