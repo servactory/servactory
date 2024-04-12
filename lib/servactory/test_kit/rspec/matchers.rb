@@ -137,7 +137,7 @@ module Servactory
           description { "service output" }
 
           match do |actual|
-            rules_for(actual, output_name)
+            match_for(actual, output_name)
           end
 
           chain :instance_of do |class_or_name|
@@ -157,11 +157,11 @@ module Servactory
           end
 
           failure_message do |actual|
-            rules_for(actual, output_name)
+            match_for(actual, output_name)
           end
 
           # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          def rules_for(actual, output_name)
+          def match_for(actual, output_name)
             given_value = actual.public_send(output_name)
 
             if defined?(@nested) && @nested.present?
