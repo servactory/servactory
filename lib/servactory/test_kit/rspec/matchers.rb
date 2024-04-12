@@ -15,15 +15,7 @@ module Servactory
             if defined?(@required) && @required
               attributes = described_class.info.inputs.to_h do |name, options|
                 first_type = options.fetch(:types).first
-                value = if first_type == TrueClass
-                          true
-                        elsif first_type == FalseClass
-                          false
-                        elsif first_type == Integer
-                          123
-                        else
-                          "Test"
-                        end
+                value = fetch_some_value_for(first_type)
 
                 [name, value]
               end
@@ -33,7 +25,11 @@ module Servactory
               required_message = if defined?(@required_message) && @required_message.present?
                                    @required_message
                                  else
-                                   "[#{described_class.name}] Required input `#{input_name}` is missing"
+                                   I18n.t(
+                                     "servactory.inputs.validations.required.default_error.default",
+                                     service_class_name: described_class.name,
+                                     input_name: input_name
+                                   )
                                  end
 
               expect { described_class.call!(**attributes) }.to(
@@ -61,9 +57,13 @@ module Servactory
                   raise_error do |exception|
                     expect(exception).to be_a(Servactory::Exceptions::Input)
                     expect(exception.message).to eq(
-                      "[#{described_class.name}] Wrong type of input `#{input_name}`, " \
-                      "expected `#{described_class.info.inputs.dig(input_name, :types).join(', ')}`, " \
-                      "got `Servactory::TestKit::FakeType`"
+                      I18n.t(
+                        "servactory.inputs.validations.type.default_error.default",
+                        service_class_name: described_class.name,
+                        input_name: input_name,
+                        expected_type: described_class.info.inputs.dig(input_name, :types).join(", "),
+                        given_type: "Servactory::TestKit::FakeType"
+                      )
                     )
                   end
                 )
@@ -103,14 +103,65 @@ module Servactory
           failure_message do |_actual|
             "Add error"
           end
+
+          # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          def fetch_some_value_for(first_type)
+            if first_type == TrueClass
+              true
+            elsif first_type == FalseClass
+              false
+            elsif first_type == Integer
+              123
+            elsif first_type == Range
+              (1..9)
+            elsif first_type == Array
+              [1, 2, 3]
+            elsif first_type == Hash
+              { test: :yes! }
+            elsif first_type == Date
+              Date.current
+            elsif first_type == Time
+              Time.current
+            elsif first_type == DateTime
+              DateTime.current
+            else
+              "Test"
+            end
+          end
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         RSpec::Matchers.alias_matcher :have_input, :have_service_input
 
-        RSpec::Matchers.define :have_service_output do |output_name|
+        RSpec::Matchers.define :have_service_output do |output_name| # rubocop:disable Metrics/BlockLength
           description { "service output" }
 
           match do |actual|
+            rules_for(actual, output_name)
+          end
+
+          chain :instance_of do |class_or_name|
+            @instance_of = Servactory::Utils.constantize_class(class_or_name)
+          end
+
+          chain :nested do |*values|
+            @nested = values
+          end
+
+          chain :with do |value|
+            @value = value
+          end
+
+          chain :match do |value|
+            @match = value
+          end
+
+          failure_message do |actual|
+            rules_for(actual, output_name)
+          end
+
+          # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          def rules_for(actual, output_name)
             given_value = actual.public_send(output_name)
 
             if defined?(@nested) && @nested.present?
@@ -137,27 +188,8 @@ module Servactory
               end
             )
           end
-
-          chain :instance_of do |class_or_name|
-            @instance_of = Servactory::Utils.constantize_class(class_or_name)
-          end
-
-          chain :nested do |*values|
-            @nested = values
-          end
-
-          chain :with do |value|
-            @value = value
-          end
-
-          chain :match do |value|
-            @match = value
-          end
-
-          failure_message do |_actual|
-            "Add error"
-          end
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         RSpec::Matchers.alias_matcher :have_output, :have_service_output
 
