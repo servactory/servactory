@@ -40,11 +40,7 @@ RSpec.describe Usual::Hash::Example4, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John <unknown> Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John <unknown> Kennedy") }
       end
 
       describe "but the data required for work is invalid" do
@@ -107,11 +103,7 @@ RSpec.describe Usual::Hash::Example4, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John <unknown> Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John <unknown> Kennedy") }
       end
 
       describe "but the data required for work is invalid" do

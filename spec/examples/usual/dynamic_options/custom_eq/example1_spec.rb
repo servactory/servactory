@@ -22,12 +22,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(2)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(2) }
         end
 
         context "when `data` is `String`" do
@@ -35,12 +31,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Hi")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Hi") }
         end
 
         context "when `data` is `Array`" do
@@ -61,12 +53,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1, b: 2 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1, b: 2 }) }
         end
       end
 
@@ -171,12 +159,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(2)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(2) }
         end
 
         context "when `data` is `String`" do
@@ -184,12 +168,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Hi")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Hi") }
         end
 
         context "when `data` is `Array`" do
@@ -210,12 +190,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1, b: 2 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1, b: 2 }) }
         end
       end
 

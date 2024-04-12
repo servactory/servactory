@@ -29,16 +29,12 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
-          result = perform
-
-          expect(result.is_enabled).to be(true)
-          expect(result.is_really_enabled).to be(true)
-          expect(result.is_text_present).to be(true)
-          expect(result.is_prepared_text_present).to be(true)
-          expect(result.is_number_present).to be(true)
-          expect(result.is_prepared_number_present).to be(true)
-        end
+        it { expect(perform).to have_output(:is_enabled).with(true) }
+        it { expect(perform).to have_output(:is_really_enabled).with(true) }
+        it { expect(perform).to have_output(:is_text_present).with(true) }
+        it { expect(perform).to have_output(:is_prepared_text_present).with(true) }
+        it { expect(perform).to have_output(:is_number_present).with(true) }
+        it { expect(perform).to have_output(:is_prepared_number_present).with(true) }
       end
     end
 
@@ -77,16 +73,12 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
-          result = perform
-
-          expect(result.is_enabled).to be(true)
-          expect(result.is_really_enabled).to be(true)
-          expect(result.is_text_present).to be(true)
-          expect(result.is_prepared_text_present).to be(true)
-          expect(result.is_number_present).to be(true)
-          expect(result.is_prepared_number_present).to be(true)
-        end
+        it { expect(perform).to have_output(:is_enabled).with(true) }
+        it { expect(perform).to have_output(:is_really_enabled).with(true) }
+        it { expect(perform).to have_output(:is_text_present).with(true) }
+        it { expect(perform).to have_output(:is_prepared_text_present).with(true) }
+        it { expect(perform).to have_output(:is_number_present).with(true) }
+        it { expect(perform).to have_output(:is_prepared_number_present).with(true) }
       end
     end
 

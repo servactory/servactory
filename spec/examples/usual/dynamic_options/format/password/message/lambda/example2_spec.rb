@@ -19,12 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.password?).to be(true)
-          expect(result.password).to eq("~hUN`AgY=YpW.061")
-        end
+        it { expect(perform).to have_output(:password?).with(true) }
+        it { expect(perform).to have_output(:password).with("~hUN`AgY=YpW.061") }
       end
 
       describe "but the data required for work is invalid" do
@@ -66,12 +62,8 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.password?).to be(true)
-          expect(result.password).to eq("~hUN`AgY=YpW.061")
-        end
+        it { expect(perform).to have_output(:password?).with(true) }
+        it { expect(perform).to have_output(:password).with("~hUN`AgY=YpW.061") }
       end
 
       describe "but the data required for work is invalid" do

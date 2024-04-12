@@ -25,13 +25,9 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`", :aggregate_failures do
-          result = perform
-
-          expect(result.output_1).to eq("First")
-          expect(result.output_2).to eq("Second")
-          expect(result.output_3).to eq("Third")
-        end
+        it { expect(perform).to have_output(:output_1).with("First") }
+        it { expect(perform).to have_output(:output_2).with("Second") }
+        it { expect(perform).to have_output(:output_3).with("Third") }
       end
     end
 
@@ -66,13 +62,9 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`", :aggregate_failures do
-          result = perform
-
-          expect(result.output_1).to eq("First")
-          expect(result.output_2).to eq("Second")
-          expect(result.output_3).to eq("Third")
-        end
+        it { expect(perform).to have_output(:output_1).with("First") }
+        it { expect(perform).to have_output(:output_2).with("Second") }
+        it { expect(perform).to have_output(:output_3).with("Third") }
       end
     end
 

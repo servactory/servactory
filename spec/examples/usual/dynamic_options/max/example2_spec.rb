@@ -22,12 +22,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(1)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(1) }
         end
 
         context "when `data` is `String`" do
@@ -35,12 +31,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Data")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Data") }
         end
 
         context "when `data` is `Array`" do
@@ -48,12 +40,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq([0])
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with([0]) }
         end
 
         context "when `data` is `Hash`" do
@@ -61,12 +49,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1 }) }
         end
       end
 
@@ -277,12 +261,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(1)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(1) }
         end
 
         context "when `data` is `String`" do
@@ -290,12 +270,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Data")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Data") }
         end
 
         context "when `data` is `Array`" do
@@ -303,12 +279,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq([0])
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with([0]) }
         end
 
         context "when `data` is `Hash`" do
@@ -316,12 +288,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1 }) }
         end
       end
 

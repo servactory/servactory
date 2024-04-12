@@ -21,11 +21,7 @@ RSpec.describe Usual::Inclusion::Example7, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.event_name).to eq("approved")
-        end
+        it { expect(perform).to have_output(:event_name).with("approved") }
       end
 
       describe "but the data required for work is invalid" do

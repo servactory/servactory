@@ -22,21 +22,13 @@ RSpec.describe Usual::Success::Example1, type: :service do
         include_examples "success result class"
 
         context "when `number` has a value for early success" do
-          it "returns the expected value in `number`" do
-            result = perform
-
-            expect(result.number).to eq(2)
-          end
+          it { expect(perform).to have_output(:number).with(2) }
         end
 
         context "when `number` has no value for early success" do
           let(:number) { 2 }
 
-          it "returns the expected value in `number`" do
-            result = perform
-
-            expect(result.number).to eq(16)
-          end
+          it { expect(perform).to have_output(:number).with(16) }
         end
       end
     end
@@ -67,21 +59,13 @@ RSpec.describe Usual::Success::Example1, type: :service do
         include_examples "success result class"
 
         context "when `number` has a value for early success" do
-          it "returns the expected value in `number`" do
-            result = perform
-
-            expect(result.number).to eq(2)
-          end
+          it { expect(perform).to have_output(:number).with(2) }
         end
 
         context "when `number` has no value for early success" do
           let(:number) { 2 }
 
-          it "returns the expected value in `number`" do
-            result = perform
-
-            expect(result.number).to eq(16)
-          end
+          it { expect(perform).to have_output(:number).with(16) }
         end
       end
     end

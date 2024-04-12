@@ -13,11 +13,8 @@ RSpec.describe Usual::Must::Example2, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_invoice_number).to eq("7650AE")
-        end
+        it { expect(perform).to have_output(:first_invoice_number?).with(true) }
+        it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
       end
     end
   end
@@ -34,11 +31,8 @@ RSpec.describe Usual::Must::Example2, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_invoice_number).to eq("7650AE")
-        end
+        it { expect(perform).to have_output(:first_invoice_number?).with(true) }
+        it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
       end
     end
   end

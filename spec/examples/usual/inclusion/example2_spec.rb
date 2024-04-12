@@ -21,14 +21,9 @@ RSpec.describe Usual::Inclusion::Example2, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.event?).to be(true)
-          expect(result.event).to be_a(Usual::Inclusion::Example2::Event)
-          expect(result.event.id).to be_present
-          expect(result.event.event_name).to eq("created")
-        end
+        it { expect(perform).to have_output(:event).instance_of(Usual::Inclusion::Example2::Event) }
+        it { expect(perform).to have_output(:event).nested(:id).with("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
+        it { expect(perform).to have_output(:event).nested(:event_name).with("created") }
       end
 
       describe "but the data required for work is invalid" do
@@ -86,14 +81,9 @@ RSpec.describe Usual::Inclusion::Example2, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.event?).to be(true)
-          expect(result.event).to be_a(Usual::Inclusion::Example2::Event)
-          expect(result.event.id).to be_present
-          expect(result.event.event_name).to eq("created")
-        end
+        it { expect(perform).to have_output(:event).instance_of(Usual::Inclusion::Example2::Event) }
+        it { expect(perform).to have_output(:event).nested(:id).with("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
+        it { expect(perform).to have_output(:event).nested(:event_name).with("created") }
       end
 
       describe "but the data required for work is invalid" do

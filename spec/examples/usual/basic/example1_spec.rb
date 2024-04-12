@@ -25,20 +25,12 @@ RSpec.describe Usual::Basic::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John Fitzgerald Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`" do
-            result = perform
-
-            expect(result.full_name).to eq("John Kennedy")
-          end
+          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
         end
       end
     end
@@ -74,20 +66,12 @@ RSpec.describe Usual::Basic::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John Fitzgerald Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`" do
-            result = perform
-
-            expect(result.full_name).to eq("John Kennedy")
-          end
+          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
         end
       end
     end

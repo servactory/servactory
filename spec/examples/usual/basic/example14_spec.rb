@@ -27,14 +27,10 @@ RSpec.describe Usual::Basic::Example14, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.first_name).to eq("JOHN")
-          expect(result.middle_name).to eq("FITZGERALD")
-          expect(result.last_name).to eq("KENNEDY")
-          expect(result.full_name).to eq("JOHN FITZGERALD KENNEDY")
-        end
+        it { expect(perform).to have_output(:first_name).with("JOHN") }
+        it { expect(perform).to have_output(:middle_name).with("FITZGERALD") }
+        it { expect(perform).to have_output(:last_name).with("KENNEDY") }
+        it { expect(perform).to have_output(:full_name).with("JOHN FITZGERALD KENNEDY") }
       end
     end
 
@@ -72,14 +68,10 @@ RSpec.describe Usual::Basic::Example14, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.first_name).to eq("JOHN")
-          expect(result.middle_name).to eq("FITZGERALD")
-          expect(result.last_name).to eq("KENNEDY")
-          expect(result.full_name).to eq("JOHN FITZGERALD KENNEDY")
-        end
+        it { expect(perform).to have_output(:first_name).with("JOHN") }
+        it { expect(perform).to have_output(:middle_name).with("FITZGERALD") }
+        it { expect(perform).to have_output(:last_name).with("KENNEDY") }
+        it { expect(perform).to have_output(:full_name).with("JOHN FITZGERALD KENNEDY") }
       end
     end
 

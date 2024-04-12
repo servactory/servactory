@@ -22,12 +22,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(10)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(10) }
         end
 
         context "when `data` is `String`" do
@@ -35,12 +31,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Sesquipedalianism")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Sesquipedalianism") }
         end
 
         context "when `data` is `Array`" do
@@ -48,12 +40,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
         end
 
         context "when `data` is `Hash`" do
@@ -61,12 +49,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1, b: 2, c: 3, d: 4 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1, b: 2, c: 3, d: 4 }) }
         end
       end
 
@@ -280,12 +264,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(10)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(10) }
         end
 
         context "when `data` is `String`" do
@@ -293,12 +273,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Sesquipedalianism")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Sesquipedalianism") }
         end
 
         context "when `data` is `Array`" do
@@ -306,12 +282,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
         end
 
         context "when `data` is `Hash`" do
@@ -319,12 +291,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1, b: 2, c: 3, d: 4 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1, b: 2, c: 3, d: 4 }) }
         end
       end
 

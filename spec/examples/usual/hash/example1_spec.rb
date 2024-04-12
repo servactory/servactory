@@ -40,50 +40,52 @@ RSpec.describe Usual::Hash::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`", :aggregate_failures do
-          result = perform
-
-          expect(result.payload).to match(
-            {
-              request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              user: {
-                first_name: "John",
-                middle_name: "Fitzgerald",
-                last_name: "Kennedy",
-                pass: {
-                  series: "HR",
-                  number: "88467617508"
+        it do
+          expect(perform).to(
+            have_output(:payload)
+              .with(
+                {
+                  request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                  user: {
+                    first_name: "John",
+                    middle_name: "Fitzgerald",
+                    last_name: "Kennedy",
+                    pass: {
+                      series: "HR",
+                      number: "88467617508"
+                    }
+                  }
                 }
-              }
-            }
+              )
           )
-
-          expect(result.full_name).to eq("John Fitzgerald Kennedy")
         end
+
+        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`", :aggregate_failures do
-            result = perform
-
-            expect(result.payload).to match(
-              {
-                request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-                user: {
-                  first_name: "John",
-                  middle_name: nil,
-                  last_name: "Kennedy",
-                  pass: {
-                    series: "HR",
-                    number: "88467617508"
+          it do
+            expect(perform).to(
+              have_output(:payload)
+                .with(
+                  {
+                    request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                    user: {
+                      first_name: "John",
+                      middle_name: nil,
+                      last_name: "Kennedy",
+                      pass: {
+                        series: "HR",
+                        number: "88467617508"
+                      }
+                    }
                   }
-                }
-              }
+                )
             )
-
-            expect(result.full_name).to eq("John Kennedy")
           end
+
+          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
         end
       end
     end
@@ -132,50 +134,52 @@ RSpec.describe Usual::Hash::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`", :aggregate_failures do
-          result = perform
-
-          expect(result.payload).to match(
-            {
-              request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-              user: {
-                first_name: "John",
-                middle_name: "Fitzgerald",
-                last_name: "Kennedy",
-                pass: {
-                  series: "HR",
-                  number: "88467617508"
+        it do
+          expect(perform).to(
+            have_output(:payload)
+              .with(
+                {
+                  request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                  user: {
+                    first_name: "John",
+                    middle_name: "Fitzgerald",
+                    last_name: "Kennedy",
+                    pass: {
+                      series: "HR",
+                      number: "88467617508"
+                    }
+                  }
                 }
-              }
-            }
+              )
           )
-
-          expect(result.full_name).to eq("John Fitzgerald Kennedy")
         end
+
+        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`", :aggregate_failures do
-            result = perform
-
-            expect(result.payload).to match(
-              {
-                request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-                user: {
-                  first_name: "John",
-                  middle_name: nil,
-                  last_name: "Kennedy",
-                  pass: {
-                    series: "HR",
-                    number: "88467617508"
+          it do
+            expect(perform).to(
+              have_output(:payload)
+                .with(
+                  {
+                    request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                    user: {
+                      first_name: "John",
+                      middle_name: nil,
+                      last_name: "Kennedy",
+                      pass: {
+                        series: "HR",
+                        number: "88467617508"
+                      }
+                    }
                   }
-                }
-              }
+                )
             )
-
-            expect(result.full_name).to eq("John Kennedy")
           end
+
+          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
         end
       end
     end

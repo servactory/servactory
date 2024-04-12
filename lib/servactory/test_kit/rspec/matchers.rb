@@ -105,6 +105,130 @@ module Servactory
           end
         end
 
+        RSpec::Matchers.define :have_service_output do |output_name|
+          description { "service output" }
+
+          match do |actual|
+            # matched = actual.methods(false).include?(output_name) && actual.methods(false).include?(:"#{output_name}?")
+            # matched &&= actual.public_send(output_name).instance_of?(@instance_of) if defined?(@instance_of)
+            #
+            # if defined?(@nested) && @nested.present?
+            #   result = actual.public_send(output_name)
+            #
+            #   @nested.each do |method_name|
+            #     result = result.public_send(method_name)
+            #   end
+            #
+            #   matched &&= result == @value if defined?(@value)
+            # else
+            #   matched &&= actual.public_send(output_name) == @value if defined?(@value) # x-rubocop:disable Style/IfInsideElse
+            # end
+            #
+            # matched
+
+            given_value = actual.public_send(output_name)
+
+            if defined?(@nested) && @nested.present?
+              @nested.each do |method_name|
+                next unless given_value.respond_to?(method_name)
+
+                given_value = given_value.public_send(method_name)
+              end
+            end
+
+            expect(given_value).to(
+              if defined?(@instance_of)
+                RSpec::Matchers::BuiltIn::BeAnInstanceOf.new(@instance_of)
+              elsif @value.is_a?(Array)
+                RSpec::Matchers::BuiltIn::ContainExactly.new(@value)
+              elsif @value.is_a?(Hash)
+                RSpec::Matchers::BuiltIn::Match.new(@value)
+              elsif @value.is_a?(TrueClass) || @value.is_a?(FalseClass)
+                RSpec::Matchers::BuiltIn::Equal.new(@value)
+              elsif @value.is_a?(NilClass)
+                RSpec::Matchers::BuiltIn::BeNil.new(@value)
+              else
+                RSpec::Matchers::BuiltIn::Eq.new(@value)
+              end
+            )
+          end
+
+          chain :instance_of do |class_or_name|
+            @instance_of = Servactory::Utils.constantize_class(class_or_name)
+          end
+
+          chain :nested do |*values|
+            @nested = values
+          end
+
+          chain :with do |value|
+            @value = value
+          end
+
+          chain :match do |value|
+            @match = value
+          end
+
+          failure_message do |_actual|
+            "Add error"
+          end
+        end
+
+        RSpec::Matchers.alias_matcher :have_output, :have_service_output
+
+        RSpec::Matchers.define :be_success_service do # rubocop:disable Metrics/BlockLength
+          description { "service success" }
+
+          def expected_data
+            @expected_data ||= {}
+          end
+
+          match do |actual|
+            matched = actual.instance_of?(Servactory::Result)
+            matched &&= actual.success?
+            matched &&= !actual.failure?
+
+            if defined?(expected_data)
+              matched &&= expected_data.all? do |key, value|
+                actual.send(key) == value
+              end
+            end
+
+            matched
+          end
+
+          chain :with_output do |key, value|
+            expected_data[key] = value
+          end
+
+          chain :with_outputs do |attributes|
+            attributes.each do |key, value|
+              expected_data[key] = value
+            end
+          end
+
+          failure_message do |actual|
+            message = []
+
+            if actual.instance_of?(Servactory::Result)
+              message << "result of the service is not successful" unless actual.success?
+              message << "result of the service is a failure" if actual.failure?
+
+              if defined?(expected_data)
+                expected_data.each do |key, value|
+                  next if actual.send(key) == value
+
+                  message << "does not contain the expected value of `#{value.inspect}` in `#{key.inspect}`"
+                end
+              end
+            else
+              message << "result of the service is not an instance of `Servactory::Result`"
+            end
+
+            "[#{described_class}] #{message.join(', ').upcase_first}."
+          end
+        end
+
         RSpec::Matchers.define :be_failure_service do # rubocop:disable Metrics/BlockLength
           description { "service failure" }
 
@@ -178,59 +302,6 @@ module Servactory
                 message
               else
                 message << "error is not a `Servactory::Exceptions::Failure` object"
-              end
-            else
-              message << "result of the service is not an instance of `Servactory::Result`"
-            end
-
-            "[#{described_class}] #{message.join(', ').upcase_first}."
-          end
-        end
-
-        RSpec::Matchers.define :be_success_service do # rubocop:disable Metrics/BlockLength
-          description { "service success" }
-
-          def expected_data
-            @expected_data ||= {}
-          end
-
-          match do |actual|
-            matched = actual.instance_of?(Servactory::Result)
-            matched &&= actual.success?
-            matched &&= !actual.failure?
-
-            if defined?(expected_data)
-              matched &&= expected_data.all? do |key, value|
-                actual.send(key) == value
-              end
-            end
-
-            matched
-          end
-
-          chain :with_output do |key, value|
-            expected_data[key] = value
-          end
-
-          chain :with_outputs do |attributes|
-            attributes.each do |key, value|
-              expected_data[key] = value
-            end
-          end
-
-          failure_message do |actual|
-            message = []
-
-            if actual.instance_of?(Servactory::Result)
-              message << "result of the service is not successful" unless actual.success?
-              message << "result of the service is a failure" if actual.failure?
-
-              if defined?(expected_data)
-                expected_data.each do |key, value|
-                  next if actual.send(key) == value
-
-                  message << "does not contain the expected value of `#{value.inspect}` in `#{key.inspect}`"
-                end
               end
             else
               message << "result of the service is not an instance of `Servactory::Result`"

@@ -22,29 +22,19 @@ RSpec.describe Usual::Basic::Example16, type: :service do
         include_examples "success result class"
 
         context "when `invoice_number` is `String`" do
-          it "returns the expected value in `invoice_number`" do
-            result = perform
-
-            expect(result.invoice_number).to eq("AA-7650AE")
-          end
+          it { expect(perform).to have_output(:invoice_number).with("AA-7650AE") }
         end
 
         context "when `invoice_number` is `Integer`" do
           let(:invoice_number) { 123 }
 
-          it "returns the expected value in `invoice_number`" do
-            result = perform
-
-            expect(result.invoice_number).to eq(123)
-          end
+          it { expect(perform).to have_output(:invoice_number).with(123) }
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to have_service_input(:invoice_number).types(String, Integer).required
-      end
+      it { expect(perform).to have_service_input(:invoice_number).types(String, Integer).required }
     end
   end
 
@@ -69,29 +59,19 @@ RSpec.describe Usual::Basic::Example16, type: :service do
         include_examples "success result class"
 
         context "when `invoice_number` is `String`" do
-          it "returns the expected value in `invoice_number`" do
-            result = perform
-
-            expect(result.invoice_number).to eq("AA-7650AE")
-          end
+          it { expect(perform).to have_output(:invoice_number).with("AA-7650AE") }
         end
 
         context "when `invoice_number` is `Integer`" do
           let(:invoice_number) { 123 }
 
-          it "returns the expected value in `invoice_number`" do
-            result = perform
-
-            expect(result.invoice_number).to eq(123)
-          end
+          it { expect(perform).to have_output(:invoice_number).with(123) }
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to have_service_input(:invoice_number).types(String, Integer).required
-      end
+      it { expect(perform).to have_service_input(:invoice_number).types(String, Integer).required }
     end
   end
 end

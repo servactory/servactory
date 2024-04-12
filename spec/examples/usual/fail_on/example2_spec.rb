@@ -21,11 +21,7 @@ RSpec.describe Usual::FailOn::Example2, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `invoice_number`" do
-          result = perform
-
-          expect(result.invoice_number).to eq("AA-7650AE")
-        end
+        it { expect(perform).to have_output(:invoice_number).with("AA-7650AE") }
       end
 
       describe "but the data required for work is invalid" do
@@ -73,11 +69,7 @@ RSpec.describe Usual::FailOn::Example2, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `invoice_number`" do
-          result = perform
-
-          expect(result.invoice_number).to eq("AA-7650AE")
-        end
+        it { expect(perform).to have_output(:invoice_number).with("AA-7650AE") }
       end
 
       describe "but the data required for work is invalid" do

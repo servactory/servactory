@@ -19,12 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Lambda::Example1, t
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.started_at?).to be(true)
-          expect(result.started_at).to eq(Time.parse(started_at))
-        end
+        it { expect(perform).to have_output(:started_at?).with(true) }
+        it { expect(perform).to have_output(:started_at).with(Time.parse(started_at)) }
       end
 
       describe "but the data required for work is invalid" do
@@ -66,12 +62,8 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Lambda::Example1, t
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.started_at?).to be(true)
-          expect(result.started_at).to eq(Time.parse(started_at))
-        end
+        it { expect(perform).to have_output(:started_at?).with(true) }
+        it { expect(perform).to have_output(:started_at).with(Time.parse(started_at)) }
       end
 
       describe "but the data required for work is invalid" do

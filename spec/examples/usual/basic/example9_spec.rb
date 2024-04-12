@@ -29,38 +29,30 @@ RSpec.describe Usual::Basic::Example9, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name_*`", :aggregate_failures do
-          result = perform
-
-          expect(result.full_name_1).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_2).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_3).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_4).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_5).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_6).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_7).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_8).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_9).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_10).to eq("John Fitzgerald Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name_1).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_2).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_3).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_4).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_5).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_6).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_7).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_8).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_9).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_10).with("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name_*`", :aggregate_failures do
-            result = perform
-
-            expect(result.full_name_1).to eq("John Kennedy")
-            expect(result.full_name_2).to eq("John Kennedy")
-            expect(result.full_name_3).to eq("John Kennedy")
-            expect(result.full_name_4).to eq("John Kennedy")
-            expect(result.full_name_5).to eq("John Kennedy")
-            expect(result.full_name_6).to eq("John Kennedy")
-            expect(result.full_name_7).to eq("John Kennedy")
-            expect(result.full_name_8).to eq("John Kennedy")
-            expect(result.full_name_9).to eq("John Kennedy")
-            expect(result.full_name_10).to eq("John Kennedy")
-          end
+          it { expect(perform).to have_output(:full_name_1).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_2).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_3).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_4).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_5).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_6).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_7).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_8).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_9).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_10).with("John Kennedy") }
         end
       end
     end
@@ -100,38 +92,30 @@ RSpec.describe Usual::Basic::Example9, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name_*`", :aggregate_failures do
-          result = perform
-
-          expect(result.full_name_1).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_2).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_3).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_4).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_5).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_6).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_7).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_8).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_9).to eq("John Fitzgerald Kennedy")
-          expect(result.full_name_10).to eq("John Fitzgerald Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name_1).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_2).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_3).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_4).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_5).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_6).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_7).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_8).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_9).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name_10).with("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name_*`", :aggregate_failures do
-            result = perform
-
-            expect(result.full_name_1).to eq("John Kennedy")
-            expect(result.full_name_2).to eq("John Kennedy")
-            expect(result.full_name_3).to eq("John Kennedy")
-            expect(result.full_name_4).to eq("John Kennedy")
-            expect(result.full_name_5).to eq("John Kennedy")
-            expect(result.full_name_6).to eq("John Kennedy")
-            expect(result.full_name_7).to eq("John Kennedy")
-            expect(result.full_name_8).to eq("John Kennedy")
-            expect(result.full_name_9).to eq("John Kennedy")
-            expect(result.full_name_10).to eq("John Kennedy")
-          end
+          it { expect(perform).to have_output(:full_name_1).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_2).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_3).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_4).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_5).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_6).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_7).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_8).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_9).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name_10).with("John Kennedy") }
         end
       end
     end

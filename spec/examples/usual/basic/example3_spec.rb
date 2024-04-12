@@ -25,20 +25,14 @@ RSpec.describe Usual::Basic::Example3, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John <unknown> Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John <unknown> Kennedy") }
       end
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to have_service_input(:first_name).type(String).required
-        expect(perform).to have_service_input(:middle_name).type(String).optional.default("<unknown>")
-        expect(perform).to have_service_input(:last_name).type(String).required
-      end
+      it { expect(perform).to have_service_input(:first_name).type(String).required }
+      it { expect(perform).to have_service_input(:middle_name).type(String).optional.default("<unknown>") }
+      it { expect(perform).to have_service_input(:last_name).type(String).required }
     end
   end
 
@@ -66,20 +60,14 @@ RSpec.describe Usual::Basic::Example3, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John <unknown> Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John <unknown> Kennedy") }
       end
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to have_service_input(:first_name).type(String).required
-        expect(perform).to have_service_input(:middle_name).type(String).optional.default("<unknown>")
-        expect(perform).to have_service_input(:last_name).type(String).required
-      end
+      it { expect(perform).to have_service_input(:first_name).type(String).required }
+      it { expect(perform).to have_service_input(:middle_name).type(String).optional.default("<unknown>") }
+      it { expect(perform).to have_service_input(:last_name).type(String).required }
     end
   end
 end

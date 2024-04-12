@@ -28,12 +28,8 @@ RSpec.describe Usual::InputOptionHelpers::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
-          result = perform
-
-          expect(result.first_invoice_number?).to be(true)
-          expect(result.first_invoice_number).to eq("7650AE")
-        end
+        it { expect(perform).to have_output(:first_invoice_number?).with(true) }
+        it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
       end
 
       describe "but the data required for work is invalid" do
@@ -155,12 +151,8 @@ RSpec.describe Usual::InputOptionHelpers::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
-          result = perform
-
-          expect(result.first_invoice_number?).to be(true)
-          expect(result.first_invoice_number).to eq("7650AE")
-        end
+        it { expect(perform).to have_output(:first_invoice_number?).with(true) }
+        it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
       end
 
       describe "but the data required for work is invalid" do

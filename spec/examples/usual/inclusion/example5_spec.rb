@@ -22,25 +22,17 @@ RSpec.describe Usual::Inclusion::Example5, type: :service do
         include_examples "success result class"
 
         describe "and the value of `event_name` is passed" do
-          it "returns the expected values", :aggregate_failures do
-            result = perform
-
-            expect(result.event).to be_a(Usual::Inclusion::Example5::Event)
-            expect(result.event.id).to be_present
-            expect(result.event.event_name).to eq("created")
-          end
+          it { expect(perform).to have_output(:event).instance_of(Usual::Inclusion::Example5::Event) }
+          it { expect(perform).to have_output(:event).nested(:id).with("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
+          it { expect(perform).to have_output(:event).nested(:event_name).with("created") }
         end
 
         describe "and the value of `event_name` is not passed" do
           let(:event_name) { nil }
 
-          it "returns the expected values", :aggregate_failures do
-            result = perform
-
-            expect(result.event).to be_a(Usual::Inclusion::Example5::Event)
-            expect(result.event.id).to be_present
-            expect(result.event.event_name).to be_nil
-          end
+          it { expect(perform).to have_output(:event).instance_of(Usual::Inclusion::Example5::Event) }
+          it { expect(perform).to have_output(:event).nested(:id).with("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
+          it { expect(perform).to have_output(:event).nested(:event_name).with(nil) }
         end
       end
 
@@ -87,25 +79,17 @@ RSpec.describe Usual::Inclusion::Example5, type: :service do
         include_examples "success result class"
 
         describe "and the value of `event_name` is passed" do
-          it "returns the expected values", :aggregate_failures do
-            result = perform
-
-            expect(result.event).to be_a(Usual::Inclusion::Example5::Event)
-            expect(result.event.id).to be_present
-            expect(result.event.event_name).to eq("created")
-          end
+          it { expect(perform).to have_output(:event).instance_of(Usual::Inclusion::Example5::Event) }
+          it { expect(perform).to have_output(:event).nested(:id).with("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
+          it { expect(perform).to have_output(:event).nested(:event_name).with("created") }
         end
 
         describe "and the value of `event_name` is not passed" do
           let(:event_name) { nil }
 
-          it "returns the expected values", :aggregate_failures do
-            result = perform
-
-            expect(result.event).to be_a(Usual::Inclusion::Example5::Event)
-            expect(result.event.id).to be_present
-            expect(result.event.event_name).to be_nil
-          end
+          it { expect(perform).to have_output(:event).instance_of(Usual::Inclusion::Example5::Event) }
+          it { expect(perform).to have_output(:event).nested(:id).with("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
+          it { expect(perform).to have_output(:event).nested(:event_name).with(nil) }
         end
       end
 
