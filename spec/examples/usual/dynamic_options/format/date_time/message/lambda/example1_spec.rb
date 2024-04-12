@@ -40,7 +40,7 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
     end
 
     context "when the input arguments are invalid" do
-      it { expect(perform).to have_service_input(:started_at).type(String).required }
+      it { expect(perform).to have_input(:started_at).type(String).required }
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
     end
 
     context "when the input arguments are invalid" do
-      it { expect(perform).to have_service_input(:started_at).type(String).required }
+      it { expect(perform).to have_input(:started_at).type(String).required }
     end
   end
 end

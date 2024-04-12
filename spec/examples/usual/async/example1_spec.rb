@@ -50,7 +50,7 @@ RSpec.describe Usual::Async::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_service_input(:id).type(Integer).required }
+      it { expect { perform }.to have_input(:id).type(Integer).required }
     end
   end
 
@@ -99,7 +99,7 @@ RSpec.describe Usual::Async::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_service_input(:id).type(Integer).required }
+      it { expect { perform }.to have_input(:id).type(Integer).required }
     end
   end
 end

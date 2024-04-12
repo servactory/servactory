@@ -47,7 +47,7 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect(perform).to have_service_input(:user).type(Usual::Extensions::Example1::User).required }
+      it { expect(perform).to have_input(:user).type(Usual::Extensions::Example1::User).required }
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect(perform).to have_service_input(:user).type(Usual::Extensions::Example1::User).required }
+      it { expect(perform).to have_input(:user).type(Usual::Extensions::Example1::User).required }
     end
   end
 end

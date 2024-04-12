@@ -105,27 +105,12 @@ module Servactory
           end
         end
 
+        RSpec::Matchers.alias_matcher :have_input, :have_service_input
+
         RSpec::Matchers.define :have_service_output do |output_name|
           description { "service output" }
 
           match do |actual|
-            # matched = actual.methods(false).include?(output_name) && actual.methods(false).include?(:"#{output_name}?")
-            # matched &&= actual.public_send(output_name).instance_of?(@instance_of) if defined?(@instance_of)
-            #
-            # if defined?(@nested) && @nested.present?
-            #   result = actual.public_send(output_name)
-            #
-            #   @nested.each do |method_name|
-            #     result = result.public_send(method_name)
-            #   end
-            #
-            #   matched &&= result == @value if defined?(@value)
-            # else
-            #   matched &&= actual.public_send(output_name) == @value if defined?(@value) # x-rubocop:disable Style/IfInsideElse
-            # end
-            #
-            # matched
-
             given_value = actual.public_send(output_name)
 
             if defined?(@nested) && @nested.present?
