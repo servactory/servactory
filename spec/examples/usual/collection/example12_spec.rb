@@ -50,7 +50,7 @@ RSpec.describe Usual::Collection::Example12, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:ids).type(Set).consists_of(String).required }
+      it { expect { perform }.to have_input(:ids).direct(attributes).type(Set).consists_of(String).required }
     end
   end
 
@@ -102,7 +102,7 @@ RSpec.describe Usual::Collection::Example12, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:ids).type(Set).consists_of(String).required }
+      it { expect { perform }.to have_input(:ids).direct(attributes).type(Set).consists_of(String).required }
     end
   end
 end

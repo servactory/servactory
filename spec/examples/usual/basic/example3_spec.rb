@@ -30,9 +30,15 @@ RSpec.describe Usual::Basic::Example3, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).type(String).optional.default("<unknown>") }
-      it { expect { perform }.to have_input(:last_name).type(String).required }
+      it { expect { perform }.to have_input(:first_name).direct(attributes).type(String).required }
+
+      it {
+        expect do
+          perform
+        end.to have_input(:middle_name).direct(attributes).type(String).optional.default("<unknown>")
+      }
+
+      it { expect { perform }.to have_input(:last_name).direct(attributes).type(String).required }
     end
   end
 
@@ -65,9 +71,15 @@ RSpec.describe Usual::Basic::Example3, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).type(String).optional.default("<unknown>") }
-      it { expect { perform }.to have_input(:last_name).type(String).required }
+      it { expect { perform }.to have_input(:first_name).direct(attributes).type(String).required }
+
+      it {
+        expect do
+          perform
+        end.to have_input(:middle_name).direct(attributes).type(String).optional.default("<unknown>")
+      }
+
+      it { expect { perform }.to have_input(:last_name).direct(attributes).type(String).required }
     end
   end
 end

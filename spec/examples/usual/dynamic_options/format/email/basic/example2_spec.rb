@@ -41,7 +41,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example2, type: :ser
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:email).type(String).required }
+      it { expect { perform }.to have_input(:email).direct(attributes).type(String).required }
     end
   end
 
@@ -85,7 +85,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example2, type: :ser
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:email).type(String).required }
+      it { expect { perform }.to have_input(:email).direct(attributes).type(String).required }
     end
   end
 end

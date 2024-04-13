@@ -45,7 +45,7 @@ RSpec.describe Usual::Collection::Example19, type: :service do
 
     context "when the input arguments are invalid" do
       # NOTE: In this example, collection mode is disabled.
-      it { expect { perform }.to have_input(:ids).type(Array).required }
+      it { expect { perform }.to have_input(:ids).direct(attributes).type(Array).required }
     end
   end
 
@@ -93,7 +93,7 @@ RSpec.describe Usual::Collection::Example19, type: :service do
 
     context "when the input arguments are invalid" do
       # NOTE: In this example, collection mode is disabled.
-      it { expect { perform }.to have_input(:ids).type(Array).required }
+      it { expect { perform }.to have_input(:ids).direct(attributes).type(Array).required }
     end
   end
 end

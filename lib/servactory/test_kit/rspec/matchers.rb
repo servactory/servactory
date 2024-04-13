@@ -101,6 +101,16 @@ module Servactory
             self
           end
 
+          def direct(attributes)
+            add_submatcher(
+              HaveServiceInputMatchers::DirectMatcher,
+              described_class,
+              input_name,
+              attributes
+            )
+            self
+          end
+
           # NOTE: Used for delayed chain implementation
           def not_implemented_chain(*description)
             Kernel.warn <<-MESSAGE.squish

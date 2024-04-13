@@ -30,7 +30,15 @@ RSpec.describe Usual::As::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:email_address).type(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:email_address)
+            .direct(attributes)
+            .direct(attributes)
+            .type(String)
+            .required
+        )
+      end
     end
   end
 
@@ -63,7 +71,11 @@ RSpec.describe Usual::As::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:email_address).type(String).required }
+      it {
+        expect do
+          perform
+        end.to have_input(:email_address).direct(attributes).direct(attributes).type(String).required
+      }
     end
   end
 end

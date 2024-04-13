@@ -45,7 +45,7 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Is::Example3, type: :ser
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_at).type(String).required }
+      it { expect { perform }.to have_input(:started_at).direct(attributes).type(String).required }
     end
   end
 
@@ -93,7 +93,7 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Is::Example3, type: :ser
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_at).type(String).required }
+      it { expect { perform }.to have_input(:started_at).direct(attributes).type(String).required }
     end
   end
 end

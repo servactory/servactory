@@ -40,7 +40,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example1
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:boolean).type(String).required }
+      it { expect { perform }.to have_input(:boolean).direct(attributes).type(String).required }
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example1
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:boolean).type(String).required }
+      it { expect { perform }.to have_input(:boolean).direct(attributes).type(String).required }
     end
   end
 end

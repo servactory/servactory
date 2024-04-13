@@ -26,13 +26,11 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
                      outputs: %i[api_response]
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to have_input(:api_identifier).type(String).required
-        expect(perform).to have_input(:first_name).type(String).required
-        expect(perform).to have_input(:middle_name).type(String).required
-        expect(perform).to have_input(:last_name).type(String).required
-        expect(perform).to have_input(:date).type(DateTime).required
-      end
+      it { expect { perform }.to have_input(:api_identifier).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:first_name).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:last_name).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:date).direct(attributes).type(DateTime).required }
     end
   end
 
@@ -61,11 +59,11 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
                      outputs: %i[api_response]
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:api_identifier).type(String).required }
-      it { expect { perform }.to have_input(:first_name).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).type(String).required }
-      it { expect { perform }.to have_input(:last_name).type(String).required }
-      it { expect { perform }.to have_input(:date).type(DateTime).required }
+      it { expect { perform }.to have_input(:api_identifier).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:first_name).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:last_name).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:date).direct(attributes).type(DateTime).required }
     end
   end
 end

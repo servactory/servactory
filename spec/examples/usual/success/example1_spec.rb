@@ -34,7 +34,7 @@ RSpec.describe Usual::Success::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:number).type(Integer).required }
+      it { expect { perform }.to have_input(:number).direct(attributes).type(Integer).required }
     end
   end
 
@@ -71,7 +71,7 @@ RSpec.describe Usual::Success::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:number).type(Integer).required }
+      it { expect { perform }.to have_input(:number).direct(attributes).type(Integer).required }
     end
   end
 end

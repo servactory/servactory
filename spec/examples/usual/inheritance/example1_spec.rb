@@ -32,9 +32,9 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:input_1).type(String).required }
-      it { expect { perform }.to have_input(:input_2).type(String).required }
-      it { expect { perform }.to have_input(:input_3).type(String).required }
+      it { expect { perform }.to have_input(:input_1).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:input_2).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:input_3).direct(attributes).type(String).required }
     end
   end
 
@@ -69,9 +69,9 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:input_1).type(String).required }
-      it { expect { perform }.to have_input(:input_2).type(String).required }
-      it { expect { perform }.to have_input(:input_3).type(String).required }
+      it { expect { perform }.to have_input(:input_1).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:input_2).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:input_3).direct(attributes).type(String).required }
     end
   end
 end

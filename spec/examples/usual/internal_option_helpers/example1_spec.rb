@@ -116,7 +116,11 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_numbers).type(Array).consists_of(String).required }
+      it {
+        expect do
+          perform
+        end.to have_input(:invoice_numbers).direct(attributes).type(Array).consists_of(String).required
+      }
     end
   end
 
@@ -235,7 +239,11 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_numbers).type(Array).consists_of(String).required }
+      it {
+        expect do
+          perform
+        end.to have_input(:invoice_numbers).direct(attributes).type(Array).consists_of(String).required
+      }
     end
   end
 end

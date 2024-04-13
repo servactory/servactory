@@ -28,7 +28,7 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:balance_cents).type(Integer).required }
+      it { expect { perform }.to have_input(:balance_cents).direct(attributes).type(Integer).required }
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:balance_cents).type(Integer).required }
+      it { expect { perform }.to have_input(:balance_cents).direct(attributes).type(Integer).required }
     end
   end
 end
