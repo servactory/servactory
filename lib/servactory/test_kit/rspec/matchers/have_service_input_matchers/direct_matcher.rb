@@ -52,7 +52,8 @@ module Servactory
               attributes[input_name] = Servactory::TestKit::FakeType.new
 
               input_required_message =
-                if described_class.config.collection_mode_class_names.include?(input_first_type) && input_consists_of_types != false
+                if described_class.config.collection_mode_class_names.include?(input_first_type) &&
+                   input_consists_of_types != false
                   if input_required
                     I18n.t(
                       "servactory.inputs.validations.required.default_error.for_collection",
