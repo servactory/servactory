@@ -29,12 +29,11 @@ RSpec.describe Usual::Collection::Example16, type: :service do
         include_examples "success result class"
 
         context "when `ids` is `String`" do
-          it "returns expected values", :aggregate_failures do
-            result = perform
+          it { expect(perform).to have_output(:ids?).with(true) }
 
-            expect(result.ids?).to be(true)
-            expect(result.ids).to(
-              match_array(
+          it do
+            expect(perform).to(
+              have_output(:ids).with(
                 %w[
                   6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
                   bdd30bb6-c6ab-448d-8302-7018de07b9a4
@@ -43,9 +42,10 @@ RSpec.describe Usual::Collection::Example16, type: :service do
                 ]
               )
             )
-            expect(result.first_id?).to be(true)
-            expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
           end
+
+          it { expect(perform).to have_output(:first_id?).with(true) }
+          it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
         end
 
         context "when `ids` is `Integer`" do
@@ -57,16 +57,10 @@ RSpec.describe Usual::Collection::Example16, type: :service do
             ]
           end
 
-          it "returns expected values", :aggregate_failures do
-            result = perform
-
-            expect(result.ids?).to be(true)
-            expect(result.ids).to(
-              contain_exactly(123, 456, 789)
-            )
-            expect(result.first_id?).to be(true)
-            expect(result.first_id).to eq(123)
-          end
+          it { expect(perform).to have_output(:ids?).with(true) }
+          it { expect(perform).to have_output(:ids).with([123, 456, 789]) }
+          it { expect(perform).to have_output(:first_id?).with(true) }
+          it { expect(perform).to have_output(:first_id).with(123) }
         end
       end
 
@@ -144,12 +138,11 @@ RSpec.describe Usual::Collection::Example16, type: :service do
         include_examples "success result class"
 
         context "when `ids` is `String`" do
-          it "returns expected values", :aggregate_failures do
-            result = perform
+          it { expect(perform).to have_output(:ids?).with(true) }
 
-            expect(result.ids?).to be(true)
-            expect(result.ids).to(
-              match_array(
+          it do
+            expect(perform).to(
+              have_output(:ids).with(
                 %w[
                   6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
                   bdd30bb6-c6ab-448d-8302-7018de07b9a4
@@ -158,9 +151,10 @@ RSpec.describe Usual::Collection::Example16, type: :service do
                 ]
               )
             )
-            expect(result.first_id?).to be(true)
-            expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
           end
+
+          it { expect(perform).to have_output(:first_id?).with(true) }
+          it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
         end
 
         context "when `ids` is `Integer`" do
@@ -172,16 +166,10 @@ RSpec.describe Usual::Collection::Example16, type: :service do
             ]
           end
 
-          it "returns expected values", :aggregate_failures do
-            result = perform
-
-            expect(result.ids?).to be(true)
-            expect(result.ids).to(
-              contain_exactly(123, 456, 789)
-            )
-            expect(result.first_id?).to be(true)
-            expect(result.first_id).to eq(123)
-          end
+          it { expect(perform).to have_output(:ids?).with(true) }
+          it { expect(perform).to have_output(:ids).with([123, 456, 789]) }
+          it { expect(perform).to have_output(:first_id?).with(true) }
+          it { expect(perform).to have_output(:first_id).with(123) }
         end
       end
 

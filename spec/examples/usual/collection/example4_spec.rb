@@ -28,12 +28,11 @@ RSpec.describe Usual::Collection::Example4, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
+        it { expect(perform).to have_output(:ids?).with(true) }
 
-          expect(result.ids?).to be(true)
-          expect(result.ids).to(
-            match_array(
+        it do
+          expect(perform).to(
+            have_output(:ids).with(
               %w[
                 6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
                 bdd30bb6-c6ab-448d-8302-7018de07b9a4
@@ -42,9 +41,10 @@ RSpec.describe Usual::Collection::Example4, type: :service do
               ]
             )
           )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         end
+
+        it { expect(perform).to have_output(:first_id?).with(true) }
+        it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
 
       describe "but the data required for work is invalid" do
@@ -139,12 +139,11 @@ RSpec.describe Usual::Collection::Example4, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
+        it { expect(perform).to have_output(:ids?).with(true) }
 
-          expect(result.ids?).to be(true)
-          expect(result.ids).to(
-            match_array(
+        it do
+          expect(perform).to(
+            have_output(:ids).with(
               %w[
                 6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
                 bdd30bb6-c6ab-448d-8302-7018de07b9a4
@@ -153,9 +152,10 @@ RSpec.describe Usual::Collection::Example4, type: :service do
               ]
             )
           )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         end
+
+        it { expect(perform).to have_output(:first_id?).with(true) }
+        it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
 
       describe "but the data required for work is invalid" do

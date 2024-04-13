@@ -30,16 +30,16 @@ RSpec.describe Usual::Collection::Example19, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
+        it { expect(perform).to have_output(:ids?).with(true) }
 
-          expect(result.ids?).to be(true)
-          expect(result.ids).to(
-            contain_exactly("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3)
+        it do
+          expect(perform).to(
+            have_output(:ids).with(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
           )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         end
+
+        it { expect(perform).to have_output(:first_id?).with(true) }
+        it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
     end
 
@@ -78,16 +78,16 @@ RSpec.describe Usual::Collection::Example19, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
+        it { expect(perform).to have_output(:ids?).with(true) }
 
-          expect(result.ids?).to be(true)
-          expect(result.ids).to(
-            contain_exactly("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3)
+        it do
+          expect(perform).to(
+            have_output(:ids).with(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
           )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         end
+
+        it { expect(perform).to have_output(:first_id?).with(true) }
+        it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
     end
 
