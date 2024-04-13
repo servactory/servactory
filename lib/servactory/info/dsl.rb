@@ -8,7 +8,7 @@ module Servactory
       end
 
       module ClassMethods
-        def info # rubocop:disable Metrics/MethodLength
+        def info # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           Servactory::Info::Result.new(
             inputs: collection_of_inputs.to_h do |input|
               consists_of = input.collection_of_options.find_by(name: :consists_of)
