@@ -91,6 +91,16 @@ module Servactory
             self
           end
 
+          def must(*must_names)
+            add_submatcher(
+              HaveServiceInputMatchers::MustMatcher,
+              described_class,
+              input_name,
+              Array(must_names)
+            )
+            self
+          end
+
           def description
             "#{input_name} with #{submatchers.map(&:description).join(', ')}"
           end

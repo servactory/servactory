@@ -12,6 +12,7 @@ module Servactory
           Servactory::Info::Result.new(
             inputs: collection_of_inputs.to_h do |input|
               consists_of = input.collection_of_options.find_by(name: :consists_of)
+              must = input.collection_of_options.find_by(name: :must)
 
               [
                 input.name,
@@ -19,7 +20,8 @@ module Servactory
                   types: input.types,
                   required: input.required,
                   default: input.default,
-                  consists_of: consists_of.body
+                  consists_of: consists_of.body,
+                  must: must.body
                 }
               ]
             end,

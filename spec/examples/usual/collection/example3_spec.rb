@@ -114,7 +114,15 @@ RSpec.describe Usual::Collection::Example3, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_numbers).type(Array).consists_of(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:invoice_numbers)
+            .type(Array)
+            .consists_of(String)
+            .required
+            .must(:be_6_characters)
+        )
+      end
     end
   end
 
@@ -231,7 +239,15 @@ RSpec.describe Usual::Collection::Example3, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_numbers).type(Array).consists_of(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:invoice_numbers)
+            .type(Array)
+            .consists_of(String)
+            .required
+            .must(:be_6_characters)
+        )
+      end
     end
   end
 end

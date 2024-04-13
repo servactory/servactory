@@ -5,21 +5,19 @@ module Servactory
     module Rspec
       module Matchers
         module HaveServiceInputMatchers
-          class TypesMatcher
+          class MustMatcher
             attr_reader :missing_option
 
-            def initialize(described_class, input_name, types)
+            def initialize(described_class, input_name, must_names)
               @described_class = described_class
               @input_name = input_name
-              @types = types
+              @must_names = must_names
 
               @missing_option = ""
             end
 
             def description
-              result = "type"
-              result += types.size > 1 ? "s: " : ": "
-              result + types.join(", ")
+              "must: #{must_names.join(', ')}"
             end
 
             def matches?(subject)
@@ -34,20 +32,18 @@ module Servactory
 
             private
 
-            attr_reader :described_class, :input_name, :types
+            attr_reader :described_class, :input_name, :must_names
 
             def submatcher_passes?(_subject)
               input_data = described_class.info.inputs.fetch(input_name)
-              input_types = input_data.fetch(:types)
+              input_must = input_data.fetch(:must)
 
-              input_types.difference(types).empty? &&
-                types.difference(input_types).empty?
+              input_must.keys.difference(must_names).empty? &&
+                must_names.difference(input_must.keys).empty?
             end
 
             def build_missing_option
-              result = "should have a value "
-              result += types.size > 1 ? "with one of the following types: " : "of type "
-              result + types.join(", ")
+              "should #{must_names.join(', ')}"
             end
           end
         end
