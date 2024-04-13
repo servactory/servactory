@@ -28,21 +28,23 @@ module Servactory
           end
 
           def type(type)
+            @input_types = Array(type)
             add_submatcher(
               HaveServiceInputMatchers::TypesMatcher,
               described_class,
               input_name,
-              Array(type)
+              @input_types
             )
             self
           end
 
           def types(*types)
+            @input_types = types
             add_submatcher(
               HaveServiceInputMatchers::TypesMatcher,
               described_class,
               input_name,
-              types
+              @input_types
             )
             self
           end
@@ -74,6 +76,17 @@ module Servactory
               described_class,
               input_name,
               value
+            )
+            self
+          end
+
+          def consists_of(*types)
+            add_submatcher(
+              HaveServiceInputMatchers::ConsistsOfMatcher,
+              described_class,
+              input_name,
+              @input_types,
+              Array(types)
             )
             self
           end

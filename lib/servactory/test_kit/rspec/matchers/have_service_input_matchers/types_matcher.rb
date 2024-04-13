@@ -40,7 +40,7 @@ module Servactory
               input_data = described_class.info.inputs.fetch(input_name)
               input_types = input_data.fetch(:types)
 
-              input_types.difference(types).empty?
+              input_types.difference(types).empty? && types.difference(input_types).empty?
             end
 
             def build_missing_option

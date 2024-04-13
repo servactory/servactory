@@ -116,11 +116,7 @@ RSpec.describe Usual::InputOptionHelpers::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_numbers`" do
-        it_behaves_like "input required check", name: :invoice_numbers
-
-        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
-      end
+      it { expect { perform }.to have_input(:invoice_numbers).type(Array).consists_of(String).required }
     end
   end
 
@@ -239,11 +235,7 @@ RSpec.describe Usual::InputOptionHelpers::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_numbers`" do
-        it_behaves_like "input required check", name: :invoice_numbers
-
-        it_behaves_like "input type check", name: :invoice_numbers, collection: Array, expected_type: String
-      end
+      it { expect { perform }.to have_input(:invoice_numbers).type(Array).consists_of(String).required }
     end
   end
 end
