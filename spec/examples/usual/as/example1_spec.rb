@@ -34,7 +34,6 @@ RSpec.describe Usual::As::Example1, type: :service do
         expect { perform }.to(
           have_input(:email_address)
             .direct(attributes)
-            .direct(attributes)
             .type(String)
             .required
         )

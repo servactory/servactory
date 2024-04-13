@@ -112,7 +112,6 @@ RSpec.describe Usual::Collection::Example11, type: :service do
         expect { perform }.to(
           have_input(:ids)
             .direct(attributes)
-            .direct(attributes)
             .type(Set)
             .consists_of(String)
             .required

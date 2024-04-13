@@ -19,7 +19,7 @@ module Servactory
             end
 
             def description
-              "direct: ..."
+              "direct attribute checking"
             end
 
             def matches?(subject)
@@ -118,7 +118,7 @@ module Servactory
             end
 
             def build_missing_option
-              "should be ..."
+              "should work as expected on the specified attributes based on its options"
             end
           end
         end
