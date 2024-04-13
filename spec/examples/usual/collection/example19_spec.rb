@@ -44,12 +44,8 @@ RSpec.describe Usual::Collection::Example19, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        # NOTE: In this example, collection mode is disabled.
-        it_behaves_like "input type check", name: :ids, expected_type: Array
-      end
+      # NOTE: In this example, collection mode is disabled.
+      it { expect { perform }.to have_input(:ids).type(Array).required }
     end
   end
 
@@ -96,12 +92,8 @@ RSpec.describe Usual::Collection::Example19, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        # NOTE: In this example, collection mode is disabled.
-        it_behaves_like "input type check", name: :ids, expected_type: Array
-      end
+      # NOTE: In this example, collection mode is disabled.
+      it { expect { perform }.to have_input(:ids).type(Array).required }
     end
   end
 end

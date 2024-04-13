@@ -85,11 +85,7 @@ RSpec.describe Usual::Collection::Example17, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `letters`" do
-        it_behaves_like "input required check", name: :letters
-
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: String
-      end
+      it { expect { perform }.to have_input(:letters).type(Array).consists_of(String).required }
     end
   end
 
@@ -177,11 +173,7 @@ RSpec.describe Usual::Collection::Example17, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `letters`" do
-        it_behaves_like "input required check", name: :letters
-
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: String
-      end
+      it { expect { perform }.to have_input(:letters).type(Array).consists_of(String).required }
     end
   end
 end

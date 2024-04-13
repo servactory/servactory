@@ -38,11 +38,7 @@ RSpec.describe Wrong::As::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
-      end
+      it { expect { perform }.to have_input(:ids).type(Array).consists_of(String).required }
     end
   end
 
@@ -83,11 +79,7 @@ RSpec.describe Wrong::As::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: String
-      end
+      it { expect { perform }.to have_input(:ids).type(Array).consists_of(String).required }
     end
   end
 end

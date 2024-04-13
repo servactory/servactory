@@ -112,11 +112,7 @@ RSpec.describe Usual::Collection::Example16, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: [String, Integer]
-      end
+      it { expect { perform }.to have_input(:ids).type(Array).consists_of(String, Integer).required }
     end
   end
 
@@ -231,11 +227,7 @@ RSpec.describe Usual::Collection::Example16, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check", name: :ids, collection: Array, expected_type: [String, Integer]
-      end
+      it { expect { perform }.to have_input(:ids).type(Array).consists_of(String, Integer).required }
     end
   end
 end
