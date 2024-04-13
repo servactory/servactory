@@ -79,9 +79,9 @@ module Servactory
                 end
 
               described_class.call!(attributes).success?
-            rescue ApplicationService::Exceptions::Input => e
+            rescue Servactory::Exceptions::Input => e
               input_required_message.casecmp(e.message).zero?
-            rescue ApplicationService::Exceptions::Internal, ApplicationService::Exceptions::Output
+            rescue Servactory::Exceptions::Internal, Servactory::Exceptions::Output
               # NOTE: Skips the fall of validations inside the service, which are not important in this place.
               true
             end
@@ -104,9 +104,9 @@ module Servactory
               end
 
               described_class.call!(attributes).success?
-            rescue ApplicationService::Exceptions::Input => e
+            rescue Servactory::Exceptions::Input => e
               input_required_message.casecmp(e.message).zero?
-            rescue ApplicationService::Exceptions::Internal, ApplicationService::Exceptions::Output
+            rescue Servactory::Exceptions::Internal, Servactory::Exceptions::Output
               # NOTE: Skips the fall of validations inside the service, which are not important in this place.
               true
             end
@@ -121,7 +121,7 @@ module Servactory
               described_class.call!(attributes).success?
             rescue ApplicationService::Exceptions::Input => _e
               false
-            rescue ApplicationService::Exceptions::Internal, ApplicationService::Exceptions::Output
+            rescue Servactory::Exceptions::Internal, Servactory::Exceptions::Output
               # NOTE: Skips the fall of validations inside the service, which are not important in this place.
               true
             end
@@ -148,9 +148,9 @@ module Servactory
               end
 
               described_class.call!(attributes).success?
-            rescue ApplicationService::Exceptions::Input => e
+            rescue Servactory::Exceptions::Input => e
               input_consists_of_message.casecmp(e.message).zero?
-            rescue ApplicationService::Exceptions::Internal, ApplicationService::Exceptions::Output
+            rescue Servactory::Exceptions::Internal, Servactory::Exceptions::Output
               # NOTE: Skips the fall of validations inside the service, which are not important in this place.
               true
             end
