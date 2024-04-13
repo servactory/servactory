@@ -28,11 +28,7 @@ RSpec.describe Usual::Collection::Example5, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        end
+        it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
 
       describe "but the data required for work is invalid" do
@@ -135,11 +131,7 @@ RSpec.describe Usual::Collection::Example5, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        end
+        it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
 
       describe "but the data required for work is invalid" do
