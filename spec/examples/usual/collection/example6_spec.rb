@@ -92,14 +92,14 @@ RSpec.describe Usual::Collection::Example6, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        collection: Array,
-                        collection_message: "Input `ids` must be an array of `String`",
-                        expected_type: String
+      it do
+        expect { perform }.to(
+          have_input(:ids)
+            .type(Array)
+            .consists_of(String)
+            .not_implemented_chain(:consists_of_message, "Input `ids` must be an array of `String`")
+            .required
+        )
       end
     end
   end
@@ -195,14 +195,14 @@ RSpec.describe Usual::Collection::Example6, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        collection: Array,
-                        collection_message: "Input `ids` must be an array of `String`",
-                        expected_type: String
+      it do
+        expect { perform }.to(
+          have_input(:ids)
+            .type(Array)
+            .consists_of(String)
+            .not_implemented_chain(:consists_of_message, "Input `ids` must be an array of `String`")
+            .required
+        )
       end
     end
   end

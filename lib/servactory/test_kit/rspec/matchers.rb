@@ -101,6 +101,16 @@ module Servactory
             self
           end
 
+          # NOTE: Used for delayed chain implementation
+          def not_implemented_chain(*description)
+            Kernel.warn <<-MESSAGE.squish
+              This chain has not yet been implemented.
+              This message is for informational purposes only.
+              Description: #{description}
+            MESSAGE
+            self
+          end
+
           def description
             "#{input_name} with #{submatchers.map(&:description).join(', ')}"
           end
