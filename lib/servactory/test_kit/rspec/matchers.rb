@@ -4,134 +4,144 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers # rubocop:disable Metrics/ModuleLength
-        RSpec::Matchers.define :have_service_input do |input_name| # rubocop:disable Metrics/BlockLength
-          description { "service input" }
+        def have_service_input(input_name)
+          HaveServiceInputMatcher.new(described_class, input_name)
+        end
+
+        RSpec::Matchers.alias_matcher :have_input, :have_service_input
+
+        class HaveServiceInputMatcher
+          attr_reader :described_class, :input_name, :options
+
+          def initialize(described_class, input_name)
+            @described_class = described_class
+            @input_name = input_name
+
+            @options = {}
+            @submatchers = []
+
+            @missing = ""
+          end
 
           def supports_block_expectations?
             true
           end
 
-          match do |_actual| # rubocop:disable Metrics/BlockLength
-            if defined?(@required) && @required
-              attributes = described_class.info.inputs.to_h do |name, options|
-                first_type = options.fetch(:types).first
-                value = fetch_some_value_for(first_type)
+          def type(type)
+            add_submatcher(
+              HaveServiceInputMatchers::TypesMatcher,
+              described_class,
+              input_name,
+              Array(type)
+            )
+            self
+          end
 
-                [name, value]
-              end
+          def types(*types)
+            add_submatcher(
+              HaveServiceInputMatchers::TypesMatcher,
+              described_class,
+              input_name,
+              types
+            )
+            self
+          end
 
-              attributes[input_name] = nil
+          def required(custom_message = nil)
+            remove_submatcher(HaveServiceInputMatchers::OptionalMatcher)
+            add_submatcher(
+              HaveServiceInputMatchers::RequiredMatcher,
+              described_class,
+              input_name,
+              custom_message
+            )
+            self
+          end
 
-              required_message = if defined?(@required_message) && @required_message.present?
-                                   @required_message
-                                 else
-                                   I18n.t(
-                                     "servactory.inputs.validations.required.default_error.default",
-                                     service_class_name: described_class.name,
-                                     input_name: input_name
-                                   )
-                                 end
+          def optional
+            remove_submatcher(HaveServiceInputMatchers::RequiredMatcher)
+            add_submatcher(
+              HaveServiceInputMatchers::OptionalMatcher,
+              described_class,
+              input_name
+            )
+            self
+          end
 
-              expect { described_class.call!(**attributes) }.to(
-                raise_error do |exception|
-                  expect(exception).to be_a(Servactory::Exceptions::Input)
-                  expect(exception.message).to eq(required_message)
-                end
-              )
-            else
-              attributes = described_class.info.inputs.to_h do |name, options|
-                first_type = options.fetch(:types).first
-                value = if name == input_name
-                          defined?(@default) ? @default : Servactory::TestKit::FakeType.new
-                        else
-                          first_type.new("Test value")
-                        end
+          def default(value)
+            add_submatcher(
+              HaveServiceInputMatchers::DefaultMatcher,
+              described_class,
+              input_name,
+              value
+            )
+            self
+          end
 
-                [name, value]
-              end
+          def description
+            "#{input_name} with #{submatchers.map(&:description).join(', ')}"
+          end
 
-              if defined?(@default)
-                expect { described_class.call!(**attributes) }.not_to raise_error
-              else
-                expect { described_class.call!(**attributes) }.to(
-                  raise_error do |exception|
-                    expect(exception).to be_a(Servactory::Exceptions::Input)
-                    expect(exception.message).to eq(
-                      I18n.t(
-                        "servactory.inputs.validations.type.default_error.default",
-                        service_class_name: described_class.name,
-                        input_name: input_name,
-                        expected_type: described_class.info.inputs.dig(input_name, :types).join(", "),
-                        given_type: "Servactory::TestKit::FakeType"
-                      )
-                    )
-                  end
-                )
-              end
+          def failure_message
+            "Expected #{expectation}, which #{missing_options}"
+          end
 
-              # NOTE: Check for erroneous use of `optional`
-              attributes[input_name] = nil
-              expect { described_class.call!(**attributes) }.not_to raise_error
+          def failure_message_when_negated
+            "Did not expect #{expectation} with specified options"
+          end
+
+          def matches?(subject)
+            @subject = subject
+
+            submatchers_match?
+          end
+
+          protected
+
+          attr_reader :submatchers, :missing, :subject
+
+          def add_submatcher(matcher_class, *args)
+            remove_submatcher(matcher_class)
+            submatchers << matcher_class.new(*args)
+          end
+
+          def remove_submatcher(matcher_class)
+            submatchers.delete_if do |submatcher|
+              submatcher.is_a?(matcher_class)
             end
           end
 
-          chain :type do |*types|
-            types = types.split(",").collect(&:squish) if types.is_a?(String)
-
-            @types = Array(types)
+          def expectation
+            "#{described_class.name} to have a service input named #{input_name}"
           end
 
-          chain :types do |*types|
-            types = types.split(",").collect(&:squish) if types.is_a?(String)
-
-            @types = Array(types)
+          def missing_options
+            missing_options = [missing, missing_options_for_failing_submatchers]
+            missing_options.flatten.select(&:present?).join(", ")
           end
 
-          chain :required do |message = nil|
-            @required = true
-            @required_message = message
-          end
-
-          chain :optional do
-            @required = false
-          end
-
-          chain :default do |value|
-            @default = value
-          end
-
-          failure_message do |_actual|
-            "Add error"
-          end
-
-          # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          def fetch_some_value_for(first_type)
-            if first_type == TrueClass
-              true
-            elsif first_type == FalseClass
-              false
-            elsif first_type == Integer
-              123
-            elsif first_type == Range
-              (1..9)
-            elsif first_type == Array
-              [1, 2, 3]
-            elsif first_type == Hash
-              { test: :yes! }
-            elsif first_type == Date
-              Date.current
-            elsif first_type == Time
-              Time.current
-            elsif first_type == DateTime
-              DateTime.current
-            else
-              "Test"
+          def failing_submatchers
+            @failing_submatchers ||= submatchers.reject do |matcher|
+              matcher.matches?(subject)
             end
+          end
+
+          def missing_options_for_failing_submatchers
+            if defined?(failing_submatchers)
+              failing_submatchers.map(&:missing_option)
+            else
+              []
+            end
+          end
+
+          def submatchers_match?
+            failing_submatchers.empty?
           end
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-        RSpec::Matchers.alias_matcher :have_input, :have_service_input
+        ########################################################################
+        ########################################################################
+        ########################################################################
 
         RSpec::Matchers.define :have_service_output do |output_name| # rubocop:disable Metrics/BlockLength
           description { "service output" }

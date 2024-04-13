@@ -36,12 +36,9 @@ RSpec.describe Usual::Basic::Example5, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to have_input(:first_name).type(String).required("Input `first_name` is required")
-
-        expect(perform).to have_input(:middle_name).type(String).optional
-        expect(perform).to have_input(:last_name).type(String).required
-      end
+      it { expect(perform).to have_input(:first_name).type(String).required("Input `first_name` is required") }
+      it { expect(perform).to have_input(:middle_name).type(String).optional }
+      it { expect(perform).to have_input(:last_name).type(String).required }
     end
   end
 
@@ -80,12 +77,9 @@ RSpec.describe Usual::Basic::Example5, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect(perform).to have_input(:first_name).type(String).required("Input `first_name` is required")
-
-        expect(perform).to have_input(:middle_name).type(String).optional
-        expect(perform).to have_input(:last_name).type(String).required
-      end
+      it { expect(perform).to have_input(:first_name).type(String).required("Input `first_name` is required") }
+      it { expect(perform).to have_input(:middle_name).type(String).optional }
+      it { expect(perform).to have_input(:last_name).type(String).required }
     end
   end
 end
