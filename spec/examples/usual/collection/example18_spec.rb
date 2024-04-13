@@ -49,11 +49,15 @@ RSpec.describe Usual::Collection::Example18, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it {
-        expect do
-          perform
-        end.to have_input(:letters).direct(attributes).type(Array).consists_of(String, NilClass).optional
-      }
+      it do
+        expect { perform }.to(
+          have_input(:letters)
+            .direct(attributes)
+            .type(Array)
+            .consists_of(String, NilClass)
+            .optional
+        )
+      end
     end
   end
 
@@ -105,11 +109,15 @@ RSpec.describe Usual::Collection::Example18, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it {
-        expect do
-          perform
-        end.to have_input(:letters).direct(attributes).type(Array).consists_of(String, NilClass).optional
-      }
+      it do
+        expect { perform }.to(
+          have_input(:letters)
+            .direct(attributes)
+            .type(Array)
+            .consists_of(String, NilClass)
+            .optional
+        )
+      end
     end
   end
 end

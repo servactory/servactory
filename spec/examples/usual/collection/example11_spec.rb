@@ -230,7 +230,7 @@ RSpec.describe Usual::Collection::Example11, type: :service do
       it {
         expect do
           perform
-        end.to have_input(:ids).direct(attributes).direct(attributes).type(Set).consists_of(String).required
+        end.to have_input(:ids).direct(attributes).type(Set).consists_of(String).required
       }
     end
   end

@@ -94,7 +94,7 @@ RSpec.describe Usual::Fail::Example1, type: :service do
       it {
         expect do
           perform
-        end.to have_input(:invoice_number).direct(attributes).direct(attributes).type(String).required
+        end.to have_input(:invoice_number).direct(attributes).type(String).required
       }
     end
   end

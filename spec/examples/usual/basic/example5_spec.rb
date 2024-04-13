@@ -45,8 +45,8 @@ RSpec.describe Usual::Basic::Example5, type: :service do
         )
       end
 
-      it { expect { perform }.to have_input(:middle_name).direct(attributes).direct(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).direct(attributes).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).direct(attributes).type(String).optional }
+      it { expect { perform }.to have_input(:last_name).direct(attributes).type(String).required }
     end
   end
 
@@ -94,8 +94,8 @@ RSpec.describe Usual::Basic::Example5, type: :service do
         )
       end
 
-      it { expect { perform }.to have_input(:middle_name).direct(attributes).direct(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).direct(attributes).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).direct(attributes).type(String).optional }
+      it { expect { perform }.to have_input(:last_name).direct(attributes).type(String).required }
     end
   end
 end

@@ -73,7 +73,7 @@ RSpec.describe Usual::As::Example1, type: :service do
       it {
         expect do
           perform
-        end.to have_input(:email_address).direct(attributes).direct(attributes).type(String).required
+        end.to have_input(:email_address).direct(attributes).type(String).required
       }
     end
   end
