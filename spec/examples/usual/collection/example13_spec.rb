@@ -97,8 +97,7 @@ RSpec.describe Usual::Collection::Example13, type: :service do
           have_input(:ids)
             .direct(attributes)
             .type(Set)
-            .consists_of(String)
-            .not_implemented_chain(:consists_of_message, "Input `ids` must be a collection of `String`")
+            .consists_of(String) { "Input `ids` must be a collection of `String`" }
             .required
         )
       end
@@ -201,8 +200,7 @@ RSpec.describe Usual::Collection::Example13, type: :service do
           have_input(:ids)
             .direct(attributes)
             .type(Set)
-            .consists_of(String)
-            .not_implemented_chain(:consists_of_message, "Input `ids` must be a collection of `String`")
+            .consists_of(String) { "Input `ids` must be a collection of `String`" }
             .required
         )
       end

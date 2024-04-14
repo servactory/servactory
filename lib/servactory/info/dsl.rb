@@ -11,12 +11,14 @@ module Servactory
         def info # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           Servactory::Info::Result.new(
             inputs: collection_of_inputs.to_h do |input|
+              work = input.class::Work.new(input)
               consists_of = input.collection_of_options.find_by(name: :consists_of)
               must = input.collection_of_options.find_by(name: :must)
 
               [
                 input.name,
                 {
+                  work: work,
                   types: input.types,
                   required: input.required,
                   default: input.default,

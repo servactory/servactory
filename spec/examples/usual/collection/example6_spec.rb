@@ -96,8 +96,7 @@ RSpec.describe Usual::Collection::Example6, type: :service do
         expect { perform }.to(
           have_input(:ids)
             .type(Array)
-            .consists_of(String)
-            .not_implemented_chain(:consists_of_message, "Input `ids` must be an array of `String`")
+            .consists_of(String) { "Input `ids` must be an array of `String`" }
             .required
         )
       end
@@ -199,8 +198,7 @@ RSpec.describe Usual::Collection::Example6, type: :service do
         expect { perform }.to(
           have_input(:ids)
             .type(Array)
-            .consists_of(String)
-            .not_implemented_chain(:consists_of_message, "Input `ids` must be an array of `String`")
+            .consists_of(String) { "Input `ids` must be an array of `String`" }
             .required
         )
       end

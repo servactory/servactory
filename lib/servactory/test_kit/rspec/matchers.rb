@@ -81,12 +81,15 @@ module Servactory
           end
 
           def consists_of(*types)
+            message = block_given? ? yield : nil
+
             add_submatcher(
               HaveServiceInputMatchers::ConsistsOfMatcher,
               described_class,
               input_name,
               @input_types,
-              Array(types)
+              Array(types),
+              message
             )
             self
           end
