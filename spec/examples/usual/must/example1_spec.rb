@@ -117,6 +117,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:invoice_numbers)
+            .direct(attributes)
             .type(Array)
             .consists_of(String)
             .required
@@ -242,6 +243,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:invoice_numbers)
+            .direct(attributes)
             .type(Array)
             .consists_of(String)
             .required
