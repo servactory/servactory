@@ -21,6 +21,18 @@ RSpec.describe Usual::Basic::Example2, type: :service do
                      internals: %i[prepared_full_name],
                      outputs: %i[full_name]
 
+    describe "validation" do
+      describe "inputs" do
+        it { expect { perform }.to have_input(:first_name).type(String).required }
+        it { expect { perform }.to have_input(:middle_name).type(String).optional }
+        it { expect { perform }.to have_input(:last_name).type(String).required }
+      end
+
+      describe "internals" do
+        it { expect { perform }.to have_internal(:prepared_full_name).type(String) }
+      end
+    end
+
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"

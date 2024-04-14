@@ -4,14 +4,18 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers
-        module HaveServiceInputMatchers
+        module HaveServiceAttributeMatchers
           class MustMatcher
             attr_reader :missing_option
 
-            def initialize(described_class, input_name, must_names)
+            def initialize(described_class, attribute_type, attribute_name, must_names)
               @described_class = described_class
-              @input_name = input_name
+              @attribute_type = attribute_type
+              @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
+              @attribute_name = attribute_name
               @must_names = must_names
+
+              @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
               @missing_option = ""
             end
@@ -32,14 +36,18 @@ module Servactory
 
             private
 
-            attr_reader :described_class, :input_name, :must_names
+            attr_reader :described_class,
+                        :attribute_type,
+                        :attribute_type_plural,
+                        :attribute_name,
+                        :must_names,
+                        :attribute_data
 
             def submatcher_passes?(_subject)
-              input_data = described_class.info.inputs.fetch(input_name)
-              input_must = input_data.fetch(:must)
+              attribute_must = attribute_data.fetch(:must)
 
-              input_must.keys.difference(must_names).empty? &&
-                must_names.difference(input_must.keys).empty?
+              attribute_must.keys.difference(must_names).empty? &&
+                must_names.difference(attribute_must.keys).empty?
             end
 
             def build_missing_option

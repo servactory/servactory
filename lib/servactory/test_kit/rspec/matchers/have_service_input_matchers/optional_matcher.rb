@@ -8,9 +8,13 @@ module Servactory
           class OptionalMatcher
             attr_reader :missing_option
 
-            def initialize(described_class, input_name)
+            def initialize(described_class, attribute_type, attribute_name)
               @described_class = described_class
-              @input_name = input_name
+              @attribute_type = attribute_type
+              @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
+              @attribute_name = attribute_name
+
+              @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
               @missing_option = ""
             end
@@ -31,11 +35,14 @@ module Servactory
 
             private
 
-            attr_reader :described_class, :input_name
+            attr_reader :described_class,
+                        :attribute_type,
+                        :attribute_type_plural,
+                        :attribute_name,
+                        :attribute_data
 
             def submatcher_passes?(_subject)
-              input_data = described_class.info.inputs.fetch(input_name)
-              input_required = input_data.fetch(:required).fetch(:is)
+              input_required = attribute_data.fetch(:required).fetch(:is)
 
               input_required == false
             end

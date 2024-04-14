@@ -8,10 +8,14 @@ module Servactory
           class RequiredMatcher
             attr_reader :missing_option
 
-            def initialize(described_class, input_name, custom_message)
+            def initialize(described_class, attribute_type, attribute_name, custom_message)
               @described_class = described_class
-              @input_name = input_name
+              @attribute_type = attribute_type
+              @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
+              @attribute_name = attribute_name
               @custom_message = custom_message
+
+              @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
               @missing_option = ""
             end
@@ -32,24 +36,28 @@ module Servactory
 
             private
 
-            attr_reader :described_class, :input_name, :custom_message
+            attr_reader :described_class,
+                        :attribute_type,
+                        :attribute_type_plural,
+                        :attribute_name,
+                        :custom_message,
+                        :attribute_data
 
             def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-              input_data = described_class.info.inputs.fetch(input_name)
-              input_required = input_data.fetch(:required).fetch(:is)
-              input_required_message = input_data.fetch(:required).fetch(:message)
+              attribute_required = attribute_data.fetch(:required).fetch(:is)
+              attribute_required_message = attribute_data.fetch(:required).fetch(:message)
 
-              matched = input_required == true
+              matched = attribute_required == true
 
-              if input_required_message.nil?
-                input_required_message = I18n.t(
-                  "servactory.inputs.validations.required.default_error.default",
+              if attribute_required_message.nil?
+                attribute_required_message = I18n.t(
+                  "servactory.#{attribute_type_plural}.validations.required.default_error.default",
                   service_class_name: described_class.name,
-                  input_name: input_name
+                  "#{attribute_type}_name": attribute_name
                 )
               end
 
-              matched &&= input_required_message.casecmp(custom_message).zero? if custom_message.present?
+              matched &&= attribute_required_message.casecmp(custom_message).zero? if custom_message.present?
 
               matched
             end

@@ -8,12 +8,14 @@ module Servactory
           class DirectMatcher # rubocop:disable Metrics/ClassLength
             attr_reader :missing_option
 
-            def initialize(described_class, input_name, attributes)
+            def initialize(described_class, attribute_type, attribute_name, attributes)
               @described_class = described_class
-              @input_name = input_name
+              @attribute_type = attribute_type
+              @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
+              @attribute_name = attribute_name
               @attributes = attributes
 
-              @input_data = described_class.info.inputs.fetch(input_name)
+              @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
               @missing_option = ""
             end
@@ -34,7 +36,12 @@ module Servactory
 
             private
 
-            attr_reader :described_class, :input_name, :attributes, :input_data
+            attr_reader :described_class,
+                        :attribute_type,
+                        :attribute_type_plural,
+                        :attribute_name,
+                        :attributes,
+                        :attribute_data
 
             def submatcher_passes?(_subject) # rubocop:disable Metrics/CyclomaticComplexity
               success_passes? &&
@@ -52,39 +59,39 @@ module Servactory
             end
 
             def failure_type_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-              input_types = input_data.fetch(:types)
-              input_first_type = input_types.first
-              input_required = input_data.fetch(:required).fetch(:is)
-              input_consists_of_types = Array(input_data.fetch(:consists_of).fetch(:type))
-              input_consists_of_first_type = input_consists_of_types.first
+              option_types = attribute_data.fetch(:types)
+              input_first_type = option_types.first
+              input_required = attribute_data.fetch(:required).fetch(:is)
+              attribute_consists_of_types = Array(attribute_data.fetch(:consists_of).fetch(:type))
+              attribute_consists_of_first_type = attribute_consists_of_types.first
 
               prepared_attributes = attributes.dup
-              prepared_attributes[input_name] = Servactory::TestKit::FakeType.new
+              prepared_attributes[attribute_name] = Servactory::TestKit::FakeType.new
 
               input_required_message =
                 if described_class.config.collection_mode_class_names.include?(input_first_type) &&
-                   input_consists_of_first_type != false
+                   attribute_consists_of_first_type != false
                   if input_required
                     I18n.t(
-                      "servactory.inputs.validations.required.default_error.for_collection",
+                      "servactory.#{attribute_type_plural}.validations.required.default_error.for_collection",
                       service_class_name: described_class.name,
-                      input_name: input_name
+                      "#{attribute_type}_name": attribute_name
                     )
                   else
                     I18n.t(
-                      "servactory.inputs.validations.type.default_error.for_collection.wrong_type",
+                      "servactory.#{attribute_type_plural}.validations.type.default_error.for_collection.wrong_type",
                       service_class_name: described_class.name,
-                      input_name: input_name,
-                      expected_type: input_types.join(", "),
+                      "#{attribute_type}_name": attribute_name,
+                      expected_type: option_types.join(", "),
                       given_type: Servactory::TestKit::FakeType.new.class.name
                     )
                   end
                 else
                   I18n.t(
-                    "servactory.inputs.validations.type.default_error.default",
+                    "servactory.#{attribute_type_plural}.validations.type.default_error.default",
                     service_class_name: described_class.name,
-                    input_name: input_name,
-                    expected_type: input_types.join(", "),
+                    "#{attribute_type}_name": attribute_name,
+                    expected_type: option_types.join(", "),
                     given_type: Servactory::TestKit::FakeType.new.class.name
                   )
                 end
@@ -92,21 +99,21 @@ module Servactory
               expect_failure_with!(prepared_attributes, input_required_message)
             end
 
-            def failure_required_passes? # rubocop:disable Metrics/MethodLength
-              input_required = input_data.fetch(:required).fetch(:is)
+            def failure_required_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+              input_required = attribute_data.fetch(:required).fetch(:is)
 
               return true unless input_required
 
               prepared_attributes = attributes.dup
-              prepared_attributes[input_name] = nil
+              prepared_attributes[attribute_name] = nil
 
-              input_required_message = input_data.fetch(:required).fetch(:message)
+              input_required_message = attribute_data.fetch(:required).fetch(:message)
 
               if input_required_message.nil?
                 input_required_message = I18n.t(
-                  "servactory.inputs.validations.required.default_error.default",
+                  "servactory.#{attribute_type_plural}.validations.required.default_error.default",
                   service_class_name: described_class.name,
-                  input_name: input_name
+                  "#{attribute_type}_name": attribute_name
                 )
               end
 
@@ -114,12 +121,12 @@ module Servactory
             end
 
             def failure_optional_passes?
-              input_required = input_data.fetch(:required).fetch(:is)
+              input_required = attribute_data.fetch(:required).fetch(:is)
 
               return true if input_required
 
               prepared_attributes = attributes.dup
-              prepared_attributes[input_name] = nil
+              prepared_attributes[attribute_name] = nil
 
               expect_failure_with!(prepared_attributes, nil)
             end
@@ -130,28 +137,28 @@ module Servactory
             end
 
             def failure_consists_of_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-              input_types = input_data.fetch(:types)
-              input_first_type = input_types.first
+              option_types = attribute_data.fetch(:types)
+              input_first_type = option_types.first
 
               return true unless described_class.config.collection_mode_class_names.include?(input_first_type)
 
               prepared_attributes = attributes.dup
-              prepared_attributes[input_name] = input_first_type[Servactory::TestKit::FakeType.new]
+              prepared_attributes[attribute_name] = input_first_type[Servactory::TestKit::FakeType.new]
 
-              input_consists_of_types = Array(input_data.fetch(:consists_of).fetch(:type))
-              input_consists_of_message = input_data.fetch(:consists_of).fetch(:message)
+              attribute_consists_of_types = Array(attribute_data.fetch(:consists_of).fetch(:type))
+              attribute_consists_of_message = attribute_data.fetch(:consists_of).fetch(:message)
 
-              if input_consists_of_message.nil?
-                input_consists_of_message = I18n.t(
-                  "servactory.inputs.validations.type.default_error.for_collection.wrong_element_type",
+              if attribute_consists_of_message.nil?
+                attribute_consists_of_message = I18n.t(
+                  "servactory.#{attribute_type_plural}.validations.type.default_error.for_collection.wrong_element_type", # rubocop:disable Layout/LineLength
                   service_class_name: described_class.name,
-                  input_name: input_name,
-                  expected_type: input_consists_of_types.join(", "),
-                  given_type: prepared_attributes[input_name].map { _1.class.name }.join(", ")
+                  "#{attribute_type}_name": attribute_name,
+                  expected_type: attribute_consists_of_types.join(", "),
+                  given_type: prepared_attributes[attribute_name].map { _1.class.name }.join(", ")
                 )
               end
 
-              expect_failure_with!(prepared_attributes, input_consists_of_message)
+              expect_failure_with!(prepared_attributes, attribute_consists_of_message)
             end
 
             def failure_inclusion_passes?
