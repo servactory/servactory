@@ -42,7 +42,8 @@ module Servactory
                 failure_required_passes? &&
                 failure_optional_passes? &&
                 failure_consists_of_passes? &&
-                failure_must_passes?
+                failure_must_passes? &&
+                failure_format_passes?
             end
 
             def success_passes?
@@ -149,6 +150,11 @@ module Servactory
 
             def failure_must_passes?
               # NOTE: Checking for negative cases is not implemented for `must`
+              true
+            end
+
+            def failure_format_passes?
+              # NOTE: Checking for negative cases is not implemented for `format`
               true
             end
 
