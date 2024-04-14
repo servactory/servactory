@@ -88,7 +88,7 @@ RSpec.describe Wrong::Hash::Example1, type: :service do
     end
 
     let(:first_name) { "John" }
-    let(:middle_name) { 123 }
+    let(:middle_name) { nil }
     let(:last_name) { "Kennedy" }
 
     include_examples "check class info",
