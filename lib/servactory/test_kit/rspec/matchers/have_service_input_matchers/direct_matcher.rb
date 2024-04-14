@@ -42,9 +42,9 @@ module Servactory
                 failure_required_passes? &&
                 failure_optional_passes? &&
                 failure_consists_of_passes? &&
+                failure_format_passes? &&
                 failure_inclusion_passes? &&
-                failure_must_passes? &&
-                failure_format_passes?
+                failure_must_passes?
             end
 
             def success_passes?
@@ -124,6 +124,11 @@ module Servactory
               expect_failure_with!(prepared_attributes, nil)
             end
 
+            def failure_format_passes?
+              # NOTE: Checking for negative cases is not implemented for `format`
+              true
+            end
+
             def failure_consists_of_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
               input_types = input_data.fetch(:types)
               input_first_type = input_types.first
@@ -156,11 +161,6 @@ module Servactory
 
             def failure_must_passes?
               # NOTE: Checking for negative cases is not implemented for `must`
-              true
-            end
-
-            def failure_format_passes?
-              # NOTE: Checking for negative cases is not implemented for `format`
               true
             end
 
