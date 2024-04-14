@@ -36,7 +36,7 @@ module Servactory
 
             attr_reader :described_class, :input_name, :attributes, :input_data
 
-            def submatcher_passes?(_subject)
+            def submatcher_passes?(_subject) # rubocop:disable Metrics/CyclomaticComplexity
               success_passes? &&
                 failure_type_passes? &&
                 failure_required_passes? &&
@@ -92,7 +92,7 @@ module Servactory
               expect_failure_with!(prepared_attributes, input_required_message)
             end
 
-            def failure_required_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+            def failure_required_passes? # rubocop:disable Metrics/MethodLength
               input_required = input_data.fetch(:required).fetch(:is)
 
               return true unless input_required
