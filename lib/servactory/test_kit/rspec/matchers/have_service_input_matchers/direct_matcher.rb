@@ -42,6 +42,7 @@ module Servactory
                 failure_required_passes? &&
                 failure_optional_passes? &&
                 failure_consists_of_passes? &&
+                failure_inclusion_passes? &&
                 failure_must_passes? &&
                 failure_format_passes?
             end
@@ -146,6 +147,11 @@ module Servactory
               end
 
               expect_failure_with!(prepared_attributes, input_consists_of_message)
+            end
+
+            def failure_inclusion_passes?
+              # NOTE: Checking for negative cases is not implemented for `inclusion`
+              true
             end
 
             def failure_must_passes?
