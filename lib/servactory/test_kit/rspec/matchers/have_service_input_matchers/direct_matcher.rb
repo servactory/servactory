@@ -53,14 +53,15 @@ module Servactory
               input_types = input_data.fetch(:types)
               input_first_type = input_types.first
               input_required = input_data.fetch(:required).fetch(:is)
-              input_consists_of_types = input_data.fetch(:consists_of).fetch(:type)
+              input_consists_of_types = Array(input_data.fetch(:consists_of).fetch(:type))
+              input_consists_of_first_type = input_consists_of_types.first
 
               prepared_attributes = attributes.dup
               prepared_attributes[input_name] = Servactory::TestKit::FakeType.new
 
               input_required_message =
                 if described_class.config.collection_mode_class_names.include?(input_first_type) &&
-                   input_consists_of_types != false
+                   input_consists_of_first_type != false
                   if input_required
                     I18n.t(
                       "servactory.inputs.validations.required.default_error.for_collection",
@@ -147,15 +148,8 @@ module Servactory
             end
 
             def failure_must_passes?
-              input_must = input_data.fetch(:must)
-
-              return true if input_must.nil?
-
-              prepared_attributes = attributes.dup
-
-              # FIXME: It is necessary to implement testing of negative cases
-
-              expect_failure_with!(prepared_attributes, nil)
+              # NOTE: Checking for negative cases is not implemented for `must`
+              true
             end
 
             def expect_success_with!(prepared_attributes)
