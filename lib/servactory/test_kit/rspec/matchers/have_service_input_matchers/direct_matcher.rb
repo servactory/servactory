@@ -146,6 +146,10 @@ module Servactory
               prepared_attributes[attribute_name] = input_first_type[Servactory::TestKit::FakeType.new]
 
               attribute_consists_of_types = Array(attribute_data.fetch(:consists_of).fetch(:type))
+              attribute_consists_of_first_type = attribute_consists_of_types.first
+
+              return true if attribute_consists_of_first_type == false
+
               attribute_consists_of_message = attribute_data.fetch(:consists_of).fetch(:message)
 
               if attribute_consists_of_message.nil?
