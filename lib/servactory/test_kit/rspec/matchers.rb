@@ -5,7 +5,7 @@ module Servactory
     module Rspec
       module Matchers # rubocop:disable Metrics/ModuleLength
         def have_service_input(input_name) # rubocop:disable Naming/PredicateName
-          HaveServiceInputMatcher.new(described_class, input_name)
+          HaveServiceInputMatcher.new(self, described_class, input_name)
         end
 
         RSpec::Matchers.alias_matcher :have_input, :have_service_input
@@ -214,6 +214,44 @@ module Servactory
             "[#{described_class}] #{message.join(', ').upcase_first}."
           end
         end
+
+        # RSpec::Matchers.define :raise_service_input do
+        #   def supports_block_expectations?
+        #     true
+        #   end
+        #
+        #   match do |block|
+        #     block.call
+        #   rescue ApplicationService::Exceptions::Input
+        #     true
+        #   rescue StandardError => e
+        #     @exception = e
+        #     false
+        #   end
+        #
+        #   failure_message do |_actual|
+        #     <<-MESSAGE.squish
+        #       expected ApplicationService::Exceptions::Input,
+        #       got #{@exception.inspect}
+        #     MESSAGE
+        #   end
+        # end
+
+        # def raise_service_input
+        #   def matches?(subject)
+        #     subject.call
+        #   rescue ApplicationService::Exceptions::Input
+        #     true
+        #   rescue StandardError
+        #     false
+        #   end
+        # end
+
+        # def raise_service_input(message = nil, &block)
+        #   RSpec::Matchers::BuiltIn::RaiseError.new(ApplicationService::Exceptions::Input, message, &block)
+        # end
+        #
+        # RSpec::Matchers.define_negated_matcher :not_raise_service_input, :raise_service_input
       end
     end
   end

@@ -8,7 +8,8 @@ module Servactory
           class DirectMatcher # rubocop:disable Metrics/ClassLength
             attr_reader :missing_option
 
-            def initialize(described_class, attribute_type, attribute_name, attributes)
+            def initialize(example, described_class, attribute_type, attribute_name, attributes)
+              @example = example
               @described_class = described_class
               @attribute_type = attribute_type
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
@@ -36,7 +37,8 @@ module Servactory
 
             private
 
-            attr_reader :described_class,
+            attr_reader :example,
+                        :described_class,
                         :attribute_type,
                         :attribute_type_plural,
                         :attribute_name,
@@ -117,7 +119,13 @@ module Servactory
                 )
               end
 
-              expect_failure_with!(prepared_attributes, input_required_message)
+              example.expect { described_class.call!(prepared_attributes) }.to(
+                example.raise_error do |exception|
+                  example.expect(exception).to example.be_a(ApplicationService::Exceptions::Input)
+                  example.expect(exception.message).to example.eq(input_required_message)
+                  example.expect(exception.meta).to example.be_nil
+                end
+              )
             end
 
             def failure_optional_passes?
@@ -128,7 +136,9 @@ module Servactory
               prepared_attributes = attributes.dup
               prepared_attributes[attribute_name] = nil
 
-              expect_failure_with!(prepared_attributes, nil)
+              example.expect { described_class.call!(prepared_attributes) }.not_to(
+                example.raise_error(ApplicationService::Exceptions::Input)
+              )
             end
 
             def failure_format_passes?
@@ -162,7 +172,15 @@ module Servactory
                 )
               end
 
-              expect_failure_with!(prepared_attributes, attribute_consists_of_message)
+              # expect_failure_with!(prepared_attributes, attribute_consists_of_message)
+
+              example.expect { described_class.call!(prepared_attributes) }.to(
+                example.raise_error do |exception|
+                  example.expect(exception).to example.be_a(ApplicationService::Exceptions::Input)
+                  example.expect(exception.message).to example.eq(attribute_consists_of_message)
+                  example.expect(exception.meta).to example.be_nil
+                end
+              )
             end
 
             def failure_inclusion_passes?
