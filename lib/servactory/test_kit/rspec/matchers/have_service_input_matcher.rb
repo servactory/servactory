@@ -7,8 +7,7 @@ module Servactory
         class HaveServiceInputMatcher # rubocop:disable Metrics/ClassLength
           attr_reader :described_class, :input_name, :options
 
-          def initialize(example, described_class, input_name)
-            @example = example
+          def initialize(described_class, input_name)
             @described_class = described_class
             @input_name = input_name
 
@@ -109,7 +108,6 @@ module Servactory
           def direct(attributes)
             add_submatcher(
               HaveServiceInputMatchers::DirectMatcher,
-              example,
               described_class,
               :input,
               input_name,
@@ -148,7 +146,7 @@ module Servactory
 
           protected
 
-          attr_reader :example, :submatchers, :missing, :subject
+          attr_reader :submatchers, :missing, :subject
 
           def add_submatcher(matcher_class, *args)
             remove_submatcher(matcher_class)
