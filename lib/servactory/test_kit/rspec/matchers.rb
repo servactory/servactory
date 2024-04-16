@@ -119,7 +119,7 @@ module Servactory
                   expected_value = actual.send(key)
                   next if actual.send(key) == value
 
-                  message << "does not contain the expected value of `#{expected_value.inspect}` in `#{key.inspect}`"
+                  message << "does not contain the expected value `#{expected_value.inspect}` in `#{key.inspect}`"
                 end
               end
             else
