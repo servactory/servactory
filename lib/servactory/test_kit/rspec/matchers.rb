@@ -116,9 +116,10 @@ module Servactory
 
               if defined?(expected_data)
                 expected_data.each do |key, value|
+                  expected_value = actual.send(key)
                   next if actual.send(key) == value
 
-                  message << "does not contain the expected value of `#{value.inspect}` in `#{key.inspect}`"
+                  message << "does not contain the expected value of `#{expected_value.inspect}` in `#{key.inspect}`"
                 end
               end
             else
