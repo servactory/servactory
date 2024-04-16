@@ -151,19 +151,19 @@ module Servactory
             matched
           end
 
-          chain :as do |expected_failure_class|
+          chain :with do |expected_failure_class|
             @expected_failure_class = expected_failure_class
           end
 
-          chain :with_type do |expected_type|
+          chain :type do |expected_type|
             @expected_type = expected_type
           end
 
-          chain :with_message do |expected_message|
+          chain :message do |expected_message|
             @expected_message = expected_message
           end
 
-          chain :with_meta do |expected_meta|
+          chain :meta do |expected_meta|
             @expected_meta = expected_meta
           end
 

@@ -50,10 +50,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example1, type:
         it "returns expected failure" do
           expect(perform).to(
             be_failure_service
-              .as(ApplicationService::Exceptions::Failure)
-              .with_type(:base)
-              .with_message("Some overridden error")
-              .with_meta(nil)
+              .with(ApplicationService::Exceptions::Failure)
+              .type(:base)
+              .message("Some overridden error")
+              .meta(nil)
           )
         end
       end
