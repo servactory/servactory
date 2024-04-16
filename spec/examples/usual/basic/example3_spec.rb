@@ -33,7 +33,7 @@ RSpec.describe Usual::Basic::Example3, type: :service do
       it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
 
       it do
-        expect {perform}.to(
+        expect { perform }.to(
           have_input(:middle_name)
             .valid_with(attributes)
             .type(String)
@@ -78,7 +78,7 @@ RSpec.describe Usual::Basic::Example3, type: :service do
       it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
 
       it do
-        expect {perform}.to(
+        expect { perform }.to(
           have_input(:middle_name)
             .valid_with(attributes)
             .type(String)
