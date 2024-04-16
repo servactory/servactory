@@ -67,7 +67,7 @@ RSpec.describe Usual::Inclusion::Example9, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:event_name).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:event_name).simulation(attributes).type(String).required }
     end
   end
 
@@ -137,7 +137,7 @@ RSpec.describe Usual::Inclusion::Example9, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:event_name).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:event_name).simulation(attributes).type(String).required }
     end
   end
 end

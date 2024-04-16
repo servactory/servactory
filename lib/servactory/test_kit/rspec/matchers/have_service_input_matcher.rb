@@ -105,9 +105,9 @@ module Servactory
             self
           end
 
-          def direct(attributes)
+          def simulation(attributes)
             add_submatcher(
-              HaveServiceInputMatchers::DirectMatcher,
+              HaveServiceInputMatchers::SimulationMatcher,
               described_class,
               :input,
               input_name,

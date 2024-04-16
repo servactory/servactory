@@ -53,7 +53,7 @@ RSpec.describe Usual::Collection::Example1, type: :service do
       it {
         expect do
           perform
-        end.to have_input(:ids).direct(attributes).type(Array).consists_of(String).required
+        end.to have_input(:ids).simulation(attributes).type(Array).consists_of(String).required
       }
     end
   end
@@ -109,7 +109,7 @@ RSpec.describe Usual::Collection::Example1, type: :service do
       it {
         expect do
           perform
-        end.to have_input(:ids).direct(attributes).type(Array).consists_of(String).required
+        end.to have_input(:ids).simulation(attributes).type(Array).consists_of(String).required
       }
     end
   end

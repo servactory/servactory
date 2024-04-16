@@ -39,10 +39,6 @@ module Servactory
             @value = value
           end
 
-          chain :match do |value|
-            @match = value
-          end
-
           failure_message do |actual|
             match_for(actual, output_name)
           end

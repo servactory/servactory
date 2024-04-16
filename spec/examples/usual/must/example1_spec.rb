@@ -117,10 +117,10 @@ RSpec.describe Usual::Must::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:invoice_numbers)
-            .direct(attributes)
+            .simulation(attributes)
             .type(Array)
-            .consists_of(String)
             .required
+            .consists_of(String)
             .must(:be_6_characters)
         )
       end
@@ -243,10 +243,10 @@ RSpec.describe Usual::Must::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:invoice_numbers)
-            .direct(attributes)
+            .simulation(attributes)
             .type(Array)
-            .consists_of(String)
             .required
+            .consists_of(String)
             .must(:be_6_characters)
         )
       end

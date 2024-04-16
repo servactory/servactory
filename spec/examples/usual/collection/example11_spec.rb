@@ -112,10 +112,10 @@ RSpec.describe Usual::Collection::Example11, type: :service do
       it do
         expect { perform }.to(
           have_input(:ids)
-            .direct(attributes)
+            .simulation(attributes)
             .type(Set)
-            .consists_of(String)
             .required
+            .consists_of(String)
         )
       end
     end
@@ -232,10 +232,10 @@ RSpec.describe Usual::Collection::Example11, type: :service do
       it do
         expect { perform }.to(
           have_input(:ids)
-            .direct(attributes)
+            .simulation(attributes)
             .type(Set)
-            .consists_of(String)
             .required
+            .consists_of(String)
         )
       end
     end

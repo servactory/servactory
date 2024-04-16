@@ -1,97 +1,59 @@
 # frozen_string_literal: true
 
 RSpec.describe Usual::Basic::Example2, type: :service do
+  let(:attributes) do
+    {
+      first_name: first_name,
+      middle_name: middle_name,
+      last_name: last_name
+    }
+  end
+
+  let(:first_name) { "John" }
+  let(:middle_name) { "Fitzgerald" }
+  let(:last_name) { "Kennedy" }
+
+  describe "validation" do
+    describe "inputs" do
+      it { expect { perform }.to have_input(:first_name).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).simulation(attributes).type(String).optional }
+      it { expect { perform }.to have_input(:last_name).simulation(attributes).type(String).required }
+    end
+
+    describe "internals" do
+      it { expect { perform }.to have_internal(:prepared_full_name).type(String) }
+    end
+  end
+
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
-    let(:attributes) do
-      {
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name
-      }
-    end
+    describe "and the data required for work is also valid" do
+      include_examples "success result class"
 
-    let(:first_name) { "John" }
-    let(:middle_name) { "Fitzgerald" }
-    let(:last_name) { "Kennedy" }
+      it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
-    include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name],
-                     internals: %i[prepared_full_name],
-                     outputs: %i[full_name]
+      describe "even if `middle_name` is not specified" do
+        let(:middle_name) { nil }
 
-    describe "validation" do
-      describe "inputs" do
-        it { expect { perform }.to have_input(:first_name).type(String).required }
-        it { expect { perform }.to have_input(:middle_name).type(String).optional }
-        it { expect { perform }.to have_input(:last_name).type(String).required }
+        it { expect(perform).to have_output(:full_name).with("John Kennedy") }
       end
-
-      describe "internals" do
-        it { expect { perform }.to have_internal(:prepared_full_name).type(String) }
-      end
-    end
-
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        include_examples "success result class"
-
-        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
-
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
-
-          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
-        end
-      end
-    end
-
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).direct(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).direct(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).direct(attributes).type(String).required }
     end
   end
 
   describe ".call" do
     subject(:perform) { described_class.call(**attributes) }
 
-    let(:attributes) do
-      {
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name
-      }
-    end
+    describe "and the data required for work is also valid" do
+      include_examples "success result class"
 
-    let(:first_name) { "John" }
-    let(:middle_name) { "Fitzgerald" }
-    let(:last_name) { "Kennedy" }
+      it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
-    include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name],
-                     internals: %i[prepared_full_name],
-                     outputs: %i[full_name]
+      describe "even if `middle_name` is not specified" do
+        let(:middle_name) { nil }
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        include_examples "success result class"
-
-        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
-
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
-
-          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
-        end
+        it { expect(perform).to have_output(:full_name).with("John Kennedy") }
       end
-    end
-
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).direct(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).direct(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).direct(attributes).type(String).required }
     end
   end
 end

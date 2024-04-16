@@ -45,7 +45,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Pattern::Exa
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:password).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:password).simulation(attributes).type(String).required }
     end
   end
 
@@ -93,7 +93,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Pattern::Exa
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:password).direct(attributes).type(String).required }
+      it { expect { perform }.to have_input(:password).simulation(attributes).type(String).required }
     end
   end
 end
