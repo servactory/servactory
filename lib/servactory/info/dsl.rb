@@ -29,19 +29,33 @@ module Servactory
             end,
 
             internals: collection_of_internals.to_h do |internal|
+              work = internal.class::Work.new(internal)
+              consists_of = internal.collection_of_options.find_by(name: :consists_of)
+              must = internal.collection_of_options.find_by(name: :must)
+
               [
                 internal.name,
                 {
-                  types: internal.types
+                  work: work,
+                  types: internal.types,
+                  consists_of: consists_of.body,
+                  must: must.body
                 }
               ]
             end,
 
             outputs: collection_of_outputs.to_h do |output|
+              work = output.class::Work.new(output)
+              consists_of = output.collection_of_options.find_by(name: :consists_of)
+              must = output.collection_of_options.find_by(name: :must)
+
               [
                 output.name,
                 {
-                  types: output.types
+                  work: work,
+                  types: output.types,
+                  consists_of: consists_of.body,
+                  must: must.body
                 }
               ]
             end

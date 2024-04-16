@@ -119,7 +119,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
       it {
         expect do
           perform
-        end.to have_input(:invoice_numbers).simulation(attributes).type(Array).consists_of(String).required
+        end.to have_input(:invoice_numbers).valid_with(attributes).type(Array).consists_of(String).required
       }
     end
   end
@@ -242,7 +242,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:invoice_numbers)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Array)
             .required
             .consists_of(String)

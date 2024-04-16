@@ -45,7 +45,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example3, type: :serv
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_at).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:started_at).valid_with(attributes).type(String).required }
     end
   end
 
@@ -93,7 +93,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example3, type: :serv
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_at).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:started_at).valid_with(attributes).type(String).required }
     end
   end
 end

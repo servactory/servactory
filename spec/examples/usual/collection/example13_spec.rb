@@ -95,7 +95,7 @@ RSpec.describe Usual::Collection::Example13, type: :service do
       it do
         expect { perform }.to(
           have_input(:ids)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Set)
             .consists_of(String) { "Input `ids` must be a collection of `String`" }
             .required
@@ -198,7 +198,7 @@ RSpec.describe Usual::Collection::Example13, type: :service do
       it do
         expect { perform }.to(
           have_input(:ids)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Set)
             .consists_of(String) { "Input `ids` must be a collection of `String`" }
             .required

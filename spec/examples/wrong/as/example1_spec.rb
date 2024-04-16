@@ -39,7 +39,7 @@ RSpec.describe Wrong::As::Example1, type: :service do
 
     context "when the input arguments are invalid" do
       # FIXME: Add example for `as` (internal_name)
-      it { expect { perform }.to have_input(:ids).simulation(false).type(Array).consists_of(String).required }
+      it { expect { perform }.to have_input(:ids).valid_with(false).type(Array).consists_of(String).required }
     end
   end
 
@@ -80,7 +80,7 @@ RSpec.describe Wrong::As::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:ids).simulation(false).type(Array).consists_of(String).required }
+      it { expect { perform }.to have_input(:ids).valid_with(false).type(Array).consists_of(String).required }
     end
   end
 end

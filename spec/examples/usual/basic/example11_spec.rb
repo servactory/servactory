@@ -32,10 +32,10 @@ RSpec.describe Usual::Basic::Example11, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).simulation(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).simulation(attributes).type(String).required }
-      it { expect { perform }.to have_input(:last_name).simulation(attributes).type(String).required }
-      it { expect { perform }.to have_input(:gender).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:gender).valid_with(attributes).type(String).required }
     end
   end
 
@@ -70,10 +70,10 @@ RSpec.describe Usual::Basic::Example11, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).simulation(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).simulation(attributes).type(String).required }
-      it { expect { perform }.to have_input(:last_name).simulation(attributes).type(String).required }
-      it { expect { perform }.to have_input(:gender).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:gender).valid_with(attributes).type(String).required }
     end
   end
 end

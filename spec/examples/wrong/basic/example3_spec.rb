@@ -31,7 +31,7 @@ RSpec.describe Wrong::Basic::Example3, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
     end
   end
 
@@ -65,7 +65,7 @@ RSpec.describe Wrong::Basic::Example3, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
     end
   end
 end

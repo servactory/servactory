@@ -15,9 +15,13 @@ RSpec.describe Usual::Basic::Example2, type: :service do
 
   describe "validation" do
     describe "inputs" do
-      it { expect { perform }.to have_input(:first_name).simulation(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).simulation(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
+      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
+
+      # describe "negatively" do
+      #   it { expect { perform }.to validate_negative_input(:first_name).with(attributes) }
+      # end
     end
 
     describe "internals" do

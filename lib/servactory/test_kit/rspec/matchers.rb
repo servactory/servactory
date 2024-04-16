@@ -10,6 +10,12 @@ module Servactory
 
         RSpec::Matchers.alias_matcher :have_input, :have_service_input
 
+        # def validate_negative_service_input(input_name)
+        #   HaveServiceInputMatcher.new(described_class, input_name)
+        # end
+
+        # RSpec::Matchers.alias_matcher :validate_negative_input, :validate_negative_service_input
+
         def have_service_internal(internal_name) # rubocop:disable Naming/PredicateName
           HaveServiceInternalMatcher.new(described_class, internal_name)
         end

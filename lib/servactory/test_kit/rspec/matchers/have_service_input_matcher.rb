@@ -105,9 +105,9 @@ module Servactory
             self
           end
 
-          def simulation(attributes)
+          def valid_with(attributes)
             add_submatcher(
-              HaveServiceInputMatchers::SimulationMatcher,
+              HaveServiceInputMatchers::ValidWithMatcher,
               described_class,
               :input,
               input_name,

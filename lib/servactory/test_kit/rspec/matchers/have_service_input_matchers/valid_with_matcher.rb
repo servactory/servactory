@@ -5,7 +5,7 @@ module Servactory
     module Rspec
       module Matchers
         module HaveServiceInputMatchers
-          class SimulationMatcher # rubocop:disable Metrics/ClassLength
+          class ValidWithMatcher # rubocop:disable Metrics/ClassLength
             attr_reader :missing_option
 
             def initialize(described_class, attribute_type, attribute_name, attributes)
@@ -21,7 +21,7 @@ module Servactory
             end
 
             def description
-              "simulation attribute checking"
+              "valid_with attribute checking"
             end
 
             def matches?(subject)

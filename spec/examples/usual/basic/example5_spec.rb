@@ -39,14 +39,14 @@ RSpec.describe Usual::Basic::Example5, type: :service do
       it do
         expect { perform }.to(
           have_input(:first_name)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(String)
             .required("Input `first_name` is required")
         )
       end
 
-      it { expect { perform }.to have_input(:middle_name).simulation(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
+      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
     end
   end
 
@@ -88,14 +88,14 @@ RSpec.describe Usual::Basic::Example5, type: :service do
       it do
         expect { perform }.to(
           have_input(:first_name)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(String)
             .required("Input `first_name` is required")
         )
       end
 
-      it { expect { perform }.to have_input(:middle_name).simulation(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).simulation(attributes).type(String).required }
+      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
+      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
     end
   end
 end

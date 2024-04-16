@@ -109,7 +109,7 @@ RSpec.describe Usual::Collection::Example16, type: :service do
       it do
         expect { perform }.to(
           have_input(:ids)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Array)
             .consists_of(String, Integer)
             .required
@@ -226,7 +226,7 @@ RSpec.describe Usual::Collection::Example16, type: :service do
       it do
         expect { perform }.to(
           have_input(:ids)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Array)
             .consists_of(String, Integer)
             .required

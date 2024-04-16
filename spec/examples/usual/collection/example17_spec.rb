@@ -79,7 +79,7 @@ RSpec.describe Usual::Collection::Example17, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:letters).simulation(attributes).type(Array).consists_of(String).required }
+      it { expect { perform }.to have_input(:letters).valid_with(attributes).type(Array).consists_of(String).required }
     end
   end
 
@@ -161,7 +161,7 @@ RSpec.describe Usual::Collection::Example17, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:letters).simulation(attributes).type(Array).consists_of(String).required }
+      it { expect { perform }.to have_input(:letters).valid_with(attributes).type(Array).consists_of(String).required }
     end
   end
 end

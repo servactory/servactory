@@ -117,7 +117,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:invoice_numbers)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Array)
             .required
             .consists_of(String)
@@ -243,7 +243,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:invoice_numbers)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Array)
             .required
             .consists_of(String)

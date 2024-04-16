@@ -60,7 +60,7 @@ RSpec.describe Usual::Hash::Example4, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:payload).simulation(attributes).type(Hash).required }
+      it { expect { perform }.to have_input(:payload).valid_with(attributes).type(Hash).required }
     end
   end
 
@@ -123,7 +123,7 @@ RSpec.describe Usual::Hash::Example4, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:payload).simulation(attributes).type(Hash).required }
+      it { expect { perform }.to have_input(:payload).valid_with(attributes).type(Hash).required }
     end
   end
 end

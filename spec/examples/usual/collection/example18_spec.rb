@@ -52,7 +52,7 @@ RSpec.describe Usual::Collection::Example18, type: :service do
       it do
         expect { perform }.to(
           have_input(:letters)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Array)
             .consists_of(String, NilClass)
             .optional
@@ -112,7 +112,7 @@ RSpec.describe Usual::Collection::Example18, type: :service do
       it do
         expect { perform }.to(
           have_input(:letters)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Array)
             .consists_of(String, NilClass)
             .optional

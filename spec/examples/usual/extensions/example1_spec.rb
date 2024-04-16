@@ -50,7 +50,7 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:user)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Usual::Extensions::Example1::User)
             .required
         )
@@ -107,7 +107,7 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:user)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(Usual::Extensions::Example1::User)
             .required
         )

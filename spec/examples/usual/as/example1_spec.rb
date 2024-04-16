@@ -33,7 +33,7 @@ RSpec.describe Usual::As::Example1, type: :service do
       it do
         expect { perform }.to(
           have_input(:email_address)
-            .simulation(attributes)
+            .valid_with(attributes)
             .type(String)
             .required
         )
@@ -73,7 +73,7 @@ RSpec.describe Usual::As::Example1, type: :service do
       it {
         expect do
           perform
-        end.to have_input(:email_address).simulation(attributes).type(String).required
+        end.to have_input(:email_address).valid_with(attributes).type(String).required
       }
     end
   end
