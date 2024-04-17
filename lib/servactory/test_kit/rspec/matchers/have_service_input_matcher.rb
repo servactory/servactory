@@ -160,7 +160,7 @@ module Servactory
           end
 
           def expectation
-            "#{described_class.name} to have a service input attribute  named #{input_name}"
+            "#{described_class.name} to have a service input attribute named #{input_name}"
           end
 
           def missing_options

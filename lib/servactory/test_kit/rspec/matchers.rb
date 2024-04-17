@@ -90,7 +90,11 @@ module Servactory
 
             if defined?(expected_data)
               matched &&= expected_data.all? do |key, value|
-                actual.send(key) == value
+                if actual.respond_to?(key)
+                  actual.send(key) == value
+                else
+                  false
+                end
               end
             end
 
@@ -107,26 +111,58 @@ module Servactory
             end
           end
 
-          failure_message do |actual|
-            message = []
+          failure_message do |actual| # rubocop:disable Metrics/BlockLength
+            unless actual.instance_of?(Servactory::Result)
+              break <<~MESSAGE
+                Incorrect service result:
 
-            if actual.instance_of?(Servactory::Result)
-              message << "result of the service is not successful" unless actual.success?
-              message << "result of the service is a failure" if actual.failure?
-
-              if defined?(expected_data)
-                expected_data.each do |key, value|
-                  expected_value = actual.send(key)
-                  next if actual.send(key) == value
-
-                  message << "does not contain the expected value `#{expected_value.inspect}` in `#{key.inspect}`"
-                end
-              end
-            else
-              message << "result of the service is not an instance of `Servactory::Result`"
+                  expected Servactory::Result
+                       got #{actual.class.name}
+              MESSAGE
             end
 
-            "[#{described_class}] #{message.join(', ').upcase_first}."
+            if actual.failure?
+              break <<~MESSAGE
+                Incorrect service result:
+
+                  expected success
+                       got failure
+              MESSAGE
+            end
+
+            if defined?(expected_data)
+              message = expected_data.each do |key, value|
+                unless actual.respond_to?(key)
+                  break <<~MESSAGE
+                    Non-existent value key in result:
+
+                    expected #{actual.inspect}
+                         got #{key}
+                  MESSAGE
+                end
+
+                expected_value = actual.send(key)
+                next if actual.send(key) == value
+
+                break <<~MESSAGE
+                  Incorrect result value for #{key}:
+
+                    expected #{expected_value.inspect}
+                         got #{value.inspect}
+                MESSAGE
+              end
+            end
+
+            break message if message.present?
+
+            <<~MESSAGE
+              Unexpected case when using `be_success_service`.
+
+              Please try to build an example based on the documentation.
+              Or report your problem to us:
+
+                https://github.com/servactory/servactory/issues
+            MESSAGE
           end
         end
 
@@ -169,46 +205,88 @@ module Servactory
           end
 
           failure_message do |actual| # rubocop:disable Metrics/BlockLength
-            message = []
+            unless actual.instance_of?(Servactory::Result)
+              break <<~MESSAGE
+                Incorrect service result:
 
-            if actual.instance_of?(Servactory::Result)
-              message << "result of the service is not successful" unless actual.success?
-              message << "result of the service is a failure" if actual.failure?
-
-              if actual.error.is_a?(Servactory::Exceptions::Failure)
-                # rubocop:disable Metrics/BlockNesting
-                if defined?(@expected_failure_class)
-                  unless actual.error.instance_of?(@expected_failure_class)
-                    message << "error is not an instance of `#{@expected_failure_class}`"
-                  end
-                else
-                  unless actual.error.instance_of?(Servactory::Exceptions::Failure)
-                    message << "error is not an instance of `Servactory::Exceptions::Failure`"
-                  end
-                end
-                # rubocop:enable Metrics/BlockNesting
-
-                if defined?(@expected_type) && actual.error.type != @expected_type
-                  message << "does not have the expected type `#{@expected_type.inspect}`"
-                end
-
-                if defined?(@expected_message) && actual.error.message != @expected_message
-                  message << "does not contain the expected error message `#{@expected_message.inspect}`"
-                end
-
-                if defined?(@expected_meta) && actual.error.meta != @expected_meta
-                  message << "does not contain the expected metadata `#{@expected_meta.inspect}`"
-                end
-
-                message
-              else
-                message << "error is not a `Servactory::Exceptions::Failure` object"
-              end
-            else
-              message << "result of the service is not an instance of `Servactory::Result`"
+                  expected Servactory::Result
+                       got #{actual.class.name}
+              MESSAGE
             end
 
-            "[#{described_class}] #{message.join(', ').upcase_first}."
+            if actual.success?
+              break <<~MESSAGE
+                Incorrect service result:
+
+                  expected failure
+                       got success
+              MESSAGE
+            end
+
+            unless actual.error.is_a?(Servactory::Exceptions::Failure)
+              break <<~MESSAGE
+                Incorrect error object:
+
+                  expected Servactory::Exceptions::Failure
+                       got #{actual.error.class.name}
+              MESSAGE
+            end
+
+            if defined?(@expected_failure_class)
+              unless actual.error.instance_of?(@expected_failure_class)
+                break <<~MESSAGE
+                  Incorrect instance error:
+
+                    expected #{@expected_failure_class}
+                         got #{actual.error.class.name}
+                MESSAGE
+              end
+            else
+              unless actual.error.instance_of?(Servactory::Exceptions::Failure)
+                break <<~MESSAGE
+                  Incorrect error object:
+
+                    expected Servactory::Exceptions::Failure
+                         got #{actual.error.class.name}
+                MESSAGE
+              end
+            end
+
+            if defined?(@expected_type) && actual.error.type != @expected_type
+              break <<~MESSAGE
+                Incorrect error type:
+
+                  expected #{actual.error.type.inspect}
+                       got #{@expected_type.inspect}
+              MESSAGE
+            end
+
+            if defined?(@expected_message) && actual.error.message != @expected_message
+              break <<~MESSAGE
+                Incorrect error message:
+
+                  expected #{actual.error.message.inspect}
+                       got #{@expected_message.inspect}
+              MESSAGE
+            end
+
+            if defined?(@expected_meta) && actual.error.meta != @expected_meta
+              break <<~MESSAGE
+                Incorrect error meta:
+
+                  expected #{actual.error.meta.inspect}
+                       got #{@expected_meta.inspect}
+              MESSAGE
+            end
+
+            <<~MESSAGE
+              Unexpected case when using `be_failure_service`.
+
+              Please try to build an example based on the documentation.
+              Or report your problem to us:
+
+                https://github.com/servactory/servactory/issues
+            MESSAGE
           end
         end
       end
