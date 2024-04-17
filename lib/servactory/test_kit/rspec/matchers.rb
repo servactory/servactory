@@ -91,7 +91,7 @@ module Servactory
             if defined?(expected_data)
               matched &&= expected_data.all? do |key, value|
                 if actual.respond_to?(key)
-                  actual.send(key) == value
+                  actual.public_send(key) == value
                 else
                   false
                 end
@@ -141,8 +141,8 @@ module Servactory
                   MESSAGE
                 end
 
-                expected_value = actual.send(key)
-                next if actual.send(key) == value
+                expected_value = actual.public_send(key)
+                next if actual.public_send(key) == value
 
                 break <<~MESSAGE
                   Incorrect result value for #{key}:

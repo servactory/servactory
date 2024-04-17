@@ -68,9 +68,9 @@ module Servactory
           # puts <<~RUBY
           #   allow(#{service_class_name}).to(
           #     receive(#{method_call.inspect})
-          #       .send(
+          #       .public_send(
           #         #{and_return_or_raise.inspect},
-          #         Servactory::TestKit::Result.send(#{result_type.inspect}, #{result})
+          #         Servactory::TestKit::Result.public_send(#{result_type.inspect}, #{result})
           #       )
           #   )
           # RUBY
@@ -78,12 +78,12 @@ module Servactory
 
           allow(service_class_name).to(
             receive(method_call)
-              .send(
+              .public_send(
                 and_return_or_raise,
                 if as_success
-                  Servactory::TestKit::Result.send(result_type, **result)
+                  Servactory::TestKit::Result.public_send(result_type, **result)
                 else
-                  Servactory::TestKit::Result.send(result_type, result)
+                  Servactory::TestKit::Result.public_send(result_type, result)
                 end
               )
           )
