@@ -51,7 +51,7 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
             raise_error(
               ApplicationService::Exceptions::Input,
               "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-                "`[\"created\", \"rejected\", \"approved\"]`"
+              "`[\"created\", \"rejected\", \"approved\"]`"
             )
           )
         end
@@ -65,7 +65,7 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-                "`[\"rejected\", \"approved\"]`"
+              "`[\"rejected\", \"approved\"]`"
             )
           )
         end
@@ -79,7 +79,7 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
             raise_error(
               ApplicationService::Exceptions::Output,
               "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-                "`[\"approved\"]`"
+              "`[\"approved\"]`"
             )
           )
         end
@@ -105,7 +105,7 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
             raise_error(
               ApplicationService::Exceptions::Input,
               "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-                "`[\"created\", \"rejected\", \"approved\"]`"
+              "`[\"created\", \"rejected\", \"approved\"]`"
             )
           )
         end
@@ -119,7 +119,7 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-                "`[\"rejected\", \"approved\"]`"
+              "`[\"rejected\", \"approved\"]`"
             )
           )
         end
@@ -133,7 +133,7 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
             raise_error(
               ApplicationService::Exceptions::Output,
               "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-                "`[\"approved\"]`"
+              "`[\"approved\"]`"
             )
           )
         end

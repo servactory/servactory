@@ -81,7 +81,7 @@ module Servactory
               end
             end
 
-            def build_missing_option
+            def build_missing_option # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
               attribute_consists_of = Array(attribute_data.fetch(:consists_of).fetch(:type) || [])
 
               unless attribute_consists_of.difference(consists_of_types).empty?
