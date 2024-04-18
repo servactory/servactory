@@ -4,16 +4,16 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers
-        module HaveServiceInputMatchers
-          class DefaultMatcher
+        module HaveServiceAttributeMatchers
+          class InclusionMatcher
             attr_reader :missing_option
 
-            def initialize(described_class, attribute_type, attribute_name, default_value)
+            def initialize(described_class, attribute_type, attribute_name, values)
               @described_class = described_class
               @attribute_type = attribute_type
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
               @attribute_name = attribute_name
-              @default_value = default_value
+              @values = values
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
@@ -21,7 +21,7 @@ module Servactory
             end
 
             def description
-              "default: #{default_value.inspect}"
+              "inclusion: #{values.join(', ')}"
             end
 
             def matches?(subject)
@@ -40,23 +40,26 @@ module Servactory
                         :attribute_type,
                         :attribute_type_plural,
                         :attribute_name,
-                        :default_value,
+                        :values,
                         :attribute_data
 
             def submatcher_passes?(_subject)
-              attribute_default_value = attribute_data.fetch(:default)
+              attribute_inclusion = attribute_data.fetch(:inclusion)
+              attribute_inclusion_in = attribute_inclusion.fetch(:in)
 
-              attribute_default_value.casecmp(default_value).zero?
+              attribute_inclusion_in.difference(values).empty? &&
+                values.difference(attribute_inclusion_in).empty?
             end
 
             def build_missing_option
-              attribute_default_value = attribute_data.fetch(:default)
+              attribute_inclusion = attribute_data.fetch(:inclusion)
+              attribute_inclusion_in = attribute_inclusion.fetch(:in)
 
               <<~MESSAGE
-                should have a default value
+                should include the expected values
 
-                  expected #{default_value.inspect}
-                       got #{attribute_default_value.inspect}
+                  expected #{values.inspect}
+                       got #{attribute_inclusion_in.inspect}
               MESSAGE
             end
           end

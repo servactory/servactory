@@ -82,11 +82,36 @@ module Servactory
             end
 
             def build_missing_option
-              result = "should be a collection "
-              result += option_types.size > 1 ? "of #{option_types.join(', ')} types, " : "of type #{option_types.first}, " # rubocop:disable Layout/LineLength
-              result += consists_of_types.size > 1 ? "consisting of the following types: " : "consisting of type "
-              result += consists_of_types.join(", ")
-              result + " with the message #{attribute_consists_of_message.inspect}"
+              attribute_consists_of = Array(attribute_data.fetch(:consists_of).fetch(:type) || [])
+
+              unless attribute_consists_of.difference(consists_of_types).empty?
+                text_about_types = option_types.size > 1 ? "the following types" : "type"
+
+                return <<~MESSAGE
+                  should be a collection consisting of #{text_about_types}
+
+                    expected #{consists_of_types.inspect}
+                         got #{attribute_consists_of.inspect}
+                MESSAGE
+              end
+
+              if custom_message.present? && !attribute_consists_of_message.casecmp(custom_message).zero?
+                return <<~MESSAGE
+                  should be a collection with a message
+
+                    expected #{custom_message.inspect}
+                         got #{attribute_consists_of_message.inspect}
+                MESSAGE
+              end
+
+              <<~MESSAGE
+                got an unexpected case when using `consists_of`
+
+                Please try to build an example based on the documentation.
+                Or report your problem to us:
+
+                  https://github.com/servactory/servactory/issues
+              MESSAGE
             end
           end
         end

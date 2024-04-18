@@ -67,7 +67,15 @@ RSpec.describe Usual::Inclusion::Example9, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:event_name).valid_with(attributes).type(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:event_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+            .inclusion(%w[created rejected approved])
+        )
+      end
     end
   end
 
@@ -137,7 +145,15 @@ RSpec.describe Usual::Inclusion::Example9, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:event_name).valid_with(attributes).type(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:event_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+            .inclusion(%w[created rejected approved])
+        )
+      end
     end
   end
 end

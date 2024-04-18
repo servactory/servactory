@@ -53,9 +53,16 @@ module Servactory
             end
 
             def build_missing_option
-              result = "should have a value "
-              result += types.size > 1 ? "with one of the following types: " : "of type "
-              result + types.join(", ")
+              option_types = attribute_data.fetch(:types)
+
+              text_about_types = types.size > 1 ? "with one of the following types" : "type"
+
+              <<~MESSAGE
+                should be a value with #{text_about_types}
+
+                  expected #{types.inspect}
+                       got #{option_types.inspect}
+              MESSAGE
             end
           end
         end

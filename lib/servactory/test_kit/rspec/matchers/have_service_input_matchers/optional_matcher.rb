@@ -48,7 +48,12 @@ module Servactory
             end
 
             def build_missing_option
-              "should be optional"
+              <<~MESSAGE
+                should be optional
+
+                  expected required: false
+                       got required: true
+              MESSAGE
             end
           end
         end

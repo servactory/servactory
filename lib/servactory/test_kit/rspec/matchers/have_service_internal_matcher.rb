@@ -60,6 +60,17 @@ module Servactory
             self
           end
 
+          def inclusion(values)
+            add_submatcher(
+              HaveServiceAttributeMatchers::InclusionMatcher,
+              described_class,
+              :internal,
+              internal_name,
+              Array(values)
+            )
+            self
+          end
+
           def must(*must_names)
             add_submatcher(
               HaveServiceAttributeMatchers::MustMatcher,
