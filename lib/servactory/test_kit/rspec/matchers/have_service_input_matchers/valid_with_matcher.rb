@@ -165,7 +165,7 @@ module Servactory
               expect_failure_with!(prepared_attributes, attribute_consists_of_message)
             end
 
-            def failure_inclusion_passes?
+            def failure_inclusion_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
               input_inclusion_in = attribute_data.fetch(:inclusion).fetch(:in)
 
               return true if input_inclusion_in.blank?
