@@ -166,8 +166,36 @@ module Servactory
             end
 
             def failure_inclusion_passes?
-              # NOTE: Checking for negative cases is not implemented for `inclusion`
-              true
+              input_inclusion_in = attribute_data.fetch(:inclusion).fetch(:in)
+
+              return true if input_inclusion_in.blank?
+
+              wrong_value = input_inclusion_in.first.class.new("fake")
+
+              prepared_attributes = attributes.dup
+              prepared_attributes[attribute_name] = wrong_value
+
+              input_required_message = attribute_data.fetch(:inclusion).fetch(:message)
+
+              if input_required_message.nil?
+                input_required_message = I18n.t(
+                  "servactory.#{attribute_type_plural}.validations.inclusion.default_error",
+                  service_class_name: described_class.name,
+                  "#{attribute_type}_name": attribute_name,
+                  "#{attribute_type}_inclusion": input_inclusion_in,
+                  value: wrong_value
+                )
+              elsif input_required_message.is_a?(Proc)
+                input_work = attribute_data.fetch(:work)
+
+                input_required_message = input_required_message.call(
+                  service_class_name: described_class.name,
+                  input: input_work,
+                  value: wrong_value
+                )
+              end
+
+              expect_failure_with!(prepared_attributes, input_required_message)
             end
 
             def failure_must_passes?
