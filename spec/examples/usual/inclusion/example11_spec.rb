@@ -33,8 +33,8 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                  "`[Usual::Inclusion::Example11::FirstEntity, Usual::Inclusion::Example11::SecondEntity, " \
-                  "Usual::Inclusion::Example11::ThirdEntity]`"
+                "`[Usual::Inclusion::Example11::FirstEntity, Usual::Inclusion::Example11::SecondEntity, " \
+                "Usual::Inclusion::Example11::ThirdEntity]`"
               )
             )
           end
@@ -48,7 +48,7 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Internal,
                 "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                  "`[Usual::Inclusion::Example11::SecondEntity, Usual::Inclusion::Example11::ThirdEntity]`"
+                "`[Usual::Inclusion::Example11::SecondEntity, Usual::Inclusion::Example11::ThirdEntity]`"
               )
             )
           end
@@ -77,7 +77,13 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
             .valid_with(attributes)
             .type(Class)
             .required
-            .inclusion([Usual::Inclusion::Example11::FirstEntity, Usual::Inclusion::Example11::SecondEntity, Usual::Inclusion::Example11::ThirdEntity])
+            .inclusion(
+              [
+                Usual::Inclusion::Example11::FirstEntity,
+                Usual::Inclusion::Example11::SecondEntity,
+                Usual::Inclusion::Example11::ThirdEntity
+              ]
+            )
         )
       end
     end
@@ -115,8 +121,8 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                  "`[Usual::Inclusion::Example11::FirstEntity, Usual::Inclusion::Example11::SecondEntity, " \
-                  "Usual::Inclusion::Example11::ThirdEntity]`"
+                "`[Usual::Inclusion::Example11::FirstEntity, Usual::Inclusion::Example11::SecondEntity, " \
+                "Usual::Inclusion::Example11::ThirdEntity]`"
               )
             )
           end
@@ -130,7 +136,7 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Internal,
                 "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                  "`[Usual::Inclusion::Example11::SecondEntity, Usual::Inclusion::Example11::ThirdEntity]`"
+                "`[Usual::Inclusion::Example11::SecondEntity, Usual::Inclusion::Example11::ThirdEntity]`"
               )
             )
           end
@@ -144,7 +150,7 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Output,
                 "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                  "`[Usual::Inclusion::Example11::ThirdEntity]`"
+                "`[Usual::Inclusion::Example11::ThirdEntity]`"
               )
             )
           end
@@ -159,7 +165,13 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
             .valid_with(attributes)
             .type(Class)
             .required
-            .inclusion([Usual::Inclusion::Example11::FirstEntity, Usual::Inclusion::Example11::SecondEntity, Usual::Inclusion::Example11::ThirdEntity])
+            .inclusion(
+              [
+                Usual::Inclusion::Example11::FirstEntity,
+                Usual::Inclusion::Example11::SecondEntity,
+                Usual::Inclusion::Example11::ThirdEntity
+              ]
+            )
         )
       end
     end

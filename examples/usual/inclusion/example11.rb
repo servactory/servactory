@@ -3,11 +3,11 @@
 module Usual
   module Inclusion
     class Example11 < ApplicationService::Base
-      FakeEntity = Struct.new
+      FakeEntity = Struct.new(:id)
 
-      FirstEntity = Struct.new
-      SecondEntity = Struct.new
-      ThirdEntity = Struct.new
+      FirstEntity = Struct.new(:id)
+      SecondEntity = Struct.new(:id)
+      ThirdEntity = Struct.new(:id)
 
       input :entity_class,
             type: Class,
