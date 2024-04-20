@@ -58,7 +58,7 @@ module Servactory
 
       def input_attribute_draw
         input_names.map do |input_name|
-          <<~RUBY
+          <<~RUBY.strip
             #     #{input_name}: #{input_name}
           RUBY
         end.join("\n  ")
@@ -66,7 +66,7 @@ module Servactory
 
       def input_let_draw
         input_names.map do |input_name|
-          <<~RUBY
+          <<~RUBY.strip
             # let(:#{input_name}) { "Some value" }
           RUBY
         end.join("\n  ")
@@ -74,7 +74,7 @@ module Servactory
 
       def input_validation_draw
         input_names.map do |input_name|
-          <<~RUBY
+          <<~RUBY.strip
             #     it { expect { perform }.to have_input(:#{input_name}).valid_with(attributes).type(String).required }
           RUBY
         end.join("\n  ")
