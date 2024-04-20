@@ -4,7 +4,7 @@ require "rails/generators/named_base"
 
 module Servactory
   module Generators
-    class CreateGenerator < Rails::Generators::NamedBase
+    class ServiceGenerator < Rails::Generators::NamedBase
       source_root File.expand_path("templates", __dir__)
 
       argument :attributes, type: :array, default: [], banner: "input_name"
