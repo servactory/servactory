@@ -61,7 +61,7 @@ module Servactory
           <<~RUBY.strip
             #     #{input_name}: #{input_name}
           RUBY
-        end.join("\n  ")
+        end.join(",\n  ")
       end
 
       def input_let_draw
