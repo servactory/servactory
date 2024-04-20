@@ -15,7 +15,7 @@ module Servactory
             # frozen_string_literal: true
 
             RSpec.describe #{class_name}, type: :service do
-              pending "add some examples to (or delete) #{__FILE__}"
+              pending "add some examples to (or delete) \#{__FILE__}"
 
               # let(:attributes) do
               #   {
@@ -58,7 +58,7 @@ module Servactory
 
       def input_attribute_draw
         input_names.map do |input_name|
-          <<~RUBY.squish
+          <<~RUBY
             #     #{input_name}: #{input_name}
           RUBY
         end.join("\n  ")
@@ -66,7 +66,7 @@ module Servactory
 
       def input_let_draw
         input_names.map do |input_name|
-          <<~RUBY.squish
+          <<~RUBY
             # let(:#{input_name}) { "Some value" }
           RUBY
         end.join("\n  ")
@@ -74,7 +74,7 @@ module Servactory
 
       def input_validation_draw
         input_names.map do |input_name|
-          <<~RUBY.squish
+          <<~RUBY
             #     it { expect { perform }.to have_input(:#{input_name}).valid_with(attributes).type(String).required }
           RUBY
         end.join("\n  ")
