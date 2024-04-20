@@ -9,7 +9,7 @@ module Servactory
 
       argument :attributes, type: :array, default: [], banner: "input_name"
 
-      def create_service
+      def create_service # rubocop:disable Metrics/MethodLength
         create_file "app/services/#{file_path}.rb" do
           <<~RUBY
             # frozen_string_literal: true
