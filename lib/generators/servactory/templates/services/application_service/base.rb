@@ -4,12 +4,14 @@ module ApplicationService
   class Base
     include Servactory::DSL
 
+    # More information: https://servactory.com/guide/extensions
     # include Servactory::DSL.with_extensions(
     #   ApplicationService::Extensions::YourExtension::DSL
     # )
 
     fail_on! ActiveRecord::RecordInvalid
 
+    # More information: https://servactory.com/guide/configuration
     configuration do
       input_exception_class ApplicationService::Exceptions::Input
       internal_exception_class ApplicationService::Exceptions::Internal
@@ -44,7 +46,12 @@ module ApplicationService
       #   ]
       # )
 
+      # collection_mode_class_names [ActiveRecord::Relation]
+
+      # hash_mode_class_names [CustomHash]
+
       # action_shortcuts %i[assign build create save]
+
       # action_aliases %i[do_it!]
     end
   end
