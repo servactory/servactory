@@ -2,7 +2,15 @@
 
 ## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
 
-[Full Changelog](https://github.com/servactory/servactory/compare/v2.4.3...HEAD)
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc1...HEAD)
+
+**Implemented enhancements:**
+
+- Delete `prepare_vs_collection` conflict handling [\#203](https://github.com/servactory/servactory/pull/203) ([afuno](https://github.com/afuno))
+
+## [v2.5.0.rc1](https://github.com/servactory/servactory/tree/v2.5.0.rc1) (2024-04-21)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.4.3...v2.5.0.rc1)
 
 **Breaking changes:**
 
