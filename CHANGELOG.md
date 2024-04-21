@@ -4,9 +4,22 @@
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.4.3...HEAD)
 
+**Breaking changes:**
+
+- Drop Ruby 2.7 support [\#198](https://github.com/servactory/servactory/pull/198) ([afuno](https://github.com/afuno))
+
 **Implemented enhancements:**
 
+- Add `result_class` configuration [\#202](https://github.com/servactory/servactory/pull/202) ([afuno](https://github.com/afuno))
 - Add `fail_on!` method to catch unexpected service exceptions [\#196](https://github.com/servactory/servactory/pull/196) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Fix usage of `collection_mode_class_names` configuration [\#200](https://github.com/servactory/servactory/pull/200) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update libraries from 11.04.2024 [\#199](https://github.com/servactory/servactory/pull/199) ([afuno](https://github.com/afuno))
 
 ## [v2.4.3](https://github.com/servactory/servactory/tree/v2.4.3) (2024-03-29)
 
