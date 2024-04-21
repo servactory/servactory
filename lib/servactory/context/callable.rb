@@ -8,9 +8,9 @@ module Servactory
 
         _call!(context, **arguments)
 
-        Servactory::Result.success_for(context: context)
+        config.result_class.success_for(context: context)
       rescue config.success_class => e
-        Servactory::Result.success_for(context: e.context)
+        config.result_class.success_for(context: e.context)
       end
 
       def call(arguments = {})
@@ -18,11 +18,11 @@ module Servactory
 
         _call!(context, **arguments)
 
-        Servactory::Result.success_for(context: context)
+        config.result_class.success_for(context: context)
       rescue config.success_class => e
-        Servactory::Result.success_for(context: e.context)
+        config.result_class.success_for(context: e.context)
       rescue config.failure_class => e
-        Servactory::Result.failure_for(context: context, exception: e)
+        config.result_class.failure_for(context: context, exception: e)
       end
 
       private
