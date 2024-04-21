@@ -5,6 +5,7 @@ RSpec.shared_examples "failure result class" do
     result = perform
 
     expect(result).to be_a(Servactory::Result)
+    expect(result).to an_instance_of(ApplicationService::Result)
     expect(result.success?).to be(false)
     expect(result.failure?).to be(true)
     expect(result.failure?(:all)).to be(true)
