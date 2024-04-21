@@ -19,6 +19,8 @@ module ApplicationService
 
       failure_class ApplicationService::Exceptions::Failure
 
+      result_class ApplicationService::Result
+
       # input_option_helpers(
       #   [
       #     Servactory::ToolKit::DynamicOptions::Format.use,
