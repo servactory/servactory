@@ -24,6 +24,8 @@ module ApplicationService
 
       failure_class ApplicationService::Exceptions::Failure
 
+      result_class ApplicationService::Result
+
       input_option_helpers(
         [
           Servactory::Maintenance::Attributes::OptionHelper.new(

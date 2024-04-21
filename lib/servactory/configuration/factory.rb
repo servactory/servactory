@@ -63,6 +63,12 @@ module Servactory
         raise_error_about_wrong_exception_class_with(:failure_class, failure_class)
       end
 
+      def result_class(result_class)
+        return @config.result_class = result_class if subclass_of_result?(result_class)
+
+        raise_error_about_wrong_result_class_with(:result_class, result_class)
+      end
+
       def collection_mode_class_names(collection_mode_class_names)
         @config.collection_mode_class_names.merge(collection_mode_class_names)
       end
@@ -101,13 +107,24 @@ module Servactory
         value.is_a?(Class) && value <= Exception
       end
 
+      def subclass_of_result?(value)
+        value.is_a?(Class) && value <= Servactory::Result
+      end
+
       ##########################################################################
 
       def raise_error_about_wrong_exception_class_with(config_name, value)
         raise ArgumentError,
               "Error in `#{config_name}` configuration. " \
               "The `#{value}` value must be a subclass of `Exception`. " \
-              "See example configuration here: https://servactory.com/guide/configuration"
+              "See configuration example here: https://servactory.com/guide/configuration"
+      end
+
+      def raise_error_about_wrong_result_class_with(config_name, value)
+        raise ArgumentError,
+              "Error in `#{config_name}` configuration. " \
+              "The `#{value}` value must be a subclass of `Servactory::Result`. " \
+              "See configuration example here: https://servactory.com/guide/configuration"
       end
     end
   end

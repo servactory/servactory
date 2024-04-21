@@ -18,6 +18,8 @@ module Servactory
           child.config.success_class = config.success_class
           child.config.failure_class = config.failure_class
 
+          child.config.result_class = config.result_class
+
           child.config.collection_mode_class_names = config.collection_mode_class_names
 
           child.config.input_option_helpers = config.input_option_helpers
