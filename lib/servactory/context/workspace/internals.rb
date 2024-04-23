@@ -53,7 +53,7 @@ module Servactory
           @context.send(:servactory_service_store).assign_internal(internal.name, value)
         end
 
-        def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def getter_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
           internal_name = @context.class.config.predicates_enabled? ? name.to_s.chomp("?").to_sym : name
           internal = @collection_of_internals.find_by(name: internal_name)
 
