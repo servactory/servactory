@@ -109,7 +109,7 @@ module Servactory
         predicates_enabled: if @context.is_a?(Servactory::TestKit::Result)
                               true
                             else
-                              @context.class.config.predicates_enabled
+                              @context.class.config.predicates_enabled?
                             end
       )
     end
