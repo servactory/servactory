@@ -17,6 +17,25 @@ module Servactory
 
         private
 
+        # NOTE: Based on https://github.com/rails/rails/blob/main/activesupport/lib/active_support/rescuable.rb
+        def fail_on!(*class_names, with: nil, &block) # rubocop:disable Metrics/MethodLength
+          with ||= block || ->(exception:) { exception.message }
+
+          class_names.each do |class_name|
+            key = if class_name.is_a?(Module) && class_name.respond_to?(:===)
+                    class_name.name
+                  elsif class_name.is_a?(String)
+                    class_name
+                  else
+                    raise ArgumentError,
+                          "#{class_name.inspect} must be an Exception class or a String referencing an Exception class"
+                  end
+
+            # Put the new handler at the end because the list is read in reverse.
+            config.action_rescue_handlers += [[key, with]]
+          end
+        end
+
         def stage(&block)
           @current_stage = Stages::Stage.new(position: next_position)
 

@@ -8,6 +8,10 @@ module ApplicationService
       ApplicationService::Extensions::StatusActive::DSL
     )
 
+    FailOnLikeAnActiveRecordException = Class.new(ArgumentError)
+
+    fail_on! FailOnLikeAnActiveRecordException
+
     configuration do # rubocop:disable Metrics/BlockLength
       input_exception_class ApplicationService::Exceptions::Input
       internal_exception_class ApplicationService::Exceptions::Internal
@@ -19,6 +23,8 @@ module ApplicationService
       # output_error_class ApplicationService::Errors::OutputError
 
       failure_class ApplicationService::Exceptions::Failure
+
+      result_class ApplicationService::Result
 
       input_option_helpers(
         [

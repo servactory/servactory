@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Inheritance::Example1 do
+RSpec.describe Usual::Inheritance::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -25,31 +25,16 @@ RSpec.describe Usual::Inheritance::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`", :aggregate_failures do
-          result = perform
-
-          expect(result.output_1).to eq("First")
-          expect(result.output_2).to eq("Second")
-          expect(result.output_3).to eq("Third")
-        end
+        it { expect(perform).to have_output(:output_1).with("First") }
+        it { expect(perform).to have_output(:output_2).with("Second") }
+        it { expect(perform).to have_output(:output_3).with("Third") }
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `input_1`" do
-        it_behaves_like "input required check", name: :input_1
-        it_behaves_like "input type check", name: :input_1, expected_type: String
-      end
-
-      context "when `input_2`" do
-        it_behaves_like "input required check", name: :input_2
-        it_behaves_like "input type check", name: :input_2, expected_type: String
-      end
-
-      context "when `input_3`" do
-        it_behaves_like "input required check", name: :input_3
-        it_behaves_like "input type check", name: :input_3, expected_type: String
-      end
+      it { expect { perform }.to have_input(:input_1).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:input_2).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:input_3).valid_with(attributes).type(String).required }
     end
   end
 
@@ -77,31 +62,16 @@ RSpec.describe Usual::Inheritance::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`", :aggregate_failures do
-          result = perform
-
-          expect(result.output_1).to eq("First")
-          expect(result.output_2).to eq("Second")
-          expect(result.output_3).to eq("Third")
-        end
+        it { expect(perform).to have_output(:output_1).with("First") }
+        it { expect(perform).to have_output(:output_2).with("Second") }
+        it { expect(perform).to have_output(:output_3).with("Third") }
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `input_1`" do
-        it_behaves_like "input required check", name: :input_1
-        it_behaves_like "input type check", name: :input_1, expected_type: String
-      end
-
-      context "when `input_2`" do
-        it_behaves_like "input required check", name: :input_2
-        it_behaves_like "input type check", name: :input_2, expected_type: String
-      end
-
-      context "when `input_3`" do
-        it_behaves_like "input required check", name: :input_3
-        it_behaves_like "input type check", name: :input_3, expected_type: String
-      end
+      it { expect { perform }.to have_input(:input_1).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:input_2).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:input_3).valid_with(attributes).type(String).required }
     end
   end
 end

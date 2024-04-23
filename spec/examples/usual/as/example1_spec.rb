@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::As::Example1 do
+RSpec.describe Usual::As::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -30,9 +30,13 @@ RSpec.describe Usual::As::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `email_address`" do
-        it_behaves_like "input required check", name: :email_address
-        it_behaves_like "input type check", name: :email_address, expected_type: String
+      it do
+        expect { perform }.to(
+          have_input(:email_address)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
       end
     end
   end
@@ -66,10 +70,11 @@ RSpec.describe Usual::As::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `email_address`" do
-        it_behaves_like "input required check", name: :email_address
-        it_behaves_like "input type check", name: :email_address, expected_type: String
-      end
+      it {
+        expect do
+          perform
+        end.to have_input(:email_address).valid_with(attributes).type(String).required
+      }
     end
   end
 end

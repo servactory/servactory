@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Collection::Example13 do
+RSpec.describe Usual::Collection::Example13, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -28,11 +28,7 @@ RSpec.describe Usual::Collection::Example13 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        end
+        it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
 
       describe "but the data required for work is invalid" do
@@ -96,14 +92,14 @@ RSpec.describe Usual::Collection::Example13 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        collection: Array,
-                        collection_message: "Input `ids` must be a collection of `String`",
-                        expected_type: String
+      it do
+        expect { perform }.to(
+          have_input(:ids)
+            .valid_with(attributes)
+            .type(Set)
+            .consists_of(String) { "Input `ids` must be a collection of `String`" }
+            .required
+        )
       end
     end
   end
@@ -135,11 +131,7 @@ RSpec.describe Usual::Collection::Example13 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        end
+        it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
 
       describe "but the data required for work is invalid" do
@@ -203,14 +195,14 @@ RSpec.describe Usual::Collection::Example13 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        collection: Array,
-                        collection_message: "Input `ids` must be a collection of `String`",
-                        expected_type: String
+      it do
+        expect { perform }.to(
+          have_input(:ids)
+            .valid_with(attributes)
+            .type(Set)
+            .consists_of(String) { "Input `ids` must be a collection of `String`" }
+            .required
+        )
       end
     end
   end

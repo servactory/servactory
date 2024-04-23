@@ -11,6 +11,8 @@ module Servactory
 
         private
 
+        def fail_on!: (*Class class_names, with: Proc?) { () -> untyped } -> Array[Class]
+
         def stage: () { () -> untyped } -> nil
 
         def wrap_in: (Proc? wrapper) -> Proc?

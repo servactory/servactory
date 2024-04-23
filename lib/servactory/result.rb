@@ -9,6 +9,18 @@ module Servactory
           define_singleton_method(key) { value }
         end
       end
+
+      def inspect
+        "#<#{self.class.name} #{draw_result}>"
+      end
+
+      private
+
+      def draw_result
+        methods(false).sort.map do |method_name|
+          "@#{method_name}=#{send(method_name)}"
+        end.join(", ")
+      end
     end
 
     private_constant :Outputs
@@ -19,11 +31,11 @@ module Servactory
       new(context: context).send(:as_success)
     end
 
-    def self.failure_for(exception:)
-      new(exception: exception).send(:as_failure)
+    def self.failure_for(context:, exception:)
+      new(context: context, exception: exception).send(:as_failure)
     end
 
-    def initialize(context: nil, exception: nil)
+    def initialize(context:, exception: nil)
       @context = context
       @exception = exception
     end
@@ -39,7 +51,7 @@ module Servactory
     end
 
     def on_failure(type = :all)
-      yield(exception: @exception) if failure? && [:all, @exception&.type].include?(type)
+      yield(outputs: outputs, exception: @exception) if failure? && [:all, @exception&.type].include?(type)
 
       self
     end
@@ -78,6 +90,10 @@ module Servactory
         false
       end
 
+      outputs.methods(false).each do |method_name|
+        define_singleton_method(method_name) { outputs.send(method_name) }
+      end
+
       self
     end
 
@@ -94,7 +110,7 @@ module Servactory
     ########################################################################
 
     def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
-      raise exception if @context.blank?
+      raise exception if @context.blank? || @context.instance_of?(Servactory::TestKit::Result)
 
       raise @context.class.config.failure_class.new(
         type: :base,

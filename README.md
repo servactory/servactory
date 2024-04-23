@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://rubygems.org/gems/servactory"><img src="https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff" alt="Gem version"></a>
-  <a href="https://github.com/afuno/servactory/releases"><img src="https://img.shields.io/github/release-date/afuno/servactory" alt="Release Date"></a>
+  <a href="https://github.com/servactory/servactory/releases"><img src="https://img.shields.io/github/release-date/servactory/servactory" alt="Release Date"></a>
 </p>
 
 ## Documentation
@@ -38,13 +38,15 @@ class UserService::Authenticate < Servactory::Base
 
   output :user, type: User
 
+  make :authenticate!
+
   private
 
-  def call
+  def authenticate!
     if (user = User.authenticate_by(email: inputs.email, password: inputs.password)).present?
       outputs.user = user
     else
-      fail!(message: "Authentication failed")
+      fail!(message: "Authentication failed", meta: { email: inputs.email })
     end
   end
 end
@@ -55,14 +57,14 @@ end
 ```ruby
 class SessionsController < ApplicationController
   def create
-    service_result = UserService::Authenticate.call(**session_params)
+    service = UserService::Authenticate.call(**session_params)
 
-    if service_result.success?
-      session[:current_user_id] = service_result.user.id
-      redirect_to service_result.user
+    if service.success?
+      session[:current_user_id] = service.user.id
+      redirect_to service.user
     else
-      flash.now[:message] = service_result.error.message
-      render :new
+      flash.now[:alert] = service.error.message
+      render :new, status: :unprocessable_entity
     end
   end
 

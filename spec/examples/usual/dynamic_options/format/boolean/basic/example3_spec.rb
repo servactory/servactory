@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Format::Boolean::Basic::Example3 do
+RSpec.describe Usual::DynamicOptions::Format::Boolean::Basic::Example3, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -19,12 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Basic::Example3 do
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.boolean?).to be(true)
-          expect(result.boolean).to eq("true")
-        end
+        it { expect(perform).to have_output(:boolean?).with(true) }
+        it { expect(perform).to have_output(:boolean).with("true") }
       end
 
       describe "but the data required for work is invalid" do
@@ -45,11 +41,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Basic::Example3 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :boolean
-
-        it_behaves_like "input type check", name: :boolean, expected_type: String
-      end
+      it { expect { perform }.to have_input(:boolean).valid_with(attributes).type(String).required }
     end
   end
 
@@ -71,12 +63,8 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Basic::Example3 do
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.boolean?).to be(true)
-          expect(result.boolean).to eq("true")
-        end
+        it { expect(perform).to have_output(:boolean?).with(true) }
+        it { expect(perform).to have_output(:boolean).with("true") }
       end
 
       describe "but the data required for work is invalid" do
@@ -97,11 +85,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Basic::Example3 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :boolean
-
-        it_behaves_like "input type check", name: :boolean, expected_type: String
-      end
+      it { expect { perform }.to have_input(:boolean).valid_with(attributes).type(String).required }
     end
   end
 end

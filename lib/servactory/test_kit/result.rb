@@ -4,11 +4,15 @@ module Servactory
   module TestKit
     class Result
       def self.as_success(attributes = {})
-        Servactory::Result.success_for(context: new(attributes))
+        context = new(attributes)
+
+        Servactory::Result.success_for(context: context)
       end
 
-      def self.as_failure(exception: nil)
-        Servactory::Result.failure_for(exception: exception)
+      def self.as_failure(attributes = {}, exception: nil)
+        context = new(attributes)
+
+        Servactory::Result.failure_for(context: context, exception: exception)
       end
 
       def initialize(attributes = {})

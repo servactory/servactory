@@ -3,12 +3,14 @@
 module Wrong
   module Prepare
     class Example2 < ApplicationService::Base
-      input :ids,
-            type: Array,
-            consists_of: String,
+      input :invoice_numbers,
+            type: String,
+            must: {
+              be_6_characters: {
+                is: ->(**) {}
+              }
+            },
             prepare: ->(value:) { value }
-
-      def call; end
     end
   end
 end

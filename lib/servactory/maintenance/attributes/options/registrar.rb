@@ -226,9 +226,6 @@ module Servactory
               ],
               define_conflicts: [
                 Servactory::Maintenance::Attributes::DefineConflict.new(
-                  content: -> { :prepare_vs_collection if @attribute.prepare_present? && @attribute.collection_mode? }
-                ),
-                Servactory::Maintenance::Attributes::DefineConflict.new(
                   content: -> { :prepare_vs_inclusion if @attribute.prepare_present? && @attribute.inclusion_present? }
                 ),
                 Servactory::Maintenance::Attributes::DefineConflict.new(

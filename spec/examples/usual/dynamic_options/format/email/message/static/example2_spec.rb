@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Format::Email::Message::Static::Example2 do
+RSpec.describe Usual::DynamicOptions::Format::Email::Message::Static::Example2, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -19,12 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Static::Example2 d
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.email?).to be(true)
-          expect(result.email).to eq("No Reply <noreply@servactory.com>")
-        end
+        it { expect(perform).to have_output(:email?).with(true) }
+        it { expect(perform).to have_output(:email).with("No Reply <noreply@servactory.com>") }
       end
 
       describe "but the data required for work is invalid" do
@@ -44,11 +40,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Static::Example2 d
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :email
-
-        it_behaves_like "input type check", name: :email, expected_type: String
-      end
+      it { expect { perform }.to have_input(:email).valid_with(attributes).type(String).required }
     end
   end
 
@@ -70,12 +62,8 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Static::Example2 d
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.email?).to be(true)
-          expect(result.email).to eq("No Reply <noreply@servactory.com>")
-        end
+        it { expect(perform).to have_output(:email?).with(true) }
+        it { expect(perform).to have_output(:email).with("No Reply <noreply@servactory.com>") }
       end
 
       describe "but the data required for work is invalid" do
@@ -95,11 +83,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Static::Example2 d
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :email
-
-        it_behaves_like "input type check", name: :email, expected_type: String
-      end
+      it { expect { perform }.to have_input(:email).valid_with(attributes).type(String).required }
     end
   end
 end

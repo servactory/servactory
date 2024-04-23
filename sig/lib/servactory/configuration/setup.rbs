@@ -11,6 +11,8 @@ module Servactory
 
       attr_accessor failure_class: singleton(Exceptions::Failure)
 
+      attr_accessor result_class: singleton(Servactory::Result)
+
       attr_accessor collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
 
       attr_accessor hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection
@@ -24,6 +26,8 @@ module Servactory
       attr_accessor action_aliases: Actions::Aliases::Collection
 
       attr_accessor action_shortcuts: Actions::Shortcuts::Collection
+
+      attr_accessor action_rescue_handlers: Actions::RescueHandlers::Collection
 
       def initialize: () -> void
 

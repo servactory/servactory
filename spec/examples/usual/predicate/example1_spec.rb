@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Predicate::Example1 do
+RSpec.describe Usual::Predicate::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -29,34 +29,19 @@ RSpec.describe Usual::Predicate::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
-          result = perform
-
-          expect(result.is_enabled).to be(true)
-          expect(result.is_really_enabled).to be(true)
-          expect(result.is_text_present).to be(true)
-          expect(result.is_prepared_text_present).to be(true)
-          expect(result.is_number_present).to be(true)
-          expect(result.is_prepared_number_present).to be(true)
-        end
+        it { expect(perform).to have_output(:is_enabled).with(true) }
+        it { expect(perform).to have_output(:is_really_enabled).with(true) }
+        it { expect(perform).to have_output(:is_text_present).with(true) }
+        it { expect(perform).to have_output(:is_prepared_text_present).with(true) }
+        it { expect(perform).to have_output(:is_number_present).with(true) }
+        it { expect(perform).to have_output(:is_prepared_number_present).with(true) }
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `enable`" do
-        it_behaves_like "input required check", name: :enable
-        it_behaves_like "input type check", name: :enable, expected_type: [TrueClass, FalseClass]
-      end
-
-      context "when `text`" do
-        it_behaves_like "input required check", name: :text
-        it_behaves_like "input type check", name: :text, expected_type: String
-      end
-
-      context "when `number`" do
-        it_behaves_like "input required check", name: :number
-        it_behaves_like "input type check", name: :number, expected_type: Integer
-      end
+      it { expect { perform }.to have_input(:enable).valid_with(attributes).types(TrueClass, FalseClass).required }
+      it { expect { perform }.to have_input(:text).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
     end
   end
 
@@ -88,34 +73,19 @@ RSpec.describe Usual::Predicate::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
-          result = perform
-
-          expect(result.is_enabled).to be(true)
-          expect(result.is_really_enabled).to be(true)
-          expect(result.is_text_present).to be(true)
-          expect(result.is_prepared_text_present).to be(true)
-          expect(result.is_number_present).to be(true)
-          expect(result.is_prepared_number_present).to be(true)
-        end
+        it { expect(perform).to have_output(:is_enabled).with(true) }
+        it { expect(perform).to have_output(:is_really_enabled).with(true) }
+        it { expect(perform).to have_output(:is_text_present).with(true) }
+        it { expect(perform).to have_output(:is_prepared_text_present).with(true) }
+        it { expect(perform).to have_output(:is_number_present).with(true) }
+        it { expect(perform).to have_output(:is_prepared_number_present).with(true) }
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `enable`" do
-        it_behaves_like "input required check", name: :enable
-        it_behaves_like "input type check", name: :enable, expected_type: [TrueClass, FalseClass]
-      end
-
-      context "when `text`" do
-        it_behaves_like "input required check", name: :text
-        it_behaves_like "input type check", name: :text, expected_type: String
-      end
-
-      context "when `number`" do
-        it_behaves_like "input required check", name: :number
-        it_behaves_like "input type check", name: :number, expected_type: Integer
-      end
+      it { expect { perform }.to have_input(:enable).valid_with(attributes).types(TrueClass, FalseClass).required }
+      it { expect { perform }.to have_input(:text).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
     end
   end
 end

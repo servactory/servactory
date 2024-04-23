@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Basic::Example5 do
+RSpec.describe Usual::Basic::Example5, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -25,41 +25,28 @@ RSpec.describe Usual::Basic::Example5 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John Fitzgerald Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`" do
-            result = perform
-
-            expect(result.full_name).to eq("John Kennedy")
-          end
+          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `first_name`" do
-        it_behaves_like "input required check",
-                        name: :first_name,
-                        custom_message: "Input `first_name` is required"
-
-        it_behaves_like "input type check", name: :first_name, expected_type: String
+      it do
+        expect { perform }.to(
+          have_input(:first_name)
+            .valid_with(attributes)
+            .type(String)
+            .required("Input `first_name` is required")
+        )
       end
 
-      context "when `middle_name`" do
-        it_behaves_like "input type check", name: :middle_name, expected_type: String
-      end
-
-      context "when `last_name`" do
-        it_behaves_like "input required check", name: :last_name
-        it_behaves_like "input type check", name: :last_name, expected_type: String
-      end
+      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
+      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
     end
   end
 
@@ -87,41 +74,28 @@ RSpec.describe Usual::Basic::Example5 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John Fitzgerald Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it "returns the expected value in `full_name`" do
-            result = perform
-
-            expect(result.full_name).to eq("John Kennedy")
-          end
+          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `first_name`" do
-        it_behaves_like "input required check",
-                        name: :first_name,
-                        custom_message: "Input `first_name` is required"
-
-        it_behaves_like "input type check", name: :first_name, expected_type: String
+      it do
+        expect { perform }.to(
+          have_input(:first_name)
+            .valid_with(attributes)
+            .type(String)
+            .required("Input `first_name` is required")
+        )
       end
 
-      context "when `middle_name`" do
-        it_behaves_like "input type check", name: :middle_name, expected_type: String
-      end
-
-      context "when `last_name`" do
-        it_behaves_like "input required check", name: :last_name
-        it_behaves_like "input type check", name: :last_name, expected_type: String
-      end
+      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
+      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
     end
   end
 end

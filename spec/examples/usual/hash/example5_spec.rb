@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Hash::Example5 do
+RSpec.describe Usual::Hash::Example5, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -40,11 +40,7 @@ RSpec.describe Usual::Hash::Example5 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John <unknown> Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John <unknown> Kennedy") }
       end
 
       describe "but the data required for work is invalid" do
@@ -64,10 +60,7 @@ RSpec.describe Usual::Hash::Example5 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `payload`" do
-        it_behaves_like "input required check", name: :payload
-        it_behaves_like "input type check", name: :payload, expected_type: Hash
-      end
+      it { expect { perform }.to have_input(:payload).valid_with(attributes).type(Hash).required }
     end
   end
 
@@ -110,11 +103,7 @@ RSpec.describe Usual::Hash::Example5 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `full_name`" do
-          result = perform
-
-          expect(result.full_name).to eq("John <unknown> Kennedy")
-        end
+        it { expect(perform).to have_output(:full_name).with("John <unknown> Kennedy") }
       end
 
       describe "but the data required for work is invalid" do
@@ -134,10 +123,7 @@ RSpec.describe Usual::Hash::Example5 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `payload`" do
-        it_behaves_like "input required check", name: :payload
-        it_behaves_like "input type check", name: :payload, expected_type: Hash
-      end
+      it { expect { perform }.to have_input(:payload).valid_with(attributes).type(Hash).required }
     end
   end
 end

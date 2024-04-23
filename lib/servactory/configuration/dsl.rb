@@ -18,6 +18,8 @@ module Servactory
           child.config.success_class = config.success_class
           child.config.failure_class = config.failure_class
 
+          child.config.result_class = config.result_class
+
           child.config.collection_mode_class_names = config.collection_mode_class_names
 
           child.config.input_option_helpers = config.input_option_helpers
@@ -26,6 +28,7 @@ module Servactory
 
           child.config.action_aliases = config.action_aliases
           child.config.action_shortcuts = config.action_shortcuts
+          child.config.action_rescue_handlers = config.action_rescue_handlers
         end
 
         def config

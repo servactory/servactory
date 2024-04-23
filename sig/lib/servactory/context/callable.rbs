@@ -4,6 +4,12 @@ module Servactory
       def call!: (?::Hash[untyped, untyped] arguments) -> singleton(Result)
 
       def call: (?::Hash[untyped, untyped] arguments) -> singleton(Result)
+
+      private
+
+      def prepare_result_class: () -> Class
+
+      def _call!: (instance context, **::Hash[untyped, untyped] arguments) -> void
     end
   end
 end
