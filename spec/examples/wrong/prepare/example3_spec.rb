@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Prepare::Example3 do
+RSpec.describe Wrong::Prepare::Example3, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -31,9 +31,8 @@ RSpec.describe Wrong::Prepare::Example3 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `balance_cents`" do
-        it_behaves_like "input required check", name: :balance_cents
-        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        expect { perform }.to have_input(:balance_cents).valid_with(attributes).type(Integer).required
       end
     end
   end
@@ -68,9 +67,8 @@ RSpec.describe Wrong::Prepare::Example3 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `balance_cents`" do
-        it_behaves_like "input required check", name: :balance_cents
-        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
+      it "returns expected inputs", :aggregate_failures do
+        expect { perform }.to have_input(:balance_cents).valid_with(attributes).type(Integer).required
       end
     end
   end

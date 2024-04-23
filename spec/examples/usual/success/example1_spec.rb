@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Success::Example1 do
+RSpec.describe Usual::Success::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -22,30 +22,19 @@ RSpec.describe Usual::Success::Example1 do
         include_examples "success result class"
 
         context "when `number` has a value for early success" do
-          it "returns the expected value in `number`" do
-            result = perform
-
-            expect(result.number).to eq(2)
-          end
+          it { expect(perform).to have_output(:number).with(2) }
         end
 
         context "when `number` has no value for early success" do
           let(:number) { 2 }
 
-          it "returns the expected value in `number`" do
-            result = perform
-
-            expect(result.number).to eq(16)
-          end
+          it { expect(perform).to have_output(:number).with(16) }
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `number`" do
-        it_behaves_like "input required check", name: :number
-        it_behaves_like "input type check", name: :number, expected_type: Integer
-      end
+      it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
     end
   end
 
@@ -70,30 +59,19 @@ RSpec.describe Usual::Success::Example1 do
         include_examples "success result class"
 
         context "when `number` has a value for early success" do
-          it "returns the expected value in `number`" do
-            result = perform
-
-            expect(result.number).to eq(2)
-          end
+          it { expect(perform).to have_output(:number).with(2) }
         end
 
         context "when `number` has no value for early success" do
           let(:number) { 2 }
 
-          it "returns the expected value in `number`" do
-            result = perform
-
-            expect(result.number).to eq(16)
-          end
+          it { expect(perform).to have_output(:number).with(16) }
         end
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `number`" do
-        it_behaves_like "input required check", name: :number
-        it_behaves_like "input type check", name: :number, expected_type: Integer
-      end
+      it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
     end
   end
 end

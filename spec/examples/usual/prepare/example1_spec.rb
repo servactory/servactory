@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Prepare::Example1 do
+RSpec.describe Usual::Prepare::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -21,21 +21,14 @@ RSpec.describe Usual::Prepare::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.balance_with_bonus).to be_a(Usual::Prepare::Example1::Money)
-          expect(result.balance_with_bonus.cents).to eq(3_000_00)
-          expect(result.balance_with_bonus.currency).to eq(:USD)
-        end
+        it { expect(perform).to have_output(:balance_with_bonus).instance_of(Usual::Prepare::Example1::Money) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).with(3_000_00) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).with(:USD) }
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `balance_cents`" do
-        it_behaves_like "input required check", name: :balance_cents
-        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
-      end
+      it { expect { perform }.to have_input(:balance_cents).valid_with(attributes).type(Integer).required }
     end
   end
 
@@ -59,21 +52,14 @@ RSpec.describe Usual::Prepare::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.balance_with_bonus).to be_a(Usual::Prepare::Example1::Money)
-          expect(result.balance_with_bonus.cents).to eq(3_000_00)
-          expect(result.balance_with_bonus.currency).to eq(:USD)
-        end
+        it { expect(perform).to have_output(:balance_with_bonus).instance_of(Usual::Prepare::Example1::Money) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).with(3_000_00) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).with(:USD) }
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `balance_cents`" do
-        it_behaves_like "input required check", name: :balance_cents
-        it_behaves_like "input type check", name: :balance_cents, expected_type: Integer
-      end
+      it { expect { perform }.to have_input(:balance_cents).valid_with(attributes).type(Integer).required }
     end
   end
 end

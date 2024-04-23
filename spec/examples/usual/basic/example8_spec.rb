@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Basic::Example8 do
+RSpec.describe Usual::Basic::Example8, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -23,13 +23,9 @@ RSpec.describe Usual::Basic::Example8 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.user).to be_a(Usual::Basic::Example8::User)
-          expect(result.user.email).to eq("correct@email.com")
-          expect(result.user.password).to be_present
-        end
+        it { expect(perform).to have_output(:user).instance_of(Usual::Basic::Example8::User) }
+        it { expect(perform).to have_output(:user).nested(:email).with("correct@email.com") }
+        it { expect(perform).to have_output(:user).nested(:password).with("correct_password") }
       end
 
       describe "but the data required for work is invalid" do
@@ -66,15 +62,8 @@ RSpec.describe Usual::Basic::Example8 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `email`" do
-        it_behaves_like "input required check", name: :email
-        it_behaves_like "input type check", name: :email, expected_type: String
-      end
-
-      context "when `password`" do
-        it_behaves_like "input required check", name: :password
-        it_behaves_like "input type check", name: :password, expected_type: String
-      end
+      it { expect { perform }.to have_input(:email).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:password).valid_with(attributes).type(String).required }
     end
   end
 
@@ -100,13 +89,9 @@ RSpec.describe Usual::Basic::Example8 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.user).to be_a(Usual::Basic::Example8::User)
-          expect(result.user.email).to eq("correct@email.com")
-          expect(result.user.password).to be_present
-        end
+        it { expect(perform).to have_output(:user).instance_of(Usual::Basic::Example8::User) }
+        it { expect(perform).to have_output(:user).nested(:email).with("correct@email.com") }
+        it { expect(perform).to have_output(:user).nested(:password).with("correct_password") }
       end
 
       describe "but the data required for work is invalid" do
@@ -147,15 +132,8 @@ RSpec.describe Usual::Basic::Example8 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `email`" do
-        it_behaves_like "input required check", name: :email
-        it_behaves_like "input type check", name: :email, expected_type: String
-      end
-
-      context "when `password`" do
-        it_behaves_like "input required check", name: :password
-        it_behaves_like "input type check", name: :password, expected_type: String
-      end
+      it { expect { perform }.to have_input(:email).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:password).valid_with(attributes).type(String).required }
     end
   end
 end

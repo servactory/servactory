@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Extensions::Example1 do
+RSpec.describe Usual::Extensions::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -47,9 +47,13 @@ RSpec.describe Usual::Extensions::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `user`" do
-        it_behaves_like "input required check", name: :user
-        it_behaves_like "input type check", name: :user, expected_type: Usual::Extensions::Example1::User
+      it do
+        expect { perform }.to(
+          have_input(:user)
+            .valid_with(attributes)
+            .type(Usual::Extensions::Example1::User)
+            .required
+        )
       end
     end
   end
@@ -100,9 +104,13 @@ RSpec.describe Usual::Extensions::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `user`" do
-        it_behaves_like "input required check", name: :user
-        it_behaves_like "input type check", name: :user, expected_type: Usual::Extensions::Example1::User
+      it do
+        expect { perform }.to(
+          have_input(:user)
+            .valid_with(attributes)
+            .type(Usual::Extensions::Example1::User)
+            .required
+        )
       end
     end
   end

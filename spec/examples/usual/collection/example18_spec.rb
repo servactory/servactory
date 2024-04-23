@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Collection::Example18 do
+RSpec.describe Usual::Collection::Example18, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -23,16 +23,10 @@ RSpec.describe Usual::Collection::Example18 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.letters?).to be(true)
-          expect(result.letters).to(
-            contain_exactly(%w[A B], ["C", "D", %w[E F], nil, ""])
-          )
-          expect(result.desired_letter?).to be(true)
-          expect(result.desired_letter).to eq("E")
-        end
+        it { expect(perform).to have_output(:letters?).with(true) }
+        it { expect(perform).to have_output(:letters).with([%w[A B], ["C", "D", %w[E F], nil, ""]]) }
+        it { expect(perform).to have_output(:desired_letter?).with(true) }
+        it { expect(perform).to have_output(:desired_letter).with("E") }
       end
 
       describe "but the data required for work is invalid" do
@@ -55,8 +49,14 @@ RSpec.describe Usual::Collection::Example18 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `letters`" do
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: [String, NilClass]
+      it do
+        expect { perform }.to(
+          have_input(:letters)
+            .valid_with(attributes)
+            .type(Array)
+            .consists_of(String, NilClass)
+            .optional
+        )
       end
     end
   end
@@ -83,16 +83,10 @@ RSpec.describe Usual::Collection::Example18 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.letters?).to be(true)
-          expect(result.letters).to(
-            contain_exactly(%w[A B], ["C", "D", %w[E F], nil, ""])
-          )
-          expect(result.desired_letter?).to be(true)
-          expect(result.desired_letter).to eq("E")
-        end
+        it { expect(perform).to have_output(:letters?).with(true) }
+        it { expect(perform).to have_output(:letters).with([%w[A B], ["C", "D", %w[E F], nil, ""]]) }
+        it { expect(perform).to have_output(:desired_letter?).with(true) }
+        it { expect(perform).to have_output(:desired_letter).with("E") }
       end
 
       describe "but the data required for work is invalid" do
@@ -115,8 +109,14 @@ RSpec.describe Usual::Collection::Example18 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `letters`" do
-        it_behaves_like "input type check", name: :letters, collection: Array, expected_type: [String, NilClass]
+      it do
+        expect { perform }.to(
+          have_input(:letters)
+            .valid_with(attributes)
+            .type(Array)
+            .consists_of(String, NilClass)
+            .optional
+        )
       end
     end
   end

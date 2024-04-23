@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Inclusion::Example8 do
+RSpec.describe Usual::Inclusion::Example8, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -21,11 +21,7 @@ RSpec.describe Usual::Inclusion::Example8 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.event_name).to eq("approved")
-        end
+        it { expect(perform).to have_output(:event_name).with("approved") }
       end
 
       describe "but the data required for work is invalid" do
@@ -74,10 +70,14 @@ RSpec.describe Usual::Inclusion::Example8 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `event_name`" do
-        it_behaves_like "input required check", name: :event_name
-
-        it_behaves_like "input type check", name: :event_name, expected_type: String
+      it do
+        expect { perform }.to(
+          have_input(:event_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+            .inclusion(%w[created rejected approved])
+        )
       end
     end
   end
@@ -102,11 +102,7 @@ RSpec.describe Usual::Inclusion::Example8 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.event_name).to eq("approved")
-        end
+        it { expect(perform).to have_output(:event_name).with("approved") }
       end
 
       describe "but the data required for work is invalid" do
@@ -155,10 +151,14 @@ RSpec.describe Usual::Inclusion::Example8 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `event_name`" do
-        it_behaves_like "input required check", name: :event_name
-
-        it_behaves_like "input type check", name: :event_name, expected_type: String
+      it do
+        expect { perform }.to(
+          have_input(:event_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+            .inclusion(%w[created rejected approved])
+        )
       end
     end
   end
