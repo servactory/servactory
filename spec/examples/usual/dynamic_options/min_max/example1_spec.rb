@@ -434,11 +434,7 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :data
-
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
-      end
+      it { expect { perform }.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required }
     end
   end
 
@@ -875,11 +871,7 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :data
-
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
-      end
+      it { expect { perform }.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required }
     end
   end
 end
