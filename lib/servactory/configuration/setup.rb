@@ -8,6 +8,7 @@ module Servactory
                     :output_exception_class,
                     :success_class,
                     :failure_class,
+                    :result_class,
                     :hash_mode_class_names,
                     :input_option_helpers,
                     :internal_option_helpers,
@@ -23,6 +24,8 @@ module Servactory
 
         @success_class = Servactory::Exceptions::Success
         @failure_class = Servactory::Exceptions::Failure
+
+        @result_class = Servactory::Result
 
         @hash_mode_class_names =
           Servactory::Maintenance::HashMode::ClassNamesCollection.new(default_hash_mode_class_names)

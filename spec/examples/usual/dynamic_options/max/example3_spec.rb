@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Max::Example3 do
+RSpec.describe Usual::DynamicOptions::Max::Example3, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -22,12 +22,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(1)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(1) }
         end
 
         context "when `data` is `String`" do
@@ -35,12 +31,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Data")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Data") }
         end
 
         context "when `data` is `Array`" do
@@ -48,12 +40,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq([0])
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with([0]) }
         end
 
         context "when `data` is `Hash`" do
@@ -61,12 +49,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1 }) }
         end
       end
 
@@ -246,11 +230,7 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :data
-
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
-      end
+      it { expect { perform }.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required }
     end
   end
 
@@ -275,12 +255,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(1)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(1) }
         end
 
         context "when `data` is `String`" do
@@ -288,12 +264,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Data")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Data") }
         end
 
         context "when `data` is `Array`" do
@@ -301,12 +273,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq([0])
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with([0]) }
         end
 
         context "when `data` is `Hash`" do
@@ -314,12 +282,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1 }) }
         end
       end
 
@@ -499,11 +463,7 @@ RSpec.describe Usual::DynamicOptions::Max::Example3 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :data
-
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
-      end
+      it { expect { perform }.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required }
     end
   end
 end

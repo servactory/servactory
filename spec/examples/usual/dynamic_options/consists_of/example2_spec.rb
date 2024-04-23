@@ -28,11 +28,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_invoice_number).to eq("7650AE")
-        end
+        it { expect(perform).to have_output(:first_invoice_number?).with(true) }
+        it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
       end
 
       describe "but the data required for work is invalid" do
@@ -119,12 +116,15 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_numbers`" do
-        it_behaves_like "input required check", name: :invoice_numbers
-
-        it_behaves_like "input type check",
-                        name: :invoice_numbers,
-                        expected_type: Array
+      it do
+        expect { perform }.to(
+          have_input(:invoice_numbers)
+            .valid_with(attributes)
+            .type(Array)
+            .required
+            .consists_of(String)
+            .must(:be_6_characters)
+        )
       end
     end
   end
@@ -156,11 +156,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_invoice_number).to eq("7650AE")
-        end
+        it { expect(perform).to have_output(:first_invoice_number?).with(true) }
+        it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
       end
 
       describe "but the data required for work is invalid" do
@@ -247,12 +244,15 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_numbers`" do
-        it_behaves_like "input required check", name: :invoice_numbers
-
-        it_behaves_like "input type check",
-                        name: :invoice_numbers,
-                        expected_type: Array
+      it do
+        expect { perform }.to(
+          have_input(:invoice_numbers)
+            .valid_with(attributes)
+            .type(Array)
+            .required
+            .consists_of(String)
+            .must(:be_6_characters)
+        )
       end
     end
   end

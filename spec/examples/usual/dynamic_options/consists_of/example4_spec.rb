@@ -28,11 +28,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example4 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        end
+        it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
 
       describe "but the data required for work is invalid" do
@@ -96,12 +92,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example4 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        expected_type: Array
+      it do
+        expect { perform }.to(
+          have_input(:ids)
+            .type(Array)
+            .consists_of(String) { "Input `ids` must be an array of `String`" }
+            .required
+        )
       end
     end
   end
@@ -133,11 +130,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example4 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        end
+        it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
 
       describe "but the data required for work is invalid" do
@@ -201,12 +194,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example4 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        expected_type: Array
+      it do
+        expect { perform }.to(
+          have_input(:ids)
+            .type(Array)
+            .consists_of(String) { "Input `ids` must be an array of `String`" }
+            .required
+        )
       end
     end
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::As::Example1 do
+RSpec.describe Wrong::As::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -38,13 +38,8 @@ RSpec.describe Wrong::As::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        expected_type: Array
-      end
+      # FIXME: Add example for `as` (internal_name)
+      it { expect { perform }.to have_input(:ids).valid_with(false).type(Array).consists_of(String).required }
     end
   end
 
@@ -85,13 +80,7 @@ RSpec.describe Wrong::As::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        expected_type: Array
-      end
+      it { expect { perform }.to have_input(:ids).valid_with(false).type(Array).consists_of(String).required }
     end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Hash::Example2 do
+RSpec.describe Wrong::Hash::Example2, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -36,10 +36,7 @@ RSpec.describe Wrong::Hash::Example2 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :payload
-        it_behaves_like "input type check", name: :payload, expected_type: Hash
-      end
+      it { expect { perform }.to have_input(:payload).valid_with(false).type(Hash).required }
     end
   end
 
@@ -82,10 +79,7 @@ RSpec.describe Wrong::Hash::Example2 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :payload
-        it_behaves_like "input type check", name: :payload, expected_type: Hash
-      end
+      it { expect { perform }.to have_input(:payload).valid_with(false).type(Hash).required }
     end
   end
 end

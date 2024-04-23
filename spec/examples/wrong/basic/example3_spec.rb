@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Basic::Example3 do
+RSpec.describe Wrong::Basic::Example3, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -22,7 +22,7 @@ RSpec.describe Wrong::Basic::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Exceptions::Input,
+              ApplicationService::Exceptions::Internal,
               "[Wrong::Basic::Example3] Undefined internal attribute `prepared_number`"
             )
           )
@@ -31,10 +31,7 @@ RSpec.describe Wrong::Basic::Example3 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
-      end
+      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
     end
   end
 
@@ -59,7 +56,7 @@ RSpec.describe Wrong::Basic::Example3 do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              ApplicationService::Exceptions::Input,
+              ApplicationService::Exceptions::Internal,
               "[Wrong::Basic::Example3] Undefined internal attribute `prepared_number`"
             )
           )
@@ -68,10 +65,7 @@ RSpec.describe Wrong::Basic::Example3 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
-      end
+      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
     end
   end
 end

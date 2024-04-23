@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::FailInput::Example1 do
+RSpec.describe Usual::FailInput::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -21,11 +21,7 @@ RSpec.describe Usual::FailInput::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `invoice_number`" do
-          result = perform
-
-          expect(result.invoice_number).to eq("AA-7650AE")
-        end
+        it { expect(perform).to have_output(:invoice_number).with("AA-7650AE") }
       end
 
       describe "but the data required for work is invalid" do
@@ -46,10 +42,7 @@ RSpec.describe Usual::FailInput::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
-      end
+      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
     end
   end
 
@@ -73,11 +66,7 @@ RSpec.describe Usual::FailInput::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `invoice_number`" do
-          result = perform
-
-          expect(result.invoice_number).to eq("AA-7650AE")
-        end
+        it { expect(perform).to have_output(:invoice_number).with("AA-7650AE") }
       end
 
       describe "but the data required for work is invalid" do
@@ -98,10 +87,7 @@ RSpec.describe Usual::FailInput::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_number`" do
-        it_behaves_like "input required check", name: :invoice_number
-        it_behaves_like "input type check", name: :invoice_number, expected_type: String
-      end
+      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
     end
   end
 end

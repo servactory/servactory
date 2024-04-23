@@ -30,26 +30,22 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
+        it { expect(perform).to have_output(:ids?).with(true) }
 
-          expect(result.ids?).to be(true)
-          expect(result.ids).to(
-            contain_exactly("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3)
+        it do
+          expect(perform).to(
+            have_output(:ids).with(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
           )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         end
+
+        it { expect(perform).to have_output(:first_id?).with(true) }
+        it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        # NOTE: In this example, collection mode is disabled.
-        it_behaves_like "input type check", name: :ids, expected_type: Array
-      end
+      # NOTE: In this example, collection mode is disabled.
+      it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).required }
     end
   end
 
@@ -82,26 +78,22 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns expected values", :aggregate_failures do
-          result = perform
+        it { expect(perform).to have_output(:ids?).with(true) }
 
-          expect(result.ids?).to be(true)
-          expect(result.ids).to(
-            contain_exactly("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3)
+        it do
+          expect(perform).to(
+            have_output(:ids).with(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
           )
-          expect(result.first_id?).to be(true)
-          expect(result.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         end
+
+        it { expect(perform).to have_output(:first_id?).with(true) }
+        it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        # NOTE: In this example, collection mode is disabled.
-        it_behaves_like "input type check", name: :ids, expected_type: Array
-      end
+      # NOTE: In this example, collection mode is disabled.
+      it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).required }
     end
   end
 end

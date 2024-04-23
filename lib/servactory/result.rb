@@ -110,7 +110,7 @@ module Servactory
     ########################################################################
 
     def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
-      raise exception if @context.blank?
+      raise exception if @context.blank? || @context.instance_of?(Servactory::TestKit::Result)
 
       raise @context.class.config.failure_class.new(
         type: :base,

@@ -39,13 +39,7 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        expected_type: Array
-      end
+      it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).consists_of(String).required }
     end
   end
 
@@ -87,13 +81,7 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
-        it_behaves_like "input required check", name: :ids
-
-        it_behaves_like "input type check",
-                        name: :ids,
-                        expected_type: Array
-      end
+      it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).consists_of(String).required }
     end
   end
 end

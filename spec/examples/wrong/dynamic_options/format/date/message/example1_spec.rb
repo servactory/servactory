@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::DynamicOptions::Format::Date::Message::Example1 do
+RSpec.describe Wrong::DynamicOptions::Format::Date::Message::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -33,11 +33,7 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Message::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :started_on
-
-        it_behaves_like "input type check", name: :started_on, expected_type: String
-      end
+      it { expect { perform }.to have_input(:started_on).valid_with(false).type(String).required }
     end
   end
 
@@ -73,11 +69,7 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Message::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :started_on
-
-        it_behaves_like "input type check", name: :started_on, expected_type: String
-      end
+      it { expect { perform }.to have_input(:started_on).valid_with(false).type(String).required }
     end
   end
 end

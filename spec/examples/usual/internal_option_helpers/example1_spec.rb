@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::InternalOptionHelpers::Example1 do
+RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -28,12 +28,8 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
-          result = perform
-
-          expect(result.first_invoice_number?).to be(true)
-          expect(result.first_invoice_number).to eq("7650AE")
-        end
+        it { expect(perform).to have_output(:first_invoice_number?).with(true) }
+        it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
       end
 
       describe "but the data required for work is invalid" do
@@ -120,13 +116,11 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_numbers`" do
-        it_behaves_like "input required check", name: :invoice_numbers
-
-        it_behaves_like "input type check",
-                        name: :invoice_numbers,
-                        expected_type: Array
-      end
+      it {
+        expect do
+          perform
+        end.to have_input(:invoice_numbers).valid_with(attributes).type(Array).consists_of(String).required
+      }
     end
   end
 
@@ -157,12 +151,8 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`", :aggregate_failures do
-          result = perform
-
-          expect(result.first_invoice_number?).to be(true)
-          expect(result.first_invoice_number).to eq("7650AE")
-        end
+        it { expect(perform).to have_output(:first_invoice_number?).with(true) }
+        it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
       end
 
       describe "but the data required for work is invalid" do
@@ -249,13 +239,11 @@ RSpec.describe Usual::InternalOptionHelpers::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `invoice_numbers`" do
-        it_behaves_like "input required check", name: :invoice_numbers
-
-        it_behaves_like "input type check",
-                        name: :invoice_numbers,
-                        expected_type: Array
-      end
+      it {
+        expect do
+          perform
+        end.to have_input(:invoice_numbers).valid_with(attributes).type(Array).consists_of(String).required
+      }
     end
   end
 end
