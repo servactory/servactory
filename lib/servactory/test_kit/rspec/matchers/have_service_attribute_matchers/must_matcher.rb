@@ -46,8 +46,13 @@ module Servactory
             def submatcher_passes?(_subject)
               attribute_must = attribute_data.fetch(:must)
 
-              attribute_must.keys.difference(must_names).empty? &&
-                must_names.difference(attribute_must.keys).empty?
+              attribute_must_keys = attribute_must.keys
+
+              # NOTE: Even though the dynamic option `consists_of` is a `must`, here we are testing explicit `must`.
+              attribute_must_keys.delete(:consists_of)
+
+              attribute_must_keys.difference(must_names).empty? &&
+                must_names.difference(attribute_must_keys).empty?
             end
 
             def build_missing_option
