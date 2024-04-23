@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2 do
+RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
