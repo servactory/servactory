@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Example75 do
+RSpec.describe Usual::Basic::Example17, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -44,18 +44,10 @@ RSpec.describe Usual::Example75 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `first_name`" do
-        it_behaves_like "input required check", name: :first_name
-        it_behaves_like "input type check", name: :first_name, expected_type: String
-      end
-
-      context "when `middle_name`" do
-        it_behaves_like "input type check", name: :middle_name, expected_type: String
-      end
-
-      context "when `last_name`" do
-        it_behaves_like "input required check", name: :last_name
-        it_behaves_like "input type check", name: :last_name, expected_type: String
+      context "when the input arguments are invalid" do
+        it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
+        it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
+        it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
       end
     end
   end
@@ -103,18 +95,10 @@ RSpec.describe Usual::Example75 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `first_name`" do
-        it_behaves_like "input required check", name: :first_name
-        it_behaves_like "input type check", name: :first_name, expected_type: String
-      end
-
-      context "when `middle_name`" do
-        it_behaves_like "input type check", name: :middle_name, expected_type: String
-      end
-
-      context "when `last_name`" do
-        it_behaves_like "input required check", name: :last_name
-        it_behaves_like "input type check", name: :last_name, expected_type: String
+      context "when the input arguments are invalid" do
+        it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
+        it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
+        it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
       end
     end
   end

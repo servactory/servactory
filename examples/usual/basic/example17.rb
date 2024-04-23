@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Usual
-  class Example75 < ApplicationService::Base
+  module Basic
+    class Example17 < ApplicationService::Base
     configuration do
       input_option_helpers(
         Servactory::Inputs::OptionHelpers::Types.all
@@ -26,4 +27,5 @@ module Usual
       ].compact.join(" ")
     end
   end
+end
 end
