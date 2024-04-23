@@ -29,6 +29,8 @@ module Servactory
           child.config.action_aliases = config.action_aliases
           child.config.action_shortcuts = config.action_shortcuts
           child.config.action_rescue_handlers = config.action_rescue_handlers
+
+          child.config.predicates_enabled = config.predicates_enabled
         end
 
         def config

@@ -55,6 +55,8 @@ module ApplicationService
       # action_shortcuts %i[assign build create save]
 
       # action_aliases %i[do_it!]
+
+      # predicates_enabled true
     end
   end
 end
