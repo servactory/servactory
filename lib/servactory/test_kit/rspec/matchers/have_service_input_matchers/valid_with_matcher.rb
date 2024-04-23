@@ -60,41 +60,18 @@ module Servactory
 
             def failure_type_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
               option_types = attribute_data.fetch(:types)
-              input_first_type = option_types.first
-              input_required = attribute_data.fetch(:required).fetch(:is)
-              attribute_consists_of_types = Array(attribute_data.fetch(:consists_of).fetch(:type))
-              attribute_consists_of_first_type = attribute_consists_of_types.first
 
               prepared_attributes = attributes.dup
               prepared_attributes[attribute_name] = Servactory::TestKit::FakeType.new
 
               input_required_message =
-                if described_class.config.collection_mode_class_names.include?(input_first_type) &&
-                   attribute_consists_of_first_type != false
-                  if input_required
-                    I18n.t(
-                      "servactory.#{attribute_type_plural}.validations.required.default_error.for_collection",
-                      service_class_name: described_class.name,
-                      "#{attribute_type}_name": attribute_name
-                    )
-                  else
-                    I18n.t(
-                      "servactory.#{attribute_type_plural}.validations.type.default_error.for_collection.wrong_type",
-                      service_class_name: described_class.name,
-                      "#{attribute_type}_name": attribute_name,
-                      expected_type: option_types.join(", "),
-                      given_type: Servactory::TestKit::FakeType.new.class.name
-                    )
-                  end
-                else
-                  I18n.t(
-                    "servactory.#{attribute_type_plural}.validations.type.default_error.default",
-                    service_class_name: described_class.name,
-                    "#{attribute_type}_name": attribute_name,
-                    expected_type: option_types.join(", "),
-                    given_type: Servactory::TestKit::FakeType.new.class.name
-                  )
-                end
+                I18n.t(
+                  "servactory.#{attribute_type_plural}.validations.type.default_error.default",
+                  service_class_name: described_class.name,
+                  "#{attribute_type}_name": attribute_name,
+                  expected_type: option_types.join(", "),
+                  given_type: Servactory::TestKit::FakeType.new.class.name
+                )
 
               expect_failure_with!(prepared_attributes, input_required_message)
             end
@@ -131,38 +108,14 @@ module Servactory
               expect_failure_with!(prepared_attributes, nil)
             end
 
-            def failure_format_passes?
-              # NOTE: Checking for negative cases is not implemented for `format`
+            def failure_consists_of_passes?
+              # NOTE: Checking for negative cases is not implemented for `consists_of`
               true
             end
 
-            def failure_consists_of_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-              option_types = attribute_data.fetch(:types)
-              input_first_type = option_types.first
-
-              return true unless described_class.config.collection_mode_class_names.include?(input_first_type)
-
-              prepared_attributes = attributes.dup
-              prepared_attributes[attribute_name] = input_first_type[Servactory::TestKit::FakeType.new]
-
-              attribute_consists_of_types = Array(attribute_data.fetch(:consists_of).fetch(:type))
-              attribute_consists_of_first_type = attribute_consists_of_types.first
-
-              return true if attribute_consists_of_first_type == false
-
-              attribute_consists_of_message = attribute_data.fetch(:consists_of).fetch(:message)
-
-              if attribute_consists_of_message.nil?
-                attribute_consists_of_message = I18n.t(
-                  "servactory.#{attribute_type_plural}.validations.type.default_error.for_collection.wrong_element_type", # rubocop:disable Layout/LineLength
-                  service_class_name: described_class.name,
-                  "#{attribute_type}_name": attribute_name,
-                  expected_type: attribute_consists_of_types.join(", "),
-                  given_type: prepared_attributes[attribute_name].map { _1.class.name }.join(", ")
-                )
-              end
-
-              expect_failure_with!(prepared_attributes, attribute_consists_of_message)
+            def failure_format_passes?
+              # NOTE: Checking for negative cases is not implemented for `format`
+              true
             end
 
             def failure_inclusion_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
