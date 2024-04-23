@@ -6,21 +6,21 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
 
     let(:attributes) do
       {
-        ids: ids
+        invoice_numbers: invoice_numbers
       }
     end
 
-    let(:ids) do
+    let(:invoice_numbers) do
       %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+        7650AE
+        B4EA1B
+        A7BC86
+        BD2D6B
       ]
     end
 
     include_examples "check class info",
-                     inputs: %i[ids],
+                     inputs: %i[invoice_numbers],
                      internals: %i[],
                      outputs: %i[]
 
@@ -30,7 +30,7 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
+              "[Wrong::Prepare::Example2] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
             )
           )
         end
@@ -38,28 +38,28 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
+      context "when `invoice_numbers`" do
         describe "is not passed" do
-          let(:ids) { nil }
+          let(:invoice_numbers) { nil }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
+                "[Wrong::Prepare::Example2] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
               )
             )
           end
         end
 
         describe "is of the wrong type" do
-          let(:ids) { 123 }
+          let(:invoice_numbers) { 123 }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
+                "[Wrong::Prepare::Example2] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
               )
             )
           end
@@ -73,21 +73,21 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
 
     let(:attributes) do
       {
-        ids: ids
+        invoice_numbers: invoice_numbers
       }
     end
 
-    let(:ids) do
+    let(:invoice_numbers) do
       %w[
-        6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-        bdd30bb6-c6ab-448d-8302-7018de07b9a4
-        e864b5e7-e515-4d5e-9a7e-7da440323390
-        b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+        7650AE
+        B4EA1B
+        A7BC86
+        BD2D6B
       ]
     end
 
     include_examples "check class info",
-                     inputs: %i[ids],
+                     inputs: %i[invoice_numbers],
                      internals: %i[],
                      outputs: %i[]
 
@@ -97,7 +97,7 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
+              "[Wrong::Prepare::Example2] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
             )
           )
         end
@@ -105,28 +105,28 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      context "when `ids`" do
+      context "when `invoice_numbers`" do
         describe "is not passed" do
-          let(:ids) { nil }
+          let(:invoice_numbers) { nil }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
+                "[Wrong::Prepare::Example2] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
               )
             )
           end
         end
 
         describe "is of the wrong type" do
-          let(:ids) { 123 }
+          let(:invoice_numbers) { 123 }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Wrong::Prepare::Example2] Conflict in `ids` input options: `prepare_vs_collection`"
+                "[Wrong::Prepare::Example2] Conflict in `invoice_numbers` input options: `prepare_vs_must`"
               )
             )
           end

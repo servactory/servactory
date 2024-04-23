@@ -11,6 +11,8 @@ module Servactory
 
       attr_accessor failure_class: singleton(Exceptions::Failure)
 
+      attr_accessor result_class: singleton(Servactory::Result)
+
       attr_accessor collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
 
       attr_accessor hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection

@@ -7,6 +7,7 @@ require "active_support/all"
 require "uri"
 
 loader = Zeitwerk::Loader.for_gem
+loader.ignore("#{__dir__}/generators")
 loader.inflector.inflect(
   "dsl" => "DSL"
 )

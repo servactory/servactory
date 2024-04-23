@@ -21,6 +21,7 @@ RSpec.describe Servactory::TestKit::Result do
       result = described_class.as_success
 
       expect(result).to be_a(Servactory::Result)
+      expect(result).to an_instance_of(Servactory::Result)
       expect(result).to be_success
       expect(result).not_to be_failure
     end
@@ -29,6 +30,7 @@ RSpec.describe Servactory::TestKit::Result do
       result = described_class.as_success(test_attribute: :test_value)
 
       expect(result).to be_a(Servactory::Result)
+      expect(result).to an_instance_of(Servactory::Result)
       expect(result).to be_success
       expect(result).not_to be_failure
       expect(result.test_attribute).to eq(:test_value)
@@ -40,6 +42,7 @@ RSpec.describe Servactory::TestKit::Result do
       result = described_class.as_failure
 
       expect(result).to be_a(Servactory::Result)
+      expect(result).to an_instance_of(Servactory::Result)
       expect(result).not_to be_success
       expect(result).to be_failure
     end
@@ -53,6 +56,7 @@ RSpec.describe Servactory::TestKit::Result do
       )
 
       expect(result).to be_a(Servactory::Result)
+      expect(result).to an_instance_of(Servactory::Result)
       expect(result).not_to be_success
       expect(result).to be_failure
       expect(result.error).to be_a(Servactory::Exceptions::Failure)
