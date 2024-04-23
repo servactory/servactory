@@ -55,7 +55,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
             .valid_with(attributes)
             .type(Array)
             .consists_of(String, NilClass)
-            .optional
+            .required
         )
       end
     end
@@ -115,7 +115,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
             .valid_with(attributes)
             .type(Array)
             .consists_of(String, NilClass)
-            .optional
+            .required
         )
       end
     end
