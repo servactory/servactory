@@ -84,7 +84,7 @@ module Servactory
           end
 
           match do |actual|
-            matched = actual.instance_of?(Servactory::Result)
+            matched = actual.is_a?(Servactory::Result)
             matched &&= actual.success?
             matched &&= !actual.failure?
 
