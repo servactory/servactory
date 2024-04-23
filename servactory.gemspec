@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "A set of tools for building reliable services of any complexity"
   spec.description   = spec.summary
-  spec.homepage      = "https://github.com/afuno/servactory"
+  spec.homepage      = "https://github.com/servactory/servactory"
 
   spec.license       = "MIT"
 
