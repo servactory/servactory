@@ -5,7 +5,7 @@ module Servactory
     MAJOR = 2
     MINOR = 5
     PATCH = 0
-    PRE = "rc5"
+    PRE = "rc6"
 
     STRING = [MAJOR, MINOR, PATCH, PRE].compact.join(".")
   end
