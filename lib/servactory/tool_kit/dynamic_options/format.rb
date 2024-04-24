@@ -3,8 +3,12 @@
 module Servactory
   module ToolKit
     module DynamicOptions
-      class Format < Must
+      class Format < Must # rubocop:disable Metrics/ClassLength
         DEFAULT_FORMATS = {
+          uuid: {
+            pattern: /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/,
+            validator: ->(value:) { value.present? }
+          },
           email: {
             pattern: URI::MailTo::EMAIL_REGEXP,
             validator: ->(value:) { value.present? }

@@ -213,7 +213,7 @@ module Servactory
             )
           end
 
-          def register_prepare_option # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+          def register_prepare_option # rubocop:disable Metrics/MethodLength
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :prepare,
               attribute: @attribute,
