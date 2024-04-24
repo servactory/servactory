@@ -54,14 +54,14 @@ module Servactory
         end
 
         def getter_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
-          internal_name = @context.class.config.predicates_enabled? ? name.to_s.chomp("?").to_sym : name
+          internal_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
           internal = @collection_of_internals.find_by(name: internal_name)
 
           return yield if internal.nil?
 
           internal_value = @context.send(:servactory_service_store).fetch_internal(internal.name)
 
-          if name.to_s.end_with?("?") && @context.class.config.predicates_enabled?
+          if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
             Servactory::Utils.query_attribute(internal_value)
           else
             internal_value

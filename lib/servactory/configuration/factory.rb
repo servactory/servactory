@@ -97,10 +97,10 @@ module Servactory
         @config.action_shortcuts.merge(action_shortcuts)
       end
 
-      def predicates_enabled(flag)
-        return @config.predicates_enabled = flag if boolean?(flag)
+      def predicate_methods_enabled(flag)
+        return @config.predicate_methods_enabled = flag if boolean?(flag)
 
-        raise_error_about_wrong_predicates_enabled_with(:predicates_enabled, flag)
+        raise_error_about_wrong_predicate_methods_enabled_with(:predicate_methods_enabled, flag)
       end
 
       private
@@ -137,7 +137,7 @@ module Servactory
               "See configuration example here: https://servactory.com/guide/configuration"
       end
 
-      def raise_error_about_wrong_predicates_enabled_with(config_name, value)
+      def raise_error_about_wrong_predicate_methods_enabled_with(config_name, value)
         raise ArgumentError,
               "Error in `#{config_name}` configuration. " \
               "The `#{value}` value must be `TrueClass` or `FalseClass`. " \

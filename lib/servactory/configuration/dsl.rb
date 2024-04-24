@@ -30,7 +30,7 @@ module Servactory
           child.config.action_shortcuts = config.action_shortcuts
           child.config.action_rescue_handlers = config.action_rescue_handlers
 
-          child.config.predicates_enabled = config.predicates_enabled
+          child.config.predicate_methods_enabled = config.predicate_methods_enabled
         end
 
         def config

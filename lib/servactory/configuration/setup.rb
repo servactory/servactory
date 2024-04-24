@@ -17,7 +17,7 @@ module Servactory
                     :action_aliases,
                     :action_shortcuts,
                     :action_rescue_handlers,
-                    :predicates_enabled
+                    :predicate_methods_enabled
 
       def initialize # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         @input_exception_class = Servactory::Exceptions::Input
@@ -48,11 +48,11 @@ module Servactory
         @action_shortcuts = Servactory::Actions::Shortcuts::Collection.new
         @action_rescue_handlers = Servactory::Actions::RescueHandlers::Collection.new
 
-        @predicates_enabled = true
+        @predicate_methods_enabled = true
       end
 
-      def predicates_enabled?
-        @predicates_enabled
+      def predicate_methods_enabled?
+        @predicate_methods_enabled
       end
 
       private

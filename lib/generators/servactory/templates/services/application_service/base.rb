@@ -56,7 +56,7 @@ module ApplicationService
 
       # action_aliases %i[do_it!]
 
-      # predicates_enabled true
+      # predicate_methods_enabled true
     end
   end
 end

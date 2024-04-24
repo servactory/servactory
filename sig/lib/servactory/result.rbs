@@ -5,7 +5,7 @@ module Servactory
     @outputs: Outputs
 
     class Outputs
-      def initialize: (outputs: Hash[Symbol, untyped], predicates_enabled: bool) -> void
+      def initialize: (outputs: Hash[Symbol, untyped], predicate_methods_enabled: bool) -> void
     end
 
     def self.success_for: (context: instance) -> self
