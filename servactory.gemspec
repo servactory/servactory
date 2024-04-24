@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "A set of tools for building reliable services of any complexity"
   spec.description   = spec.summary
-  spec.homepage      = "https://github.com/afuno/servactory"
+  spec.homepage      = "https://github.com/servactory/servactory"
 
   spec.license       = "MIT"
 
@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["config/**/*", "lib/**/*", "Rakefile", "README.md"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0") # rubocop:disable Gemspec/RequiredRubyVersion
 
   spec.add_runtime_dependency "activesupport", ">= 5.1", "< 7.2"
   spec.add_runtime_dependency "i18n", "~> 1.14"

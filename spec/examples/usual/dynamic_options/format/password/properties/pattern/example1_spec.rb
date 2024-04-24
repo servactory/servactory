@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Pattern::Example1 do
+RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Pattern::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -45,11 +45,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Pattern::Exa
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :password
-
-        it_behaves_like "input type check", name: :password, expected_type: String
-      end
+      it { expect { perform }.to have_input(:password).valid_with(attributes).type(String).required }
     end
   end
 
@@ -97,11 +93,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Pattern::Exa
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :password
-
-        it_behaves_like "input type check", name: :password, expected_type: String
-      end
+      it { expect { perform }.to have_input(:password).valid_with(attributes).type(String).required }
     end
   end
 end

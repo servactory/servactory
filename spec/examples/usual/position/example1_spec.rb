@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Position::Example1 do
+RSpec.describe Usual::Position::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
@@ -13,11 +13,7 @@ RSpec.describe Usual::Position::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.number).to eq(5)
-        end
+        it { expect(perform).to have_output(:number).with(5) }
       end
     end
   end
@@ -34,11 +30,7 @@ RSpec.describe Usual::Position::Example1 do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it "returns the expected value in `first_id`" do
-          result = perform
-
-          expect(result.number).to eq(5)
-        end
+        it { expect(perform).to have_output(:number).with(5) }
       end
     end
   end

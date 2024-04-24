@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Fail::Example4 do
+RSpec.describe Wrong::Fail::Example4, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
@@ -12,11 +12,9 @@ RSpec.describe Wrong::Fail::Example4 do
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         before do
-          allow(Wrong::Fail::Example4Child).to(
-            receive(:call).and_raise(
-              ApplicationService::Exceptions::Failure.new(message: "Some overridden error")
-            )
-          )
+          allow_service_as_failure(Wrong::Fail::Example4Child) do
+            ApplicationService::Exceptions::Failure.new(message: "Some overridden error")
+          end
         end
 
         it "returns expected error", :aggregate_failures do
@@ -44,11 +42,9 @@ RSpec.describe Wrong::Fail::Example4 do
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
         before do
-          allow(Wrong::Fail::Example4Child).to(
-            receive(:call).and_raise(
-              ApplicationService::Exceptions::Failure.new(message: "Some overridden error")
-            )
-          )
+          allow_service_as_failure(Wrong::Fail::Example4Child) do
+            ApplicationService::Exceptions::Failure.new(message: "Some overridden error")
+          end
         end
 
         it "returns the expected value in `errors`", :aggregate_failures do

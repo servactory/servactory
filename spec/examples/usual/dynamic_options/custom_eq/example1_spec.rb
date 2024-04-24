@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::CustomEq::Example1 do
+RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -22,12 +22,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1 do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(2)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(2) }
         end
 
         context "when `data` is `String`" do
@@ -35,12 +31,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Hi")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Hi") }
         end
 
         context "when `data` is `Array`" do
@@ -61,12 +53,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1, b: 2 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1, b: 2 }) }
         end
       end
 
@@ -146,11 +134,7 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :data
-
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
-      end
+      it { expect { perform }.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required }
     end
   end
 
@@ -175,12 +159,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1 do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq(2)
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with(2) }
         end
 
         context "when `data` is `String`" do
@@ -188,12 +168,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq("Hi")
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with("Hi") }
         end
 
         context "when `data` is `Array`" do
@@ -214,12 +190,8 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1 do
 
           include_examples "success result class"
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to match({ a: 1, b: 2 })
-          end
+          it { expect(perform).to have_output(:data?).with(true) }
+          it { expect(perform).to have_output(:data).with({ a: 1, b: 2 }) }
         end
       end
 
@@ -299,11 +271,7 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `data`" do
-        it_behaves_like "input required check", name: :data
-
-        it_behaves_like "input type check", name: :data, expected_type: [Integer, String, Array, Hash]
-      end
+      it { expect { perform }.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required }
     end
   end
 end

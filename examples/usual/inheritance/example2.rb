@@ -27,7 +27,7 @@ module Usual
 
       input :date, type: DateTime
 
-      output :api_response, type: Hash
+      output :api_response, type: ::Hash
     end
   end
 end

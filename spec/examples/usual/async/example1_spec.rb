@@ -4,7 +4,7 @@ require "async"
 require "async/barrier"
 require "async/semaphore"
 
-RSpec.describe Usual::Async::Example1 do
+RSpec.describe Usual::Async::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -50,10 +50,7 @@ RSpec.describe Usual::Async::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `id`" do
-        it_behaves_like "input required check", name: :id
-        it_behaves_like "input type check", name: :id, expected_type: Integer
-      end
+      it { expect { perform }.to have_input(:id).valid_with(attributes).type(Integer).required }
     end
   end
 
@@ -102,10 +99,7 @@ RSpec.describe Usual::Async::Example1 do
     end
 
     context "when the input arguments are invalid" do
-      context "when `id`" do
-        it_behaves_like "input required check", name: :id
-        it_behaves_like "input type check", name: :id, expected_type: Integer
-      end
+      it { expect { perform }.to have_input(:id).valid_with(attributes).type(Integer).required }
     end
   end
 end
