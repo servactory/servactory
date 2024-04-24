@@ -29,7 +29,11 @@ module Servactory
 
       attr_accessor action_rescue_handlers: Actions::RescueHandlers::Collection
 
+      attr_accessor predicate_methods_enabled: bool
+
       def initialize: () -> void
+
+      def predicate_methods_enabled?: -> bool
 
       private
 
