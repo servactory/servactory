@@ -6,16 +6,16 @@ module Usual
       module Uuid
         module Is
           class Example3 < ApplicationService::Base
-            input :uuid, type: String
+            input :service_id, type: String
 
-            output :uuid, type: String, format: { is: :uuid }
+            output :service_id, type: String, format: { is: :uuid }
 
             make :assign_output
 
             private
 
             def assign_output
-              outputs.uuid = inputs.uuid
+              outputs.service_id = inputs.service_id
             end
           end
         end

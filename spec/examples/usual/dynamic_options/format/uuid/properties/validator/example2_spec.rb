@@ -6,37 +6,37 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Properties::Validator::Examp
 
     let(:attributes) do
       {
-        uuid: uuid
+        service_id: service_id
       }
     end
 
-    let(:uuid) { "my-best-uuid" }
+    let(:service_id) { "my-best-uuid" }
 
     include_examples "check class info",
-                     inputs: %i[uuid],
-                     internals: %i[uuid],
-                     outputs: %i[uuid]
+                     inputs: %i[service_id],
+                     internals: %i[service_id],
+                     outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         it "returns the expected value", :aggregate_failures do
           result = perform
 
-          expect(result.uuid?).to be(true)
-          expect(result.uuid).to eq("my-best-uuid")
+          expect(result.service_id?).to be(true)
+          expect(result.service_id).to eq("my-best-uuid")
         end
       end
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `uuid`" do
-          let(:uuid) { "uuid" }
+          let(:service_id) { "uuid" }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Internal,
                 "[Usual::DynamicOptions::Format::Uuid::Properties::Validator::Example2] " \
-                "Internal attribute `uuid` does not match `uuid` format"
+                "Internal attribute `service_id` does not match `uuid` format"
               )
             )
           end
@@ -45,7 +45,7 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Properties::Validator::Examp
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:uuid).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:service_id).valid_with(attributes).type(String).required }
     end
   end
 
@@ -54,37 +54,37 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Properties::Validator::Examp
 
     let(:attributes) do
       {
-        uuid: uuid
+        service_id: service_id
       }
     end
 
-    let(:uuid) { "my-best-uuid" }
+    let(:service_id) { "my-best-uuid" }
 
     include_examples "check class info",
-                     inputs: %i[uuid],
-                     internals: %i[uuid],
-                     outputs: %i[uuid]
+                     inputs: %i[service_id],
+                     internals: %i[service_id],
+                     outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         it "returns the expected value", :aggregate_failures do
           result = perform
 
-          expect(result.uuid?).to be(true)
-          expect(result.uuid).to eq("my-best-uuid")
+          expect(result.service_id?).to be(true)
+          expect(result.service_id).to eq("my-best-uuid")
         end
       end
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `uuid`" do
-          let(:uuid) { "uuid" }
+          let(:service_id) { "uuid" }
 
           it "returns expected error" do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Internal,
                 "[Usual::DynamicOptions::Format::Uuid::Properties::Validator::Example2] " \
-                "Internal attribute `uuid` does not match `uuid` format"
+                "Internal attribute `service_id` does not match `uuid` format"
               )
             )
           end
@@ -93,7 +93,7 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Properties::Validator::Examp
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:uuid).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:service_id).valid_with(attributes).type(String).required }
     end
   end
 end

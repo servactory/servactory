@@ -7,16 +7,16 @@ module Usual
         module Message
           module Static
             class Example2 < ApplicationService::Base
-              input :uuid, type: String
+              input :service_id, type: String
 
-              internal :uuid,
+              internal :service_id,
                        type: String,
                        check_format: {
                          is: :uuid,
                          message: "Invalid date format"
                        }
 
-              output :uuid, type: String
+              output :service_id, type: String
 
               make :assign_internal
 
@@ -25,11 +25,11 @@ module Usual
               private
 
               def assign_internal
-                internals.uuid = inputs.uuid
+                internals.service_id = inputs.service_id
               end
 
               def assign_output
-                outputs.uuid = internals.uuid
+                outputs.service_id = internals.service_id
               end
             end
           end

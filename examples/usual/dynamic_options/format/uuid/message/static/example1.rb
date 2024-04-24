@@ -7,21 +7,21 @@ module Usual
         module Message
           module Static
             class Example1 < ApplicationService::Base
-              input :uuid,
+              input :service_id,
                     type: String,
                     format: {
                       is: :uuid,
                       message: "Invalid date format"
                     }
 
-              output :uuid, type: String
+              output :service_id, type: String
 
               make :assign_output
 
               private
 
               def assign_output
-                outputs.uuid = inputs.uuid
+                outputs.service_id = inputs.service_id
               end
             end
           end

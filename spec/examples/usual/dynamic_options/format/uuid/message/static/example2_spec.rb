@@ -6,26 +6,26 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example2, t
 
     let(:attributes) do
       {
-        uuid: uuid
+        service_id: service_id
       }
     end
 
-    let(:uuid) { "018f0e5d-a7bd-7764-8b88-cdf2b2d22543" }
+    let(:service_id) { "018f0e5d-a7bd-7764-8b88-cdf2b2d22543" }
 
     include_examples "check class info",
-                     inputs: %i[uuid],
-                     internals: %i[uuid],
-                     outputs: %i[uuid]
+                     inputs: %i[service_id],
+                     internals: %i[service_id],
+                     outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:uuid?).with(true) }
-        it { expect(perform).to have_output(:uuid).with("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
+        it { expect(perform).to have_output(:service_id?).with(true) }
+        it { expect(perform).to have_output(:service_id).with("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
       end
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `uuid`" do
-          let(:uuid) { "my-best-uuid" }
+          let(:service_id) { "my-best-uuid" }
 
           it "returns expected error" do
             expect { perform }.to(
@@ -40,7 +40,7 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example2, t
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:uuid).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:service_id).valid_with(attributes).type(String).required }
     end
   end
 
@@ -49,26 +49,26 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example2, t
 
     let(:attributes) do
       {
-        uuid: uuid
+        service_id: service_id
       }
     end
 
-    let(:uuid) { "018f0e5d-a7bd-7764-8b88-cdf2b2d22543" }
+    let(:service_id) { "018f0e5d-a7bd-7764-8b88-cdf2b2d22543" }
 
     include_examples "check class info",
-                     inputs: %i[uuid],
-                     internals: %i[uuid],
-                     outputs: %i[uuid]
+                     inputs: %i[service_id],
+                     internals: %i[service_id],
+                     outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:uuid?).with(true) }
-        it { expect(perform).to have_output(:uuid).with("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
+        it { expect(perform).to have_output(:service_id?).with(true) }
+        it { expect(perform).to have_output(:service_id).with("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
       end
 
       describe "but the data required for work is invalid" do
         describe "because the format is not suitable for `uuid`" do
-          let(:uuid) { "my-best-uuid" }
+          let(:service_id) { "my-best-uuid" }
 
           it "returns expected error" do
             expect { perform }.to(
@@ -83,7 +83,7 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example2, t
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:uuid).valid_with(attributes).type(String).required }
+      it { expect { perform }.to have_input(:service_id).valid_with(attributes).type(String).required }
     end
   end
 end

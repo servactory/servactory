@@ -7,9 +7,9 @@ module Usual
         module Message
           module Lambda
             class Example3 < ApplicationService::Base
-              input :uuid, type: String
+              input :service_id, type: String
 
-              output :uuid,
+              output :service_id,
                      type: String,
                      format: {
                        is: :uuid,
@@ -23,7 +23,7 @@ module Usual
               private
 
               def assign_output
-                outputs.uuid = inputs.uuid
+                outputs.service_id = inputs.service_id
               end
             end
           end
