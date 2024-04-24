@@ -5,12 +5,16 @@ module Servactory
     module DynamicOptions
       class Format < Must
         DEFAULT_FORMATS = {
-          boolean: {
-            pattern: /^(true|false|0|1)$/i,
-            validator: ->(value:) { %w[true 1].include?(value&.downcase) }
-          },
           email: {
             pattern: URI::MailTo::EMAIL_REGEXP,
+            validator: ->(value:) { value.present? }
+          },
+          password: {
+            # NOTE: Pattern 4 » https://dev.to/rasaf_ibrahim/write-regex-password-validation-like-a-pro-5175
+            #       Password must contain one digit from 1 to 9, one lowercase letter, one
+            #       uppercase letter, and one underscore, and it must be 8-16 characters long.
+            #       Usage of any other special character and usage of space is optional.
+            pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
             validator: ->(value:) { value.present? }
           },
           date: {
@@ -29,14 +33,6 @@ module Servactory
               false
             end
           },
-          password: {
-            # NOTE: Pattern 4 » https://dev.to/rasaf_ibrahim/write-regex-password-validation-like-a-pro-5175
-            #       Password must contain one digit from 1 to 9, one lowercase letter, one
-            #       uppercase letter, and one underscore, and it must be 8-16 characters long.
-            #       Usage of any other special character and usage of space is optional.
-            pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
-            validator: ->(value:) { value.present? }
-          },
           time: {
             pattern: nil,
             validator: lambda do |value:|
@@ -44,6 +40,10 @@ module Servactory
             rescue ArgumentError
               false
             end
+          },
+          boolean: {
+            pattern: /^(true|false|0|1)$/i,
+            validator: ->(value:) { %w[true 1].include?(value&.downcase) }
           }
         }.freeze
         private_constant :DEFAULT_FORMATS
