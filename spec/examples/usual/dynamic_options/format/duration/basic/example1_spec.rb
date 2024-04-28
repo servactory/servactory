@@ -31,7 +31,8 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example1, type: :
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Format::Duration::Basic::Example1] Input `song_duration` does not match `duration` format"
+                "[Usual::DynamicOptions::Format::Duration::Basic::Example1] Input `song_duration` does not " \
+                "match `duration` format"
               )
             )
           end
@@ -74,7 +75,8 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example1, type: :
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Format::Duration::Basic::Example1] Input `song_duration` does not match `duration` format"
+                "[Usual::DynamicOptions::Format::Duration::Basic::Example1] Input `song_duration` does not " \
+                "match `duration` format"
               )
             )
           end
