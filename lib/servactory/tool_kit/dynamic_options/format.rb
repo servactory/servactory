@@ -21,6 +21,14 @@ module Servactory
             pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
             validator: ->(value:) { value.present? }
           },
+          duration: {
+            pattern: nil,
+            validator: lambda do |value:|
+              ActiveSupport::Duration.parse(value) and return true
+            rescue ActiveSupport::Duration::ISO8601Parser::ParsingError
+              false
+            end
+          },
           date: {
             pattern: nil,
             validator: lambda do |value:|
