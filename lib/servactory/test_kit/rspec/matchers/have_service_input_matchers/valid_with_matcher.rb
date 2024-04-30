@@ -204,7 +204,13 @@ module Servactory
             end
 
             def expect_success_with!(prepared_attributes)
-              described_class.call!(prepared_attributes).success?
+              service_result = described_class.call!(prepared_attributes)
+
+              if described_class.config.validation_mode_bang_without_throwing_exception_for_attributes?
+                return service_result.success? || service_result.failure?
+              end
+
+              service_result.success?
             rescue Servactory::Exceptions::Input
               false
             rescue StandardError
@@ -212,7 +218,13 @@ module Servactory
             end
 
             def expect_failure_with!(prepared_attributes, expected_message)
-              described_class.call!(prepared_attributes).success?
+              service_result = described_class.call!(prepared_attributes)
+
+              if described_class.config.validation_mode_bang_without_throwing_exception_for_attributes?
+                return service_result.success? || service_result.failure?
+              end
+
+              service_result.success?
             rescue Servactory::Exceptions::Input => e
               return false if expected_message.blank?
 

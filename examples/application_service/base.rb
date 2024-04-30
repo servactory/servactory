@@ -102,6 +102,8 @@ module ApplicationService
       action_shortcuts %i[assign]
       action_aliases %i[play do_it!]
 
+      validation_mode :default
+
       predicate_methods_enabled true
     end
   end

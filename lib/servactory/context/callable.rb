@@ -3,7 +3,7 @@
 module Servactory
   module Context
     module Callable
-      def call!(arguments = {})
+      def call!(arguments = {}) # rubocop:disable Metrics/AbcSize
         context = send(:new)
 
         _call!(context, **arguments)
@@ -11,9 +11,15 @@ module Servactory
         config.result_class.success_for(context: context)
       rescue config.success_class => e
         config.result_class.success_for(context: e.context)
+      rescue config.input_exception_class, config.internal_exception_class, config.output_exception_class => e
+        if config.validation_mode_bang_without_throwing_exception_for_attributes?
+          return config.result_class.failure_for(context: context, exception: e)
+        end
+
+        raise e
       end
 
-      def call(arguments = {})
+      def call(arguments = {}) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         context = send(:new)
 
         _call!(context, **arguments)
@@ -21,6 +27,12 @@ module Servactory
         config.result_class.success_for(context: context)
       rescue config.success_class => e
         config.result_class.success_for(context: e.context)
+      rescue config.input_exception_class, config.internal_exception_class, config.output_exception_class => e
+        if config.validation_mode_bang_without_throwing_exception_for_attributes?
+          return config.result_class.failure_for(context: context, exception: e)
+        end
+
+        raise e
       rescue config.failure_class => e
         config.result_class.failure_for(context: context, exception: e)
       end

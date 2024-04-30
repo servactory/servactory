@@ -2,7 +2,7 @@
 
 module Servactory
   module Configuration
-    class Factory
+    class Factory # rubocop:disable Metrics/ClassLength
       def initialize(config)
         @config = config
       end
@@ -97,6 +97,14 @@ module Servactory
         @config.action_shortcuts.merge(action_shortcuts)
       end
 
+      def validation_mode(value)
+        value = value.to_sym
+
+        return @config.validation_mode = value if Servactory::Configuration::ValidationMode.match?(value)
+
+        raise_error_about_wrong_validation_mode_with(:validation_mode, value)
+      end
+
       def predicate_methods_enabled(flag)
         return @config.predicate_methods_enabled = flag if boolean?(flag)
 
@@ -135,6 +143,13 @@ module Servactory
               "Error in `#{config_name}` configuration. " \
               "The `#{value}` value must be a subclass of `Servactory::Result`. " \
               "See configuration example here: https://servactory.com/guide/configuration"
+      end
+
+      def raise_error_about_wrong_validation_mode_with(config_name, value)
+        raise ArgumentError,
+              "Error in `#{config_name}` configuration. " \
+              "The `#{value}` value must match one of: " \
+              "#{Servactory::Configuration::ValidationMode.decorated_values_for_error}."
       end
 
       def raise_error_about_wrong_predicate_methods_enabled_with(config_name, value)

@@ -79,12 +79,16 @@ module Servactory
       self
     end
 
-    def as_failure
+    def as_failure # rubocop:disable Metrics/MethodLength
       define_singleton_method(:error) { @exception }
 
       define_singleton_method(:success?) { false }
 
       define_singleton_method(:failure?) do |type = :all|
+        return true if @exception.is_a?(Servactory::Exceptions::Input) ||
+                       @exception.is_a?(Servactory::Exceptions::Internal) ||
+                       @exception.is_a?(Servactory::Exceptions::Output)
+
         return true if [:all, @exception&.type].include?(type)
 
         false
