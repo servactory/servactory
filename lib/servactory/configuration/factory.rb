@@ -98,7 +98,7 @@ module Servactory
       end
 
       def validation_mode(value)
-        value = value.to_sym
+        value = value.to_sym if value.respond_to?(:to_sym)
 
         return @config.validation_mode = value if Servactory::Configuration::ValidationMode.match?(value)
 
