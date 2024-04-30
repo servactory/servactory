@@ -2,7 +2,56 @@
 
 ## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
 
-[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc1...HEAD)
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc7...HEAD)
+
+**Dependencies:**
+
+- \[01.05.2024\] Update libraries [\#209](https://github.com/servactory/servactory/pull/209) ([afuno](https://github.com/afuno))
+
+## [v2.5.0.rc7](https://github.com/servactory/servactory/tree/v2.5.0.rc7) (2024-04-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc6...v2.5.0.rc7)
+
+**Implemented enhancements:**
+
+- Add `duration` format for dynamic option `format` [\#207](https://github.com/servactory/servactory/pull/207) ([afuno](https://github.com/afuno))
+
+## [v2.5.0.rc6](https://github.com/servactory/servactory/tree/v2.5.0.rc6) (2024-04-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc5...v2.5.0.rc6)
+
+**Implemented enhancements:**
+
+- Add configuration option for predicate methods [\#204](https://github.com/servactory/servactory/pull/204) ([afuno](https://github.com/afuno))
+
+## [v2.5.0.rc5](https://github.com/servactory/servactory/tree/v2.5.0.rc5) (2024-04-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc4...v2.5.0.rc5)
+
+**Implemented enhancements:**
+
+- Delete `prepare_vs_must` conflict handling [\#206](https://github.com/servactory/servactory/pull/206) ([afuno](https://github.com/afuno))
+
+## [v2.5.0.rc4](https://github.com/servactory/servactory/tree/v2.5.0.rc4) (2024-04-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc3...v2.5.0.rc4)
+
+**Implemented enhancements:**
+
+- Add `uuid` format for dynamic option `format` [\#205](https://github.com/servactory/servactory/pull/205) ([afuno](https://github.com/afuno))
+
+## [v2.5.0.rc3](https://github.com/servactory/servactory/tree/v2.5.0.rc3) (2024-04-23)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/2.5.0.rc2...v2.5.0.rc3)
+
+**Implemented enhancements:**
+
+- Add generators [\#201](https://github.com/servactory/servactory/pull/201) ([afuno](https://github.com/afuno))
+- Add helpers and matchers for RSpec [\#197](https://github.com/servactory/servactory/pull/197) ([afuno](https://github.com/afuno))
+
+## [2.5.0.rc2](https://github.com/servactory/servactory/tree/2.5.0.rc2) (2024-04-21)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc1...2.5.0.rc2)
 
 **Implemented enhancements:**
 
