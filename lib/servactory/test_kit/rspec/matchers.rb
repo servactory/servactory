@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "rspec/expectations"
+
 module Servactory
   module TestKit
     module Rspec
