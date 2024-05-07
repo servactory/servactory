@@ -2,7 +2,7 @@
 
 module Wrong
   module Prepare
-    class Example3 < ApplicationService::Base
+    class Example2 < ApplicationService::Base
       Money = Struct.new(:cents, :currency, keyword_init: true) do
         def +(other)
           self.class.new(cents: cents + other.cents, currency: currency)

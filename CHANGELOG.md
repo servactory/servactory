@@ -1,16 +1,24 @@
 # Changelog
 
-## [Unreleased](https://github.com/servactory/servactory/tree/HEAD)
+## [v2.5.2](https://github.com/servactory/servactory/tree/v2.5.2) (2024-05-02)
 
-[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc1...HEAD)
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.1...v2.5.2)
 
-**Implemented enhancements:**
+**Fixed:**
 
-- Delete `prepare_vs_collection` conflict handling [\#203](https://github.com/servactory/servactory/pull/203) ([afuno](https://github.com/afuno))
+- Fix work with RSpec [\#211](https://github.com/servactory/servactory/pull/211) ([afuno](https://github.com/afuno))
 
-## [v2.5.0.rc1](https://github.com/servactory/servactory/tree/v2.5.0.rc1) (2024-04-21)
+## [v2.5.1](https://github.com/servactory/servactory/tree/v2.5.1) (2024-05-01)
 
-[Full Changelog](https://github.com/servactory/servactory/compare/v2.4.3...v2.5.0.rc1)
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0...v2.5.1)
+
+**Fixed:**
+
+- Add RSpec Expectations [\#210](https://github.com/servactory/servactory/pull/210) ([afuno](https://github.com/afuno))
+
+## [v2.5.0](https://github.com/servactory/servactory/tree/v2.5.0) (2024-04-30)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc7...v2.5.0)
 
 **Breaking changes:**
 
@@ -18,7 +26,14 @@
 
 **Implemented enhancements:**
 
+- Add `duration` format for dynamic option `format` [\#207](https://github.com/servactory/servactory/pull/207) ([afuno](https://github.com/afuno))
+- Delete `prepare_vs_must` conflict handling [\#206](https://github.com/servactory/servactory/pull/206) ([afuno](https://github.com/afuno))
+- Add `uuid` format for dynamic option `format` [\#205](https://github.com/servactory/servactory/pull/205) ([afuno](https://github.com/afuno))
+- Add configuration option for predicate methods [\#204](https://github.com/servactory/servactory/pull/204) ([afuno](https://github.com/afuno))
+- Delete `prepare_vs_collection` conflict handling [\#203](https://github.com/servactory/servactory/pull/203) ([afuno](https://github.com/afuno))
 - Add `result_class` configuration [\#202](https://github.com/servactory/servactory/pull/202) ([afuno](https://github.com/afuno))
+- Add generators [\#201](https://github.com/servactory/servactory/pull/201) ([afuno](https://github.com/afuno))
+- Add helpers and matchers for RSpec [\#197](https://github.com/servactory/servactory/pull/197) ([afuno](https://github.com/afuno))
 - Add `fail_on!` method to catch unexpected service exceptions [\#196](https://github.com/servactory/servactory/pull/196) ([afuno](https://github.com/afuno))
 
 **Fixed:**
@@ -27,7 +42,36 @@
 
 **Dependencies:**
 
+- \[01.05.2024\] Update libraries [\#209](https://github.com/servactory/servactory/pull/209) ([afuno](https://github.com/afuno))
 - Update libraries from 11.04.2024 [\#199](https://github.com/servactory/servactory/pull/199) ([afuno](https://github.com/afuno))
+
+## [v2.5.0.rc7](https://github.com/servactory/servactory/tree/v2.5.0.rc7) (2024-04-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc6...v2.5.0.rc7)
+
+## [v2.5.0.rc6](https://github.com/servactory/servactory/tree/v2.5.0.rc6) (2024-04-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc5...v2.5.0.rc6)
+
+## [v2.5.0.rc5](https://github.com/servactory/servactory/tree/v2.5.0.rc5) (2024-04-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc4...v2.5.0.rc5)
+
+## [v2.5.0.rc4](https://github.com/servactory/servactory/tree/v2.5.0.rc4) (2024-04-24)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc3...v2.5.0.rc4)
+
+## [v2.5.0.rc3](https://github.com/servactory/servactory/tree/v2.5.0.rc3) (2024-04-23)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/2.5.0.rc2...v2.5.0.rc3)
+
+## [2.5.0.rc2](https://github.com/servactory/servactory/tree/2.5.0.rc2) (2024-04-21)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.0.rc1...2.5.0.rc2)
+
+## [v2.5.0.rc1](https://github.com/servactory/servactory/tree/v2.5.0.rc1) (2024-04-21)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.4.3...v2.5.0.rc1)
 
 ## [v2.4.3](https://github.com/servactory/servactory/tree/v2.4.3) (2024-03-29)
 

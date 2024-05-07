@@ -14,7 +14,7 @@
 
 <p align="center">
   <a href="https://rubygems.org/gems/servactory"><img src="https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff" alt="Gem version"></a>
-  <a href="https://github.com/afuno/servactory/releases"><img src="https://img.shields.io/github/release-date/afuno/servactory" alt="Release Date"></a>
+  <a href="https://github.com/servactory/servactory/releases"><img src="https://img.shields.io/github/release-date/servactory/servactory" alt="Release Date"></a>
 </p>
 
 ## Documentation

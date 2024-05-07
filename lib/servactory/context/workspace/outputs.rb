@@ -53,15 +53,15 @@ module Servactory
           @context.send(:servactory_service_store).assign_output(output.name, value)
         end
 
-        def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
-          output_name = name.to_s.chomp("?").to_sym
+        def getter_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
+          output_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
           output = @collection_of_outputs.find_by(name: output_name)
 
           return yield if output.nil?
 
           output_value = @context.send(:servactory_service_store).fetch_output(output.name)
 
-          if name.to_s.end_with?("?")
+          if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
             Servactory::Utils.query_attribute(output_value)
           else
             output_value

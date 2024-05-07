@@ -93,6 +93,12 @@ module Servactory
         @config.action_shortcuts.merge(action_shortcuts)
       end
 
+      def predicate_methods_enabled(flag)
+        return @config.predicate_methods_enabled = flag if boolean?(flag)
+
+        raise_error_about_wrong_predicate_methods_enabled_with(:predicate_methods_enabled, flag)
+      end
+
       private
 
       # def action_rescue_handlers(action_rescue_handlers)
@@ -105,6 +111,10 @@ module Servactory
 
       def subclass_of_result?(value)
         value.is_a?(Class) && value <= Servactory::Result
+      end
+
+      def boolean?(value)
+        value.is_a?(TrueClass) || value.is_a?(FalseClass)
       end
 
       ##########################################################################
@@ -120,6 +130,13 @@ module Servactory
         raise ArgumentError,
               "Error in `#{config_name}` configuration. " \
               "The `#{value}` value must be a subclass of `Servactory::Result`. " \
+              "See configuration example here: https://servactory.com/guide/configuration"
+      end
+
+      def raise_error_about_wrong_predicate_methods_enabled_with(config_name, value)
+        raise ArgumentError,
+              "Error in `#{config_name}` configuration. " \
+              "The `#{value}` value must be `TrueClass` or `FalseClass`. " \
               "See configuration example here: https://servactory.com/guide/configuration"
       end
     end

@@ -119,6 +119,8 @@ module ApplicationService
 
       action_shortcuts %i[assign]
       action_aliases %i[play do_it!]
+
+      predicate_methods_enabled true
     end
   end
 end

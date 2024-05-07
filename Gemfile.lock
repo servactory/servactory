@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    servactory (2.5.0.rc2)
+    servactory (2.5.2)
       activesupport (>= 5.1, < 7.2)
       i18n (~> 1.14)
       zeitwerk (~> 2.6)
@@ -25,7 +25,7 @@ GEM
       rake
       thor (>= 0.14.0)
     ast (2.4.2)
-    async (2.10.1)
+    async (2.10.2)
       console (~> 1.10)
       fiber-annotation
       io-event (~> 1.5, >= 1.5.1)
@@ -35,7 +35,7 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
-    console (1.23.6)
+    console (1.24.0)
       fiber-annotation
       fiber-local
       json
@@ -55,11 +55,11 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.6.0)
-    method_source (1.0.0)
+    method_source (1.1.0)
     minitest (5.22.3)
     mutex_m (0.2.0)
     parallel (1.24.0)
-    parser (3.3.0.5)
+    parser (3.3.1.0)
       ast (~> 2.4.1)
       racc
     pry (0.14.2)
@@ -88,7 +88,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.1)
-    rubocop (1.63.1)
+    rubocop (1.63.4)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -99,8 +99,8 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.31.2)
-      parser (>= 3.3.0.4)
+    rubocop-ast (1.31.3)
+      parser (>= 3.3.1.0)
     rubocop-capybara (2.20.0)
       rubocop (~> 1.41)
     rubocop-factory_bot (2.25.1)
@@ -167,4 +167,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.5.6
+   2.5.9

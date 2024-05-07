@@ -195,9 +195,6 @@ module Servactory
               define_conflicts: [
                 Servactory::Maintenance::Attributes::DefineConflict.new(
                   content: -> { :prepare_vs_inclusion if @attribute.prepare_present? && @attribute.inclusion_present? }
-                ),
-                Servactory::Maintenance::Attributes::DefineConflict.new(
-                  content: -> { :prepare_vs_must if @attribute.prepare_present? && @attribute.must_present? }
                 )
               ],
               need_for_checks: false,

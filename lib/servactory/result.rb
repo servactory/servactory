@@ -3,9 +3,9 @@
 module Servactory
   class Result
     class Outputs
-      def initialize(outputs)
+      def initialize(outputs:, predicate_methods_enabled:)
         outputs.each_pair do |key, value|
-          define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) }
+          define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) } if predicate_methods_enabled
           define_singleton_method(key) { value }
         end
       end
@@ -104,7 +104,14 @@ module Servactory
     end
 
     def outputs
-      @outputs ||= Outputs.new(@context.send(:servactory_service_store).outputs)
+      @outputs ||= Outputs.new(
+        outputs: @context.send(:servactory_service_store).outputs,
+        predicate_methods_enabled: if @context.is_a?(Servactory::TestKit::Result)
+                                     true
+                                   else
+                                     @context.class.config.predicate_methods_enabled?
+                                   end
+      )
     end
 
     ########################################################################

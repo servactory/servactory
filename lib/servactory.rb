@@ -8,6 +8,7 @@ require "uri"
 
 loader = Zeitwerk::Loader.for_gem
 loader.ignore("#{__dir__}/generators")
+loader.ignore("#{__dir__}/servactory/test_kit/rspec")
 loader.inflector.inflect(
   "dsl" => "DSL"
 )

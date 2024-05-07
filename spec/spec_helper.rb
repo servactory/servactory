@@ -3,6 +3,8 @@
 require "zeitwerk"
 require "forwardable"
 require "servactory"
+require "servactory/test_kit/rspec/helpers"
+require "servactory/test_kit/rspec/matchers"
 
 loader = Zeitwerk::Loader.new
 loader.push_dir(File.expand_path("../examples", __dir__))
