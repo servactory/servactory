@@ -3,7 +3,7 @@
 module Servactory
   module Outputs
     class Output
-      class Work
+      class Actor
         attr_reader :name,
                     :types,
                     :inclusion

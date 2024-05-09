@@ -1,7 +1,7 @@
 module Servactory
   module Inputs
     class Input
-      class Work
+      class Actor
         attr_reader name: Symbol
         attr_reader internal_name: Symbol
         attr_reader types: Array[Class]

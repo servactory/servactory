@@ -1,7 +1,7 @@
 module Servactory
   module Context
     module Workspace
-      class Work
+      class Actor
         attr_reader class_name: String
 
         def initialize: (instance context) -> void
@@ -43,7 +43,7 @@ module Servactory
 
       private
 
-      @servactory_service_info: Work
+      @servactory_service_info: Actor
 
       def _call!: (
         incoming_arguments: Hash[Symbol, untyped],
@@ -63,7 +63,7 @@ module Servactory
 
       def call: -> Exception
 
-      def servactory_service_info: -> Work
+      def servactory_service_info: -> Actor
 
       def servactory_service_store: -> Store
     end

@@ -3,7 +3,7 @@
 module Servactory
   module Context
     module Workspace
-      class Work
+      class Actor
         attr_reader :class_name
 
         def initialize(context)
@@ -116,7 +116,7 @@ module Servactory
       end
 
       def servactory_service_info
-        @servactory_service_info ||= self.class::Work.new(self)
+        @servactory_service_info ||= self.class::Actor.new(self)
       end
 
       def servactory_service_store
