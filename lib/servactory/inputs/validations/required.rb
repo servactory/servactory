@@ -49,7 +49,7 @@ module Servactory
         def add_error_with(message)
           add_error(
             message: message.presence || Servactory::Inputs::Translator::Required.default_message,
-            service_class_name: @context.class.name,
+            service: @context.send(:servactory_service_info),
             input: @input,
             value: @value
           )

@@ -60,7 +60,7 @@ module Servactory
             type: :base,
             message: I18n.t(
               "servactory.methods.cannot_be_overwritten",
-              service_class_name: @context.class.name,
+              service_class_name: @context.send(:servactory_service_info).class_name,
               list_of_methods: formatted_text
             )
           )
