@@ -29,7 +29,7 @@ module Servactory
             end,
 
             internals: collection_of_internals.to_h do |internal|
-              work = internal.class::Work.new(internal)
+              work = internal.class::Actor.new(internal)
               inclusion = internal.collection_of_options.find_by(name: :inclusion)
               must = internal.collection_of_options.find_by(name: :must)
 
@@ -45,7 +45,7 @@ module Servactory
             end,
 
             outputs: collection_of_outputs.to_h do |output|
-              work = output.class::Work.new(output)
+              work = output.class::Actor.new(output)
               inclusion = output.collection_of_options.find_by(name: :inclusion)
               must = output.collection_of_options.find_by(name: :must)
 
