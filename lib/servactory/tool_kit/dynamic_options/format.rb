@@ -98,39 +98,39 @@ module Servactory
 
         ########################################################################
 
-        def message_for_input_with(service_class_name:, input:, value:, option_value:, reason:, **)
+        def message_for_input_with(service:, input:, value:, option_value:, reason:, **)
           i18n_key = "servactory.inputs.validations.must.dynamic_options.format"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
           I18n.t(
             i18n_key,
-            service_class_name: service_class_name,
+            service_class_name: service.class_name,
             input_name: input.name,
             value: value,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
 
-        def message_for_internal_with(service_class_name:, internal:, value:, option_value:, reason:, **)
+        def message_for_internal_with(service:, internal:, value:, option_value:, reason:, **)
           i18n_key = "servactory.internals.validations.must.dynamic_options.format"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
           I18n.t(
             i18n_key,
-            service_class_name: service_class_name,
+            service_class_name: service.class_name,
             internal_name: internal.name,
             value: value,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
 
-        def message_for_output_with(service_class_name:, output:, value:, option_value:, reason:, **)
+        def message_for_output_with(service:, output:, value:, option_value:, reason:, **)
           i18n_key = "servactory.outputs.validations.must.dynamic_options.format"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
           I18n.t(
             i18n_key,
-            service_class_name: service_class_name,
+            service_class_name: service.class_name,
             output_name: output.name,
             value: value,
             format_name: option_value.present? ? option_value : option_value.inspect

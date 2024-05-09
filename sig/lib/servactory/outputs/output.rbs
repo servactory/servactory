@@ -1,7 +1,7 @@
 module Servactory
   module Outputs
     class Output
-      class Work
+      class Actor
         attr_reader name: Symbol
         attr_reader types: Array[Class]
         attr_reader inclusion: { in: untyped }

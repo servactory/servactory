@@ -3,7 +3,7 @@
 module Servactory
   module Internals
     class Internal
-      class Work
+      class Actor
         attr_reader :name,
                     :types,
                     :inclusion

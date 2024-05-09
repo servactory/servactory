@@ -123,7 +123,7 @@ module Servactory
         type: :base,
         message: I18n.t(
           "servactory.common.undefined_method.missing_name",
-          service_class_name: @context.class.name,
+          service_class_name: @context.send(:servactory_service_info).class_name,
           error_text: exception.message
         ),
         meta: {

@@ -8,12 +8,12 @@ module Servactory
           module_function
 
           def default_message # rubocop:disable Metrics/MethodLength
-            lambda do |service_class_name:, value:, code:, input: nil, internal: nil, output: nil, reason: nil|
+            lambda do |service:, value:, code:, input: nil, internal: nil, output: nil, reason: nil|
               attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
 
               I18n.t(
                 "servactory.#{attribute.i18n_name}.validations.must.default_error",
-                service_class_name: service_class_name,
+                service_class_name: service.class_name,
                 "#{attribute.system_name}_name": attribute.name,
                 value: value,
                 code: code,
@@ -23,12 +23,12 @@ module Servactory
           end
 
           def syntax_error_message # rubocop:disable Metrics/MethodLength
-            lambda do |service_class_name:, value:, code:, exception_message:, input: nil, internal: nil, output: nil|
+            lambda do |service:, value:, code:, exception_message:, input: nil, internal: nil, output: nil|
               attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
 
               I18n.t(
                 "servactory.#{attribute.i18n_name}.validations.must.syntax_error",
-                service_class_name: service_class_name,
+                service_class_name: service.class_name,
                 "#{attribute.system_name}_name": attribute.name,
                 value: value,
                 code: code,

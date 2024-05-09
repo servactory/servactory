@@ -32,18 +32,18 @@ module ApplicationService
 
       ##########################################################################
 
-      def message_for_input_with(service_class_name:, input:, value:, option_value:, **)
-        "[#{service_class_name}] Input attribute `#{input.name}` " \
+      def message_for_input_with(service:, input:, value:, option_value:, **)
+        "[#{service.class_name}] Input attribute `#{input.name}` " \
           "received value `#{value}`, which is not equivalent to `#{option_value}`"
       end
 
-      def message_for_internal_with(service_class_name:, internal:, value:, option_value:, **)
-        "[#{service_class_name}] Internal attribute `#{internal.name}` " \
+      def message_for_internal_with(service:, internal:, value:, option_value:, **)
+        "[#{service.class_name}] Internal attribute `#{internal.name}` " \
           "received value `#{value}`, which is not equivalent to `#{option_value}`"
       end
 
-      def message_for_output_with(service_class_name:, output:, value:, option_value:, **)
-        "[#{service_class_name}] Output attribute `#{output.name}` " \
+      def message_for_output_with(service:, output:, value:, option_value:, **)
+        "[#{service.class_name}] Output attribute `#{output.name}` " \
           "received value `#{value}`, which is not equivalent to `#{option_value}`"
       end
     end

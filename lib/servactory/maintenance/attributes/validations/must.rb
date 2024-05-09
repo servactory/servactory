@@ -65,7 +65,7 @@ module Servactory
           def add_error_with(message, code, reason)
             add_error(
               message: message,
-              service_class_name: @context.class.name,
+              service: @context.send(:servactory_service_info),
               **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value,
               code: code,
@@ -76,7 +76,7 @@ module Servactory
           def add_syntax_error_with(message, code, exception_message)
             add_error(
               message: message,
-              service_class_name: @context.class.name,
+              service: @context.send(:servactory_service_info),
               **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value,
               code: code,
