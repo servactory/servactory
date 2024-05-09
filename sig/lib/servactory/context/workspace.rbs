@@ -1,6 +1,12 @@
 module Servactory
   module Context
     module Workspace
+      class Work
+        attr_reader class_name: String
+
+        def initialize: (instance context) -> void
+      end
+
       @inputs: Inputs
       @internals: Internals
       @outputs: Outputs
@@ -37,6 +43,8 @@ module Servactory
 
       private
 
+      @servactory_service_info: Work
+
       def _call!: (
         incoming_arguments: Hash[Symbol, untyped],
         collection_of_inputs: Inputs::Collection,
@@ -54,6 +62,8 @@ module Servactory
       ) -> void
 
       def call: -> Exception
+
+      def servactory_service_info: -> Work
 
       def servactory_service_store: -> Store
     end

@@ -116,7 +116,7 @@ module Servactory
       end
 
       def servactory_service_info
-        self.class::Work.new(self)
+        @servactory_service_info ||= self.class::Work.new(self)
       end
 
       def servactory_service_store
