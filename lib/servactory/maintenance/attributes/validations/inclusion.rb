@@ -51,7 +51,7 @@ module Servactory
           def add_error_with(message)
             add_error(
               message: message.presence || Servactory::Maintenance::Attributes::Translator::Inclusion.default_message,
-              service_class_name: @context.class.name,
+              service: @context.send(:servactory_service_info),
               **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value
             )

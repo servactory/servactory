@@ -3,6 +3,14 @@
 module Servactory
   module Context
     module Workspace
+      class Actor
+        attr_reader :class_name
+
+        def initialize(context)
+          @class_name = context.class.name
+        end
+      end
+
       def inputs
         @inputs ||= Inputs.new(
           context: self,
@@ -102,9 +110,13 @@ module Servactory
           type: :base,
           message: I18n.t(
             "servactory.methods.call.not_used",
-            service_class_name: self.class.name
+            service_class_name: servactory_service_info.class_name
           )
         )
+      end
+
+      def servactory_service_info
+        @servactory_service_info ||= self.class::Actor.new(self)
       end
 
       def servactory_service_store

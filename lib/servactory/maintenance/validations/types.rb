@@ -44,7 +44,7 @@ module Servactory
           if (first_error = collection_validator&.errors&.first).present?
             return @error_callback.call(
               message: Servactory::Maintenance::Attributes::Translator::Type.default_message,
-              service_class_name: @context.class.name,
+              service: @context.send(:servactory_service_info),
               attribute: @attribute,
               value: @value,
               key_name: nil,
@@ -56,7 +56,7 @@ module Servactory
           if (first_error = object_schema_validator&.errors&.first).present?
             return @error_callback.call(
               message: Servactory::Maintenance::Attributes::Translator::Type.default_message,
-              service_class_name: @context.class.name,
+              service: @context.send(:servactory_service_info),
               attribute: @attribute,
               value: @value,
               key_name: first_error.fetch(:key_name),
@@ -67,7 +67,7 @@ module Servactory
 
           @error_callback.call(
             message: Servactory::Maintenance::Attributes::Translator::Type.default_message,
-            service_class_name: @context.class.name,
+            service: @context.send(:servactory_service_info),
             attribute: @attribute,
             value: @value,
             key_name: nil,

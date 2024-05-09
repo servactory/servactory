@@ -5,9 +5,9 @@ module Servactory
     module_function
 
     def fetch_hash_with_desired_attribute(attribute)
-      return { input: attribute.class::Work.new(attribute) } if really_input?(attribute)
-      return { internal: attribute.class::Work.new(attribute) } if really_internal?(attribute)
-      return { output: attribute.class::Work.new(attribute) } if really_output?(attribute)
+      return { input: attribute.class::Actor.new(attribute) } if really_input?(attribute)
+      return { internal: attribute.class::Actor.new(attribute) } if really_internal?(attribute)
+      return { output: attribute.class::Actor.new(attribute) } if really_output?(attribute)
 
       raise ArgumentError, "Failed to define attribute"
     end

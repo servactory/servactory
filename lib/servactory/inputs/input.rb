@@ -3,7 +3,7 @@
 module Servactory
   module Inputs
     class Input
-      class Work
+      class Actor
         attr_reader :name,
                     :internal_name,
                     :types,
