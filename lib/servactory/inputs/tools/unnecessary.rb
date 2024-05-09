@@ -19,7 +19,7 @@ module Servactory
 
           message_text = I18n.t(
             "servactory.inputs.tools.find_unnecessary.error",
-            service_class_name: @context.class.name,
+            service_class_name: @context.send(:servactory_service_info).class_name,
             unnecessary_attributes: unnecessary_attributes.join(", ")
           )
 

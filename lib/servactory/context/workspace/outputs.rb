@@ -71,7 +71,7 @@ module Servactory
         def raise_error_for(type, name)
           message_text = I18n.t(
             "servactory.outputs.undefined.#{type}",
-            service_class_name: @context.class.name,
+            service_class_name: @context.send(:servactory_service_info).class_name,
             output_name: name
           )
 
