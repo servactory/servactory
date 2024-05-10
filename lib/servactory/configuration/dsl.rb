@@ -28,6 +28,8 @@ module Servactory
           child.config.action_shortcuts = config.action_shortcuts
           child.config.action_rescue_handlers = config.action_rescue_handlers
 
+          child.config.i18n_root_key = config.i18n_root_key
+
           child.config.predicate_methods_enabled = config.predicate_methods_enabled
         end
 
