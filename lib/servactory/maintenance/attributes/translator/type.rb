@@ -7,12 +7,9 @@ module Servactory
         module Type
           extend self
 
-          def default_message # rubocop:disable Metrics/MethodLength
-            lambda do |service:, attribute:, value:, key_name:, expected_type:, given_type:|
-              if attribute.collection_mode?
-                for_collection_mode_with(service: service, attribute: attribute, value: value,
-                                         expected_type: expected_type, given_type: given_type)
-              elsif attribute.hash_mode? && key_name.present?
+          def default_message
+            lambda do |service:, attribute:, key_name:, expected_type:, given_type:, **|
+              if attribute.hash_mode? && key_name.present?
                 for_hash_mode_with(service: service, attribute: attribute, key_name: key_name,
                                    expected_type: expected_type, given_type: given_type)
               else
@@ -23,34 +20,6 @@ module Servactory
           end
 
           private
-
-          def for_collection_mode_with(service:, attribute:, value:, expected_type:, given_type:) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-            collection_message = attribute.consists_of.fetch(:message)
-
-            if collection_message.is_a?(Proc)
-              collection_message.call(
-                **Servactory::Utils.fetch_hash_with_desired_attribute(attribute),
-                expected_type: expected_type,
-                given_type: given_type
-              )
-            elsif collection_message.is_a?(String) && collection_message.present?
-              collection_message
-            elsif value.is_a?(attribute.types.fetch(0, Array))
-              service.translate(
-                "#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_element_type",
-                "#{attribute.system_name}_name": attribute.name,
-                expected_type: expected_type,
-                given_type: given_type
-              )
-            else
-              service.translate(
-                "#{attribute.i18n_name}.validations.type.default_error.for_collection.wrong_type",
-                "#{attribute.system_name}_name": attribute.name,
-                expected_type: attribute.types.fetch(0, Array),
-                given_type: value.class.name
-              )
-            end
-          end
 
           def for_hash_mode_with(service:, attribute:, key_name:, expected_type:, given_type:) # rubocop:disable Metrics/MethodLength
             hash_message = attribute.schema.fetch(:message)

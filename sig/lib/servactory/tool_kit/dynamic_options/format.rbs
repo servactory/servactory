@@ -10,7 +10,7 @@ module Servactory
 
         def assign: (Hash[Symbol, untyped] formats) -> Hash[Symbol, untyped]
 
-        def common_condition_with: (value: untyped, option: Must::WorkOption, **untyped `**`) -> ::Array[Symbol | bool]
+        def common_condition_with: (value: untyped, option: Must::WorkOption, **untyped `**`) -> (::Array[Symbol | bool] | bool)
       end
     end
   end

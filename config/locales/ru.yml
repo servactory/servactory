@@ -18,6 +18,9 @@ ru:
           default_error: "[%{service_class_name}] Инпут `%{input_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` инпута `%{input_name}`: %{exception_message}"
           dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] Отсутствует обязательный элемент в коллекции инпута `%{input_name}`"
+              wrong_type: "[%{service_class_name}] Неправильный тип элемента в коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             format:
               default: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
@@ -29,16 +32,11 @@ ru:
         required:
           default_error:
             default: "[%{service_class_name}] Обязательный инпут `%{input_name}` отсутствует"
-            for_collection: "[%{service_class_name}] Обязательный элемент в коллекции инпута `%{input_name}` отсутствует"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-            for_collection:
-              wrong_type: "[%{service_class_name}] Неправильный тип коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-              wrong_element_type: "[%{service_class_name}] Неправильный тип в коллекции инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
-
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Неожиданные атрибуты: `%{unnecessary_attributes}`"
@@ -55,6 +53,9 @@ ru:
           default_error: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` внутреннего атрибута `%{internal_name}`: %{exception_message}"
           dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] Отсутствует обязательный элемент в коллекции внутреннего атрибута `%{internal_name}`"
+              wrong_type: "[%{service_class_name}] Неправильный тип элемента в коллекции внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             format:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
@@ -66,9 +67,6 @@ ru:
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-            for_collection:
-              wrong_type: "[%{service_class_name}] Неправильный тип коллекции внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-              wrong_element_type: "[%{service_class_name}] Неправильный тип элемента в коллекции внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             for_hash:
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше внутреннего атрибута `%{internal_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
     outputs:
@@ -82,6 +80,9 @@ ru:
           default_error: "[%{service_class_name}] Выходящий атрибут `%{output_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` выходящего атрибута `%{output_name}`: %{exception_message}"
           dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] Отсутствует обязательный элемент в коллекции выходящего атрибута `%{output_name}`"
+              wrong_type: "[%{service_class_name}] Неправильный тип элемента в коллекции выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
             format:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
@@ -92,8 +93,5 @@ ru:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое больше `%{option_value}`"
         type:
           default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-          for_collection:
-            wrong_type: "[%{service_class_name}] Неправильный тип коллекции выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-            wrong_element_type: "[%{service_class_name}] Неправильный тип элемента в коллекции выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
           for_hash:
             wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"

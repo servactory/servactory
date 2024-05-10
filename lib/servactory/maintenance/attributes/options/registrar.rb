@@ -20,7 +20,6 @@ module Servactory
             required: false,
             types: false,
             default: false,
-            collection: false,
             hash: false,
             inclusion: false,
             must: false,
@@ -33,9 +32,8 @@ module Servactory
             new(...).register
           end
 
-          def initialize(attribute:, collection_mode_class_names:, hash_mode_class_names:, options:, features:)
+          def initialize(attribute:, hash_mode_class_names:, options:, features:)
             @attribute = attribute
-            @collection_mode_class_names = collection_mode_class_names
             @hash_mode_class_names = hash_mode_class_names
             @options = options
             @features = DEFAULT_FEATURES.merge(features)
@@ -43,14 +41,13 @@ module Servactory
 
           ########################################################################
 
-          def register # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          def register # rubocop:disable Metrics/CyclomaticComplexity
             # Validation Class: Servactory::Inputs::Validations::Required
             register_required_option if @features.fetch(:required)
 
             # Validation Class: Servactory::Maintenance::Attributes::Validations::Type
             register_types_option if @features.fetch(:types)
             register_default_option if @features.fetch(:default)
-            register_collection_option if @features.fetch(:collection)
             register_hash_option if @features.fetch(:hash)
 
             # Validation Class: Servactory::Maintenance::Attributes::Validations::Inclusion
@@ -120,35 +117,6 @@ module Servactory
               need_for_checks: true,
               body_fallback: nil,
               with_advanced_mode: false,
-              **@options
-            )
-          end
-
-          def register_collection_option # rubocop:disable Metrics/MethodLength
-            collection << Servactory::Maintenance::Attributes::Option.new(
-              name: :consists_of,
-              attribute: @attribute,
-              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
-              define_methods: [
-                Servactory::Maintenance::Attributes::DefineMethod.new(
-                  name: :collection_mode?,
-                  content: lambda do |**|
-                    @collection_mode_class_names.include?(@options.fetch(:type)) &&
-                      @options.fetch(:consists_of, true) != false
-                  end
-                )
-              ],
-              define_conflicts: [
-                Servactory::Maintenance::Attributes::DefineConflict.new(
-                  content: lambda {
-                             :collection_vs_inclusion if @attribute.collection_mode? && @attribute.inclusion_present?
-                           }
-                )
-              ],
-              need_for_checks: false,
-              body_key: :type,
-              body_value: String,
-              body_fallback: String,
               **@options
             )
           end

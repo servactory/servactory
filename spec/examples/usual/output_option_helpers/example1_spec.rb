@@ -57,7 +57,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
           let(:invoice_numbers) do
             [
               "7650AE",
-              123,
+              123_456,
               "A7BC86"
             ]
           end
@@ -66,7 +66,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::OutputOptionHelpers::Example1] Wrong type in input " \
+                "[Usual::OutputOptionHelpers::Example1] Wrong element type in input " \
                 "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )
@@ -180,7 +180,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
           let(:invoice_numbers) do
             [
               "7650AE",
-              123,
+              123_456,
               "A7BC86"
             ]
           end
@@ -189,7 +189,7 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::OutputOptionHelpers::Example1] Wrong type in input " \
+                "[Usual::OutputOptionHelpers::Example1] Wrong element type in input " \
                 "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )

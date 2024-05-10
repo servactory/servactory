@@ -3,7 +3,7 @@
 require_relative "extensions/status_active/dsl"
 
 module ApplicationService
-  class Base
+  class Base # rubocop:disable Metrics/ClassLength
     include Servactory::DSL.with_extensions(
       ApplicationService::Extensions::StatusActive::DSL
     )
@@ -33,7 +33,13 @@ module ApplicationService
             equivalent: {
               must: {
                 be_6_characters: {
-                  is: ->(value:, **) { value.all? { |id| id.size == 6 } },
+                  is: lambda do |value:, **|
+                    value.all? do |id|
+                      return true if id.blank? # NOTE: This is not the responsibility of this `must` validator
+
+                      (id.is_a?(Integer) ? id.abs.digits.length : id.size) == 6
+                    end
+                  end,
                   message: lambda do |input:, **|
                     "Wrong IDs in `#{input.name}`"
                   end
@@ -55,7 +61,13 @@ module ApplicationService
             equivalent: {
               must: {
                 be_6_characters: {
-                  is: ->(value:, **) { value.all? { |id| id.size == 6 } },
+                  is: lambda do |value:, **|
+                    value.all? do |id|
+                      return true if id.blank? # NOTE: This is not the responsibility of this `must` validator
+
+                      (id.is_a?(Integer) ? id.abs.digits.length : id.size) == 6
+                    end
+                  end,
                   message: lambda do |internal:, **|
                     "Wrong IDs in `#{internal.name}`"
                   end
@@ -77,7 +89,13 @@ module ApplicationService
             equivalent: {
               must: {
                 be_6_characters: {
-                  is: ->(value:, **) { value.all? { |id| id.size == 6 } },
+                  is: lambda do |value:, **|
+                    value.all? do |id|
+                      return true if id.blank? # NOTE: This is not the responsibility of this `must` validator
+
+                      (id.is_a?(Integer) ? id.abs.digits.length : id.size) == 6
+                    end
+                  end,
                   message: lambda do |output:, **|
                     "Wrong IDs in `#{output.name}`"
                   end

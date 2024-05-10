@@ -66,7 +66,7 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::InternalOptionHelpers::Example1] Wrong type in input " \
+                "[Usual::InternalOptionHelpers::Example1] Wrong element type in input " \
                 "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )
@@ -189,7 +189,7 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::InternalOptionHelpers::Example1] Wrong type in input " \
+                "[Usual::InternalOptionHelpers::Example1] Wrong element type in input " \
                 "collection `invoice_numbers`, expected `String`, got `Integer`"
               )
             )

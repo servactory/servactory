@@ -10,7 +10,6 @@ module Servactory
 
       attr_reader name: Symbol
       attr_reader internal_name: Symbol?
-      attr_reader collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
       attr_reader hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection
       attr_reader option_helpers: Maintenance::Attributes::OptionHelpersCollection
       attr_reader collection_of_options: Maintenance::Attributes::OptionsCollection
@@ -19,7 +18,6 @@ module Servactory
         Symbol name,
         *Symbol helpers,
         as: Symbol?,
-        collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection,
         hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection,
         option_helpers: Maintenance::Attributes::OptionHelpersCollection,
         **untyped options

@@ -10,15 +10,11 @@ module Servactory
 
         def self.should_be_checked_for?: (Input input, Symbol check_key) -> bool
 
-        def initialize: (context: instance, input: Input value: untyped,) -> void
+        def initialize: (context: instance, input: Input, value: untyped) -> void
 
         def check: () -> void
 
         private
-
-        def collection_valid?: -> bool
-
-        def collection_valid_for?: (values: Array[untyped]) -> bool
 
         def add_error_with: (String? message) -> void
       end
