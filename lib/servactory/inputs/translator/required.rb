@@ -8,9 +8,8 @@ module Servactory
 
         def default_message
           lambda do |service:, input:, **|
-            I18n.t(
-              "servactory.inputs.validations.required.default_error.default",
-              service_class_name: service.class_name,
+            service.translate(
+              "inputs.validations.required.default_error.default",
               input_name: input.name
             )
           end

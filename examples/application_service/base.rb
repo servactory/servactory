@@ -120,6 +120,8 @@ module ApplicationService
       action_shortcuts %i[assign]
       action_aliases %i[play do_it!]
 
+      i18n_root_key :servactory
+
       predicate_methods_enabled true
     end
   end

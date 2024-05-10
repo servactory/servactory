@@ -16,6 +16,7 @@ module Servactory
                     :action_aliases,
                     :action_shortcuts,
                     :action_rescue_handlers,
+                    :i18n_root_key,
                     :predicate_methods_enabled
 
       def initialize # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -43,6 +44,8 @@ module Servactory
         @action_aliases = Servactory::Actions::Aliases::Collection.new
         @action_shortcuts = Servactory::Actions::Shortcuts::Collection.new
         @action_rescue_handlers = Servactory::Actions::RescueHandlers::Collection.new
+
+        @i18n_root_key = "servactory"
 
         @predicate_methods_enabled = true
       end

@@ -8,6 +8,15 @@ module Servactory
 
         def initialize(context)
           @class_name = context.class.name
+          @i18n_root_key = context.class.config.i18n_root_key
+        end
+
+        def translate(key, **options)
+          I18n.t(
+            "#{@i18n_root_key}.#{key}",
+            service_class_name: class_name,
+            **options
+          )
         end
       end
 
@@ -108,9 +117,8 @@ module Servactory
       def call
         raise self.class.config.failure_class.new(
           type: :base,
-          message: I18n.t(
-            "servactory.methods.call.not_used",
-            service_class_name: servactory_service_info.class_name
+          message: servactory_service_info.translate(
+            "methods.call.not_used"
           )
         )
       end
