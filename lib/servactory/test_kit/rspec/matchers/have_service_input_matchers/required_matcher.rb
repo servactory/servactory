@@ -17,6 +17,8 @@ module Servactory
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
+              @i18n_root_key = described_class.config.i18n_root_key
+
               @missing_option = ""
             end
 
@@ -41,7 +43,8 @@ module Servactory
                         :attribute_type_plural,
                         :attribute_name,
                         :custom_message,
-                        :attribute_data
+                        :attribute_data,
+                        :i18n_root_key
 
             def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
               attribute_required = attribute_data.fetch(:required).fetch(:is)
@@ -51,7 +54,7 @@ module Servactory
 
               if attribute_required_message.nil?
                 attribute_required_message = I18n.t(
-                  "servactory.#{attribute_type_plural}.validations.required.default_error.default",
+                  "#{i18n_root_key}.#{attribute_type_plural}.validations.required.default_error.default",
                   service_class_name: described_class.name,
                   "#{attribute_type}_name": attribute_name
                 )

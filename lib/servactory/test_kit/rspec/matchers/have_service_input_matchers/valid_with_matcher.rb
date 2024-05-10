@@ -17,6 +17,8 @@ module Servactory
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
+              @i18n_root_key = described_class.config.i18n_root_key
+
               @missing_option = ""
             end
 
@@ -41,7 +43,9 @@ module Servactory
                         :attribute_type_plural,
                         :attribute_name,
                         :attributes,
-                        :attribute_data
+                        :service_data,
+                        :attribute_data,
+                        :i18n_root_key
 
             def submatcher_passes?(_subject) # rubocop:disable Metrics/CyclomaticComplexity
               success_passes? &&
@@ -73,13 +77,13 @@ module Servactory
                    attribute_consists_of_first_type != false
                   if input_required
                     I18n.t(
-                      "servactory.#{attribute_type_plural}.validations.required.default_error.for_collection",
+                      "#{i18n_root_key}.#{attribute_type_plural}.validations.required.default_error.for_collection",
                       service_class_name: described_class.name,
                       "#{attribute_type}_name": attribute_name
                     )
                   else
                     I18n.t(
-                      "servactory.#{attribute_type_plural}.validations.type.default_error.for_collection.wrong_type",
+                      "#{i18n_root_key}.#{attribute_type_plural}.validations.type.default_error.for_collection.wrong_type", # rubocop:disable Layout/LineLength
                       service_class_name: described_class.name,
                       "#{attribute_type}_name": attribute_name,
                       expected_type: option_types.join(", "),
@@ -88,7 +92,7 @@ module Servactory
                   end
                 else
                   I18n.t(
-                    "servactory.#{attribute_type_plural}.validations.type.default_error.default",
+                    "#{i18n_root_key}.#{attribute_type_plural}.validations.type.default_error.default",
                     service_class_name: described_class.name,
                     "#{attribute_type}_name": attribute_name,
                     expected_type: option_types.join(", "),
@@ -111,7 +115,7 @@ module Servactory
 
               if input_required_message.nil?
                 input_required_message = I18n.t(
-                  "servactory.#{attribute_type_plural}.validations.required.default_error.default",
+                  "#{i18n_root_key}.#{attribute_type_plural}.validations.required.default_error.default",
                   service_class_name: described_class.name,
                   "#{attribute_type}_name": attribute_name
                 )
@@ -154,7 +158,7 @@ module Servactory
 
               if attribute_consists_of_message.nil?
                 attribute_consists_of_message = I18n.t(
-                  "servactory.#{attribute_type_plural}.validations.type.default_error.for_collection.wrong_element_type", # rubocop:disable Layout/LineLength
+                  "#{i18n_root_key}.#{attribute_type_plural}.validations.type.default_error.for_collection.wrong_element_type", # rubocop:disable Layout/LineLength
                   service_class_name: described_class.name,
                   "#{attribute_type}_name": attribute_name,
                   expected_type: attribute_consists_of_types.join(", "),
@@ -179,7 +183,7 @@ module Servactory
 
               if input_required_message.nil?
                 input_required_message = I18n.t(
-                  "servactory.#{attribute_type_plural}.validations.inclusion.default_error",
+                  "#{i18n_root_key}.#{attribute_type_plural}.validations.inclusion.default_error",
                   service_class_name: described_class.name,
                   "#{attribute_type}_name": attribute_name,
                   "#{attribute_type}_inclusion": input_inclusion_in,
