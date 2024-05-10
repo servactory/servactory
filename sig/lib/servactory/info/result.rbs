@@ -1,13 +1,11 @@
 module Servactory
   module Info
     class Result
-      attr_reader service: Hash[Symbol, untyped]
       attr_reader inputs: Array[Symbol]
       attr_reader internals: Array[Symbol]
       attr_reader outputs: Array[Symbol]
 
       def initialize: (
-        service: Hash[Symbol, untyped],
         inputs: Array[Symbol],
         internals: Array[Symbol],
         outputs: Array[Symbol]

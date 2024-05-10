@@ -3,13 +3,11 @@
 module Servactory
   module Info
     class Result
-      attr_reader :service,
-                  :inputs,
+      attr_reader :inputs,
                   :internals,
                   :outputs
 
-      def initialize(service:, inputs:, internals:, outputs:)
-        @service = service
+      def initialize(inputs:, internals:, outputs:)
         @inputs = inputs
         @internals = internals
         @outputs = outputs

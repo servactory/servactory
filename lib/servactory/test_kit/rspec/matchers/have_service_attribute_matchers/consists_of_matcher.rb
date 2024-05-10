@@ -20,6 +20,8 @@ module Servactory
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
+              @i18n_root_key = described_class.config.i18n_root_key
+
               @missing_option = ""
             end
 
@@ -47,7 +49,8 @@ module Servactory
                         :option_types,
                         :consists_of_types,
                         :custom_message,
-                        :attribute_data
+                        :attribute_data,
+                        :i18n_root_key
 
             def submatcher_passes?(_subject)
               attribute_consists_of = Array(attribute_data.fetch(:consists_of).fetch(:type) || [])
@@ -64,7 +67,7 @@ module Servactory
 
               if attribute_consists_of_message.nil?
                 I18n.t(
-                  "servactory.#{attribute_type_plural}.validations.required.default_error.for_collection",
+                  "#{i18n_root_key}.#{attribute_type_plural}.validations.required.default_error.for_collection",
                   service_class_name: described_class.name,
                   "#{attribute_type}_name": attribute_name
                 )

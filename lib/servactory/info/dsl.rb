@@ -10,10 +10,6 @@ module Servactory
       module ClassMethods
         def info # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           Servactory::Info::Result.new(
-            service: {
-              class_name: name,
-              i18n_root_key: config.i18n_root_key
-            },
             inputs: collection_of_inputs.to_h do |input|
               work = input.class::Actor.new(input)
               consists_of = input.collection_of_options.find_by(name: :consists_of)
