@@ -150,14 +150,14 @@ module Servactory
       def raise_error_about_wrong_i18n_root_key_with(config_name, value)
         raise ArgumentError,
               "Error in `#{config_name}` configuration. " \
-              "The `#{value}` value must be `Symbol` or `String`. " \
+              "The `#{value.inspect}` value must be `Symbol` or `String`. " \
               "See configuration example here: https://servactory.com/guide/configuration"
       end
 
       def raise_error_about_wrong_predicate_methods_enabled_with(config_name, value)
         raise ArgumentError,
               "Error in `#{config_name}` configuration. " \
-              "The `#{value}` value must be `TrueClass` or `FalseClass`. " \
+              "The `#{value.inspect}` value must be `TrueClass` or `FalseClass`. " \
               "See configuration example here: https://servactory.com/guide/configuration"
       end
     end
