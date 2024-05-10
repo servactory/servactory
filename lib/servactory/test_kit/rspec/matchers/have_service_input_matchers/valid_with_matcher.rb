@@ -70,6 +70,7 @@ module Servactory
               input_required_message =
                 I18n.t(
                   "#{i18n_root_key}.#{attribute_type_plural}.validations.type.default_error.default",
+                  service_class_name: described_class.name,
                   "#{attribute_type}_name": attribute_name,
                   expected_type: option_types.join(", "),
                   given_type: Servactory::TestKit::FakeType.new.class.name
@@ -91,6 +92,7 @@ module Servactory
               if input_required_message.nil?
                 input_required_message = I18n.t(
                   "#{i18n_root_key}.#{attribute_type_plural}.validations.required.default_error.default",
+                  service_class_name: described_class.name,
                   "#{attribute_type}_name": attribute_name
                 )
               end
@@ -134,6 +136,7 @@ module Servactory
               if input_required_message.nil?
                 input_required_message = I18n.t(
                   "#{i18n_root_key}.#{attribute_type_plural}.validations.inclusion.default_error",
+                  service_class_name: described_class.name,
                   "#{attribute_type}_name": attribute_name,
                   "#{attribute_type}_inclusion": input_inclusion_in,
                   value: wrong_value
