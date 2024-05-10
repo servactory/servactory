@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    servactory (2.6.0.rc1)
+    servactory (2.6.0.rc2)
       activesupport (>= 5.1, < 7.2)
       i18n (~> 1.14)
       zeitwerk (~> 2.6)
