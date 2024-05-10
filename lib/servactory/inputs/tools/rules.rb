@@ -28,9 +28,8 @@ module Servactory
         end
 
         def raise_error_for(input)
-          message_text = I18n.t(
-            "servactory.inputs.tools.rules.error",
-            service_class_name: @context.send(:servactory_service_info).class_name,
+          message_text = @context.send(:servactory_service_info).translate(
+            "inputs.tools.rules.error",
             input_name: input.name,
             conflict_code: input.conflict_code
           )

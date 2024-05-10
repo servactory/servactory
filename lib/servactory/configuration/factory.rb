@@ -2,7 +2,7 @@
 
 module Servactory
   module Configuration
-    class Factory
+    class Factory # rubocop:disable Metrics/ClassLength
       def initialize(config)
         @config = config
       end
@@ -97,6 +97,12 @@ module Servactory
         @config.action_shortcuts.merge(action_shortcuts)
       end
 
+      def i18n_root_key(value)
+        return @config.i18n_root_key = value.to_s if i18n_key?(value)
+
+        raise_error_about_wrong_i18n_root_key_with(:i18n_root_key, value)
+      end
+
       def predicate_methods_enabled(flag)
         return @config.predicate_methods_enabled = flag if boolean?(flag)
 
@@ -117,6 +123,10 @@ module Servactory
         value.is_a?(Class) && value <= Servactory::Result
       end
 
+      def i18n_key?(value)
+        value.is_a?(Symbol) || (value.is_a?(String) && value.present?)
+      end
+
       def boolean?(value)
         value.is_a?(TrueClass) || value.is_a?(FalseClass)
       end
@@ -134,6 +144,13 @@ module Servactory
         raise ArgumentError,
               "Error in `#{config_name}` configuration. " \
               "The `#{value}` value must be a subclass of `Servactory::Result`. " \
+              "See configuration example here: https://servactory.com/guide/configuration"
+      end
+
+      def raise_error_about_wrong_i18n_root_key_with(config_name, value)
+        raise ArgumentError,
+              "Error in `#{config_name}` configuration. " \
+              "The `#{value}` value must be `Symbol` or `String`. " \
               "See configuration example here: https://servactory.com/guide/configuration"
       end
 

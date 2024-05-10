@@ -121,9 +121,8 @@ module Servactory
 
       raise @context.class.config.failure_class.new(
         type: :base,
-        message: I18n.t(
-          "servactory.common.undefined_method.missing_name",
-          service_class_name: @context.send(:servactory_service_info).class_name,
+        message: @context.send(:servactory_service_info).translate(
+          "common.undefined_method.missing_name",
           error_text: exception.message
         ),
         meta: {

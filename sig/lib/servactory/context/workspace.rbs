@@ -4,7 +4,11 @@ module Servactory
       class Actor
         attr_reader class_name: String
 
+        @i18n_root_key: String
+
         def initialize: (instance context) -> void
+
+        def translate: (String key, **untyped options) -> String
       end
 
       @inputs: Inputs
