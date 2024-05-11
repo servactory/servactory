@@ -35,11 +35,19 @@ module Servactory
           validate_for!(attribute: attribute, values: values, option: option)
         end
 
-        def validate_for!(attribute:, values:, option:) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def validate_for!(attribute:, values:, option:)
           consists_of_types = Array(option.value)
 
           if !consists_of_types.include?(NilClass) && !values&.all?(&:present?) &&
-             (values.blank? && attribute.input? && attribute.required?)
+             (
+               (
+                 attribute.input? && (
+                   (values.blank? && attribute.required?) ||
+                   (values.present? && attribute.required?)
+                 )
+               ) || attribute.internal? || attribute.output?
+             )
             return [false, :required]
           end
 
@@ -51,6 +59,7 @@ module Servactory
 
           [false, :wrong_element_type]
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         ########################################################################
 
@@ -94,7 +103,7 @@ module Servactory
         end
 
         def given_type_for(values:, option_value:)
-          return NilClass.name if values.nil?
+          return "NilClass" if values.nil?
 
           values = values&.flatten if values.respond_to?(:flatten)
 
