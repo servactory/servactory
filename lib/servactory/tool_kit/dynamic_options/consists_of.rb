@@ -26,6 +26,7 @@ module Servactory
         def common_condition_with(attribute:, value:, option:)
           return true if option.value == false
           return false if COLLECTION_CLASS_NAMES.intersection(attribute.types).empty?
+          return true if attribute.input? && attribute.optional? && value.blank?
 
           validate_for!(values: value, option: option)
         end
