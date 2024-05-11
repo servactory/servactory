@@ -4,11 +4,14 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class ConsistsOf < Must
-        COLLECTION_CLASS_NAMES = [Array, Set].freeze
-        private_constant :COLLECTION_CLASS_NAMES
+        def self.use(option_name = :consists_of, collection_mode_class_names:)
+          instance = new(option_name, :type, false)
+          instance.assign(collection_mode_class_names)
+          instance.must(:consists_of)
+        end
 
-        def self.setup(option_name = :consists_of)
-          new(option_name, :type, false).must(:consists_of)
+        def assign(collection_mode_class_names)
+          @collection_mode_class_names = collection_mode_class_names
         end
 
         def condition_for_input_with(input:, value:, option:)
@@ -25,23 +28,38 @@ module Servactory
 
         def common_condition_with(attribute:, value:, option:)
           return true if option.value == false
-          return false if COLLECTION_CLASS_NAMES.intersection(attribute.types).empty?
-          return true if attribute.input? && attribute.optional? && value.blank?
+          return [false, :wrong_type] if @collection_mode_class_names.intersection(attribute.types).empty?
 
-          validate_for!(values: value, option: option)
+          values = value.respond_to?(:flatten) ? value&.flatten : value
+
+          validate_for!(attribute: attribute, values: values, option: option)
         end
 
-        def validate_for!(values:, option:) # rubocop:disable Metrics/CyclomaticComplexity
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def validate_for!(attribute:, values:, option:)
           consists_of_types = Array(option.value)
 
-          return [false, :required] if !consists_of_types.include?(NilClass) && !values&.flatten&.all?(&:present?)
+          if !consists_of_types.include?(NilClass) && !values&.all?(&:present?) &&
+             (
+               (
+                 attribute.input? && (
+                   (values.blank? && attribute.required?) ||
+                   (values.present? && attribute.required?)
+                 )
+               ) || attribute.internal? || attribute.output?
+             )
+            return [false, :required]
+          end
 
-          return true if values.flatten.all? do |value|
+          return true if values.blank? && attribute.input? && attribute.optional?
+
+          return true if values.all? do |value|
             consists_of_types.include?(value.class)
           end
 
-          [false, :wrong_type]
+          [false, :wrong_element_type]
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         ########################################################################
 
@@ -85,9 +103,11 @@ module Servactory
         end
 
         def given_type_for(values:, option_value:)
-          return nil if values.nil?
+          return "NilClass" if values.nil?
 
-          values.flatten.filter { |value| Array(option_value).exclude?(value.class) }.map(&:class).uniq.join(", ")
+          values = values&.flatten if values.respond_to?(:flatten)
+
+          values.filter { |value| Array(option_value).exclude?(value.class) }.map(&:class).uniq.join(", ")
         end
       end
     end
