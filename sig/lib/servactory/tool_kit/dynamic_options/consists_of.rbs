@@ -10,7 +10,7 @@ module Servactory
 
         def common_condition_with: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), value: untyped, option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
 
-        def validate_for!: (values: Array[untyped], option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
+        def validate_for!: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), values: Array[untyped], option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
 
         def given_type_for: (values: Array[untyped], option_value: untyped) -> (String | nil)
       end
