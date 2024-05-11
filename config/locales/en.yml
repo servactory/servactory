@@ -20,7 +20,8 @@ en:
           dynamic_options:
             consists_of:
               required: "[%{service_class_name}] Required element in input collection `%{input_name}` is missing"
-              wrong_type: "[%{service_class_name}] Wrong element type in input collection `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_type: "[%{service_class_name}] Wrong input collection type `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong element type in input collection `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
             format:
               default: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
@@ -55,7 +56,8 @@ en:
           dynamic_options:
             consists_of:
               required: "[%{service_class_name}] Required element in internal attribute collection `%{internal_name}` is missing"
-              wrong_type: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_type: "[%{service_class_name}] Wrong internal attribute collection type `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong element type in internal attribute collection `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
             format:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
@@ -82,7 +84,8 @@ en:
           dynamic_options:
             consists_of:
               required: "[%{service_class_name}] Required element in output attribute collection `%{output_name}` is missing"
-              wrong_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_type: "[%{service_class_name}] Wrong output attribute collection type `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong element type in output attribute collection `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
             format:
               default: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
