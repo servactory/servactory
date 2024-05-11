@@ -10,7 +10,7 @@ module Servactory
 
         def validate_for!: (values: Array[untyped], option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
 
-        def given_type_for: (values: Array[untyped], option_value: untyped) -> String
+        def given_type_for: (values: Array[untyped], option_value: untyped) -> (String | nil)
       end
     end
   end
