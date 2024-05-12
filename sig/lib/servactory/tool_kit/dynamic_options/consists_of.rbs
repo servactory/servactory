@@ -12,6 +12,8 @@ module Servactory
 
         def validate_for!: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), values: Array[untyped], option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
 
+        def fails_presence_validation?: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), values: Array[untyped], consists_of_types: Array[Class]) -> bool
+
         def given_type_for: (values: Array[untyped], option_value: untyped) -> (String | nil)
       end
     end

@@ -35,16 +35,12 @@ module Servactory
           validate_for!(attribute: attribute, values: values, option: option)
         end
 
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def validate_for!(attribute:, values:, option:)
           consists_of_types = Array(option.value)
-          check_present = proc { _1 && !values&.all?(&:present?) }
 
-          return [false, :required] if !consists_of_types.include?(NilClass) && [
-            check_present[attribute.input? && (attribute.required? || (attribute.optional? && values.present?))],
-            check_present[attribute.internal?],
-            check_present[attribute.output?]
-          ].any?
+          if fails_presence_validation?(attribute: attribute, values: values, consists_of_types: consists_of_types)
+            return [false, :required]
+          end
 
           return true if values.blank? && attribute.input? && attribute.optional?
 
@@ -54,7 +50,18 @@ module Servactory
 
           [false, :wrong_element_type]
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+        def fails_presence_validation?(attribute:, values:, consists_of_types:)
+          return false if consists_of_types.include?(NilClass)
+
+          check_present = proc { _1 && !values.all?(&:present?) }
+
+          [
+            check_present[attribute.input? && (attribute.required? || (attribute.optional? && values.present?))],
+            check_present[attribute.internal?],
+            check_present[attribute.output?]
+          ].any?
+        end
 
         ########################################################################
 
