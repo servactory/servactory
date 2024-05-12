@@ -31,10 +31,10 @@ module Servactory
         @result_class = Servactory::Result
 
         @collection_mode_class_names =
-          Servactory::Configuration::ClassNamesCollection.new(default_collection_mode_class_names)
+          Servactory::Configuration::CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
 
         @hash_mode_class_names =
-          Servactory::Maintenance::HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
+          Servactory::Configuration::HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
 
         @input_option_helpers =
           Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)

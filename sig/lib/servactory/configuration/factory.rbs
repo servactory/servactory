@@ -19,9 +19,9 @@ module Servactory
 
       def result_class: (singleton(Result) failure_class) -> (singleton(Result) | Exception)
 
-      def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> Configuration::ClassNamesCollection
+      def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> CollectionMode::ClassNamesCollection
 
-      def hash_mode_class_names: (Array[Hash[Symbol, untyped]] hash_mode_class_names) -> Maintenance::HashMode::ClassNamesCollection
+      def hash_mode_class_names: (Array[Hash[Symbol, untyped]] hash_mode_class_names) -> HashMode::ClassNamesCollection
 
       def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
 

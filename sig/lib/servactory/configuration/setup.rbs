@@ -13,9 +13,9 @@ module Servactory
 
       attr_accessor result_class: singleton(Result)
 
-      attr_accessor collection_mode_class_names: ClassNamesCollection
+      attr_accessor collection_mode_class_names: CollectionMode::ClassNamesCollection
 
-      attr_accessor hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection
+      attr_accessor hash_mode_class_names: HashMode::ClassNamesCollection
 
       attr_accessor input_option_helpers: Maintenance::Attributes::OptionHelpersCollection
 

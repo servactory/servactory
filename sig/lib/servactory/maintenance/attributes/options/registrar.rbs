@@ -19,7 +19,7 @@ module Servactory
 
           def initialize: (
             attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-            hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection,
+            hash_mode_class_names: Configuration::HashMode::ClassNamesCollection,
             options: untyped,
             features: Hash[Symbol, bool]
           ) -> void

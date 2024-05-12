@@ -8,14 +8,14 @@ module Servactory
       end
 
       attr_reader name: Symbol
-      attr_reader hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection
+      attr_reader hash_mode_class_names: Configuration::HashMode::ClassNamesCollection
       attr_reader option_helpers: Maintenance::Attributes::OptionHelpersCollection
       attr_reader collection_of_options: Maintenance::Attributes::OptionsCollection
 
       def initialize: (
         Symbol name,
         *Symbol helpers,
-        hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection,
+        hash_mode_class_names: Configuration::HashMode::ClassNamesCollection,
         option_helpers: Maintenance::Attributes::OptionHelpersCollection,
         **untyped options
       ) -> void
