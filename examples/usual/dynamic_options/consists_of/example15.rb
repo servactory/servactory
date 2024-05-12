@@ -3,12 +3,14 @@
 module Usual
   module DynamicOptions
     module ConsistsOf
-      class Example14 < ApplicationService::Base
+      class Example15 < ApplicationService::Base
         input :ids,
               type: Set,
               consists_of: {
                 type: String,
-                message: "Input `ids` must be a collection of `String`"
+                message: lambda do |input:, option_value:, **|
+                  "Input `#{input.name}` must be a collection of `#{Array(option_value).join(', ')}`"
+                end
               }
 
         output :first_id, type: String

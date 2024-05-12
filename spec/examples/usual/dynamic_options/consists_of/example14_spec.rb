@@ -95,6 +95,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
       it do
         expect { perform }.to(
           have_input(:ids)
+            .valid_with(attributes)
             .type(Set)
             .consists_of(String) { "Input `ids` must be a collection of `String`" }
             .required
@@ -197,6 +198,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
       it do
         expect { perform }.to(
           have_input(:ids)
+            .valid_with(attributes)
             .type(Set)
             .consists_of(String) { "Input `ids` must be a collection of `String`" }
             .required
