@@ -39,15 +39,20 @@ module Servactory
         def validate_for!(attribute:, values:, option:)
           consists_of_types = Array(option.value)
 
-          if !consists_of_types.include?(NilClass) && !values&.all?(&:present?) &&
-             (
-               (
-                 attribute.input? && (
-                   (values.blank? && attribute.required?) ||
-                   (values.present? && attribute.required?)
-                 )
-               ) || attribute.internal? || attribute.output?
-             )
+          if !consists_of_types.include?(NilClass) && (
+            (
+              attribute.input? && (
+                (
+                  attribute.required? && !values&.all?(&:present?)
+                ) ||
+                  (
+                    attribute.optional? && values.present? && !values&.all?(&:present?)
+                  )
+              )
+            ) ||
+              (attribute.internal? && !values&.all?(&:present?)) ||
+              (attribute.output? && !values&.all?(&:present?))
+          ) # do
             return [false, :required]
           end
 
