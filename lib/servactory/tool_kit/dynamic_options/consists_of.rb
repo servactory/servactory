@@ -38,23 +38,13 @@ module Servactory
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def validate_for!(attribute:, values:, option:)
           consists_of_types = Array(option.value)
+          check_present = proc { _1 && !values&.all?(&:present?) }
 
-          if !consists_of_types.include?(NilClass) && (
-            (
-              attribute.input? && (
-                (
-                  attribute.required? && !values&.all?(&:present?)
-                ) ||
-                  (
-                    attribute.optional? && values.present? && !values&.all?(&:present?)
-                  )
-              )
-            ) ||
-              (attribute.internal? && !values&.all?(&:present?)) ||
-              (attribute.output? && !values&.all?(&:present?))
-          ) # do
-            return [false, :required]
-          end
+          return [false, :required] if !consists_of_types.include?(NilClass) && [
+            check_present[attribute.input? && (attribute.required? || (attribute.optional? && values.present?))],
+            check_present[attribute.internal?],
+            check_present[attribute.output?]
+          ].any?
 
           return true if values.blank? && attribute.input? && attribute.optional?
 
