@@ -110,7 +110,15 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example12, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Set).consists_of(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:ids)
+            .valid_with(attributes)
+            .type(Set)
+            .required
+            .consists_of(String)
+        )
+      end
     end
   end
 
@@ -223,7 +231,15 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example12, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Set).consists_of(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:ids)
+            .valid_with(attributes)
+            .type(Set)
+            .required
+            .consists_of(String)
+        )
+      end
     end
   end
 end

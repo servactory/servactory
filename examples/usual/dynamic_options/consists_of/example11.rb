@@ -4,16 +4,14 @@ module Usual
   module DynamicOptions
     module ConsistsOf
       class Example11 < ApplicationService::Base
-        input :ids, type: Set, consists_of: String
+        input :ids, type: Array, consists_of: String, required: false, default: []
 
-        internal :ids, type: Set, consists_of: String
+        internal :ids, type: Array, consists_of: String
 
-        output :ids, type: Set, consists_of: String
-        output :first_id, type: String
+        output :ids, type: Array, consists_of: String
 
         make :assign_internal
         make :assign_output
-        make :assign_first_id
 
         private
 
@@ -23,10 +21,6 @@ module Usual
 
         def assign_output
           outputs.ids = internals.ids
-        end
-
-        def assign_first_id
-          outputs.first_id = outputs.ids.first
         end
       end
     end
