@@ -6,11 +6,11 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
 
     let(:attributes) do
       {
-        api_identifier: api_identifier,
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name,
-        date: date
+        api_identifier:,
+        first_name:,
+        middle_name:,
+        last_name:,
+        date:
       }
     end
 
@@ -39,11 +39,11 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
 
     let(:attributes) do
       {
-        api_identifier: api_identifier,
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name,
-        date: date
+        api_identifier:,
+        first_name:,
+        middle_name:,
+        last_name:,
+        date:
       }
     end
 

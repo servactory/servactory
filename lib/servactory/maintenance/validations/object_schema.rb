@@ -49,10 +49,10 @@ module Servactory
               )
             else
               is_success = validate_with(
-                object: object,
-                schema_key: schema_key,
-                schema_value: schema_value,
-                attribute_type: attribute_type,
+                object:,
+                schema_key:,
+                schema_value:,
+                attribute_type:,
                 attribute_required: schema_value.fetch(:required, true)
               )
 
@@ -69,16 +69,16 @@ module Servactory
 
         def validate_with(object:, schema_key:, schema_value:, attribute_type:, attribute_required:) # rubocop:disable Metrics/MethodLength
           unless should_be_checked_for?(
-            object: object,
-            schema_key: schema_key,
-            schema_value: schema_value,
+            object:,
+            schema_key:,
+            schema_value:,
             required: attribute_required
           ) # do
             return true
           end
 
           value = object.fetch(schema_key, nil)
-          prepared_value = prepare_value_from(schema_value: schema_value, value: value, required: attribute_required)
+          prepared_value = prepare_value_from(schema_value:, value:, required: attribute_required)
 
           Array(attribute_type).any? { |type| prepared_value.is_a?(type) }
         end
@@ -105,9 +105,9 @@ module Servactory
 
         def add_error(key_name:, expected_type:, given_type:)
           @errors << {
-            key_name: key_name,
-            expected_type: expected_type,
-            given_type: given_type
+            key_name:,
+            expected_type:,
+            given_type:
           }
         end
       end

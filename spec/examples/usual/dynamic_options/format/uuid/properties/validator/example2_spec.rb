@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Properties::Validator::Examp
 
     let(:attributes) do
       {
-        service_id: service_id
+        service_id:
       }
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Properties::Validator::Examp
 
     let(:attributes) do
       {
-        service_id: service_id
+        service_id:
       }
     end
 

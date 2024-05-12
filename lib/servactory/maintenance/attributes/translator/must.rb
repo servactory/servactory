@@ -9,28 +9,28 @@ module Servactory
 
           def default_message
             lambda do |service:, value:, code:, input: nil, internal: nil, output: nil, reason: nil|
-              attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
+              attribute = Servactory::Utils.define_attribute_with(input:, internal:, output:)
 
               service.translate(
                 "#{attribute.i18n_name}.validations.must.default_error",
                 "#{attribute.system_name}_name": attribute.name,
-                value: value,
-                code: code,
-                reason: reason
+                value:,
+                code:,
+                reason:
               )
             end
           end
 
           def syntax_error_message
             lambda do |service:, value:, code:, exception_message:, input: nil, internal: nil, output: nil|
-              attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
+              attribute = Servactory::Utils.define_attribute_with(input:, internal:, output:)
 
               service.translate(
                 "#{attribute.i18n_name}.validations.must.syntax_error",
                 "#{attribute.system_name}_name": attribute.name,
-                value: value,
-                code: code,
-                exception_message: exception_message
+                value:,
+                code:,
+                exception_message:
               )
             end
           end

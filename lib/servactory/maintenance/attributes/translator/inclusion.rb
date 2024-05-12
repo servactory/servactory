@@ -9,13 +9,13 @@ module Servactory
 
           def default_message
             lambda do |service:, value:, input: nil, internal: nil, output: nil|
-              attribute = Servactory::Utils.define_attribute_with(input: input, internal: internal, output: output)
+              attribute = Servactory::Utils.define_attribute_with(input:, internal:, output:)
 
               service.translate(
                 "#{attribute.i18n_name}.validations.inclusion.default_error",
                 "#{attribute.system_name}_name": attribute.name,
                 "#{attribute.system_name}_inclusion": attribute.inclusion[:in],
-                value: value
+                value:
               )
             end
           end

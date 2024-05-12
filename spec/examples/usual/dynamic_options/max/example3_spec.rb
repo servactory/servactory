@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Max::Example3, type: :service do
 
     let(:attributes) do
       {
-        data: data
+        data:
       }
     end
 
@@ -239,7 +239,7 @@ RSpec.describe Usual::DynamicOptions::Max::Example3, type: :service do
 
     let(:attributes) do
       {
-        data: data
+        data:
       }
     end
 

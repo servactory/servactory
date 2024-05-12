@@ -93,7 +93,7 @@ module Servactory
 
           return [false, :wrong_pattern] if format_pattern.present? && !value.match?(Regexp.compile(format_pattern))
 
-          option.properties.fetch(:validator, format_options.fetch(:validator)).call(value: value)
+          option.properties.fetch(:validator, format_options.fetch(:validator)).call(value:)
         end
 
         ########################################################################
@@ -105,7 +105,7 @@ module Servactory
           service.translate(
             i18n_key,
             input_name: input.name,
-            value: value,
+            value:,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
@@ -117,7 +117,7 @@ module Servactory
           service.translate(
             i18n_key,
             internal_name: internal.name,
-            value: value,
+            value:,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
@@ -129,7 +129,7 @@ module Servactory
           service.translate(
             i18n_key,
             output_name: output.name,
-            value: value,
+            value:,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end

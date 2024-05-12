@@ -8,7 +8,7 @@ module Servactory
 
         _call!(context, **arguments)
 
-        config.result_class.success_for(context: context)
+        config.result_class.success_for(context:)
       rescue config.success_class => e
         config.result_class.success_for(context: e.context)
       end
@@ -18,11 +18,11 @@ module Servactory
 
         _call!(context, **arguments)
 
-        config.result_class.success_for(context: context)
+        config.result_class.success_for(context:)
       rescue config.success_class => e
         config.result_class.success_for(context: e.context)
       rescue config.failure_class => e
-        config.result_class.failure_for(context: context, exception: e)
+        config.result_class.failure_for(context:, exception: e)
       end
 
       private
@@ -31,10 +31,10 @@ module Servactory
         context.send(
           :_call!,
           incoming_arguments: arguments.symbolize_keys,
-          collection_of_inputs: collection_of_inputs,
-          collection_of_internals: collection_of_internals,
-          collection_of_outputs: collection_of_outputs,
-          collection_of_stages: collection_of_stages
+          collection_of_inputs:,
+          collection_of_internals:,
+          collection_of_outputs:,
+          collection_of_stages:
         )
       end
     end

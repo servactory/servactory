@@ -31,7 +31,7 @@ module Servactory
 
             raise_error_for(:setter, prepared_name)
           else
-            getter_with(name: name) { raise_error_for(:getter, name) }
+            getter_with(name:) { raise_error_for(:getter, name) }
           end
         end
 
@@ -82,7 +82,7 @@ module Servactory
               else
                 fetch_hash_values_from(
                   value: object.fetch(schema_key, {}),
-                  schema_value: schema_value,
+                  schema_value:,
                   attribute_required: schema_value.fetch(:required, true)
                 )
               end

@@ -6,7 +6,7 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Basic::Example1, type: :serv
 
     let(:attributes) do
       {
-        started_on: started_on
+        started_on:
       }
     end
 
@@ -43,7 +43,7 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Basic::Example1, type: :serv
 
     let(:attributes) do
       {
-        started_on: started_on
+        started_on:
       }
     end
 

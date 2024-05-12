@@ -6,9 +6,9 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
 
     let(:attributes) do
       {
-        input_1: input_1,
-        input_2: input_2,
-        input_3: input_3
+        input_1:,
+        input_2:,
+        input_3:
       }
     end
 
@@ -43,9 +43,9 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
 
     let(:attributes) do
       {
-        input_1: input_1,
-        input_2: input_2,
-        input_3: input_3
+        input_1:,
+        input_2:,
+        input_3:
       }
     end
 

@@ -59,11 +59,11 @@ module Servactory
         def must_content_value_with(option)
           lambda do |value:, input: nil, internal: nil, output: nil|
             if input.present? && input.input?
-              condition_for_input_with(input: input, value: value, option: option)
+              condition_for_input_with(input:, value:, option:)
             elsif internal.present? && internal.internal?
-              condition_for_internal_with(internal: internal, value: value, option: option)
+              condition_for_internal_with(internal:, value:, option:)
             elsif output.present? && output.output?
-              condition_for_output_with(output: output, value: value, option: option)
+              condition_for_output_with(output:, value:, option:)
             end
           end
         end
@@ -78,21 +78,21 @@ module Servactory
 
             if Servactory::Utils.really_input?(input)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes.merge(input: input)) : option.message
+                is_option_message_proc ? option.message.call(**default_attributes.merge(input:)) : option.message
               else
-                message_for_input_with(**default_attributes.merge(input: input))
+                message_for_input_with(**default_attributes.merge(input:))
               end
             elsif Servactory::Utils.really_internal?(internal)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes.merge(internal: internal)) : option.message # rubocop:disable Layout/LineLength
+                is_option_message_proc ? option.message.call(**default_attributes.merge(internal:)) : option.message
               else
-                message_for_internal_with(**default_attributes.merge(internal: internal))
+                message_for_internal_with(**default_attributes.merge(internal:))
               end
             elsif Servactory::Utils.really_output?(output)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes.merge(output: output)) : option.message # rubocop:disable Layout/LineLength
+                is_option_message_proc ? option.message.call(**default_attributes.merge(output:)) : option.message
               else
-                message_for_output_with(**default_attributes.merge(output: output))
+                message_for_output_with(**default_attributes.merge(output:))
               end
             end
           end

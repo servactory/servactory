@@ -3,7 +3,7 @@
 RSpec.describe Usual::Inclusion::Example6, type: :service do
   let(:attributes) do
     {
-      event_name: event_name
+      event_name:
     }
   end
 

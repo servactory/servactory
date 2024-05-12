@@ -6,7 +6,7 @@ RSpec.describe Usual::Success::Example1, type: :service do
 
     let(:attributes) do
       {
-        number: number
+        number:
       }
     end
 
@@ -43,7 +43,7 @@ RSpec.describe Usual::Success::Example1, type: :service do
 
     let(:attributes) do
       {
-        number: number
+        number:
       }
     end
 

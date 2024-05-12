@@ -28,11 +28,11 @@ module Servactory
     ############################################################################
 
     def self.success_for(context:)
-      new(context: context).send(:as_success)
+      new(context:).send(:as_success)
     end
 
     def self.failure_for(context:, exception:)
-      new(context: context, exception: exception).send(:as_failure)
+      new(context:, exception:).send(:as_failure)
     end
 
     def initialize(context:, exception: nil)
@@ -45,13 +45,13 @@ module Servactory
     end
 
     def on_success
-      yield(outputs: outputs) if success?
+      yield(outputs:) if success?
 
       self
     end
 
     def on_failure(type = :all)
-      yield(outputs: outputs, exception: @exception) if failure? && [:all, @exception&.type].include?(type)
+      yield(outputs:, exception: @exception) if failure? && [:all, @exception&.type].include?(type)
 
       self
     end

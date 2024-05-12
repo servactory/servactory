@@ -18,7 +18,7 @@ module Servactory
               [
                 input.name,
                 {
-                  work: work,
+                  work:,
                   types: input.types,
                   required: input.required,
                   default: input.default,
@@ -36,7 +36,7 @@ module Servactory
               [
                 internal.name,
                 {
-                  work: work,
+                  work:,
                   types: internal.types,
                   inclusion: inclusion.body,
                   must: must.body
@@ -52,7 +52,7 @@ module Servactory
               [
                 output.name,
                 {
-                  work: work,
+                  work:,
                   types: output.types,
                   inclusion: inclusion.body,
                   must: must.body

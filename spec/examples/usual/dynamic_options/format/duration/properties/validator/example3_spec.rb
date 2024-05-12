@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Properties::Validator::E
 
     let(:attributes) do
       {
-        song_duration: song_duration
+        song_duration:
       }
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Properties::Validator::E
 
     let(:attributes) do
       {
-        song_duration: song_duration
+        song_duration:
       }
     end
 

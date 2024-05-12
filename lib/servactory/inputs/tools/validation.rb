@@ -26,17 +26,17 @@ module Servactory
 
         def process_input(input)
           input.options_for_checks.each do |check_key, check_options|
-            process_option(check_key, check_options, input: input)
+            process_option(check_key, check_options, input:)
           end
         end
 
         def process_option(check_key, check_options, input:)
           validation_classes_from(input).each do |validation_class|
             errors_from_checks = process_validation_class(
-              validation_class: validation_class,
-              input: input,
-              check_key: check_key,
-              check_options: check_options
+              validation_class:,
+              input:,
+              check_key:,
+              check_options:
             )
 
             errors.merge(errors_from_checks.to_a)
@@ -53,8 +53,8 @@ module Servactory
             context: @context,
             attribute: input,
             value: @incoming_arguments.fetch(input.name, nil),
-            check_key: check_key,
-            check_options: check_options
+            check_key:,
+            check_options:
           )
         end
 

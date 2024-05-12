@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Is::Example1, type: :ser
 
     let(:attributes) do
       {
-        song_duration: song_duration
+        song_duration:
       }
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Is::Example1, type: :ser
 
     let(:attributes) do
       {
-        song_duration: song_duration
+        song_duration:
       }
     end
 

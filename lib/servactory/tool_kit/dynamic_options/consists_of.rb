@@ -15,15 +15,15 @@ module Servactory
         end
 
         def condition_for_input_with(input:, value:, option:)
-          common_condition_with(attribute: input, value: value, option: option)
+          common_condition_with(attribute: input, value:, option:)
         end
 
         def condition_for_internal_with(internal:, value:, option:)
-          common_condition_with(attribute: internal, value: value, option: option)
+          common_condition_with(attribute: internal, value:, option:)
         end
 
         def condition_for_output_with(output:, value:, option:)
-          common_condition_with(attribute: output, value: value, option: option)
+          common_condition_with(attribute: output, value:, option:)
         end
 
         def common_condition_with(attribute:, value:, option:)
@@ -32,15 +32,13 @@ module Servactory
 
           values = value.respond_to?(:flatten) ? value&.flatten : value
 
-          validate_for!(attribute: attribute, values: values, option: option)
+          validate_for!(attribute:, values:, option:)
         end
 
         def validate_for!(attribute:, values:, option:)
           consists_of_types = Array(option.value)
 
-          if fails_presence_validation?(attribute: attribute, values: values, consists_of_types: consists_of_types)
-            return [false, :required]
-          end
+          return [false, :required] if fails_presence_validation?(attribute:, values:, consists_of_types:)
 
           return true if values.blank? && attribute.input? && attribute.optional?
 
@@ -74,7 +72,7 @@ module Servactory
             service_class_name: service.class_name,
             input_name: input.name,
             expected_type: Array(option_value).uniq.join(", "),
-            given_type: given_type_for(values: value, option_value: option_value)
+            given_type: given_type_for(values: value, option_value:)
           )
         end
 
@@ -87,7 +85,7 @@ module Servactory
             service_class_name: service.class_name,
             internal_name: internal.name,
             expected_type: Array(option_value).uniq.join(", "),
-            given_type: given_type_for(values: value, option_value: option_value)
+            given_type: given_type_for(values: value, option_value:)
           )
         end
 
@@ -100,7 +98,7 @@ module Servactory
             service_class_name: service.class_name,
             output_name: output.name,
             expected_type: Array(option_value).uniq.join(", "),
-            given_type: given_type_for(values: value, option_value: option_value)
+            given_type: given_type_for(values: value, option_value:)
           )
         end
 

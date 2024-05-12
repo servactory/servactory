@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Is::Example1, type: :service
 
     let(:attributes) do
       {
-        service_id: service_id
+        service_id:
       }
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Is::Example1, type: :service
 
     let(:attributes) do
       {
-        service_id: service_id
+        service_id:
       }
     end
 
