@@ -142,10 +142,13 @@ module Servactory
                   value: wrong_value
                 )
               elsif input_required_message.is_a?(Proc)
+                service_class = Data.define(:class_name)
+                service = service_class.new(class_name: described_class.name)
+
                 input_work = attribute_data.fetch(:work)
 
                 input_required_message = input_required_message.call(
-                  service_class_name: described_class.name,
+                  service: service,
                   input: input_work,
                   value: wrong_value
                 )
