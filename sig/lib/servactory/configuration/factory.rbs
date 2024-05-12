@@ -23,11 +23,11 @@ module Servactory
 
       def hash_mode_class_names: (Array[Hash[Symbol, untyped]] hash_mode_class_names) -> HashMode::ClassNamesCollection
 
-      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def internal_option_helpers: (Array[Hash[Symbol, untyped]] internal_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+      def internal_option_helpers: (Array[Hash[Symbol, untyped]] internal_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+      def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
       def action_aliases: (Array[Symbol] action_aliases) -> Actions::Aliases::Collection
 

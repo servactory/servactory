@@ -17,11 +17,11 @@ module Servactory
 
       attr_accessor hash_mode_class_names: HashMode::ClassNamesCollection
 
-      attr_accessor input_option_helpers: Maintenance::Attributes::OptionHelpersCollection
+      attr_accessor input_option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
 
-      attr_accessor internal_option_helpers: Maintenance::Attributes::OptionHelpersCollection
+      attr_accessor internal_option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
 
-      attr_accessor output_option_helpers: Maintenance::Attributes::OptionHelpersCollection
+      attr_accessor output_option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
 
       attr_accessor action_aliases: Actions::Aliases::Collection
 
