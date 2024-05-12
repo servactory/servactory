@@ -45,9 +45,9 @@ module Servactory
         @output_option_helpers =
           Servactory::Configuration::OptionHelpers::OptionHelpersCollection.new(default_output_option_helpers)
 
-        @action_aliases = Servactory::Actions::Aliases::Collection.new
-        @action_shortcuts = Servactory::Actions::Shortcuts::Collection.new
-        @action_rescue_handlers = Servactory::Actions::RescueHandlers::Collection.new
+        @action_aliases = Servactory::Configuration::Actions::Aliases::Collection.new
+        @action_shortcuts = Servactory::Configuration::Actions::Shortcuts::Collection.new
+        @action_rescue_handlers = Servactory::Configuration::Actions::RescueHandlers::Collection.new
 
         @i18n_root_key = "servactory"
 

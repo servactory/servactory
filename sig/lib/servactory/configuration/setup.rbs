@@ -23,11 +23,11 @@ module Servactory
 
       attr_accessor output_option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
 
-      attr_accessor action_aliases: Actions::Aliases::Collection
+      attr_accessor action_aliases: Configuration::Aliases::Collection
 
-      attr_accessor action_shortcuts: Actions::Shortcuts::Collection
+      attr_accessor action_shortcuts: Configuration::Shortcuts::Collection
 
-      attr_accessor action_rescue_handlers: Actions::RescueHandlers::Collection
+      attr_accessor action_rescue_handlers: Configuration::RescueHandlers::Collection
 
       attr_accessor i18n_root_key: (Symbol | String)
 
