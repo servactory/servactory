@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Maintenance
-    module Attributes
+  module Configuration
+    module OptionHelpers
       class OptionHelpersCollection
         extend Forwardable
         def_delegators :@collection, :<<, :find, :merge

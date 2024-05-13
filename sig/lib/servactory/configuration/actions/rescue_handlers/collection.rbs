@@ -1,0 +1,15 @@
+module Servactory
+  module Configuration
+    module Actions
+      module RescueHandlers
+        class Collection
+          extend Forwardable
+
+          @collection: Set[untyped]
+
+          def initialize: (*untyped) -> void
+        end
+      end
+    end
+  end
+end
