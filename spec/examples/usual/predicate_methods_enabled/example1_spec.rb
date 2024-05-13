@@ -31,7 +31,11 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
           expect { perform.full_name? }.to raise_error do |exception|
             expect(exception).to be_a(ApplicationService::Exceptions::Failure)
             expect(exception.type).to eq(:base)
-            expect(exception.message).to match(/\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/)
+            expect(exception.message).to(
+              match(
+                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/ # rubocop:disable Layout/LineLength
+              )
+            )
             expect(exception.meta).to match(original_exception: be_a(NoMethodError))
           end
         end
@@ -75,7 +79,11 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
           expect { perform.full_name? }.to raise_error do |exception|
             expect(exception).to be_a(ApplicationService::Exceptions::Failure)
             expect(exception.type).to eq(:base)
-            expect(exception.message).to match(/\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/)
+            expect(exception.message).to(
+              match(
+                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/ # rubocop:disable Layout/LineLength
+              )
+            )
             expect(exception.meta).to match(original_exception: be_a(NoMethodError))
           end
         end
