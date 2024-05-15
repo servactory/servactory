@@ -31,23 +31,23 @@ module Servactory
         @result_class = Servactory::Result
 
         @collection_mode_class_names =
-          Servactory::Configuration::ClassNamesCollection.new(default_collection_mode_class_names)
+          Servactory::Configuration::CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
 
         @hash_mode_class_names =
-          Servactory::Maintenance::HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
+          Servactory::Configuration::HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
 
         @input_option_helpers =
-          Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_input_option_helpers)
+          Servactory::Configuration::OptionHelpers::OptionHelpersCollection.new(default_input_option_helpers)
 
         @internal_option_helpers =
-          Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_internal_option_helpers)
+          Servactory::Configuration::OptionHelpers::OptionHelpersCollection.new(default_internal_option_helpers)
 
         @output_option_helpers =
-          Servactory::Maintenance::Attributes::OptionHelpersCollection.new(default_output_option_helpers)
+          Servactory::Configuration::OptionHelpers::OptionHelpersCollection.new(default_output_option_helpers)
 
-        @action_aliases = Servactory::Actions::Aliases::Collection.new
-        @action_shortcuts = Servactory::Actions::Shortcuts::Collection.new
-        @action_rescue_handlers = Servactory::Actions::RescueHandlers::Collection.new
+        @action_aliases = Servactory::Configuration::Actions::Aliases::Collection.new
+        @action_shortcuts = Servactory::Configuration::Actions::Shortcuts::Collection.new
+        @action_rescue_handlers = Servactory::Configuration::Actions::RescueHandlers::Collection.new
 
         @i18n_root_key = "servactory"
 

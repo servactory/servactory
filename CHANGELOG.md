@@ -1,5 +1,69 @@
 # Changelog
 
+## [v2.6.0](https://github.com/servactory/servactory/tree/v2.6.0) (2024-05-13)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0.rc5...v2.6.0)
+
+**Breaking changes:**
+
+- Replace `service_class_name` attribute with `service` [\#212](https://github.com/servactory/servactory/pull/212) ([afuno](https://github.com/afuno))
+- Rewrite `consists_of` option as dynamic and refuse collection mode [\#180](https://github.com/servactory/servactory/pull/180) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Add example for `predicate_methods_enabled` configuration [\#221](https://github.com/servactory/servactory/pull/221) ([afuno](https://github.com/afuno))
+- Refactor configuration [\#220](https://github.com/servactory/servactory/pull/220) ([afuno](https://github.com/afuno))
+- Revert `collection_mode_class_names` configuration and improve translations [\#216](https://github.com/servactory/servactory/pull/216) ([afuno](https://github.com/afuno))
+- Add config `i18n_root_key` [\#213](https://github.com/servactory/servactory/pull/213) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Update attribute to `service` in `valid_with` [\#219](https://github.com/servactory/servactory/pull/219) ([afuno](https://github.com/afuno))
+- Improve work and examples for `consists_of` option [\#217](https://github.com/servactory/servactory/pull/217) ([afuno](https://github.com/afuno))
+- Fix check in `consists_of` option of input when it is optional [\#215](https://github.com/servactory/servactory/pull/215) ([afuno](https://github.com/afuno))
+- Fix `consists_of` option for optional attribute with default value [\#214](https://github.com/servactory/servactory/pull/214) ([afuno](https://github.com/afuno))
+
+## [v2.6.0.rc5](https://github.com/servactory/servactory/tree/v2.6.0.rc5) (2024-05-11)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0.rc4...v2.6.0.rc5)
+
+**Implemented enhancements:**
+
+- Revert `collection_mode_class_names` configuration and improve translations [\#216](https://github.com/servactory/servactory/pull/216) ([afuno](https://github.com/afuno))
+
+## [v2.6.0.rc4](https://github.com/servactory/servactory/tree/v2.6.0.rc4) (2024-05-11)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0.rc3...v2.6.0.rc4)
+
+**Fixed:**
+
+- Fix check in `consists_of` option of input when it is optional [\#215](https://github.com/servactory/servactory/pull/215) ([afuno](https://github.com/afuno))
+
+## [v2.6.0.rc3](https://github.com/servactory/servactory/tree/v2.6.0.rc3) (2024-05-11)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0.rc2...v2.6.0.rc3)
+
+**Fixed:**
+
+- Fix `consists_of` option for optional attribute with default value [\#214](https://github.com/servactory/servactory/pull/214) ([afuno](https://github.com/afuno))
+
+## [v2.6.0.rc2](https://github.com/servactory/servactory/tree/v2.6.0.rc2) (2024-05-10)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0.rc1...v2.6.0.rc2)
+
+## [v2.6.0.rc1](https://github.com/servactory/servactory/tree/v2.6.0.rc1) (2024-05-10)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.5.2...v2.6.0.rc1)
+
+**Breaking changes:**
+
+- Replace `service_class_name` attribute with `service` [\#212](https://github.com/servactory/servactory/pull/212) ([afuno](https://github.com/afuno))
+- Rewrite `consists_of` option as dynamic and refuse collection mode [\#180](https://github.com/servactory/servactory/pull/180) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Add config `i18n_root_key` [\#213](https://github.com/servactory/servactory/pull/213) ([afuno](https://github.com/afuno))
+
 ## [v2.5.2](https://github.com/servactory/servactory/tree/v2.5.2) (2024-05-02)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.5.1...v2.5.2)

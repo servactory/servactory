@@ -19,19 +19,19 @@ module Servactory
 
       def result_class: (singleton(Result) failure_class) -> (singleton(Result) | Exception)
 
-      def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> Configuration::ClassNamesCollection
+      def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> CollectionMode::ClassNamesCollection
 
-      def hash_mode_class_names: (Array[Hash[Symbol, untyped]] hash_mode_class_names) -> Maintenance::HashMode::ClassNamesCollection
+      def hash_mode_class_names: (Array[Hash[Symbol, untyped]] hash_mode_class_names) -> HashMode::ClassNamesCollection
 
-      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def internal_option_helpers: (Array[Hash[Symbol, untyped]] internal_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+      def internal_option_helpers: (Array[Hash[Symbol, untyped]] internal_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+      def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def action_aliases: (Array[Symbol] action_aliases) -> Actions::Aliases::Collection
+      def action_aliases: (Array[Symbol] action_aliases) -> Configuration::Aliases::Collection
 
-      def action_shortcuts: (Array[Symbol] action_shortcuts) -> Actions::Shortcuts::Collection
+      def action_shortcuts: (Array[Symbol] action_shortcuts) -> Configuration::Shortcuts::Collection
 
       def i18n_root_key: ((Symbol | String) value) -> (String | Exception)
 
@@ -39,7 +39,7 @@ module Servactory
 
       private
 
-      # def action_rescue_handlers: (Array[Symbol] action_rescue_handlers) -> Actions::RescueHandlers::Collection
+      # def action_rescue_handlers: (Array[Symbol] action_rescue_handlers) -> Configuration::RescueHandlers::Collection
 
       def subclass_of_exception?: (Class value) -> bool
 

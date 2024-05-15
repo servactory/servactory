@@ -48,6 +48,8 @@ module ApplicationService
       #   ]
       # )
 
+      # collection_mode_class_names [ActiveRecord::Relation]
+
       # hash_mode_class_names [CustomHash]
 
       # action_shortcuts %i[assign build create save]

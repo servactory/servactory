@@ -2,11 +2,11 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class ConsistsOf < Must
-        @collection_mode_class_names: Configuration::ClassNamesCollection
+        @collection_mode_class_names: Configuration::CollectionMode::ClassNamesCollection
 
-        def self.use: (?::Symbol option_name, collection_mode_class_names: Configuration::ClassNamesCollection) -> untyped
+        def self.use: (?::Symbol option_name, collection_mode_class_names: Configuration::CollectionMode::ClassNamesCollection) -> untyped
 
-        def assign: (Configuration::ClassNamesCollection collection_mode_class_names) -> Configuration::ClassNamesCollection
+        def assign: (Configuration::CollectionMode::ClassNamesCollection collection_mode_class_names) -> Configuration::CollectionMode::ClassNamesCollection
 
         def common_condition_with: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), value: untyped, option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
 
