@@ -61,7 +61,7 @@ en:
             format:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
-              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{internal_name}`"
+              unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for internal attribute `%{internal_name}`"
             min:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
