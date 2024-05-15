@@ -95,6 +95,7 @@ ru:
             max:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое больше `%{option_value}`"
         type:
-          default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-          for_hash:
-            wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
+          default_error:
+            default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+            for_hash:
+              wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
