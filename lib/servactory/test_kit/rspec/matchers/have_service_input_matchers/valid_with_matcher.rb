@@ -145,11 +145,11 @@ module Servactory
                 service_class = Struct.new(:class_name, keyword_init: true)
                 service = service_class.new(class_name: described_class.name)
 
-                input_work = attribute_data.fetch(:work)
+                input_actor = attribute_data.fetch(:actor)
 
                 input_required_message = input_required_message.call(
                   service: service,
-                  input: input_work,
+                  input: input_actor,
                   value: wrong_value
                 )
               end
