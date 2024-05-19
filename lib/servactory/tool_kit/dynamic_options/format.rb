@@ -88,12 +88,6 @@ module Servactory
 
           return [false, :unknown] unless @formats.key?(option_value)
 
-          format_options = @formats.fetch(option_value)
-
-          format_pattern = option.properties.fetch(:pattern, format_options.fetch(:pattern))
-
-          return [false, :wrong_pattern] if format_pattern.present? && !value.match?(Regexp.compile(format_pattern))
-
           attribute = Utils.define_attribute_with(input: input, internal: internal, output: output)
 
           if value.blank? &&
@@ -106,6 +100,12 @@ module Servactory
              )
             return true
           end
+
+          format_options = @formats.fetch(option_value)
+
+          format_pattern = option.properties.fetch(:pattern, format_options.fetch(:pattern))
+
+          return [false, :wrong_pattern] if format_pattern.present? && !value.match?(Regexp.compile(format_pattern))
 
           option.properties.fetch(:validator, format_options.fetch(:validator)).call(value: value)
         end
