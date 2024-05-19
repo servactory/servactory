@@ -82,9 +82,8 @@ module Servactory
           common_condition_with(...)
         end
 
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def common_condition_with(value:, option:, input: nil, internal: nil, output: nil)
-          attribute = Utils.define_attribute_with(input: input, internal: internal, output: output)
-
           option_value = option.value&.to_sym
 
           return [false, :unknown] unless @formats.key?(option_value)
@@ -94,6 +93,8 @@ module Servactory
           format_pattern = option.properties.fetch(:pattern, format_options.fetch(:pattern))
 
           return [false, :wrong_pattern] if format_pattern.present? && !value.match?(Regexp.compile(format_pattern))
+
+          attribute = Utils.define_attribute_with(input: input, internal: internal, output: output)
 
           if value.blank? &&
              (
@@ -108,6 +109,7 @@ module Servactory
 
           option.properties.fetch(:validator, format_options.fetch(:validator)).call(value: value)
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         ########################################################################
 
