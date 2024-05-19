@@ -76,7 +76,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example1, type: :s
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Usual::DynamicOptions::Format::Time::Optional::Example1] " \
-                  "Input `started_at` does not match `time` format"
+                "Input `started_at` does not match `time` format"
               )
             )
           end

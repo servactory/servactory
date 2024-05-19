@@ -23,7 +23,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example3, type: :s
           result = perform
 
           expect(result.started_at?).to be(false)
-          expect(result.started_at).to eq(nil)
+          expect(result.started_at).to be_nil
         end
       end
 
@@ -71,7 +71,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example3, type: :s
           result = perform
 
           expect(result.started_at?).to be(false)
-          expect(result.started_at).to eq(nil)
+          expect(result.started_at).to be_nil
         end
       end
 
@@ -84,7 +84,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example3, type: :s
               raise_error(
                 ApplicationService::Exceptions::Output,
                 "[Usual::DynamicOptions::Format::Time::Optional::Example3] Output attribute `started_at` " \
-                  "does not match `time` format"
+                "does not match `time` format"
               )
             )
           end

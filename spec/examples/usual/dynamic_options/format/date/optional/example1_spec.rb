@@ -76,7 +76,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example1, type: :s
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Usual::DynamicOptions::Format::Date::Optional::Example1] " \
-                  "Input `started_on` does not match `date` format"
+                "Input `started_on` does not match `date` format"
               )
             )
           end

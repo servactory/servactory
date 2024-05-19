@@ -23,7 +23,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example3, type: :s
           result = perform
 
           expect(result.started_on?).to be(false)
-          expect(result.started_on).to eq(nil)
+          expect(result.started_on).to be_nil
         end
       end
 
@@ -71,7 +71,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example3, type: :s
           result = perform
 
           expect(result.started_on?).to be(false)
-          expect(result.started_on).to eq(nil)
+          expect(result.started_on).to be_nil
         end
       end
 
@@ -84,7 +84,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example3, type: :s
               raise_error(
                 ApplicationService::Exceptions::Output,
                 "[Usual::DynamicOptions::Format::Date::Optional::Example3] Output attribute `started_on` " \
-                  "does not match `date` format"
+                "does not match `date` format"
               )
             )
           end
