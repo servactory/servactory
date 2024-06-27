@@ -6,9 +6,9 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
 
     let(:attributes) do
       {
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name
+        first_name:,
+        middle_name:,
+        last_name:
       }
     end
 
@@ -60,9 +60,9 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
 
     let(:attributes) do
       {
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name
+        first_name:,
+        middle_name:,
+        last_name:
       }
     end
 

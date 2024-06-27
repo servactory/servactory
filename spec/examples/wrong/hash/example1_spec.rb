@@ -6,7 +6,7 @@ RSpec.describe Wrong::Hash::Example1, type: :service do
 
     let(:attributes) do
       {
-        payload: payload
+        payload:
       }
     end
 
@@ -14,9 +14,9 @@ RSpec.describe Wrong::Hash::Example1, type: :service do
       {
         request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
         user: {
-          first_name: first_name,
-          middle_name: middle_name,
-          last_name: last_name
+          first_name:,
+          middle_name:,
+          last_name:
         }
       }
     end
@@ -72,7 +72,7 @@ RSpec.describe Wrong::Hash::Example1, type: :service do
 
     let(:attributes) do
       {
-        payload: payload
+        payload:
       }
     end
 
@@ -80,9 +80,9 @@ RSpec.describe Wrong::Hash::Example1, type: :service do
       {
         request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
         user: {
-          first_name: first_name,
-          middle_name: middle_name,
-          last_name: last_name
+          first_name:,
+          middle_name:,
+          last_name:
         }
       }
     end

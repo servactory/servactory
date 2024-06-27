@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
 
     let(:attributes) do
       {
-        invoice_numbers: invoice_numbers
+        invoice_numbers:
       }
     end
 
@@ -134,7 +134,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
 
     let(:attributes) do
       {
-        invoice_numbers: invoice_numbers
+        invoice_numbers:
       }
     end
 

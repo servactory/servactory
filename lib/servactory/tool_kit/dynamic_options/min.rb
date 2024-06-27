@@ -37,8 +37,8 @@ module Servactory
           service.translate(
             "inputs.validations.must.dynamic_options.min.default",
             input_name: input.name,
-            value: value,
-            option_value: option_value
+            value:,
+            option_value:
           )
         end
 
@@ -46,8 +46,8 @@ module Servactory
           service.translate(
             "internals.validations.must.dynamic_options.min.default",
             internal_name: internal.name,
-            value: value,
-            option_value: option_value
+            value:,
+            option_value:
           )
         end
 
@@ -55,8 +55,8 @@ module Servactory
           service.translate(
             "outputs.validations.must.dynamic_options.min.default",
             output_name: output.name,
-            value: value,
-            option_value: option_value
+            value:,
+            option_value:
           )
         end
       end

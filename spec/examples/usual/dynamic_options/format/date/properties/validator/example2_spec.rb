@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Validator::Examp
 
     let(:attributes) do
       {
-        started_on: started_on
+        started_on:
       }
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Validator::Examp
 
     let(:attributes) do
       {
-        started_on: started_on
+        started_on:
       }
     end
 

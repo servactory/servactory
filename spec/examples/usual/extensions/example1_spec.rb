@@ -6,7 +6,7 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
 
     let(:attributes) do
       {
-        user: user
+        user:
       }
     end
 
@@ -63,7 +63,7 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
 
     let(:attributes) do
       {
-        user: user
+        user:
       }
     end
 

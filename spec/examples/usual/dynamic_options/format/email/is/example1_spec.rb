@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example1, type: :servic
 
     let(:attributes) do
       {
-        email: email
+        email:
       }
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example1, type: :servic
 
     let(:attributes) do
       {
-        email: email
+        email:
       }
     end
 

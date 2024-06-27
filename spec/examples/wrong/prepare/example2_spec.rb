@@ -6,7 +6,7 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
 
     let(:attributes) do
       {
-        balance_cents: balance_cents
+        balance_cents:
       }
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
 
     let(:attributes) do
       {
-        balance_cents: balance_cents
+        balance_cents:
       }
     end
 

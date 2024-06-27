@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Properties::Validator::Exam
 
     let(:attributes) do
       {
-        email: email
+        email:
       }
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Properties::Validator::Exam
 
     let(:attributes) do
       {
-        email: email
+        email:
       }
     end
 

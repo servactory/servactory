@@ -23,22 +23,22 @@ module Servactory
       def inputs
         @inputs ||= Inputs.new(
           context: self,
-          incoming_arguments: incoming_arguments,
-          collection_of_inputs: collection_of_inputs
+          incoming_arguments:,
+          collection_of_inputs:
         )
       end
 
       def internals
         @internals ||= Internals.new(
           context: self,
-          collection_of_internals: collection_of_internals
+          collection_of_internals:
         )
       end
 
       def outputs
         @outputs ||= Outputs.new(
           context: self,
-          collection_of_outputs: collection_of_outputs
+          collection_of_outputs:
         )
       end
 
@@ -48,30 +48,30 @@ module Servactory
 
       def fail_input!(input_name, message:, meta: nil)
         raise self.class.config.input_exception_class.new(
-          input_name: input_name,
-          message: message,
-          meta: meta
+          input_name:,
+          message:,
+          meta:
         )
       end
 
       def fail_internal!(internal_name, message:, meta: nil)
         raise self.class.config.internal_exception_class.new(
-          internal_name: internal_name,
-          message: message,
-          meta: meta
+          internal_name:,
+          message:,
+          meta:
         )
       end
 
       def fail_output!(output_name, message:, meta: nil)
         raise self.class.config.output_exception_class.new(
-          output_name: output_name,
-          message: message,
-          meta: meta
+          output_name:,
+          message:,
+          meta:
         )
       end
 
       def fail!(type = :base, message:, meta: nil)
-        raise self.class.config.failure_class.new(type: type, message: message, meta: meta)
+        raise self.class.config.failure_class.new(type:, message:, meta:)
       end
 
       def fail_result!(service_result)
@@ -93,11 +93,11 @@ module Servactory
         collection_of_stages:
       )
         call!(
-          incoming_arguments: incoming_arguments,
-          collection_of_inputs: collection_of_inputs,
-          collection_of_internals: collection_of_internals,
-          collection_of_outputs: collection_of_outputs,
-          collection_of_stages: collection_of_stages
+          incoming_arguments:,
+          collection_of_inputs:,
+          collection_of_internals:,
+          collection_of_outputs:,
+          collection_of_stages:
         )
       end
 

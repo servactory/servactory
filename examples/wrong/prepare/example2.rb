@@ -5,7 +5,7 @@ module Wrong
     class Example2 < ApplicationService::Base
       Money = Struct.new(:cents, :currency, keyword_init: true) do
         def +(other)
-          self.class.new(cents: cents + other.cents, currency: currency)
+          self.class.new(cents: cents + other.cents, currency:)
         end
       end
 

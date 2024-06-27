@@ -4,7 +4,7 @@ module Servactory
   module Maintenance
     module Attributes
       class Option
-        DEFAULT_BODY = ->(key:, body:, message: nil) { { key => body, message: message } }
+        DEFAULT_BODY = ->(key:, body:, message: nil) { { key => body, message: } }
 
         private_constant :DEFAULT_BODY
 
@@ -37,12 +37,12 @@ module Servactory
           @need_for_checks = need_for_checks
 
           @body = prepare_value_for(
-            original_value: original_value,
-            options: options,
-            body_key: body_key,
-            body_value: body_value,
-            body_fallback: body_fallback,
-            with_advanced_mode: with_advanced_mode
+            original_value:,
+            options:,
+            body_key:,
+            body_value:,
+            body_fallback:,
+            with_advanced_mode:
           )
 
           prepare_methods_for(attribute)
@@ -69,9 +69,9 @@ module Servactory
 
           prepare_advanced_for(
             body: options.fetch(@name, DEFAULT_BODY.call(key: body_key, body: body_fallback)),
-            body_key: body_key,
-            body_value: body_value,
-            body_fallback: body_fallback
+            body_key:,
+            body_value:,
+            body_fallback:
           )
         end
 
@@ -84,18 +84,18 @@ module Servactory
         )
           if body.is_a?(Hash)
             if @name == :schema && body.fetch(body_key, nil).nil?
-              DEFAULT_BODY.call(key: body_key, body: body)
+              DEFAULT_BODY.call(key: body_key, body:)
             else
               message = body.fetch(:message, nil)
 
               DEFAULT_BODY.call(
                 key: body_key,
                 body: body.fetch(body_key, message.present? ? body_value : body_fallback),
-                message: message
+                message:
               )
             end
           else
-            DEFAULT_BODY.call(key: body_key, body: body)
+            DEFAULT_BODY.call(key: body_key, body:)
           end
         end
         # rubocop:enable Metrics/MethodLength

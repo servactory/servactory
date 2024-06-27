@@ -10,7 +10,7 @@ RSpec.describe Usual::Async::Example1, type: :service do
 
     let(:attributes) do
       {
-        id: id
+        id:
       }
     end
 
@@ -34,7 +34,7 @@ RSpec.describe Usual::Async::Example1, type: :service do
               semaphore = Async::Semaphore.new(10, parent: barrier)
 
               ids.map do |id|
-                semaphore.async { described_class.call!(id: id) }
+                semaphore.async { described_class.call!(id:) }
               end.map(&:wait)
             ensure
               barrier.stop
@@ -59,7 +59,7 @@ RSpec.describe Usual::Async::Example1, type: :service do
 
     let(:attributes) do
       {
-        id: id
+        id:
       }
     end
 
@@ -83,7 +83,7 @@ RSpec.describe Usual::Async::Example1, type: :service do
               semaphore = Async::Semaphore.new(10, parent: barrier)
 
               ids.map do |id|
-                semaphore.async { described_class.call(id: id) }
+                semaphore.async { described_class.call(id:) }
               end.map(&:wait)
             ensure
               barrier.stop

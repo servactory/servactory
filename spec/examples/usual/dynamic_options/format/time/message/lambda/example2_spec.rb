@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Lambda::Example2, t
 
     let(:attributes) do
       {
-        started_at: started_at
+        started_at:
       }
     end
 
@@ -49,7 +49,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Lambda::Example2, t
 
     let(:attributes) do
       {
-        started_at: started_at
+        started_at:
       }
     end
 

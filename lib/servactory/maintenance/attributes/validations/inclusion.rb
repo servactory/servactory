@@ -8,7 +8,7 @@ module Servactory
           def self.check(context:, attribute:, value:, check_key:, **)
             return unless should_be_checked_for?(attribute, value, check_key)
 
-            new(context: context, attribute: attribute, value: value).check
+            new(context:, attribute:, value:).check
           end
 
           # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

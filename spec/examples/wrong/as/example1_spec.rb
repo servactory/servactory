@@ -6,7 +6,7 @@ RSpec.describe Wrong::As::Example1, type: :service do
 
     let(:attributes) do
       {
-        ids: ids
+        ids:
       }
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Wrong::As::Example1, type: :service do
 
     let(:attributes) do
       {
-        ids: ids
+        ids:
       }
     end
 

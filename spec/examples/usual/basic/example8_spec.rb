@@ -6,8 +6,8 @@ RSpec.describe Usual::Basic::Example8, type: :service do
 
     let(:attributes) do
       {
-        email: email,
-        password: password
+        email:,
+        password:
       }
     end
 
@@ -72,8 +72,8 @@ RSpec.describe Usual::Basic::Example8, type: :service do
 
     let(:attributes) do
       {
-        email: email,
-        password: password
+        email:,
+        password:
       }
     end
 
