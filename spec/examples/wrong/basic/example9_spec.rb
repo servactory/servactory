@@ -24,7 +24,11 @@ RSpec.describe Wrong::Basic::Example9, type: :service do
             raise_error do |exception|
               expect(exception).to be_a(NameError)
               expect(exception.message).to(
-                match(/undefined local variable or method `invoice_number' for (.*)Wrong::Basic::Example9(.*)/)
+                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                  eq("undefined local variable or method 'invoice_number' for an instance of Wrong::Basic::Example9")
+                else
+                  match(/undefined local variable or method `invoice_number' for (.*)Wrong::Basic::Example9(.*)/)
+                end
               )
             end
           )
@@ -60,7 +64,11 @@ RSpec.describe Wrong::Basic::Example9, type: :service do
             raise_error do |exception|
               expect(exception).to be_a(NameError)
               expect(exception.message).to(
-                match(/undefined local variable or method `invoice_number' for (.*)Wrong::Basic::Example9(.*)/)
+                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                  eq("undefined local variable or method 'invoice_number' for an instance of Wrong::Basic::Example9")
+                else
+                  match(/undefined local variable or method `invoice_number' for (.*)Wrong::Basic::Example9(.*)/)
+                end
               )
             end
           )

@@ -31,7 +31,11 @@ RSpec.describe Wrong::Must::Example1, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              /\[Wrong::Must::Example1\] Syntax error inside `be_6_characters` of `invoice_numbers` input: undefined local variable or method `this_method_does_not_exist' for (.*)Wrong::Must::Example1(.*)/
+              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                "[Wrong::Must::Example1] Syntax error inside `be_6_characters` of `invoice_numbers` input: undefined local variable or method 'this_method_does_not_exist' for class Wrong::Must::Example1"
+              else
+                /\[Wrong::Must::Example1\] Syntax error inside `be_6_characters` of `invoice_numbers` input: undefined local variable or method `this_method_does_not_exist' for (.*)Wrong::Must::Example1(.*)/
+              end
             )
           )
         end
@@ -70,7 +74,11 @@ RSpec.describe Wrong::Must::Example1, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              /\[Wrong::Must::Example1\] Syntax error inside `be_6_characters` of `invoice_numbers` input: undefined local variable or method `this_method_does_not_exist' for (.*)Wrong::Must::Example1(.*)/
+              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                "[Wrong::Must::Example1] Syntax error inside `be_6_characters` of `invoice_numbers` input: undefined local variable or method 'this_method_does_not_exist' for class Wrong::Must::Example1"
+              else
+                /\[Wrong::Must::Example1\] Syntax error inside `be_6_characters` of `invoice_numbers` input: undefined local variable or method `this_method_does_not_exist' for (.*)Wrong::Must::Example1(.*)/
+              end
             )
           )
         end

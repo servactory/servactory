@@ -20,7 +20,11 @@ RSpec.describe Wrong::Basic::Example10, type: :service do
               expect(exception.type).to eq(:base)
               expect(exception.message).to(
                 match(
-                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result(.*)>/
+                  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                    /\[Wrong::Basic::Example10\] undefined method 'fake_value' for #<ApplicationService::Result(.*)>/
+                  else
+                    /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result(.*)>/
+                  end
                 )
               )
               expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
@@ -50,7 +54,11 @@ RSpec.describe Wrong::Basic::Example10, type: :service do
               expect(exception.type).to eq(:base)
               expect(exception.message).to(
                 match(
-                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result(.*)>/
+                  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                    /\[Wrong::Basic::Example10\] undefined method 'fake_value' for #<ApplicationService::Result(.*)>/
+                  else
+                    /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result(.*)>/
+                  end
                 )
               )
               expect(exception.meta).to match(original_exception: be_an_instance_of(NoMethodError))
