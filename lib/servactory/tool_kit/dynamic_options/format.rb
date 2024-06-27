@@ -88,7 +88,7 @@ module Servactory
 
           return [false, :unknown] unless @formats.key?(option_value)
 
-          attribute = Utils.define_attribute_with(input: input, internal: internal, output: output)
+          attribute = Utils.define_attribute_with(input:, internal:, output:)
 
           if value.blank? &&
              (
@@ -107,7 +107,7 @@ module Servactory
 
           return [false, :wrong_pattern] if format_pattern.present? && !value.match?(Regexp.compile(format_pattern))
 
-          option.properties.fetch(:validator, format_options.fetch(:validator)).call(value: value)
+          option.properties.fetch(:validator, format_options.fetch(:validator)).call(value:)
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
@@ -120,7 +120,7 @@ module Servactory
           service.translate(
             i18n_key,
             input_name: input.name,
-            value: value,
+            value:,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
@@ -132,7 +132,7 @@ module Servactory
           service.translate(
             i18n_key,
             internal_name: internal.name,
-            value: value,
+            value:,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
@@ -144,7 +144,7 @@ module Servactory
           service.translate(
             i18n_key,
             output_name: output.name,
-            value: value,
+            value:,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end

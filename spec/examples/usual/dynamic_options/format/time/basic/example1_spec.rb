@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
 
     let(:attributes) do
       {
-        started_at: started_at
+        started_at:
       }
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
 
     let(:attributes) do
       {
-        started_at: started_at
+        started_at:
       }
     end
 

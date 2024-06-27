@@ -6,7 +6,7 @@ RSpec.describe Usual::Inclusion::Example10, type: :service do
 
     let(:attributes) do
       {
-        number: number
+        number:
       }
     end
 
@@ -87,7 +87,7 @@ RSpec.describe Usual::Inclusion::Example10, type: :service do
 
     let(:attributes) do
       {
-        number: number
+        number:
       }
     end
 

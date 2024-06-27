@@ -96,7 +96,7 @@ module Servactory
           return if handler.nil?
 
           @context.fail!(
-            message: handler.call(exception: exception),
+            message: handler.call(exception:),
             meta: {
               original_exception: exception
             }

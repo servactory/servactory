@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
     let(:attributes) do
       {
-        data: data
+        data:
       }
     end
 
@@ -143,7 +143,7 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
     let(:attributes) do
       {
-        data: data
+        data:
       }
     end
 

@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Lambda::Example1, t
 
     let(:attributes) do
       {
-        started_on: started_on
+        started_on:
       }
     end
 
@@ -49,7 +49,7 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Lambda::Example1, t
 
     let(:attributes) do
       {
-        started_on: started_on
+        started_on:
       }
     end
 

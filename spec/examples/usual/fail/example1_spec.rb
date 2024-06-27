@@ -6,7 +6,7 @@ RSpec.describe Usual::Fail::Example1, type: :service do
 
     let(:attributes) do
       {
-        invoice_number: invoice_number
+        invoice_number:
       }
     end
 
@@ -52,7 +52,7 @@ RSpec.describe Usual::Fail::Example1, type: :service do
 
     let(:attributes) do
       {
-        invoice_number: invoice_number
+        invoice_number:
       }
     end
 

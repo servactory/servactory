@@ -6,7 +6,7 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
 
     let(:attributes) do
       {
-        balance_cents: balance_cents
+        balance_cents:
       }
     end
 
@@ -37,7 +37,7 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
 
     let(:attributes) do
       {
-        balance_cents: balance_cents
+        balance_cents:
       }
     end
 

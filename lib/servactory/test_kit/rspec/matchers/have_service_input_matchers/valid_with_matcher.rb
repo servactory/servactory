@@ -148,7 +148,7 @@ module Servactory
                 input_actor = attribute_data.fetch(:actor)
 
                 input_required_message = input_required_message.call(
-                  service: service,
+                  service:,
                   input: input_actor,
                   value: wrong_value
                 )

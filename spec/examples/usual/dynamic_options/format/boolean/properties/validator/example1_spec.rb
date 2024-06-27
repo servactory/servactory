@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Properties::Validator::Ex
 
     let(:attributes) do
       {
-        boolean: boolean
+        boolean:
       }
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Properties::Validator::Ex
 
     let(:attributes) do
       {
-        boolean: boolean
+        boolean:
       }
     end
 

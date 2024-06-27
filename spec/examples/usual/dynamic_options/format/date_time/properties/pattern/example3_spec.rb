@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Exa
 
     let(:attributes) do
       {
-        started_at: started_at
+        started_at:
       }
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Exa
 
     let(:attributes) do
       {
-        started_at: started_at
+        started_at:
       }
     end
 

@@ -6,7 +6,7 @@ RSpec.describe Wrong::Hash::Example2, type: :service do
 
     let(:attributes) do
       {
-        payload: payload
+        payload:
       }
     end
 
@@ -45,7 +45,7 @@ RSpec.describe Wrong::Hash::Example2, type: :service do
 
     let(:attributes) do
       {
-        payload: payload
+        payload:
       }
     end
 

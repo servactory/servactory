@@ -6,10 +6,10 @@ RSpec.describe Usual::Basic::Example10, type: :service do
 
     let(:attributes) do
       {
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name,
-        gender: gender
+        first_name:,
+        middle_name:,
+        last_name:,
+        gender:
       }
     end
 
@@ -44,10 +44,10 @@ RSpec.describe Usual::Basic::Example10, type: :service do
 
     let(:attributes) do
       {
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name,
-        gender: gender
+        first_name:,
+        middle_name:,
+        last_name:,
+        gender:
       }
     end
 

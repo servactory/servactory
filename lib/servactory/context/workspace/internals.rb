@@ -25,9 +25,9 @@ module Servactory
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
 
-            setter_with(prepared_name: prepared_name, value: args.pop) { raise_error_for(:setter, prepared_name) }
+            setter_with(prepared_name:, value: args.pop) { raise_error_for(:setter, prepared_name) }
           else
-            getter_with(name: name) { raise_error_for(:getter, name) }
+            getter_with(name:) { raise_error_for(:getter, name) }
           end
         end
 
@@ -47,7 +47,7 @@ module Servactory
           Servactory::Maintenance::Attributes::Tools::Validation.validate!(
             context: @context,
             attribute: internal,
-            value: value
+            value:
           )
 
           @context.send(:servactory_service_store).assign_internal(internal.name, value)

@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
 
     let(:attributes) do
       {
-        letters: letters
+        letters:
       }
     end
 
@@ -66,7 +66,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
 
     let(:attributes) do
       {
-        letters: letters
+        letters:
       }
     end
 

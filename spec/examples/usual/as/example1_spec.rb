@@ -6,7 +6,7 @@ RSpec.describe Usual::As::Example1, type: :service do
 
     let(:attributes) do
       {
-        email_address: email_address
+        email_address:
       }
     end
 
@@ -46,7 +46,7 @@ RSpec.describe Usual::As::Example1, type: :service do
 
     let(:attributes) do
       {
-        email_address: email_address
+        email_address:
       }
     end
 

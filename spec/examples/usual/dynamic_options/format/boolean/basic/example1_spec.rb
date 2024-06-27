@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Basic::Example1, type: :s
 
     let(:attributes) do
       {
-        boolean: boolean
+        boolean:
       }
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Basic::Example1, type: :s
 
     let(:attributes) do
       {
-        boolean: boolean
+        boolean:
       }
     end
 

@@ -8,7 +8,7 @@ module Usual
         def self.find_by(email:)
           return if email != "correct@email.com"
 
-          new(email: email)
+          new(email:)
         end
 
         def authenticate(password)

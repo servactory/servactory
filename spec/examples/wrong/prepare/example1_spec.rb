@@ -6,7 +6,7 @@ RSpec.describe Wrong::Prepare::Example1, type: :service do
 
     let(:attributes) do
       {
-        event_name: event_name
+        event_name:
       }
     end
 
@@ -66,7 +66,7 @@ RSpec.describe Wrong::Prepare::Example1, type: :service do
 
     let(:attributes) do
       {
-        event_name: event_name
+        event_name:
       }
     end
 

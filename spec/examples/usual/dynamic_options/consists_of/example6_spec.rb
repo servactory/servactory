@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6, type: :service do
 
     let(:attributes) do
       {
-        ids: ids
+        ids:
       }
     end
 
@@ -118,7 +118,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6, type: :service do
 
     let(:attributes) do
       {
-        ids: ids
+        ids:
       }
     end
 

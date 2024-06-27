@@ -18,7 +18,7 @@ module Servactory
               [
                 input.name,
                 {
-                  actor: actor,
+                  actor:,
                   types: input.types,
                   required: input.required,
                   default: input.default,
@@ -36,7 +36,7 @@ module Servactory
               [
                 internal.name,
                 {
-                  actor: actor,
+                  actor:,
                   types: internal.types,
                   inclusion: inclusion.body,
                   must: must.body
@@ -52,7 +52,7 @@ module Servactory
               [
                 output.name,
                 {
-                  actor: actor,
+                  actor:,
                   types: output.types,
                   inclusion: inclusion.body,
                   must: must.body
