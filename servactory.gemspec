@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "activesupport", ">= 5.1", "< 7.2"
   spec.add_runtime_dependency "base64", "~> 0.2"
+  spec.add_runtime_dependency "bigdecimal", "~> 3.0"
   spec.add_runtime_dependency "i18n", "~> 1.14"
   spec.add_runtime_dependency "zeitwerk", "~> 2.6"
 
