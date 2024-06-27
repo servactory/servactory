@@ -88,7 +88,7 @@ module Servactory
 
           return [false, :unknown] unless @formats.key?(option_value)
 
-          attribute = Utils.define_attribute_with(input: input, internal: internal, output: output)
+          attribute = Utils.define_attribute_with(input:, internal:, output:)
 
           if value.blank? &&
              (
