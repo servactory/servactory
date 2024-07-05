@@ -64,10 +64,10 @@ module Servactory
         ########################################################################
 
         def message_for_input_with(service:, input:, value:, option_value:, reason:, **)
-          i18n_key = "servactory.inputs.validations.must.dynamic_options.consists_of"
+          i18n_key = "inputs.validations.must.dynamic_options.consists_of"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
-          I18n.t(
+          service.translate(
             i18n_key,
             service_class_name: service.class_name,
             input_name: input.name,
@@ -77,10 +77,10 @@ module Servactory
         end
 
         def message_for_internal_with(service:, internal:, value:, option_value:, reason:, **)
-          i18n_key = "servactory.internals.validations.must.dynamic_options.consists_of"
+          i18n_key = "internals.validations.must.dynamic_options.consists_of"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
-          I18n.t(
+          service.translate(
             i18n_key,
             service_class_name: service.class_name,
             internal_name: internal.name,
@@ -90,10 +90,10 @@ module Servactory
         end
 
         def message_for_output_with(service:, output:, value:, option_value:, reason:, **)
-          i18n_key = "servactory.outputs.validations.must.dynamic_options.consists_of"
+          i18n_key = "outputs.validations.must.dynamic_options.consists_of"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
-          I18n.t(
+          service.translate(
             i18n_key,
             service_class_name: service.class_name,
             output_name: output.name,
