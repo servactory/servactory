@@ -24,7 +24,7 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example1, type: :service do
             raise_error(
               ApplicationService::Exceptions::Input,
               "[Wrong::DynamicOptions::MultipleOf::Example1] " \
-              "Инпут `number` имеет недопустимое значение `nil` в опции `multiple_of`"
+              "Input `number` has an invalid value `nil` in option `multiple_of`"
             )
           )
         end

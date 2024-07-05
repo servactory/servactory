@@ -24,7 +24,7 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example2, type: :service do
             raise_error(
               ApplicationService::Exceptions::Input,
               "[Wrong::DynamicOptions::MultipleOf::Example2] " \
-              "Инпут `number` имеет значение `10`, которое не кратно `0`"
+              "Input `number` has the value `10`, which is not a multiple of `0`"
             )
           )
         end

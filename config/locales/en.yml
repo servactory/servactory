@@ -31,9 +31,9 @@ en:
             max:
               default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is greater than `%{option_value}`"
             multiple_of:
-              default: "[%{service_class_name}] Input `%{input_name}` имеет значение `%{value}`, которое не кратно `%{option_value}`"
-              blank: "[%{service_class_name}] Input `%{input_name}` имеет недопустимое значение `%{option_value}` в опции `multiple_of`"
-              divided_by_0: "[%{service_class_name}] Input `%{input_name}` имеет недопустимое значение `%{option_value}` в опции `multiple_of`"
+              default: "[%{service_class_name}] Input `%{input_name}` has the value `%{value}`, which is not a multiple of `%{option_value}`"
+              blank: "[%{service_class_name}] Input `%{input_name}` has an invalid value `%{option_value}` in option `multiple_of`"
+              divided_by_0: "[%{service_class_name}] Input `%{input_name}` has an invalid value `%{option_value}` in option `multiple_of`"
         required:
           default_error:
             default: "[%{service_class_name}] Required input `%{input_name}` is missing"
@@ -71,9 +71,9 @@ en:
             max:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is greater than `%{option_value}`"
             multiple_of:
-              default: "[%{service_class_name}] Internal attribute `%{internal_name}` имеет значение `%{value}`, которое не кратно `%{option_value}`"
-              blank: "[%{service_class_name}] Internal attribute `%{internal_name}` имеет недопустимое значение `%{option_value}` в опции `multiple_of`"
-              divided_by_0: "[%{service_class_name}] Internal attribute `%{internal_name}` имеет недопустимое значение `%{option_value}` в опции `multiple_of`"
+              default: "[%{service_class_name}] Internal attribute `%{internal_name}` has the value `%{value}`, which is not a multiple of `%{option_value}`"
+              blank: "[%{service_class_name}] Internal attribute `%{internal_name}` has an invalid value `%{option_value}` in option `multiple_of`"
+              divided_by_0: "[%{service_class_name}] Internal attribute `%{internal_name}` has an invalid value `%{option_value}` in option `multiple_of`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -103,9 +103,9 @@ en:
             max:
               default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is greater than `%{option_value}`"
             multiple_of:
-              default: "[%{service_class_name}] Output attribute `%{output_name}` имеет значение `%{value}`, которое не кратно `%{option_value}`"
-              blank: "[%{service_class_name}] Output attribute `%{output_name}` имеет недопустимое значение `%{option_value}` в опции `multiple_of`"
-              divided_by_0: "[%{service_class_name}] Output attribute `%{output_name}` имеет недопустимое значение `%{option_value}` в опции `multiple_of`"
+              default: "[%{service_class_name}] Output attribute `%{output_name}` has the value `%{value}`, which is not a multiple of `%{option_value}`"
+              blank: "[%{service_class_name}] Output attribute `%{output_name}` has an invalid value `%{option_value}` in option `multiple_of`"
+              divided_by_0: "[%{service_class_name}] Output attribute `%{output_name}` has an invalid value `%{option_value}` in option `multiple_of`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
