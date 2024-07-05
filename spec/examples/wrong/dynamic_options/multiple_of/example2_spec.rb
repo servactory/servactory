@@ -1,0 +1,39 @@
+# frozen_string_literal: true
+
+RSpec.describe Wrong::DynamicOptions::MultipleOf::Example2, type: :service do
+  describe ".call!" do
+    subject(:perform) { described_class.call!(**attributes) }
+
+    let(:attributes) do
+      {
+        number:
+      }
+    end
+
+    let(:number) { 10 }
+
+    include_examples "check class info",
+                     inputs: %i[number],
+                     internals: %i[],
+                     outputs: %i[]
+
+    context "when the input arguments are valid" do
+      describe "but the data required for work is invalid" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Wrong::DynamicOptions::MultipleOf::Example2] " \
+              "Инпут `number` имеет значение `10`, которое не кратно `0`"
+            )
+          )
+        end
+      end
+    end
+
+    # NOTE: Will not work due to division by 0.
+    # context "when the input arguments are invalid" do
+    #   it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
+    # end
+  end
+end
