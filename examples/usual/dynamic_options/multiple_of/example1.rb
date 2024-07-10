@@ -6,7 +6,7 @@ module Usual
       class Example1 < ApplicationService::Base
         input :number, type: [Integer, Float, Rational, BigDecimal], multiple_of: 9
 
-        internal :number, type: [Integer, Float, Rational, BigDecimal], multiple_of: 6
+        internal :number, type: [Integer, Float, Rational, BigDecimal], divisible_by: 6
 
         output :number, type: [Integer, Float, Rational, BigDecimal], multiple_of: 5
 

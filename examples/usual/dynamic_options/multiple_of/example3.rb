@@ -13,7 +13,7 @@ module Usual
 
         internal :number,
                  type: [Integer, Float, Rational, BigDecimal],
-                 multiple_of: {
+                 divisible_by: {
                    is: 6,
                    message: "The internal is an incorrect multiple"
                  }

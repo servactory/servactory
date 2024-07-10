@@ -16,7 +16,7 @@ module Usual
 
         internal :number,
                  type: [Integer, Float, Rational, BigDecimal],
-                 multiple_of: {
+                 divisible_by: {
                    is: 6,
                    message: lambda do |internal:, value:, option_value:, **|
                      "Internal `#{internal.name}` has the value `#{value}`, " \

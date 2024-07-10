@@ -79,7 +79,7 @@ module ApplicationService
           Servactory::ToolKit::DynamicOptions::Format.use(:check_format),
           Servactory::ToolKit::DynamicOptions::Min.use(:minimum), # Examples of
           Servactory::ToolKit::DynamicOptions::Max.use(:maximum), # custom names
-          Servactory::ToolKit::DynamicOptions::MultipleOf.use,
+          Servactory::ToolKit::DynamicOptions::MultipleOf.use(:divisible_by),
           ApplicationService::DynamicOptions::CustomEq.use(:best_custom_eq)
         ]
       )
