@@ -24,8 +24,8 @@ module Servactory
           case value
           when Integer, Float, Rational, BigDecimal
             return false if option.value.blank?
-            return false if option.value.zero?
             return false unless [Numeric, Float, Rational, BigDecimal].any? { |c| option.value.is_a?(c) }
+            return false if option.value.zero?
 
             (value % option.value).zero?
           else
