@@ -33,29 +33,32 @@ module Servactory
 
         ########################################################################
 
-        def message_for_input_with(service:, input:, value:, option_value:, **)
+        def message_for_input_with(service:, input:, value:, option_name:, option_value:, **)
           service.translate(
             "inputs.validations.must.dynamic_options.max.default",
             input_name: input.name,
             value:,
+            option_name:,
             option_value:
           )
         end
 
-        def message_for_internal_with(service:, internal:, value:, option_value:, **)
+        def message_for_internal_with(service:, internal:, value:, option_name:, option_value:, **)
           service.translate(
             "internals.validations.must.dynamic_options.max.default",
             internal_name: internal.name,
             value:,
+            option_name:,
             option_value:
           )
         end
 
-        def message_for_output_with(service:, output:, value:, option_value:, **)
+        def message_for_output_with(service:, output:, value:, option_name:, option_value:, **)
           service.translate(
             "outputs.validations.must.dynamic_options.max.default",
             output_name: output.name,
             value:,
+            option_name:,
             option_value:
           )
         end
