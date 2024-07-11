@@ -40,7 +40,8 @@ module Servactory
 
           i18n_key += if option_value.blank?
                         ".blank"
-                      elsif [Numeric, Float, Rational, BigDecimal].any? { |c| value.is_a?(c) } && value.zero?
+                      elsif [Numeric, Float, Rational, BigDecimal].any? { |c| option_value.is_a?(c) } &&
+                            option_value.zero?
                         ".divided_by_0"
                       else
                         ".default"
@@ -60,7 +61,8 @@ module Servactory
 
           i18n_key += if option_value.blank?
                         ".blank"
-                      elsif [Numeric, Float, Rational, BigDecimal].any? { |c| value.is_a?(c) } && value.zero?
+                      elsif [Numeric, Float, Rational, BigDecimal].any? { |c| option_value.is_a?(c) } &&
+                            option_value.zero?
                         ".divided_by_0"
                       else
                         ".default"
@@ -80,7 +82,8 @@ module Servactory
 
           i18n_key += if option_value.blank?
                         ".blank"
-                      elsif [Numeric, Float, Rational, BigDecimal].any? { |c| value.is_a?(c) } && value.zero?
+                      elsif [Numeric, Float, Rational, BigDecimal].any? { |c| option_value.is_a?(c) } &&
+                            option_value.zero?
                         ".divided_by_0"
                       else
                         ".default"

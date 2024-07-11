@@ -16,7 +16,7 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example4, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "[Wrong::DynamicOptions::MultipleOf::Example4] " \
-              "Internal attribute `number` has the value `10`, which is not a multiple of `0`"
+              "Internal attribute `number` has an invalid value `0` in option `divisible_by`"
             )
           )
         end
@@ -39,7 +39,7 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example4, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "[Wrong::DynamicOptions::MultipleOf::Example4] " \
-              "Internal attribute `number` has the value `10`, which is not a multiple of `0`"
+              "Internal attribute `number` has an invalid value `0` in option `divisible_by`"
             )
           )
         end

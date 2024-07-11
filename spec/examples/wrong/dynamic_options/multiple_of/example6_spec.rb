@@ -16,7 +16,7 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example6, type: :service do
             raise_error(
               ApplicationService::Exceptions::Output,
               "[Wrong::DynamicOptions::MultipleOf::Example6] " \
-              "Output attribute `number` has the value `10`, which is not a multiple of `0`"
+              "Output attribute `number` has an invalid value `0` in option `multiple_of`"
             )
           )
         end
@@ -39,7 +39,7 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example6, type: :service do
             raise_error(
               ApplicationService::Exceptions::Output,
               "[Wrong::DynamicOptions::MultipleOf::Example6] " \
-              "Output attribute `number` has the value `10`, which is not a multiple of `0`"
+              "Output attribute `number` has an invalid value `0` in option `multiple_of`"
             )
           )
         end
