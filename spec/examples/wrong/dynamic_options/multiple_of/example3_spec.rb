@@ -16,7 +16,7 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example3, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "[Wrong::DynamicOptions::MultipleOf::Example3] " \
-              "Internal attribute `number` has an invalid value `nil` in option `multiple_of`"
+              "Internal attribute `number` has an invalid value `nil` in option `divisible_by`"
             )
           )
         end
@@ -39,7 +39,7 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example3, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "[Wrong::DynamicOptions::MultipleOf::Example3] " \
-              "Internal attribute `number` has an invalid value `nil` in option `multiple_of`"
+              "Internal attribute `number` has an invalid value `nil` in option `divisible_by`"
             )
           )
         end
