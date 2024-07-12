@@ -113,7 +113,7 @@ module Servactory
 
         ########################################################################
 
-        def message_for_input_with(service:, input:, value:, option_value:, reason:, **)
+        def message_for_input_with(service:, input:, value:, option_name:, option_value:, reason:, **)
           i18n_key = "inputs.validations.must.dynamic_options.format"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
@@ -121,11 +121,12 @@ module Servactory
             i18n_key,
             input_name: input.name,
             value:,
+            option_name:,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
 
-        def message_for_internal_with(service:, internal:, value:, option_value:, reason:, **)
+        def message_for_internal_with(service:, internal:, value:, option_name:, option_value:, reason:, **)
           i18n_key = "internals.validations.must.dynamic_options.format"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
@@ -133,11 +134,12 @@ module Servactory
             i18n_key,
             internal_name: internal.name,
             value:,
+            option_name:,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
 
-        def message_for_output_with(service:, output:, value:, option_value:, reason:, **)
+        def message_for_output_with(service:, output:, value:, option_name:, option_value:, reason:, **)
           i18n_key = "outputs.validations.must.dynamic_options.format"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
@@ -145,6 +147,7 @@ module Servactory
             i18n_key,
             output_name: output.name,
             value:,
+            option_name:,
             format_name: option_value.present? ? option_value : option_value.inspect
           )
         end
