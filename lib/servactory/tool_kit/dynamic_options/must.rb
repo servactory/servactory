@@ -5,11 +5,14 @@ module Servactory
     module DynamicOptions
       class Must
         class WorkOption
-          attr_reader :value,
+          attr_reader :name,
+                      :value,
                       :message,
                       :properties
 
-          def initialize(data, body_key:, body_fallback:)
+          def initialize(name, data, body_key:, body_fallback:)
+            @name = name
+
             @value =
               if data.is_a?(Hash) && data.key?(body_key)
                 data.delete(body_key)
@@ -37,7 +40,7 @@ module Servactory
 
         def equivalent_with(name)
           lambda do |data|
-            option = WorkOption.new(data, body_key: @body_key, body_fallback: @body_fallback)
+            option = WorkOption.new(@option_name, data, body_key: @body_key, body_fallback: @body_fallback)
 
             {
               must: {
@@ -74,7 +77,7 @@ module Servactory
           is_option_message_proc = option.message.is_a?(Proc) if is_option_message_present
 
           lambda do |input: nil, internal: nil, output: nil, **attributes|
-            default_attributes = { **attributes, option_value: option.value }
+            default_attributes = { **attributes, option_name: option.name, option_value: option.value }
 
             if Servactory::Utils.really_input?(input)
               if is_option_message_present

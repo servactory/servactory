@@ -63,7 +63,7 @@ module Servactory
 
         ########################################################################
 
-        def message_for_input_with(service:, input:, value:, option_value:, reason:, **)
+        def message_for_input_with(service:, input:, value:, option_name:, option_value:, reason:, **)
           i18n_key = "inputs.validations.must.dynamic_options.consists_of"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
@@ -71,12 +71,13 @@ module Servactory
             i18n_key,
             service_class_name: service.class_name,
             input_name: input.name,
+            option_name:,
             expected_type: Array(option_value).uniq.join(", "),
             given_type: given_type_for(values: value, option_value:)
           )
         end
 
-        def message_for_internal_with(service:, internal:, value:, option_value:, reason:, **)
+        def message_for_internal_with(service:, internal:, value:, option_name:, option_value:, reason:, **)
           i18n_key = "internals.validations.must.dynamic_options.consists_of"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
@@ -84,12 +85,13 @@ module Servactory
             i18n_key,
             service_class_name: service.class_name,
             internal_name: internal.name,
+            option_name:,
             expected_type: Array(option_value).uniq.join(", "),
             given_type: given_type_for(values: value, option_value:)
           )
         end
 
-        def message_for_output_with(service:, output:, value:, option_value:, reason:, **)
+        def message_for_output_with(service:, output:, value:, option_name:, option_value:, reason:, **)
           i18n_key = "outputs.validations.must.dynamic_options.consists_of"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
 
@@ -97,6 +99,7 @@ module Servactory
             i18n_key,
             service_class_name: service.class_name,
             output_name: output.name,
+            option_name:,
             expected_type: Array(option_value).uniq.join(", "),
             given_type: given_type_for(values: value, option_value:)
           )
