@@ -78,7 +78,7 @@ module Servactory
             inclusion: true,
             must: true,
             prepare: true,
-            description: true
+            note: true
           }
         )
 

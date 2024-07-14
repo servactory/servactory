@@ -36,8 +36,7 @@ RSpec.describe Usual::Description::Example1, type: :service do
             .valid_with(attributes)
             .type(String)
             .required
-            # TODO
-            # .description("")
+            .note("Payment identifier in an external system")
         )
       end
     end

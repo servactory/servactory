@@ -14,7 +14,7 @@ module Servactory
             inclusion
             must
             prepare
-            description
+            note
           ].freeze
 
           DEFAULT_FEATURES = {
@@ -25,7 +25,7 @@ module Servactory
             inclusion: false,
             must: false,
             prepare: false,
-            description: false
+            note: false
           }.freeze
 
           private_constant :DEFAULT_FEATURES
@@ -60,7 +60,7 @@ module Servactory
 
             # Validation Class: nil
             register_prepare_option if @features.fetch(:prepare)
-            register_description_option if @features.fetch(:description)
+            register_note_option if @features.fetch(:note)
 
             self
           end
@@ -207,14 +207,14 @@ module Servactory
             )
           end
 
-          def register_description_option # rubocop:disable Metrics/MethodLength
+          def register_note_option # rubocop:disable Metrics/MethodLength
             collection << Servactory::Maintenance::Attributes::Option.new(
-              name: :description,
+              name: :note,
               attribute: @attribute,
               validation_class: nil,
               define_methods: [
                 Servactory::Maintenance::Attributes::DefineMethod.new(
-                  name: :description_present?,
+                  name: :note_present?,
                   content: ->(option:) { option.present? }
                 )
               ],

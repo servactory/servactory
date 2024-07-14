@@ -4,6 +4,7 @@ require_relative "have_service_attribute_matchers/types_matcher"
 require_relative "have_service_attribute_matchers/consists_of_matcher"
 require_relative "have_service_attribute_matchers/inclusion_matcher"
 require_relative "have_service_attribute_matchers/must_matcher"
+require_relative "have_service_attribute_matchers/note_matcher"
 
 module Servactory
   module TestKit
