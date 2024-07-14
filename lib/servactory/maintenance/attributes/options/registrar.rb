@@ -43,7 +43,7 @@ module Servactory
 
           ########################################################################
 
-          def register # rubocop:disable Metrics/CyclomaticComplexity
+          def register # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
             # Validation Class: Servactory::Inputs::Validations::Required
             register_required_option if @features.fetch(:required)
 
