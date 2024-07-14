@@ -20,12 +20,6 @@ RSpec.describe Usual::Description::Example1, type: :service do
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
-
-        it do
-          puts
-          puts described_class.info.inspect
-          puts
-        end
       end
     end
 
