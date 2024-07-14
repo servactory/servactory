@@ -23,7 +23,8 @@ module Servactory
                   required: input.required,
                   default: input.default,
                   inclusion: inclusion.body,
-                  must: must.body
+                  must: must.body,
+                  description: input.description
                 }
               ]
             end,
