@@ -56,7 +56,8 @@ module Servactory
                   actor:,
                   types: output.types,
                   inclusion: inclusion.body,
-                  must: must.body
+                  must: must.body,
+                  note: output.note
                 }
               ]
             end

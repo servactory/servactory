@@ -5,12 +5,14 @@ module Usual
     class Example1 < ApplicationService::Base
       input :id, type: String, note: "Payment identifier in an external system"
 
-      make :smth
+      output :id, type: String, note: "Payment identifier in an external system"
+
+      make :assign_output
 
       private
 
-      def smth
-        # ...
+      def assign_output
+        outputs.id = inputs.id
       end
     end
   end
