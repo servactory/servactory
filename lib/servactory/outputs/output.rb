@@ -65,7 +65,8 @@ module Servactory
             types: true,
             hash: true,
             inclusion: true,
-            must: true
+            must: true,
+            note: true
           }
         )
 

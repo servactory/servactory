@@ -77,7 +77,8 @@ module Servactory
             hash: true,
             inclusion: true,
             must: true,
-            prepare: true
+            prepare: true,
+            note: true
           }
         )
 
