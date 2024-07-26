@@ -23,11 +23,11 @@ module Servactory
 
       attr_accessor output_option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
 
-      attr_accessor action_aliases: Configuration::Aliases::Collection
+      attr_accessor action_aliases: Configuration::Actions::Aliases::Collection
 
-      attr_accessor action_shortcuts: Configuration::Shortcuts::Collection
+      attr_accessor action_shortcuts: Configuration::Actions::Shortcuts::Collection
 
-      attr_accessor action_rescue_handlers: Configuration::RescueHandlers::Collection
+      attr_accessor action_rescue_handlers: Configuration::Actions::RescueHandlers::Collection
 
       attr_accessor i18n_root_key: (Symbol | String)
 
@@ -38,6 +38,8 @@ module Servactory
       def predicate_methods_enabled?: -> bool
 
       private
+
+      def default_collection_mode_class_names: -> Set[Class]
 
       def default_hash_mode_class_names: -> Set[Class]
 
