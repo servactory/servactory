@@ -27,18 +27,24 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
 
         it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
+        # rubocop:disable Layout/LineLength
         it "returns expected error", :aggregate_failures do
           expect { perform.full_name? }.to raise_error do |exception|
             expect(exception).to be_a(ApplicationService::Exceptions::Failure)
             expect(exception.type).to eq(:base)
             expect(exception.message).to(
               match(
-                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/ # rubocop:disable Layout/LineLength
+                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                  /\[Usual::PredicateMethodsEnabled::Example1\] undefined method 'full_name\?' for #<ApplicationService::Result/
+                else
+                  /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/
+                end
               )
             )
             expect(exception.meta).to match(original_exception: be_a(NoMethodError))
           end
         end
+        # rubocop:enable Layout/LineLength
       end
     end
 
@@ -75,18 +81,24 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
 
         it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
 
+        # rubocop:disable Layout/LineLength
         it "returns expected error", :aggregate_failures do
           expect { perform.full_name? }.to raise_error do |exception|
             expect(exception).to be_a(ApplicationService::Exceptions::Failure)
             expect(exception.type).to eq(:base)
             expect(exception.message).to(
               match(
-                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/ # rubocop:disable Layout/LineLength
+                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                  /\[Usual::PredicateMethodsEnabled::Example1\] undefined method 'full_name\?' for #<ApplicationService::Result/
+                else
+                  /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/
+                end
               )
             )
             expect(exception.meta).to match(original_exception: be_a(NoMethodError))
           end
         end
+        # rubocop:enable Layout/LineLength
       end
     end
 
