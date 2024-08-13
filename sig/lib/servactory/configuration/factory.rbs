@@ -29,9 +29,9 @@ module Servactory
 
       def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def action_aliases: (Array[Symbol] action_aliases) -> Configuration::Aliases::Collection
+      def action_aliases: (Array[Symbol] action_aliases) -> Configuration::Actions::Aliases::Collection
 
-      def action_shortcuts: (Array[Symbol] action_shortcuts) -> Configuration::Shortcuts::Collection
+      def action_shortcuts: (Array[Symbol] action_shortcuts) -> Configuration::Actions::Shortcuts::Collection
 
       def i18n_root_key: ((Symbol | String) value) -> (String | Exception)
 
