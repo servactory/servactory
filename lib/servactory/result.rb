@@ -27,6 +27,9 @@ module Servactory
 
     ############################################################################
 
+    STATE_PREDICATE_NAMES = %i[success? failure?].freeze
+    private_constant :STATE_PREDICATE_NAMES
+
     def self.success_for(context:)
       new(context:).send(:as_success)
     end
@@ -38,6 +41,20 @@ module Servactory
     def initialize(context:, exception: nil)
       @context = context
       @exception = exception
+    end
+
+    def to_h
+      filtered = methods(false).filter do |key|
+        !key.in?(STATE_PREDICATE_NAMES)
+      end
+
+      unless @context.class.config.predicate_methods_enabled?
+        filtered = filtered.filter do |key|
+          !key.to_s.end_with?("?")
+        end
+      end
+
+      filtered.to_h { |key| [key, public_send(key)] }.compact
     end
 
     def inspect
