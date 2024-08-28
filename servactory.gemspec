@@ -29,9 +29,9 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0") # rubocop:disable Gemspec/RequiredRubyVersion
 
-  spec.add_runtime_dependency "activesupport", ">= 5.1", "< 8.0"
-  spec.add_runtime_dependency "i18n", "~> 1.14"
-  spec.add_runtime_dependency "zeitwerk", "~> 2.6"
+  spec.add_dependency "activesupport", ">= 5.1", "< 8.0"
+  spec.add_dependency "i18n", "~> 1.14"
+  spec.add_dependency "zeitwerk", "~> 2.6"
 
   spec.add_development_dependency "appraisal", "~> 2.5"
   spec.add_development_dependency "async", ">= 1.31"
