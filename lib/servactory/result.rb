@@ -45,13 +45,7 @@ module Servactory
 
     def to_h
       filtered = methods(false).filter do |key|
-        !key.in?(STATE_PREDICATE_NAMES)
-      end
-
-      unless @context.class.config.predicate_methods_enabled?
-        filtered = filtered.filter do |key|
-          !key.to_s.end_with?("?")
-        end
+        !key.in?(STATE_PREDICATE_NAMES) && !key.to_s.end_with?("?")
       end
 
       filtered.to_h { |key| [key, public_send(key)] }.compact

@@ -29,7 +29,6 @@ RSpec.describe Usual::ToH::Example1, type: :service do
 
         it "returns the result as a hash" do
           expect(perform.to_h).to match(
-            full_name?: true,
             full_name: "John Fitzgerald Kennedy"
           )
         end
@@ -41,7 +40,6 @@ RSpec.describe Usual::ToH::Example1, type: :service do
 
           it "returns the result as a hash" do
             expect(perform.to_h).to match(
-              full_name?: true,
               full_name: "John Kennedy"
             )
           end
@@ -84,7 +82,6 @@ RSpec.describe Usual::ToH::Example1, type: :service do
 
         it "returns the result as a hash" do
           expect(perform.to_h).to match(
-            full_name?: true,
             full_name: "John Fitzgerald Kennedy"
           )
         end
@@ -96,7 +93,6 @@ RSpec.describe Usual::ToH::Example1, type: :service do
 
           it "returns the result as a hash" do
             expect(perform.to_h).to match(
-              full_name?: true,
               full_name: "John Kennedy"
             )
           end
