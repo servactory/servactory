@@ -1,7 +1,0 @@
-module Servactory
-  module Errors
-    class Base < StandardError
-      def initialize: (String message) -> void
-    end
-  end
-end

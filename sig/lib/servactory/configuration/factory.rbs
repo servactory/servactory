@@ -3,12 +3,6 @@ module Servactory
     class Factory
       @config: Setup
 
-      def input_error_class: (singleton(Exceptions::Input) input_error_class) -> (singleton(Exceptions::Input) | Exception)
-
-      def internal_error_class: (singleton(Exceptions::Internal) internal_error_class) -> (singleton(Exceptions::Internal) | Exception)
-
-      def output_error_class: (singleton(Exceptions::Output) output_error_class) -> (singleton(Exceptions::Output) | Exception)
-
       def input_exception_class: (singleton(Exceptions::Input) input_exception__class) -> (singleton(Exceptions::Input) | Exception)
 
       def internal_exception_class: (singleton(Exceptions::Internal) internal_exception__class) -> (singleton(Exceptions::Internal) | Exception)
@@ -29,9 +23,9 @@ module Servactory
 
       def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def action_aliases: (Array[Symbol] action_aliases) -> Configuration::Aliases::Collection
+      def action_aliases: (Array[Symbol] action_aliases) -> Configuration::Actions::Aliases::Collection
 
-      def action_shortcuts: (Array[Symbol] action_shortcuts) -> Configuration::Shortcuts::Collection
+      def action_shortcuts: (Array[Symbol] action_shortcuts) -> Configuration::Actions::Shortcuts::Collection
 
       def i18n_root_key: ((Symbol | String) value) -> (String | Exception)
 
