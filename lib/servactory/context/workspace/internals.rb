@@ -25,9 +25,9 @@ module Servactory
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
 
-            setter_with(prepared_name: prepared_name, value: args.pop) { raise_error_for(:setter, prepared_name) }
+            setter_with(prepared_name:, value: args.pop) { raise_error_for(:setter, prepared_name) }
           else
-            getter_with(name: name) { raise_error_for(:getter, name) }
+            getter_with(name:) { raise_error_for(:getter, name) }
           end
         end
 
@@ -47,21 +47,21 @@ module Servactory
           Servactory::Maintenance::Attributes::Tools::Validation.validate!(
             context: @context,
             attribute: internal,
-            value: value
+            value:
           )
 
           @context.send(:servactory_service_store).assign_internal(internal.name, value)
         end
 
-        def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
-          internal_name = name.to_s.chomp("?").to_sym
+        def getter_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
+          internal_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
           internal = @collection_of_internals.find_by(name: internal_name)
 
           return yield if internal.nil?
 
           internal_value = @context.send(:servactory_service_store).fetch_internal(internal.name)
 
-          if name.to_s.end_with?("?")
+          if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
             Servactory::Utils.query_attribute(internal_value)
           else
             internal_value
@@ -69,9 +69,8 @@ module Servactory
         end
 
         def raise_error_for(type, name)
-          message_text = I18n.t(
-            "servactory.internals.undefined.#{type}",
-            service_class_name: @context.class.name,
+          message_text = @context.send(:servactory_service_info).translate(
+            "internals.undefined.#{type}",
             internal_name: name
           )
 

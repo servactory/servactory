@@ -25,9 +25,9 @@ module Servactory
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
 
-            setter_with(prepared_name: prepared_name, value: args.pop) { raise_error_for(:setter, prepared_name) }
+            setter_with(prepared_name:, value: args.pop) { raise_error_for(:setter, prepared_name) }
           else
-            getter_with(name: name) { raise_error_for(:getter, name) }
+            getter_with(name:) { raise_error_for(:getter, name) }
           end
         end
 
@@ -47,21 +47,21 @@ module Servactory
           Servactory::Maintenance::Attributes::Tools::Validation.validate!(
             context: @context,
             attribute: output,
-            value: value
+            value:
           )
 
           @context.send(:servactory_service_store).assign_output(output.name, value)
         end
 
-        def getter_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
-          output_name = name.to_s.chomp("?").to_sym
+        def getter_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
+          output_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
           output = @collection_of_outputs.find_by(name: output_name)
 
           return yield if output.nil?
 
           output_value = @context.send(:servactory_service_store).fetch_output(output.name)
 
-          if name.to_s.end_with?("?")
+          if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
             Servactory::Utils.query_attribute(output_value)
           else
             output_value
@@ -69,9 +69,8 @@ module Servactory
         end
 
         def raise_error_for(type, name)
-          message_text = I18n.t(
-            "servactory.outputs.undefined.#{type}",
-            service_class_name: @context.class.name,
+          message_text = @context.send(:servactory_service_info).translate(
+            "outputs.undefined.#{type}",
             output_name: name
           )
 

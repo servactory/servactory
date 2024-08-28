@@ -3,12 +3,6 @@ module Servactory
     class Factory
       @config: Setup
 
-      def input_error_class: (singleton(Exceptions::Input) input_error_class) -> (singleton(Exceptions::Input) | Exception)
-
-      def internal_error_class: (singleton(Exceptions::Internal) internal_error_class) -> (singleton(Exceptions::Internal) | Exception)
-
-      def output_error_class: (singleton(Exceptions::Output) output_error_class) -> (singleton(Exceptions::Output) | Exception)
-
       def input_exception_class: (singleton(Exceptions::Input) input_exception__class) -> (singleton(Exceptions::Input) | Exception)
 
       def internal_exception_class: (singleton(Exceptions::Internal) internal_exception__class) -> (singleton(Exceptions::Internal) | Exception)
@@ -17,27 +11,45 @@ module Servactory
 
       def failure_class: (singleton(Exceptions::Failure) failure_class) -> (singleton(Exceptions::Failure) | Exception)
 
-      def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> Maintenance::CollectionMode::ClassNamesCollection
+      def result_class: (singleton(Result) failure_class) -> (singleton(Result) | Exception)
 
-      def hash_mode_class_names: (Array[Hash[Symbol, untyped]] hash_mode_class_names) -> Maintenance::HashMode::ClassNamesCollection
+      def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> CollectionMode::ClassNamesCollection
 
-      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+      def hash_mode_class_names: (Array[Hash[Symbol, untyped]] hash_mode_class_names) -> HashMode::ClassNamesCollection
 
-      def internal_option_helpers: (Array[Hash[Symbol, untyped]] internal_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> Maintenance::Attributes::OptionHelpersCollection
+      def internal_option_helpers: (Array[Hash[Symbol, untyped]] internal_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def action_aliases: (Array[Symbol] action_aliases) -> Actions::Aliases::Collection
+      def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def action_shortcuts: (Array[Symbol] action_shortcuts) -> Actions::Shortcuts::Collection
+      def action_aliases: (Array[Symbol] action_aliases) -> Configuration::Actions::Aliases::Collection
+
+      def action_shortcuts: (Array[Symbol] action_shortcuts) -> Configuration::Actions::Shortcuts::Collection
+
+      def i18n_root_key: ((Symbol | String) value) -> (String | Exception)
+
+      def predicate_methods_enabled: (bool value) -> (bool | Exception)
 
       private
 
-      # def action_rescue_handlers: (Array[Symbol] action_rescue_handlers) -> Actions::RescueHandlers::Collection
+      # def action_rescue_handlers: (Array[Symbol] action_rescue_handlers) -> Configuration::RescueHandlers::Collection
 
       def subclass_of_exception?: (Class value) -> bool
 
+      def subclass_of_result?: (Class value) -> bool
+
+      def i18n_key?: ((Symbol | String) value) -> bool
+
+      def boolean?: (bool value) -> bool
+
       def raise_error_about_wrong_exception_class_with: (Symbol config_name, Class value) -> Exception
+
+      def raise_error_about_wrong_result_class_with: (Symbol config_name, Class value) -> Exception
+
+      def raise_error_about_wrong_i18n_root_key_with: (Symbol config_name, untyped value) -> Exception
+
+      def raise_error_about_wrong_predicate_methods_enabled_with: (Symbol config_name, untyped value) -> Exception
     end
   end
 end

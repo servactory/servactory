@@ -3,7 +3,7 @@
 module Servactory
   module Internals
     class Internal
-      class Work
+      class Actor
         attr_reader :name,
                     :types,
                     :inclusion
@@ -28,21 +28,19 @@ module Servactory
       def initialize(
         name,
         *helpers,
-        collection_mode_class_names:,
         hash_mode_class_names:,
         option_helpers:,
         **options
       )
         @name = name
-        @collection_mode_class_names = collection_mode_class_names
         @hash_mode_class_names = hash_mode_class_names
         @option_helpers = option_helpers
 
-        register_options(helpers: helpers, options: options)
+        register_options(helpers:, options:)
       end
 
       def method_missing(name, *args, &block)
-        option = @collection_of_options.find_by(name: name)
+        option = @collection_of_options.find_by(name:)
 
         return super if option.nil?
 
@@ -56,17 +54,15 @@ module Servactory
       def register_options(helpers:, options:) # rubocop:disable Metrics/MethodLength
         advanced_helpers = options.except(*Servactory::Maintenance::Attributes::Options::Registrar::RESERVED_OPTIONS)
 
-        options = apply_helpers_for_options(helpers: helpers, options: options) if helpers.present?
-        options = apply_helpers_for_options(helpers: advanced_helpers, options: options) if advanced_helpers.present?
+        options = apply_helpers_for_options(helpers:, options:) if helpers.present?
+        options = apply_helpers_for_options(helpers: advanced_helpers, options:) if advanced_helpers.present?
 
         options_registrar = Servactory::Maintenance::Attributes::Options::Registrar.register(
           attribute: self,
-          collection_mode_class_names: @collection_mode_class_names,
           hash_mode_class_names: @hash_mode_class_names,
-          options: options,
+          options:,
           features: {
             types: true,
-            collection: true,
             hash: true,
             inclusion: true,
             must: true
@@ -94,7 +90,7 @@ module Servactory
           prepared_options.deep_merge!(prepared_option)
         end
 
-        options.merge(prepared_options)
+        options.deep_merge(prepared_options)
       end
 
       def options_for_checks

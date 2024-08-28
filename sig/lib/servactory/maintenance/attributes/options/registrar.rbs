@@ -7,8 +7,6 @@ module Servactory
 
           @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
 
-          @collection_mode_class_names: untyped
-
           @hash_mode_class_names: untyped
 
           @options: untyped
@@ -21,8 +19,7 @@ module Servactory
 
           def initialize: (
             attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-            collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection,
-            hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection,
+            hash_mode_class_names: Configuration::HashMode::ClassNamesCollection,
             options: untyped,
             features: Hash[Symbol, bool]
           ) -> void

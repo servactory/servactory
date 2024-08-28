@@ -6,7 +6,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
 
     let(:attributes) do
       {
-        invoice_numbers: invoice_numbers
+        invoice_numbers:
       }
     end
 
@@ -57,7 +57,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
           let(:invoice_numbers) do
             [
               "7650AE",
-              123,
+              123_456,
               "A7BC86"
             ]
           end
@@ -66,7 +66,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Must::Example1] Wrong type in input collection `invoice_numbers`, " \
+                "[Usual::Must::Example1] Wrong element type in input collection `invoice_numbers`, " \
                 "expected `String`, got `Integer`"
               )
             )
@@ -132,7 +132,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
 
     let(:attributes) do
       {
-        invoice_numbers: invoice_numbers
+        invoice_numbers:
       }
     end
 
@@ -183,7 +183,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
           let(:invoice_numbers) do
             [
               "7650AE",
-              123,
+              123_456,
               "A7BC86"
             ]
           end
@@ -192,7 +192,7 @@ RSpec.describe Usual::Must::Example1, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Must::Example1] Wrong type in input collection `invoice_numbers`, " \
+                "[Usual::Must::Example1] Wrong element type in input collection `invoice_numbers`, " \
                 "expected `String`, got `Integer`"
               )
             )

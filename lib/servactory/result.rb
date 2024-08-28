@@ -3,9 +3,9 @@
 module Servactory
   class Result
     class Outputs
-      def initialize(outputs)
+      def initialize(outputs:, predicate_methods_enabled:)
         outputs.each_pair do |key, value|
-          define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) }
+          define_singleton_method(:"#{key}?") { Servactory::Utils.query_attribute(value) } if predicate_methods_enabled
           define_singleton_method(key) { value }
         end
       end
@@ -27,12 +27,15 @@ module Servactory
 
     ############################################################################
 
+    STATE_PREDICATE_NAMES = %i[success? failure?].freeze
+    private_constant :STATE_PREDICATE_NAMES
+
     def self.success_for(context:)
-      new(context: context).send(:as_success)
+      new(context:).send(:as_success)
     end
 
     def self.failure_for(context:, exception:)
-      new(context: context, exception: exception).send(:as_failure)
+      new(context:, exception:).send(:as_failure)
     end
 
     def initialize(context:, exception: nil)
@@ -40,18 +43,26 @@ module Servactory
       @exception = exception
     end
 
+    def to_h
+      filtered = methods(false).filter do |key|
+        !key.in?(STATE_PREDICATE_NAMES) && !key.to_s.end_with?("?")
+      end
+
+      filtered.to_h { |key| [key, public_send(key)] }.compact
+    end
+
     def inspect
       "#<#{self.class.name} #{draw_result}>"
     end
 
     def on_success
-      yield(outputs: outputs) if success?
+      yield(outputs:) if success?
 
       self
     end
 
     def on_failure(type = :all)
-      yield(outputs: outputs, exception: @exception) if failure? && [:all, @exception&.type].include?(type)
+      yield(outputs:, exception: @exception) if failure? && [:all, @exception&.type].include?(type)
 
       self
     end
@@ -104,7 +115,14 @@ module Servactory
     end
 
     def outputs
-      @outputs ||= Outputs.new(@context.send(:servactory_service_store).outputs)
+      @outputs ||= Outputs.new(
+        outputs: @context.send(:servactory_service_store).outputs,
+        predicate_methods_enabled: if @context.is_a?(Servactory::TestKit::Result)
+                                     true
+                                   else
+                                     @context.class.config.predicate_methods_enabled?
+                                   end
+      )
     end
 
     ########################################################################
@@ -114,9 +132,8 @@ module Servactory
 
       raise @context.class.config.failure_class.new(
         type: :base,
-        message: I18n.t(
-          "servactory.common.undefined_method.missing_name",
-          service_class_name: @context.class.name,
+        message: @context.send(:servactory_service_info).translate(
+          "common.undefined_method.missing_name",
           error_text: exception.message
         ),
         meta: {

@@ -55,6 +55,10 @@ module ApplicationService
       # action_shortcuts %i[assign build create save]
 
       # action_aliases %i[do_it!]
+
+      # i18n_root_key :servactory
+
+      # predicate_methods_enabled false
     end
   end
 end

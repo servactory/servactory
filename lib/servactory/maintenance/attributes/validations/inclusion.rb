@@ -8,7 +8,7 @@ module Servactory
           def self.check(context:, attribute:, value:, check_key:, **)
             return unless should_be_checked_for?(attribute, value, check_key)
 
-            new(context: context, attribute: attribute, value: value).check
+            new(context:, attribute:, value:).check
           end
 
           # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -51,7 +51,7 @@ module Servactory
           def add_error_with(message)
             add_error(
               message: message.presence || Servactory::Maintenance::Attributes::Translator::Inclusion.default_message,
-              service_class_name: @context.class.name,
+              service: @context.send(:servactory_service_info),
               **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value
             )

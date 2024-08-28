@@ -3,6 +3,7 @@ module Servactory
     module DynamicOptions
       class Must
         class WorkOption
+          attr_reader name: Symbol
           attr_reader value: untyped
           attr_reader message: (Proc | String | nil)
           attr_reader properties: Hash[Symbol, untyped]
@@ -10,9 +11,9 @@ module Servactory
 
         @option_name: Symbol
         @body_key: Symbol
-        @body_fallback: untyped
+        @body_fallback: Symbol?
 
-        def initialize: (Symbol option_name) -> void
+        def initialize: (Symbol option_name, Symbol body_key) -> void
 
         def must: (Symbol option_name) -> Maintenance::Attributes::OptionHelper
 

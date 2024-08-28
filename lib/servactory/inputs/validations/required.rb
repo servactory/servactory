@@ -7,7 +7,7 @@ module Servactory
         def self.check(context:, attribute:, value:, check_key:, **)
           return unless should_be_checked_for?(attribute, check_key)
 
-          new(context: context, input: attribute, value: value).check
+          new(context:, input: attribute, value:).check
         end
 
         def self.should_be_checked_for?(input, check_key)
@@ -25,11 +25,7 @@ module Servactory
         end
 
         def check
-          if @input.collection_mode? && Servactory::Utils.value_present?(@value)
-            return if collection_valid?
-          elsif Servactory::Utils.value_present?(@value)
-            return
-          end
+          return if Servactory::Utils.value_present?(@value)
 
           _, message = @input.required.values_at(:is, :message)
 
@@ -38,18 +34,10 @@ module Servactory
 
         private
 
-        def collection_valid?
-          collection_valid_for?(values: @value)
-        end
-
-        def collection_valid_for?(values:)
-          values.respond_to?(:all?) && values.flatten.all?(&:present?)
-        end
-
         def add_error_with(message)
           add_error(
             message: message.presence || Servactory::Inputs::Translator::Required.default_message,
-            service_class_name: @context.class.name,
+            service: @context.send(:servactory_service_info),
             input: @input,
             value: @value
           )

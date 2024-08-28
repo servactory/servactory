@@ -8,7 +8,7 @@ module Servactory
           def self.check(context:, attribute:, value:, check_key:, check_options:)
             return unless should_be_checked_for?(attribute, check_key)
 
-            new(context: context, attribute: attribute, value: value, check_options: check_options).check
+            new(context:, attribute:, value:, check_options:).check
           end
 
           def self.should_be_checked_for?(attribute, check_key)
@@ -64,23 +64,23 @@ module Servactory
 
           def add_error_with(message, code, reason)
             add_error(
-              message: message,
-              service_class_name: @context.class.name,
+              message:,
+              service: @context.send(:servactory_service_info),
               **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value,
-              code: code,
-              reason: reason
+              code:,
+              reason:
             )
           end
 
           def add_syntax_error_with(message, code, exception_message)
             add_error(
-              message: message,
-              service_class_name: @context.class.name,
+              message:,
+              service: @context.send(:servactory_service_info),
               **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value,
-              code: code,
-              exception_message: exception_message
+              code:,
+              exception_message:
             )
           end
         end

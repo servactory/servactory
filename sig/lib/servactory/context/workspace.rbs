@@ -1,6 +1,16 @@
 module Servactory
   module Context
     module Workspace
+      class Actor
+        attr_reader class_name: String
+
+        @i18n_root_key: String
+
+        def initialize: (instance context) -> void
+
+        def translate: (String key, **untyped options) -> String
+      end
+
       @inputs: Inputs
       @internals: Internals
       @outputs: Outputs
@@ -37,6 +47,8 @@ module Servactory
 
       private
 
+      @servactory_service_info: Actor
+
       def _call!: (
         incoming_arguments: Hash[Symbol, untyped],
         collection_of_inputs: Inputs::Collection,
@@ -54,6 +66,8 @@ module Servactory
       ) -> void
 
       def call: -> Exception
+
+      def servactory_service_info: -> Actor
 
       def servactory_service_store: -> Store
     end

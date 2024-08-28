@@ -75,11 +75,11 @@ module Servactory
         def make(name, position: nil, **options)
           position = position.presence || next_position
 
-          current_stage = @current_stage.presence || Stages::Stage.new(position: position)
+          current_stage = @current_stage.presence || Stages::Stage.new(position:)
 
           current_stage.methods << Action.new(
             name,
-            position: position,
+            position:,
             **options
           )
 

@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example3, 
 
     let(:attributes) do
       {
-        email: email
+        email:
       }
     end
 
@@ -53,7 +53,7 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example3, 
 
     let(:attributes) do
       {
-        email: email
+        email:
       }
     end
 

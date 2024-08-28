@@ -6,9 +6,9 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
 
     let(:attributes) do
       {
-        enable: enable,
-        text: text,
-        number: number
+        enable:,
+        text:,
+        number:
       }
     end
 
@@ -50,9 +50,9 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
 
     let(:attributes) do
       {
-        enable: enable,
-        text: text,
-        number: number
+        enable:,
+        text:,
+        number:
       }
     end
 

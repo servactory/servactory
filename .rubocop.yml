@@ -53,7 +53,7 @@ Style/Documentation:
 
 Style/HashSyntax:
   Enabled: true
-  EnforcedShorthandSyntax: never
+  EnforcedShorthandSyntax: always
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

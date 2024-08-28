@@ -58,9 +58,8 @@ module Servactory
         def raise_message_with!(formatted_text)
           raise @context.class.config.failure_class.new(
             type: :base,
-            message: I18n.t(
-              "servactory.methods.cannot_be_overwritten",
-              service_class_name: @context.class.name,
+            message: @context.send(:servactory_service_info).translate(
+              "methods.cannot_be_overwritten",
               list_of_methods: formatted_text
             )
           )

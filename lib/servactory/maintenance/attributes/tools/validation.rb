@@ -32,9 +32,9 @@ module Servactory
           def process_option(check_key, check_options)
             validation_classes.each do |validation_class|
               errors_from_checks = process_validation_class(
-                validation_class: validation_class,
-                check_key: check_key,
-                check_options: check_options
+                validation_class:,
+                check_key:,
+                check_options:
               )
 
               errors.merge(errors_from_checks.to_a)
@@ -50,8 +50,8 @@ module Servactory
               context: @context,
               attribute: @attribute,
               value: @value,
-              check_key: check_key,
-              check_options: check_options
+              check_key:,
+              check_options:
             )
           end
 

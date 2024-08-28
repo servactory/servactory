@@ -33,33 +33,33 @@ module Servactory
 
         ########################################################################
 
-        def message_for_input_with(service_class_name:, input:, value:, option_value:, **)
-          I18n.t(
-            "servactory.inputs.validations.must.dynamic_options.min.default",
-            service_class_name: service_class_name,
+        def message_for_input_with(service:, input:, value:, option_name:, option_value:, **)
+          service.translate(
+            "inputs.validations.must.dynamic_options.min.default",
             input_name: input.name,
-            value: value,
-            option_value: option_value
+            value:,
+            option_name:,
+            option_value:
           )
         end
 
-        def message_for_internal_with(service_class_name:, internal:, value:, option_value:, **)
-          I18n.t(
-            "servactory.internals.validations.must.dynamic_options.min.default",
-            service_class_name: service_class_name,
+        def message_for_internal_with(service:, internal:, value:, option_name:, option_value:, **)
+          service.translate(
+            "internals.validations.must.dynamic_options.min.default",
             internal_name: internal.name,
-            value: value,
-            option_value: option_value
+            value:,
+            option_name:,
+            option_value:
           )
         end
 
-        def message_for_output_with(service_class_name:, output:, value:, option_value:, **)
-          I18n.t(
-            "servactory.outputs.validations.must.dynamic_options.min.default",
-            service_class_name: service_class_name,
+        def message_for_output_with(service:, output:, value:, option_name:, option_value:, **)
+          service.translate(
+            "outputs.validations.must.dynamic_options.min.default",
             output_name: output.name,
-            value: value,
-            option_value: option_value
+            value:,
+            option_name:,
+            option_value:
           )
         end
       end

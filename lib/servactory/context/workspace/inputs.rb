@@ -31,7 +31,7 @@ module Servactory
 
             raise_error_for(:setter, prepared_name)
           else
-            getter_with(name: name) { raise_error_for(:getter, name) }
+            getter_with(name:) { raise_error_for(:getter, name) }
           end
         end
 
@@ -43,7 +43,8 @@ module Servactory
 
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
         def getter_with(name:, &block)
-          input_name = name.to_s.chomp("?").to_sym
+          input_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
+
           input = @collection_of_inputs.find_by(name: input_name)
 
           return yield if input.nil?
@@ -58,7 +59,7 @@ module Servactory
           input_prepare = input.prepare.fetch(:in, nil)
           input_value = input_prepare.call(value: input_value) if input_prepare.present?
 
-          if name.to_s.end_with?("?")
+          if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
             Servactory::Utils.query_attribute(input_value)
           else
             input_value
@@ -81,7 +82,7 @@ module Servactory
               else
                 fetch_hash_values_from(
                   value: object.fetch(schema_key, {}),
-                  schema_value: schema_value,
+                  schema_value:,
                   attribute_required: schema_value.fetch(:required, true)
                 )
               end
@@ -98,9 +99,8 @@ module Servactory
         end
 
         def raise_error_for(type, name)
-          message_text = I18n.t(
-            "servactory.inputs.undefined.#{type}",
-            service_class_name: @context.class.name,
+          message_text = @context.send(:servactory_service_info).translate(
+            "inputs.undefined.#{type}",
             input_name: name
           )
 

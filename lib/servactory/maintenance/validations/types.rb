@@ -17,18 +17,9 @@ module Servactory
         end
 
         def validate! # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          collection_validator = nil
           object_schema_validator = nil
 
-          if @attribute.collection_mode?
-            collection_validator = Servactory::Maintenance::Validations::Collection.validate(
-              types: @types,
-              value: @value,
-              consists_of: @attribute.consists_of
-            )
-
-            return if collection_validator.valid?
-          elsif @attribute.hash_mode?
+          if @attribute.hash_mode?
             object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
               object: @value,
               schema: @attribute.schema
@@ -41,22 +32,10 @@ module Servactory
             end
           end
 
-          if (first_error = collection_validator&.errors&.first).present?
-            return @error_callback.call(
-              message: Servactory::Maintenance::Attributes::Translator::Type.default_message,
-              service_class_name: @context.class.name,
-              attribute: @attribute,
-              value: @value,
-              key_name: nil,
-              expected_type: first_error.fetch(:expected_type),
-              given_type: first_error.fetch(:given_type)
-            )
-          end
-
           if (first_error = object_schema_validator&.errors&.first).present?
             return @error_callback.call(
               message: Servactory::Maintenance::Attributes::Translator::Type.default_message,
-              service_class_name: @context.class.name,
+              service: @context.send(:servactory_service_info),
               attribute: @attribute,
               value: @value,
               key_name: first_error.fetch(:key_name),
@@ -67,7 +46,7 @@ module Servactory
 
           @error_callback.call(
             message: Servactory::Maintenance::Attributes::Translator::Type.default_message,
-            service_class_name: @context.class.name,
+            service: @context.send(:servactory_service_info),
             attribute: @attribute,
             value: @value,
             key_name: nil,
@@ -79,12 +58,7 @@ module Servactory
         private
 
         def prepared_types
-          @prepared_types ||=
-            if @attribute.collection_mode?
-              prepared_types_from(Array(@attribute.consists_of.fetch(:type, [])))
-            else
-              prepared_types_from(@types)
-            end
+          @prepared_types ||= prepared_types_from(@types)
         end
 
         def prepared_types_from(types)

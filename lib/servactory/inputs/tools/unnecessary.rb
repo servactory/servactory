@@ -17,9 +17,8 @@ module Servactory
         def find!
           return if unnecessary_attributes.empty?
 
-          message_text = I18n.t(
-            "servactory.inputs.tools.find_unnecessary.error",
-            service_class_name: @context.class.name,
+          message_text = @context.send(:servactory_service_info).translate(
+            "inputs.tools.find_unnecessary.error",
             unnecessary_attributes: unnecessary_attributes.join(", ")
           )
 

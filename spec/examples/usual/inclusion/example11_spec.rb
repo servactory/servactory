@@ -6,7 +6,7 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
 
     let(:attributes) do
       {
-        entity_class: entity_class
+        entity_class:
       }
     end
 
@@ -94,7 +94,7 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
 
     let(:attributes) do
       {
-        entity_class: entity_class
+        entity_class:
       }
     end
 

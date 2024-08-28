@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Pattern::Exa
 
     let(:attributes) do
       {
-        password: password
+        password:
       }
     end
 
@@ -54,7 +54,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Pattern::Exa
 
     let(:attributes) do
       {
-        password: password
+        password:
       }
     end
 

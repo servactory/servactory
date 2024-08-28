@@ -6,7 +6,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example1, type: :
 
     let(:attributes) do
       {
-        password: password
+        password:
       }
     end
 
@@ -50,7 +50,7 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example1, type: :
 
     let(:attributes) do
       {
-        password: password
+        password:
       }
     end
 

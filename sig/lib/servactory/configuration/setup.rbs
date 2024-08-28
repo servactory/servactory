@@ -11,25 +11,31 @@ module Servactory
 
       attr_accessor failure_class: singleton(Exceptions::Failure)
 
-      attr_accessor result_class: singleton(Servactory::Result)
+      attr_accessor result_class: singleton(Result)
 
-      attr_accessor collection_mode_class_names: Maintenance::CollectionMode::ClassNamesCollection
+      attr_accessor collection_mode_class_names: CollectionMode::ClassNamesCollection
 
-      attr_accessor hash_mode_class_names: Maintenance::HashMode::ClassNamesCollection
+      attr_accessor hash_mode_class_names: HashMode::ClassNamesCollection
 
-      attr_accessor input_option_helpers: Maintenance::Attributes::OptionHelpersCollection
+      attr_accessor input_option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
 
-      attr_accessor internal_option_helpers: Maintenance::Attributes::OptionHelpersCollection
+      attr_accessor internal_option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
 
-      attr_accessor output_option_helpers: Maintenance::Attributes::OptionHelpersCollection
+      attr_accessor output_option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
 
-      attr_accessor action_aliases: Actions::Aliases::Collection
+      attr_accessor action_aliases: Configuration::Actions::Aliases::Collection
 
-      attr_accessor action_shortcuts: Actions::Shortcuts::Collection
+      attr_accessor action_shortcuts: Configuration::Actions::Shortcuts::Collection
 
-      attr_accessor action_rescue_handlers: Actions::RescueHandlers::Collection
+      attr_accessor action_rescue_handlers: Configuration::Actions::RescueHandlers::Collection
+
+      attr_accessor i18n_root_key: (Symbol | String)
+
+      attr_accessor predicate_methods_enabled: bool
 
       def initialize: () -> void
+
+      def predicate_methods_enabled?: -> bool
 
       private
 
@@ -38,6 +44,10 @@ module Servactory
       def default_hash_mode_class_names: -> Set[Class]
 
       def default_input_option_helpers: -> Set[Maintenance::Attributes::OptionHelper]
+
+      def default_internal_option_helpers: -> Set[Maintenance::Attributes::OptionHelper]
+
+      def default_output_option_helpers: -> Set[Maintenance::Attributes::OptionHelper]
     end
   end
 end
