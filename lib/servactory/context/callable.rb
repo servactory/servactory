@@ -4,6 +4,8 @@ module Servactory
   module Context
     module Callable
       def call!(arguments = {})
+        arguments = Servactory::Utils.adapt_datory(arguments)
+
         context = send(:new)
 
         _call!(context, **arguments)
@@ -13,7 +15,9 @@ module Servactory
         config.result_class.success_for(context: e.context)
       end
 
-      def call(arguments = {})
+      def call(arguments = {}) # rubocop:disable Metrics/AbcSize
+        arguments = Servactory::Utils.adapt_datory(arguments)
+
         context = send(:new)
 
         _call!(context, **arguments)
