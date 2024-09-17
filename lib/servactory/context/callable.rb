@@ -31,10 +31,10 @@ module Servactory
 
       private
 
-      def _call!(context, **arguments)
+      def _call!(context, **incoming_arguments)
         context.send(
           :_call!,
-          incoming_arguments: arguments,
+          incoming_arguments:,
           collection_of_inputs:,
           collection_of_internals:,
           collection_of_outputs:,

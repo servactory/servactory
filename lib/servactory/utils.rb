@@ -5,7 +5,7 @@ module Servactory
     extend self
 
     def adapt(data)
-      if defined?(Datory::Base) && data.is_a?(Datory::Base) # rubocop:disable Style/IfUnlessModifier
+      if defined?(Datory::Base) && data.is_a?(Datory::Base)
         data = Servactory::Utils.send(:instance_variables_to_hash_from, data)
       end
 
