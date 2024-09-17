@@ -4,12 +4,13 @@ module Servactory
   module Utils
     extend self
 
-    def adapt_datory(data)
+    def adapt(data)
       if defined?(Datory::Base) && data.is_a?(Datory::Base) # rubocop:disable Style/IfUnlessModifier
-        return Servactory::Utils.send(:instance_variables_to_hash_from, data)
+        data = Servactory::Utils.send(:instance_variables_to_hash_from, data)
       end
 
-      data
+      # TODO: Need to add examples for this.
+      data.symbolize_keys
     end
 
     def fetch_hash_with_desired_attribute(attribute)
@@ -121,7 +122,7 @@ module Servactory
             value
           end
 
-        [key.to_s.delete_prefix("@").to_sym, value]
+        [key.to_s.delete_prefix("@"), value]
       end
     end
   end
