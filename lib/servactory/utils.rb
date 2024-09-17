@@ -9,7 +9,6 @@ module Servactory
         data = Servactory::Utils.send(:instance_variables_to_hash_from, data)
       end
 
-      # TODO: Need to add examples for this.
       data.symbolize_keys
     end
 
