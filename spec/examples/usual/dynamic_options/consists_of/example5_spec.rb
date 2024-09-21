@@ -28,6 +28,12 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example5, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
+        it do
+          expect(described_class.info.inputs.dig(:ids, :must).keys).to(
+            contain_exactly(:consists_of)
+          )
+        end
+
         it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
 
@@ -129,6 +135,12 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example5, type: :service do
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
+
+        it do
+          expect(described_class.info.inputs.dig(:ids, :must).keys).to(
+            contain_exactly(:consists_of)
+          )
+        end
 
         it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end

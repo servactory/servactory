@@ -28,6 +28,24 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
+        it do
+          expect(described_class.info.inputs.dig(:ids, :must).keys).to(
+            contain_exactly(:consists_of)
+          )
+        end
+
+        it do
+          expect(described_class.info.internals.dig(:array_of_ids, :must).keys).to(
+            contain_exactly(:consists_of)
+          )
+        end
+
+        it do
+          expect(described_class.info.outputs.dig(:array_of_ids, :must).keys).to(
+            contain_exactly(:consists_of)
+          )
+        end
+
         it "returns expected values", :aggregate_failures do
           result = perform
 
@@ -139,6 +157,24 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6, type: :service do
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
+
+        it do
+          expect(described_class.info.inputs.dig(:ids, :must).keys).to(
+            contain_exactly(:consists_of)
+          )
+        end
+
+        it do
+          expect(described_class.info.internals.dig(:array_of_ids, :must).keys).to(
+            contain_exactly(:consists_of)
+          )
+        end
+
+        it do
+          expect(described_class.info.outputs.dig(:array_of_ids, :must).keys).to(
+            contain_exactly(:consists_of)
+          )
+        end
 
         it "returns expected values", :aggregate_failures do
           result = perform

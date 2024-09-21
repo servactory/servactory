@@ -7,7 +7,7 @@ module Servactory
         def self.use(option_name = :consists_of, collection_mode_class_names:)
           instance = new(option_name, :type, false)
           instance.assign(collection_mode_class_names)
-          instance.must(:consists_of)
+          instance.must(option_name)
         end
 
         def assign(collection_mode_class_names)
