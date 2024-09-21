@@ -9,8 +9,8 @@ en:
       cannot_be_overwritten: "[%{service_class_name}] The following methods cannot be overwritten: %{list_of_methods}"
     inputs:
       undefined:
-        fetch: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
-        assign: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
+        for_fetch: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
+        for_assign: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
       validations:
         inclusion:
           default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
@@ -49,8 +49,8 @@ en:
           error: "[%{service_class_name}] Conflict in `%{input_name}` input options: `%{conflict_code}`"
     internals:
       undefined:
-        fetch: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
-        assign: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
+        for_fetch: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
+        for_assign: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
       validations:
         inclusion:
           default_error: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`"
@@ -81,8 +81,8 @@ en:
               wrong_element_type: "[%{service_class_name}] Wrong type in internal attribute hash `%{internal_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
     outputs:
       undefined:
-        fetch: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
-        assign: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
+        for_fetch: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
+        for_assign: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
       validations:
         inclusion:
           default_error: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`"

@@ -70,7 +70,7 @@ module Servactory
 
         def raise_error_for(type, name)
           message_text = @context.send(:servactory_service_info).translate(
-            "internals.undefined.#{type}",
+            "internals.undefined.for_#{type}",
             internal_name: name
           )
 

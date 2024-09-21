@@ -100,7 +100,7 @@ module Servactory
 
         def raise_error_for(type, name)
           message_text = @context.send(:servactory_service_info).translate(
-            "inputs.undefined.#{type}",
+            "inputs.undefined.for_#{type}",
             input_name: name
           )
 

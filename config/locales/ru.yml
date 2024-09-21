@@ -9,8 +9,8 @@ ru:
       cannot_be_overwritten: "[%{service_class_name}] Нельзя перезаписать следующие методы: %{list_of_methods}"
     inputs:
       undefined:
-        fetch: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
-        assign: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
+        for_fetch: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
+        for_assign: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
       validations:
         inclusion:
           default_error: "[%{service_class_name}] Неправильное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
@@ -49,8 +49,8 @@ ru:
           error: "[%{service_class_name}] Конфликт в опциях инпута `%{input_name}`: `%{conflict_code}`"
     internals:
       undefined:
-        fetch: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
-        assign: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
+        for_fetch: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
+        for_assign: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
       validations:
         inclusion:
           default_error: "[%{service_class_name}] Неправильное значение в `%{internal_name}`, должно быть одним из `%{internal_inclusion}`"
@@ -81,8 +81,8 @@ ru:
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше внутреннего атрибута `%{internal_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
     outputs:
       undefined:
-        fetch: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
-        assign: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
+        for_fetch: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
+        for_assign: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
       validations:
         inclusion:
           default_error: "[%{service_class_name}] Неправильное значение в `%{output_name}`, должно быть одним из `%{output_inclusion}`"
