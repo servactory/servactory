@@ -32,6 +32,11 @@ RSpec.describe Usual::FailInput::Example1, type: :service do
             expect { perform }.to(
               raise_error do |exception|
                 expect(exception).to be_a(ApplicationService::Exceptions::Input)
+                expect(exception.service).to be_a(Servactory::Context::Workspace::Actor)
+                expect(exception.service).to have_attributes(
+                  class_name: "Usual::FailInput::Example1"
+                )
+                expect(exception.input_name).to eq(:invoice_number)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(received_invoice_number: "BB-7650AE")
               end
@@ -77,6 +82,11 @@ RSpec.describe Usual::FailInput::Example1, type: :service do
             expect { perform }.to(
               raise_error do |exception|
                 expect(exception).to be_a(ApplicationService::Exceptions::Input)
+                expect(exception.service).to be_a(Servactory::Context::Workspace::Actor)
+                expect(exception.service).to have_attributes(
+                  class_name: "Usual::FailInput::Example1"
+                )
+                expect(exception.input_name).to eq(:invoice_number)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(received_invoice_number: "BB-7650AE")
               end
