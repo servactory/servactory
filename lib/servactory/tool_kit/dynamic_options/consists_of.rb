@@ -36,7 +36,7 @@ module Servactory
         end
 
         def validate_for!(attribute:, values:, option:)
-          consists_of_types = Array(option.value)
+          consists_of_types = Array(option.value).uniq
 
           return [false, :required] if fails_presence_validation?(attribute:, values:, consists_of_types:)
 
@@ -110,7 +110,7 @@ module Servactory
 
           values = values&.flatten if values.respond_to?(:flatten)
 
-          values.filter { |value| Array(option_value).exclude?(value.class) }.map(&:class).uniq.join(", ")
+          values.filter { |value| Array(option_value).uniq.exclude?(value.class) }.map(&:class).uniq.join(", ")
         end
       end
     end
