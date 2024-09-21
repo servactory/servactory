@@ -29,9 +29,9 @@ module Servactory
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
 
-            raise_error_for(:setter, prepared_name)
+            raise_error_for(:assign, prepared_name)
           else
-            getter_with(name:) { raise_error_for(:getter, name) }
+            fetch_with(name:) { raise_error_for(:fetch, name) }
           end
         end
 
@@ -42,7 +42,7 @@ module Servactory
         private
 
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
-        def getter_with(name:, &block)
+        def fetch_with(name:, &block)
           input_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
 
           input = @collection_of_inputs.find_by(name: input_name)
