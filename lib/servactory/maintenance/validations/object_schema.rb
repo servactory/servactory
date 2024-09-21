@@ -80,7 +80,7 @@ module Servactory
           value = object.fetch(schema_key, nil)
           prepared_value = prepare_value_from(schema_value:, value:, required: attribute_required)
 
-          Array(attribute_type).any? { |type| prepared_value.is_a?(type) }
+          Array(attribute_type).uniq.any? { |type| prepared_value.is_a?(type) }
         end
 
         def should_be_checked_for?(object:, schema_key:, schema_value:, required:)
