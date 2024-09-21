@@ -36,6 +36,9 @@ RSpec.describe Usual::FailInput::Example1, type: :service do
                 expect(exception.service).to have_attributes(
                   class_name: "Usual::FailInput::Example1"
                 )
+                expect(exception.service.translate("this.is.just.a.test")).to(
+                  eq("Translation missing: en.servactory.this.is.just.a.test")
+                )
                 expect(exception.input_name).to eq(:invoice_number)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(received_invoice_number: "BB-7650AE")
@@ -85,6 +88,9 @@ RSpec.describe Usual::FailInput::Example1, type: :service do
                 expect(exception.service).to be_a(Servactory::Context::Workspace::Actor)
                 expect(exception.service).to have_attributes(
                   class_name: "Usual::FailInput::Example1"
+                )
+                expect(exception.service.translate("this.is.just.a.test")).to(
+                  eq("Translation missing: en.servactory.this.is.just.a.test")
                 )
                 expect(exception.input_name).to eq(:invoice_number)
                 expect(exception.message).to eq("Invalid invoice number")
