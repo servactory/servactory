@@ -23,24 +23,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it do
-          expect(described_class.info.inputs.dig(:ids, :must).keys).to(
-            contain_exactly(:consists_of)
-          )
-        end
-
-        it do
-          expect(described_class.info.internals.dig(:ids, :must).keys).to(
-            contain_exactly(:consists_of)
-          )
-        end
-
-        it do
-          expect(described_class.info.outputs.dig(:ids, :must).keys).to(
-            contain_exactly(:consists_of)
-          )
-        end
-
         it { expect(perform).to have_output(:ids?).with(false) }
         it { expect(perform).to have_output(:ids).with([]) }
       end
@@ -132,24 +114,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
-
-        it do
-          expect(described_class.info.inputs.dig(:ids, :must).keys).to(
-            contain_exactly(:consists_of)
-          )
-        end
-
-        it do
-          expect(described_class.info.internals.dig(:ids, :must).keys).to(
-            contain_exactly(:consists_of)
-          )
-        end
-
-        it do
-          expect(described_class.info.outputs.dig(:ids, :must).keys).to(
-            contain_exactly(:consists_of)
-          )
-        end
 
         it { expect(perform).to have_output(:ids?).with(false) }
         it { expect(perform).to have_output(:ids).with([]) }

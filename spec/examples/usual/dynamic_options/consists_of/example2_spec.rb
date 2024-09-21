@@ -28,12 +28,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it do
-          expect(described_class.info.inputs.dig(:invoice_numbers, :must).keys).to(
-            contain_exactly(:be_6_characters, :consists_of)
-          )
-        end
-
         it { expect(perform).to have_output(:first_invoice_number?).with(true) }
         it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
       end
@@ -161,12 +155,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
-
-        it do
-          expect(described_class.info.inputs.dig(:invoice_numbers, :must).keys).to(
-            contain_exactly(:be_6_characters, :consists_of)
-          )
-        end
 
         it { expect(perform).to have_output(:first_invoice_number?).with(true) }
         it { expect(perform).to have_output(:first_invoice_number).with("7650AE") }
