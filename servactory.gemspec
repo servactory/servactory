@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "appraisal", "~> 2.5"
   spec.add_development_dependency "async", ">= 1.31"
+  spec.add_development_dependency "datory", ">= 2.1.0"
   spec.add_development_dependency "pry", "~> 0.14"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rbs", ">= 3.1.3"

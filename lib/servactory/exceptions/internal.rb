@@ -3,11 +3,13 @@
 module Servactory
   module Exceptions
     class Internal < Base
-      attr_reader :message,
+      attr_reader :service,
+                  :message,
                   :internal_name,
                   :meta
 
-      def initialize(message:, internal_name: nil, meta: nil)
+      def initialize(context:, message:, internal_name: nil, meta: nil)
+        @service = context.send(:servactory_service_info)
         @message = message
         @internal_name = internal_name&.to_sym
         @meta = meta
