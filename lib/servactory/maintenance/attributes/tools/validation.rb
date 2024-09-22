@@ -72,7 +72,7 @@ module Servactory
 
             raise @context.class.config
                           .public_send(:"#{@attribute.system_name}_exception_class")
-                          .new(message: tmp_errors.first)
+                          .new(context: @context, message: tmp_errors.first)
           end
         end
       end

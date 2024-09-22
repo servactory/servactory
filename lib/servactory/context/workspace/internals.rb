@@ -74,7 +74,10 @@ module Servactory
             internal_name: name
           )
 
-          raise @context.class.config.internal_exception_class.new(message: message_text)
+          raise @context.class.config.internal_exception_class.new(
+            context: @context,
+            message: message_text
+          )
         end
       end
     end

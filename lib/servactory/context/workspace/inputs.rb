@@ -104,7 +104,11 @@ module Servactory
             input_name: name
           )
 
-          raise @context.class.config.input_exception_class.new(message: message_text, input_name: name)
+          raise @context.class.config.input_exception_class.new(
+            context: @context,
+            message: message_text,
+            input_name: name
+          )
         end
       end
     end
