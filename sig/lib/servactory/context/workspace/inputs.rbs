@@ -20,7 +20,7 @@ module Servactory
 
         private
 
-        def getter_with: (name: Symbol) { () -> untyped } -> void
+        def fetch_with: (name: Symbol) { () -> untyped } -> void
 
         def prepare_hash_values_inside: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) { () -> untyped } -> void
 
