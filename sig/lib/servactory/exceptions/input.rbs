@@ -1,11 +1,12 @@
 module Servactory
   module Exceptions
     class Input < Base
+      attr_reader service: Context::Workspace::Actor
       attr_reader message: String
       attr_reader input_name: Symbol?
       attr_reader meta: untyped?
 
-      def initialize: (message: String, input_name: Symbol?, meta: untyped?) -> void
+      def initialize: (context: instance, message: String, input_name: Symbol?, meta: untyped?) -> void
     end
   end
 end

@@ -48,6 +48,7 @@ module Servactory
 
       def fail_input!(input_name, message:, meta: nil)
         raise self.class.config.input_exception_class.new(
+          context: self,
           input_name:,
           message:,
           meta:
@@ -56,6 +57,7 @@ module Servactory
 
       def fail_internal!(internal_name, message:, meta: nil)
         raise self.class.config.internal_exception_class.new(
+          context: self,
           internal_name:,
           message:,
           meta:
@@ -64,6 +66,7 @@ module Servactory
 
       def fail_output!(output_name, message:, meta: nil)
         raise self.class.config.output_exception_class.new(
+          context: self,
           output_name:,
           message:,
           meta:

@@ -25,9 +25,9 @@ module Servactory
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
 
-            setter_with(prepared_name:, value: args.pop) { raise_error_for(:setter, prepared_name) }
+            assign_with(prepared_name:, value: args.pop) { raise_error_for(:assign, prepared_name) }
           else
-            getter_with(name:) { raise_error_for(:getter, name) }
+            fetch_with(name:) { raise_error_for(:fetch, name) }
           end
         end
 
@@ -37,7 +37,7 @@ module Servactory
 
         private
 
-        def setter_with(prepared_name:, value:, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def assign_with(prepared_name:, value:, &block) # rubocop:disable Lint/UnusedMethodArgument
           return yield unless @collection_of_internals.names.include?(prepared_name)
 
           internal = @collection_of_internals.find_by(name: prepared_name) # ::Servactory::Internals::Internal
@@ -53,7 +53,7 @@ module Servactory
           @context.send(:servactory_service_store).assign_internal(internal.name, value)
         end
 
-        def getter_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
+        def fetch_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
           internal_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
           internal = @collection_of_internals.find_by(name: internal_name)
 
@@ -70,11 +70,14 @@ module Servactory
 
         def raise_error_for(type, name)
           message_text = @context.send(:servactory_service_info).translate(
-            "internals.undefined.#{type}",
+            "internals.undefined.for_#{type}",
             internal_name: name
           )
 
-          raise @context.class.config.internal_exception_class.new(message: message_text)
+          raise @context.class.config.internal_exception_class.new(
+            context: @context,
+            message: message_text
+          )
         end
       end
     end
