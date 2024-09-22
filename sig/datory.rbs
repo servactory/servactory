@@ -1,0 +1,4 @@
+module Datory
+  class Base
+  end
+end

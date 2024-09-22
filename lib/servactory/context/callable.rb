@@ -6,7 +6,7 @@ module Servactory
       def call!(arguments = {})
         context = send(:new)
 
-        _call!(context, **arguments)
+        _call!(context, arguments)
 
         config.result_class.success_for(context:)
       rescue config.success_class => e
@@ -16,7 +16,7 @@ module Servactory
       def call(arguments = {})
         context = send(:new)
 
-        _call!(context, **arguments)
+        _call!(context, arguments)
 
         config.result_class.success_for(context:)
       rescue config.success_class => e
@@ -27,10 +27,12 @@ module Servactory
 
       private
 
-      def _call!(context, **arguments)
+      def _call!(context, incoming_arguments)
+        incoming_arguments = Servactory::Utils.adapt(incoming_arguments)
+
         context.send(
           :_call!,
-          incoming_arguments: arguments.symbolize_keys,
+          incoming_arguments:,
           collection_of_inputs:,
           collection_of_internals:,
           collection_of_outputs:,

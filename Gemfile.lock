@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    servactory (2.7.0)
+    servactory (2.9.0.rc1)
       activesupport (>= 5.1, < 8.0)
       base64 (~> 0.2)
       bigdecimal (~> 3.0)
@@ -42,6 +42,12 @@ GEM
       fiber-local (~> 1.1)
       json
     csv (3.3.0)
+    datory (2.1.0)
+      activesupport (>= 5.1, < 8.0)
+      i18n (~> 1.14)
+      servactory (>= 2.8.0)
+      terminal-table (>= 3.0)
+      zeitwerk (~> 2.6)
     diff-lcs (1.5.1)
     drb (2.2.1)
     ffi (1.17.0-x86_64-darwin)
@@ -159,6 +165,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal (~> 2.5)
   async (>= 1.31)
+  datory (>= 2.1.0)
   pry (~> 0.14)
   rake (~> 13.0)
   rbs (>= 3.1.3)

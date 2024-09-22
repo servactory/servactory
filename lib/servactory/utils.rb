@@ -2,7 +2,15 @@
 
 module Servactory
   module Utils
-    module_function
+    extend self
+
+    def adapt(data)
+      if defined?(Datory::Base) && data.is_a?(Datory::Base)
+        data = Servactory::Utils.send(:instance_variables_to_hash_from, data)
+      end
+
+      data.symbolize_keys
+    end
 
     def fetch_hash_with_desired_attribute(attribute)
       return { input: attribute.class::Actor.new(attribute) } if really_input?(attribute)
@@ -95,6 +103,25 @@ module Servactory
         end
       else
         class_or_name
+      end
+    end
+
+    private
+
+    def instance_variables_to_hash_from(data) # rubocop:disable Metrics/MethodLength
+      data.instance_variables.to_h do |key|
+        value = data.instance_variable_get(key)
+
+        value =
+          if value.is_a?(Set) || value.is_a?(Array)
+            value.map { |item| instance_variables_to_hash_from(item) }
+          elsif value.is_a?(Datory::Base)
+            instance_variables_to_hash_from(value)
+          else
+            value
+          end
+
+        [key.to_s.delete_prefix("@"), value]
       end
     end
   end
