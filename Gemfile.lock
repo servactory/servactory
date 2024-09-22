@@ -3,7 +3,10 @@ PATH
   specs:
     servactory (2.9.0.rc1)
       activesupport (>= 5.1, < 8.0)
+      base64 (~> 0.2)
+      bigdecimal (~> 3.0)
       i18n (~> 1.14)
+      mutex_m (~> 0.2)
       zeitwerk (~> 2.6)
 
 GEM
@@ -65,6 +68,7 @@ GEM
     logger (1.6.0)
     method_source (1.1.0)
     minitest (5.25.1)
+    mutex_m (0.2.0)
     parallel (1.26.3)
     parser (3.3.4.2)
       ast (~> 2.4.1)
