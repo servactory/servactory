@@ -1,11 +1,12 @@
 module Servactory
   module Exceptions
     class Output < Base
+      attr_reader service: Context::Workspace::Actor
       attr_reader message: String
       attr_reader output_name: Symbol?
       attr_reader meta: untyped?
 
-      def initialize: (message: String, output_name: Symbol?, meta: untyped?) -> void
+      def initialize: (context: instance, message: String, output_name: Symbol?, meta: untyped?) -> void
     end
   end
 end

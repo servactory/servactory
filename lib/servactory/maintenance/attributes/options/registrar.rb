@@ -99,7 +99,7 @@ module Servactory
               name: :types,
               attribute: @attribute,
               validation_class: Servactory::Maintenance::Attributes::Validations::Type,
-              original_value: Array(@options.fetch(:type)),
+              original_value: Array(@options.fetch(:type)).uniq,
               need_for_checks: true,
               body_fallback: nil,
               with_advanced_mode: false
