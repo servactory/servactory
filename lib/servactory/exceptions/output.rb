@@ -9,6 +9,7 @@ module Servactory
                   :meta
 
       def initialize(context:, message:, output_name: nil, meta: nil)
+        @context = context
         @service = context.send(:servactory_service_info)
         @message = message
         @output_name = output_name&.to_sym
@@ -16,6 +17,10 @@ module Servactory
 
         super(message)
       end
+
+      private
+
+      attr_reader :context
     end
   end
 end
