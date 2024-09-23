@@ -20,6 +20,7 @@ module Servactory
 
       private
 
+      # API: Datory
       attr_reader :context
     end
   end
