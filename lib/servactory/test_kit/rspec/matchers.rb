@@ -115,7 +115,7 @@ module Servactory
           end
 
           failure_message do |actual| # rubocop:disable Metrics/BlockLength
-            unless actual.instance_of?(Servactory::Result)
+            unless actual.is_a?(Servactory::Result)
               break <<~MESSAGE
                 Incorrect service result:
 
@@ -184,7 +184,7 @@ module Servactory
             matched &&= !actual.success?
             matched &&= actual.failure?
             matched &&= actual.error.is_a?(Servactory::Exceptions::Failure)
-            matched &&= actual.error.instance_of?(expected_failure_class)
+            matched &&= actual.error.is_a?(expected_failure_class)
             matched &&= actual.error.type == expected_type
             matched &&= actual.error.message == expected_message
             matched &&= actual.error.meta == expected_meta
@@ -208,7 +208,7 @@ module Servactory
           end
 
           failure_message do |actual| # rubocop:disable Metrics/BlockLength
-            unless actual.instance_of?(Servactory::Result)
+            unless actual.is_a?(Servactory::Result)
               break <<~MESSAGE
                 Incorrect service result:
 
@@ -236,7 +236,7 @@ module Servactory
             end
 
             if defined?(@expected_failure_class)
-              unless actual.error.instance_of?(@expected_failure_class)
+              unless actual.error.is_a?(@expected_failure_class)
                 break <<~MESSAGE
                   Incorrect instance error:
 
@@ -245,7 +245,7 @@ module Servactory
                 MESSAGE
               end
             else
-              unless actual.error.instance_of?(Servactory::Exceptions::Failure)
+              unless actual.error.is_a?(Servactory::Exceptions::Failure)
                 break <<~MESSAGE
                   Incorrect error object:
 
