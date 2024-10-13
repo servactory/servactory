@@ -23,7 +23,8 @@ module Servactory
                   required: input.required,
                   default: input.default,
                   inclusion: inclusion.body,
-                  must: must.body
+                  must: must.body,
+                  note: input.note
                 }
               ]
             end,
@@ -55,7 +56,8 @@ module Servactory
                   actor:,
                   types: output.types,
                   inclusion: inclusion.body,
-                  must: must.body
+                  must: must.body,
+                  note: output.note
                 }
               ]
             end
