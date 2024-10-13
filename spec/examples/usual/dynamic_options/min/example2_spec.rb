@@ -206,7 +206,11 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Internal,
-                    "The size of the `data` value must be greater than or equal to `2` (got: `{:a=>1}`)"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "The size of the `data` value must be greater than or equal to `2` (got: `{a: 1}`)"
+                    else
+                      "The size of the `data` value must be greater than or equal to `2` (got: `{:a=>1}`)"
+                    end
                   )
                 )
               end
@@ -219,7 +223,11 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Output,
-                    "The size of the `data` value must be greater than or equal to `3` (got: `{:a=>1, :b=>2}`)"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "The size of the `data` value must be greater than or equal to `3` (got: `{a: 1, b: 2}`)"
+                    else
+                      "The size of the `data` value must be greater than or equal to `3` (got: `{:a=>1, :b=>2}`)"
+                    end
                   )
                 )
               end
@@ -439,7 +447,11 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Internal,
-                    "The size of the `data` value must be greater than or equal to `2` (got: `{:a=>1}`)"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "The size of the `data` value must be greater than or equal to `2` (got: `{a: 1}`)"
+                    else
+                      "The size of the `data` value must be greater than or equal to `2` (got: `{:a=>1}`)"
+                    end
                   )
                 )
               end
@@ -452,7 +464,11 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Output,
-                    "The size of the `data` value must be greater than or equal to `3` (got: `{:a=>1, :b=>2}`)"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "The size of the `data` value must be greater than or equal to `3` (got: `{a: 1, b: 2}`)"
+                    else
+                      "The size of the `data` value must be greater than or equal to `3` (got: `{:a=>1, :b=>2}`)"
+                    end
                   )
                 )
               end

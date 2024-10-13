@@ -45,7 +45,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
         end
 
         context "when `number` is `BigDecimal`" do
-          let(:number) { BigDecimal("90") }
+          let(:number) { BigDecimal(90) }
 
           include_examples "success result class"
 
@@ -196,7 +196,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
         context "when `number` is `BigDecimal`" do
           describe "because the value is greater than specified" do
             describe "for `input` attribute" do
-              let(:number) { BigDecimal("12") }
+              let(:number) { BigDecimal(12) }
 
               it "returns expected error" do
                 expect { perform }.to(
@@ -210,7 +210,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
             end
 
             describe "for `internal` attribute" do
-              let(:number) { BigDecimal("9") }
+              let(:number) { BigDecimal(9) }
 
               it "returns expected error" do
                 expect { perform }.to(
@@ -224,7 +224,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
             end
 
             describe "for `output` attribute" do
-              let(:number) { BigDecimal("18") }
+              let(:number) { BigDecimal(18) }
 
               it "returns expected error" do
                 expect { perform }.to(
@@ -294,7 +294,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
         end
 
         context "when `number` is `BigDecimal`" do
-          let(:number) { BigDecimal("90") }
+          let(:number) { BigDecimal(90) }
 
           include_examples "success result class"
 
@@ -445,7 +445,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
         context "when `number` is `BigDecimal`" do
           describe "because the value is greater than specified" do
             describe "for `input` attribute" do
-              let(:number) { BigDecimal("12") }
+              let(:number) { BigDecimal(12) }
 
               it "returns expected error" do
                 expect { perform }.to(
@@ -459,7 +459,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
             end
 
             describe "for `internal` attribute" do
-              let(:number) { BigDecimal("9") }
+              let(:number) { BigDecimal(9) }
 
               it "returns expected error" do
                 expect { perform }.to(
@@ -473,7 +473,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
             end
 
             describe "for `output` attribute" do
-              let(:number) { BigDecimal("18") }
+              let(:number) { BigDecimal(18) }
 
               it "returns expected error" do
                 expect { perform }.to(

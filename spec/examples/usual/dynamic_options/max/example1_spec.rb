@@ -202,9 +202,15 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Input,
-                    "[Usual::DynamicOptions::Max::Example1] Input `data` received value " \
-                    "`{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9, :j=>10, :k=>11}`, " \
-                    "which is greater than `10`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Max::Example1] Input `data` received value " \
+                        "`{a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10, k: 11}`, " \
+                        "which is greater than `10`"
+                    else
+                      "[Usual::DynamicOptions::Max::Example1] Input `data` received value " \
+                        "`{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9, :j=>10, :k=>11}`, " \
+                        "which is greater than `10`"
+                    end
                   )
                 )
               end
@@ -217,9 +223,15 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Internal,
-                    "[Usual::DynamicOptions::Max::Example1] Internal attribute `data` received value " \
-                    "`{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9, :j=>10}`, " \
-                    "which is greater than `9`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Max::Example1] Internal attribute `data` received value " \
+                        "`{a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10}`, " \
+                        "which is greater than `9`"
+                    else
+                      "[Usual::DynamicOptions::Max::Example1] Internal attribute `data` received value " \
+                        "`{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9, :j=>10}`, " \
+                        "which is greater than `9`"
+                    end
                   )
                 )
               end
@@ -232,9 +244,15 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Output,
-                    "[Usual::DynamicOptions::Max::Example1] Output attribute `data` " \
-                    "received value `{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9}`, " \
-                    "which is greater than `8`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Max::Example1] Output attribute `data` " \
+                        "received value `{a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9}`, " \
+                        "which is greater than `8`"
+                    else
+                      "[Usual::DynamicOptions::Max::Example1] Output attribute `data` " \
+                        "received value `{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9}`, " \
+                        "which is greater than `8`"
+                    end
                   )
                 )
               end
@@ -450,9 +468,15 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Input,
-                    "[Usual::DynamicOptions::Max::Example1] Input `data` received value " \
-                    "`{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9, :j=>10, :k=>11}`, " \
-                    "which is greater than `10`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Max::Example1] Input `data` received value " \
+                        "`{a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10, k: 11}`, " \
+                        "which is greater than `10`"
+                    else
+                      "[Usual::DynamicOptions::Max::Example1] Input `data` received value " \
+                        "`{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9, :j=>10, :k=>11}`, " \
+                        "which is greater than `10`"
+                    end
                   )
                 )
               end
@@ -465,9 +489,15 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Internal,
-                    "[Usual::DynamicOptions::Max::Example1] Internal attribute `data` received value " \
-                    "`{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9, :j=>10}`, " \
-                    "which is greater than `9`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Max::Example1] Internal attribute `data` received value " \
+                        "`{a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10}`, " \
+                        "which is greater than `9`"
+                    else
+                      "[Usual::DynamicOptions::Max::Example1] Internal attribute `data` received value " \
+                        "`{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9, :j=>10}`, " \
+                        "which is greater than `9`"
+                    end
                   )
                 )
               end
@@ -480,9 +510,15 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Output,
-                    "[Usual::DynamicOptions::Max::Example1] Output attribute `data` " \
-                    "received value `{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9}`, " \
-                    "which is greater than `8`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Max::Example1] Output attribute `data` " \
+                        "received value `{a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9}`, " \
+                        "which is greater than `8`"
+                    else
+                      "[Usual::DynamicOptions::Max::Example1] Output attribute `data` " \
+                        "received value `{:a=>1, :b=>2, :c=>3, :d=>4, :e=>5, :f=>6, :g=>7, :h=>8, :i=>9}`, " \
+                        "which is greater than `8`"
+                    end
                   )
                 )
               end
