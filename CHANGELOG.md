@@ -1,5 +1,111 @@
 # Changelog
 
+## [v2.9.0.rc5](https://github.com/servactory/servactory/tree/v2.9.0.rc5) (2024-10-10)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc4...v2.9.0.rc5)
+
+**Fixed:**
+
+- Fix class checking inside `be_failure_service` [\#244](https://github.com/servactory/servactory/pull/244) ([afuno](https://github.com/afuno))
+
+## [v2.9.0.rc4](https://github.com/servactory/servactory/tree/v2.9.0.rc4) (2024-09-30)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc3...v2.9.0.rc4)
+
+## [v2.9.0.rc3](https://github.com/servactory/servactory/tree/v2.9.0.rc3) (2024-09-23)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc2...v2.9.0.rc3)
+
+**Implemented enhancements:**
+
+- Add access to context in exceptions for use inside Datory [\#243](https://github.com/servactory/servactory/pull/243) ([afuno](https://github.com/afuno))
+
+## [v2.9.0.rc2](https://github.com/servactory/servactory/tree/v2.9.0.rc2) (2024-09-22)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc1...v2.9.0.rc2)
+
+**Breaking changes:**
+
+- Change internal method names and associated translation keys [\#241](https://github.com/servactory/servactory/pull/241) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Add service information to attribute exceptions [\#242](https://github.com/servactory/servactory/pull/242) ([afuno](https://github.com/afuno))
+- Improve uniqueness of types [\#240](https://github.com/servactory/servactory/pull/240) ([afuno](https://github.com/afuno))
+
+## [v2.9.0.rc1](https://github.com/servactory/servactory/tree/v2.9.0.rc1) (2024-09-17)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.8.0...v2.9.0.rc1)
+
+**Implemented enhancements:**
+
+- Native support for Datory [\#238](https://github.com/servactory/servactory/pull/238) ([afuno](https://github.com/afuno))
+
+## [v2.8.0](https://github.com/servactory/servactory/tree/v2.8.0) (2024-08-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.7.0...v2.8.0)
+
+**Breaking changes:**
+
+- Remove deprecated error classes and configurations [\#237](https://github.com/servactory/servactory/pull/237) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Implement `to_h` method for `Result` [\#236](https://github.com/servactory/servactory/pull/236) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[28.08.2024\] Update libraries [\#235](https://github.com/servactory/servactory/pull/235) ([afuno](https://github.com/afuno))
+
+## [v2.7.0](https://github.com/servactory/servactory/tree/v2.7.0) (2024-08-13)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.6.3...v2.7.0)
+
+**Breaking changes:**
+
+- Drop support for Ruby 3.0 [\#218](https://github.com/servactory/servactory/pull/218) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Add dynamic option `multiple_of` [\#231](https://github.com/servactory/servactory/pull/231) ([afuno](https://github.com/afuno))
+- Improve text translation mechanism in dynamic option `consists_of` [\#230](https://github.com/servactory/servactory/pull/230) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- Update Ruby version and Bundler version [\#229](https://github.com/servactory/servactory/pull/229) ([afuno](https://github.com/afuno))
+- \[05.07.2024\] Update libraries [\#228](https://github.com/servactory/servactory/pull/228) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
+- Add support for Rails 7.2 [\#234](https://github.com/servactory/servactory/pull/234) ([afuno](https://github.com/afuno))
+- Add support for Rails 7.2 [\#233](https://github.com/servactory/servactory/pull/233) ([afuno](https://github.com/afuno))
+
+## [v2.6.3](https://github.com/servactory/servactory/tree/v2.6.3) (2024-07-26)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.6.2...v2.6.3)
+
+## [v2.6.2](https://github.com/servactory/servactory/tree/v2.6.2) (2024-05-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.6.1...v2.6.2)
+
+**Fixed:**
+
+- Add support for optional values for dynamic option `format` [\#226](https://github.com/servactory/servactory/pull/226) ([afuno](https://github.com/afuno))
+
+## [v2.6.1](https://github.com/servactory/servactory/tree/v2.6.1) (2024-05-15)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0...v2.6.1)
+
+**Implemented enhancements:**
+
+- Add `collection_mode_class_names` configuration to template for generator [\#225](https://github.com/servactory/servactory/pull/225) ([afuno](https://github.com/afuno))
+- Improve naming of some variables [\#224](https://github.com/servactory/servactory/pull/224) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Correct location of translations [\#223](https://github.com/servactory/servactory/pull/223) ([afuno](https://github.com/afuno))
+- Correct translation for `format.unknown` [\#222](https://github.com/servactory/servactory/pull/222) ([afuno](https://github.com/afuno))
+
 ## [v2.6.0](https://github.com/servactory/servactory/tree/v2.6.0) (2024-05-13)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0.rc5...v2.6.0)
@@ -27,25 +133,13 @@
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0.rc4...v2.6.0.rc5)
 
-**Implemented enhancements:**
-
-- Revert `collection_mode_class_names` configuration and improve translations [\#216](https://github.com/servactory/servactory/pull/216) ([afuno](https://github.com/afuno))
-
 ## [v2.6.0.rc4](https://github.com/servactory/servactory/tree/v2.6.0.rc4) (2024-05-11)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0.rc3...v2.6.0.rc4)
 
-**Fixed:**
-
-- Fix check in `consists_of` option of input when it is optional [\#215](https://github.com/servactory/servactory/pull/215) ([afuno](https://github.com/afuno))
-
 ## [v2.6.0.rc3](https://github.com/servactory/servactory/tree/v2.6.0.rc3) (2024-05-11)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.6.0.rc2...v2.6.0.rc3)
-
-**Fixed:**
-
-- Fix `consists_of` option for optional attribute with default value [\#214](https://github.com/servactory/servactory/pull/214) ([afuno](https://github.com/afuno))
 
 ## [v2.6.0.rc2](https://github.com/servactory/servactory/tree/v2.6.0.rc2) (2024-05-10)
 
@@ -54,15 +148,6 @@
 ## [v2.6.0.rc1](https://github.com/servactory/servactory/tree/v2.6.0.rc1) (2024-05-10)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.5.2...v2.6.0.rc1)
-
-**Breaking changes:**
-
-- Replace `service_class_name` attribute with `service` [\#212](https://github.com/servactory/servactory/pull/212) ([afuno](https://github.com/afuno))
-- Rewrite `consists_of` option as dynamic and refuse collection mode [\#180](https://github.com/servactory/servactory/pull/180) ([afuno](https://github.com/afuno))
-
-**Implemented enhancements:**
-
-- Add config `i18n_root_key` [\#213](https://github.com/servactory/servactory/pull/213) ([afuno](https://github.com/afuno))
 
 ## [v2.5.2](https://github.com/servactory/servactory/tree/v2.5.2) (2024-05-02)
 

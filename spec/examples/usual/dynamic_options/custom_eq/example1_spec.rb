@@ -122,8 +122,13 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Input,
-                    "[Usual::DynamicOptions::CustomEq::Example1] Input attribute `data` " \
-                    "received value `{:a=>1}`, which is not equivalent to `2`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::CustomEq::Example1] Input attribute `data` " \
+                        "received value `{a: 1}`, which is not equivalent to `2`"
+                    else
+                      "[Usual::DynamicOptions::CustomEq::Example1] Input attribute `data` " \
+                        "received value `{:a=>1}`, which is not equivalent to `2`"
+                    end
                   )
                 )
               end
@@ -259,8 +264,13 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Input,
-                    "[Usual::DynamicOptions::CustomEq::Example1] Input attribute `data` " \
-                    "received value `{:a=>1}`, which is not equivalent to `2`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::CustomEq::Example1] Input attribute `data` " \
+                        "received value `{a: 1}`, which is not equivalent to `2`"
+                    else
+                      "[Usual::DynamicOptions::CustomEq::Example1] Input attribute `data` " \
+                        "received value `{:a=>1}`, which is not equivalent to `2`"
+                    end
                   )
                 )
               end
