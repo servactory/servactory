@@ -214,11 +214,11 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
                   raise_error(
                     ApplicationService::Exceptions::Internal,
                     if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
-                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
-                        "received value `{a: 1}`, which is less than `3`"
+                      "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
+                        "received value `{a: 1}`, which is less than `2`"
                     else
-                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
-                        "received value `{:a=>1}`, which is less than `3`"
+                      "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
+                        "received value `{:a=>1}`, which is less than `2`"
                     end
                   )
                 )
@@ -466,11 +466,11 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
                   raise_error(
                     ApplicationService::Exceptions::Internal,
                     if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
-                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
-                        "received value `{a: 1, b: 2}`, which is less than `3`"
+                      "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
+                        "received value `{a: 1}`, which is less than `2`"
                     else
-                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
-                        "received value `{:a=>1, :b=>2}`, which is less than `3`"
+                      "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
+                        "received value `{:a=>1}`, which is less than `2`"
                     end
                   )
                 )
