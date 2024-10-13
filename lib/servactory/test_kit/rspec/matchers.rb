@@ -186,8 +186,8 @@ module Servactory
             matched &&= actual.error.is_a?(Servactory::Exceptions::Failure)
             matched &&= actual.error.is_a?(expected_failure_class)
             matched &&= actual.error.type == expected_type
-            matched &&= actual.error.message == expected_message
-            matched &&= actual.error.meta == expected_meta
+            matched &&= actual.error.message == expected_message if defined?(@expected_message)
+            matched &&= actual.error.meta == expected_meta if defined?(@expected_meta)
             matched
           end
 
@@ -284,6 +284,11 @@ module Servactory
 
             <<~MESSAGE
               Unexpected case when using `be_failure_service`.
+
+              Exception:  #{actual.error.inspect}
+              Type:       #{actual.error.type.inspect}
+              Message:    #{actual.error.message.inspect}
+              Meta:       #{actual.error.meta.inspect}
 
               Please try to build an example based on the documentation.
               Or report your problem to us:
