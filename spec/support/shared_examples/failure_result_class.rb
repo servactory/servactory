@@ -11,5 +11,17 @@ RSpec.shared_examples "failure result class" do
     expect(result.failure?(:all)).to be(true)
     expect(result.failure?(:base)).to be(true)
     expect(result.failure?(:non_existent)).to be(false)
+
+    # NOTE: Testing the matcher.
+    # NOTE: Testing the matcher without anything.
+    expect(result).to be_failure_service
+    # NOTE: Testing the matcher with all chains.
+    expect(result).to(
+      be_failure_service
+        .type(:base)
+        .with(ApplicationService::Exceptions::Failure)
+        .message(result.error.message) # Just checking the chain.
+        .meta(result.error.meta) # Just checking the chain.
+    )
   end
 end

@@ -23,7 +23,13 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
           expect { perform }.to(
             raise_error do |exception|
               expect(exception).to be_a(NoMethodError)
-              expect(exception.message).to match(/undefined method `\+' for nil|:NilClass/)
+              expect(exception.message).to(
+                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                  eq("undefined method '+' for nil")
+                else
+                  match(/undefined method `\+' for nil|:NilClass/)
+                end
+              )
             end
           )
         end
@@ -59,7 +65,13 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
           expect { perform }.to(
             raise_error do |exception|
               expect(exception).to be_a(NoMethodError)
-              expect(exception.message).to match(/undefined method `\+' for nil|:NilClass/)
+              expect(exception.message).to(
+                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                  eq("undefined method '+' for nil")
+                else
+                  match(/undefined method `\+' for nil|:NilClass/)
+                end
+              )
             end
           )
         end

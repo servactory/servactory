@@ -7,6 +7,10 @@ module Servactory
       attr_reader meta: untyped?
 
       def initialize: (context: instance, message: String, internal_name: Symbol?, meta: untyped?) -> void
+
+      private
+
+      attr_reader context: instance
     end
   end
 end
