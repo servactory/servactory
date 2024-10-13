@@ -213,8 +213,13 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Internal,
-                    "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
-                    "received value `{:a=>1}`, which is less than `2`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                        "received value `{a: 1}`, which is less than `3`"
+                    else
+                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                        "received value `{:a=>1}`, which is less than `3`"
+                    end
                   )
                 )
               end
@@ -227,8 +232,13 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Output,
-                    "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
-                    "received value `{:a=>1, :b=>2}`, which is less than `3`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                        "received value `{a: 1, b: 2}`, which is less than `3`"
+                    else
+                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                        "received value `{:a=>1, :b=>2}`, which is less than `3`"
+                    end
                   )
                 )
               end
@@ -455,8 +465,13 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Internal,
-                    "[Usual::DynamicOptions::Min::Example1] Internal attribute `data` " \
-                    "received value `{:a=>1}`, which is less than `2`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                        "received value `{a: 1, b: 2}`, which is less than `3`"
+                    else
+                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                        "received value `{:a=>1, :b=>2}`, which is less than `3`"
+                    end
                   )
                 )
               end
@@ -469,8 +484,13 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
                 expect { perform }.to(
                   raise_error(
                     ApplicationService::Exceptions::Output,
-                    "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
-                    "received value `{:a=>1, :b=>2}`, which is less than `3`"
+                    if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                        "received value `{a: 1, b: 2}`, which is less than `3`"
+                    else
+                      "[Usual::DynamicOptions::Min::Example1] Output attribute `data` " \
+                        "received value `{:a=>1, :b=>2}`, which is less than `3`"
+                    end
                   )
                 )
               end
