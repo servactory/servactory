@@ -30,7 +30,10 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0") # rubocop:disable Gemspec/RequiredRubyVersion
 
   spec.add_dependency "activesupport", ">= 5.1", "< 8.1"
+  spec.add_dependency "base64", "~> 0.2"
+  spec.add_dependency "bigdecimal", "~> 3.0"
   spec.add_dependency "i18n", "~> 1.14"
+  spec.add_dependency "mutex_m", "~> 0.2"
   spec.add_dependency "zeitwerk", "~> 2.6"
 
   spec.add_development_dependency "appraisal", "~> 2.5"
