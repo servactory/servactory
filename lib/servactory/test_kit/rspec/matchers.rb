@@ -38,7 +38,7 @@ module Servactory
             @nested = values
           end
 
-          chain :with do |value|
+          chain :contains do |value|
             @value = value
           end
 
@@ -50,6 +50,12 @@ module Servactory
           def match_for(actual, output_name)
             given_value = actual.public_send(output_name)
 
+            if defined?(@instance_of)
+              expect(given_value).to(
+                RSpec::Matchers::BuiltIn::BeAnInstanceOf.new(@instance_of)
+              )
+            end
+
             if defined?(@nested) && @nested.present?
               @nested.each do |method_name|
                 next unless given_value.respond_to?(method_name)
@@ -58,16 +64,17 @@ module Servactory
               end
             end
 
+            return true if !defined?(@value) && @value.nil?
+
             expect(given_value).to(
-              if defined?(@instance_of)
-                RSpec::Matchers::BuiltIn::BeAnInstanceOf.new(@instance_of)
-              elsif @value.is_a?(Array)
+              case @value
+              when Array
                 RSpec::Matchers::BuiltIn::ContainExactly.new(@value)
-              elsif @value.is_a?(Hash)
+              when Hash
                 RSpec::Matchers::BuiltIn::Match.new(@value)
-              elsif @value.is_a?(TrueClass) || @value.is_a?(FalseClass)
+              when TrueClass, FalseClass
                 RSpec::Matchers::BuiltIn::Equal.new(@value)
-              elsif @value.is_a?(NilClass)
+              when NilClass
                 RSpec::Matchers::BuiltIn::BeNil.new(@value)
               else
                 RSpec::Matchers::BuiltIn::Eq.new(@value)

@@ -19,8 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Basic::Example2, type: :
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_at?).with(true) }
-        it { expect(perform).to have_output(:started_at).with(DateTime.parse(started_at)) }
+        it { expect(perform).to have_output(:started_at?).contains(true) }
+        it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
       end
 
       describe "but the data required for work is invalid" do
@@ -63,8 +63,8 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Basic::Example2, type: :
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_at?).with(true) }
-        it { expect(perform).to have_output(:started_at).with(DateTime.parse(started_at)) }
+        it { expect(perform).to have_output(:started_at?).contains(true) }
+        it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
       end
 
       describe "but the data required for work is invalid" do

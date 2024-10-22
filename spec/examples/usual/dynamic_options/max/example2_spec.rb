@@ -22,8 +22,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with(1) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains(1) }
         end
 
         context "when `data` is `String`" do
@@ -31,8 +31,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with("Data") }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains("Data") }
         end
 
         context "when `data` is `Array`" do
@@ -40,8 +40,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with([0]) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains([0]) }
         end
 
         context "when `data` is `Hash`" do
@@ -49,8 +49,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with({ a: 1 }) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains({ a: 1 }) }
         end
       end
 
@@ -276,8 +276,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with(1) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains(1) }
         end
 
         context "when `data` is `String`" do
@@ -285,8 +285,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with("Data") }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains("Data") }
         end
 
         context "when `data` is `Array`" do
@@ -294,8 +294,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with([0]) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains([0]) }
         end
 
         context "when `data` is `Hash`" do
@@ -303,8 +303,8 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with({ a: 1 }) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains({ a: 1 }) }
         end
       end
 

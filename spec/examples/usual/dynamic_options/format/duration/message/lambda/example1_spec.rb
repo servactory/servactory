@@ -19,8 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:song_duration?).with(true) }
-        it { expect(perform).to have_output(:song_duration).with(ActiveSupport::Duration.parse(song_duration)) }
+        it { expect(perform).to have_output(:song_duration?).contains(true) }
+        it { expect(perform).to have_output(:song_duration).contains(ActiveSupport::Duration.parse(song_duration)) }
       end
 
       describe "but the data required for work is invalid" do
@@ -62,8 +62,8 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:song_duration?).with(true) }
-        it { expect(perform).to have_output(:song_duration).with(ActiveSupport::Duration.parse(song_duration)) }
+        it { expect(perform).to have_output(:song_duration?).contains(true) }
+        it { expect(perform).to have_output(:song_duration).contains(ActiveSupport::Duration.parse(song_duration)) }
       end
 
       describe "but the data required for work is invalid" do

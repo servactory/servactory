@@ -43,7 +43,7 @@ RSpec.describe Usual::Hash::Example6, type: :service do
         it do
           expect(perform).to(
             have_output(:payload)
-              .with(
+              .contains(
                 {
                   request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
                   user: {
@@ -60,7 +60,7 @@ RSpec.describe Usual::Hash::Example6, type: :service do
           )
         end
 
-        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
@@ -68,7 +68,7 @@ RSpec.describe Usual::Hash::Example6, type: :service do
           it do
             expect(perform).to(
               have_output(:payload)
-                .with(
+                .contains(
                   {
                     request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
                     user: {
@@ -85,7 +85,7 @@ RSpec.describe Usual::Hash::Example6, type: :service do
             )
           end
 
-          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name).contains("John Kennedy") }
         end
       end
     end
@@ -137,7 +137,7 @@ RSpec.describe Usual::Hash::Example6, type: :service do
         it do
           expect(perform).to(
             have_output(:payload)
-              .with(
+              .contains(
                 {
                   request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
                   user: {
@@ -154,7 +154,7 @@ RSpec.describe Usual::Hash::Example6, type: :service do
           )
         end
 
-        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
 
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
@@ -162,7 +162,7 @@ RSpec.describe Usual::Hash::Example6, type: :service do
           it do
             expect(perform).to(
               have_output(:payload)
-                .with(
+                .contains(
                   {
                     request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
                     user: {
@@ -179,7 +179,7 @@ RSpec.describe Usual::Hash::Example6, type: :service do
             )
           end
 
-          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name).contains("John Kennedy") }
         end
       end
     end
