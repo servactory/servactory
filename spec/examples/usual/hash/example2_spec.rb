@@ -40,7 +40,7 @@ RSpec.describe Usual::Hash::Example2, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:full_name).with("John <unknown> Kennedy") }
+        it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
       end
     end
 
@@ -88,7 +88,7 @@ RSpec.describe Usual::Hash::Example2, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:full_name).with("John <unknown> Kennedy") }
+        it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
       end
     end
 

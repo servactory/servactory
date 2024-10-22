@@ -23,8 +23,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example16, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:ids?).with(false) }
-        it { expect(perform).to have_output(:ids).with([]) }
+        it { expect(perform).to have_output(:ids?).contains(false) }
+        it { expect(perform).to have_output(:ids).contains([]) }
       end
 
       describe "but the data required for work is invalid" do
@@ -115,8 +115,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example16, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:ids?).with(false) }
-        it { expect(perform).to have_output(:ids).with([]) }
+        it { expect(perform).to have_output(:ids?).contains(false) }
+        it { expect(perform).to have_output(:ids).contains([]) }
       end
 
       describe "but the data required for work is invalid" do

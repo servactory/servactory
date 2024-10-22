@@ -28,8 +28,8 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:invoice_numbers?).with(true) }
-        it { expect(perform).to have_output(:invoice_numbers).with(%w[7650AE B4EA1B A7BC86 BD2D6B]) }
+        it { expect(perform).to have_output(:invoice_numbers?).contains(true) }
+        it { expect(perform).to have_output(:invoice_numbers).contains(%w[7650AE B4EA1B A7BC86 BD2D6B]) }
       end
 
       describe "but the data required for work is invalid" do
@@ -151,8 +151,8 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:invoice_numbers?).with(true) }
-        it { expect(perform).to have_output(:invoice_numbers).with(%w[7650AE B4EA1B A7BC86 BD2D6B]) }
+        it { expect(perform).to have_output(:invoice_numbers?).contains(true) }
+        it { expect(perform).to have_output(:invoice_numbers).contains(%w[7650AE B4EA1B A7BC86 BD2D6B]) }
       end
 
       describe "but the data required for work is invalid" do

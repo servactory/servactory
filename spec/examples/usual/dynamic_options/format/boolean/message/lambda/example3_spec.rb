@@ -19,8 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example3
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:boolean?).with(true) }
-        it { expect(perform).to have_output(:boolean).with("true") }
+        it { expect(perform).to have_output(:boolean?).contains(true) }
+        it { expect(perform).to have_output(:boolean).contains("true") }
       end
 
       describe "but the data required for work is invalid" do
@@ -62,8 +62,8 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example3
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:boolean?).with(true) }
-        it { expect(perform).to have_output(:boolean).with("true") }
+        it { expect(perform).to have_output(:boolean?).contains(true) }
+        it { expect(perform).to have_output(:boolean).contains("true") }
       end
 
       describe "but the data required for work is invalid" do
