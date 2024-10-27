@@ -78,6 +78,15 @@ module Servactory
 
           allow(service_class_name).to(
             receive(method_call)
+              .with(
+                if service_class_name.info.inputs.keys.empty?
+                  no_args
+                else
+                  service_class_name.info.inputs.keys.to_h do |key|
+                    [key, anything]
+                  end
+                end
+              )
               .public_send(
                 and_return_or_raise,
                 if as_success
