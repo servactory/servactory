@@ -4,36 +4,36 @@ module Servactory
   module TestKit
     module Rspec
       module Helpers
-        def allow_service_as_success!(service_class_name, &block)
-          allow_service!(service_class_name, :as_success, &block)
+        def allow_service_as_success!(service_class_name, with: nil, &block)
+          allow_service!(service_class_name, :as_success, with:, &block)
         end
 
-        def allow_service_as_success(service_class_name, &block)
-          allow_service(service_class_name, :as_success, &block)
+        def allow_service_as_success(service_class_name, with: nil, &block)
+          allow_service(service_class_name, :as_success, with:, &block)
         end
 
-        def allow_service_as_failure!(service_class_name, &block)
-          allow_service!(service_class_name, :as_failure, &block)
+        def allow_service_as_failure!(service_class_name, with: nil, &block)
+          allow_service!(service_class_name, :as_failure, with:, &block)
         end
 
-        def allow_service_as_failure(service_class_name, &block)
-          allow_service(service_class_name, :as_failure, &block)
+        def allow_service_as_failure(service_class_name, with: nil, &block)
+          allow_service(service_class_name, :as_failure, with:, &block)
         end
 
         ########################################################################
 
-        def allow_service!(service_class_name, result_type, &block)
-          allow_servactory(service_class_name, :call!, result_type, &block)
+        def allow_service!(service_class_name, result_type, with: nil, &block)
+          allow_servactory(service_class_name, :call!, result_type, with:, &block)
         end
 
-        def allow_service(service_class_name, result_type, &block)
-          allow_servactory(service_class_name, :call, result_type, &block)
+        def allow_service(service_class_name, result_type, with: nil, &block)
+          allow_servactory(service_class_name, :call, result_type, with:, &block)
         end
 
         ########################################################################
 
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-        def allow_servactory(service_class_name, method_call, result_type)
+        def allow_servactory(service_class_name, method_call, result_type, with: nil)
           method_call = method_call.to_sym
           result_type = result_type.to_sym
 
@@ -79,7 +79,9 @@ module Servactory
           allow(service_class_name).to(
             receive(method_call)
               .with(
-                if service_class_name.info.inputs.keys.empty?
+                if with.present?
+                  with
+                elsif service_class_name.info.inputs.keys.empty?
                   no_args
                 else
                   service_class_name.info.inputs.keys.to_h do |key|
