@@ -81,12 +81,10 @@ module Servactory
               .with(
                 if with.present?
                   with
-                elsif service_class_name.info.inputs.keys.empty?
+                elsif (input_names = service_class_name.info.inputs.keys).empty?
                   no_args
                 else
-                  service_class_name.info.inputs.keys.to_h do |key|
-                    [key, anything]
-                  end
+                  input_names.to_h { |input_name| [input_name, anything] }
                 end
               )
               .public_send(
