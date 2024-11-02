@@ -40,7 +40,7 @@ module Servactory
         **options
       )
         @name = name
-        @internal_name = as.present? ? as : name
+        @internal_name = as.presence || name
         @hash_mode_class_names = hash_mode_class_names
         @option_helpers = option_helpers
 
@@ -48,7 +48,7 @@ module Servactory
       end
       # rubocop:enable Style/KeywordParametersOrder
 
-      def method_missing(name, *args, &block)
+      def method_missing(name, *args, &)
         option = @collection_of_options.find_by(name:)
 
         return super if option.nil?

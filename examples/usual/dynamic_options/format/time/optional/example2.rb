@@ -23,7 +23,7 @@ module Usual
             end
 
             def assign_output
-              outputs.started_at = internals.started_at.present? ? ::Time.parse(internals.started_at) : nil
+              outputs.started_at = internals.started_at.present? ? ::Time.zone.parse(internals.started_at) : nil
             end
           end
         end

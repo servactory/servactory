@@ -21,7 +21,7 @@ module Usual
               private
 
               def assign_output
-                outputs.started_at = ::Time.parse(inputs.started_at)
+                outputs.started_at = ::Time.zone.parse(inputs.started_at)
               end
             end
           end

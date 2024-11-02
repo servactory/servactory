@@ -3,7 +3,7 @@
 module Usual
   module Stage
     class Example11Transaction
-      def self.transaction(&block) # rubocop:disable Lint/UnusedMethodArgument
+      def self.transaction(&)
         yield
       end
     end
@@ -31,8 +31,8 @@ module Usual
         outputs.number = 7
       end
 
-      def transaction!(&block)
-        Example11Transaction.transaction(&block)
+      def transaction!(&)
+        Example11Transaction.transaction(&)
       end
     end
   end

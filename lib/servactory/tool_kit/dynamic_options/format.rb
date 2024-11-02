@@ -48,7 +48,7 @@ module Servactory
           time: {
             pattern: nil,
             validator: lambda do |value:|
-              Time.parse(value) and return true
+              Time.zone.parse(value) and return true
             rescue ArgumentError
               false
             end
@@ -122,7 +122,7 @@ module Servactory
             input_name: input.name,
             value:,
             option_name:,
-            format_name: option_value.present? ? option_value : option_value.inspect
+            format_name: option_value.presence || option_value.inspect
           )
         end
 
@@ -135,7 +135,7 @@ module Servactory
             internal_name: internal.name,
             value:,
             option_name:,
-            format_name: option_value.present? ? option_value : option_value.inspect
+            format_name: option_value.presence || option_value.inspect
           )
         end
 
@@ -148,7 +148,7 @@ module Servactory
             output_name: output.name,
             value:,
             option_name:,
-            format_name: option_value.present? ? option_value : option_value.inspect
+            format_name: option_value.presence || option_value.inspect
           )
         end
       end

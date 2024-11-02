@@ -36,10 +36,10 @@ module Servactory
           end
         end
 
-        def stage(&block)
+        def stage(&)
           @current_stage = Stages::Stage.new(position: next_position)
 
-          instance_eval(&block)
+          instance_eval(&)
 
           @current_stage = nil
 
@@ -86,15 +86,15 @@ module Servactory
           collection_of_stages << current_stage
         end
 
-        def method_missing(name, *args, &block)
-          return method_missing_for_action_aliases(name, *args, &block) if config.action_aliases.include?(name)
+        def method_missing(name, ...)
+          return method_missing_for_action_aliases(name, ...) if config.action_aliases.include?(name)
 
-          return method_missing_for_shortcuts_for_make(name, *args, &block) if config.action_shortcuts.include?(name)
+          return method_missing_for_shortcuts_for_make(name, ...) if config.action_shortcuts.include?(name)
 
           super
         end
 
-        def method_missing_for_action_aliases(_alias_name, *args, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def method_missing_for_action_aliases(_alias_name, *args, &)
           method_name = args.first
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
@@ -103,7 +103,7 @@ module Servactory
           make(method_name, **method_options)
         end
 
-        def method_missing_for_shortcuts_for_make(shortcut_name, *args, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def method_missing_for_shortcuts_for_make(shortcut_name, *args, &)
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
           args.each do |method_name|
