@@ -1,1 +1,4 @@
 inherit_gem: { servactory-rubocop: rubocop-gem.yml }
+
+Style/Documentation:
+  Enabled: false
