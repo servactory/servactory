@@ -141,7 +141,7 @@ GEM
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
     securerandom (0.3.1)
-    servactory-rubocop (0.1.0)
+    servactory-rubocop (0.3.0)
       rubocop-factory_bot
       rubocop-performance
       rubocop-rails
