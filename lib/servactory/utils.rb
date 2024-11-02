@@ -63,7 +63,7 @@ module Servactory
     # @param value [#to_s]
     # @return [Boolean]
     def true?(value)
-      !FALSE_VALUES.include?(value)
+      FALSE_VALUES.exclude?(value)
     end
 
     # @param value [#to_s]
@@ -88,7 +88,7 @@ module Servactory
         else
           return false if FALSE_VALUES.include?(value)
 
-          !value.blank?
+          value.present?
         end
       end
     end

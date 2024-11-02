@@ -40,7 +40,7 @@ module Servactory
         **options
       )
         @name = name
-        @internal_name = as.present? ? as : name
+        @internal_name = as.presence || name
         @hash_mode_class_names = hash_mode_class_names
         @option_helpers = option_helpers
 

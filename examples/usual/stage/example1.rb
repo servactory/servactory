@@ -3,7 +3,7 @@
 module Usual
   module Stage
     class Example1Transaction
-      def self.transaction(&block) # rubocop:disable Lint/UnusedMethodArgument
+      def self.transaction
         yield
       end
     end
