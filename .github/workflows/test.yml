@@ -48,7 +48,9 @@ jobs:
           - "3.3"
           - "3.4.0-preview2"
         exclude:
-          - gemfile: rails_8.0
+          - gemfile: rails_8.0.rc1
+            ruby-version: "3.1"
+          - gemfile: rails_8.0.rc2
             ruby-version: "3.1"
 
     steps:
