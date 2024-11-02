@@ -3,7 +3,7 @@
 module Usual
   module Stage
     class Example12Transaction
-      def self.transaction(&)
+      def self.transaction
         yield
       end
     end
@@ -46,8 +46,8 @@ module Usual
         outputs.number = 8
       end
 
-      def transaction!(&)
-        Example12Transaction.transaction(&)
+      def transaction!(&block)
+        Example12Transaction.transaction(&block)
       end
 
       def method_for_rollback(e) # rubocop:disable Naming/MethodParameterName

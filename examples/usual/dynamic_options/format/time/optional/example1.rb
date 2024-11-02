@@ -15,7 +15,7 @@ module Usual
             private
 
             def assign_output
-              outputs.started_at = inputs.started_at.present? ? ::Time.zone.parse(inputs.started_at) : nil
+              outputs.started_at = inputs.started_at.present? ? ::Time.parse(inputs.started_at) : nil
             end
           end
         end

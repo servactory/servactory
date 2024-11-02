@@ -3,7 +3,7 @@
 module Usual
   module Stage
     class Example1Transaction
-      def self.transaction(&)
+      def self.transaction
         yield
       end
     end

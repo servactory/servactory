@@ -3,7 +3,7 @@
 module Usual
   module Stage
     class Example11Transaction
-      def self.transaction(&)
+      def self.transaction
         yield
       end
     end
@@ -31,8 +31,8 @@ module Usual
         outputs.number = 7
       end
 
-      def transaction!(&)
-        Example11Transaction.transaction(&)
+      def transaction!(&block)
+        Example11Transaction.transaction(&block)
       end
     end
   end
