@@ -48,7 +48,7 @@ module Servactory
           time: {
             pattern: nil,
             validator: lambda do |value:|
-              Time.zone.parse(value) and return true
+              Time.parse(value) and return true
             rescue ArgumentError
               false
             end

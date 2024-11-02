@@ -36,10 +36,10 @@ module Servactory
           end
         end
 
-        def stage(&)
+        def stage(&block)
           @current_stage = Stages::Stage.new(position: next_position)
 
-          instance_eval(&)
+          instance_eval(&block)
 
           @current_stage = nil
 
@@ -94,7 +94,7 @@ module Servactory
           super
         end
 
-        def method_missing_for_action_aliases(_alias_name, *args, &)
+        def method_missing_for_action_aliases(_alias_name, *args)
           method_name = args.first
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
@@ -103,7 +103,7 @@ module Servactory
           make(method_name, **method_options)
         end
 
-        def method_missing_for_shortcuts_for_make(shortcut_name, *args, &)
+        def method_missing_for_shortcuts_for_make(shortcut_name, *args)
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
           args.each do |method_name|

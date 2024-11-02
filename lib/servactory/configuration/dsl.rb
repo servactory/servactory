@@ -41,10 +41,10 @@ module Servactory
 
         private
 
-        def configuration(&)
+        def configuration(&block)
           @configuration_factory ||= Factory.new(config)
 
-          @configuration_factory.instance_eval(&)
+          @configuration_factory.instance_eval(&block)
         end
       end
     end

@@ -48,7 +48,7 @@ module Servactory
       end
       # rubocop:enable Style/KeywordParametersOrder
 
-      def method_missing(name, *args, &)
+      def method_missing(name, *args, &block)
         option = @collection_of_options.find_by(name:)
 
         return super if option.nil?
