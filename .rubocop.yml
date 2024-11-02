@@ -1,1 +1,1 @@
-inherit_gem: { servactory-rubocop: rubocop.yml }
+inherit_gem: { servactory-rubocop: rubocop-gem.yml }
