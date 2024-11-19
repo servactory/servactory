@@ -46,7 +46,7 @@ module Servactory
             def submatcher_passes?(_subject)
               attribute_default_value = attribute_data.fetch(:default)
 
-              attribute_default_value.casecmp(default_value).zero?
+              attribute_default_value.to_s.casecmp(default_value.to_s).zero?
             end
 
             def build_missing_option
