@@ -1,5 +1,83 @@
 # Changelog
 
+## [v2.9.1](https://github.com/servactory/servactory/tree/v2.9.1) (2024-11-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0...v2.9.1)
+
+## [v2.9.0](https://github.com/servactory/servactory/tree/v2.9.0) (2024-11-08)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc9...v2.9.0)
+
+**Breaking changes:**
+
+- Change internal method names and associated translation keys [\#241](https://github.com/servactory/servactory/pull/241) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Apply Servactory RuboCop [\#249](https://github.com/servactory/servactory/pull/249) ([afuno](https://github.com/afuno))
+- Add `with` support for RSpec Mocks [\#248](https://github.com/servactory/servactory/pull/248) ([afuno](https://github.com/afuno))
+- Improve `be_failure_service` matcher in RSpec [\#245](https://github.com/servactory/servactory/pull/245) ([afuno](https://github.com/afuno))
+- Add access to context in exceptions for use inside Datory [\#243](https://github.com/servactory/servactory/pull/243) ([afuno](https://github.com/afuno))
+- Add service information to attribute exceptions [\#242](https://github.com/servactory/servactory/pull/242) ([afuno](https://github.com/afuno))
+- Improve uniqueness of types [\#240](https://github.com/servactory/servactory/pull/240) ([afuno](https://github.com/afuno))
+- Native support for Datory [\#238](https://github.com/servactory/servactory/pull/238) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Update spec matchers from `with` to `contains` [\#247](https://github.com/servactory/servactory/pull/247) ([afuno](https://github.com/afuno))
+- Fix class checking inside `be_failure_service` [\#244](https://github.com/servactory/servactory/pull/244) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[08.11.2024\] Remove deprecated files and update dependencies [\#251](https://github.com/servactory/servactory/pull/251) ([afuno](https://github.com/afuno))
+- \[14.10.2024\] Update libraries [\#246](https://github.com/servactory/servactory/pull/246) ([afuno](https://github.com/afuno))
+- Add support for Ruby version 3.4.0-preview2 [\#227](https://github.com/servactory/servactory/pull/227) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
+- Clarify Rails 8.0 versions in CI [\#250](https://github.com/servactory/servactory/pull/250) ([afuno](https://github.com/afuno))
+
+## [v2.9.0.rc9](https://github.com/servactory/servactory/tree/v2.9.0.rc9) (2024-11-03)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc8...v2.9.0.rc9)
+
+**Implemented enhancements:**
+
+- Apply Servactory RuboCop [\#249](https://github.com/servactory/servactory/pull/249) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
+- Clarify Rails 8.0 versions in CI [\#250](https://github.com/servactory/servactory/pull/250) ([afuno](https://github.com/afuno))
+
+## [v2.9.0.rc8](https://github.com/servactory/servactory/tree/v2.9.0.rc8) (2024-10-27)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc7...v2.9.0.rc8)
+
+**Implemented enhancements:**
+
+- Add `with` support for RSpec Mocks [\#248](https://github.com/servactory/servactory/pull/248) ([afuno](https://github.com/afuno))
+
+## [v2.9.0.rc7](https://github.com/servactory/servactory/tree/v2.9.0.rc7) (2024-10-22)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc6...v2.9.0.rc7)
+
+**Fixed:**
+
+- Update spec matchers from `with` to `contains` [\#247](https://github.com/servactory/servactory/pull/247) ([afuno](https://github.com/afuno))
+
+## [v2.9.0.rc6](https://github.com/servactory/servactory/tree/v2.9.0.rc6) (2024-10-13)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc5...v2.9.0.rc6)
+
+**Implemented enhancements:**
+
+- Improve `be_failure_service` matcher in RSpec [\#245](https://github.com/servactory/servactory/pull/245) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[14.10.2024\] Update libraries [\#246](https://github.com/servactory/servactory/pull/246) ([afuno](https://github.com/afuno))
+- Add support for Ruby version 3.4.0-preview2 [\#227](https://github.com/servactory/servactory/pull/227) ([afuno](https://github.com/afuno))
+
 ## [v2.9.0.rc5](https://github.com/servactory/servactory/tree/v2.9.0.rc5) (2024-10-10)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc4...v2.9.0.rc5)
