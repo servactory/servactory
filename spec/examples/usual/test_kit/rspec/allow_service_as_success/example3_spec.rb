@@ -21,10 +21,22 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example3, type: :se
 
         include_examples "success result class"
 
-        it "returns success of child class" do
+        it "returns success of child class", :aggregate_failures do
           result = perform
 
-          expect(result.child_result).to be_success_service.with_output(:data, "New data!")
+          # NOTE: Checking the `with_output` chain.
+          expect(result.child_result).to(
+            be_success_service
+              .with_output(:data, "New data!")
+          )
+
+          # NOTE: Checking the `with_outputs` chain.
+          expect(result.child_result).to(
+            be_success_service
+              .with_outputs(
+                data: "New data!"
+              )
+          )
         end
       end
     end
@@ -59,10 +71,22 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example3, type: :se
           expect(result.child_result.data).to eq("New data!")
         end
 
-        it "returns success of child class" do
+        it "returns success of child class", :aggregate_failures do
           result = perform
 
-          expect(result.child_result).to be_success_service.with_output(:data, "New data!")
+          # NOTE: Checking the `with_output` chain.
+          expect(result.child_result).to(
+            be_success_service
+              .with_output(:data, "New data!")
+          )
+
+          # NOTE: Checking the `with_outputs` chain.
+          expect(result.child_result).to(
+            be_success_service
+              .with_outputs(
+                data: "New data!"
+              )
+          )
         end
       end
     end

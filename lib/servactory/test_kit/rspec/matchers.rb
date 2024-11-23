@@ -151,14 +151,14 @@ module Servactory
                   MESSAGE
                 end
 
-                expected_value = actual.public_send(key)
+                received_value = actual.public_send(key)
                 next if actual.public_send(key) == value
 
                 break <<~MESSAGE
                   Incorrect result value for #{key}:
 
-                    expected #{expected_value.inspect}
-                         got #{value.inspect}
+                    expected #{value.inspect}
+                         got #{received_value.inspect}
                 MESSAGE
               end
             end
