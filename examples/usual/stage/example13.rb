@@ -2,32 +2,28 @@
 
 module Usual
   module Stage
-    class Example3Transaction
+    class Example13Transaction
+      LikeAnActiveRecordException = Class.new(ArgumentError)
+
       def self.transaction
         yield
+
+        raise LikeAnActiveRecordException, "Invalid number"
       end
     end
 
-    class Example3 < ApplicationService::Base
+    class Example13 < ApplicationService::Base
       output :number, type: Integer
 
-      make :assign_number_4
-
       stage do
-        wrap_in ->(methods:, **) { Example3Transaction.transaction { methods.call } }
+        wrap_in ->(methods:, **) { Example13Transaction.transaction { methods.call } }
 
         make :assign_number_5
-        make :assign_number_6, position: 99
+        make :assign_number_6
         make :assign_number_7
       end
 
-      make :assign_number_8
-
       private
-
-      def assign_number_4
-        outputs.number = 4
-      end
 
       def assign_number_5
         outputs.number = 5
@@ -39,10 +35,6 @@ module Usual
 
       def assign_number_7
         outputs.number = 7
-      end
-
-      def assign_number_8
-        outputs.number = 8
       end
     end
   end

@@ -18,7 +18,7 @@ module Usual
         make :assign_number_6
         make :assign_number_7
 
-        wrap_in ->(methods:) { Example5Transaction.transaction { methods.call } }
+        wrap_in ->(methods:, **) { Example5Transaction.transaction { methods.call } }
         rollback :method_for_rollback
       end
 
