@@ -5,8 +5,8 @@ module Servactory
     class IncomingArguments
       attr_reader :arguments
 
-      def initialize(config, **arguments)
-        @config = config
+      def initialize(context, **arguments)
+        @context = context
         @arguments = arguments
       end
 
@@ -33,11 +33,11 @@ module Servactory
       ##########################################################################
 
       def method_missing(name, *args, &block)
-        input_name = @config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
+        input_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
 
-        input_value = @arguments.fetch(input_name) { super }
+        input_value = @arguments.fetch(input_name) { raise_error_for(input_name) }
 
-        if name.to_s.end_with?("?") && @config.predicate_methods_enabled?
+        if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
           Servactory::Utils.query_attribute(input_value)
         else
           input_value
@@ -45,7 +45,22 @@ module Servactory
       end
 
       def respond_to_missing?(name, *)
-        @arguments.fetch(name) { super }
+        @arguments.fetch(name) { raise_error_for(name) }
+      end
+
+      ##########################################################################
+
+      def raise_error_for(input_name)
+        message_text = @context.send(:servactory_service_info).translate(
+          "inputs.undefined.for_fetch",
+          input_name:
+        )
+
+        raise @context.class.config.input_exception_class.new(
+          context: @context,
+          message: message_text,
+          input_name:
+        )
       end
     end
   end

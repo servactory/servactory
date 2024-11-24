@@ -1,13 +1,13 @@
 module Servactory
   module Inputs
     class IncomingArguments
-      @config: Configuration::Setup
+      @context: instance
 
       @arguments: Hash[Symbol, untyped]
 
       attr_reader arguments: Hash[Symbol, untyped]
 
-      def initialize: (Configuration::Setup config, **Hash[Symbol, untyped] arguments) -> void
+      def initialize: (instance context, **Hash[Symbol, untyped] arguments) -> void
 
       def names: () -> Array[Symbol]
 

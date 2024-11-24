@@ -8,13 +8,20 @@ module Servactory
           class ValidWithMatcher # rubocop:disable Metrics/ClassLength
             attr_reader :missing_option
 
-            def initialize(described_class, attribute_type, attribute_name, attributes)
+            def initialize(described_class, attribute_type, attribute_name, attributes) # rubocop:disable Metrics/MethodLength
               @described_class = described_class
               @attribute_type = attribute_type
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
               @attribute_name = attribute_name
+
               @attributes =
-                attributes.is_a?(FalseClass) ? attributes : Servactory::Utils.adapt(described_class.config, attributes)
+                if attributes.is_a?(FalseClass)
+                  attributes
+                else
+                  # NOTE: Configuration based on service class instance.
+                  #       Perhaps it is worth finding a better solution.
+                  Servactory::Utils.adapt(described_class.new, attributes)
+                end
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 

@@ -22,11 +22,8 @@ RSpec.describe Wrong::Prepare::Example3, type: :service do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              "undefined method `preparation_enabled' for an instance of Servactory::Inputs::IncomingArguments"
-              # TODO: Need to add a prepared translation of the error.
-              # ApplicationService::Exceptions::Input,
-              # "[Wrong::Prepare::Example3] Conflict in `event_name` input options: `prepare_vs_inclusion`"
+              ApplicationService::Exceptions::Input,
+              "[Wrong::Prepare::Example3] Undefined input attribute `preparation_enabled`"
             )
           )
         end
@@ -55,11 +52,8 @@ RSpec.describe Wrong::Prepare::Example3, type: :service do
         it "returns expected error" do
           expect { perform }.to(
             raise_error(
-              NoMethodError,
-              "undefined method `preparation_enabled' for an instance of Servactory::Inputs::IncomingArguments"
-              # TODO: Need to add a prepared translation of the error.
-              # ApplicationService::Exceptions::Input,
-              # "[Wrong::Prepare::Example3] Conflict in `event_name` input options: `prepare_vs_inclusion`"
+              ApplicationService::Exceptions::Input,
+              "[Wrong::Prepare::Example3] Undefined input attribute `preparation_enabled`"
             )
           )
         end
