@@ -2,7 +2,7 @@ module Servactory
   module Utils
     FALSE_VALUES: Set[false | Symbol | String | Integer]
 
-    def self?.adapt: ((::Hash[untyped, untyped] | Datory::Base) data) -> Hash[Symbol, untyped]
+    def self?.adapt: (Configuration::Setup config, (::Hash[untyped, untyped] | Datory::Base | Inputs::IncomingArguments) data) -> Inputs::IncomingArguments
 
     def self?.fetch_hash_with_desired_attribute: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> Hash[Symbol, untyped]
 

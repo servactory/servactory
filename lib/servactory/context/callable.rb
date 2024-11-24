@@ -28,7 +28,7 @@ module Servactory
       private
 
       def _call!(context, incoming_arguments)
-        incoming_arguments = Servactory::Utils.adapt(incoming_arguments)
+        incoming_arguments = Servactory::Utils.adapt(config, incoming_arguments)
 
         context.send(
           :_call!,
