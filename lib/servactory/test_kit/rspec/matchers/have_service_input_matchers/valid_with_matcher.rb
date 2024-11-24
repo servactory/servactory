@@ -13,7 +13,8 @@ module Servactory
               @attribute_type = attribute_type
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
               @attribute_name = attribute_name
-              @attributes = attributes.is_a?(FalseClass) ? attributes : Servactory::Utils.adapt(attributes)
+              @attributes =
+                attributes.is_a?(FalseClass) ? attributes : Servactory::Utils.adapt(described_class.config, attributes)
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
@@ -65,7 +66,7 @@ module Servactory
               option_types = attribute_data.fetch(:types)
 
               prepared_attributes = attributes.dup
-              prepared_attributes[attribute_name] = Servactory::TestKit::FakeType.new
+              prepared_attributes.assign(attribute_name, Servactory::TestKit::FakeType.new)
 
               input_required_message =
                 I18n.t(
@@ -85,7 +86,7 @@ module Servactory
               return true unless input_required
 
               prepared_attributes = attributes.dup
-              prepared_attributes[attribute_name] = nil
+              prepared_attributes.assign(attribute_name, nil)
 
               input_required_message = attribute_data.fetch(:required).fetch(:message)
 
@@ -106,7 +107,7 @@ module Servactory
               return true if input_required
 
               prepared_attributes = attributes.dup
-              prepared_attributes[attribute_name] = nil
+              prepared_attributes.assign(attribute_name, nil)
 
               expect_failure_with!(prepared_attributes, nil)
             end
@@ -129,7 +130,7 @@ module Servactory
               wrong_value = Servactory::TestKit::Utils::Faker.fetch_value_for(input_inclusion_in.first.class)
 
               prepared_attributes = attributes.dup
-              prepared_attributes[attribute_name] = wrong_value
+              prepared_attributes.assign(attribute_name, wrong_value)
 
               input_required_message = attribute_data.fetch(:inclusion).fetch(:message)
 
