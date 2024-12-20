@@ -158,7 +158,7 @@ gems:
   source:
     type: stdlib
 - name: servactory
-  version: 2.9.1
+  version: 2.10.0
   source:
     type: rubygems
 - name: singleton
