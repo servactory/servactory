@@ -23,10 +23,10 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:letters?).with(true) }
-        it { expect(perform).to have_output(:letters).with([%w[A B], ["C", "D", %w[E F]]]) }
-        it { expect(perform).to have_output(:desired_letter?).with(true) }
-        it { expect(perform).to have_output(:desired_letter).with("E") }
+        it { expect(perform).to have_output(:letters?).contains(true) }
+        it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F]]]) }
+        it { expect(perform).to have_output(:desired_letter?).contains(true) }
+        it { expect(perform).to have_output(:desired_letter).contains("E") }
       end
 
       describe "but the data required for work is invalid" do
@@ -107,10 +107,10 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:letters?).with(true) }
-        it { expect(perform).to have_output(:letters).with([%w[A B], ["C", "D", %w[E F]]]) }
-        it { expect(perform).to have_output(:desired_letter?).with(true) }
-        it { expect(perform).to have_output(:desired_letter).with("E") }
+        it { expect(perform).to have_output(:letters?).contains(true) }
+        it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F]]]) }
+        it { expect(perform).to have_output(:desired_letter?).contains(true) }
+        it { expect(perform).to have_output(:desired_letter).contains("E") }
       end
 
       describe "but the data required for work is invalid" do

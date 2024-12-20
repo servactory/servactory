@@ -41,10 +41,19 @@ module Servactory
           end
         end
 
-        def call_wrapper_with_methods(wrapper, rollback, methods)
+        def call_wrapper_with_methods(wrapper, rollback, methods) # rubocop:disable Metrics/MethodLength
           wrapper.call(methods: -> { call_methods(methods) }, context: @context)
         rescue StandardError => e
-          @context.send(rollback, e) if rollback.present?
+          if rollback.present?
+            @context.send(rollback, e)
+          else
+            @context.fail!(
+              message: e.message,
+              meta: {
+                original_exception: e
+              }
+            )
+          end
         end
 
         def call_methods(methods)

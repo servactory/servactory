@@ -19,8 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example1, type: :
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:email?).with(false) }
-        it { expect(perform).to have_output(:email).with(nil) }
+        it { expect(perform).to have_output(:email?).contains(false) }
+        it { expect(perform).to have_output(:email).contains(nil) }
       end
 
       describe "but the data required for work is invalid" do
@@ -63,8 +63,8 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example1, type: :
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:email?).with(false) }
-        it { expect(perform).to have_output(:email).with(nil) }
+        it { expect(perform).to have_output(:email?).contains(false) }
+        it { expect(perform).to have_output(:email).contains(nil) }
       end
 
       describe "but the data required for work is invalid" do

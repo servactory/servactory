@@ -24,8 +24,8 @@ RSpec.describe Usual::Basic::Example8, type: :service do
         include_examples "success result class"
 
         it { expect(perform).to have_output(:user).instance_of(Usual::Basic::Example8::User) }
-        it { expect(perform).to have_output(:user).nested(:email).with("correct@email.com") }
-        it { expect(perform).to have_output(:user).nested(:password).with("correct_password") }
+        it { expect(perform).to have_output(:user).nested(:email).contains("correct@email.com") }
+        it { expect(perform).to have_output(:user).nested(:password).contains("correct_password") }
       end
 
       describe "but the data required for work is invalid" do
@@ -90,8 +90,8 @@ RSpec.describe Usual::Basic::Example8, type: :service do
         include_examples "success result class"
 
         it { expect(perform).to have_output(:user).instance_of(Usual::Basic::Example8::User) }
-        it { expect(perform).to have_output(:user).nested(:email).with("correct@email.com") }
-        it { expect(perform).to have_output(:user).nested(:password).with("correct_password") }
+        it { expect(perform).to have_output(:user).nested(:email).contains("correct@email.com") }
+        it { expect(perform).to have_output(:user).nested(:password).contains("correct_password") }
       end
 
       describe "but the data required for work is invalid" do

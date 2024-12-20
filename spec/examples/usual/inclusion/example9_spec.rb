@@ -21,7 +21,7 @@ RSpec.describe Usual::Inclusion::Example9, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:event_name).with("approved") }
+        it { expect(perform).to have_output(:event_name).contains("approved") }
       end
 
       describe "but the data required for work is invalid" do
@@ -99,7 +99,7 @@ RSpec.describe Usual::Inclusion::Example9, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:event_name).with("approved") }
+        it { expect(perform).to have_output(:event_name).contains("approved") }
       end
 
       describe "but the data required for work is invalid" do

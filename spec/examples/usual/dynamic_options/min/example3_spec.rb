@@ -22,8 +22,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with(10) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains(10) }
         end
 
         context "when `data` is `String`" do
@@ -31,8 +31,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with("Sesquipedalianism") }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains("Sesquipedalianism") }
         end
 
         context "when `data` is `Array`" do
@@ -40,8 +40,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
         end
 
         context "when `data` is `Hash`" do
@@ -49,8 +49,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with({ a: 1, b: 2, c: 3, d: 4 }) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains({ a: 1, b: 2, c: 3, d: 4 }) }
         end
       end
 
@@ -255,8 +255,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
         context "when `data` is `Integer`" do
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with(10) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains(10) }
         end
 
         context "when `data` is `String`" do
@@ -264,8 +264,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with("Sesquipedalianism") }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains("Sesquipedalianism") }
         end
 
         context "when `data` is `Array`" do
@@ -273,8 +273,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
         end
 
         context "when `data` is `Hash`" do
@@ -282,8 +282,8 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with({ a: 1, b: 2, c: 3, d: 4 }) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains({ a: 1, b: 2, c: 3, d: 4 }) }
         end
       end
 

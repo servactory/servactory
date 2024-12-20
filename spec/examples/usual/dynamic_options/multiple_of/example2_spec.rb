@@ -40,8 +40,8 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
         context "when `number` is `Integer`" do
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(90) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90) }
         end
 
         context "when `number` is `Float`" do
@@ -49,8 +49,8 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(90.0) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90.0) }
         end
 
         context "when `number` is `Rational`" do
@@ -58,8 +58,8 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with((90 / 1)) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains((90 / 1)) }
         end
 
         context "when `number` is `BigDecimal`" do
@@ -67,8 +67,8 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(0.90e2) } # rubocop:disable Style/ExponentialNotation
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(0.90e2) } # rubocop:disable Style/ExponentialNotation
         end
       end
 
@@ -295,8 +295,8 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
         context "when `number` is `Integer`" do
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(90) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90) }
         end
 
         context "when `number` is `Float`" do
@@ -304,8 +304,8 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(90.0) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90.0) }
         end
 
         context "when `number` is `Rational`" do
@@ -313,8 +313,8 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with((90 / 1)) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains((90 / 1)) }
         end
 
         context "when `number` is `BigDecimal`" do
@@ -322,8 +322,8 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           include_examples "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(0.90e2) } # rubocop:disable Style/ExponentialNotation
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(0.90e2) } # rubocop:disable Style/ExponentialNotation
         end
       end
 

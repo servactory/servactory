@@ -17,7 +17,7 @@ module Servactory
               if data.is_a?(Hash) && data.key?(body_key)
                 data.delete(body_key)
               else
-                data.present? ? data : body_fallback
+                data.presence || body_fallback
               end
 
             @message = (data.is_a?(Hash) && data.key?(:message) ? data.delete(:message) : nil)
@@ -81,21 +81,21 @@ module Servactory
 
             if Servactory::Utils.really_input?(input)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes.merge(input:)) : option.message
+                is_option_message_proc ? option.message.call(**default_attributes, input:) : option.message
               else
-                message_for_input_with(**default_attributes.merge(input:))
+                message_for_input_with(**default_attributes, input:)
               end
             elsif Servactory::Utils.really_internal?(internal)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes.merge(internal:)) : option.message
+                is_option_message_proc ? option.message.call(**default_attributes, internal:) : option.message
               else
-                message_for_internal_with(**default_attributes.merge(internal:))
+                message_for_internal_with(**default_attributes, internal:)
               end
             elsif Servactory::Utils.really_output?(output)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes.merge(output:)) : option.message
+                is_option_message_proc ? option.message.call(**default_attributes, output:) : option.message
               else
-                message_for_output_with(**default_attributes.merge(output:))
+                message_for_output_with(**default_attributes, output:)
               end
             end
           end

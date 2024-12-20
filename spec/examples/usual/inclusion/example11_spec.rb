@@ -21,7 +21,7 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:entity_class).with(Usual::Inclusion::Example11::ThirdEntity) }
+        it { expect(perform).to have_output(:entity_class).contains(Usual::Inclusion::Example11::ThirdEntity) }
       end
 
       describe "but the data required for work is invalid" do
@@ -109,7 +109,7 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:entity_class).with(Usual::Inclusion::Example11::ThirdEntity) }
+        it { expect(perform).to have_output(:entity_class).contains(Usual::Inclusion::Example11::ThirdEntity) }
       end
 
       describe "but the data required for work is invalid" do

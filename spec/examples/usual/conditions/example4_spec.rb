@@ -13,7 +13,7 @@ RSpec.describe Usual::Conditions::Example4, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:number).with(7) }
+        it { expect(perform).to have_output(:number).contains(7) }
       end
     end
   end
@@ -30,7 +30,7 @@ RSpec.describe Usual::Conditions::Example4, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:number).with(7) }
+        it { expect(perform).to have_output(:number).contains(7) }
       end
     end
   end

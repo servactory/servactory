@@ -22,8 +22,8 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
         include_examples "success result class"
 
         it { expect(perform).to have_output(:balance_with_bonus).instance_of(Usual::Prepare::Example1::Money) }
-        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).with(3_000_00) }
-        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).with(:USD) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).contains(3_000_00) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).contains(:USD) }
       end
     end
 
@@ -53,8 +53,8 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
         include_examples "success result class"
 
         it { expect(perform).to have_output(:balance_with_bonus).instance_of(Usual::Prepare::Example1::Money) }
-        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).with(3_000_00) }
-        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).with(:USD) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).contains(3_000_00) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).contains(:USD) }
       end
     end
 
