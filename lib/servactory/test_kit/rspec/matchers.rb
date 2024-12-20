@@ -42,6 +42,10 @@ module Servactory
             @value = value
           end
 
+          chain :note do |note|
+            @note = note
+          end
+
           failure_message do |actual|
             match_for(actual, output_name)
           end
@@ -80,6 +84,16 @@ module Servactory
                 RSpec::Matchers::BuiltIn::Eq.new(@value)
               end
             )
+
+            if defined?(@note) && @note.present?
+              attribute_data = described_class.info.outputs.fetch(output_name)
+
+              attribute_note = attribute_data.fetch(:note)
+
+              expect(@note).to(RSpec::Matchers::BuiltIn::Eq.new(attribute_note))
+            end
+
+            self
           end
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
