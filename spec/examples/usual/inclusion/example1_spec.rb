@@ -22,8 +22,8 @@ RSpec.describe Usual::Inclusion::Example1, type: :service do
         include_examples "success result class"
 
         it { expect(perform).to have_output(:event).instance_of(Usual::Inclusion::Example1::Event) }
-        it { expect(perform).to have_output(:event).nested(:id).with("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-        it { expect(perform).to have_output(:event).nested(:event_name).with("created") }
+        it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
+        it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
       end
 
       describe "but the data required for work is invalid" do
@@ -77,8 +77,8 @@ RSpec.describe Usual::Inclusion::Example1, type: :service do
         include_examples "success result class"
 
         it { expect(perform).to have_output(:event).instance_of(Usual::Inclusion::Example1::Event) }
-        it { expect(perform).to have_output(:event).nested(:id).with("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-        it { expect(perform).to have_output(:event).nested(:event_name).with("created") }
+        it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
+        it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
       end
 
       describe "but the data required for work is invalid" do

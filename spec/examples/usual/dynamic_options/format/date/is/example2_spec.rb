@@ -19,8 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example2, type: :service
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_on?).with(true) }
-        it { expect(perform).to have_output(:started_on).with(Date.parse(started_on)) }
+        it { expect(perform).to have_output(:started_on?).contains(true) }
+        it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
       end
 
       describe "but the data required for work is invalid" do
@@ -63,8 +63,8 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example2, type: :service
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_on?).with(true) }
-        it { expect(perform).to have_output(:started_on).with(Date.parse(started_on)) }
+        it { expect(perform).to have_output(:started_on?).contains(true) }
+        it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
       end
 
       describe "but the data required for work is invalid" do

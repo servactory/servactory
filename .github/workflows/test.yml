@@ -15,20 +15,9 @@ on:
 #   contents: read
 
 jobs:
-#  generate-seed:
-#    name: Generate random seed
-#    runs-on: ubuntu-latest
-#    outputs:
-#      seed: ${{ steps.seed_generator.outputs.seed }}
-#    steps:
-#      - id: seed_generator
-#        run: echo "::set-output name=seed::$(shuf -i 0-99999 -n 1)"
-
   rspec:
     name: Ruby ${{matrix.ruby-version}} (${{ matrix.gemfile }})
     runs-on: ubuntu-latest
-#    needs:
-#      - generate-seed
     strategy:
       fail-fast: false
       matrix:
@@ -64,4 +53,4 @@ jobs:
       - name: RSpec
         env:
           BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
-        run: bundle exec rspec # --seed ${{ needs.generate-seed.outputs.seed }}
+        run: bundle exec rspec

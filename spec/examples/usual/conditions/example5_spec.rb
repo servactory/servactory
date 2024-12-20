@@ -21,7 +21,7 @@ RSpec.describe Usual::Conditions::Example5, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:invoice_number).with("AA-7650AE") }
+        it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
       end
 
       describe "but the data required for work is invalid" do
@@ -67,7 +67,7 @@ RSpec.describe Usual::Conditions::Example5, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:invoice_number).with("AA-7650AE") }
+        it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
       end
 
       describe "but the data required for work is invalid" do

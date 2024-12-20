@@ -27,7 +27,7 @@ RSpec.describe Usual::Basic::Example12, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:full_name).with("JOHN FITZGERALD KENNEDY") }
+        it { expect(perform).to have_output(:full_name).contains("JOHN FITZGERALD KENNEDY") }
       end
     end
 
@@ -65,7 +65,7 @@ RSpec.describe Usual::Basic::Example12, type: :service do
       describe "and the data required for work is also valid" do
         include_examples "success result class"
 
-        it { expect(perform).to have_output(:full_name).with("JOHN FITZGERALD KENNEDY") }
+        it { expect(perform).to have_output(:full_name).contains("JOHN FITZGERALD KENNEDY") }
       end
     end
 
