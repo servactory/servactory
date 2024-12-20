@@ -18,7 +18,7 @@ module Servactory
 
           private
 
-          def call_or_fetch_message_from: (Symbol code, untyped options) -> (Array[untyped] | void)
+          def call_or_fetch_message_from: (Symbol code, untyped options) -> (Array[untyped] | nil)
 
           def add_error_with: ((String | Proc) message, Symbol code, (Symbol | nil) reason) -> void
 
