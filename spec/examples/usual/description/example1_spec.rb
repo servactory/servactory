@@ -24,7 +24,7 @@ RSpec.describe Usual::Description::Example1, type: :service do
         it do
           expect(perform).to(
             have_output(:id)
-              .with("61d74de0-7b70-4f80-aefd-d86005d859ed")
+              .contains("61d74de0-7b70-4f80-aefd-d86005d859ed")
               .note("Payment identifier in an external system")
           )
         end
@@ -67,7 +67,7 @@ RSpec.describe Usual::Description::Example1, type: :service do
         it do
           expect(perform).to(
             have_output(:id)
-              .with("61d74de0-7b70-4f80-aefd-d86005d859ed")
+              .contains("61d74de0-7b70-4f80-aefd-d86005d859ed")
               .note("Payment identifier in an external system")
           )
         end
