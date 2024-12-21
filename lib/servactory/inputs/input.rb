@@ -35,13 +35,11 @@ module Servactory
         name,
         *helpers,
         as: nil,
-        hash_mode_class_names:,
         option_helpers:,
         **options
       )
         @name = name
         @internal_name = as.presence || name
-        @hash_mode_class_names = hash_mode_class_names
         @option_helpers = option_helpers
 
         register_options(helpers:, options:)
@@ -68,13 +66,11 @@ module Servactory
 
         options_registrar = Servactory::Maintenance::Attributes::Options::Registrar.register(
           attribute: self,
-          hash_mode_class_names: @hash_mode_class_names,
           options:,
           features: {
             required: true,
             types: true,
             default: true,
-            hash: true,
             inclusion: true,
             must: true,
             prepare: true

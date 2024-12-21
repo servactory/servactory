@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# DEPRECATED: This class needs to be removed.
 module Servactory
   module Maintenance
     module Validations
