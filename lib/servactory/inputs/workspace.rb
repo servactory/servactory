@@ -5,12 +5,13 @@ module Servactory
     module Workspace
       private
 
-      def call!(incoming_arguments:, collection_of_inputs:, **)
+      def call!(incoming_arguments:, **)
         super
 
-        Tools::Unnecessary.find!(self, incoming_arguments, collection_of_inputs)
+        Tools::Store.assign!(self, incoming_arguments)
+        Tools::Unnecessary.find!(self, collection_of_inputs)
         Tools::Rules.check!(self, collection_of_inputs)
-        Tools::Validation.validate!(self, incoming_arguments, collection_of_inputs)
+        Tools::Validation.validate!(self, collection_of_inputs)
       end
     end
   end
