@@ -15,24 +15,28 @@ module Servactory
         inputs.fetch(name, nil)
       end
 
-      def fetch_internal(name)
-        internals.fetch(name, nil)
-      end
-
       def assign_internal(name, value)
         assign_attribute(:internals, name, value)
       end
 
-      def fetch_output(name)
-        outputs.fetch(name, nil)
+      def fetch_internal(name)
+        internals.fetch(name, nil)
       end
 
       def assign_output(name, value)
         assign_attribute(:outputs, name, value)
       end
 
+      def fetch_output(name)
+        outputs.fetch(name, nil)
+      end
+
       def inputs
         @inputs ||= context_data.fetch(:inputs)
+      end
+
+      def internals
+        @internals ||= context_data.fetch(:internals)
       end
 
       def outputs
@@ -43,10 +47,6 @@ module Servactory
 
       def assign_attribute(section, name, value)
         context_data[section].merge!({ name => value })
-      end
-
-      def internals
-        @internals ||= context_data.fetch(:internals)
       end
 
       def context_data
