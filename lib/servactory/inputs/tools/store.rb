@@ -4,8 +4,8 @@ module Servactory
   module Inputs
     module Tools
       class Store
-        def self.assign!(...)
-          new(...).assign!
+        def self.assign(...)
+          new(...).assign
         end
 
         def initialize(context, incoming_arguments)
@@ -13,7 +13,7 @@ module Servactory
           @incoming_arguments = incoming_arguments
         end
 
-        def assign!
+        def assign
           @context.send(:servactory_service_store).assign_inputs(adapted_arguments)
         end
 
