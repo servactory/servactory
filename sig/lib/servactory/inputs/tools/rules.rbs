@@ -5,11 +5,11 @@ module Servactory
         @collection_of_inputs: Inputs
         @context: instance
 
-        def self.check!: (*untyped, **untyped) ?{ (?) -> untyped } -> (nil | Exception)
+        def self.check!: (*untyped, **untyped) ?{ (?) -> untyped } -> Exception?
 
         def initialize: (instance context, Inputs collection_of_inputs) -> void
 
-        def check!: () -> (nil | Exception)
+        def check!: () -> Exception?
 
         private
 

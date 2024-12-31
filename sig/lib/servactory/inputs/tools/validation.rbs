@@ -5,11 +5,11 @@ module Servactory
         @context: instance
         @collection_of_inputs: Collection
 
-        def self.validate!: (*untyped, **untyped) ?{ (?) -> untyped } -> (nil | Exception)
+        def self.validate!: (*untyped, **untyped) ?{ (?) -> untyped } -> Exception?
 
         def initialize: (instance context, Collection collection_of_inputs) -> void
 
-        def validate!: () -> (nil | Exception)
+        def validate!: () -> Exception?
 
         private
 
