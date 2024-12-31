@@ -3,14 +3,13 @@ module Servactory
     module Tools
       class Validation
         @context: instance
-        @incoming_arguments: Hash[Symbol, untyped]
         @collection_of_inputs: Collection
 
-        def self.validate!: (*untyped) ?{ () -> untyped } -> void
+        def self.validate!: (*untyped, **untyped) ?{ (?) -> untyped } -> (nil | Exception)
 
-        def initialize: (instance context, Hash[Symbol, untyped] incoming_arguments, Collection collection_of_inputs) -> void
+        def initialize: (instance context, Collection collection_of_inputs) -> void
 
-        def validate!: () -> void
+        def validate!: () -> (nil | Exception)
 
         private
 

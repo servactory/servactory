@@ -16,11 +16,9 @@ module Servactory
       @outputs: Outputs
       @servactory_service_store: Context::Store
 
-      attr_reader incoming_arguments: Hash[Symbol, untyped]
       attr_reader collection_of_inputs: Inputs::Collection
       attr_reader collection_of_internals: Internals::Collection
       attr_reader collection_of_outputs: Outputs::Collection
-      attr_reader collection_of_stages: Actions::Stages::Collection
 
       def inputs: -> Inputs
       alias inp inputs
@@ -58,7 +56,6 @@ module Servactory
       ) -> void
 
       def call!: (
-        incoming_arguments: Hash[Symbol, untyped],
         collection_of_inputs: Inputs::Collection,
         collection_of_internals: Internals::Collection,
         collection_of_outputs: Outputs::Collection,
