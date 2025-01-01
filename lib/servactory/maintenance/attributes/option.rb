@@ -108,12 +108,12 @@ module Servactory
           return if @define_methods.blank?
 
           @define_methods_template ||= @define_methods.map do |define_method|
-            <<-RUBY
-              def #{define_method.name}
-                #{define_method.content.call(option: @body)}
+            <<-RUBY.squish
+              def #{define_method.name};
+                #{define_method.content.call(option: @body)};
               end
             RUBY
-          end.join("\n")
+          end.join("; ")
         end
       end
     end

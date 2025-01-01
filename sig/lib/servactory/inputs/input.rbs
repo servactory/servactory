@@ -33,7 +33,7 @@ module Servactory
 
       def options_for_checks: () -> Hash[Symbol, untyped]
 
-      def conflict_code: -> (Symbol | nil)
+      def conflict_code: -> Symbol?
 
       def system_name: -> Symbol
 
