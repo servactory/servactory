@@ -3,7 +3,7 @@ module Servactory
     module Workspace
       private
 
-      def call!: (incoming_arguments: Hash[Symbol, untyped], collection_of_inputs: Collection, ** untyped) -> void
+      def call!: (incoming_arguments: Hash[Symbol, untyped], ** untyped) -> void
     end
   end
 end

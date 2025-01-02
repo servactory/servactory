@@ -1,5 +1,14 @@
 # Changelog
 
+## [v2.11.0](https://github.com/servactory/servactory/tree/v2.11.0) (2025-01-01)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.10.0...v2.11.0)
+
+**Implemented enhancements:**
+
+- Refactor input handling to centralize argument management [\#258](https://github.com/servactory/servactory/pull/258) ([afuno](https://github.com/afuno))
+- Add support for Ruby 3.4 [\#257](https://github.com/servactory/servactory/pull/257) ([afuno](https://github.com/afuno))
+
 ## [v2.10.0](https://github.com/servactory/servactory/tree/v2.10.0) (2024-12-20)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.9.2...v2.10.0)

@@ -7,9 +7,8 @@ module Servactory
         RESERVED_ATTRIBUTES = %i[type required default].freeze
         private_constant :RESERVED_ATTRIBUTES
 
-        def initialize(context:, incoming_arguments:, collection_of_inputs:)
+        def initialize(context:, collection_of_inputs:)
           @context = context
-          @incoming_arguments = incoming_arguments
           @collection_of_inputs = collection_of_inputs
         end
 
@@ -49,7 +48,7 @@ module Servactory
 
           return yield if input.nil?
 
-          input_value = @incoming_arguments.fetch(input.name, nil)
+          input_value = @context.send(:servactory_service_store).fetch_input(input.name)
           input_value = input.default if input.optional? && input_value.blank?
 
           input_prepare = input.prepare.fetch(:in, nil)
