@@ -15,7 +15,7 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!: (**untyped) -> (nil | Exception)
+          def call!: (**untyped) -> Exception?
         end
       end
     end
