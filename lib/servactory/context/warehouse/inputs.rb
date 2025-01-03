@@ -50,7 +50,7 @@ module Servactory
         end
 
         def respond_to_missing?(name, *)
-          @arguments.try(name) { raise_error_for(name) }
+          @arguments.fetch(name) { raise_error_for(name) }
         end
 
         ##########################################################################
