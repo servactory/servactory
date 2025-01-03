@@ -40,7 +40,7 @@ module Servactory
 
         private
 
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
         def fetch_with(name:, &block)
           input_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
 
@@ -64,7 +64,7 @@ module Servactory
             input_value
           end
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize,  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
 
         def prepare_hash_values_inside(object:, schema:) # rubocop:disable Metrics/MethodLength
           return object unless object.respond_to?(:fetch)
