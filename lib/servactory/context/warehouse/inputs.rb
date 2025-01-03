@@ -4,9 +4,7 @@ module Servactory
   module Context
     module Warehouse
       class Inputs
-        attr_reader :arguments
-
-        def initialize(context, **arguments)
+        def initialize(context, arguments = {})
           @context = context
           @arguments = arguments
         end
@@ -28,10 +26,6 @@ module Servactory
         def fetch(name, default_value)
           @arguments.fetch(name, default_value)
         end
-
-        # def []=(key, value)
-        #   @arguments[key] = value
-        # end
 
         def assign(key, value)
           @arguments[key] = value

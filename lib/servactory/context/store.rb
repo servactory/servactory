@@ -46,7 +46,7 @@ module Servactory
       private
 
       def assign_attribute(section, name, value)
-        context_data[section].merge!({ name => value })
+        context_data[section].assign(name, value)
       end
 
       def context_data
@@ -56,9 +56,9 @@ module Servactory
       def state
         {
           context_id => {
-            inputs: {},
-            internals: {},
-            outputs: {}
+            inputs: Servactory::Context::Warehouse::Inputs.new(@context),
+            internals: Servactory::Context::Warehouse::Internals.new,
+            outputs: Servactory::Context::Warehouse::Outputs.new
           }
         }
       end

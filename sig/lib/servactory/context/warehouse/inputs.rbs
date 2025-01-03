@@ -2,6 +2,30 @@ module Servactory
   module Context
     module Warehouse
       class Inputs
+        @context: untyped
+
+        @arguments: untyped
+
+        def initialize: (untyped context, ?::Hash[untyped, untyped] arguments) -> void
+
+        def names: () -> untyped
+
+        # QUESTION
+        def to_hash: () -> untyped
+
+        alias to_h to_hash
+
+        def fetch: (untyped name, untyped default_value) -> untyped
+
+        def assign: (untyped key, untyped value) -> untyped
+
+        def merge!: (untyped arguments) -> untyped
+
+        def method_missing: (untyped name, *untyped args) { (?) -> untyped } -> untyped
+
+        def respond_to_missing?: (untyped name, *untyped) -> untyped
+
+        def raise_error_for: (untyped input_name) -> untyped
       end
     end
   end

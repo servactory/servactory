@@ -39,7 +39,7 @@ module Servactory
 
       def context_data: () -> Hash[Symbol, untyped]
 
-      def state: () -> Hash[String, Hash[Symbol, untyped]]
+      def state: () -> Hash[String, Hash[Symbol, (Warehouse::Inputs | Warehouse::Internals | Warehouse::Outputs)]]
 
       def context_id: () -> String
     end

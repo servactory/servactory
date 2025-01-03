@@ -3,7 +3,10 @@
 module Servactory
   module Context
     module Warehouse
-      class Internals
+      class Outputs
+        extend Forwardable
+        def_delegators :@arguments, :each_pair
+
         def initialize(arguments = {})
           @arguments = arguments
         end
