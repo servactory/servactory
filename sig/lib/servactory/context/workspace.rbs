@@ -14,7 +14,7 @@ module Servactory
       @inputs: Inputs
       @internals: Internals
       @outputs: Outputs
-      @servactory_service_warehouse: Context::Store
+      @servactory_service_warehouse: Context::Warehouse::Setup
 
       attr_reader collection_of_inputs: Inputs::Collection
       attr_reader collection_of_internals: Internals::Collection
@@ -66,7 +66,7 @@ module Servactory
 
       def servactory_service_info: -> Actor
 
-      def servactory_service_warehouse: -> Store
+      def servactory_service_warehouse: -> Warehouse::Setup
     end
   end
 end

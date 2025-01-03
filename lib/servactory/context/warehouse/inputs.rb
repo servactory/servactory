@@ -37,7 +37,7 @@ module Servactory
 
         ##########################################################################
 
-        def method_missing(name, *args, &block)
+        def method_missing(name, *_args)
           input_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
 
           input_value = @arguments.fetch(input_name) { raise_error_for(input_name) }

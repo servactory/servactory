@@ -127,7 +127,7 @@ module Servactory
       end
 
       def servactory_service_warehouse
-        @servactory_service_warehouse ||= Store.new(self)
+        @servactory_service_warehouse ||= Warehouse::Setup.new(self)
       end
     end
   end

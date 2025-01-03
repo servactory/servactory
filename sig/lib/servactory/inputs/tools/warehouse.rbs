@@ -1,7 +1,7 @@
 module Servactory
   module Inputs
     module Tools
-      class Store
+      class Warehouse
         @context: untyped
 
         @incoming_arguments: untyped
@@ -14,7 +14,7 @@ module Servactory
 
         private
 
-        def adapted_arguments: () -> Servactory::Context::Warehouse::Inputs
+        def adapted_arguments: () -> Hash[Symbol, untyped]
       end
     end
   end

@@ -26,7 +26,7 @@ module Servactory
       private
 
       def servactory_service_warehouse
-        @servactory_service_warehouse ||= Servactory::Context::Store.new(self)
+        @servactory_service_warehouse ||= Servactory::Context::Warehouse::Setup.new(self)
       end
     end
   end

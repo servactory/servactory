@@ -8,7 +8,7 @@ module Servactory
       def call!(incoming_arguments:, **)
         super
 
-        Tools::Store.assign(self, incoming_arguments)
+        Tools::Warehouse.assign(self, incoming_arguments)
 
         Tools::Unnecessary.find!(self, collection_of_inputs)
         Tools::Rules.check!(self, collection_of_inputs)

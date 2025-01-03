@@ -3,7 +3,7 @@
 module Servactory
   module Inputs
     module Tools
-      class Store
+      class Warehouse
         def self.assign(...)
           new(...).assign
         end
