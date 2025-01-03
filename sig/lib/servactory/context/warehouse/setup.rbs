@@ -16,31 +16,31 @@ module Servactory
 
         def initialize: (instance context) -> void
 
-        def assign_inputs: (Hash[Symbol, untyped] arguments) -> Hash[Symbol, untyped]
+        def assign_inputs: (Hash[Symbol, untyped] arguments) -> untyped
 
         def fetch_input: (Symbol name) -> untyped
 
-        def assign_internal: (Symbol name, untyped value) -> Hash[Symbol, untyped]
+        def assign_internal: (Symbol name, untyped value) -> untyped
 
         def fetch_internal: (Symbol name) -> untyped
 
-        def assign_output: (Symbol name, untyped value) -> Hash[Symbol, untyped]
+        def assign_output: (Symbol name, untyped value) -> untyped
 
         def fetch_output: (Symbol name) -> untyped
 
-        def inputs: () -> Hash[Symbol, untyped]
+        def inputs: () -> Inputs
 
-        def internals: () -> Hash[Symbol, untyped]
+        def internals: () -> Internals
 
-        def outputs: () -> Hash[Symbol, untyped]
+        def outputs: () -> Outputs
 
         private
 
         def assign_attribute: (Symbol section, Symbol name, untyped value) -> untyped
 
-        def context_data: () -> Hash[Symbol, untyped]
+        def context_data: () -> { inputs: Inputs, internals: Internals, outputs: Outputs }
 
-        def state: () -> Hash[String, Hash[Symbol, (Warehouse::Inputs | Warehouse::Internals | Warehouse::Outputs)]]
+        def state: () -> Hash[String, { inputs: Inputs, internals: Internals, outputs: Outputs }]
 
         def context_id: () -> String
       end
