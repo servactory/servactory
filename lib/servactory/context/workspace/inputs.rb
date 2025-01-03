@@ -48,7 +48,7 @@ module Servactory
 
           return yield if input.nil?
 
-          input_value = @context.send(:servactory_service_store).fetch_input(input.name)
+          input_value = @context.send(:servactory_service_warehouse).fetch_input(input.name)
           input_value = input.default if input.optional? && input_value.blank?
 
           if input.hash_mode? && (tmp_schema = input.schema.fetch(:is)).present?
