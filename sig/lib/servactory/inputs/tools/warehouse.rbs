@@ -1,7 +1,7 @@
 module Servactory
   module Inputs
     module Tools
-      class Store
+      class Warehouse
         @context: untyped
 
         @incoming_arguments: untyped

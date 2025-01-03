@@ -1,0 +1,17 @@
+module Servactory
+  module Context
+    module Warehouse
+      class Outputs
+        extend Forwardable
+
+        @arguments: untyped
+
+        def initialize: (?::Hash[untyped, untyped] arguments) -> void
+
+        def fetch: (untyped name, untyped default_value) -> untyped
+
+        def assign: (untyped key, untyped value) -> untyped
+      end
+    end
+  end
+end

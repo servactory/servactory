@@ -31,7 +31,7 @@ module Servactory
 
         def unnecessary_attributes
           @unnecessary_attributes ||=
-            @context.send(:servactory_service_store).inputs.keys -
+            @context.send(:servactory_service_warehouse).inputs.names -
             @collection_of_inputs.names
         end
       end
