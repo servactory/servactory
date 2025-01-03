@@ -1,0 +1,8 @@
+module Servactory
+  module Context
+    module Warehouse
+      class Inputs
+      end
+    end
+  end
+end
