@@ -9,9 +9,9 @@ module Servactory
         data = Servactory::Utils.send(:instance_variables_to_hash_from, data)
       end
 
-      return data if data.is_a?(Servactory::Inputs::IncomingArguments)
+      return data if data.is_a?(Servactory::Context::StoreInputs)
 
-      Servactory::Inputs::IncomingArguments.new(context, **data.symbolize_keys)
+      Servactory::Context::StoreInputs.new(context, **data.symbolize_keys)
     end
 
     def fetch_hash_with_desired_attribute(attribute)

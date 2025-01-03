@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Inputs
-    class IncomingArguments
+  module Context
+    class StoreInputs
       attr_reader :arguments
 
       def initialize(context, **arguments)
@@ -30,12 +30,16 @@ module Servactory
         @arguments[key] = value
       end
 
+      def merge!(arguments)
+        @arguments.merge!(arguments)
+      end
+
       ##########################################################################
 
       def method_missing(name, *args, &block)
         input_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
 
-        input_value = @arguments.fetch(input_name) { raise_error_for(input_name) }
+        input_value = @arguments.try(input_name) { raise_error_for(input_name) }
 
         if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
           Servactory::Utils.query_attribute(input_value)
@@ -45,7 +49,7 @@ module Servactory
       end
 
       def respond_to_missing?(name, *)
-        @arguments.fetch(name) { raise_error_for(name) }
+        @arguments.try(name) { raise_error_for(name) }
       end
 
       ##########################################################################
