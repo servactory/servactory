@@ -14,7 +14,7 @@ module Servactory
 
         private
 
-        def adapted_arguments: () -> Hash[Symbol, untyped]
+        def adapted_arguments: () -> Context::StoreInputs
       end
     end
   end
