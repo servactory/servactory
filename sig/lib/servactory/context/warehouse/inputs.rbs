@@ -10,11 +10,6 @@ module Servactory
 
         def names: () -> untyped
 
-        # QUESTION
-        def to_hash: () -> untyped
-
-        alias to_h to_hash
-
         def fetch: (untyped name, untyped default_value) -> untyped
 
         def assign: (untyped key, untyped value) -> untyped

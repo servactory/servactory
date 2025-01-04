@@ -13,12 +13,6 @@ module Servactory
           @arguments.keys
         end
 
-        # QUESTION
-        def to_hash
-          @arguments
-        end
-        alias to_h to_hash
-
         # def fetch!(name)
         #   @arguments.fetch(name)
         # end
