@@ -68,13 +68,13 @@ module Servactory
     end
 
     def method_missing(name, *_args)
-      super
-    rescue NoMethodError => e
-      rescue_no_method_error_with(exception: e)
+      @context.instance_variable_get(:"@_servactory_output_#{name}")
+    # rescue NoMethodError => e
+    #   rescue_no_method_error_with(exception: e)
     end
 
-    def respond_to_missing?(*)
-      super
+    def respond_to_missing?(name, *)
+      @context.instance_variable_get(:"@_servactory_output_#{name}") || super
     end
 
     private
@@ -82,6 +82,10 @@ module Servactory
     def as_success
       define_singleton_method(:success?) { true }
       define_singleton_method(:failure?) { false }
+
+      puts
+      puts outputs.instance_variable.inspect
+      puts
 
       outputs.methods(false).each do |method_name|
         define_singleton_method(method_name) { outputs.send(method_name) }
