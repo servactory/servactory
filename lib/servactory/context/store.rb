@@ -16,19 +16,27 @@ module Servactory
       end
 
       def assign_internal(name, value)
-        assign_attribute(:internals, name, value)
+        # assign_attribute(:internals, name, value)
+
+        @context.instance_variable_set(:"@_servactory_internal_#{name}", value)
       end
 
       def fetch_internal(name)
-        internals.fetch(name, nil)
+        # internals.fetch(name, nil)
+
+        @context.instance_variable_get(:"@_servactory_internal_#{name}")
       end
 
       def assign_output(name, value)
-        assign_attribute(:outputs, name, value)
+        # assign_attribute(:outputs, name, value)
+
+        @context.instance_variable_set(:"@_servactory_output_#{name}", value)
       end
 
       def fetch_output(name)
-        outputs.fetch(name, nil)
+        # outputs.fetch(name, nil)
+
+        @context.instance_variable_get(:"@_servactory_output_#{name}")
       end
 
       def inputs
