@@ -3,26 +3,15 @@
 module Servactory
   module Context
     module Warehouse
-      class Inputs
+      class Inputs < Base
         def initialize(context, arguments = {})
           @context = context
-          @arguments = arguments
+
+          super(arguments)
         end
 
         def names
           @arguments.keys
-        end
-
-        # def fetch!(name)
-        #   @arguments.fetch(name)
-        # end
-
-        def fetch(name, default_value)
-          @arguments.fetch(name, default_value)
-        end
-
-        def assign(key, value)
-          @arguments[key] = value
         end
 
         def merge!(arguments)

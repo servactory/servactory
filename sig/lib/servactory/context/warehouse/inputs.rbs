@@ -1,22 +1,16 @@
 module Servactory
   module Context
     module Warehouse
-      class Inputs
+      class Inputs < Base
         @context: untyped
-
-        @arguments: untyped
 
         def initialize: (untyped context, ?::Hash[untyped, untyped] arguments) -> void
 
         def names: () -> untyped
 
-        def fetch: (untyped name, untyped default_value) -> untyped
-
-        def assign: (untyped key, untyped value) -> untyped
-
         def merge!: (untyped arguments) -> untyped
 
-        def method_missing: (untyped name, *untyped args) { (?) -> untyped } -> untyped
+        def method_missing: (untyped name, *untyped _args) -> untyped
 
         def respond_to_missing?: (untyped name, *untyped) -> untyped
 
