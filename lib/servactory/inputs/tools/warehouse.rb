@@ -3,7 +3,7 @@
 module Servactory
   module Inputs
     module Tools
-      class Store
+      class Warehouse
         def self.assign(...)
           new(...).assign
         end
@@ -14,7 +14,7 @@ module Servactory
         end
 
         def assign
-          @context.send(:servactory_service_store).assign_inputs(adapted_arguments)
+          @context.send(:servactory_service_warehouse).assign_inputs(adapted_arguments)
         end
 
         private

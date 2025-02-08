@@ -1,0 +1,21 @@
+module Servactory
+  module Context
+    module Warehouse
+      class Inputs < Base
+        @context: untyped
+
+        def initialize: (untyped context, ?::Hash[untyped, untyped] arguments) -> void
+
+        def names: () -> untyped
+
+        def merge!: (untyped arguments) -> untyped
+
+        def method_missing: (untyped name, *untyped _args) -> untyped
+
+        def respond_to_missing?: (untyped name, *untyped) -> untyped
+
+        def raise_error_for: (untyped input_name) -> untyped
+      end
+    end
+  end
+end
