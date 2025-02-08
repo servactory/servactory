@@ -55,7 +55,7 @@ module Servactory
 
         ########################################################################
 
-        def message_for_input_with(service:, input:, value:, option_name:, option_value:, **)
+        def message_for_input_with(service:, input:, value:, option_value:, **)
           inclusion_in = fetch_inclusion_value_from(option_value)
 
           service.translate(
@@ -66,7 +66,7 @@ module Servactory
           )
         end
 
-        def message_for_internal_with(service:, internal:, value:, option_name:, option_value:, **)
+        def message_for_internal_with(service:, internal:, value:, option_value:, **)
           inclusion_in = fetch_inclusion_value_from(option_value)
 
           service.translate(
@@ -77,7 +77,7 @@ module Servactory
           )
         end
 
-        def message_for_output_with(service:, output:, value:, option_name:, option_value:, **)
+        def message_for_output_with(service:, output:, value:, option_value:, **)
           inclusion_in = fetch_inclusion_value_from(option_value)
 
           service.translate(

@@ -8,7 +8,7 @@ module Servactory
                     :internal_name,
                     :types
 
-        def initialize(input)
+        def initialize(input) # rubocop:disable Metrics/MethodLength
           @name = input.name
           @internal_name = input.internal_name
           @types = input.types
