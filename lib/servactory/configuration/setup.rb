@@ -71,19 +71,22 @@ module Servactory
       def default_input_option_helpers
         Set[
           Servactory::Maintenance::Attributes::OptionHelper.new(name: :optional, equivalent: { required: false }),
-          Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:)
+          Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:),
+          Servactory::ToolKit::DynamicOptions::Inclusion.use
         ]
       end
 
       def default_internal_option_helpers
         Set[
-          Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:)
+          Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:),
+          Servactory::ToolKit::DynamicOptions::Inclusion.use
         ]
       end
 
       def default_output_option_helpers
         Set[
-          Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:)
+          Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:),
+          Servactory::ToolKit::DynamicOptions::Inclusion.use
         ]
       end
     end

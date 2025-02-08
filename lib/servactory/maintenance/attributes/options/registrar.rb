@@ -11,7 +11,6 @@ module Servactory
             default
             collection
             hash
-            inclusion
             must
             prepare
           ].freeze
@@ -21,7 +20,6 @@ module Servactory
             types: false,
             default: false,
             hash: false,
-            inclusion: false,
             must: false,
             prepare: false
           }.freeze
@@ -41,7 +39,7 @@ module Servactory
 
           ########################################################################
 
-          def register # rubocop:disable Metrics/CyclomaticComplexity
+          def register
             # Validation Class: Servactory::Inputs::Validations::Required
             register_required_option if @features.fetch(:required)
 
@@ -49,9 +47,6 @@ module Servactory
             register_types_option if @features.fetch(:types)
             register_default_option if @features.fetch(:default)
             register_hash_option if @features.fetch(:hash)
-
-            # Validation Class: Servactory::Maintenance::Attributes::Validations::Inclusion
-            register_inclusion_option if @features.fetch(:inclusion)
 
             # Validation Class: Servactory::Maintenance::Attributes::Validations::Must
             register_must_option if @features.fetch(:must)
@@ -132,32 +127,9 @@ module Servactory
                   content: ->(**) { @hash_mode_class_names.include?(@options.fetch(:type)) }
                 )
               ],
-              define_conflicts: [
-                Servactory::Maintenance::Attributes::DefineConflict.new(
-                  content: -> { :object_vs_inclusion if @attribute.hash_mode? && @attribute.inclusion_present? }
-                )
-              ],
               need_for_checks: false,
               body_key: :is,
               body_fallback: {},
-              **@options
-            )
-          end
-
-          def register_inclusion_option # rubocop:disable Metrics/MethodLength
-            collection << Servactory::Maintenance::Attributes::Option.new(
-              name: :inclusion,
-              attribute: @attribute,
-              validation_class: Servactory::Maintenance::Attributes::Validations::Inclusion,
-              define_methods: [
-                Servactory::Maintenance::Attributes::DefineMethod.new(
-                  name: :inclusion_present?,
-                  content: ->(option:) { option[:in].is_a?(Array) && option[:in].present? }
-                )
-              ],
-              need_for_checks: true,
-              body_key: :in,
-              body_fallback: nil,
               **@options
             )
           end
@@ -190,11 +162,6 @@ module Servactory
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :prepare_present?,
                   content: ->(option:) { option[:in].present? }
-                )
-              ],
-              define_conflicts: [
-                Servactory::Maintenance::Attributes::DefineConflict.new(
-                  content: -> { :prepare_vs_inclusion if @attribute.prepare_present? && @attribute.inclusion_present? }
                 )
               ],
               need_for_checks: false,

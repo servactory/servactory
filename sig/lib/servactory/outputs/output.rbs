@@ -4,7 +4,6 @@ module Servactory
       class Actor
         attr_reader name: Symbol
         attr_reader types: Array[Class]
-        attr_reader inclusion: { in: untyped }
       end
 
       attr_reader name: Symbol

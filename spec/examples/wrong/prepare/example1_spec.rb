@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Prepare::Example1, type: :service do
+RSpec.describe Wrong::Prepare::Example1, skip: "DEPRECATED CONFLICT: prepare_vs_inclusion", type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 

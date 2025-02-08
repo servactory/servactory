@@ -12,8 +12,6 @@ ru:
         for_fetch: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
         for_assign: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
       validations:
-        inclusion:
-          default_error: "[%{service_class_name}] Неправильное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Инпут `%{input_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` инпута `%{input_name}`: %{exception_message}"
@@ -26,6 +24,8 @@ ru:
               default: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у инпута `%{input_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Неправильное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
             min:
               default: "[%{service_class_name}] Инпут `%{input_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -52,8 +52,6 @@ ru:
         for_fetch: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
         for_assign: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
       validations:
-        inclusion:
-          default_error: "[%{service_class_name}] Неправильное значение в `%{internal_name}`, должно быть одним из `%{internal_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` внутреннего атрибута `%{internal_name}`: %{exception_message}"
@@ -66,6 +64,8 @@ ru:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у внутреннего атрибута `%{internal_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Неправильное значение в `%{internal_name}`, должно быть одним из `%{internal_inclusion}`"
             min:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -84,8 +84,6 @@ ru:
         for_fetch: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
         for_assign: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
       validations:
-        inclusion:
-          default_error: "[%{service_class_name}] Неправильное значение в `%{output_name}`, должно быть одним из `%{output_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Выходящий атрибут `%{output_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` выходящего атрибута `%{output_name}`: %{exception_message}"
@@ -98,6 +96,8 @@ ru:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у выходящего атрибута `%{output_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Неправильное значение в `%{output_name}`, должно быть одним из `%{output_inclusion}`"
             min:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:

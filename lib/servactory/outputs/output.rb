@@ -5,13 +5,11 @@ module Servactory
     class Output
       class Actor
         attr_reader :name,
-                    :types,
-                    :inclusion
+                    :types
 
         def initialize(output)
           @name = output.name
           @types = output.types
-          @inclusion = output.inclusion.slice(:in) if output.inclusion_present?
 
           define_singleton_method(:system_name) { output.system_name }
           define_singleton_method(:i18n_name) { output.i18n_name }
@@ -64,7 +62,6 @@ module Servactory
           features: {
             types: true,
             hash: true,
-            inclusion: true,
             must: true
           }
         )
