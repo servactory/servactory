@@ -116,7 +116,7 @@ module Servactory
 
     def outputs
       @outputs ||= Outputs.new(
-        outputs: @context.send(:servactory_service_store).outputs,
+        outputs: @context.send(:servactory_service_warehouse).outputs,
         predicate_methods_enabled: if @context.is_a?(Servactory::TestKit::Result)
                                      true
                                    else

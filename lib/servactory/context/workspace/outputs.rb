@@ -50,7 +50,7 @@ module Servactory
             value:
           )
 
-          @context.send(:servactory_service_store).assign_output(output.name, value)
+          @context.send(:servactory_service_warehouse).assign_output(output.name, value)
         end
 
         def fetch_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
@@ -59,7 +59,7 @@ module Servactory
 
           return yield if output.nil?
 
-          output_value = @context.send(:servactory_service_store).fetch_output(output.name)
+          output_value = @context.send(:servactory_service_warehouse).fetch_output(output.name)
 
           if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
             Servactory::Utils.query_attribute(output_value)
