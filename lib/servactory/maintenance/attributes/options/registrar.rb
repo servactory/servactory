@@ -14,6 +14,7 @@ module Servactory
             inclusion
             must
             prepare
+            note
           ].freeze
 
           DEFAULT_FEATURES = {
@@ -23,7 +24,8 @@ module Servactory
             hash: false,
             inclusion: false,
             must: false,
-            prepare: false
+            prepare: false,
+            note: false
           }.freeze
 
           private_constant :DEFAULT_FEATURES
@@ -41,7 +43,7 @@ module Servactory
 
           ########################################################################
 
-          def register # rubocop:disable Metrics/CyclomaticComplexity
+          def register # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
             # Validation Class: Servactory::Inputs::Validations::Required
             register_required_option if @features.fetch(:required)
 
@@ -58,6 +60,7 @@ module Servactory
 
             # Validation Class: nil
             register_prepare_option if @features.fetch(:prepare)
+            register_note_option if @features.fetch(:note)
 
             self
           end
@@ -200,6 +203,25 @@ module Servactory
               need_for_checks: false,
               body_key: :in,
               body_fallback: false,
+              **@options
+            )
+          end
+
+          def register_note_option # rubocop:disable Metrics/MethodLength
+            collection << Servactory::Maintenance::Attributes::Option.new(
+              name: :note,
+              attribute: @attribute,
+              validation_class: nil,
+              define_methods: [
+                Servactory::Maintenance::Attributes::DefineMethod.new(
+                  name: :note_present?,
+                  content: ->(option:) { option.present? }
+                )
+              ],
+              need_for_checks: false,
+              body_key: :is,
+              body_fallback: nil,
+              with_advanced_mode: false,
               **@options
             )
           end

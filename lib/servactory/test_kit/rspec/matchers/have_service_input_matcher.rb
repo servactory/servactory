@@ -132,6 +132,17 @@ module Servactory
             self
           end
 
+          def note(value)
+            add_submatcher(
+              HaveServiceAttributeMatchers::NoteMatcher,
+              described_class,
+              :input,
+              input_name,
+              value
+            )
+            self
+          end
+
           # NOTE: Used for delayed chain implementation
           # def not_implemented_chain(*description)
           #   Kernel.warn <<-MESSAGE.squish
