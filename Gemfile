@@ -4,4 +4,4 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "servactory-rubocop", ">= 0.1", require: false
+gem "servactory-rubocop", ">= 0.5", require: false
