@@ -11,7 +11,7 @@ module Usual
 
       make :check_invoice_number!,
            if: (lambda do |context:|
-             context.inputs.invoice_number == "AA-7650AE" || context.inputs.invoice_number == "BB-7650AE"
+             %w[AA-7650AE BB-7650AE].include?(context.inputs.invoice_number)
            end)
 
       make :assign_invoice_number_tmp
