@@ -6,18 +6,19 @@ module Servactory
       class Actor
         attr_reader :name,
                     :internal_name,
-                    :types
+                    :types,
+                    :default
 
         def initialize(input) # rubocop:disable Metrics/MethodLength
           @name = input.name
           @internal_name = input.internal_name
           @types = input.types
+          @default = input.default
 
           define_singleton_method(:system_name) { input.system_name }
           define_singleton_method(:i18n_name) { input.i18n_name }
           define_singleton_method(:optional?) { input.optional? }
           define_singleton_method(:required?) { input.required? }
-          define_singleton_method(:default) { input.default }
           # The methods below are required to support the internal work.
           define_singleton_method(:input?) { true }
           define_singleton_method(:internal?) { false }
