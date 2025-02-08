@@ -126,8 +126,8 @@ module Servactory
         @servactory_service_info ||= self.class::Actor.new(self)
       end
 
-      def servactory_service_store
-        @servactory_service_store ||= Store.new(self)
+      def servactory_service_warehouse
+        @servactory_service_warehouse ||= Warehouse::Setup.new(self)
       end
     end
   end

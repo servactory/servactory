@@ -51,7 +51,7 @@ module Servactory
           validation_class.check(
             context: @context,
             attribute: input,
-            value: @context.send(:servactory_service_store).fetch_input(input.name),
+            value: @context.send(:servactory_service_warehouse).fetch_input(input.name),
             check_key:,
             check_options:
           )
