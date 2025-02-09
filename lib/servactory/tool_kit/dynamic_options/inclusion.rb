@@ -5,7 +5,7 @@ module Servactory
     module DynamicOptions
       class Inclusion < Must
         def self.use(option_name = :inclusion)
-          instance = new(option_name, :in, nil)
+          instance = new(option_name, :in)
           instance.must(:consists_of)
         end
 
