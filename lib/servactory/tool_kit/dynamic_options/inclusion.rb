@@ -6,7 +6,7 @@ module Servactory
       class Inclusion < Must
         def self.use(option_name = :inclusion)
           instance = new(option_name, :in)
-          instance.must(:consists_of)
+          instance.must(:be_inclusion)
         end
 
         def condition_for_input_with(input:, value:, option:)
