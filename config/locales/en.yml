@@ -25,7 +25,7 @@ en:
               wrong_pattern: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
               unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for input `%{input_name}`"
             inclusion:
-              default: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
+              default: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`, got `%{value}`"
             min:
               default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -65,7 +65,7 @@ en:
               wrong_pattern: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
               unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for internal attribute `%{internal_name}`"
             inclusion:
-              default: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`"
+              default: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`, got `%{value}`"
             min:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -97,7 +97,7 @@ en:
               wrong_pattern: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
               unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{output_name}`"
             inclusion:
-              default: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`"
+              default: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`, got `%{value}`"
             min:
               default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:

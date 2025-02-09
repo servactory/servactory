@@ -9,38 +9,24 @@ module Servactory
           instance.must(:consists_of)
         end
 
-        def condition_for_input_with(...)
-          common_condition_with(...)
+        def condition_for_input_with(input:, value:, option:)
+          if input.required? || (
+            input.optional? && !input.default.nil?
+          ) || (
+            input.optional? && !value.nil?
+          ) # do
+            return option.value.include?(value)
+          end
+
+          true
         end
 
-        def condition_for_internal_with(...)
-          common_condition_with(...)
-        end
-
-        def condition_for_output_with(...)
-          common_condition_with(...)
-        end
-
-        def common_condition_with(value:, option:, input: nil, internal: nil, output: nil)
-          attribute = Utils.define_attribute_with(input:, internal:, output:)
-
-          return true unless should_be_checked_for?(attribute:, value:)
-
+        def condition_for_internal_with(value:, option:, **)
           option.value.include?(value)
         end
 
-        ########################################################################
-
-        def should_be_checked_for?(attribute:, value:) # rubocop:disable Metrics/CyclomaticComplexity
-          (
-            attribute.input? && (
-              attribute.required? || (
-                attribute.optional? && !attribute.default.nil?
-              ) || (
-                attribute.optional? && !value.nil?
-              )
-            )
-          ) || attribute.internal? || attribute.output?
+        def condition_for_output_with(value:, option:, **)
+          option.value.include?(value)
         end
 
         ########################################################################
@@ -49,8 +35,8 @@ module Servactory
           service.translate(
             "inputs.validations.must.dynamic_options.inclusion.default",
             input_name: input.name,
-            value:,
-            input_inclusion: option_value
+            value: value.inspect,
+            input_inclusion: option_value.inspect
           )
         end
 
@@ -58,8 +44,8 @@ module Servactory
           service.translate(
             "internals.validations.must.dynamic_options.inclusion.default",
             internal_name: internal.name,
-            value:,
-            internal_inclusion: option_value
+            value: value.inspect,
+            internal_inclusion: option_value.inspect
           )
         end
 
@@ -67,8 +53,8 @@ module Servactory
           service.translate(
             "outputs.validations.must.dynamic_options.inclusion.default",
             output_name: output.name,
-            value:,
-            output_inclusion: option_value
+            value: value.inspect,
+            output_inclusion: option_value.inspect
           )
         end
       end

@@ -32,9 +32,11 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                "`[Usual::Inclusion::Example11::FirstEntity, Usual::Inclusion::Example11::SecondEntity, " \
-                "Usual::Inclusion::Example11::ThirdEntity]`"
+                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, " \
+                "must be one of `[Usual::Inclusion::Example11::FirstEntity, " \
+                "Usual::Inclusion::Example11::SecondEntity, " \
+                "Usual::Inclusion::Example11::ThirdEntity]`, " \
+                "got `Usual::Inclusion::Example11::FakeEntity`"
               )
             )
           end
@@ -47,8 +49,10 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Internal,
-                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                "`[Usual::Inclusion::Example11::SecondEntity, Usual::Inclusion::Example11::ThirdEntity]`"
+                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, " \
+                "must be one of `[Usual::Inclusion::Example11::SecondEntity, " \
+                "Usual::Inclusion::Example11::ThirdEntity]`, " \
+                "got `Usual::Inclusion::Example11::FirstEntity`"
               )
             )
           end
@@ -61,8 +65,9 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Output,
-                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                "`[Usual::Inclusion::Example11::ThirdEntity]`"
+                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, " \
+                "must be one of `[Usual::Inclusion::Example11::ThirdEntity]`, " \
+                "got `Usual::Inclusion::Example11::SecondEntity`"
               )
             )
           end
@@ -120,9 +125,11 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                "`[Usual::Inclusion::Example11::FirstEntity, Usual::Inclusion::Example11::SecondEntity, " \
-                "Usual::Inclusion::Example11::ThirdEntity]`"
+                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, " \
+                "must be one of `[Usual::Inclusion::Example11::FirstEntity, " \
+                "Usual::Inclusion::Example11::SecondEntity, " \
+                "Usual::Inclusion::Example11::ThirdEntity]`, " \
+                "got `Usual::Inclusion::Example11::FakeEntity`"
               )
             )
           end
@@ -135,8 +142,10 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Internal,
-                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                "`[Usual::Inclusion::Example11::SecondEntity, Usual::Inclusion::Example11::ThirdEntity]`"
+                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, " \
+                "must be one of `[Usual::Inclusion::Example11::SecondEntity, " \
+                "Usual::Inclusion::Example11::ThirdEntity]`, " \
+                "got `Usual::Inclusion::Example11::FirstEntity`"
               )
             )
           end
@@ -149,8 +158,9 @@ RSpec.describe Usual::Inclusion::Example11, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Output,
-                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, must be one of " \
-                "`[Usual::Inclusion::Example11::ThirdEntity]`"
+                "[Usual::Inclusion::Example11] Wrong value in `entity_class`, " \
+                "must be one of `[Usual::Inclusion::Example11::ThirdEntity]`, " \
+                "got `Usual::Inclusion::Example11::SecondEntity`"
               )
             )
           end

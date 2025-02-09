@@ -34,8 +34,9 @@ RSpec.describe Usual::Inclusion::Example2, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Inclusion::Example2] Wrong value in `event_name`, must be one of " \
-                "`[\"created\", \"rejected\", \"approved\"]`"
+                "[Usual::Inclusion::Example2] Wrong value in `event_name`, " \
+                "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
+                "got `\"sent\"`"
               )
             )
           end
@@ -102,8 +103,9 @@ RSpec.describe Usual::Inclusion::Example2, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Inclusion::Example2] Wrong value in `event_name`, must be one of " \
-                "`[\"created\", \"rejected\", \"approved\"]`"
+                "[Usual::Inclusion::Example2] Wrong value in `event_name`, " \
+                "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
+                "got `\"sent\"`"
               )
             )
           end
