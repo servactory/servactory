@@ -44,9 +44,6 @@ module Servactory
                         :attribute_data
 
             def submatcher_passes?(_subject)
-              # FIXME
-              return true
-
               attribute_inclusion = attribute_data.fetch(:inclusion)
               attribute_inclusion_in = attribute_inclusion.fetch(:in)
 

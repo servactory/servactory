@@ -122,10 +122,7 @@ module Servactory
             end
 
             def failure_inclusion_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-              # FIXME
-              return true
-
-              input_inclusion_in = attribute_data.fetch(:inclusion).fetch(:in)
+              input_inclusion_in = attribute_data.fetch(:inclusion, {}).fetch(:in, nil)
 
               return true if input_inclusion_in.blank?
 
@@ -138,11 +135,11 @@ module Servactory
 
               if input_required_message.nil?
                 input_required_message = I18n.t(
-                  "#{i18n_root_key}.#{attribute_type_plural}.validations.inclusion.default_error",
+                  "#{i18n_root_key}.#{attribute_type_plural}.validations.must.dynamic_options.inclusion.default",
                   service_class_name: described_class.name,
                   "#{attribute_type}_name": attribute_name,
-                  "#{attribute_type}_inclusion": input_inclusion_in,
-                  value: wrong_value
+                  "#{attribute_type}_inclusion": input_inclusion_in.inspect,
+                  value: wrong_value.inspect
                 )
               elsif input_required_message.is_a?(Proc)
                 service_class = Struct.new(:class_name, keyword_init: true)
