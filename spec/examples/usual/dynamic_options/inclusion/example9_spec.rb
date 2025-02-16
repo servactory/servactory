@@ -17,64 +17,83 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
                      internals: %i[event_name],
                      outputs: %i[event_name]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        include_examples "success result class"
-
-        it { expect(perform).to have_output(:event_name).contains("approved") }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:event_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+              .inclusion(%w[created rejected approved]) { be_a(Proc) }
+          )
+        end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the value of `event_name` is wrong" do
-          let(:event_name) { "sent" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "Incorrect `event_name` specified: `sent`"
-              )
-            )
-          end
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:event_name)
+              .type(String)
+              .inclusion(%w[rejected approved]) { be_a(Proc) }
+          )
         end
+      end
 
-        describe "because the value of `event_name` is not suitable for `internal`" do
-          let(:event_name) { "created" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "Incorrect `event_name` specified: `created`"
-              )
-            )
-          end
-        end
-
-        describe "because the value of `event_name` is not suitable for `output`" do
-          let(:event_name) { "rejected" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "Incorrect `event_name` specified: `rejected`"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event_name)
+              .contains("approved")
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:event_name)
-            .valid_with(attributes)
-            .type(String)
-            .required
-            .inclusion(%w[created rejected approved])
-        )
+    describe "and the data required for work is also valid" do
+      include_examples "success result class"
+
+      it { expect(perform).to have_output(:event_name).contains("approved") }
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the value of `event_name` is wrong" do
+        let(:event_name) { "sent" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "Incorrect `event_name` specified: `sent`"
+            )
+          )
+        end
+      end
+
+      describe "because the value of `event_name` is not suitable for `internal`" do
+        let(:event_name) { "created" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "Incorrect `event_name` specified: `created`"
+            )
+          )
+        end
+      end
+
+      describe "because the value of `event_name` is not suitable for `output`" do
+        let(:event_name) { "rejected" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "Incorrect `event_name` specified: `rejected`"
+            )
+          )
+        end
       end
     end
   end
@@ -95,64 +114,83 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
                      internals: %i[event_name],
                      outputs: %i[event_name]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        include_examples "success result class"
-
-        it { expect(perform).to have_output(:event_name).contains("approved") }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:event_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+              .inclusion(%w[created rejected approved]) { be_a(Proc) }
+          )
+        end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the value of `event_name` is wrong" do
-          let(:event_name) { "sent" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "Incorrect `event_name` specified: `sent`"
-              )
-            )
-          end
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:event_name)
+              .type(String)
+              .inclusion(%w[rejected approved]) { be_a(Proc) }
+          )
         end
+      end
 
-        describe "because the value of `event_name` is not suitable for `internal`" do
-          let(:event_name) { "created" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "Incorrect `event_name` specified: `created`"
-              )
-            )
-          end
-        end
-
-        describe "because the value of `event_name` is not suitable for `output`" do
-          let(:event_name) { "rejected" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "Incorrect `event_name` specified: `rejected`"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event_name)
+              .contains("approved")
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:event_name)
-            .valid_with(attributes)
-            .type(String)
-            .required
-            .inclusion(%w[created rejected approved])
-        )
+    describe "and the data required for work is also valid" do
+      include_examples "success result class"
+
+      it { expect(perform).to have_output(:event_name).contains("approved") }
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the value of `event_name` is wrong" do
+        let(:event_name) { "sent" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "Incorrect `event_name` specified: `sent`"
+            )
+          )
+        end
+      end
+
+      describe "because the value of `event_name` is not suitable for `internal`" do
+        let(:event_name) { "created" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "Incorrect `event_name` specified: `created`"
+            )
+          )
+        end
+      end
+
+      describe "because the value of `event_name` is not suitable for `output`" do
+        let(:event_name) { "rejected" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "Incorrect `event_name` specified: `rejected`"
+            )
+          )
+        end
       end
     end
   end
