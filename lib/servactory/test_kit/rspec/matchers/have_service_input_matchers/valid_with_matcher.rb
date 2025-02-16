@@ -5,6 +5,7 @@ module Servactory
     module Rspec
       module Matchers
         module HaveServiceInputMatchers
+          # DEPRECATED: This chain is planned to be decommissioned.
           class ValidWithMatcher # rubocop:disable Metrics/ClassLength
             attr_reader :missing_option
 

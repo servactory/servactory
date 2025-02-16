@@ -56,7 +56,17 @@ module Servactory
 
               if custom_message.present? && !attribute_inclusion_message.nil?
                 if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
-                  RSpec::Expectations::ExpectationTarget.for(attribute_inclusion_message, nil).to custom_message
+                  # begin
+                  #   RSpec::Expectations::ValueExpectationTarget
+                  #     .new(attribute_inclusion_message)
+                  #     .to(custom_message)
+                  # rescue RSpec::Expectations::ExpectationNotMetError
+                  #   matched &&= false
+                  # end
+
+                  RSpec::Expectations::ValueExpectationTarget
+                    .new(attribute_inclusion_message)
+                    .to(custom_message)
                 else
                   matched &&= attribute_inclusion_message.casecmp(custom_message).zero?
                 end
