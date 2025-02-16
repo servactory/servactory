@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Inclusion::Example10, type: :service do
+RSpec.describe Usual::DynamicOptions::Inclusion::Example10, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -32,7 +32,7 @@ RSpec.describe Usual::Inclusion::Example10, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Inclusion::Example10] Wrong value in `number`, " \
+                "[Usual::DynamicOptions::Inclusion::Example10] Wrong value in `number`, " \
                 "must be one of `[1, 2, 3]`, " \
                 "got `0`"
               )
@@ -47,7 +47,7 @@ RSpec.describe Usual::Inclusion::Example10, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Internal,
-                "[Usual::Inclusion::Example10] Wrong value in `number`, " \
+                "[Usual::DynamicOptions::Inclusion::Example10] Wrong value in `number`, " \
                 "must be one of `[2, 3]`, " \
                 "got `1`"
               )
@@ -62,7 +62,7 @@ RSpec.describe Usual::Inclusion::Example10, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Output,
-                "[Usual::Inclusion::Example10] Wrong value in `number`, " \
+                "[Usual::DynamicOptions::Inclusion::Example10] Wrong value in `number`, " \
                 "must be one of `[3]`, " \
                 "got `2`"
               )
@@ -116,7 +116,7 @@ RSpec.describe Usual::Inclusion::Example10, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::Inclusion::Example10] Wrong value in `number`, " \
+                "[Usual::DynamicOptions::Inclusion::Example10] Wrong value in `number`, " \
                 "must be one of `[1, 2, 3]`, " \
                 "got `0`"
               )
@@ -131,7 +131,7 @@ RSpec.describe Usual::Inclusion::Example10, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Internal,
-                "[Usual::Inclusion::Example10] Wrong value in `number`, " \
+                "[Usual::DynamicOptions::Inclusion::Example10] Wrong value in `number`, " \
                 "must be one of `[2, 3]`, " \
                 "got `1`"
               )
@@ -146,7 +146,7 @@ RSpec.describe Usual::Inclusion::Example10, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Output,
-                "[Usual::Inclusion::Example10] Wrong value in `number`, " \
+                "[Usual::DynamicOptions::Inclusion::Example10] Wrong value in `number`, " \
                 "must be one of `[3]`, " \
                 "got `2`"
               )
