@@ -46,12 +46,23 @@ module Servactory
                         :custom_message,
                         :attribute_data
 
-            def submatcher_passes?(_subject)
+            def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
               attribute_inclusion = attribute_data.fetch(:inclusion)
               attribute_inclusion_in = attribute_inclusion.fetch(:in)
+              attribute_inclusion_message = attribute_inclusion.fetch(:message)
 
-              attribute_inclusion_in.difference(values).empty? &&
-                values.difference(attribute_inclusion_in).empty?
+              matched = attribute_inclusion_in.difference(values).empty? &&
+                        values.difference(attribute_inclusion_in).empty?
+
+              if custom_message.present? && !attribute_inclusion_message.nil?
+                if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
+                  RSpec::Expectations::ExpectationTarget.for(attribute_inclusion_message, nil).to custom_message
+                else
+                  matched &&= attribute_inclusion_message.casecmp(custom_message).zero?
+                end
+              end
+
+              matched
             end
 
             def build_missing_option
