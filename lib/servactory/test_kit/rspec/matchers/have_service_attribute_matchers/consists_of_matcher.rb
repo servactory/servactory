@@ -16,6 +16,7 @@ module Servactory
               @attribute_name = attribute_name
               @option_types = option_types
               @consists_of_types = consists_of_types
+              # TODO: Need to implement it. There should be support for `be_a(Proc)`.
               @custom_message = custom_message
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)

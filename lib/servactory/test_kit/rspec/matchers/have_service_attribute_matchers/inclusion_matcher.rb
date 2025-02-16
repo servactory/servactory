@@ -8,12 +8,14 @@ module Servactory
           class InclusionMatcher
             attr_reader :missing_option
 
-            def initialize(described_class, attribute_type, attribute_name, values)
+            def initialize(described_class, attribute_type, attribute_name, values, custom_message)
               @described_class = described_class
               @attribute_type = attribute_type
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
               @attribute_name = attribute_name
               @values = values
+              # TODO: Need to implement it. There should be support for `be_a(Proc)`.
+              @custom_message = custom_message
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
@@ -41,6 +43,7 @@ module Servactory
                         :attribute_type_plural,
                         :attribute_name,
                         :values,
+                        :custom_message,
                         :attribute_data
 
             def submatcher_passes?(_subject)
