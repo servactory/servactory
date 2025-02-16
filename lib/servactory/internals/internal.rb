@@ -5,11 +5,13 @@ module Servactory
     class Internal
       class Actor
         attr_reader :name,
-                    :types
+                    :types,
+                    :options
 
         def initialize(internal)
           @name = internal.name
           @types = internal.types
+          @options = internal.options
 
           define_singleton_method(:system_name) { internal.system_name }
           define_singleton_method(:i18n_name) { internal.i18n_name }
@@ -21,7 +23,8 @@ module Servactory
       end
 
       attr_reader :name,
-                  :collection_of_options
+                  :collection_of_options,
+                  :options
 
       def initialize(
         name,
@@ -66,6 +69,7 @@ module Servactory
           }
         )
 
+        @options = options
         @collection_of_options = options_registrar.collection
       end
 
