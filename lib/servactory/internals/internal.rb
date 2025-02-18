@@ -6,12 +6,12 @@ module Servactory
       class Actor
         attr_reader :name,
                     :types,
-                    :inclusion
+                    :options
 
         def initialize(internal)
           @name = internal.name
           @types = internal.types
-          @inclusion = internal.inclusion.slice(:in) if internal.inclusion_present?
+          @options = internal.options
 
           define_singleton_method(:system_name) { internal.system_name }
           define_singleton_method(:i18n_name) { internal.i18n_name }
@@ -23,7 +23,8 @@ module Servactory
       end
 
       attr_reader :name,
-                  :collection_of_options
+                  :collection_of_options,
+                  :options
 
       def initialize(
         name,
@@ -64,11 +65,11 @@ module Servactory
           features: {
             types: true,
             hash: true,
-            inclusion: true,
             must: true
           }
         )
 
+        @options = options
         @collection_of_options = options_registrar.collection
       end
 

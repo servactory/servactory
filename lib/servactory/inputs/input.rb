@@ -7,13 +7,15 @@ module Servactory
         attr_reader :name,
                     :internal_name,
                     :types,
-                    :inclusion
+                    :default,
+                    :options
 
-        def initialize(input) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        def initialize(input) # rubocop:disable Metrics/MethodLength
           @name = input.name
           @internal_name = input.internal_name
           @types = input.types
-          @inclusion = input.inclusion.slice(:in) if input.inclusion_present?
+          @default = input.default
+          @options = input.options
 
           define_singleton_method(:system_name) { input.system_name }
           define_singleton_method(:i18n_name) { input.i18n_name }
@@ -28,7 +30,8 @@ module Servactory
 
       attr_reader :name,
                   :internal_name,
-                  :collection_of_options
+                  :collection_of_options,
+                  :options
 
       # rubocop:disable Style/KeywordParametersOrder
       def initialize(
@@ -75,12 +78,12 @@ module Servactory
             types: true,
             default: true,
             hash: true,
-            inclusion: true,
             must: true,
             prepare: true
           }
         )
 
+        @options = options
         @collection_of_options = options_registrar.collection
       end
 

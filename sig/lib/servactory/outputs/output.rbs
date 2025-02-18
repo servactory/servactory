@@ -4,13 +4,14 @@ module Servactory
       class Actor
         attr_reader name: Symbol
         attr_reader types: Array[Class]
-        attr_reader inclusion: { in: untyped }
+        attr_reader options: untyped
       end
 
       attr_reader name: Symbol
       attr_reader hash_mode_class_names: Configuration::HashMode::ClassNamesCollection
       attr_reader option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
       attr_reader collection_of_options: Maintenance::Attributes::OptionsCollection
+      attr_reader options: untyped
 
       def initialize: (
         Symbol name,
