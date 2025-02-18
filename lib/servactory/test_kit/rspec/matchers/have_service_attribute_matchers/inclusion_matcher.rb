@@ -45,7 +45,7 @@ module Servactory
                         :custom_message,
                         :attribute_data
 
-            def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+            def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
               attribute_inclusion = attribute_data.fetch(:inclusion)
               attribute_inclusion_in = attribute_inclusion.fetch(:in)
               attribute_inclusion_message = attribute_inclusion.fetch(:message)
@@ -55,20 +55,12 @@ module Servactory
 
               if custom_message.present? && !attribute_inclusion_message.nil?
                 if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
-                  # begin
-                  #   RSpec::Expectations::ValueExpectationTarget
-                  #     .new(attribute_inclusion_message)
-                  #     .to(custom_message)
-                  # rescue RSpec::Expectations::ExpectationNotMetError
-                  #   matched &&= false
-                  # end
-
                   RSpec::Expectations::ValueExpectationTarget
                     .new(attribute_inclusion_message)
                     .to(custom_message)
                 else
                   matched &&= if attribute_inclusion_message.is_a?(Proc)
-                                attribute_inclusion_message.call.casecmp(custom_messagec).zero?
+                                attribute_inclusion_message.call.casecmp(custom_message).zero?
                               else
                                 attribute_inclusion_message.casecmp(custom_message).zero?
                               end

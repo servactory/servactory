@@ -49,7 +49,7 @@ module Servactory
                         :custom_message,
                         :attribute_data
 
-            def submatcher_passes?(_subject)
+            def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
               attribute_consists_of = attribute_data.fetch(:consists_of)
               attribute_consists_of_types = Array(attribute_consists_of.fetch(:type))
               attribute_consists_of_message = attribute_consists_of.fetch(:message)
@@ -57,12 +57,18 @@ module Servactory
               matched = attribute_consists_of_types.difference(consists_of_types).empty? &&
                         consists_of_types.difference(attribute_consists_of_types).empty?
 
-              if !custom_message.nil? && !attribute_consists_of_message.nil?
-                attribute_consists_of_message = attribute_consists_of_message.call if attribute_consists_of_message.is_a?(Proc)
-
-                self.custom_message = custom_message.call if custom_message.is_a?(Proc)
-
-                matched &&= attribute_consists_of_message.casecmp(custom_message).zero?
+              if custom_message.present? && !attribute_consists_of_message.nil?
+                if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
+                  RSpec::Expectations::ValueExpectationTarget
+                    .new(attribute_consists_of_message)
+                    .to(custom_message)
+                else
+                  matched &&= if attribute_consists_of_message.is_a?(Proc)
+                                attribute_consists_of_message.call.casecmp(custom_message).zero?
+                              else
+                                attribute_consists_of_message.casecmp(custom_message).zero?
+                              end
+                end
               end
 
               matched
