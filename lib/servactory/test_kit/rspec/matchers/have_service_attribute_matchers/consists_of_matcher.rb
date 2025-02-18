@@ -49,7 +49,7 @@ module Servactory
                         :custom_message,
                         :attribute_data
 
-            def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+            def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
               attribute_consists_of = attribute_data.fetch(:consists_of)
               attribute_consists_of_types = Array(attribute_consists_of.fetch(:type))
               attribute_consists_of_message = attribute_consists_of.fetch(:message)
