@@ -14,7 +14,6 @@ module Servactory
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
               @attribute_name = attribute_name
               @values = values
-              # TODO: Need to implement it. There should be support for `be_a(Proc)`.
               @custom_message = custom_message
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
@@ -68,7 +67,11 @@ module Servactory
                     .new(attribute_inclusion_message)
                     .to(custom_message)
                 else
-                  matched &&= attribute_inclusion_message.casecmp(custom_message).zero?
+                  matched &&= if attribute_inclusion_message.is_a?(Proc)
+                                attribute_inclusion_message.call.casecmp(custom_messagec).zero?
+                              else
+                                attribute_inclusion_message.casecmp(custom_message).zero?
+                              end
                 end
               end
 

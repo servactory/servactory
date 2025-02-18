@@ -16,7 +16,6 @@ module Servactory
               @attribute_name = attribute_name
               @option_types = option_types
               @consists_of_types = consists_of_types
-              # TODO: Need to implement it. There should be support for `be_a(Proc)`.
               @custom_message = custom_message
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
@@ -51,16 +50,22 @@ module Servactory
                         :attribute_data
 
             def submatcher_passes?(_subject)
-              attribute_must = attribute_data.fetch(:must)
+              attribute_consists_of = attribute_data.fetch(:consists_of)
+              attribute_consists_of_types = Array(attribute_consists_of.fetch(:type))
+              attribute_consists_of_message = attribute_consists_of.fetch(:message)
 
-              attribute_must_keys = attribute_must.keys
+              matched = attribute_consists_of_types.difference(consists_of_types).empty? &&
+                        consists_of_types.difference(attribute_consists_of_types).empty?
 
-              expected_keys = %i[consists_of]
+              if !custom_message.nil? && !attribute_consists_of_message.nil?
+                attribute_consists_of_message = attribute_consists_of_message.call if attribute_consists_of_message.is_a?(Proc)
 
-              attribute_must_keys = attribute_must_keys.select { |key| expected_keys.include?(key) }
+                self.custom_message = custom_message.call if custom_message.is_a?(Proc)
 
-              attribute_must_keys.difference(expected_keys).empty? &&
-                expected_keys.difference(attribute_must_keys).empty?
+                matched &&= attribute_consists_of_message.casecmp(custom_message).zero?
+              end
+
+              matched
             end
 
             def build_missing_option
