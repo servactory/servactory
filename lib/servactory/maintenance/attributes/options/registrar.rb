@@ -10,7 +10,6 @@ module Servactory
             required
             default
             collection
-            inclusion
             must
             prepare
           ].freeze
@@ -19,7 +18,6 @@ module Servactory
             required: false,
             types: false,
             default: false,
-            inclusion: false,
             must: false,
             prepare: false
           }.freeze
@@ -45,9 +43,6 @@ module Servactory
             # Validation Class: Servactory::Maintenance::Attributes::Validations::Type
             register_types_option if @features.fetch(:types)
             register_default_option if @features.fetch(:default)
-
-            # Validation Class: Servactory::Maintenance::Attributes::Validations::Inclusion
-            register_inclusion_option if @features.fetch(:inclusion)
 
             # Validation Class: Servactory::Maintenance::Attributes::Validations::Must
             register_must_option if @features.fetch(:must)
@@ -117,24 +112,6 @@ module Servactory
             )
           end
 
-          def register_inclusion_option # rubocop:disable Metrics/MethodLength
-            collection << Servactory::Maintenance::Attributes::Option.new(
-              name: :inclusion,
-              attribute: @attribute,
-              validation_class: Servactory::Maintenance::Attributes::Validations::Inclusion,
-              define_methods: [
-                Servactory::Maintenance::Attributes::DefineMethod.new(
-                  name: :inclusion_present?,
-                  content: ->(option:) { option[:in].is_a?(Array) && option[:in].present? }
-                )
-              ],
-              need_for_checks: true,
-              body_key: :in,
-              body_fallback: nil,
-              **@options
-            )
-          end
-
           def register_must_option # rubocop:disable Metrics/MethodLength
             collection << Servactory::Maintenance::Attributes::Option.new(
               name: :must,
@@ -163,11 +140,6 @@ module Servactory
                 Servactory::Maintenance::Attributes::DefineMethod.new(
                   name: :prepare_present?,
                   content: ->(option:) { option[:in].present? }
-                )
-              ],
-              define_conflicts: [
-                Servactory::Maintenance::Attributes::DefineConflict.new(
-                  content: -> { :prepare_vs_inclusion if @attribute.prepare_present? && @attribute.inclusion_present? }
                 )
               ],
               need_for_checks: false,

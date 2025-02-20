@@ -8,12 +8,13 @@ module Servactory
           class InclusionMatcher
             attr_reader :missing_option
 
-            def initialize(described_class, attribute_type, attribute_name, values)
+            def initialize(described_class, attribute_type, attribute_name, values, custom_message)
               @described_class = described_class
               @attribute_type = attribute_type
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
               @attribute_name = attribute_name
               @values = values
+              @custom_message = custom_message
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
@@ -41,14 +42,32 @@ module Servactory
                         :attribute_type_plural,
                         :attribute_name,
                         :values,
+                        :custom_message,
                         :attribute_data
 
-            def submatcher_passes?(_subject)
+            def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
               attribute_inclusion = attribute_data.fetch(:inclusion)
               attribute_inclusion_in = attribute_inclusion.fetch(:in)
+              attribute_inclusion_message = attribute_inclusion.fetch(:message)
 
-              attribute_inclusion_in.difference(values).empty? &&
-                values.difference(attribute_inclusion_in).empty?
+              matched = attribute_inclusion_in.difference(values).empty? &&
+                        values.difference(attribute_inclusion_in).empty?
+
+              if custom_message.present? && !attribute_inclusion_message.nil?
+                if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
+                  RSpec::Expectations::ValueExpectationTarget
+                    .new(attribute_inclusion_message)
+                    .to(custom_message)
+                else
+                  matched &&= if attribute_inclusion_message.is_a?(Proc)
+                                attribute_inclusion_message.call.casecmp(custom_message).zero?
+                              else
+                                attribute_inclusion_message.casecmp(custom_message).zero?
+                              end
+                end
+              end
+
+              matched
             end
 
             def build_missing_option

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Inclusion::Example6, type: :service do
+RSpec.describe Usual::DynamicOptions::Inclusion::Example6, type: :service do
   let(:attributes) do
     {
       event_name:
@@ -50,8 +50,9 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-              "`[\"created\", \"rejected\", \"approved\"]`"
+              "[Usual::DynamicOptions::Inclusion::Example6] Wrong value in `event_name`, " \
+              "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
+              "got `\"sent\"`"
             )
           )
         end
@@ -64,8 +65,9 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Internal,
-              "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-              "`[\"rejected\", \"approved\"]`"
+              "[Usual::DynamicOptions::Inclusion::Example6] Wrong value in `event_name`, " \
+              "must be one of `[\"rejected\", \"approved\"]`, " \
+              "got `\"created\"`"
             )
           )
         end
@@ -78,8 +80,9 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Output,
-              "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-              "`[\"approved\"]`"
+              "[Usual::DynamicOptions::Inclusion::Example6] Wrong value in `event_name`, " \
+              "must be one of `[\"approved\"]`, " \
+              "got `\"rejected\"`"
             )
           )
         end
@@ -104,8 +107,9 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-              "`[\"created\", \"rejected\", \"approved\"]`"
+              "[Usual::DynamicOptions::Inclusion::Example6] Wrong value in `event_name`, " \
+              "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
+              "got `\"sent\"`"
             )
           )
         end
@@ -118,8 +122,9 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Internal,
-              "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-              "`[\"rejected\", \"approved\"]`"
+              "[Usual::DynamicOptions::Inclusion::Example6] Wrong value in `event_name`, " \
+              "must be one of `[\"rejected\", \"approved\"]`, " \
+              "got `\"created\"`"
             )
           )
         end
@@ -132,8 +137,9 @@ RSpec.describe Usual::Inclusion::Example6, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Output,
-              "[Usual::Inclusion::Example6] Wrong value in `event_name`, must be one of " \
-              "`[\"approved\"]`"
+              "[Usual::DynamicOptions::Inclusion::Example6] Wrong value in `event_name`, " \
+              "must be one of `[\"approved\"]`, " \
+              "got `\"rejected\"`"
             )
           )
         end

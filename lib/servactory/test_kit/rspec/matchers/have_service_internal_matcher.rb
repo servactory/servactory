@@ -66,12 +66,15 @@ module Servactory
           end
 
           def inclusion(values)
+            message = block_given? ? yield : nil
+
             add_submatcher(
               HaveServiceAttributeMatchers::InclusionMatcher,
               described_class,
               :internal,
               internal_name,
-              Array(values)
+              Array(values),
+              message
             )
             self
           end

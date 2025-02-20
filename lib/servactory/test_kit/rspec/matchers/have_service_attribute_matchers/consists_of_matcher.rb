@@ -49,17 +49,29 @@ module Servactory
                         :custom_message,
                         :attribute_data
 
-            def submatcher_passes?(_subject)
-              attribute_must = attribute_data.fetch(:must)
+            def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+              attribute_consists_of = attribute_data.fetch(:consists_of)
+              attribute_consists_of_types = Array(attribute_consists_of.fetch(:type))
+              attribute_consists_of_message = attribute_consists_of.fetch(:message)
 
-              attribute_must_keys = attribute_must.keys
+              matched = attribute_consists_of_types.difference(consists_of_types).empty? &&
+                        consists_of_types.difference(attribute_consists_of_types).empty?
 
-              expected_keys = %i[consists_of]
+              if custom_message.present? && !attribute_consists_of_message.nil?
+                if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
+                  RSpec::Expectations::ValueExpectationTarget
+                    .new(attribute_consists_of_message)
+                    .to(custom_message)
+                else
+                  matched &&= if attribute_consists_of_message.is_a?(Proc)
+                                attribute_consists_of_message.call.casecmp(custom_message).zero?
+                              else
+                                attribute_consists_of_message.casecmp(custom_message).zero?
+                              end
+                end
+              end
 
-              attribute_must_keys = attribute_must_keys.select { |key| expected_keys.include?(key) }
-
-              attribute_must_keys.difference(expected_keys).empty? &&
-                expected_keys.difference(attribute_must_keys).empty?
+              matched
             end
 
             def build_missing_option

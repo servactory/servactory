@@ -96,7 +96,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example15, type: :service do
         expect { perform }.to(
           have_input(:ids)
             .type(Set)
-            .consists_of(String) { "Input `ids` must be a collection of `String`" }
+            .consists_of(String) { be_a(Proc) }
             .required
         )
       end
@@ -198,7 +198,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example15, type: :service do
         expect { perform }.to(
           have_input(:ids)
             .type(Set)
-            .consists_of(String) { "Input `ids` must be a collection of `String`" }
+            .consists_of(String) { be_a(Proc) }
             .required
         )
       end

@@ -34,7 +34,11 @@ module Servactory
         def must(name)
           Servactory::Maintenance::Attributes::OptionHelper.new(
             name: @option_name,
-            equivalent: equivalent_with(name)
+            equivalent: equivalent_with(name),
+            meta: {
+              type: :dynamic_option,
+              body_key: @body_key
+            }
           )
         end
 
