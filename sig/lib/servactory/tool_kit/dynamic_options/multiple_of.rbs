@@ -1,7 +1,7 @@
 module Servactory
   module ToolKit
     module DynamicOptions
-      class Min < Must
+      class MultipleOf < Must
         def self.use: (?::Symbol option_name) -> Maintenance::Attributes::OptionHelper
 
         def common_condition_with: (value: untyped, option: Must::WorkOption, **untyped `**`) -> bool
