@@ -88,7 +88,7 @@ module Servactory
                 if is_option_message_proc
                   option.message.call(
                     input:,
-                    **default_attributes.delete(:meta),
+                    **default_attributes.delete(:meta) || {},
                     **default_attributes
                   )
                 else
@@ -102,7 +102,7 @@ module Servactory
                 if is_option_message_proc
                   option.message.call(
                     internal:,
-                    **default_attributes.delete(:meta),
+                    **default_attributes.delete(:meta) || {},
                     **default_attributes
                   )
                 else
@@ -116,7 +116,7 @@ module Servactory
                 if is_option_message_proc
                   option.message.call(
                     output:,
-                    **default_attributes.delete(:meta),
+                    **default_attributes.delete(:meta) || {},
                     **default_attributes
                   )
                 else
