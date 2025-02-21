@@ -28,7 +28,8 @@ RSpec.describe Wrong::Hash::Example2, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              "[Wrong::Hash::Example2] Wrong type in input hash `payload`, expected `Hash` for `user`, got `NilClass`"
+              "[Wrong::Hash::Example2] Wrong value in input hash `payload`, " \
+              "expected value of type `Hash` for `user`, got `NilClass`"
             )
           )
         end
@@ -71,7 +72,8 @@ RSpec.describe Wrong::Hash::Example2, type: :service do
           expect { perform }.to(
             raise_error(
               ApplicationService::Exceptions::Input,
-              "[Wrong::Hash::Example2] Wrong type in input hash `payload`, expected `Hash` for `user`, got `NilClass`"
+              "[Wrong::Hash::Example2] Wrong value in input hash `payload`, " \
+              "expected value of type `Hash` for `user`, got `NilClass`"
             )
           )
         end

@@ -35,14 +35,18 @@ module Servactory
 
           schema = option.value.fetch(:is, option.value)
 
-          validate_for!(object: value, schema:)
+          result = validate_for!(object: value, schema:)
+
+          prepare_object_with!(object: value, schema:) if result.is_a?(TrueClass)
+
+          result.is_a?(TrueClass)
         end
 
         def validate_for!(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength
           unless object.respond_to?(:fetch)
             return [
               false,
-              :error_1,
+              :wrong_element_value,
               {
                 key_name: root_schema_key,
                 expected_type: Hash.name,
@@ -117,6 +121,29 @@ module Servactory
           value.fetch(:default, nil)
         end
 
+        ########################################################################
+
+        def prepare_object_with!(object:, schema:) # rubocop:disable Metrics/MethodLength
+          schema.map do |schema_key, schema_value|
+            attribute_type = schema_value.fetch(:type, String)
+
+            if attribute_type == Hash
+              prepare_object_with!(
+                object: object.fetch(schema_key, {}),
+                schema: schema_value.except(*RESERVED_ATTRIBUTES)
+              )
+            else
+              next object unless object[schema_key].nil?
+
+              next object if (default = schema_value.fetch(:default, nil)).nil?
+
+              object[schema_key] = default
+            end
+          end
+        end
+
+        ########################################################################
+        ########################################################################
         ########################################################################
 
         def message_for_input_with(service:, input:, reason:, meta:, **)

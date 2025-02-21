@@ -37,6 +37,7 @@ ru:
             schema:
               wrong_type: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Неправильное значение в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось значение с типом `%{expected_type}`, получено `%{given_type}`"
         required:
           default_error:
             default: "[%{service_class_name}] Обязательный инпут `%{input_name}` отсутствует"
@@ -78,6 +79,7 @@ ru:
             schema:
               wrong_type: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше внутреннего атрибута `%{internal_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Неправильное значение в хеше внутреннего атрибута `%{internal_name}`, для `%{key_name}` ожидалось значение с типом `%{expected_type}`, получено `%{given_type}`"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
@@ -111,6 +113,7 @@ ru:
             schema:
               wrong_type: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Неправильное значение в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось значение с типом `%{expected_type}`, получено `%{given_type}`"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"

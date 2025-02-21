@@ -37,6 +37,7 @@ en:
             schema:
               wrong_type: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Wrong type in input hash `%{input_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Wrong value in input hash `%{input_name}`, expected value of type `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
         required:
           default_error:
             default: "[%{service_class_name}] Required input `%{input_name}` is missing"
@@ -78,6 +79,7 @@ en:
             schema:
               wrong_type: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Wrong type in internal attribute hash `%{internal_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Wrong value in internal attribute hash `%{internal_name}`, expected value of type `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -111,6 +113,7 @@ en:
             schema:
               wrong_type: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Wrong type in output attribute hash `%{output_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Wrong value in output attribute hash `%{output_name}`, expected value of type `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
