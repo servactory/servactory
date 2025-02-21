@@ -10,7 +10,7 @@ module Servactory
 
         def assign: (Configuration::HashMode::ClassNamesCollection default_hash_mode_class_names) -> Configuration::HashMode::ClassNamesCollection
 
-        def common_condition_with: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), value: untyped, option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
+        def common_condition_with: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), value: untyped, option: Must::WorkOption) -> (::Array[untyped] | bool)
 
         def validate_for!: (object: untyped, schema: Hash[Symbol, untyped], root_schema_key: Symbol?) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
 

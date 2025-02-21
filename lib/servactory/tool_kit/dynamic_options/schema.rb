@@ -35,11 +35,11 @@ module Servactory
 
           schema = option.value.fetch(:is, option.value)
 
-          result = validate_for!(object: value, schema:)
+          is_success, reason, meta = validate_for!(object: value, schema:)
 
-          prepare_object_with!(object: value, schema:) if result.is_a?(TrueClass)
+          prepare_object_with!(object: value, schema:) if is_success
 
-          result.is_a?(TrueClass)
+          [is_success, reason, meta]
         end
 
         def validate_for!(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength
