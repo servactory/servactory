@@ -36,7 +36,7 @@ ru:
               divided_by_0: "[%{service_class_name}] Инпут `%{input_name}` имеет недопустимое значение `%{option_value}` в опции `%{option_name}`"
             schema:
               wrong_type: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-              wrong_element_type: "[%{service_class_name}]"
+              wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
         required:
           default_error:
             default: "[%{service_class_name}] Обязательный инпут `%{input_name}` отсутствует"
