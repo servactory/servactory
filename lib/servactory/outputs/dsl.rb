@@ -20,7 +20,6 @@ module Servactory
           collection_of_outputs << Output.new(
             name,
             *helpers,
-            hash_mode_class_names: config.hash_mode_class_names,
             option_helpers: config.output_option_helpers,
             **options
           )

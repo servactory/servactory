@@ -29,12 +29,10 @@ module Servactory
       def initialize(
         name,
         *helpers,
-        hash_mode_class_names:,
         option_helpers:,
         **options
       )
         @name = name
-        @hash_mode_class_names = hash_mode_class_names
         @option_helpers = option_helpers
 
         register_options(helpers:, options:)
@@ -60,11 +58,9 @@ module Servactory
 
         options_registrar = Servactory::Maintenance::Attributes::Options::Registrar.register(
           attribute: self,
-          hash_mode_class_names: @hash_mode_class_names,
           options:,
           features: {
             types: true,
-            hash: true,
             must: true
           }
         )

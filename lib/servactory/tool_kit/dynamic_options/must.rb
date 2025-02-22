@@ -3,7 +3,7 @@
 module Servactory
   module ToolKit
     module DynamicOptions
-      class Must
+      class Must # rubocop:disable Metrics/ClassLength
         class WorkOption
           attr_reader :name,
                       :value,
@@ -80,24 +80,48 @@ module Servactory
           is_option_message_present = option.message.present?
           is_option_message_proc = option.message.is_a?(Proc) if is_option_message_present
 
-          lambda do |input: nil, internal: nil, output: nil, **attributes|
+          lambda do |input: nil, internal: nil, output: nil, **attributes| # rubocop:disable Metrics/BlockLength
             default_attributes = { **attributes, option_name: option.name, option_value: option.value }
 
             if Servactory::Utils.really_input?(input)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes, input:) : option.message
+                if is_option_message_proc
+                  option.message.call(
+                    input:,
+                    **default_attributes.delete(:meta) || {},
+                    **default_attributes
+                  )
+                else
+                  option.message
+                end
               else
                 message_for_input_with(**default_attributes, input:)
               end
             elsif Servactory::Utils.really_internal?(internal)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes, internal:) : option.message
+                if is_option_message_proc
+                  option.message.call(
+                    internal:,
+                    **default_attributes.delete(:meta) || {},
+                    **default_attributes
+                  )
+                else
+                  option.message
+                end
               else
                 message_for_internal_with(**default_attributes, internal:)
               end
             elsif Servactory::Utils.really_output?(output)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes, output:) : option.message
+                if is_option_message_proc
+                  option.message.call(
+                    output:,
+                    **default_attributes.delete(:meta) || {},
+                    **default_attributes
+                  )
+                else
+                  option.message
+                end
               else
                 message_for_output_with(**default_attributes, output:)
               end

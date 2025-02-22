@@ -28,11 +28,11 @@ module Servactory
 
           def check
             @check_options.each do |code, options|
-              message, reason = call_or_fetch_message_from(code, options)
+              message, reason, meta = call_or_fetch_message_from(code, options)
 
               next if message.blank?
 
-              add_error_with(message, code, reason)
+              add_error_with(message, code, reason, meta)
             end
 
             errors
@@ -43,14 +43,15 @@ module Servactory
           def call_or_fetch_message_from(code, options) # rubocop:disable Metrics/MethodLength
             check, message = options.values_at(:is, :message)
 
-            check_result, check_result_code =
+            check_result, check_result_code, meta =
               check.call(value: @value, **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute))
 
             return if check_result
 
             [
               message.presence || Servactory::Maintenance::Attributes::Translator::Must.default_message,
-              check_result_code
+              check_result_code,
+              meta
             ]
           rescue StandardError => e
             add_syntax_error_with(
@@ -62,14 +63,15 @@ module Servactory
 
           ########################################################################
 
-          def add_error_with(message, code, reason)
+          def add_error_with(message, code, reason, meta = {})
             add_error(
               message:,
               service: @context.send(:servactory_service_info),
               **Servactory::Utils.fetch_hash_with_desired_attribute(@attribute),
               value: @value,
               code:,
-              reason:
+              reason:,
+              meta:
             )
           end
 
