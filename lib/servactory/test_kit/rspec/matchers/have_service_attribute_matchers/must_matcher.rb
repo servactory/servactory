@@ -51,6 +51,12 @@ module Servactory
               # NOTE: Even though the dynamic option `consists_of` is a `must`, here we are testing explicit `must`.
               attribute_must_keys.delete(:consists_of)
 
+              # NOTE: Even though the dynamic option `schema` is a `must`, here we are testing explicit `must`.
+              attribute_must_keys.delete(:schema)
+
+              # NOTE: Even though the dynamic option `inclusion` is a `must`, here we are testing explicit `must`.
+              attribute_must_keys.delete(:inclusion)
+
               attribute_must_keys.difference(must_names).empty? &&
                 must_names.difference(attribute_must_keys).empty?
             end

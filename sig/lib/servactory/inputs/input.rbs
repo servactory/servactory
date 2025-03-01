@@ -11,7 +11,6 @@ module Servactory
 
       attr_reader name: Symbol
       attr_reader internal_name: Symbol?
-      attr_reader hash_mode_class_names: Configuration::HashMode::ClassNamesCollection
       attr_reader option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
       attr_reader collection_of_options: Maintenance::Attributes::OptionsCollection
       attr_reader options: untyped
@@ -20,7 +19,6 @@ module Servactory
         Symbol name,
         *Symbol helpers,
         as: Symbol?,
-        hash_mode_class_names: Configuration::HashMode::ClassNamesCollection,
         option_helpers: Configuration::OptionHelpers::OptionHelpersCollection,
         **untyped options
       ) -> void
