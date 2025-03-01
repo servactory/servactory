@@ -32,7 +32,7 @@ module Servactory
         def common_condition_with(attribute:, value:, option:)
           return true if option.value == false
           return [false, :wrong_type] if @default_hash_mode_class_names.intersection(attribute.types).empty?
-          return true if value.blank? && (attribute.input? && attribute.optional? || attribute.internal?)
+          return true if value.blank? && (attribute.input? && attribute.optional? || attribute.internal? || attribute.output?)
 
           schema = option.value.fetch(:is, option.value)
 
