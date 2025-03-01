@@ -2,6 +2,7 @@
 
 require_relative "have_service_attribute_matchers/types_matcher"
 require_relative "have_service_attribute_matchers/consists_of_matcher"
+require_relative "have_service_attribute_matchers/schema_matcher"
 require_relative "have_service_attribute_matchers/inclusion_matcher"
 require_relative "have_service_attribute_matchers/must_matcher"
 
@@ -60,6 +61,21 @@ module Servactory
               internal_name,
               @option_types,
               Array(types),
+              message
+            )
+            self
+          end
+
+          def schema(data = {}) # rubocop:disable Metrics/MethodLength
+            message = block_given? ? yield : nil
+
+            add_submatcher(
+              HaveServiceAttributeMatchers::SchemaMatcher,
+              described_class,
+              :internal,
+              internal_name,
+              @option_types,
+              data,
               message
             )
             self

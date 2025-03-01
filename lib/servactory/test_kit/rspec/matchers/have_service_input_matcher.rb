@@ -99,6 +99,21 @@ module Servactory
             self
           end
 
+          def schema(data = {}) # rubocop:disable Metrics/MethodLength
+            message = block_given? ? yield : nil
+
+            add_submatcher(
+              HaveServiceAttributeMatchers::SchemaMatcher,
+              described_class,
+              :input,
+              input_name,
+              @option_types,
+              data,
+              message
+            )
+            self
+          end
+
           def inclusion(values)
             message = block_given? ? yield : nil
 

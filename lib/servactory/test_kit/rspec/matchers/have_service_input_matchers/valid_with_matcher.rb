@@ -47,12 +47,13 @@ module Servactory
                         :attribute_data,
                         :i18n_root_key
 
-            def submatcher_passes?(_subject) # rubocop:disable Metrics/CyclomaticComplexity
+            def submatcher_passes?(_subject) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
               success_passes? &&
                 failure_type_passes? &&
                 failure_required_passes? &&
                 failure_optional_passes? &&
                 failure_consists_of_passes? &&
+                failure_schema_passes? &&
                 failure_format_passes? &&
                 failure_inclusion_passes? &&
                 failure_must_passes?
@@ -114,6 +115,11 @@ module Servactory
 
             def failure_consists_of_passes?
               # NOTE: Checking for negative cases is not implemented for `consists_of`
+              true
+            end
+
+            def failure_schema_passes?
+              # NOTE: Checking for negative cases is not implemented for `schema`
               true
             end
 

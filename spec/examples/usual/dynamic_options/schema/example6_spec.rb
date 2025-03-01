@@ -1,44 +1,90 @@
 # frozen_string_literal: true
 
 RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
+  let(:attributes) do
+    {
+      payload:
+    }
+  end
+
+  let(:payload) do
+    {
+      request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+      user: {
+        first_name:,
+        middle_name:,
+        last_name:,
+        pass: {
+          series:,
+          number:
+        }
+      }
+    }
+  end
+
+  let(:first_name) { "John" }
+  let(:middle_name) { "Fitzgerald" }
+  let(:last_name) { "Kennedy" }
+  let(:series) { "HR" }
+  let(:number) { "88467617508" }
+
+  include_examples "check class info",
+                   inputs: %i[payload],
+                   internals: %i[payload],
+                   outputs: %i[payload full_name]
+
+  describe "validation" do
+    describe "inputs" do
+      it do
+        expect { perform }.to(
+          have_input(:payload)
+            .valid_with(attributes)
+            .type(Hash)
+            .required
+        )
+      end
+    end
+
+    describe "internals" do
+      it do
+        expect { perform }.to(
+          have_internal(:payload)
+            .type(Hash)
+        )
+      end
+    end
+  end
+
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
-    let(:attributes) do
-      {
-        payload:
-      }
-    end
+    describe "and the data required for work is also valid" do
+      include_examples "success result class"
 
-    let(:payload) do
-      {
-        request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-        user: {
-          first_name:,
-          middle_name:,
-          last_name:,
-          pass: {
-            series:,
-            number:
-          }
-        }
-      }
-    end
+      it do
+        expect(perform).to(
+          have_output(:payload)
+            .contains(
+              {
+                request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                user: {
+                  first_name: "John",
+                  middle_name: "Fitzgerald",
+                  last_name: "Kennedy",
+                  pass: {
+                    series: "HR",
+                    number: "88467617508"
+                  }
+                }
+              }
+            )
+        )
+      end
 
-    let(:first_name) { "John" }
-    let(:middle_name) { "Fitzgerald" }
-    let(:last_name) { "Kennedy" }
-    let(:series) { "HR" }
-    let(:number) { "88467617508" }
+      it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
 
-    include_examples "check class info",
-                     inputs: %i[payload],
-                     internals: %i[payload],
-                     outputs: %i[payload full_name]
-
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        include_examples "success result class"
+      describe "even if `middle_name` is not specified" do
+        let(:middle_name) { nil }
 
         it do
           expect(perform).to(
@@ -48,7 +94,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
                   request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
                   user: {
                     first_name: "John",
-                    middle_name: "Fitzgerald",
+                    middle_name: nil,
                     last_name: "Kennedy",
                     pass: {
                       series: "HR",
@@ -60,79 +106,41 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
           )
         end
 
-        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
-
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
-
-          it do
-            expect(perform).to(
-              have_output(:payload)
-                .contains(
-                  {
-                    request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-                    user: {
-                      first_name: "John",
-                      middle_name: nil,
-                      last_name: "Kennedy",
-                      pass: {
-                        series: "HR",
-                        number: "88467617508"
-                      }
-                    }
-                  }
-                )
-            )
-          end
-
-          it { expect(perform).to have_output(:full_name).contains("John Kennedy") }
-        end
+        it { expect(perform).to have_output(:full_name).contains("John Kennedy") }
       end
-    end
-
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:payload).valid_with(attributes).type(Hash).required }
     end
   end
 
   describe ".call" do
     subject(:perform) { described_class.call(**attributes) }
 
-    let(:attributes) do
-      {
-        payload:
-      }
-    end
+    describe "and the data required for work is also valid" do
+      include_examples "success result class"
 
-    let(:payload) do
-      {
-        request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-        user: {
-          first_name:,
-          middle_name:,
-          last_name:,
-          pass: {
-            series:,
-            number:
-          }
-        }
-      }
-    end
+      it do
+        expect(perform).to(
+          have_output(:payload)
+            .contains(
+              {
+                request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+                user: {
+                  first_name: "John",
+                  middle_name: "Fitzgerald",
+                  last_name: "Kennedy",
+                  pass: {
+                    series: "HR",
+                    number: "88467617508"
+                  }
+                }
+              }
+            )
+        )
+      end
 
-    let(:first_name) { "John" }
-    let(:middle_name) { "Fitzgerald" }
-    let(:last_name) { "Kennedy" }
-    let(:series) { "HR" }
-    let(:number) { "88467617508" }
+      it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
 
-    include_examples "check class info",
-                     inputs: %i[payload],
-                     internals: %i[payload],
-                     outputs: %i[payload full_name]
-
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        include_examples "success result class"
+      describe "even if `middle_name` is not specified" do
+        let(:middle_name) { nil }
 
         it do
           expect(perform).to(
@@ -142,7 +150,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
                   request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
                   user: {
                     first_name: "John",
-                    middle_name: "Fitzgerald",
+                    middle_name: nil,
                     last_name: "Kennedy",
                     pass: {
                       series: "HR",
@@ -154,38 +162,8 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
           )
         end
 
-        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
-
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
-
-          it do
-            expect(perform).to(
-              have_output(:payload)
-                .contains(
-                  {
-                    request_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
-                    user: {
-                      first_name: "John",
-                      middle_name: nil,
-                      last_name: "Kennedy",
-                      pass: {
-                        series: "HR",
-                        number: "88467617508"
-                      }
-                    }
-                  }
-                )
-            )
-          end
-
-          it { expect(perform).to have_output(:full_name).contains("John Kennedy") }
-        end
+        it { expect(perform).to have_output(:full_name).contains("John Kennedy") }
       end
-    end
-
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:payload).valid_with(attributes).type(Hash).required }
     end
   end
 end

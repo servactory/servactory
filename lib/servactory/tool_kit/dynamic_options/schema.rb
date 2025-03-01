@@ -8,7 +8,7 @@ module Servactory
         private_constant :RESERVED_ATTRIBUTES
 
         def self.use(option_name = :schema, default_hash_mode_class_names:)
-          instance = new(option_name, :type, false)
+          instance = new(option_name, :is, false)
           instance.assign(default_hash_mode_class_names)
           instance.must(:schema)
         end
