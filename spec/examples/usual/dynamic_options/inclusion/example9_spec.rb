@@ -25,7 +25,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
               .valid_with(attributes)
               .type(String)
               .required
-              .inclusion(%w[created rejected approved]) { be_a(Proc) }
+              .inclusion(%w[created rejected approved]).message(be_a(Proc))
           )
         end
       end
@@ -35,7 +35,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
           expect { perform }.to(
             have_internal(:event_name)
               .type(String)
-              .inclusion(%w[rejected approved]) { be_a(Proc) }
+              .inclusion(%w[rejected approved]).message(be_a(Proc))
           )
         end
       end
@@ -122,7 +122,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
               .valid_with(attributes)
               .type(String)
               .required
-              .inclusion(%w[created rejected approved]) { be_a(Proc) }
+              .inclusion(%w[created rejected approved]).message(be_a(Proc))
           )
         end
       end
@@ -132,7 +132,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
           expect { perform }.to(
             have_internal(:event_name)
               .type(String)
-              .inclusion(%w[rejected approved]) { be_a(Proc) }
+              .inclusion(%w[rejected approved]).message(be_a(Proc))
           )
         end
       end

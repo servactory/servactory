@@ -6,15 +6,17 @@ module Servactory
       module Matchers
         module HaveServiceAttributeMatchers
           class InclusionMatcher
+            OPTION_NAME = :inclusion
+            OPTION_BODY_KEY = :in
+
             attr_reader :missing_option
 
-            def initialize(described_class, attribute_type, attribute_name, values, custom_message)
+            def initialize(described_class, attribute_type, attribute_name, values)
               @described_class = described_class
               @attribute_type = attribute_type
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
               @attribute_name = attribute_name
               @values = values
-              @custom_message = custom_message
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
@@ -42,37 +44,19 @@ module Servactory
                         :attribute_type_plural,
                         :attribute_name,
                         :values,
-                        :custom_message,
                         :attribute_data
 
-            def submatcher_passes?(_subject) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
-              attribute_inclusion = attribute_data.fetch(:inclusion)
-              attribute_inclusion_in = attribute_inclusion.fetch(:in)
-              attribute_inclusion_message = attribute_inclusion.fetch(:message)
+            def submatcher_passes?(_subject)
+              attribute_inclusion = attribute_data.fetch(OPTION_NAME)
+              attribute_inclusion_in = attribute_inclusion.fetch(OPTION_BODY_KEY)
 
-              matched = attribute_inclusion_in.difference(values).empty? &&
-                        values.difference(attribute_inclusion_in).empty?
-
-              if custom_message.present? && !attribute_inclusion_message.nil?
-                if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
-                  RSpec::Expectations::ValueExpectationTarget
-                    .new(attribute_inclusion_message)
-                    .to(custom_message)
-                else
-                  matched &&= if attribute_inclusion_message.is_a?(Proc)
-                                attribute_inclusion_message.call.casecmp(custom_message).zero?
-                              else
-                                attribute_inclusion_message.casecmp(custom_message).zero?
-                              end
-                end
-              end
-
-              matched
+              attribute_inclusion_in.difference(values).empty? &&
+                values.difference(attribute_inclusion_in).empty?
             end
 
             def build_missing_option
-              attribute_inclusion = attribute_data.fetch(:inclusion)
-              attribute_inclusion_in = attribute_inclusion.fetch(:in)
+              attribute_inclusion = attribute_data.fetch(OPTION_NAME)
+              attribute_inclusion_in = attribute_inclusion.fetch(OPTION_BODY_KEY)
 
               <<~MESSAGE
                 should include the expected values

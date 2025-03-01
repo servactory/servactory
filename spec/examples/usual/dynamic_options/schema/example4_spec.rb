@@ -57,7 +57,8 @@ RSpec.describe Usual::DynamicOptions::Schema::Example4, type: :service do
                   }
                 }
               }
-            ) { "Problem with the value in the schema" }
+            )
+            .message("Problem with the value in the schema")
             .required
         )
       end
@@ -85,7 +86,8 @@ RSpec.describe Usual::DynamicOptions::Schema::Example4, type: :service do
                   }
                 }
               }
-            ) { "Problem with the value in the schema" }
+            )
+            .message("Problem with the value in the schema")
         )
       end
     end

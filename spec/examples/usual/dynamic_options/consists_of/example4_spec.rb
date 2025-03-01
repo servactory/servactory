@@ -96,7 +96,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example4, type: :service do
         expect { perform }.to(
           have_input(:ids)
             .type(Array)
-            .consists_of(String) { "Input `ids` must be an array of `String`" }
+            .consists_of(String).message("Input `ids` must be an array of `String`")
             .required
         )
       end
@@ -198,7 +198,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example4, type: :service do
         expect { perform }.to(
           have_input(:ids)
             .type(Array)
-            .consists_of(String) { "Input `ids` must be an array of `String`" }
+            .consists_of(String).message("Input `ids` must be an array of `String`")
             .required
         )
       end
