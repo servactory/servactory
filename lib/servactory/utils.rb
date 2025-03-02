@@ -4,12 +4,14 @@ module Servactory
   module Utils
     extend self
 
-    def adapt(data)
+    def adapt(context, data)
       if defined?(Datory::Base) && data.is_a?(Datory::Base)
         data = Servactory::Utils.send(:instance_variables_to_hash_from, data)
       end
 
-      data.symbolize_keys
+      return data if data.is_a?(Servactory::Context::StoreInputs)
+
+      Servactory::Context::StoreInputs.new(context, **data.symbolize_keys)
     end
 
     def fetch_hash_with_desired_attribute(attribute)
