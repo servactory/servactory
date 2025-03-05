@@ -30,7 +30,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example9, type: :service do
                 issued_on: {
                   type: [Date, DateTime, Time],
                   required: true,
-                  prepare: kind_of(Proc)
+                  prepare: be_a(Proc)
                 }
               }
             )
