@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# require "rspec/expectations/expectation_target"
+
 module Servactory
   module TestKit
     module Rspec
@@ -29,8 +31,7 @@ module Servactory
             end
 
             def description
-              result = "schema: "
-              result + schema_data
+              "schema: #{schema_data}"
             end
 
             def matches?(subject)
@@ -59,10 +60,53 @@ module Servactory
             end
 
             def schema_data_equal?
-              @schema_data_equal ||=
-                (
-                  schema_data.present? && schema_data == attribute_schema_is
-                ) || schema_data.blank?
+              # RSpec::Expectations::ExpectationTarget.new(schema_data).to(RSpec::Matchers::BuiltIn::Match.new(attribute_schema_is))
+
+              RSpec::Expectations::ExpectationHelper
+                .with_matcher(
+                  RSpec::Expectations::PositiveExpectationHandler,
+                  RSpec::Matchers::BuiltIn::Match.new(schema_data),
+                  nil
+                ) do |matcher|
+                match_result = matcher.matches?(attribute_schema_is)
+
+                # puts
+                # puts :match_result
+                # puts match_result.inspect
+                # puts
+
+                match_result
+              end
+
+              # puts
+              # puts schema_data.inspect
+              # puts
+              # puts attribute_schema_is.inspect
+              # puts
+              # puts
+
+              # RSpec::Expectations::PositiveExpectationHandler.handle_matcher(
+              #   attribute_schema_is,
+              #   RSpec::Matchers::BuiltIn::Match.new(schema_data),
+              #   "message",
+              #   # &block
+              # )
+
+              # true
+
+            # rescue => e
+            #   puts
+            #   puts e.inspect
+            #   puts
+            #
+            #   true
+            #
+            #   # @schema_data_equal ||=
+            #   #   (
+            #   #     schema_data.present? && schema_data == attribute_schema_is
+            #   #   ) || schema_data.blank?
+            #
+            #   # @schema_data_equal ||= true
             end
 
             def build_missing_option

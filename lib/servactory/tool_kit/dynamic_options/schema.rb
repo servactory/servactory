@@ -4,7 +4,7 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Schema < Must # rubocop:disable Metrics/ClassLength
-        RESERVED_ATTRIBUTES = %i[type required default].freeze
+        RESERVED_ATTRIBUTES = %i[type required default payload].freeze
         private_constant :RESERVED_ATTRIBUTES
 
         def self.use(option_name = :schema, default_hash_mode_class_names:)
@@ -137,11 +137,15 @@ module Servactory
                 schema: schema_value.except(*RESERVED_ATTRIBUTES)
               )
             else
-              next object unless object[schema_key].nil?
+              unless (default = schema_value.fetch(:default, nil)).nil?
+                object[schema_key] = default
+              end
 
-              next object if (default = schema_value.fetch(:default, nil)).nil?
+              unless (input_prepare = schema_value.fetch(:prepare, nil)).nil?
+                object[schema_key] = input_prepare.call(value: object[schema_key])
+              end
 
-              object[schema_key] = default
+              object
             end
           end
         end
