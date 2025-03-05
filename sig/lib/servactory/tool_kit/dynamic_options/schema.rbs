@@ -2,7 +2,7 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Schema < Must
-        RESERVED_ATTRIBUTES: Array[Symbol]
+        RESERVED_OPTIONS: Array[Symbol]
 
         @default_hash_mode_class_names: Configuration::HashMode::ClassNamesCollection
 
