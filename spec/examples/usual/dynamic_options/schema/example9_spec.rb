@@ -27,11 +27,11 @@ RSpec.describe Usual::DynamicOptions::Schema::Example9, type: :service do
             .type(Hash)
             .schema(
               {
-                issued_on: include(
+                issued_on: {
                   type: [Date, DateTime, Time],
                   required: true,
                   prepare: kind_of(Proc)
-                )
+                }
               }
             )
             .required
