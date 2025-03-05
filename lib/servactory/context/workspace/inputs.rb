@@ -4,9 +4,6 @@ module Servactory
   module Context
     module Workspace
       class Inputs
-        RESERVED_ATTRIBUTES = %i[type required default].freeze
-        private_constant :RESERVED_ATTRIBUTES
-
         def initialize(context:, collection_of_inputs:)
           @context = context
           @collection_of_inputs = collection_of_inputs
