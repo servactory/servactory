@@ -18,7 +18,7 @@ module Wrong
       input :balance_cents,
             as: :balance,
             type: Integer,
-            prepare: ->(value:) {}
+            prepare: ->(value:, inputs:) {}
 
       output :balance_with_bonus, type: Money
 
