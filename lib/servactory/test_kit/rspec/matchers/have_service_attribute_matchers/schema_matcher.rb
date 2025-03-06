@@ -29,8 +29,7 @@ module Servactory
             end
 
             def description
-              result = "schema: "
-              result + schema_data
+              "schema: #{schema_data}"
             end
 
             def matches?(subject)
@@ -58,10 +57,20 @@ module Servactory
               schema_data_equal?
             end
 
-            def schema_data_equal?
+            def schema_data_equal? # rubocop:disable Metrics/MethodLength
+              matcher_result =
+                RSpec::Expectations::ExpectationHelper
+                .with_matcher(
+                  RSpec::Expectations::PositiveExpectationHandler,
+                  RSpec::Matchers::BuiltIn::Match.new(schema_data),
+                  nil
+                ) do |matcher|
+                  matcher.matches?(attribute_schema_is)
+                end
+
               @schema_data_equal ||=
                 (
-                  schema_data.present? && schema_data == attribute_schema_is
+                  schema_data.present? && matcher_result
                 ) || schema_data.blank?
             end
 
