@@ -54,6 +54,11 @@ RSpec.describe Usual::DynamicOptions::Schema::Example3, type: :service do
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {}
                   }
                 }
               }
@@ -82,6 +87,11 @@ RSpec.describe Usual::DynamicOptions::Schema::Example3, type: :service do
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {}
                   }
                 }
               }
@@ -97,7 +107,15 @@ RSpec.describe Usual::DynamicOptions::Schema::Example3, type: :service do
     describe "and the data required for work is also valid" do
       include_examples "success result class"
 
-      it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
+      describe "without middle name" do
+        it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
+      end
+
+      describe "with middle name" do
+        let(:middle_name) { "Fitzgerald" }
+
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
+      end
     end
 
     describe "but the data required for work is invalid" do
@@ -123,7 +141,15 @@ RSpec.describe Usual::DynamicOptions::Schema::Example3, type: :service do
     describe "and the data required for work is also valid" do
       include_examples "success result class"
 
-      it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
+      describe "without middle name" do
+        it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
+      end
+
+      describe "with middle name" do
+        let(:middle_name) { "Fitzgerald" }
+
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
+      end
     end
 
     describe "but the data required for work is invalid" do

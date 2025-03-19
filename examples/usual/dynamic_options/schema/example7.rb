@@ -18,6 +18,11 @@ module Usual
                 required: true,
                 series: { type: String, required: true },
                 number: { type: String, required: true }
+              },
+              session: {
+                type: ::Hash,
+                required: false,
+                default: {}
               }
             }
           }

@@ -54,6 +54,11 @@ RSpec.describe Usual::DynamicOptions::Schema::Example2, type: :service do
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {}
                   }
                 }
               }
@@ -82,6 +87,11 @@ RSpec.describe Usual::DynamicOptions::Schema::Example2, type: :service do
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {}
                   }
                 }
               }
