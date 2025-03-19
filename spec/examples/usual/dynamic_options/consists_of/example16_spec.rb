@@ -103,7 +103,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example16, type: :service do
     end
 
     let(:ids) do
-      []
+      Set[]
     end
 
     include_examples "check class info",

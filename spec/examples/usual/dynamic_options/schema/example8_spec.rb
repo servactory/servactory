@@ -32,11 +32,16 @@ RSpec.describe Usual::DynamicOptions::Schema::Example8, type: :service do
                   first_name: { type: String, required: true },
                   middle_name: { type: String, required: false },
                   last_name: { type: String, required: true },
-                  pass: {
+                  passport: {
                     type: Hash,
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {}
                   }
                 }
               }
@@ -60,11 +65,16 @@ RSpec.describe Usual::DynamicOptions::Schema::Example8, type: :service do
                   first_name: { type: String, required: true },
                   middle_name: { type: String, required: false },
                   last_name: { type: String, required: true },
-                  pass: {
+                  passport: {
                     type: Hash,
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {}
                   }
                 }
               }

@@ -14,7 +14,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
         first_name:,
         middle_name:,
         last_name:,
-        pass: {
+        passport: {
           series:,
           number:
         }
@@ -71,7 +71,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
                   first_name: "John",
                   middle_name: "Fitzgerald",
                   last_name: "Kennedy",
-                  pass: {
+                  passport: {
                     series: "HR",
                     number: "88467617508"
                   }
@@ -96,7 +96,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
                     first_name: "John",
                     middle_name: nil,
                     last_name: "Kennedy",
-                    pass: {
+                    passport: {
                       series: "HR",
                       number: "88467617508"
                     }
@@ -127,7 +127,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
                   first_name: "John",
                   middle_name: "Fitzgerald",
                   last_name: "Kennedy",
-                  pass: {
+                  passport: {
                     series: "HR",
                     number: "88467617508"
                   }
@@ -152,7 +152,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
                     first_name: "John",
                     middle_name: nil,
                     last_name: "Kennedy",
-                    pass: {
+                    passport: {
                       series: "HR",
                       number: "88467617508"
                     }

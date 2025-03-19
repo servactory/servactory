@@ -127,18 +127,28 @@ module Servactory
 
         ########################################################################
 
-        def prepare_object_with!(object:, schema:) # rubocop:disable Metrics/MethodLength
+        def prepare_object_with!(object:, schema:) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           schema.map do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
+            required = schema_value.fetch(:required, true)
+            object_value = object[schema_key]
 
             if attribute_type == Hash
+              default_value = schema_value.fetch(:default, {})
+
+              if !required && !default_value.nil? && !Servactory::Utils.value_present?(object_value)
+                object[schema_key] = default_value
+              end
+
               prepare_object_with!(
                 object: object.fetch(schema_key, {}),
                 schema: schema_value.except(*RESERVED_OPTIONS)
               )
             else
-              unless (default = schema_value.fetch(:default, nil)).nil?
-                object[schema_key] = default
+              default_value = schema_value.fetch(:default, nil)
+
+              if !required && !default_value.nil? && !Servactory::Utils.value_present?(object_value)
+                object[schema_key] = default_value
               end
 
               unless (input_prepare = schema_value.fetch(:prepare, nil)).nil?
