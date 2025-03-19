@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.13.2](https://github.com/servactory/servactory/tree/v2.13.2) (2025-03-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.13.1...v2.13.2)
+
+**Fixed:**
+
+- Fix handling of default values ​​in inputs and dynamic option schema [\#269](https://github.com/servactory/servactory/pull/269) ([afuno](https://github.com/afuno))
+
 ## [v2.13.1](https://github.com/servactory/servactory/tree/v2.13.1) (2025-03-19)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.13.0...v2.13.1)
