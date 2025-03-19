@@ -147,13 +147,6 @@ module Servactory
             else
               default_value = schema_value.fetch(:default, nil)
 
-              # if !required && default_value.present? && (
-              #   (!object_value.is_a?(TrueClass) && !object_value.is_a?(FalseClass) && object_value.blank?) ||
-              #     object_value.nil?
-              # ) # do
-              #   object[schema_key] = default_value
-              # end
-
               if !required && !default_value.nil? && !Servactory::Utils.value_present?(object_value)
                 object[schema_key] = default_value
               end

@@ -47,13 +47,6 @@ module Servactory
 
           input_value = @context.send(:servactory_service_warehouse).fetch_input(input.name)
 
-          # if input.optional? && input.default.present? && (
-          #   (!input_value.is_a?(TrueClass) && !input_value.is_a?(FalseClass) && input_value.blank?) ||
-          #     input_value.nil?
-          # ) # do
-          #   input_value = input.default
-          # end
-
           if input.optional? && !input.default.nil? && !Servactory::Utils.value_present?(input_value)
             input_value = input.default
           end
