@@ -46,7 +46,13 @@ module Servactory
           return yield if input.nil?
 
           input_value = @context.send(:servactory_service_warehouse).fetch_input(input.name)
-          input_value = input.default if input.optional? && input_value.blank?
+
+          if input.optional? && (
+            (!input_value.is_a?(TrueClass) && !input_value.is_a?(FalseClass) && input_value.blank?) ||
+              input_value.nil?
+          ) # do
+            input_value = input.default
+          end
 
           input_prepare = input.prepare.fetch(:in, nil)
           input_value = input_prepare.call(value: input_value) if input_prepare.present?
