@@ -12,7 +12,7 @@ module Usual
             first_name: { type: String, required: true },
             middle_name: { type: String, required: false, default: "<unknown>" },
             last_name: { type: String, required: true },
-            pass: {
+            passport: {
               type: ::Hash,
               required: true,
               series: { type: String, required: true },
