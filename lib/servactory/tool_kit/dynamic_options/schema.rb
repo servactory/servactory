@@ -127,7 +127,7 @@ module Servactory
 
         ########################################################################
 
-        def prepare_object_with!(object:, schema:) # rubocop:disable Metrics/MethodLength
+        def prepare_object_with!(object:, schema:) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           schema.map do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
             required = schema_value.fetch(:required, true)
