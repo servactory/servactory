@@ -107,7 +107,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
     describe "and the data required for work is also valid" do
       include_examples "success result class"
 
-      it "asd" do
+      it do
         expect(perform).to(
           have_output(:payload)
             .contains(
