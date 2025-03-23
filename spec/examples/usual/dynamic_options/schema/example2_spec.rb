@@ -14,7 +14,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example2, type: :service do
         first_name:,
         middle_name:,
         last_name:,
-        pass: {
+        passport: {
           series:,
           number:
         }
@@ -49,11 +49,17 @@ RSpec.describe Usual::DynamicOptions::Schema::Example2, type: :service do
                   first_name: { type: String, required: true },
                   middle_name: { type: String, required: false, default: "<unknown>" },
                   last_name: { type: String, required: true },
-                  pass: {
+                  passport: {
                     type: Hash,
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {},
+                    visited_on: { type: Date, required: false, default: nil }
                   }
                 }
               }
@@ -77,11 +83,17 @@ RSpec.describe Usual::DynamicOptions::Schema::Example2, type: :service do
                   first_name: { type: String, required: true },
                   middle_name: { type: String, required: false, default: "<unknown>" },
                   last_name: { type: String, required: true },
-                  pass: {
+                  passport: {
                     type: Hash,
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {},
+                    visited_on: { type: Date, required: false, default: nil }
                   }
                 }
               }
@@ -97,7 +109,15 @@ RSpec.describe Usual::DynamicOptions::Schema::Example2, type: :service do
     describe "and the data required for work is also valid" do
       include_examples "success result class"
 
-      it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
+      describe "without middle name" do
+        it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
+      end
+
+      describe "with middle name" do
+        let(:middle_name) { "Fitzgerald" }
+
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
+      end
     end
   end
 
@@ -107,7 +127,15 @@ RSpec.describe Usual::DynamicOptions::Schema::Example2, type: :service do
     describe "and the data required for work is also valid" do
       include_examples "success result class"
 
-      it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
+      describe "without middle name" do
+        it { expect(perform).to have_output(:full_name).contains("John <unknown> Kennedy") }
+      end
+
+      describe "with middle name" do
+        let(:middle_name) { "Fitzgerald" }
+
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
+      end
     end
   end
 end

@@ -4,8 +4,8 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Schema < Must # rubocop:disable Metrics/ClassLength
-        RESERVED_ATTRIBUTES = %i[type required default].freeze
-        private_constant :RESERVED_ATTRIBUTES
+        RESERVED_OPTIONS = %i[type required default payload].freeze
+        private_constant :RESERVED_OPTIONS
 
         def self.use(option_name = :schema, default_hash_mode_class_names:)
           instance = new(option_name, :is, false)
@@ -65,7 +65,7 @@ module Servactory
             if attribute_type == Hash
               validate_for!(
                 object: object.fetch(schema_key, {}),
-                schema: schema_value.except(*RESERVED_ATTRIBUTES),
+                schema: schema_value.except(*RESERVED_OPTIONS),
                 root_schema_key: schema_key
               )
             else
@@ -127,21 +127,35 @@ module Servactory
 
         ########################################################################
 
-        def prepare_object_with!(object:, schema:) # rubocop:disable Metrics/MethodLength
+        def prepare_object_with!(object:, schema:) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           schema.map do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
+            required = schema_value.fetch(:required, true)
+            object_value = object[schema_key]
 
             if attribute_type == Hash
+              default_value = schema_value.fetch(:default, {})
+
+              if !required && !default_value.nil? && !Servactory::Utils.value_present?(object_value)
+                object[schema_key] = default_value
+              end
+
               prepare_object_with!(
                 object: object.fetch(schema_key, {}),
-                schema: schema_value.except(*RESERVED_ATTRIBUTES)
+                schema: schema_value.except(*RESERVED_OPTIONS)
               )
             else
-              next object unless object[schema_key].nil?
+              default_value = schema_value.fetch(:default, nil)
 
-              next object if (default = schema_value.fetch(:default, nil)).nil?
+              if !required && !default_value.nil? && !Servactory::Utils.value_present?(object_value)
+                object[schema_key] = default_value
+              end
 
-              object[schema_key] = default
+              unless (input_prepare = schema_value.fetch(:prepare, nil)).nil?
+                object[schema_key] = input_prepare.call(value: object[schema_key])
+              end
+
+              object
             end
           end
         end

@@ -14,7 +14,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
         first_name:,
         middle_name:,
         last_name:,
-        pass: {
+        passport: {
           series:,
           number:
         }
@@ -49,11 +49,17 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
                   first_name: { type: String, required: true },
                   middle_name: { type: String, required: false },
                   last_name: { type: String, required: true },
-                  pass: {
+                  passport: {
                     type: Hash,
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {},
+                    visited_on: { type: Date, required: false, default: nil }
                   }
                 }
               }
@@ -77,11 +83,17 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
                   first_name: { type: String, required: true },
                   middle_name: { type: String, required: false },
                   last_name: { type: String, required: true },
-                  pass: {
+                  passport: {
                     type: Hash,
                     required: true,
                     series: { type: String, required: true },
                     number: { type: String, required: true }
+                  },
+                  session: {
+                    type: Hash,
+                    required: false,
+                    default: {},
+                    visited_on: { type: Date, required: false, default: nil }
                   }
                 }
               }
@@ -107,10 +119,11 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
                   first_name: "John",
                   middle_name: "Fitzgerald",
                   last_name: "Kennedy",
-                  pass: {
+                  passport: {
                     series: "HR",
                     number: "88467617508"
-                  }
+                  },
+                  session: {}
                 }
               }
             )
@@ -132,10 +145,11 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
                     first_name: "John",
                     middle_name: nil,
                     last_name: "Kennedy",
-                    pass: {
+                    passport: {
                       series: "HR",
                       number: "88467617508"
-                    }
+                    },
+                    session: {}
                   }
                 }
               )
@@ -163,10 +177,11 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
                   first_name: "John",
                   middle_name: "Fitzgerald",
                   last_name: "Kennedy",
-                  pass: {
+                  passport: {
                     series: "HR",
                     number: "88467617508"
-                  }
+                  },
+                  session: {}
                 }
               }
             )
@@ -188,10 +203,11 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
                     first_name: "John",
                     middle_name: nil,
                     last_name: "Kennedy",
-                    pass: {
+                    passport: {
                       series: "HR",
                       number: "88467617508"
-                    }
+                    },
+                    session: {}
                   }
                 }
               )

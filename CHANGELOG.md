@@ -1,5 +1,65 @@
 # Changelog
 
+## [v2.13.2](https://github.com/servactory/servactory/tree/v2.13.2) (2025-03-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.13.1...v2.13.2)
+
+**Fixed:**
+
+- Fix handling of default values ​​in inputs and dynamic option schema [\#269](https://github.com/servactory/servactory/pull/269) ([afuno](https://github.com/afuno))
+
+## [v2.13.1](https://github.com/servactory/servactory/tree/v2.13.1) (2025-03-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.13.0...v2.13.1)
+
+**Fixed:**
+
+- Fix definition of default value for input [\#268](https://github.com/servactory/servactory/pull/268) ([afuno](https://github.com/afuno))
+
+## [v2.13.0](https://github.com/servactory/servactory/tree/v2.13.0) (2025-03-06)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0...v2.13.0)
+
+**Implemented enhancements:**
+
+- Add support for `prepare` option inside `schema` dynamic option [\#267](https://github.com/servactory/servactory/pull/267) ([afuno](https://github.com/afuno))
+
+## [v2.12.0](https://github.com/servactory/servactory/tree/v2.12.0) (2025-03-02)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0.rc4...v2.12.0)
+
+**Implemented enhancements:**
+
+- Rewrite `inclusion` option as dynamic [\#262](https://github.com/servactory/servactory/pull/262) ([afuno](https://github.com/afuno))
+- Rewrite `schema` option as dynamic [\#260](https://github.com/servactory/servactory/pull/260) ([afuno](https://github.com/afuno))
+- Rework storage to use it for all attribute types [\#259](https://github.com/servactory/servactory/pull/259) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Fix optionality for dynamic option `schema` [\#264](https://github.com/servactory/servactory/pull/264) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[02.03.2025\] Update dependencies [\#266](https://github.com/servactory/servactory/pull/266) ([afuno](https://github.com/afuno))
+- \[19.02.2025\] Update libraries [\#263](https://github.com/servactory/servactory/pull/263) ([afuno](https://github.com/afuno))
+- \[08.02.2025\] Update libraries [\#261](https://github.com/servactory/servactory/pull/261) ([afuno](https://github.com/afuno))
+
+## [v2.12.0.rc4](https://github.com/servactory/servactory/tree/v2.12.0.rc4) (2025-03-01)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0.rc3...v2.12.0.rc4)
+
+## [v2.12.0.rc3](https://github.com/servactory/servactory/tree/v2.12.0.rc3) (2025-03-01)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0.rc2...v2.12.0.rc3)
+
+## [v2.12.0.rc2](https://github.com/servactory/servactory/tree/v2.12.0.rc2) (2025-02-18)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0.rc1...v2.12.0.rc2)
+
+## [v2.12.0.rc1](https://github.com/servactory/servactory/tree/v2.12.0.rc1) (2025-02-08)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.11.0...v2.12.0.rc1)
+
 ## [v2.11.0](https://github.com/servactory/servactory/tree/v2.11.0) (2025-01-01)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.10.0...v2.11.0)
