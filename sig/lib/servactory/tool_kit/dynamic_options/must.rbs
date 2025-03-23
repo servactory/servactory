@@ -25,11 +25,11 @@ module Servactory
 
         def must_content_message_with: (WorkOption option) -> Proc
 
-        def condition_for_input_with: (** untyped) -> (bool | [bool, Symbol])
+        def condition_for_input_with: (** untyped) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
 
-        def condition_for_internal_with: (** untyped) -> (bool | [bool, Symbol])
+        def condition_for_internal_with: (** untyped) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
 
-        def condition_for_output_with: (** untyped) -> (bool | [bool, Symbol])
+        def condition_for_output_with: (** untyped) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
 
         def message_for_input_with: (** untyped) -> String
 

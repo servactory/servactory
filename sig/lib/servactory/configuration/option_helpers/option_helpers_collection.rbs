@@ -8,6 +8,8 @@ module Servactory
 
         def initialize: (Set[Maintenance::Attributes::OptionHelper] collection) -> void
 
+        def dynamic_options: -> OptionHelpersCollection
+
         def find_by: (name: Symbol) -> Maintenance::Attributes::OptionHelper?
       end
     end

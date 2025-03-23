@@ -7,10 +7,10 @@ module Servactory
                   :internals,
                   :outputs
 
-      def initialize(inputs:, internals:, outputs:)
-        @inputs = inputs
-        @internals = internals
-        @outputs = outputs
+      def initialize(builder)
+        @inputs = builder.inputs
+        @internals = builder.internals
+        @outputs = builder.outputs
       end
     end
   end

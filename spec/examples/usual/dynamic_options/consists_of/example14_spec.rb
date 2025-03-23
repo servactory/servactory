@@ -97,7 +97,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
           have_input(:ids)
             .valid_with(attributes)
             .type(Set)
-            .consists_of(String) { "Input `ids` must be a collection of `String`" }
+            .consists_of(String).message("Input `ids` must be a collection of `String`")
             .required
         )
       end
@@ -200,7 +200,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
           have_input(:ids)
             .valid_with(attributes)
             .type(Set)
-            .consists_of(String) { "Input `ids` must be a collection of `String`" }
+            .consists_of(String).message("Input `ids` must be a collection of `String`")
             .required
         )
       end

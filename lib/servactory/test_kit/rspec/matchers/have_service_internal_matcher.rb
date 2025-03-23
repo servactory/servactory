@@ -2,8 +2,10 @@
 
 require_relative "have_service_attribute_matchers/types_matcher"
 require_relative "have_service_attribute_matchers/consists_of_matcher"
+require_relative "have_service_attribute_matchers/schema_matcher"
 require_relative "have_service_attribute_matchers/inclusion_matcher"
 require_relative "have_service_attribute_matchers/must_matcher"
+require_relative "have_service_attribute_matchers/message_matcher"
 
 module Servactory
   module TestKit
@@ -50,17 +52,26 @@ module Servactory
             self
           end
 
-          def consists_of(*types) # rubocop:disable Metrics/MethodLength
-            message = block_given? ? yield : nil
-
+          def consists_of(*types)
             add_submatcher(
               HaveServiceAttributeMatchers::ConsistsOfMatcher,
               described_class,
               :internal,
               internal_name,
               @option_types,
-              Array(types),
-              message
+              Array(types)
+            )
+            self
+          end
+
+          def schema(data = {})
+            add_submatcher(
+              HaveServiceAttributeMatchers::SchemaMatcher,
+              described_class,
+              :internal,
+              internal_name,
+              @option_types,
+              data
             )
             self
           end
@@ -87,6 +98,18 @@ module Servactory
             self
           end
 
+          def message(message)
+            add_submatcher(
+              HaveServiceAttributeMatchers::MessageMatcher,
+              described_class,
+              :internal,
+              internal_name,
+              @last_submatcher,
+              message
+            )
+            self
+          end
+
           def description
             "#{internal_name} with #{submatchers.map(&:description).join(', ')}"
           end
@@ -107,11 +130,12 @@ module Servactory
 
           protected
 
-          attr_reader :submatchers, :missing, :subject
+          attr_reader :last_submatcher, :submatchers, :missing, :subject
 
           def add_submatcher(matcher_class, *args)
             remove_submatcher(matcher_class)
-            submatchers << matcher_class.new(*args)
+            @last_submatcher = matcher_class.new(*args)
+            submatchers << @last_submatcher
           end
 
           def remove_submatcher(matcher_class)

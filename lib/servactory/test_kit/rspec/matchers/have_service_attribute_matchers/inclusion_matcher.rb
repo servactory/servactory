@@ -6,6 +6,9 @@ module Servactory
       module Matchers
         module HaveServiceAttributeMatchers
           class InclusionMatcher
+            OPTION_NAME = :inclusion
+            OPTION_BODY_KEY = :in
+
             attr_reader :missing_option
 
             def initialize(described_class, attribute_type, attribute_name, values)
@@ -44,16 +47,16 @@ module Servactory
                         :attribute_data
 
             def submatcher_passes?(_subject)
-              attribute_inclusion = attribute_data.fetch(:inclusion)
-              attribute_inclusion_in = attribute_inclusion.fetch(:in)
+              attribute_inclusion = attribute_data.fetch(OPTION_NAME)
+              attribute_inclusion_in = attribute_inclusion.fetch(OPTION_BODY_KEY)
 
               attribute_inclusion_in.difference(values).empty? &&
                 values.difference(attribute_inclusion_in).empty?
             end
 
             def build_missing_option
-              attribute_inclusion = attribute_data.fetch(:inclusion)
-              attribute_inclusion_in = attribute_inclusion.fetch(:in)
+              attribute_inclusion = attribute_data.fetch(OPTION_NAME)
+              attribute_inclusion_in = attribute_inclusion.fetch(OPTION_BODY_KEY)
 
               <<~MESSAGE
                 should include the expected values

@@ -6,7 +6,11 @@ module Servactory
 
         attr_reader equivalent: (Proc | Hash[Symbol, untyped])
 
-        def initialize: (name: Symbol, equivalent: (Proc | Hash[Symbol, untyped])) -> void
+        attr_reader meta: Hash[Symbol, untyped]
+
+        def initialize: (name: Symbol, equivalent: (Proc | Hash[Symbol, untyped]), meta: Hash[Symbol, untyped]) -> void
+
+        def dynamic_option?: -> bool
       end
     end
   end
