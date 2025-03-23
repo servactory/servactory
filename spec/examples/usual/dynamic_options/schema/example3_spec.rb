@@ -58,7 +58,8 @@ RSpec.describe Usual::DynamicOptions::Schema::Example3, type: :service do
                   session: {
                     type: Hash,
                     required: false,
-                    default: {}
+                    default: {},
+                    visited_on: { type: Date, required: false, default: nil }
                   }
                 }
               }
@@ -91,7 +92,8 @@ RSpec.describe Usual::DynamicOptions::Schema::Example3, type: :service do
                   session: {
                     type: Hash,
                     required: false,
-                    default: {}
+                    default: {},
+                    visited_on: { type: Date, required: false, default: nil }
                   }
                 }
               }
