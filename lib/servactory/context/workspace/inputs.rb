@@ -4,9 +4,6 @@ module Servactory
   module Context
     module Workspace
       class Inputs
-        RESERVED_ATTRIBUTES = %i[type required default].freeze
-        private_constant :RESERVED_ATTRIBUTES
-
         def initialize(context:, collection_of_inputs:)
           @context = context
           @collection_of_inputs = collection_of_inputs
@@ -49,10 +46,9 @@ module Servactory
           return yield if input.nil?
 
           input_value = @context.send(:servactory_service_warehouse).fetch_input(input.name)
-          input_value = input.default if input.optional? && input_value.blank?
 
-          if input.hash_mode? && (tmp_schema = input.schema.fetch(:is)).present?
-            input_value = prepare_hash_values_inside(object: input_value, schema: tmp_schema)
+          if input.optional? && !input.default.nil? && !Servactory::Utils.value_present?(input_value)
+            input_value = input.default
           end
 
           input_prepare = input.prepare.fetch(:in, nil)
@@ -65,37 +61,6 @@ module Servactory
           end
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
-
-        def prepare_hash_values_inside(object:, schema:) # rubocop:disable Metrics/MethodLength
-          return object unless object.respond_to?(:fetch)
-
-          schema.to_h do |schema_key, schema_value|
-            attribute_type = schema_value.fetch(:type, String)
-
-            result =
-              if attribute_type == Hash
-                prepare_hash_values_inside(
-                  object: object.fetch(schema_key, {}),
-                  schema: schema_value.except(*RESERVED_ATTRIBUTES)
-                )
-              else
-                fetch_hash_values_from(
-                  value: object.fetch(schema_key, {}),
-                  schema_value:,
-                  attribute_required: schema_value.fetch(:required, true)
-                )
-              end
-
-            [schema_key, result]
-          end
-        end
-
-        def fetch_hash_values_from(value:, schema_value:, attribute_required:)
-          return value if attribute_required
-          return value if value.present?
-
-          schema_value.fetch(:default, nil)
-        end
 
         def raise_error_for(type, name)
           message_text = @context.send(:servactory_service_info).translate(

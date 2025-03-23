@@ -1,0 +1,29 @@
+module Servactory
+  module ToolKit
+    module DynamicOptions
+      class Schema < Must
+        RESERVED_OPTIONS: Array[Symbol]
+
+        @default_hash_mode_class_names: Configuration::HashMode::ClassNamesCollection
+
+        def self.use: (?::Symbol option_name, default_hash_mode_class_names: Configuration::HashMode::ClassNamesCollection) -> untyped
+
+        def assign: (Configuration::HashMode::ClassNamesCollection default_hash_mode_class_names) -> Configuration::HashMode::ClassNamesCollection
+
+        def common_condition_with: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), value: untyped, option: Must::WorkOption) -> (::Array[untyped] | bool)
+
+        def validate_for!: (object: untyped, schema: Hash[Symbol, untyped], root_schema_key: Symbol?) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
+
+        def validate_with: (object: untyped, schema_key: Symbol, schema_value: Hash[Symbol, untyped], attribute_type: Class, attribute_required: bool) -> (Array[Class | bool] | bool)
+
+        def should_be_checked_for?: (object: untyped, schema_key: Symbol, schema_value: Hash[Symbol, untyped], required: bool) -> bool
+
+        def prepare_value_from: (schema_value: Hash[Symbol, untyped], value: untyped, required: bool) -> untyped
+
+        def fetch_default_from: (untyped value) -> untyped
+
+        def prepare_object_with!: (object: untyped, schema: Hash[Symbol, untyped]) -> Array[untyped]
+      end
+    end
+  end
+end

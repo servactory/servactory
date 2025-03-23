@@ -12,8 +12,6 @@ ru:
         for_fetch: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
         for_assign: "[%{service_class_name}] Неизвестный входящий атрибут `%{input_name}`"
       validations:
-        inclusion:
-          default_error: "[%{service_class_name}] Неправильное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Инпут `%{input_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` инпута `%{input_name}`: %{exception_message}"
@@ -26,6 +24,8 @@ ru:
               default: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у инпута `%{input_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Неправильное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`, получено `%{value}`"
             min:
               default: "[%{service_class_name}] Инпут `%{input_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -34,14 +34,16 @@ ru:
               default: "[%{service_class_name}] Инпут `%{input_name}` имеет значение `%{value}`, которое не кратно `%{option_value}`"
               blank: "[%{service_class_name}] Инпут `%{input_name}` имеет недопустимое значение `%{option_value}` в опции `%{option_name}`"
               divided_by_0: "[%{service_class_name}] Инпут `%{input_name}` имеет недопустимое значение `%{option_value}` в опции `%{option_name}`"
+            schema:
+              wrong_type: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Неправильное значение в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось значение с типом `%{expected_type}`, получено `%{given_type}`"
         required:
           default_error:
             default: "[%{service_class_name}] Обязательный инпут `%{input_name}` отсутствует"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-            for_hash:
-              wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Неожиданные атрибуты: `%{unnecessary_attributes}`"
@@ -52,8 +54,6 @@ ru:
         for_fetch: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
         for_assign: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
       validations:
-        inclusion:
-          default_error: "[%{service_class_name}] Неправильное значение в `%{internal_name}`, должно быть одним из `%{internal_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` внутреннего атрибута `%{internal_name}`: %{exception_message}"
@@ -66,6 +66,8 @@ ru:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у внутреннего атрибута `%{internal_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Неправильное значение в `%{internal_name}`, должно быть одним из `%{internal_inclusion}`, получено `%{value}`"
             min:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -74,18 +76,18 @@ ru:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` имеет значение `%{value}`, которое не кратно `%{option_value}`"
               blank: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` имеет недопустимое значение `%{option_value}` в опции `%{option_name}`"
               divided_by_0: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` имеет недопустимое значение `%{option_value}` в опции `%{option_name}`"
+            schema:
+              wrong_type: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше внутреннего атрибута `%{internal_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Неправильное значение в хеше внутреннего атрибута `%{internal_name}`, для `%{key_name}` ожидалось значение с типом `%{expected_type}`, получено `%{given_type}`"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-            for_hash:
-              wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше внутреннего атрибута `%{internal_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
     outputs:
       undefined:
         for_fetch: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
         for_assign: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
       validations:
-        inclusion:
-          default_error: "[%{service_class_name}] Неправильное значение в `%{output_name}`, должно быть одним из `%{output_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Выходящий атрибут `%{output_name}` должен \"%{code}\""
           syntax_error: "[%{service_class_name}] Синтаксическая ошибка внутри `%{code}` выходящего атрибута `%{output_name}`: %{exception_message}"
@@ -98,6 +100,8 @@ ru:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у выходящего атрибута `%{output_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Неправильное значение в `%{output_name}`, должно быть одним из `%{output_inclusion}`, получено `%{value}`"
             min:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -106,8 +110,10 @@ ru:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` имеет значение `%{value}`, которое не кратно `%{option_value}`"
               blank: "[%{service_class_name}] Выходящий атрибут `%{output_name}` имеет недопустимое значение `%{option_value}` в опции `%{option_name}`"
               divided_by_0: "[%{service_class_name}] Выходящий атрибут `%{output_name}` имеет недопустимое значение `%{option_value}` в опции `%{option_name}`"
+            schema:
+              wrong_type: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Неправильное значение в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось значение с типом `%{expected_type}`, получено `%{given_type}`"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
-            for_hash:
-              wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
