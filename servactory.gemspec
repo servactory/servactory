@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["config/**/*", "lib/**/*", "Rakefile", "README.md"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = Gem::Requirement.new(">= 3.1.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.1")
 
   spec.add_dependency "activesupport", ">= 5.1", "< 8.1"
   spec.add_dependency "base64", ">= 0.2"
@@ -36,12 +36,12 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mutex_m", ">= 0.3"
   spec.add_dependency "zeitwerk", ">= 2.6"
 
-  spec.add_development_dependency "appraisal", "~> 2.5"
+  spec.add_development_dependency "appraisal", ">= 2.5"
   spec.add_development_dependency "async", ">= 2.23"
   spec.add_development_dependency "datory", ">= 2.2.0"
   spec.add_development_dependency "rake", ">= 13.2"
   spec.add_development_dependency "rbs", ">= 3.8"
   spec.add_development_dependency "rspec", ">= 3.13"
-  spec.add_development_dependency "servactory-rubocop", ">= 0.7"
+  spec.add_development_dependency "servactory-rubocop", ">= 0.9"
   spec.add_development_dependency "steep", ">= 1.9"
 end
