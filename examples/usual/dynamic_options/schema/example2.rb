@@ -21,7 +21,8 @@ module Usual
             session: {
               type: ::Hash,
               required: false,
-              default: {}
+              default: {},
+              visited_on: { type: Date, required: false, default: nil }
             }
           }
         }.freeze
