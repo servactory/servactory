@@ -18,7 +18,7 @@ module Usual
       input :balance_cents,
             as: :balance,
             type: Integer,
-            prepare: ->(value:) { Money.new(cents: value, currency: :USD) }
+            prepare: ->(value:, **) { Money.new(cents: value, currency: :USD) }
 
       output :balance_with_bonus, type: Money
 
