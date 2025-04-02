@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
+RSpec.describe Usual::DynamicOptions::Inclusion::Example12, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -22,7 +22,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
         include_examples "success result class"
 
         describe "and the value of `event_name` is passed" do
-          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example5::Event) }
+          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
           it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
           it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
         end
@@ -30,9 +30,9 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
         describe "and the value of `event_name` is not passed" do
           let(:event_name) { nil }
 
-          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example5::Event) }
+          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
           it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-          it { expect(perform).to have_output(:event).nested(:event_name).contains(nil) }
+          it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
         end
       end
 
@@ -44,7 +44,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Inclusion::Example5] Wrong value in `event_name`, " \
+                "[Usual::DynamicOptions::Inclusion::Example12] Wrong value in `event_name`, " \
                 "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
                 "got `\"sent\"`"
               )
@@ -61,7 +61,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
             .valid_with(attributes)
             .type(String)
             .optional
-            .default(nil)
+            .default("created")
             .inclusion(%w[created rejected approved])
         )
       end
@@ -89,7 +89,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
         include_examples "success result class"
 
         describe "and the value of `event_name` is passed" do
-          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example5::Event) }
+          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
           it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
           it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
         end
@@ -97,9 +97,9 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
         describe "and the value of `event_name` is not passed" do
           let(:event_name) { nil }
 
-          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example5::Event) }
+          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
           it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-          it { expect(perform).to have_output(:event).nested(:event_name).contains(nil) }
+          it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
         end
       end
 
@@ -111,7 +111,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
             expect { perform }.to(
               raise_error(
                 ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Inclusion::Example5] Wrong value in `event_name`, " \
+                "[Usual::DynamicOptions::Inclusion::Example12] Wrong value in `event_name`, " \
                 "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
                 "got `\"sent\"`"
               )
@@ -128,7 +128,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
             .valid_with(attributes)
             .type(String)
             .optional
-            .default(nil)
+            .default("created")
             .inclusion(%w[created rejected approved])
         )
       end
