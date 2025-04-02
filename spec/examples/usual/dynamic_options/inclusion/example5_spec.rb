@@ -61,6 +61,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
             .valid_with(attributes)
             .type(String)
             .optional
+            .default(nil)
             .inclusion(%w[created rejected approved])
         )
       end
@@ -127,6 +128,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
             .valid_with(attributes)
             .type(String)
             .optional
+            .default(nil)
             .inclusion(%w[created rejected approved])
         )
       end
