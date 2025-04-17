@@ -63,8 +63,20 @@ module Servactory
         @config.action_aliases.merge(action_aliases)
       end
 
-      def action_shortcuts(action_shortcuts)
-        @config.action_shortcuts.merge(action_shortcuts)
+      def action_shortcuts(array, hash = {})
+        prepared = array.to_h do |action_shortcut|
+          [
+            action_shortcut,
+            {
+              prefix: action_shortcut,
+              suffix: nil
+            }
+          ]
+        end
+
+        prepared = prepared.merge(hash)
+
+        @config.action_shortcuts.merge(prepared)
       end
 
       def i18n_root_key(value)

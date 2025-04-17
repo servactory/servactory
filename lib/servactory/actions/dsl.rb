@@ -89,7 +89,9 @@ module Servactory
         def method_missing(name, ...)
           return method_missing_for_action_aliases(name, ...) if config.action_aliases.include?(name)
 
-          return method_missing_for_shortcuts_for_make(name, ...) if config.action_shortcuts.include?(name)
+          if (action_shortcut = config.action_shortcuts.find_by(name:)).present?
+            return method_missing_for_shortcuts_for_make(name, action_shortcut, ...)
+          end
 
           super
         end
@@ -103,16 +105,45 @@ module Servactory
           make(method_name, **method_options)
         end
 
-        def method_missing_for_shortcuts_for_make(shortcut_name, *args)
-          method_options = args.last.is_a?(Hash) ? args.pop : {}
+        def method_missing_for_shortcuts_for_make(_shortcut_name, action_shortcut, *args)
+          # method_options = args.last.is_a?(Hash) ? args.pop : {}
 
-          args.each do |method_name|
-            make(:"#{shortcut_name}_#{method_name}", **method_options)
+          action_name = args.pop.to_s
+
+          method_prefix = action_shortcut.fetch(:prefix)
+          method_suffix = action_shortcut.fetch(:suffix)
+
+          method_body, method_body_t =
+            if action_name.end_with?("!", "?")
+              t = action_name.slice!(-1)
+
+              [action_name, t]
+            else
+              [action_name, nil]
+            end
+
+          full_method_name = ""
+
+          full_method_name += "#{method_prefix}_" if method_prefix.present?
+
+          full_method_name += method_body.to_s
+
+          full_method_name += "_#{method_suffix}" if method_suffix.present?
+
+          full_method_name += method_body_t if method_body_t.present?
+
+          puts
+          puts full_method_name.inspect
+          puts
+
+          # TODO: Builder???
+          args.each do |_method_name|
+            make(full_method_name, **method_options)
           end
         end
 
         def respond_to_missing?(name, *)
-          config.action_aliases.include?(name) || config.action_shortcuts.include?(name) || super
+          config.action_aliases.include?(name) || config.action_shortcuts.shortcuts.include?(name) || super
         end
 
         def next_position
