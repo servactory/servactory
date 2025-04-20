@@ -46,6 +46,14 @@ module Servactory
       false
     end
 
+    def extract_special_character_from(string)
+      if string.end_with?("!", "?")
+        [string.chop, string[-1]]
+      else
+        [string, nil]
+      end
+    end
+
     FALSE_VALUES = [
       false,
       nil, "",

@@ -87,14 +87,16 @@ module Servactory
         end
 
         def method_missing(name, ...)
-          return method_missing_for_action_aliases(name, ...) if config.action_aliases.include?(name)
+          return method_missing_for_action_aliases(...) if config.action_aliases.include?(name)
 
-          return method_missing_for_shortcuts_for_make(name, ...) if config.action_shortcuts.include?(name)
+          if (action_shortcut = config.action_shortcuts.find_by(name:)).present?
+            return method_missing_for_shortcuts_for_make(action_shortcut, ...)
+          end
 
           super
         end
 
-        def method_missing_for_action_aliases(_alias_name, *args)
+        def method_missing_for_action_aliases(*args)
           method_name = args.first
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
@@ -103,16 +105,37 @@ module Servactory
           make(method_name, **method_options)
         end
 
-        def method_missing_for_shortcuts_for_make(shortcut_name, *args)
+        def method_missing_for_shortcuts_for_make(action_shortcut, *args)
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
           args.each do |method_name|
-            make(:"#{shortcut_name}_#{method_name}", **method_options)
+            full_method_name = build_method_name_for_shortcuts_for_make_with(
+              method_name.to_s,
+              action_shortcut
+            )
+
+            make(full_method_name, **method_options)
           end
         end
 
+        def build_method_name_for_shortcuts_for_make_with(method_name, action_shortcut)
+          prefix = action_shortcut.fetch(:prefix)
+          suffix = action_shortcut.fetch(:suffix)
+
+          method_body, special_char =
+            Servactory::Utils.extract_special_character_from(method_name.to_s)
+
+          parts = []
+          parts << "#{prefix}_" if prefix.present?
+          parts << method_body
+          parts << "_#{suffix}" if suffix.present?
+          parts << special_char if special_char
+
+          parts.join.to_sym
+        end
+
         def respond_to_missing?(name, *)
-          config.action_aliases.include?(name) || config.action_shortcuts.include?(name) || super
+          config.action_aliases.include?(name) || config.action_shortcuts.shortcuts.include?(name) || super
         end
 
         def next_position
