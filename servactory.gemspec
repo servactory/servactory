@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["config/**/*", "lib/**/*", "Rakefile", "README.md"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = Gem::Requirement.new(">= 3.1")
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.2")
 
   spec.add_dependency "activesupport", ">= 5.1", "< 8.1"
   spec.add_dependency "base64", ">= 0.2"
