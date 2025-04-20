@@ -3,7 +3,7 @@
 module Usual
   module ActionShortcuts
     class Example2 < ApplicationService::Base
-      PaymentRestriction = Data.define(:reason)
+      PaymentRestriction = Struct.new(:reason, keyword_init: true)
 
       restrict :payment!
 
