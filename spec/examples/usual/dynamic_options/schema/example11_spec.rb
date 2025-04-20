@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 RSpec.describe Usual::DynamicOptions::Schema::Example11, type: :service do
-  include_examples "check class info",
-                   inputs: %i[],
-                   internals: %i[],
-                   outputs: %i[payload issued_on]
+  it_behaves_like "check class info",
+                  inputs: %i[],
+                  internals: %i[],
+                  outputs: %i[payload issued_on]
 
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it do
         expect(perform).to(
@@ -31,7 +31,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example11, type: :service do
     subject(:perform) { described_class.call }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it do
         expect(perform).to(

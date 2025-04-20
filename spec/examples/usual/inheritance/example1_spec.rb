@@ -16,14 +16,14 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     let(:input_2) { "Second" }
     let(:input_3) { "Third" }
 
-    include_examples "check class info",
-                     inputs: %i[input_1 input_2 input_3],
-                     internals: %i[],
-                     outputs: %i[output_1 output_2 output_3]
+    it_behaves_like "check class info",
+                    inputs: %i[input_1 input_2 input_3],
+                    internals: %i[],
+                    outputs: %i[output_1 output_2 output_3]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:output_1).contains("First") }
         it { expect(perform).to have_output(:output_2).contains("Second") }
@@ -53,14 +53,14 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     let(:input_2) { "Second" }
     let(:input_3) { "Third" }
 
-    include_examples "check class info",
-                     inputs: %i[input_1 input_2 input_3],
-                     internals: %i[],
-                     outputs: %i[output_1 output_2 output_3]
+    it_behaves_like "check class info",
+                    inputs: %i[input_1 input_2 input_3],
+                    internals: %i[],
+                    outputs: %i[output_1 output_2 output_3]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:output_1).contains("First") }
         it { expect(perform).to have_output(:output_2).contains("Second") }

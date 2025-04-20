@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example1, type: :s
 
     let(:started_at) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[started_at],
-                     internals: %i[],
-                     outputs: %i[started_at]
+    it_behaves_like "check class info",
+                    inputs: %i[started_at],
+                    internals: %i[],
+                    outputs: %i[started_at]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -56,10 +56,10 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example1, type: :s
 
     let(:started_at) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[started_at],
-                     internals: %i[],
-                     outputs: %i[started_at]
+    it_behaves_like "check class info",
+                    inputs: %i[started_at],
+                    internals: %i[],
+                    outputs: %i[started_at]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

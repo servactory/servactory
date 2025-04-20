@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Usual::DynamicOptions::Schema::Example10, type: :service do
-  include_examples "check class info",
-                   inputs: %i[],
-                   internals: %i[payload],
-                   outputs: %i[issued_on]
+  it_behaves_like "check class info",
+                  inputs: %i[],
+                  internals: %i[payload],
+                  outputs: %i[issued_on]
 
   describe "validation" do
     describe "internals" do
@@ -30,7 +30,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example10, type: :service do
     subject(:perform) { described_class.call! }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:issued_on).contains("2023-01-01") }
     end
@@ -40,7 +40,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example10, type: :service do
     subject(:perform) { described_class.call }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:issued_on).contains("2023-01-01") }
     end

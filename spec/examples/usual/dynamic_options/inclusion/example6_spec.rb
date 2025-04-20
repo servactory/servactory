@@ -37,7 +37,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example6, type: :service do
     subject(:perform) { described_class.call!(**attributes) }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:event_name).contains("approved") }
     end
@@ -94,7 +94,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example6, type: :service do
     subject(:perform) { described_class.call(**attributes) }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:event_name).contains("approved") }
     end

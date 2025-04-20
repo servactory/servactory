@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example4, type: :service do
 
     let(:event_name) { "created" }
 
-    include_examples "check class info",
-                     inputs: %i[event_name],
-                     internals: %i[],
-                     outputs: %i[event]
+    it_behaves_like "check class info",
+                    inputs: %i[event_name],
+                    internals: %i[],
+                    outputs: %i[event]
 
     describe "validations" do
       describe "inputs" do
@@ -41,7 +41,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example4, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example4::Event) }
       it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
@@ -75,10 +75,10 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example4, type: :service do
 
     let(:event_name) { "created" }
 
-    include_examples "check class info",
-                     inputs: %i[event_name],
-                     internals: %i[],
-                     outputs: %i[event]
+    it_behaves_like "check class info",
+                    inputs: %i[event_name],
+                    internals: %i[],
+                    outputs: %i[event]
 
     describe "validations" do
       describe "inputs" do
@@ -104,7 +104,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example4, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example4::Event) }
       it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }

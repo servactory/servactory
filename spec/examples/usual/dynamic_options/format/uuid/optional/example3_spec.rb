@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example3, type: :s
 
     let(:service_id) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[service_id],
-                     internals: %i[],
-                     outputs: %i[service_id]
+    it_behaves_like "check class info",
+                    inputs: %i[service_id],
+                    internals: %i[],
+                    outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -56,10 +56,10 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example3, type: :s
 
     let(:service_id) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[service_id],
-                     internals: %i[],
-                     outputs: %i[service_id]
+    it_behaves_like "check class info",
+                    inputs: %i[service_id],
+                    internals: %i[],
+                    outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

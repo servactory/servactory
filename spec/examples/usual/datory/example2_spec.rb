@@ -10,14 +10,14 @@ RSpec.describe Usual::Datory::Example2, type: :service do
 
     let(:id) { SecureRandom.uuid }
 
-    include_examples "check class info",
-                     inputs: %i[id],
-                     internals: %i[],
-                     outputs: %i[id]
+    it_behaves_like "check class info",
+                    inputs: %i[id],
+                    internals: %i[],
+                    outputs: %i[id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:id).contains(id) }
       end
@@ -37,14 +37,14 @@ RSpec.describe Usual::Datory::Example2, type: :service do
 
     let(:id) { SecureRandom.uuid }
 
-    include_examples "check class info",
-                     inputs: %i[id],
-                     internals: %i[],
-                     outputs: %i[id]
+    it_behaves_like "check class info",
+                    inputs: %i[id],
+                    internals: %i[],
+                    outputs: %i[id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:id).contains(id) }
       end
