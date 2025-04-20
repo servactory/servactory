@@ -12,10 +12,10 @@ RSpec.describe Wrong::Basic::Example5, type: :service do
 
     let(:invoice_number) { "ABC-123" }
 
-    include_examples "check class info",
-                     inputs: %i[invoice_number],
-                     internals: %i[],
-                     outputs: %i[invoice_number]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_number],
+                    internals: %i[],
+                    outputs: %i[invoice_number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -47,10 +47,10 @@ RSpec.describe Wrong::Basic::Example5, type: :service do
 
     let(:invoice_number) { "ABC-123" }
 
-    include_examples "check class info",
-                     inputs: %i[invoice_number],
-                     internals: %i[],
-                     outputs: %i[invoice_number]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_number],
+                    internals: %i[],
+                    outputs: %i[invoice_number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do

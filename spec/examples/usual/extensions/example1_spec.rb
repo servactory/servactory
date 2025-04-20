@@ -12,14 +12,14 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
 
     let(:user) { Usual::Extensions::Example1::User.new(active: true) }
 
-    include_examples "check class info",
-                     inputs: %i[user],
-                     internals: %i[],
-                     outputs: %i[]
+    it_behaves_like "check class info",
+                    inputs: %i[user],
+                    internals: %i[],
+                    outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it "returns the expected values", :aggregate_failures do
           result = perform
@@ -69,14 +69,14 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
 
     let(:user) { Usual::Extensions::Example1::User.new(active: true) }
 
-    include_examples "check class info",
-                     inputs: %i[user],
-                     internals: %i[],
-                     outputs: %i[]
+    it_behaves_like "check class info",
+                    inputs: %i[user],
+                    internals: %i[],
+                    outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it "returns the expected values", :aggregate_failures do
           result = perform

@@ -19,10 +19,10 @@ RSpec.describe Wrong::Must::Example1, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[invoice_numbers],
-                     internals: %i[],
-                     outputs: %i[first_invoice_number]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_numbers],
+                    internals: %i[],
+                    outputs: %i[first_invoice_number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -62,10 +62,10 @@ RSpec.describe Wrong::Must::Example1, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[invoice_numbers],
-                     internals: %i[],
-                     outputs: %i[first_invoice_number]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_numbers],
+                    internals: %i[],
+                    outputs: %i[first_invoice_number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do

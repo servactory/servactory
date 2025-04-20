@@ -4,10 +4,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1, type: :se
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
-    include_examples "check class info",
-                     inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[child_result]
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[child_result]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -15,7 +15,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1, type: :se
           allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1Child)
         end
 
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it "does not raise error" do
           expect { perform }.not_to raise_error
@@ -33,10 +33,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1, type: :se
   describe ".call" do
     subject(:perform) { described_class.call }
 
-    include_examples "check class info",
-                     inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[child_result]
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[child_result]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -44,7 +44,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1, type: :se
           allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1Child)
         end
 
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it "returns success of child class" do
           result = perform

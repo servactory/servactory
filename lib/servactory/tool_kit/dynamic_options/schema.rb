@@ -29,9 +29,9 @@ module Servactory
           common_condition_with(attribute: output, value:, option:)
         end
 
-        def common_condition_with(attribute:, value:, option:) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def common_condition_with(attribute:, value:, option:) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           return true if option.value == false
-          return [false, :wrong_type] if @default_hash_mode_class_names.intersection(attribute.types).empty?
+          return [false, :wrong_type] unless @default_hash_mode_class_names.intersect?(attribute.types)
 
           if value.blank? && ((attribute.input? && attribute.optional?) || attribute.internal? || attribute.output?)
             return true

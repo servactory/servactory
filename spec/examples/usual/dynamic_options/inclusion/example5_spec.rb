@@ -12,14 +12,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
 
     let(:event_name) { "created" }
 
-    include_examples "check class info",
-                     inputs: %i[event_name],
-                     internals: %i[],
-                     outputs: %i[event]
+    it_behaves_like "check class info",
+                    inputs: %i[event_name],
+                    internals: %i[],
+                    outputs: %i[event]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         describe "and the value of `event_name` is passed" do
           it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example5::Event) }
@@ -79,14 +79,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
 
     let(:event_name) { "created" }
 
-    include_examples "check class info",
-                     inputs: %i[event_name],
-                     internals: %i[],
-                     outputs: %i[event]
+    it_behaves_like "check class info",
+                    inputs: %i[event_name],
+                    internals: %i[],
+                    outputs: %i[event]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         describe "and the value of `event_name` is passed" do
           it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example5::Event) }

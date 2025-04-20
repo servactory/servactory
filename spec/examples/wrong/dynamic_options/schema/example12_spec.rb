@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Wrong::DynamicOptions::Schema::Example12, type: :service do
-  include_examples "check class info",
-                   inputs: %i[],
-                   internals: %i[],
-                   outputs: %i[payload]
+  it_behaves_like "check class info",
+                  inputs: %i[],
+                  internals: %i[],
+                  outputs: %i[payload]
 
   describe ".call!" do
     subject(:perform) { described_class.call! }

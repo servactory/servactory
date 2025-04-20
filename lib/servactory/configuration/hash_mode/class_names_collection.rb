@@ -5,7 +5,7 @@ module Servactory
     module HashMode
       class ClassNamesCollection
         extend Forwardable
-        def_delegators :@collection, :include?
+        def_delegators :@collection, :include?, :intersect?
 
         def initialize(collection)
           @collection = collection
