@@ -116,37 +116,14 @@ module ApplicationService
       )
 
       action_shortcuts(
-        # EXAMPLE:  assign :payment!
-        # RESULT:   assign_payment!
-        # Eq:
-        # {
-        #   assign: {
-        #     prefix: :assign,
-        #     suffix: nil
-        #   }
-        # }
         %i[assign],
         {
-          # EXAMPLE:  restrict :payment!
-          # RESULT:   create_payment_restriction!
           restrict: {
             prefix: :create,
             suffix: :restriction
           }
         }
       )
-
-      # action_shortcuts [
-      #   :assign,
-      #   {
-      #     # EXAMPLE:  restrict :payment!
-      #     # RESULT:   create_payment_restriction!
-      #     restrict: {
-      #       prefix: :create,
-      #       suffix: :restriction
-      #     }
-      #   }
-      # ]
 
       action_aliases %i[play do_it!]
 
