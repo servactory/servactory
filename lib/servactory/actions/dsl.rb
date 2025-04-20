@@ -87,16 +87,16 @@ module Servactory
         end
 
         def method_missing(name, ...)
-          return method_missing_for_action_aliases(name, ...) if config.action_aliases.include?(name)
+          return method_missing_for_action_aliases(...) if config.action_aliases.include?(name)
 
           if (action_shortcut = config.action_shortcuts.find_by(name:)).present?
-            return method_missing_for_shortcuts_for_make(name, action_shortcut, ...)
+            return method_missing_for_shortcuts_for_make(action_shortcut, ...)
           end
 
           super
         end
 
-        def method_missing_for_action_aliases(_alias_name, *args)
+        def method_missing_for_action_aliases(*args)
           method_name = args.first
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
@@ -105,7 +105,7 @@ module Servactory
           make(method_name, **method_options)
         end
 
-        def method_missing_for_shortcuts_for_make(_shortcut_name, action_shortcut, *args)
+        def method_missing_for_shortcuts_for_make(action_shortcut, *args)
           method_options = args.last.is_a?(Hash) ? args.pop : {}
 
           args.each do |method_name|
