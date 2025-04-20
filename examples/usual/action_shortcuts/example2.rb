@@ -3,14 +3,14 @@
 module Usual
   module ActionShortcuts
     class Example2 < ApplicationService::Base
-      PaymentRestriction = Data.define(:code)
+      PaymentRestriction = Data.define(:reason)
 
       restrict :payment!
 
       private
 
       def create_payment_restriction!
-        PaymentRestriction.create!(
+        PaymentRestriction.new(
           reason: "Suspicion of fraud"
         )
       end

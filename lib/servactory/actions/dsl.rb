@@ -106,40 +106,32 @@ module Servactory
         end
 
         def method_missing_for_shortcuts_for_make(_shortcut_name, action_shortcut, *args)
-          # method_options = args.last.is_a?(Hash) ? args.pop : {}
+          method_options = args.last.is_a?(Hash) ? args.pop : {}
 
-          action_name = args.pop.to_s
+          args.each do |method_name|
+            full_method_name = build_method_name_for_shortcuts_for_make_with(
+              method_name.to_s,
+              action_shortcut
+            )
 
-          method_prefix = action_shortcut.fetch(:prefix)
-          method_suffix = action_shortcut.fetch(:suffix)
-
-          method_body, method_body_t =
-            if action_name.end_with?("!", "?")
-              t = action_name.slice!(-1)
-
-              [action_name, t]
-            else
-              [action_name, nil]
-            end
-
-          full_method_name = ""
-
-          full_method_name += "#{method_prefix}_" if method_prefix.present?
-
-          full_method_name += method_body.to_s
-
-          full_method_name += "_#{method_suffix}" if method_suffix.present?
-
-          full_method_name += method_body_t if method_body_t.present?
-
-          puts
-          puts full_method_name.inspect
-          puts
-
-          # TODO: Builder???
-          args.each do |_method_name|
             make(full_method_name, **method_options)
           end
+        end
+
+        def build_method_name_for_shortcuts_for_make_with(method_name, action_shortcut)
+          prefix = action_shortcut.fetch(:prefix)
+          suffix = action_shortcut.fetch(:suffix)
+
+          method_body, special_char =
+            Servactory::Utils.extract_special_character_from(method_name.to_s)
+
+          parts = []
+          parts << "#{prefix}_" if prefix.present?
+          parts << method_body
+          parts << "_#{suffix}" if suffix.present?
+          parts << special_char if special_char
+
+          parts.join.to_sym
         end
 
         def respond_to_missing?(name, *)
