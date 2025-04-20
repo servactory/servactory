@@ -2,7 +2,7 @@
 
 module Servactory
   module Configuration
-    class Factory
+    class Factory # rubocop:disable Metrics/ClassLength
       def initialize(config)
         @config = config
       end
@@ -63,7 +63,7 @@ module Servactory
         @config.action_aliases.merge(action_aliases)
       end
 
-      def action_shortcuts(array, hash = {})
+      def action_shortcuts(array, hash = {}) # rubocop:disable Metrics/MethodLength
         prepared = array.to_h do |action_shortcut|
           [
             action_shortcut,
