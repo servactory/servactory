@@ -1,5 +1,41 @@
 # Changelog
 
+## [v2.14.0](https://github.com/servactory/servactory/tree/v2.14.0) (2025-04-21)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.13.3...v2.14.0)
+
+**Breaking changes:**
+
+- Drop support for Ruby 3.1 [\#275](https://github.com/servactory/servactory/pull/275) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Add ability to collect combinations for method names in `action_shortcuts` [\#274](https://github.com/servactory/servactory/pull/274) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[20.04.2025\] Update libraries [\#277](https://github.com/servactory/servactory/pull/277) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
+- Check support for Ruby 3.5.0-preview1 [\#276](https://github.com/servactory/servactory/pull/276) ([afuno](https://github.com/afuno))
+
+## [v2.13.3](https://github.com/servactory/servactory/tree/v2.13.3) (2025-04-02)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.13.2...v2.13.3)
+
+**Implemented enhancements:**
+
+- Improve tests for the dynamic option `schema` [\#270](https://github.com/servactory/servactory/pull/270) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Fix default value check in dynamic option `inclusion` [\#273](https://github.com/servactory/servactory/pull/273) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[23.03.2025\] Update libraries [\#272](https://github.com/servactory/servactory/pull/272) ([afuno](https://github.com/afuno))
+
 ## [v2.13.2](https://github.com/servactory/servactory/tree/v2.13.2) (2025-03-19)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.13.1...v2.13.2)
