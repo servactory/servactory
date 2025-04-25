@@ -44,11 +44,10 @@ module Servactory
     end
 
     def to_h
-      filtered = methods(false).filter do |key|
-        !key.in?(STATE_PREDICATE_NAMES) && !key.to_s.end_with?("?")
-      end
-
-      filtered.to_h { |key| [key, public_send(key)] }.compact
+      methods(false)
+        .reject { |key| key.in?(STATE_PREDICATE_NAMES) || key.to_s.end_with?("?") }
+        .to_h { |key| [key, public_send(key)] }
+        .compact
     end
 
     def inspect
