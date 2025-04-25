@@ -41,7 +41,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
           it_behaves_like "success result class"
 
           it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains((90 / 1)) }
+          it { expect(perform).to have_output(:number).contains(90 / 1) }
         end
 
         context "when `number` is `BigDecimal`" do
@@ -290,7 +290,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
           it_behaves_like "success result class"
 
           it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains((90 / 1)) }
+          it { expect(perform).to have_output(:number).contains(90 / 1) }
         end
 
         context "when `number` is `BigDecimal`" do
