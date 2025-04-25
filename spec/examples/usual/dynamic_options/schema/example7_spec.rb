@@ -11,10 +11,10 @@ RSpec.describe Usual::DynamicOptions::Schema::Example7, type: :service do
     nil
   end
 
-  include_examples "check class info",
-                   inputs: %i[payload],
-                   internals: %i[payload],
-                   outputs: %i[full_name]
+  it_behaves_like "check class info",
+                  inputs: %i[payload],
+                  internals: %i[payload],
+                  outputs: %i[full_name]
 
   describe "validation" do
     describe "inputs" do
@@ -90,7 +90,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example7, type: :service do
     subject(:perform) { described_class.call!(**attributes) }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:full_name).contains(nil) }
     end
@@ -116,7 +116,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example7, type: :service do
     subject(:perform) { described_class.call(**attributes) }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:full_name).contains(nil) }
     end

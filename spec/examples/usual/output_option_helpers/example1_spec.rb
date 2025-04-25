@@ -19,14 +19,14 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[invoice_numbers],
-                     internals: %i[],
-                     outputs: [:invoice_numbers]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_numbers],
+                    internals: %i[],
+                    outputs: [:invoice_numbers]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:invoice_numbers?).contains(true) }
         it { expect(perform).to have_output(:invoice_numbers).contains(%w[7650AE B4EA1B A7BC86 BD2D6B]) }
@@ -142,14 +142,14 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[invoice_numbers],
-                     internals: %i[],
-                     outputs: [:invoice_numbers]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_numbers],
+                    internals: %i[],
+                    outputs: [:invoice_numbers]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:invoice_numbers?).contains(true) }
         it { expect(perform).to have_output(:invoice_numbers).contains(%w[7650AE B4EA1B A7BC86 BD2D6B]) }

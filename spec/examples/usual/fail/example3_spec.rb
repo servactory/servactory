@@ -12,14 +12,14 @@ RSpec.describe Usual::Fail::Example3, type: :service do
 
     let(:invoice_number) { "AA-7650AE" }
 
-    include_examples "check class info",
-                     inputs: %i[invoice_number],
-                     internals: %i[],
-                     outputs: %i[invoice_number]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_number],
+                    internals: %i[],
+                    outputs: %i[invoice_number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
       end
@@ -35,6 +35,12 @@ RSpec.describe Usual::Fail::Example3, type: :service do
                 expect(exception.type).to eq(:validation)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(invoice_number: "BB-7650AE")
+                expect(exception.all?).to be(false) # because it doesn't make sense
+                expect(exception.base?).to be(false)
+                expect(exception.validation?).to be(true)
+                expect(exception.respond_to?(:all?)).to be(false) # because it doesn't make sense
+                expect(exception.respond_to?(:base?)).to be(false)
+                expect(exception.respond_to?(:validation?)).to be(true)
               end
             )
           end
@@ -58,14 +64,14 @@ RSpec.describe Usual::Fail::Example3, type: :service do
 
     let(:invoice_number) { "AA-7650AE" }
 
-    include_examples "check class info",
-                     inputs: %i[invoice_number],
-                     internals: %i[],
-                     outputs: %i[invoice_number]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_number],
+                    internals: %i[],
+                    outputs: %i[invoice_number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
       end
@@ -85,6 +91,12 @@ RSpec.describe Usual::Fail::Example3, type: :service do
             expect(result.failure?(:all)).to be(true)
             expect(result.failure?(:base)).to be(false)
             expect(result.failure?(:validation)).to be(true)
+            expect(result.error.all?).to be(false) # because it doesn't make sense
+            expect(result.error.base?).to be(false)
+            expect(result.error.validation?).to be(true)
+            expect(result.error.respond_to?(:all?)).to be(false) # because it doesn't make sense
+            expect(result.error.respond_to?(:base?)).to be(false)
+            expect(result.error.respond_to?(:validation?)).to be(true)
           end
 
           it "returns the expected value in `errors`", :aggregate_failures do

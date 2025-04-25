@@ -12,14 +12,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example10, type: :service do
 
     let(:number) { 3 }
 
-    include_examples "check class info",
-                     inputs: %i[number],
-                     internals: %i[number],
-                     outputs: %i[number]
+    it_behaves_like "check class info",
+                    inputs: %i[number],
+                    internals: %i[number],
+                    outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:number).contains(3) }
       end
@@ -96,14 +96,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example10, type: :service do
 
     let(:number) { 3 }
 
-    include_examples "check class info",
-                     inputs: %i[number],
-                     internals: %i[number],
-                     outputs: %i[number]
+    it_behaves_like "check class info",
+                    inputs: %i[number],
+                    internals: %i[number],
+                    outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:number).contains(3) }
       end

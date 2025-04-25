@@ -4,10 +4,10 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example6, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
-    include_examples "check class info",
-                     inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[number]
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -27,10 +27,10 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example6, type: :service do
   describe ".call" do
     subject(:perform) { described_class.call }
 
-    include_examples "check class info",
-                     inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[number]
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do

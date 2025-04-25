@@ -28,10 +28,10 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
   let(:series) { "HR" }
   let(:number) { "88467617508" }
 
-  include_examples "check class info",
-                   inputs: %i[payload],
-                   internals: %i[payload],
-                   outputs: %i[payload full_name]
+  it_behaves_like "check class info",
+                  inputs: %i[payload],
+                  internals: %i[payload],
+                  outputs: %i[payload full_name]
 
   describe "validation" do
     describe "inputs" do
@@ -59,7 +59,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
     subject(:perform) { described_class.call!(**attributes) }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it do
         expect(perform).to(
@@ -115,7 +115,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example6, type: :service do
     subject(:perform) { described_class.call(**attributes) }
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it do
         expect(perform).to(

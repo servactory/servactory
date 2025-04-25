@@ -14,10 +14,10 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example2, type: :service do
     }
   end
 
-  include_examples "check class info",
-                   inputs: %i[payload],
-                   internals: %i[],
-                   outputs: %i[]
+  it_behaves_like "check class info",
+                  inputs: %i[payload],
+                  internals: %i[],
+                  outputs: %i[]
 
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }

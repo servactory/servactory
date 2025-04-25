@@ -22,10 +22,10 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example1, type: :service do
   let(:middle_name) { nil }
   let(:last_name) { "Kennedy" }
 
-  include_examples "check class info",
-                   inputs: %i[payload],
-                   internals: %i[],
-                   outputs: %i[]
+  it_behaves_like "check class info",
+                  inputs: %i[payload],
+                  internals: %i[],
+                  outputs: %i[]
 
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }

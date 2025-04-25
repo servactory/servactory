@@ -6,6 +6,8 @@ module Servactory
       attr_reader meta: untyped?
 
       def initialize: (type: Symbol?, message: String, meta: untyped?) -> void
+
+      def normalize_method_name: (Symbol name) -> Symbol
     end
   end
 end

@@ -20,10 +20,10 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
     let(:last_name) { "Kennedy" }
     let(:date) { DateTime.new(2023, 1, 1) }
 
-    include_examples "check class info",
-                     inputs: %i[api_identifier date first_name middle_name last_name],
-                     internals: %i[],
-                     outputs: %i[api_response]
+    it_behaves_like "check class info",
+                    inputs: %i[api_identifier date first_name middle_name last_name],
+                    internals: %i[],
+                    outputs: %i[api_response]
 
     context "when the input arguments are invalid" do
       it { expect { perform }.to have_input(:api_identifier).valid_with(attributes).type(String).required }
@@ -53,10 +53,10 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
     let(:last_name) { "Kennedy" }
     let(:date) { DateTime.new(2023, 1, 1) }
 
-    include_examples "check class info",
-                     inputs: %i[api_identifier date first_name middle_name last_name],
-                     internals: %i[],
-                     outputs: %i[api_response]
+    it_behaves_like "check class info",
+                    inputs: %i[api_identifier date first_name middle_name last_name],
+                    internals: %i[],
+                    outputs: %i[api_response]
 
     context "when the input arguments are invalid" do
       it { expect { perform }.to have_input(:api_identifier).valid_with(attributes).type(String).required }

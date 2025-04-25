@@ -5,9 +5,15 @@ module Servactory
         class Collection
           extend Forwardable
 
-          @collection: Set[Symbol]
+          @collection: Hash[Symbol, Symbol]
 
           def initialize: (*untyped) -> void
+
+          alias merge merge!
+
+          def shortcuts: () -> Array[Symbol]
+
+          def find_by: (name: Symbol) -> Hash[Symbol, Symbol]
         end
       end
     end
