@@ -35,6 +35,12 @@ RSpec.describe Usual::Fail::Example3, type: :service do
                 expect(exception.type).to eq(:validation)
                 expect(exception.message).to eq("Invalid invoice number")
                 expect(exception.meta).to match(invoice_number: "BB-7650AE")
+                expect(exception.all?).to be(false) # because it doesn't make sense
+                expect(exception.base?).to be(false)
+                expect(exception.validation?).to be(true)
+                expect(exception.respond_to?(:all?)).to be(false) # because it doesn't make sense
+                expect(exception.respond_to?(:base?)).to be(false)
+                expect(exception.respond_to?(:validation?)).to be(true)
               end
             )
           end
@@ -85,6 +91,12 @@ RSpec.describe Usual::Fail::Example3, type: :service do
             expect(result.failure?(:all)).to be(true)
             expect(result.failure?(:base)).to be(false)
             expect(result.failure?(:validation)).to be(true)
+            expect(result.error.all?).to be(false) # because it doesn't make sense
+            expect(result.error.base?).to be(false)
+            expect(result.error.validation?).to be(true)
+            expect(result.error.respond_to?(:all?)).to be(false) # because it doesn't make sense
+            expect(result.error.respond_to?(:base?)).to be(false)
+            expect(result.error.respond_to?(:validation?)).to be(true)
           end
 
           it "returns the expected value in `errors`", :aggregate_failures do
