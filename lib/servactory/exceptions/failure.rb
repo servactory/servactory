@@ -15,7 +15,7 @@ module Servactory
         super(message)
       end
 
-      def method_missing(name, *args)
+      def method_missing(name, *_args)
         @type == normalize_method_name(name)
       end
 
