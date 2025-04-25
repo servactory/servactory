@@ -14,6 +14,20 @@ module Servactory
 
         super(message)
       end
+
+      def method_missing(name, *args)
+        @type == normalize_method_name(name)
+      end
+
+      def respond_to_missing?(name, *)
+        @type == normalize_method_name(name) || super
+      end
+
+      private
+
+      def normalize_method_name(name)
+        name.to_s.chomp("?").to_sym
+      end
     end
   end
 end
