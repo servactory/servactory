@@ -6,17 +6,18 @@ module Servactory
 
         @collection: Set[Option]
 
-        def initialize: (*untyped) -> void
+        def initialize: () -> void
 
         def names: () -> Array[Symbol]
-
         def validation_classes: () -> Array[Class]
+        def options_for_checks: () -> Hash[Symbol, untyped]
+        def defined_conflict_code: () -> untyped
+        def find_by: (name: Symbol) -> untyped
 
-        def defined_conflict_code: -> Symbol
+        private
 
-        def options_for_checks: -> Hash[Symbol, untyped]
-
-        def find_by: (name: Symbol) -> Option?
+        def extract_normalized_option_value: (option: untyped) -> untyped
+        def resolve_conflicts_from_option: (option: untyped) -> Array[untyped]
       end
     end
   end
