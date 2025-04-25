@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
 
     let(:event_name) { "approved" }
 
-    include_examples "check class info",
-                     inputs: %i[event_name],
-                     internals: %i[event_name],
-                     outputs: %i[event_name]
+    it_behaves_like "check class info",
+                    inputs: %i[event_name],
+                    internals: %i[event_name],
+                    outputs: %i[event_name]
 
     describe "validations" do
       describe "inputs" do
@@ -51,7 +51,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:event_name).contains("approved") }
     end
@@ -109,10 +109,10 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
 
     let(:event_name) { "approved" }
 
-    include_examples "check class info",
-                     inputs: %i[event_name],
-                     internals: %i[event_name],
-                     outputs: %i[event_name]
+    it_behaves_like "check class info",
+                    inputs: %i[event_name],
+                    internals: %i[event_name],
+                    outputs: %i[event_name]
 
     describe "validations" do
       describe "inputs" do
@@ -148,7 +148,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      include_examples "success result class"
+      it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:event_name).contains("approved") }
     end

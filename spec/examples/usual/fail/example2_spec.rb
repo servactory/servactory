@@ -12,14 +12,14 @@ RSpec.describe Usual::Fail::Example2, type: :service do
 
     let(:invoice_number) { "AA-7650AE" }
 
-    include_examples "check class info",
-                     inputs: %i[invoice_number],
-                     internals: %i[],
-                     outputs: %i[invoice_number]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_number],
+                    internals: %i[],
+                    outputs: %i[invoice_number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
       end
@@ -58,14 +58,14 @@ RSpec.describe Usual::Fail::Example2, type: :service do
 
     let(:invoice_number) { "AA-7650AE" }
 
-    include_examples "check class info",
-                     inputs: %i[invoice_number],
-                     internals: %i[],
-                     outputs: %i[invoice_number]
+    it_behaves_like "check class info",
+                    inputs: %i[invoice_number],
+                    internals: %i[],
+                    outputs: %i[invoice_number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
       end
@@ -74,7 +74,7 @@ RSpec.describe Usual::Fail::Example2, type: :service do
         describe "because invalid invoice number" do
           let(:invoice_number) { "BB-7650AE" }
 
-          include_examples "failure result class"
+          it_behaves_like "failure result class"
 
           it "returns the expected value in `errors`", :aggregate_failures do
             result = perform

@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example3, type: :
 
     let(:email) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[email],
-                     internals: %i[],
-                     outputs: %i[email]
+    it_behaves_like "check class info",
+                    inputs: %i[email],
+                    internals: %i[],
+                    outputs: %i[email]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -56,10 +56,10 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example3, type: :
 
     let(:email) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[email],
-                     internals: %i[],
-                     outputs: %i[email]
+    it_behaves_like "check class info",
+                    inputs: %i[email],
+                    internals: %i[],
+                    outputs: %i[email]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

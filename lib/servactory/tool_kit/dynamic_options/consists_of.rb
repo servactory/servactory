@@ -28,7 +28,7 @@ module Servactory
 
         def common_condition_with(attribute:, value:, option:)
           return true if option.value == false
-          return [false, :wrong_type] if @collection_mode_class_names.intersection(attribute.types).empty?
+          return [false, :wrong_type] unless @collection_mode_class_names.intersect?(attribute.types)
 
           values = value.respond_to?(:flatten) ? value&.flatten : value
 

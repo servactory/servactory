@@ -10,12 +10,12 @@ module Servactory
         end
 
         def condition_for_input_with(input:, value:, option:)
-          if input.required? || (
-            input.optional? && !input.default.nil?
-          ) || (
-            input.optional? && !value.nil?
-          ) # do
+          if input.required? || (input.optional? && !value.nil?) # rubocop:disable Style/IfUnlessModifier
             return option.value.include?(value)
+          end
+
+          if input.optional? && value.nil? && !input.default.nil? # rubocop:disable Style/IfUnlessModifier
+            return option.value.include?(input.default)
           end
 
           true
