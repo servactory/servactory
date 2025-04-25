@@ -3,41 +3,43 @@ module Servactory
     module Attributes
       module Options
         class Registrar
+          RESERVED_OPTIONS: Array[Symbol]
           DEFAULT_FEATURES: Hash[Symbol, bool]
 
-          @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
+          @attribute: untyped
+          @options: Hash[Symbol, untyped]
+          @features: Hash[Symbol, bool]
+          @collection: OptionsCollection?
 
-          @options: untyped
+          def self.register: (attribute: untyped, options: Hash[Symbol, untyped], features: Hash[Symbol, bool]) -> Registrar
 
-          @features: untyped
-
-          @collection: Maintenance::Attributes::OptionsCollection
-
-          def self.register: (*untyped) ?{ () -> untyped } -> untyped
-
-          def initialize: (
-            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-            options: untyped,
-            features: Hash[Symbol, bool]
-          ) -> void
+          def initialize: (attribute: untyped, options: Hash[Symbol, untyped], features: Hash[Symbol, bool]) -> void
 
           def register: () -> self
 
-          def register_required_option: () -> Maintenance::Attributes::OptionsCollection
+          def collection: () -> OptionsCollection
 
-          def register_types_option: () -> Maintenance::Attributes::OptionsCollection
+          private
 
-          def register_default_option: () -> Maintenance::Attributes::OptionsCollection
+          def register_feature: (Symbol feature_name, untyped validation_class) -> void
 
-          def register_collection_option: () -> Maintenance::Attributes::OptionsCollection
+          def register_required_option: (Inputs::Validations::Required validation_class) -> void
 
-          def register_inclusion_option: () -> Maintenance::Attributes::OptionsCollection
+          def register_types_option: (Validations::Type validation_class) -> Maintenance::Attributes::OptionsCollection
 
-          def register_must_option: () -> Maintenance::Attributes::OptionsCollection
+          def register_default_option: (Validations::Type validation_class) -> Maintenance::Attributes::OptionsCollection
 
-          def register_prepare_option: () -> Maintenance::Attributes::OptionsCollection
+          def register_must_option: (Validations::Must validation_class) -> Maintenance::Attributes::OptionsCollection
 
-          def collection: () -> Maintenance::Attributes::OptionsCollection
+          def register_prepare_option: (nil validation_class) -> Maintenance::Attributes::OptionsCollection
+
+          def required_define_methods: () -> Array[DefineMethod]
+
+          def required_define_conflicts: () -> Array[DefineConflict]
+
+          def create_option: (name: Symbol, validation_class: untyped, **untyped) -> Maintenance::Attributes::OptionsCollection
+
+          def create_define_method: (name: Symbol, content: ^(option: untyped) -> untyped) -> DefineMethod
         end
       end
     end
