@@ -68,7 +68,7 @@ module Servactory
 
       def transform_helpers_to_options: (helpers: (Array[Symbol] | Hash[Symbol, untyped])) -> Hash[Symbol, untyped]
 
-      def transform_helper_to_option: (helper: untyped, values: untyped) -> Hash[Symbol, untyped]
+      def transform_helper_to_option: (helper: singleton(Maintenance::Attributes::OptionHelper), values: untyped) -> Hash[Symbol, untyped]
     end
   end
 end

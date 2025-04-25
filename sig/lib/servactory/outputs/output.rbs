@@ -3,41 +3,59 @@ module Servactory
     class Output
       class Actor
         attr_reader name: Symbol
-        attr_reader types: Array[Class]
-        attr_reader options: untyped
+        attr_reader types: Array[untyped]
+        attr_reader options: Hash[Symbol, untyped]
+
+        def initialize: (output: Output) -> void
+
+        private
+
+        def define_identity_methods: (output: Output) -> void
       end
 
+      @option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
+
       attr_reader name: Symbol
-      attr_reader option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
-      attr_reader collection_of_options: Maintenance::Attributes::OptionsCollection
-      attr_reader options: untyped
+      attr_reader collection_of_options: untyped
+      attr_reader options: Hash[Symbol, untyped]
 
-      def initialize: (
-        Symbol name,
-        *Symbol helpers,
-        option_helpers: Configuration::OptionHelpers::OptionHelpersCollection,
-        **untyped options
-      ) -> void
+      def initialize: (Symbol name, Array[Symbol] helpers, option_helpers: untyped, **untyped options) -> void
 
-      def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
+      def method_missing: (Symbol name, *untyped args) { () -> untyped } -> untyped
 
-      def respond_to_missing?: (Symbol name, *untyped) -> void
+      def respond_to_missing?: (Symbol name, *untyped) -> bool
 
-      def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Maintenance::Attributes::OptionsCollection
-
-      def apply_helpers_for_options: (helpers: (Array[Symbol] | Hash[Symbol, untyped]), options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> void
 
       def options_for_checks: () -> Hash[Symbol, untyped]
 
-      def system_name: -> Symbol
+      def system_name: () -> Symbol
 
-      def i18n_name: -> String
+      def i18n_name: () -> String
 
-      def input?: -> bool
+      def input?: () -> false
 
-      def internal?: -> bool
+      def internal?: () -> false
 
-      def output?: -> bool
+      def output?: () -> true
+
+      private
+
+      def create_options_registrar: (options: Hash[Symbol, untyped]) -> Maintenance::Attributes::Options::Registrar
+
+      def available_feature_options: () -> Hash[Symbol, bool]
+
+      def process_options_with_helpers: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+
+      def apply_standard_helpers_to: (target_options: Hash[Symbol, untyped], helpers: Array[Symbol]) -> Hash[Symbol, untyped]
+
+      def apply_advanced_helpers_to: (target_options: Hash[Symbol, untyped], source_options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+
+      def extract_advanced_helpers: (options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+
+      def transform_helpers_to_options: (helpers: (Array[Symbol] | Hash[Symbol, untyped])) -> Hash[Symbol, untyped]
+
+      def transform_helper_to_option: (helper: singleton(Maintenance::Attributes::OptionHelper), values: untyped) -> Hash[Symbol, untyped]
     end
   end
 end

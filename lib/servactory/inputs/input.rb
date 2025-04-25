@@ -4,7 +4,11 @@ module Servactory
   module Inputs
     class Input # rubocop:disable Metrics/ClassLength
       class Actor
-        attr_reader :name, :internal_name, :types, :default, :options
+        attr_reader :name,
+                    :internal_name,
+                    :types,
+                    :default,
+                    :options
 
         def initialize(input)
           @name = input.name
@@ -24,6 +28,7 @@ module Servactory
             i18n_name: -> { input.i18n_name },
             optional?: -> { input.optional? },
             required?: -> { input.required? },
+            # The methods below are required to support the internal work.
             input?: -> { true },
             internal?: -> { false },
             output?: -> { false }

@@ -4,7 +4,9 @@ module Servactory
   module Internals
     class Internal
       class Actor
-        attr_reader :name, :types, :options
+        attr_reader :name,
+                    :types,
+                    :options
 
         def initialize(internal)
           @name = internal.name
@@ -20,6 +22,7 @@ module Servactory
           methods_map = {
             system_name: -> { internal.system_name },
             i18n_name: -> { internal.i18n_name },
+            # The methods below are required to support the internal work.
             input?: -> { false },
             internal?: -> { true },
             output?: -> { false }
