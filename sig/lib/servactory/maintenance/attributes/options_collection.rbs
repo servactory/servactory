@@ -16,8 +16,8 @@ module Servactory
 
         private
 
-        def extract_normalized_option_value: (option: untyped) -> untyped
-        def resolve_conflicts_from_option: (option: untyped) -> Array[untyped]
+        def extract_normalized_body_from: (option: untyped) -> untyped
+        def resolve_conflicts_from: (option: untyped) -> Array[untyped]
       end
     end
   end

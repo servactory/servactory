@@ -24,12 +24,12 @@ module Servactory
 
         def options_for_checks
           filter(&:need_for_checks?).to_h do |option|
-            [option.name, extract_normalized_option_value(option:)]
+            [option.name, extract_normalized_body_from(option:)]
           end
         end
 
         def defined_conflict_code
-          flat_map { |option| resolve_conflicts_from_option(option:) }
+          flat_map { |option| resolve_conflicts_from(option:) }
             .reject(&:blank?)
             .first
         end
@@ -40,14 +40,14 @@ module Servactory
 
         private
 
-        def extract_normalized_option_value(option:)
+        def extract_normalized_body_from(option:)
           body = option.body
           return body unless body.is_a?(Hash)
 
           body.key?(:is) ? body.fetch(:is) : body
         end
 
-        def resolve_conflicts_from_option(option:)
+        def resolve_conflicts_from(option:)
           return [] unless option.define_conflicts
 
           option.define_conflicts.map { |conflict| conflict.content.call }
