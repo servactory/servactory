@@ -12,15 +12,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example2, type: :ser
 
     let(:email) { "noreply@servactory.com" }
 
-    include_examples "check class info",
-                     inputs: %i[email],
-                     internals: %i[email],
-                     outputs: %i[email]
+    it_behaves_like "check class info",
+                    inputs: %i[email],
+                    internals: %i[email],
+                    outputs: %i[email]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:email?).with(true) }
-        it { expect(perform).to have_output(:email).with("No Reply <noreply@servactory.com>") }
+        it { expect(perform).to have_output(:email?).contains(true) }
+        it { expect(perform).to have_output(:email).contains("No Reply <noreply@servactory.com>") }
       end
 
       describe "but the data required for work is invalid" do
@@ -56,15 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example2, type: :ser
 
     let(:email) { "noreply@servactory.com" }
 
-    include_examples "check class info",
-                     inputs: %i[email],
-                     internals: %i[email],
-                     outputs: %i[email]
+    it_behaves_like "check class info",
+                    inputs: %i[email],
+                    internals: %i[email],
+                    outputs: %i[email]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:email?).with(true) }
-        it { expect(perform).to have_output(:email).with("No Reply <noreply@servactory.com>") }
+        it { expect(perform).to have_output(:email?).contains(true) }
+        it { expect(perform).to have_output(:email).contains("No Reply <noreply@servactory.com>") }
       end
 
       describe "but the data required for work is invalid" do

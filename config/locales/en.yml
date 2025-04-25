@@ -12,8 +12,6 @@ en:
         for_fetch: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
         for_assign: "[%{service_class_name}] Undefined input attribute `%{input_name}`"
       validations:
-        inclusion:
-          default_error: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Input `%{input_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{input_name}` input: %{exception_message}"
@@ -26,6 +24,8 @@ en:
               default: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
               unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for input `%{input_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`, got `%{value}`"
             min:
               default: "[%{service_class_name}] Input `%{input_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -34,14 +34,16 @@ en:
               default: "[%{service_class_name}] Input `%{input_name}` has the value `%{value}`, which is not a multiple of `%{option_value}`"
               blank: "[%{service_class_name}] Input `%{input_name}` has an invalid value `%{option_value}` in option `%{option_name}`"
               divided_by_0: "[%{service_class_name}] Input `%{input_name}` has an invalid value `%{option_value}` in option `%{option_name}`"
+            schema:
+              wrong_type: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong type in input hash `%{input_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Wrong value in input hash `%{input_name}`, expected value of type `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
         required:
           default_error:
             default: "[%{service_class_name}] Required input `%{input_name}` is missing"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
-            for_hash:
-              wrong_element_type: "[%{service_class_name}] Wrong type in input hash `%{input_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"
@@ -52,8 +54,6 @@ en:
         for_fetch: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
         for_assign: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
       validations:
-        inclusion:
-          default_error: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Internal attribute `%{internal_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{internal_name}` internal attribute: %{exception_message}"
@@ -66,6 +66,8 @@ en:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
               unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for internal attribute `%{internal_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`, got `%{value}`"
             min:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -74,18 +76,18 @@ en:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` has the value `%{value}`, which is not a multiple of `%{option_value}`"
               blank: "[%{service_class_name}] Internal attribute `%{internal_name}` has an invalid value `%{option_value}` in option `%{option_name}`"
               divided_by_0: "[%{service_class_name}] Internal attribute `%{internal_name}` has an invalid value `%{option_value}` in option `%{option_name}`"
+            schema:
+              wrong_type: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong type in internal attribute hash `%{internal_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Wrong value in internal attribute hash `%{internal_name}`, expected value of type `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
-            for_hash:
-              wrong_element_type: "[%{service_class_name}] Wrong type in internal attribute hash `%{internal_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
     outputs:
       undefined:
         for_fetch: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
         for_assign: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
       validations:
-        inclusion:
-          default_error: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`"
         must:
           default_error: "[%{service_class_name}] Output attribute `%{output_name}` must \"%{code}\""
           syntax_error: "[%{service_class_name}] Syntax error inside `%{code}` of `%{output_name}` output attribute: %{exception_message}"
@@ -98,6 +100,8 @@ en:
               default: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
               unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{output_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`, got `%{value}`"
             min:
               default: "[%{service_class_name}] Output attribute `%{output_name}` received value `%{value}`, which is less than `%{option_value}`"
             max:
@@ -106,8 +110,10 @@ en:
               default: "[%{service_class_name}] Output attribute `%{output_name}` has the value `%{value}`, which is not a multiple of `%{option_value}`"
               blank: "[%{service_class_name}] Output attribute `%{output_name}` has an invalid value `%{option_value}` in option `%{option_name}`"
               divided_by_0: "[%{service_class_name}] Output attribute `%{output_name}` has an invalid value `%{option_value}` in option `%{option_name}`"
+            schema:
+              wrong_type: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Wrong type in output attribute hash `%{output_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Wrong value in output attribute hash `%{output_name}`, expected value of type `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
-            for_hash:
-              wrong_element_type: "[%{service_class_name}] Wrong type in output attribute hash `%{output_name}`, expected `%{expected_type}` for `%{key_name}`, got `%{given_type}`"

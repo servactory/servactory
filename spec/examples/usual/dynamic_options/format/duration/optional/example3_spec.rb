@@ -12,15 +12,15 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Optional::Example3, type
 
     let(:song_duration) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[song_duration],
-                     internals: %i[],
-                     outputs: %i[song_duration]
+    it_behaves_like "check class info",
+                    inputs: %i[song_duration],
+                    internals: %i[],
+                    outputs: %i[song_duration]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:song_duration?).with(false) }
-        it { expect(perform).to have_output(:song_duration).with(nil) }
+        it { expect(perform).to have_output(:song_duration?).contains(false) }
+        it { expect(perform).to have_output(:song_duration).contains(nil) }
       end
 
       describe "but the data required for work is invalid" do
@@ -56,15 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Optional::Example3, type
 
     let(:song_duration) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[song_duration],
-                     internals: %i[],
-                     outputs: %i[song_duration]
+    it_behaves_like "check class info",
+                    inputs: %i[song_duration],
+                    internals: %i[],
+                    outputs: %i[song_duration]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:song_duration?).with(false) }
-        it { expect(perform).to have_output(:song_duration).with(nil) }
+        it { expect(perform).to have_output(:song_duration?).contains(false) }
+        it { expect(perform).to have_output(:song_duration).contains(nil) }
       end
 
       describe "but the data required for work is invalid" do

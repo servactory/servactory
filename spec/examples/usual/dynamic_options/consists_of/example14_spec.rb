@@ -19,14 +19,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[],
-                     outputs: %i[first_id]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[],
+                    outputs: %i[first_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
@@ -97,7 +97,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
           have_input(:ids)
             .valid_with(attributes)
             .type(Set)
-            .consists_of(String) { "Input `ids` must be a collection of `String`" }
+            .consists_of(String).message("Input `ids` must be a collection of `String`")
             .required
         )
       end
@@ -122,14 +122,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[],
-                     outputs: %i[first_id]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[],
+                    outputs: %i[first_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform.first_id).to eq("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
@@ -200,7 +200,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
           have_input(:ids)
             .valid_with(attributes)
             .type(Set)
-            .consists_of(String) { "Input `ids` must be a collection of `String`" }
+            .consists_of(String).message("Input `ids` must be a collection of `String`")
             .required
         )
       end

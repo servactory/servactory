@@ -3,7 +3,7 @@
 module Usual
   module Stage
     class Example3Transaction
-      def self.transaction(&block) # rubocop:disable Lint/UnusedMethodArgument
+      def self.transaction
         yield
       end
     end
@@ -14,7 +14,7 @@ module Usual
       make :assign_number_4
 
       stage do
-        wrap_in ->(methods:) { Example3Transaction.transaction { methods.call } }
+        wrap_in ->(methods:, **) { Example3Transaction.transaction { methods.call } }
 
         make :assign_number_5
         make :assign_number_6, position: 99

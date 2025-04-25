@@ -12,15 +12,15 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Basic::Example1, type: :
 
     let(:started_at) { "2023-04-14 8:58" }
 
-    include_examples "check class info",
-                     inputs: %i[started_at],
-                     internals: %i[],
-                     outputs: %i[started_at]
+    it_behaves_like "check class info",
+                    inputs: %i[started_at],
+                    internals: %i[],
+                    outputs: %i[started_at]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_at?).with(true) }
-        it { expect(perform).to have_output(:started_at).with(DateTime.parse(started_at)) }
+        it { expect(perform).to have_output(:started_at?).contains(true) }
+        it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
       end
 
       describe "but the data required for work is invalid" do
@@ -56,15 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Basic::Example1, type: :
 
     let(:started_at) { "2023-04-14 8:58" }
 
-    include_examples "check class info",
-                     inputs: %i[started_at],
-                     internals: %i[],
-                     outputs: %i[started_at]
+    it_behaves_like "check class info",
+                    inputs: %i[started_at],
+                    internals: %i[],
+                    outputs: %i[started_at]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_at?).with(true) }
-        it { expect(perform).to have_output(:started_at).with(DateTime.parse(started_at)) }
+        it { expect(perform).to have_output(:started_at?).contains(true) }
+        it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
       end
 
       describe "but the data required for work is invalid" do

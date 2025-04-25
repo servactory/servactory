@@ -46,6 +46,14 @@ module Servactory
       false
     end
 
+    def extract_special_character_from(string)
+      if string.end_with?("!", "?")
+        [string.chop, string[-1]]
+      else
+        [string, nil]
+      end
+    end
+
     FALSE_VALUES = [
       false,
       nil, "",
@@ -63,7 +71,7 @@ module Servactory
     # @param value [#to_s]
     # @return [Boolean]
     def true?(value)
-      !FALSE_VALUES.include?(value)
+      FALSE_VALUES.exclude?(value)
     end
 
     # @param value [#to_s]
@@ -88,7 +96,7 @@ module Servactory
         else
           return false if FALSE_VALUES.include?(value)
 
-          !value.blank?
+          value.present?
         end
       end
     end

@@ -12,45 +12,45 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
 
     let(:data) { 10 }
 
-    include_examples "check class info",
-                     inputs: %i[data],
-                     internals: %i[data],
-                     outputs: [:data]
+    it_behaves_like "check class info",
+                    inputs: %i[data],
+                    internals: %i[data],
+                    outputs: [:data]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         context "when `data` is `Integer`" do
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with(10) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains(10) }
         end
 
         context "when `data` is `String`" do
           let(:data) { "Sesquipedalianism" }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with("Sesquipedalianism") }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains("Sesquipedalianism") }
         end
 
         context "when `data` is `Array`" do
           let(:data) { [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
         end
 
         context "when `data` is `Hash`" do
           let(:data) { { a: 1, b: 2, c: 3, d: 4 } }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with({ a: 1, b: 2, c: 3, d: 4 }) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains({ a: 1, b: 2, c: 3, d: 4 }) }
         end
       end
 
@@ -253,45 +253,45 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
 
     let(:data) { 10 }
 
-    include_examples "check class info",
-                     inputs: %i[data],
-                     internals: %i[data],
-                     outputs: [:data]
+    it_behaves_like "check class info",
+                    inputs: %i[data],
+                    internals: %i[data],
+                    outputs: [:data]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         context "when `data` is `Integer`" do
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with(10) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains(10) }
         end
 
         context "when `data` is `String`" do
           let(:data) { "Sesquipedalianism" }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with("Sesquipedalianism") }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains("Sesquipedalianism") }
         end
 
         context "when `data` is `Array`" do
           let(:data) { [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
         end
 
         context "when `data` is `Hash`" do
           let(:data) { { a: 1, b: 2, c: 3, d: 4 } }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with({ a: 1, b: 2, c: 3, d: 4 }) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains({ a: 1, b: 2, c: 3, d: 4 }) }
         end
       end
 

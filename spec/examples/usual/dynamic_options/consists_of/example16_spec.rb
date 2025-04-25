@@ -14,17 +14,17 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example16, type: :service do
       Set[]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[ids],
-                     outputs: %i[ids]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[ids],
+                    outputs: %i[ids]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:ids?).with(false) }
-        it { expect(perform).to have_output(:ids).with([]) }
+        it { expect(perform).to have_output(:ids?).contains(false) }
+        it { expect(perform).to have_output(:ids).contains([]) }
       end
 
       describe "but the data required for work is invalid" do
@@ -103,20 +103,20 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example16, type: :service do
     end
 
     let(:ids) do
-      []
+      Set[]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[ids],
-                     outputs: %i[ids]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[ids],
+                    outputs: %i[ids]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:ids?).with(false) }
-        it { expect(perform).to have_output(:ids).with([]) }
+        it { expect(perform).to have_output(:ids?).contains(false) }
+        it { expect(perform).to have_output(:ids).contains([]) }
       end
 
       describe "but the data required for work is invalid" do

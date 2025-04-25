@@ -12,15 +12,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
 
     let(:started_on) { "2023-04-14" }
 
-    include_examples "check class info",
-                     inputs: %i[started_on],
-                     internals: %i[started_on],
-                     outputs: %i[started_on]
+    it_behaves_like "check class info",
+                    inputs: %i[started_on],
+                    internals: %i[started_on],
+                    outputs: %i[started_on]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_on?).with(true) }
-        it { expect(perform).to have_output(:started_on).with(Date.parse(started_on)) }
+        it { expect(perform).to have_output(:started_on?).contains(true) }
+        it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
       end
 
       describe "but the data required for work is invalid" do
@@ -56,15 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
 
     let(:started_on) { "2023-04-14" }
 
-    include_examples "check class info",
-                     inputs: %i[started_on],
-                     internals: %i[started_on],
-                     outputs: %i[started_on]
+    it_behaves_like "check class info",
+                    inputs: %i[started_on],
+                    internals: %i[started_on],
+                    outputs: %i[started_on]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_on?).with(true) }
-        it { expect(perform).to have_output(:started_on).with(Date.parse(started_on)) }
+        it { expect(perform).to have_output(:started_on?).contains(true) }
+        it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
       end
 
       describe "but the data required for work is invalid" do

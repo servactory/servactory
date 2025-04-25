@@ -3,7 +3,7 @@
 module Servactory
   module ToolKit
     module DynamicOptions
-      class Must
+      class Must # rubocop:disable Metrics/ClassLength
         class WorkOption
           attr_reader :name,
                       :value,
@@ -17,7 +17,7 @@ module Servactory
               if data.is_a?(Hash) && data.key?(body_key)
                 data.delete(body_key)
               else
-                data.present? ? data : body_fallback
+                data.presence || body_fallback
               end
 
             @message = (data.is_a?(Hash) && data.key?(:message) ? data.delete(:message) : nil)
@@ -34,7 +34,11 @@ module Servactory
         def must(name)
           Servactory::Maintenance::Attributes::OptionHelper.new(
             name: @option_name,
-            equivalent: equivalent_with(name)
+            equivalent: equivalent_with(name),
+            meta: {
+              type: :dynamic_option,
+              body_key: @body_key
+            }
           )
         end
 
@@ -76,26 +80,50 @@ module Servactory
           is_option_message_present = option.message.present?
           is_option_message_proc = option.message.is_a?(Proc) if is_option_message_present
 
-          lambda do |input: nil, internal: nil, output: nil, **attributes|
+          lambda do |input: nil, internal: nil, output: nil, **attributes| # rubocop:disable Metrics/BlockLength
             default_attributes = { **attributes, option_name: option.name, option_value: option.value }
 
             if Servactory::Utils.really_input?(input)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes.merge(input:)) : option.message
+                if is_option_message_proc
+                  option.message.call(
+                    input:,
+                    **default_attributes.delete(:meta) || {},
+                    **default_attributes
+                  )
+                else
+                  option.message
+                end
               else
-                message_for_input_with(**default_attributes.merge(input:))
+                message_for_input_with(**default_attributes, input:)
               end
             elsif Servactory::Utils.really_internal?(internal)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes.merge(internal:)) : option.message
+                if is_option_message_proc
+                  option.message.call(
+                    internal:,
+                    **default_attributes.delete(:meta) || {},
+                    **default_attributes
+                  )
+                else
+                  option.message
+                end
               else
-                message_for_internal_with(**default_attributes.merge(internal:))
+                message_for_internal_with(**default_attributes, internal:)
               end
             elsif Servactory::Utils.really_output?(output)
               if is_option_message_present
-                is_option_message_proc ? option.message.call(**default_attributes.merge(output:)) : option.message
+                if is_option_message_proc
+                  option.message.call(
+                    output:,
+                    **default_attributes.delete(:meta) || {},
+                    **default_attributes
+                  )
+                else
+                  option.message
+                end
               else
-                message_for_output_with(**default_attributes.merge(output:))
+                message_for_output_with(**default_attributes, output:)
               end
             end
           end

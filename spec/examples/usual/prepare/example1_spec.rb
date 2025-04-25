@@ -12,18 +12,18 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
 
     let(:balance_cents) { 2_000_00 }
 
-    include_examples "check class info",
-                     inputs: %i[balance_cents],
-                     internals: %i[],
-                     outputs: [:balance_with_bonus]
+    it_behaves_like "check class info",
+                    inputs: %i[balance_cents],
+                    internals: %i[],
+                    outputs: [:balance_with_bonus]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:balance_with_bonus).instance_of(Usual::Prepare::Example1::Money) }
-        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).with(3_000_00) }
-        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).with(:USD) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).contains(3_000_00) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).contains(:USD) }
       end
     end
 
@@ -43,18 +43,18 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
 
     let(:balance_cents) { 2_000_00 }
 
-    include_examples "check class info",
-                     inputs: %i[balance_cents],
-                     internals: %i[],
-                     outputs: [:balance_with_bonus]
+    it_behaves_like "check class info",
+                    inputs: %i[balance_cents],
+                    internals: %i[],
+                    outputs: [:balance_with_bonus]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:balance_with_bonus).instance_of(Usual::Prepare::Example1::Money) }
-        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).with(3_000_00) }
-        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).with(:USD) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).contains(3_000_00) }
+        it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).contains(:USD) }
       end
     end
 

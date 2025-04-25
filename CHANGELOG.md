@@ -1,12 +1,187 @@
 # Changelog
 
-## [v2.9.0.rc5](https://github.com/servactory/servactory/tree/v2.9.0.rc5) (2024-10-10)
+## [v2.14.0](https://github.com/servactory/servactory/tree/v2.14.0) (2025-04-21)
 
-[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc4...v2.9.0.rc5)
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.13.3...v2.14.0)
+
+**Breaking changes:**
+
+- Drop support for Ruby 3.1 [\#275](https://github.com/servactory/servactory/pull/275) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Add ability to collect combinations for method names in `action_shortcuts` [\#274](https://github.com/servactory/servactory/pull/274) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[20.04.2025\] Update libraries [\#277](https://github.com/servactory/servactory/pull/277) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
+- Check support for Ruby 3.5.0-preview1 [\#276](https://github.com/servactory/servactory/pull/276) ([afuno](https://github.com/afuno))
+
+## [v2.13.3](https://github.com/servactory/servactory/tree/v2.13.3) (2025-04-02)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.13.2...v2.13.3)
+
+**Implemented enhancements:**
+
+- Improve tests for the dynamic option `schema` [\#270](https://github.com/servactory/servactory/pull/270) ([afuno](https://github.com/afuno))
 
 **Fixed:**
 
+- Fix default value check in dynamic option `inclusion` [\#273](https://github.com/servactory/servactory/pull/273) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[23.03.2025\] Update libraries [\#272](https://github.com/servactory/servactory/pull/272) ([afuno](https://github.com/afuno))
+
+## [v2.13.2](https://github.com/servactory/servactory/tree/v2.13.2) (2025-03-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.13.1...v2.13.2)
+
+**Fixed:**
+
+- Fix handling of default values ​​in inputs and dynamic option schema [\#269](https://github.com/servactory/servactory/pull/269) ([afuno](https://github.com/afuno))
+
+## [v2.13.1](https://github.com/servactory/servactory/tree/v2.13.1) (2025-03-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.13.0...v2.13.1)
+
+**Fixed:**
+
+- Fix definition of default value for input [\#268](https://github.com/servactory/servactory/pull/268) ([afuno](https://github.com/afuno))
+
+## [v2.13.0](https://github.com/servactory/servactory/tree/v2.13.0) (2025-03-06)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0...v2.13.0)
+
+**Implemented enhancements:**
+
+- Add support for `prepare` option inside `schema` dynamic option [\#267](https://github.com/servactory/servactory/pull/267) ([afuno](https://github.com/afuno))
+
+## [v2.12.0](https://github.com/servactory/servactory/tree/v2.12.0) (2025-03-02)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0.rc4...v2.12.0)
+
+**Implemented enhancements:**
+
+- Rewrite `inclusion` option as dynamic [\#262](https://github.com/servactory/servactory/pull/262) ([afuno](https://github.com/afuno))
+- Rewrite `schema` option as dynamic [\#260](https://github.com/servactory/servactory/pull/260) ([afuno](https://github.com/afuno))
+- Rework storage to use it for all attribute types [\#259](https://github.com/servactory/servactory/pull/259) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Fix optionality for dynamic option `schema` [\#264](https://github.com/servactory/servactory/pull/264) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[02.03.2025\] Update dependencies [\#266](https://github.com/servactory/servactory/pull/266) ([afuno](https://github.com/afuno))
+- \[19.02.2025\] Update libraries [\#263](https://github.com/servactory/servactory/pull/263) ([afuno](https://github.com/afuno))
+- \[08.02.2025\] Update libraries [\#261](https://github.com/servactory/servactory/pull/261) ([afuno](https://github.com/afuno))
+
+## [v2.12.0.rc4](https://github.com/servactory/servactory/tree/v2.12.0.rc4) (2025-03-01)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0.rc3...v2.12.0.rc4)
+
+## [v2.12.0.rc3](https://github.com/servactory/servactory/tree/v2.12.0.rc3) (2025-03-01)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0.rc2...v2.12.0.rc3)
+
+## [v2.12.0.rc2](https://github.com/servactory/servactory/tree/v2.12.0.rc2) (2025-02-18)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.12.0.rc1...v2.12.0.rc2)
+
+## [v2.12.0.rc1](https://github.com/servactory/servactory/tree/v2.12.0.rc1) (2025-02-08)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.11.0...v2.12.0.rc1)
+
+## [v2.11.0](https://github.com/servactory/servactory/tree/v2.11.0) (2025-01-01)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.10.0...v2.11.0)
+
+**Implemented enhancements:**
+
+- Refactor input handling to centralize argument management [\#258](https://github.com/servactory/servactory/pull/258) ([afuno](https://github.com/afuno))
+- Add support for Ruby 3.4 [\#257](https://github.com/servactory/servactory/pull/257) ([afuno](https://github.com/afuno))
+
+## [v2.10.0](https://github.com/servactory/servactory/tree/v2.10.0) (2024-12-20)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.2...v2.10.0)
+
+**Implemented enhancements:**
+
+- Handle absence of rollback during method execution failure [\#253](https://github.com/servactory/servactory/pull/253) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Fix handling of `on_failure` hook in `allow_service` helpers for RSpec [\#255](https://github.com/servactory/servactory/pull/255) ([nflm](https://github.com/nflm))
+- Improve message handling for RSpec chain `with_outputs` [\#252](https://github.com/servactory/servactory/pull/252) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[20.12.2024\] Update libraries [\#256](https://github.com/servactory/servactory/pull/256) ([afuno](https://github.com/afuno))
+
+## [v2.9.2](https://github.com/servactory/servactory/tree/v2.9.2) (2024-12-09)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.1...v2.9.2)
+
+## [v2.9.1](https://github.com/servactory/servactory/tree/v2.9.1) (2024-11-19)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0...v2.9.1)
+
+## [v2.9.0](https://github.com/servactory/servactory/tree/v2.9.0) (2024-11-08)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc9...v2.9.0)
+
+**Breaking changes:**
+
+- Change internal method names and associated translation keys [\#241](https://github.com/servactory/servactory/pull/241) ([afuno](https://github.com/afuno))
+
+**Implemented enhancements:**
+
+- Apply Servactory RuboCop [\#249](https://github.com/servactory/servactory/pull/249) ([afuno](https://github.com/afuno))
+- Add `with` support for RSpec Mocks [\#248](https://github.com/servactory/servactory/pull/248) ([afuno](https://github.com/afuno))
+- Improve `be_failure_service` matcher in RSpec [\#245](https://github.com/servactory/servactory/pull/245) ([afuno](https://github.com/afuno))
+- Add access to context in exceptions for use inside Datory [\#243](https://github.com/servactory/servactory/pull/243) ([afuno](https://github.com/afuno))
+- Add service information to attribute exceptions [\#242](https://github.com/servactory/servactory/pull/242) ([afuno](https://github.com/afuno))
+- Improve uniqueness of types [\#240](https://github.com/servactory/servactory/pull/240) ([afuno](https://github.com/afuno))
+- Native support for Datory [\#238](https://github.com/servactory/servactory/pull/238) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Update spec matchers from `with` to `contains` [\#247](https://github.com/servactory/servactory/pull/247) ([afuno](https://github.com/afuno))
 - Fix class checking inside `be_failure_service` [\#244](https://github.com/servactory/servactory/pull/244) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[08.11.2024\] Remove deprecated files and update dependencies [\#251](https://github.com/servactory/servactory/pull/251) ([afuno](https://github.com/afuno))
+- \[14.10.2024\] Update libraries [\#246](https://github.com/servactory/servactory/pull/246) ([afuno](https://github.com/afuno))
+- Add support for Ruby version 3.4.0-preview2 [\#227](https://github.com/servactory/servactory/pull/227) ([afuno](https://github.com/afuno))
+
+**Merged pull requests:**
+
+- Clarify Rails 8.0 versions in CI [\#250](https://github.com/servactory/servactory/pull/250) ([afuno](https://github.com/afuno))
+
+## [v2.9.0.rc9](https://github.com/servactory/servactory/tree/v2.9.0.rc9) (2024-11-03)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc8...v2.9.0.rc9)
+
+## [v2.9.0.rc8](https://github.com/servactory/servactory/tree/v2.9.0.rc8) (2024-10-27)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc7...v2.9.0.rc8)
+
+## [v2.9.0.rc7](https://github.com/servactory/servactory/tree/v2.9.0.rc7) (2024-10-22)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc6...v2.9.0.rc7)
+
+## [v2.9.0.rc6](https://github.com/servactory/servactory/tree/v2.9.0.rc6) (2024-10-13)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc5...v2.9.0.rc6)
+
+## [v2.9.0.rc5](https://github.com/servactory/servactory/tree/v2.9.0.rc5) (2024-10-10)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc4...v2.9.0.rc5)
 
 ## [v2.9.0.rc4](https://github.com/servactory/servactory/tree/v2.9.0.rc4) (2024-09-30)
 
@@ -16,30 +191,13 @@
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc2...v2.9.0.rc3)
 
-**Implemented enhancements:**
-
-- Add access to context in exceptions for use inside Datory [\#243](https://github.com/servactory/servactory/pull/243) ([afuno](https://github.com/afuno))
-
 ## [v2.9.0.rc2](https://github.com/servactory/servactory/tree/v2.9.0.rc2) (2024-09-22)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.9.0.rc1...v2.9.0.rc2)
 
-**Breaking changes:**
-
-- Change internal method names and associated translation keys [\#241](https://github.com/servactory/servactory/pull/241) ([afuno](https://github.com/afuno))
-
-**Implemented enhancements:**
-
-- Add service information to attribute exceptions [\#242](https://github.com/servactory/servactory/pull/242) ([afuno](https://github.com/afuno))
-- Improve uniqueness of types [\#240](https://github.com/servactory/servactory/pull/240) ([afuno](https://github.com/afuno))
-
 ## [v2.9.0.rc1](https://github.com/servactory/servactory/tree/v2.9.0.rc1) (2024-09-17)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.8.0...v2.9.0.rc1)
-
-**Implemented enhancements:**
-
-- Native support for Datory [\#238](https://github.com/servactory/servactory/pull/238) ([afuno](https://github.com/afuno))
 
 ## [v2.8.0](https://github.com/servactory/servactory/tree/v2.8.0) (2024-08-28)
 

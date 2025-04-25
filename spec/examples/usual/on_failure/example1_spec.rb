@@ -4,10 +4,10 @@ RSpec.describe Usual::OnFailure::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
-    include_examples "check class info",
-                     inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[some_value]
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[some_value]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -18,6 +18,12 @@ RSpec.describe Usual::OnFailure::Example1, type: :service do
               expect(exception.type).to eq(:validation)
               expect(exception.message).to eq("Validation error")
               expect(exception.meta).to be_nil
+              expect(exception.all?).to be(false) # because it doesn't make sense
+              expect(exception.base?).to be(false)
+              expect(exception.validation?).to be(true)
+              expect(exception.respond_to?(:all?)).to be(false) # because it doesn't make sense
+              expect(exception.respond_to?(:base?)).to be(false)
+              expect(exception.respond_to?(:validation?)).to be(true)
             end
           )
         end
@@ -28,10 +34,10 @@ RSpec.describe Usual::OnFailure::Example1, type: :service do
   describe ".call" do
     subject(:perform) { described_class.call }
 
-    include_examples "check class info",
-                     inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[some_value]
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[some_value]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -46,6 +52,12 @@ RSpec.describe Usual::OnFailure::Example1, type: :service do
           expect(result.failure?(:all)).to be(true)
           expect(result.failure?(:base)).to be(false)
           expect(result.failure?(:validation)).to be(true)
+          expect(result.error.all?).to be(false) # because it doesn't make sense
+          expect(result.error.base?).to be(false)
+          expect(result.error.validation?).to be(true)
+          expect(result.error.respond_to?(:all?)).to be(false) # because it doesn't make sense
+          expect(result.error.respond_to?(:base?)).to be(false)
+          expect(result.error.respond_to?(:validation?)).to be(true)
         end
 
         it "calls expected methods", :aggregate_failures do

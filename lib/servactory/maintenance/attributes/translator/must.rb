@@ -8,7 +8,7 @@ module Servactory
           module_function
 
           def default_message
-            lambda do |service:, value:, code:, input: nil, internal: nil, output: nil, reason: nil|
+            lambda do |service:, value:, code:, input: nil, internal: nil, output: nil, reason: nil, **|
               attribute = Servactory::Utils.define_attribute_with(input:, internal:, output:)
 
               service.translate(

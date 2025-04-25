@@ -12,15 +12,15 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
 
     let(:password) { "~hUN`AgY=YpW.061" }
 
-    include_examples "check class info",
-                     inputs: %i[password],
-                     internals: %i[],
-                     outputs: %i[password]
+    it_behaves_like "check class info",
+                    inputs: %i[password],
+                    internals: %i[],
+                    outputs: %i[password]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:password?).with(true) }
-        it { expect(perform).to have_output(:password).with("~hUN`AgY=YpW.061") }
+        it { expect(perform).to have_output(:password?).contains(true) }
+        it { expect(perform).to have_output(:password).contains("~hUN`AgY=YpW.061") }
       end
 
       describe "but the data required for work is invalid" do
@@ -55,15 +55,15 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
 
     let(:password) { "~hUN`AgY=YpW.061" }
 
-    include_examples "check class info",
-                     inputs: %i[password],
-                     internals: %i[],
-                     outputs: %i[password]
+    it_behaves_like "check class info",
+                    inputs: %i[password],
+                    internals: %i[],
+                    outputs: %i[password]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:password?).with(true) }
-        it { expect(perform).to have_output(:password).with("~hUN`AgY=YpW.061") }
+        it { expect(perform).to have_output(:password?).contains(true) }
+        it { expect(perform).to have_output(:password).contains("~hUN`AgY=YpW.061") }
       end
 
       describe "but the data required for work is invalid" do

@@ -16,16 +16,16 @@ RSpec.describe Usual::ToH::Example1, type: :service do
     let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
 
-    include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name],
-                     internals: %i[],
-                     outputs: %i[full_name]
+    it_behaves_like "check class info",
+                    inputs: %i[first_name middle_name last_name],
+                    internals: %i[],
+                    outputs: %i[full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
 
         it "returns the result as a hash" do
           expect(perform.to_h).to match(
@@ -36,7 +36,7 @@ RSpec.describe Usual::ToH::Example1, type: :service do
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name).contains("John Kennedy") }
 
           it "returns the result as a hash" do
             expect(perform.to_h).to match(
@@ -69,16 +69,16 @@ RSpec.describe Usual::ToH::Example1, type: :service do
     let(:middle_name) { "Fitzgerald" }
     let(:last_name) { "Kennedy" }
 
-    include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name],
-                     internals: %i[],
-                     outputs: %i[full_name]
+    it_behaves_like "check class info",
+                    inputs: %i[first_name middle_name last_name],
+                    internals: %i[],
+                    outputs: %i[full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
 
         it "returns the result as a hash" do
           expect(perform.to_h).to match(
@@ -89,7 +89,7 @@ RSpec.describe Usual::ToH::Example1, type: :service do
         describe "even if `middle_name` is not specified" do
           let(:middle_name) { nil }
 
-          it { expect(perform).to have_output(:full_name).with("John Kennedy") }
+          it { expect(perform).to have_output(:full_name).contains("John Kennedy") }
 
           it "returns the result as a hash" do
             expect(perform.to_h).to match(

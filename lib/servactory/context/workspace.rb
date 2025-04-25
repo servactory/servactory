@@ -23,7 +23,6 @@ module Servactory
       def inputs
         @inputs ||= Inputs.new(
           context: self,
-          incoming_arguments:,
           collection_of_inputs:
         )
       end
@@ -83,8 +82,7 @@ module Servactory
 
       private
 
-      attr_reader :incoming_arguments,
-                  :collection_of_inputs,
+      attr_reader :collection_of_inputs,
                   :collection_of_internals,
                   :collection_of_outputs
 
@@ -105,13 +103,11 @@ module Servactory
       end
 
       def call!(
-        incoming_arguments:,
         collection_of_inputs:,
         collection_of_internals:,
         collection_of_outputs:,
         **
       )
-        @incoming_arguments = incoming_arguments
         @collection_of_inputs = collection_of_inputs
         @collection_of_internals = collection_of_internals
         @collection_of_outputs = collection_of_outputs
@@ -130,8 +126,8 @@ module Servactory
         @servactory_service_info ||= self.class::Actor.new(self)
       end
 
-      def servactory_service_store
-        @servactory_service_store ||= Store.new(self)
+      def servactory_service_warehouse
+        @servactory_service_warehouse ||= Warehouse::Setup.new(self)
       end
     end
   end

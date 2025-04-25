@@ -21,25 +21,25 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[ids],
-                     outputs: %i[ids first_id]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[ids],
+                    outputs: %i[ids first_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:ids?).with(true) }
+        it { expect(perform).to have_output(:ids?).contains(true) }
 
         it do
           expect(perform).to(
-            have_output(:ids).with(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
+            have_output(:ids).contains(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
           )
         end
 
-        it { expect(perform).to have_output(:first_id?).with(true) }
-        it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
+        it { expect(perform).to have_output(:first_id?).contains(true) }
+        it { expect(perform).to have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
     end
 
@@ -69,25 +69,25 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[ids],
-                     outputs: %i[ids first_id]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[ids],
+                    outputs: %i[ids first_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:ids?).with(true) }
+        it { expect(perform).to have_output(:ids?).contains(true) }
 
         it do
           expect(perform).to(
-            have_output(:ids).with(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
+            have_output(:ids).contains(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
           )
         end
 
-        it { expect(perform).to have_output(:first_id?).with(true) }
-        it { expect(perform).to have_output(:first_id).with("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
+        it { expect(perform).to have_output(:first_id?).contains(true) }
+        it { expect(perform).to have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
     end
 

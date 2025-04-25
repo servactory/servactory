@@ -12,10 +12,10 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Is::Example3, type: :service
 
     let(:started_on) { "2023-04-14" }
 
-    include_examples "check class info",
-                     inputs: %i[started_on],
-                     internals: %i[],
-                     outputs: %i[started_on]
+    it_behaves_like "check class info",
+                    inputs: %i[started_on],
+                    internals: %i[],
+                    outputs: %i[started_on]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -49,10 +49,10 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Is::Example3, type: :service
 
     let(:started_on) { "2023-04-14" }
 
-    include_examples "check class info",
-                     inputs: %i[started_on],
-                     internals: %i[],
-                     outputs: %i[started_on]
+    it_behaves_like "check class info",
+                    inputs: %i[started_on],
+                    internals: %i[],
+                    outputs: %i[started_on]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do

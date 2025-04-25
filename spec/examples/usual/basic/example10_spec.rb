@@ -18,16 +18,16 @@ RSpec.describe Usual::Basic::Example10, type: :service do
     let(:last_name) { "Kennedy" }
     let(:gender) { "Male" }
 
-    include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name gender],
-                     internals: %i[],
-                     outputs: %i[full_name]
+    it_behaves_like "check class info",
+                    inputs: %i[first_name middle_name last_name gender],
+                    internals: %i[],
+                    outputs: %i[full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
       end
     end
 
@@ -56,16 +56,16 @@ RSpec.describe Usual::Basic::Example10, type: :service do
     let(:last_name) { "Kennedy" }
     let(:gender) { "Male" }
 
-    include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name gender],
-                     internals: %i[],
-                     outputs: %i[full_name]
+    it_behaves_like "check class info",
+                    inputs: %i[first_name middle_name last_name gender],
+                    internals: %i[],
+                    outputs: %i[full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:full_name).with("John Fitzgerald Kennedy") }
+        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
       end
     end
 

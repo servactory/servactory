@@ -14,18 +14,18 @@ RSpec.describe Usual::Basic::Example8, type: :service do
     let(:email) { "correct@email.com" }
     let(:password) { "correct_password" }
 
-    include_examples "check class info",
-                     inputs: %i[email password],
-                     internals: %i[],
-                     outputs: %i[user]
+    it_behaves_like "check class info",
+                    inputs: %i[email password],
+                    internals: %i[],
+                    outputs: %i[user]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:user).instance_of(Usual::Basic::Example8::User) }
-        it { expect(perform).to have_output(:user).nested(:email).with("correct@email.com") }
-        it { expect(perform).to have_output(:user).nested(:password).with("correct_password") }
+        it { expect(perform).to have_output(:user).nested(:email).contains("correct@email.com") }
+        it { expect(perform).to have_output(:user).nested(:password).contains("correct_password") }
       end
 
       describe "but the data required for work is invalid" do
@@ -80,25 +80,25 @@ RSpec.describe Usual::Basic::Example8, type: :service do
     let(:email) { "correct@email.com" }
     let(:password) { "correct_password" }
 
-    include_examples "check class info",
-                     inputs: %i[email password],
-                     internals: %i[],
-                     outputs: %i[user]
+    it_behaves_like "check class info",
+                    inputs: %i[email password],
+                    internals: %i[],
+                    outputs: %i[user]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:user).instance_of(Usual::Basic::Example8::User) }
-        it { expect(perform).to have_output(:user).nested(:email).with("correct@email.com") }
-        it { expect(perform).to have_output(:user).nested(:password).with("correct_password") }
+        it { expect(perform).to have_output(:user).nested(:email).contains("correct@email.com") }
+        it { expect(perform).to have_output(:user).nested(:password).contains("correct_password") }
       end
 
       describe "but the data required for work is invalid" do
         describe "because wrong email" do
           let(:email) { "wrong@email.com" }
 
-          include_examples "failure result class"
+          it_behaves_like "failure result class"
 
           it "returns the expected value in `errors`", :aggregate_failures do
             result = perform
@@ -115,7 +115,7 @@ RSpec.describe Usual::Basic::Example8, type: :service do
         describe "because wrong password" do
           let(:password) { "wrong_password" }
 
-          include_examples "failure result class"
+          it_behaves_like "failure result class"
 
           it "returns the expected value in `errors`", :aggregate_failures do
             result = perform

@@ -50,7 +50,7 @@ module Servactory
             value:
           )
 
-          @context.send(:servactory_service_store).assign_internal(internal.name, value)
+          @context.send(:servactory_service_warehouse).assign_internal(internal.name, value)
         end
 
         def fetch_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
@@ -59,7 +59,7 @@ module Servactory
 
           return yield if internal.nil?
 
-          internal_value = @context.send(:servactory_service_store).fetch_internal(internal.name)
+          internal_value = @context.send(:servactory_service_warehouse).fetch_internal(internal.name)
 
           if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
             Servactory::Utils.query_attribute(internal_value)

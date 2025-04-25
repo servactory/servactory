@@ -12,23 +12,23 @@ RSpec.describe Usual::Success::Example1, type: :service do
 
     let(:number) { 1 }
 
-    include_examples "check class info",
-                     inputs: %i[number],
-                     internals: %i[],
-                     outputs: %i[number]
+    it_behaves_like "check class info",
+                    inputs: %i[number],
+                    internals: %i[],
+                    outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         context "when `number` has a value for early success" do
-          it { expect(perform).to have_output(:number).with(2) }
+          it { expect(perform).to have_output(:number).contains(2) }
         end
 
         context "when `number` has no value for early success" do
           let(:number) { 2 }
 
-          it { expect(perform).to have_output(:number).with(16) }
+          it { expect(perform).to have_output(:number).contains(16) }
         end
       end
     end
@@ -49,23 +49,23 @@ RSpec.describe Usual::Success::Example1, type: :service do
 
     let(:number) { 1 }
 
-    include_examples "check class info",
-                     inputs: %i[number],
-                     internals: %i[],
-                     outputs: %i[number]
+    it_behaves_like "check class info",
+                    inputs: %i[number],
+                    internals: %i[],
+                    outputs: %i[number]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         context "when `number` has a value for early success" do
-          it { expect(perform).to have_output(:number).with(2) }
+          it { expect(perform).to have_output(:number).contains(2) }
         end
 
         context "when `number` has no value for early success" do
           let(:number) { 2 }
 
-          it { expect(perform).to have_output(:number).with(16) }
+          it { expect(perform).to have_output(:number).contains(16) }
         end
       end
     end

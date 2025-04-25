@@ -12,45 +12,45 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
 
     let(:data) { 1 }
 
-    include_examples "check class info",
-                     inputs: %i[data],
-                     internals: %i[data],
-                     outputs: [:data]
+    it_behaves_like "check class info",
+                    inputs: %i[data],
+                    internals: %i[data],
+                    outputs: [:data]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         context "when `data` is `Integer`" do
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with(1) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains(1) }
         end
 
         context "when `data` is `String`" do
           let(:data) { "Data" }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with("Data") }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains("Data") }
         end
 
         context "when `data` is `Array`" do
           let(:data) { [0] }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with([0]) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains([0]) }
         end
 
         context "when `data` is `Hash`" do
           let(:data) { { a: 1 } }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with({ a: 1 }) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains({ a: 1 }) }
         end
       end
 
@@ -278,45 +278,45 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
 
     let(:data) { 1 }
 
-    include_examples "check class info",
-                     inputs: %i[data],
-                     internals: %i[data],
-                     outputs: [:data]
+    it_behaves_like "check class info",
+                    inputs: %i[data],
+                    internals: %i[data],
+                    outputs: [:data]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         context "when `data` is `Integer`" do
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with(1) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains(1) }
         end
 
         context "when `data` is `String`" do
           let(:data) { "Data" }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with("Data") }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains("Data") }
         end
 
         context "when `data` is `Array`" do
           let(:data) { [0] }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with([0]) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains([0]) }
         end
 
         context "when `data` is `Hash`" do
           let(:data) { { a: 1 } }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).with(true) }
-          it { expect(perform).to have_output(:data).with({ a: 1 }) }
+          it { expect(perform).to have_output(:data?).contains(true) }
+          it { expect(perform).to have_output(:data).contains({ a: 1 }) }
         end
       end
 

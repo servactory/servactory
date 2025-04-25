@@ -52,7 +52,15 @@ module ApplicationService
 
       # hash_mode_class_names [CustomHash]
 
-      # action_shortcuts %i[assign build create save]
+      # action_shortcuts(
+      #   %i[assign build create save],
+      #   {
+      #     restrict: {
+      #       prefix: :create,
+      #       suffix: :restriction
+      #     }
+      #   }
+      # )
 
       # action_aliases %i[do_it!]
 

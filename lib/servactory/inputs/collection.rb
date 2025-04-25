@@ -15,7 +15,7 @@ module Servactory
       end
 
       def except(*names)
-        Collection.new(filter { |input| !names.include?(input.internal_name) })
+        Collection.new(filter { |input| names.exclude?(input.internal_name) })
       end
 
       def names

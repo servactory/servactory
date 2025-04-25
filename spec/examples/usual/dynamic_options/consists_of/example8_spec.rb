@@ -14,19 +14,19 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
       [%w[A B], ["C", "D", %w[E F]]]
     end
 
-    include_examples "check class info",
-                     inputs: %i[letters],
-                     internals: %i[letters],
-                     outputs: %i[letters desired_letter]
+    it_behaves_like "check class info",
+                    inputs: %i[letters],
+                    internals: %i[letters],
+                    outputs: %i[letters desired_letter]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:letters?).with(true) }
-        it { expect(perform).to have_output(:letters).with([%w[A B], ["C", "D", %w[E F]]]) }
-        it { expect(perform).to have_output(:desired_letter?).with(true) }
-        it { expect(perform).to have_output(:desired_letter).with("E") }
+        it { expect(perform).to have_output(:letters?).contains(true) }
+        it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F]]]) }
+        it { expect(perform).to have_output(:desired_letter?).contains(true) }
+        it { expect(perform).to have_output(:desired_letter).contains("E") }
       end
 
       describe "but the data required for work is invalid" do
@@ -98,19 +98,19 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
       [%w[A B], ["C", "D", %w[E F]]]
     end
 
-    include_examples "check class info",
-                     inputs: %i[letters],
-                     internals: %i[letters],
-                     outputs: %i[letters desired_letter]
+    it_behaves_like "check class info",
+                    inputs: %i[letters],
+                    internals: %i[letters],
+                    outputs: %i[letters desired_letter]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:letters?).with(true) }
-        it { expect(perform).to have_output(:letters).with([%w[A B], ["C", "D", %w[E F]]]) }
-        it { expect(perform).to have_output(:desired_letter?).with(true) }
-        it { expect(perform).to have_output(:desired_letter).with("E") }
+        it { expect(perform).to have_output(:letters?).contains(true) }
+        it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F]]]) }
+        it { expect(perform).to have_output(:desired_letter?).contains(true) }
+        it { expect(perform).to have_output(:desired_letter).contains("E") }
       end
 
       describe "but the data required for work is invalid" do

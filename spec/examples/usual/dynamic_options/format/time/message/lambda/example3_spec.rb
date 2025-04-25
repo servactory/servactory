@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Lambda::Example3, t
 
     let(:started_at) { "2023-04-14 8:58" }
 
-    include_examples "check class info",
-                     inputs: %i[started_at],
-                     internals: %i[],
-                     outputs: %i[started_at]
+    it_behaves_like "check class info",
+                    inputs: %i[started_at],
+                    internals: %i[],
+                    outputs: %i[started_at]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -59,10 +59,10 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Lambda::Example3, t
 
     let(:started_at) { "2023-04-14 8:58" }
 
-    include_examples "check class info",
-                     inputs: %i[started_at],
-                     internals: %i[],
-                     outputs: %i[started_at]
+    it_behaves_like "check class info",
+                    inputs: %i[started_at],
+                    internals: %i[],
+                    outputs: %i[started_at]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

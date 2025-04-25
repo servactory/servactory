@@ -12,15 +12,15 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Properties::Pattern::Exa
 
     let(:song_duration) { "P7D" }
 
-    include_examples "check class info",
-                     inputs: %i[song_duration],
-                     internals: %i[song_duration],
-                     outputs: %i[song_duration]
+    it_behaves_like "check class info",
+                    inputs: %i[song_duration],
+                    internals: %i[song_duration],
+                    outputs: %i[song_duration]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:song_duration?).with(true) }
-        it { expect(perform).to have_output(:song_duration).with(ActiveSupport::Duration.parse(song_duration)) }
+        it { expect(perform).to have_output(:song_duration?).contains(true) }
+        it { expect(perform).to have_output(:song_duration).contains(ActiveSupport::Duration.parse(song_duration)) }
       end
 
       describe "but the data required for work is invalid" do
@@ -56,15 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Properties::Pattern::Exa
 
     let(:song_duration) { "P7D" }
 
-    include_examples "check class info",
-                     inputs: %i[song_duration],
-                     internals: %i[song_duration],
-                     outputs: %i[song_duration]
+    it_behaves_like "check class info",
+                    inputs: %i[song_duration],
+                    internals: %i[song_duration],
+                    outputs: %i[song_duration]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:song_duration?).with(true) }
-        it { expect(perform).to have_output(:song_duration).with(ActiveSupport::Duration.parse(song_duration)) }
+        it { expect(perform).to have_output(:song_duration?).contains(true) }
+        it { expect(perform).to have_output(:song_duration).contains(ActiveSupport::Duration.parse(song_duration)) }
       end
 
       describe "but the data required for work is invalid" do

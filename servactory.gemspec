@@ -27,26 +27,21 @@ Gem::Specification.new do |spec|
   spec.files = Dir["config/**/*", "lib/**/*", "Rakefile", "README.md"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0") # rubocop:disable Gemspec/RequiredRubyVersion
+  spec.required_ruby_version = Gem::Requirement.new(">= 3.2")
 
   spec.add_dependency "activesupport", ">= 5.1", "< 8.1"
-  spec.add_dependency "base64", "~> 0.2"
-  spec.add_dependency "bigdecimal", "~> 3.0"
-  spec.add_dependency "i18n", "~> 1.14"
-  spec.add_dependency "mutex_m", "~> 0.2"
-  spec.add_dependency "zeitwerk", "~> 2.6"
+  spec.add_dependency "base64", ">= 0.2"
+  spec.add_dependency "bigdecimal", ">= 3.1"
+  spec.add_dependency "i18n", ">= 1.14"
+  spec.add_dependency "mutex_m", ">= 0.3"
+  spec.add_dependency "zeitwerk", ">= 2.6"
 
-  spec.add_development_dependency "appraisal", "~> 2.5"
-  spec.add_development_dependency "async", ">= 1.31"
-  spec.add_development_dependency "datory", ">= 2.1.0"
-  spec.add_development_dependency "pry", "~> 0.14"
-  spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rbs", ">= 3.1.3"
-  spec.add_development_dependency "rspec", "~> 3.12"
-  spec.add_development_dependency "rubocop", "~> 1.57"
-  spec.add_development_dependency "rubocop-performance", "~> 1.19"
-  spec.add_development_dependency "rubocop-rake", "~> 0.6"
-  spec.add_development_dependency "rubocop-rspec", "~> 2.24"
-  spec.add_development_dependency "steep", "~> 1.5"
-  spec.add_development_dependency "yard", "~> 0.9"
+  spec.add_development_dependency "appraisal", ">= 2.5"
+  spec.add_development_dependency "async", ">= 2.23"
+  spec.add_development_dependency "datory", ">= 2.2.0"
+  spec.add_development_dependency "rake", ">= 13.2"
+  spec.add_development_dependency "rbs", ">= 3.8"
+  spec.add_development_dependency "rspec", ">= 3.13"
+  spec.add_development_dependency "servactory-rubocop", ">= 0.9"
+  spec.add_development_dependency "steep", ">= 1.9"
 end

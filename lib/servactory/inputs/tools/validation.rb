@@ -8,9 +8,8 @@ module Servactory
           new(...).validate!
         end
 
-        def initialize(context, incoming_arguments, collection_of_inputs)
+        def initialize(context, collection_of_inputs)
           @context = context
-          @incoming_arguments = incoming_arguments
           @collection_of_inputs = collection_of_inputs
         end
 
@@ -52,7 +51,7 @@ module Servactory
           validation_class.check(
             context: @context,
             attribute: input,
-            value: @incoming_arguments.fetch(input.name, nil),
+            value: @context.send(:servactory_service_warehouse).fetch_input(input.name),
             check_key:,
             check_options:
           )

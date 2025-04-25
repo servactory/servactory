@@ -1,0 +1,21 @@
+module Servactory
+  module Inputs
+    module Tools
+      class Warehouse
+        @context: untyped
+
+        @incoming_arguments: untyped
+
+        def self.assign: (*untyped, **untyped) ?{ (?) -> untyped } -> Hash[Symbol, untyped]
+
+        def initialize: (instance context, (::Hash[untyped, untyped] | Datory::Base) incoming_arguments) -> void
+
+        def assign: () -> Hash[Symbol, untyped]
+
+        private
+
+        def adapted_arguments: () -> Hash[Symbol, untyped]
+      end
+    end
+  end
+end

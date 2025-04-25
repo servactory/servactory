@@ -16,32 +16,9 @@ module Servactory
           @error_callback = error_callback
         end
 
-        def validate! # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          object_schema_validator = nil
-
-          if @attribute.hash_mode?
-            object_schema_validator = Servactory::Maintenance::Validations::ObjectSchema.validate(
-              object: @value,
-              schema: @attribute.schema
-            )
-
-            return if object_schema_validator.valid?
-          else
-            return if prepared_types.any? do |type| # rubocop:disable Style/IfInsideElse
-              @value.is_a?(type)
-            end
-          end
-
-          if (first_error = object_schema_validator&.errors&.first).present?
-            return @error_callback.call(
-              message: Servactory::Maintenance::Attributes::Translator::Type.default_message,
-              service: @context.send(:servactory_service_info),
-              attribute: @attribute,
-              value: @value,
-              key_name: first_error.fetch(:key_name),
-              expected_type: first_error.fetch(:expected_type),
-              given_type: first_error.fetch(:given_type)
-            )
+        def validate! # rubocop:disable Metrics/MethodLength
+          return if prepared_types.any? do |type|
+            @value.is_a?(type)
           end
 
           @error_callback.call(

@@ -12,15 +12,15 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Basic::Example1, type: :serv
 
     let(:service_id) { "018f0e5d-a7bd-7764-8b88-cdf2b2d22543" }
 
-    include_examples "check class info",
-                     inputs: %i[service_id],
-                     internals: %i[],
-                     outputs: %i[service_id]
+    it_behaves_like "check class info",
+                    inputs: %i[service_id],
+                    internals: %i[],
+                    outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:service_id?).with(true) }
-        it { expect(perform).to have_output(:service_id).with("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
+        it { expect(perform).to have_output(:service_id?).contains(true) }
+        it { expect(perform).to have_output(:service_id).contains("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
       end
 
       describe "but the data required for work is invalid" do
@@ -56,15 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Basic::Example1, type: :serv
 
     let(:service_id) { "018f0e5d-a7bd-7764-8b88-cdf2b2d22543" }
 
-    include_examples "check class info",
-                     inputs: %i[service_id],
-                     internals: %i[],
-                     outputs: %i[service_id]
+    it_behaves_like "check class info",
+                    inputs: %i[service_id],
+                    internals: %i[],
+                    outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:service_id?).with(true) }
-        it { expect(perform).to have_output(:service_id).with("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
+        it { expect(perform).to have_output(:service_id?).contains(true) }
+        it { expect(perform).to have_output(:service_id).contains("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
       end
 
       describe "but the data required for work is invalid" do

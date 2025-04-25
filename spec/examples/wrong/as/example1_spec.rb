@@ -19,10 +19,10 @@ RSpec.describe Wrong::As::Example1, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[],
-                     outputs: %i[first_id]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[],
+                    outputs: %i[first_id]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -38,8 +38,16 @@ RSpec.describe Wrong::As::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      # FIXME: Add example for `as` (internal_name)
-      it { expect { perform }.to have_input(:ids).valid_with(false).type(Array).consists_of(String).required }
+      it do
+        # FIXME: Add example for `as` (internal_name)
+        expect { perform }.to(
+          have_input(:ids)
+            .valid_with(false)
+            .type(Array)
+            .consists_of(String)
+            .required
+        )
+      end
     end
   end
 
@@ -61,10 +69,10 @@ RSpec.describe Wrong::As::Example1, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[],
-                     outputs: %i[first_id]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[],
+                    outputs: %i[first_id]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -80,7 +88,16 @@ RSpec.describe Wrong::As::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:ids).valid_with(false).type(Array).consists_of(String).required }
+      it do
+        # FIXME: Add example for `as` (internal_name)
+        expect { perform }.to(
+          have_input(:ids)
+            .valid_with(false)
+            .type(Array)
+            .consists_of(String)
+            .required
+        )
+      end
     end
   end
 end

@@ -19,10 +19,10 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example1, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[ids],
-                     outputs: %i[]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[ids],
+                    outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -61,10 +61,10 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example1, type: :service do
       ]
     end
 
-    include_examples "check class info",
-                     inputs: %i[ids],
-                     internals: %i[ids],
-                     outputs: %i[]
+    it_behaves_like "check class info",
+                    inputs: %i[ids],
+                    internals: %i[ids],
+                    outputs: %i[]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do

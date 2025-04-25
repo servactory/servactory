@@ -12,45 +12,45 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
 
     let(:number) { 90 }
 
-    include_examples "check class info",
-                     inputs: %i[number],
-                     internals: %i[number],
-                     outputs: [:number]
+    it_behaves_like "check class info",
+                    inputs: %i[number],
+                    internals: %i[number],
+                    outputs: [:number]
 
     context "when the input arguments are valid" do
       describe "and the number required for work is also valid" do
         context "when `number` is `Integer`" do
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(90) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90) }
         end
 
         context "when `number` is `Float`" do
           let(:number) { 90.0 }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(90.0) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90.0) }
         end
 
         context "when `number` is `Rational`" do
           let(:number) { Rational(90) }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with((90 / 1)) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90 / 1) }
         end
 
         context "when `number` is `BigDecimal`" do
           let(:number) { BigDecimal(90) }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(0.90e2) } # rubocop:disable Style/ExponentialNotation
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(0.90e2) } # rubocop:disable Style/ExponentialNotation
         end
       end
 
@@ -261,45 +261,45 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
 
     let(:number) { 90 }
 
-    include_examples "check class info",
-                     inputs: %i[number],
-                     internals: %i[number],
-                     outputs: [:number]
+    it_behaves_like "check class info",
+                    inputs: %i[number],
+                    internals: %i[number],
+                    outputs: [:number]
 
     context "when the input arguments are valid" do
       describe "and the number required for work is also valid" do
         context "when `number` is `Integer`" do
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(90) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90) }
         end
 
         context "when `number` is `Float`" do
           let(:number) { 90.0 }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(90.0) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90.0) }
         end
 
         context "when `number` is `Rational`" do
           let(:number) { Rational(90) }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with((90 / 1)) }
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(90 / 1) }
         end
 
         context "when `number` is `BigDecimal`" do
           let(:number) { BigDecimal(90) }
 
-          include_examples "success result class"
+          it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).with(true) }
-          it { expect(perform).to have_output(:number).with(0.90e2) } # rubocop:disable Style/ExponentialNotation
+          it { expect(perform).to have_output(:number?).contains(true) }
+          it { expect(perform).to have_output(:number).contains(0.90e2) } # rubocop:disable Style/ExponentialNotation
         end
       end
 

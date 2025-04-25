@@ -12,15 +12,15 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example2, type: :s
 
     let(:service_id) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[service_id],
-                     internals: %i[service_id],
-                     outputs: %i[service_id]
+    it_behaves_like "check class info",
+                    inputs: %i[service_id],
+                    internals: %i[service_id],
+                    outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:service_id?).with(false) }
-        it { expect(perform).to have_output(:service_id).with(nil) }
+        it { expect(perform).to have_output(:service_id?).contains(false) }
+        it { expect(perform).to have_output(:service_id).contains(nil) }
       end
 
       describe "but the data required for work is invalid" do
@@ -56,15 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example2, type: :s
 
     let(:service_id) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[service_id],
-                     internals: %i[service_id],
-                     outputs: %i[service_id]
+    it_behaves_like "check class info",
+                    inputs: %i[service_id],
+                    internals: %i[service_id],
+                    outputs: %i[service_id]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:service_id?).with(false) }
-        it { expect(perform).to have_output(:service_id).with(nil) }
+        it { expect(perform).to have_output(:service_id?).contains(false) }
+        it { expect(perform).to have_output(:service_id).contains(nil) }
       end
 
       describe "but the data required for work is invalid" do

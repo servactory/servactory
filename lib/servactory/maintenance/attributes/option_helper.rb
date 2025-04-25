@@ -5,11 +5,17 @@ module Servactory
     module Attributes
       class OptionHelper
         attr_reader :name,
-                    :equivalent
+                    :equivalent,
+                    :meta
 
-        def initialize(name:, equivalent:)
+        def initialize(name:, equivalent:, meta: {})
           @name = name
           @equivalent = equivalent
+          @meta = meta
+        end
+
+        def dynamic_option?
+          meta[:type] == :dynamic_option
         end
       end
     end

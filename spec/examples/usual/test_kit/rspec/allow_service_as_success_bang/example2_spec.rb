@@ -4,10 +4,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccessBang::Example2, type:
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
-    include_examples "check class info",
-                     inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[child_result]
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[child_result]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -19,16 +19,28 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccessBang::Example2, type:
           end
         end
 
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it "does not raise error" do
           expect { perform }.not_to raise_error
         end
 
-        it "returns success of child class" do
+        it "returns success of child class", :aggregate_failures do
           result = perform
 
-          expect(result.child_result).to be_success_service.with_output(:data, "New data!")
+          # NOTE: Checking the `with_output` chain.
+          expect(result.child_result).to(
+            be_success_service
+              .with_output(:data, "New data!")
+          )
+
+          # NOTE: Checking the `with_outputs` chain.
+          expect(result.child_result).to(
+            be_success_service
+              .with_outputs(
+                data: "New data!"
+              )
+          )
         end
       end
     end
@@ -37,10 +49,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccessBang::Example2, type:
   describe ".call" do
     subject(:perform) { described_class.call }
 
-    include_examples "check class info",
-                     inputs: %i[],
-                     internals: %i[],
-                     outputs: %i[child_result]
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[child_result]
 
     context "when the input arguments are valid" do
       describe "but the data required for work is invalid" do
@@ -52,12 +64,24 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccessBang::Example2, type:
           end
         end
 
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it "returns success of child class" do
+        it "returns success of child class", :aggregate_failures do
           result = perform
 
-          expect(result.child_result).to be_success_service.with_output(:data, "New data!")
+          # NOTE: Checking the `with_output` chain.
+          expect(result.child_result).to(
+            be_success_service
+              .with_output(:data, "New data!")
+          )
+
+          # NOTE: Checking the `with_outputs` chain.
+          expect(result.child_result).to(
+            be_success_service
+              .with_outputs(
+                data: "New data!"
+              )
+          )
         end
       end
     end

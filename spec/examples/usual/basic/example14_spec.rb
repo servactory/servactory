@@ -18,19 +18,19 @@ RSpec.describe Usual::Basic::Example14, type: :service do
     let(:last_name) { "Kennedy" }
     let(:gender) { "Male" }
 
-    include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name gender],
-                     internals: %i[],
-                     outputs: %i[first_name middle_name last_name full_name]
+    it_behaves_like "check class info",
+                    inputs: %i[first_name middle_name last_name gender],
+                    internals: %i[],
+                    outputs: %i[first_name middle_name last_name full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:first_name).with("JOHN") }
-        it { expect(perform).to have_output(:middle_name).with("FITZGERALD") }
-        it { expect(perform).to have_output(:last_name).with("KENNEDY") }
-        it { expect(perform).to have_output(:full_name).with("JOHN FITZGERALD KENNEDY") }
+        it { expect(perform).to have_output(:first_name).contains("JOHN") }
+        it { expect(perform).to have_output(:middle_name).contains("FITZGERALD") }
+        it { expect(perform).to have_output(:last_name).contains("KENNEDY") }
+        it { expect(perform).to have_output(:full_name).contains("JOHN FITZGERALD KENNEDY") }
       end
     end
 
@@ -59,19 +59,19 @@ RSpec.describe Usual::Basic::Example14, type: :service do
     let(:last_name) { "Kennedy" }
     let(:gender) { "Male" }
 
-    include_examples "check class info",
-                     inputs: %i[first_name middle_name last_name gender],
-                     internals: %i[],
-                     outputs: %i[first_name middle_name last_name full_name]
+    it_behaves_like "check class info",
+                    inputs: %i[first_name middle_name last_name gender],
+                    internals: %i[],
+                    outputs: %i[first_name middle_name last_name full_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:first_name).with("JOHN") }
-        it { expect(perform).to have_output(:middle_name).with("FITZGERALD") }
-        it { expect(perform).to have_output(:last_name).with("KENNEDY") }
-        it { expect(perform).to have_output(:full_name).with("JOHN FITZGERALD KENNEDY") }
+        it { expect(perform).to have_output(:first_name).contains("JOHN") }
+        it { expect(perform).to have_output(:middle_name).contains("FITZGERALD") }
+        it { expect(perform).to have_output(:last_name).contains("KENNEDY") }
+        it { expect(perform).to have_output(:full_name).contains("JOHN FITZGERALD KENNEDY") }
       end
     end
 

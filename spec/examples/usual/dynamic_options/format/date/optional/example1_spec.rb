@@ -12,15 +12,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example1, type: :s
 
     let(:started_on) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[started_on],
-                     internals: %i[],
-                     outputs: %i[started_on]
+    it_behaves_like "check class info",
+                    inputs: %i[started_on],
+                    internals: %i[],
+                    outputs: %i[started_on]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_on?).with(false) }
-        it { expect(perform).to have_output(:started_on).with(nil) }
+        it { expect(perform).to have_output(:started_on?).contains(false) }
+        it { expect(perform).to have_output(:started_on).contains(nil) }
       end
 
       describe "but the data required for work is invalid" do
@@ -56,15 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example1, type: :s
 
     let(:started_on) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[started_on],
-                     internals: %i[],
-                     outputs: %i[started_on]
+    it_behaves_like "check class info",
+                    inputs: %i[started_on],
+                    internals: %i[],
+                    outputs: %i[started_on]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_on?).with(false) }
-        it { expect(perform).to have_output(:started_on).with(nil) }
+        it { expect(perform).to have_output(:started_on?).contains(false) }
+        it { expect(perform).to have_output(:started_on).contains(nil) }
       end
 
       describe "but the data required for work is invalid" do

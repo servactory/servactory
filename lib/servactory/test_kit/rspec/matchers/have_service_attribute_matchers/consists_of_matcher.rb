@@ -6,17 +6,18 @@ module Servactory
       module Matchers
         module HaveServiceAttributeMatchers
           class ConsistsOfMatcher
+            OPTION_NAME = :consists_of
+            OPTION_BODY_KEY = :type
+
             attr_reader :missing_option
 
-            def initialize(described_class, attribute_type, attribute_name, option_types, consists_of_types,
-                           custom_message)
+            def initialize(described_class, attribute_type, attribute_name, option_types, consists_of_types)
               @described_class = described_class
               @attribute_type = attribute_type
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
               @attribute_name = attribute_name
               @option_types = option_types
               @consists_of_types = consists_of_types
-              @custom_message = custom_message
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
 
@@ -46,20 +47,14 @@ module Servactory
                         :attribute_name,
                         :option_types,
                         :consists_of_types,
-                        :custom_message,
                         :attribute_data
 
             def submatcher_passes?(_subject)
-              attribute_must = attribute_data.fetch(:must)
+              attribute_consists_of = attribute_data.fetch(OPTION_NAME)
+              attribute_consists_of_types = Array(attribute_consists_of.fetch(OPTION_BODY_KEY))
 
-              attribute_must_keys = attribute_must.keys
-
-              expected_keys = %i[consists_of]
-
-              attribute_must_keys = attribute_must_keys.select { |key| expected_keys.include?(key) }
-
-              attribute_must_keys.difference(expected_keys).empty? &&
-                expected_keys.difference(attribute_must_keys).empty?
+              attribute_consists_of_types.difference(consists_of_types).empty? &&
+                consists_of_types.difference(attribute_consists_of_types).empty?
             end
 
             def build_missing_option
