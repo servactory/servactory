@@ -15,6 +15,8 @@ module Servactory
         def define_identity_methods: (Input input) -> void
       end
 
+      @option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
+
       attr_reader name: Symbol
       attr_reader internal_name: Symbol
       attr_reader collection_of_options: Maintenance::Attributes::OptionsCollection
@@ -24,7 +26,7 @@ module Servactory
           Symbol name,
           Array[Symbol] helpers,
           ?as: Symbol?,
-          option_helpers: untyped,
+          option_helpers: Configuration::OptionHelpers::OptionHelpersCollection,
           **untyped options
         ) -> void
 
@@ -32,7 +34,7 @@ module Servactory
 
       def respond_to_missing?: (Symbol name, *untyped) -> bool
 
-      def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> void
+      def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Maintenance::Attributes::OptionsCollection
 
       def options_for_checks: () -> Hash[Symbol, untyped]
 
@@ -52,7 +54,7 @@ module Servactory
 
       private
 
-      def create_options_registrar: (options: Hash[Symbol, untyped]) -> untyped
+      def create_options_registrar: (options: Hash[Symbol, untyped]) -> Maintenance::Attributes::Options::Registrar
 
       def available_feature_options: () -> Hash[Symbol, bool]
 
@@ -64,7 +66,7 @@ module Servactory
 
       def extract_advanced_helpers: (options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
 
-      def transform_helpers_to_options: (helpers: Array[Symbol]) -> Hash[Symbol, untyped]
+      def transform_helpers_to_options: (helpers: (Array[Symbol] | Hash[Symbol, untyped])) -> Hash[Symbol, untyped]
 
       def transform_helper_to_option: (helper: untyped, values: untyped) -> Hash[Symbol, untyped]
     end
