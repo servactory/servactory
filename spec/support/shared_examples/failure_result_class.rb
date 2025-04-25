@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples "failure result class" do
-  it "returns failure result class", :aggregate_failures do
+  it "returns failure result class", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
     result = perform
 
     expect(result).to be_a(Servactory::Result)
@@ -11,6 +11,12 @@ RSpec.shared_examples "failure result class" do
     expect(result.failure?(:all)).to be(true)
     expect(result.failure?(:base)).to be(true)
     expect(result.failure?(:non_existent)).to be(false)
+    expect(result.error.all?).to be(false) # because it doesn't make sense
+    expect(result.error.base?).to be(true)
+    expect(result.error.non_existent?).to be(false)
+    expect(result.error.respond_to?(:all?)).to be(false) # because it doesn't make sense
+    expect(result.error.respond_to?(:base?)).to be(true)
+    expect(result.error.respond_to?(:non_existent?)).to be(false)
 
     # NOTE: Testing the matcher.
     # NOTE: Testing the matcher without anything.
