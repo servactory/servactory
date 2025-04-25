@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example2
 
     let(:boolean) { "true" }
 
-    include_examples "check class info",
-                     inputs: %i[boolean],
-                     internals: %i[boolean],
-                     outputs: %i[boolean]
+    it_behaves_like "check class info",
+                    inputs: %i[boolean],
+                    internals: %i[boolean],
+                    outputs: %i[boolean]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -55,10 +55,10 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example2
 
     let(:boolean) { "true" }
 
-    include_examples "check class info",
-                     inputs: %i[boolean],
-                     internals: %i[boolean],
-                     outputs: %i[boolean]
+    it_behaves_like "check class info",
+                    inputs: %i[boolean],
+                    internals: %i[boolean],
+                    outputs: %i[boolean]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

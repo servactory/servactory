@@ -12,14 +12,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example7, type: :service do
 
     let(:event_name) { "approved" }
 
-    include_examples "check class info",
-                     inputs: %i[event_name],
-                     internals: %i[event_name],
-                     outputs: %i[event_name]
+    it_behaves_like "check class info",
+                    inputs: %i[event_name],
+                    internals: %i[event_name],
+                    outputs: %i[event_name]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:event_name).contains("approved") }
       end
@@ -92,10 +92,10 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example7, type: :service do
 
     let(:event_name) { "approved" }
 
-    include_examples "check class info",
-                     inputs: %i[event_name],
-                     internals: %i[event_name],
-                     outputs: %i[event_name]
+    it_behaves_like "check class info",
+                    inputs: %i[event_name],
+                    internals: %i[event_name],
+                    outputs: %i[event_name]
 
     context "when the input arguments are valid" do
       describe "because the value of `event_name` is wrong" do

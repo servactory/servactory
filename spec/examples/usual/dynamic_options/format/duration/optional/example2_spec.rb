@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Optional::Example2, type
 
     let(:song_duration) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[song_duration],
-                     internals: %i[song_duration],
-                     outputs: %i[song_duration]
+    it_behaves_like "check class info",
+                    inputs: %i[song_duration],
+                    internals: %i[song_duration],
+                    outputs: %i[song_duration]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -56,10 +56,10 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Optional::Example2, type
 
     let(:song_duration) { nil }
 
-    include_examples "check class info",
-                     inputs: %i[song_duration],
-                     internals: %i[song_duration],
-                     outputs: %i[song_duration]
+    it_behaves_like "check class info",
+                    inputs: %i[song_duration],
+                    internals: %i[song_duration],
+                    outputs: %i[song_duration]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

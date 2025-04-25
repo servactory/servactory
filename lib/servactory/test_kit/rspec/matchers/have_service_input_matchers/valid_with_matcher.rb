@@ -137,7 +137,7 @@ module Servactory
             end
 
             def failure_inclusion_passes? # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-              input_inclusion_in = attribute_data.fetch(:inclusion, {}).fetch(:in, nil)
+              input_inclusion_in = attribute_data.dig(:inclusion, :in)
 
               return true if input_inclusion_in.blank?
 

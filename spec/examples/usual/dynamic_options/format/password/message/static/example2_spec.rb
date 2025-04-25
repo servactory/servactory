@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
 
     let(:password) { "~hUN`AgY=YpW.061" }
 
-    include_examples "check class info",
-                     inputs: %i[password],
-                     internals: %i[password],
-                     outputs: %i[password]
+    it_behaves_like "check class info",
+                    inputs: %i[password],
+                    internals: %i[password],
+                    outputs: %i[password]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -55,10 +55,10 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
 
     let(:password) { "~hUN`AgY=YpW.061" }
 
-    include_examples "check class info",
-                     inputs: %i[password],
-                     internals: %i[password],
-                     outputs: %i[password]
+    it_behaves_like "check class info",
+                    inputs: %i[password],
+                    internals: %i[password],
+                    outputs: %i[password]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

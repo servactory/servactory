@@ -2,7 +2,19 @@
 
 module Servactory
   module DSL
-    @extensions = []
+    module Extensions
+      def self.registry
+        @registry ||= []
+      end
+
+      def self.register(*extensions)
+        @registry.concat(extensions)
+      end
+
+      def self.clear
+        @registry = []
+      end
+    end
 
     def self.included(base)
       base.include(Configuration::DSL)
@@ -12,21 +24,15 @@ module Servactory
       base.include(Internals::DSL)
       base.include(Outputs::DSL)
 
-      extensions.each { |extension| base.include(extension) }
+      Extensions.registry.each { |extension| base.include(extension) }
 
       base.include(Actions::DSL)
     end
 
     def self.with_extensions(*extensions)
-      @extensions = extensions
-
+      Extensions.clear
+      Extensions.register(*extensions)
       self
     end
-
-    def self.extensions
-      @extensions
-    end
-
-    private_class_method :extensions
   end
 end

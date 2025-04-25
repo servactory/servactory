@@ -14,14 +14,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
       [%w[A B], ["C", "D", %w[E F], nil, ""]]
     end
 
-    include_examples "check class info",
-                     inputs: %i[letters],
-                     internals: %i[letters],
-                     outputs: %i[letters desired_letter]
+    it_behaves_like "check class info",
+                    inputs: %i[letters],
+                    internals: %i[letters],
+                    outputs: %i[letters desired_letter]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:letters?).contains(true) }
         it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]]) }
@@ -74,14 +74,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
       [%w[A B], ["C", "D", %w[E F], nil, ""]]
     end
 
-    include_examples "check class info",
-                     inputs: %i[letters],
-                     internals: %i[letters],
-                     outputs: %i[letters desired_letter]
+    it_behaves_like "check class info",
+                    inputs: %i[letters],
+                    internals: %i[letters],
+                    outputs: %i[letters desired_letter]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it { expect(perform).to have_output(:letters?).contains(true) }
         it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]]) }

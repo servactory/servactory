@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Properties::Validator::Exam
 
     let(:email) { "noreply at servactory.com" }
 
-    include_examples "check class info",
-                     inputs: %i[email],
-                     internals: %i[],
-                     outputs: %i[email]
+    it_behaves_like "check class info",
+                    inputs: %i[email],
+                    internals: %i[],
+                    outputs: %i[email]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -60,10 +60,10 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Properties::Validator::Exam
 
     let(:email) { "noreply at servactory.com" }
 
-    include_examples "check class info",
-                     inputs: %i[email],
-                     internals: %i[],
-                     outputs: %i[email]
+    it_behaves_like "check class info",
+                    inputs: %i[email],
+                    internals: %i[],
+                    outputs: %i[email]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

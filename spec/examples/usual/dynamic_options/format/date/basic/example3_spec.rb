@@ -12,10 +12,10 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Basic::Example3, type: :serv
 
     let(:started_on) { "2023-04-14" }
 
-    include_examples "check class info",
-                     inputs: %i[started_on],
-                     internals: %i[],
-                     outputs: %i[started_on]
+    it_behaves_like "check class info",
+                    inputs: %i[started_on],
+                    internals: %i[],
+                    outputs: %i[started_on]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
@@ -60,10 +60,10 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Basic::Example3, type: :serv
 
     let(:started_on) { "2023-04-14" }
 
-    include_examples "check class info",
-                     inputs: %i[started_on],
-                     internals: %i[],
-                     outputs: %i[started_on]
+    it_behaves_like "check class info",
+                    inputs: %i[started_on],
+                    internals: %i[],
+                    outputs: %i[started_on]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do

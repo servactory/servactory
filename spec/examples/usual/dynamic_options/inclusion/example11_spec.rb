@@ -12,14 +12,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
 
     let(:entity_class) { Usual::DynamicOptions::Inclusion::Example11::ThirdEntity }
 
-    include_examples "check class info",
-                     inputs: %i[entity_class],
-                     internals: %i[entity_class],
-                     outputs: %i[entity_class]
+    it_behaves_like "check class info",
+                    inputs: %i[entity_class],
+                    internals: %i[entity_class],
+                    outputs: %i[entity_class]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it do
           expect(perform).to(
@@ -110,14 +110,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
 
     let(:entity_class) { Usual::DynamicOptions::Inclusion::Example11::ThirdEntity }
 
-    include_examples "check class info",
-                     inputs: %i[entity_class],
-                     internals: %i[entity_class],
-                     outputs: %i[entity_class]
+    it_behaves_like "check class info",
+                    inputs: %i[entity_class],
+                    internals: %i[entity_class],
+                    outputs: %i[entity_class]
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        include_examples "success result class"
+        it_behaves_like "success result class"
 
         it do
           expect(perform).to(

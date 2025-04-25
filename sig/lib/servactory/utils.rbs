@@ -14,6 +14,8 @@ module Servactory
 
     def self?.really_output?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
 
+    def self?.extract_special_character_from: (String string) -> Array[String | nil]
+
     # @param value [#to_s]
     # @return [Boolean]
     def self?.true?: (untyped value) -> untyped

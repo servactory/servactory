@@ -23,7 +23,7 @@ module Servactory
 
         def fetch_hash_values_from: (value: untyped, schema_value: Hash[Symbol, untyped], attribute_required: bool) { () -> untyped } -> void
 
-        def raise_error_for: (Symbol type, Symbol name) { () -> untyped } -> Exception
+        def raise_error_for: (Symbol type, Symbol name) -> Exception
       end
     end
   end
