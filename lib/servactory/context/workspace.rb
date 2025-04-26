@@ -20,6 +20,10 @@ module Servactory
         end
       end
 
+      def initialize(incoming_arguments)
+        servactory_service_warehouse.assign_inputs(incoming_arguments)
+      end
+
       def inputs
         @inputs ||= Inputs.new(
           context: self,
