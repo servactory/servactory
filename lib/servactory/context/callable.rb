@@ -15,7 +15,7 @@ module Servactory
         def self.merge(incoming_arguments)
           incoming_arguments = Servactory::Utils.adapt(incoming_arguments)
 
-          collection.merge(incoming_arguments)
+          collection.merge!(incoming_arguments)
         end
 
         def self.clear
@@ -24,11 +24,13 @@ module Servactory
       end
 
       def call!(arguments = {})
-        context = send(:new, Arguments.merge(arguments))
+        Arguments.merge(arguments)
 
-        _call!(context)
+        context = send(:new, Arguments.collection)
 
         Arguments.clear
+
+        _call!(context)
 
         config.result_class.success_for(context:)
       rescue config.success_class => e
@@ -36,11 +38,13 @@ module Servactory
       end
 
       def call(arguments = {})
-        context = send(:new, Arguments.merge(arguments))
+        Arguments.merge(arguments)
 
-        _call!(context)
+        context = send(:new, Arguments.collection)
 
         Arguments.clear
+
+        _call!(context)
 
         config.result_class.success_for(context:)
       rescue config.success_class => e
