@@ -54,9 +54,12 @@ module Servactory
       end
 
       def method_missing(name, *args)
-        return super unless collection_of_inputs.names.include?(name)
+        return super unless (input = collection_of_inputs.find_by(name:)).present?
 
-        Arguments.add(name, args.first)
+        value = args.first
+        value = true if input.types.include?(TrueClass) && value.nil?
+
+        Arguments.add(name, value)
 
         self
       end

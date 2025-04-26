@@ -2,7 +2,7 @@
 
 module Usual
   module Arguments
-    class Example3 < ApplicationService::Base
+    class Example4 < ApplicationService::Base
       input :activated, type: [TrueClass, FalseClass], required: false, default: false
 
       internal :activated, type: [TrueClass, FalseClass]

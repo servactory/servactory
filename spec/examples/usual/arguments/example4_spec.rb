@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Arguments::Example3, type: :service do
+RSpec.describe Usual::Arguments::Example4, type: :service do
   describe ".call!" do
-    subject(:perform) { described_class.activated(activated).call! }
-
-    let(:activated) { true }
+    subject(:perform) { described_class.activated.call! }
 
     it_behaves_like "check class info",
                     inputs: %i[activated],
@@ -25,9 +23,7 @@ RSpec.describe Usual::Arguments::Example3, type: :service do
   end
 
   describe ".call" do
-    subject(:perform) { described_class.activated(activated).call }
-
-    let(:activated) { true }
+    subject(:perform) { described_class.activated.call }
 
     it_behaves_like "check class info",
                     inputs: %i[activated],
