@@ -3,7 +3,7 @@ module Servactory
     module Workspace
       private
 
-      def call!: (incoming_arguments: (::Hash[untyped, untyped] | Datory::Base), ** untyped) -> void
+      def call!: (**untyped) -> void
     end
   end
 end

@@ -5,7 +5,7 @@ module Servactory
     module Workspace
       private
 
-      def call!(incoming_arguments:, **)
+      def call!(**)
         super
 
         Tools::Unnecessary.find!(self, collection_of_inputs)

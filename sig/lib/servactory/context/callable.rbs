@@ -9,7 +9,7 @@ module Servactory
 
       def prepare_result_class: () -> Class
 
-      def _call!: (instance context, (::Hash[untyped, untyped] | Datory::Base) incoming_arguments) -> void
+      def _call!: (instance context) -> void
     end
   end
 end

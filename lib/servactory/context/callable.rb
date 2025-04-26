@@ -26,7 +26,7 @@ module Servactory
       def call!(arguments = {})
         context = send(:new, Arguments.merge(arguments))
 
-        _call!(context, Arguments.merge(arguments))
+        _call!(context)
 
         Arguments.clear
 
@@ -38,7 +38,7 @@ module Servactory
       def call(arguments = {})
         context = send(:new, Arguments.merge(arguments))
 
-        _call!(context, Arguments.merge(arguments))
+        _call!(context)
 
         Arguments.clear
 
@@ -63,10 +63,9 @@ module Servactory
 
       private
 
-      def _call!(context, incoming_arguments)
+      def _call!(context)
         context.send(
           :_call!,
-          incoming_arguments:,
           collection_of_inputs:,
           collection_of_internals:,
           collection_of_outputs:,

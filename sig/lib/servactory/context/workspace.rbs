@@ -48,7 +48,6 @@ module Servactory
       @servactory_service_info: Actor
 
       def _call!: (
-        incoming_arguments: Hash[Symbol, untyped],
         collection_of_inputs: Inputs::Collection,
         collection_of_internals: Internals::Collection,
         collection_of_outputs: Outputs::Collection,
