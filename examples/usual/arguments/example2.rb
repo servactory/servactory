@@ -3,11 +3,11 @@
 module Usual
   module Arguments
     class Example2 < ApplicationService::Base
-      input :invoice_number, type: [String, Integer]
+      input :invoice_number, type: String
 
-      internal :invoice_number, type: [String, Integer]
+      internal :invoice_number, type: String
 
-      output :invoice_number, type: [String, Integer]
+      output :invoice_number, type: String
 
       make :assign_internal_invoice_number
       make :assign_output_invoice_number
