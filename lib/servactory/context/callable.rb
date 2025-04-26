@@ -37,7 +37,7 @@ module Servactory
         config.result_class.success_for(context: e.context)
       end
 
-      def call(arguments = {})
+      def call(arguments = {}) # rubocop:disable Metrics/AbcSize
         Arguments.merge(arguments)
 
         context = send(:new, Arguments.collection)
