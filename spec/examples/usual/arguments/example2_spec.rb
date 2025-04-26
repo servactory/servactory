@@ -20,7 +20,7 @@ RSpec.describe Usual::Arguments::Example2, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).types(String).required }
+      it { expect { perform }.to have_input(:invoice_number).type(String).required }
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe Usual::Arguments::Example2, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).types(String).required }
+      it { expect { perform }.to have_input(:invoice_number).type(String).required }
     end
   end
 end
