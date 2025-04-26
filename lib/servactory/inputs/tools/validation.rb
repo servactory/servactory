@@ -36,9 +36,9 @@ module Servactory
               input:,
               check_key:,
               check_options:
-            )
+            ).to_a
 
-            errors.merge(errors_from_checks.to_a)
+            errors.merge(errors_from_checks) unless errors_from_checks.empty?
           end
         end
 
