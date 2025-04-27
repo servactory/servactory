@@ -58,8 +58,7 @@ module Servactory
           ########################################################################
 
           def validation_classes
-            @validation_classes ||=
-              @attribute.collection_of_options.validation_classes
+            @validation_classes ||= @attribute.collection_of_options.validation_classes
           end
 
           ########################################################################
