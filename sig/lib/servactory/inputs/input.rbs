@@ -30,7 +30,7 @@ module Servactory
           **untyped options
         ) -> void
 
-      def method_missing: (Symbol name, *untyped args) ?{ () -> untyped } -> untyped
+      def method_missing: (Symbol name, *untyped args) ?{ () -> untyped } -> void
 
       def respond_to_missing?: (Symbol name, *untyped) -> bool
 
@@ -58,13 +58,13 @@ module Servactory
 
       def available_feature_options: () -> Hash[Symbol, bool]
 
-      def process_options_with_helpers: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def augment_options_with_helpers: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
 
-      def apply_standard_helpers_to: (target_options: Hash[Symbol, untyped], helpers: Array[Symbol]) -> Hash[Symbol, untyped]
+      def merge_standard_helpers_into: (target_options: Hash[Symbol, untyped], helpers: Array[Symbol]) -> Hash[Symbol, untyped]
 
-      def apply_advanced_helpers_to: (target_options: Hash[Symbol, untyped], source_options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def merge_advanced_helpers_into: (target_options: Hash[Symbol, untyped], source_options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
 
-      def extract_advanced_helpers: (options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def filter_advanced_helpers: (options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
 
       def transform_helpers_to_options: (helpers: (Array[Symbol] | Hash[Symbol, untyped])) -> Hash[Symbol, untyped]
 

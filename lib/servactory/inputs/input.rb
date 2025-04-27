@@ -73,7 +73,7 @@ module Servactory
       end
 
       def register_options(helpers:, options:)
-        merged_options = process_options_with_helpers(helpers:, options:)
+        merged_options = augment_options_with_helpers(helpers:, options:)
         options_registrar = create_options_registrar(options: merged_options)
 
         @options = merged_options
@@ -132,27 +132,27 @@ module Servactory
         }
       end
 
-      def process_options_with_helpers(helpers:, options:)
+      def augment_options_with_helpers(helpers:, options:)
         result_options = options.dup
-        apply_standard_helpers_to(target_options: result_options, helpers:) if helpers.present?
-        apply_advanced_helpers_to(target_options: result_options, source_options: options)
+        merge_standard_helpers_into(target_options: result_options, helpers:) if helpers.present?
+        merge_advanced_helpers_into(target_options: result_options, source_options: options)
         result_options
       end
 
-      def apply_standard_helpers_to(target_options:, helpers:)
+      def merge_standard_helpers_into(target_options:, helpers:)
         standard_helpers_result = transform_helpers_to_options(helpers:)
         target_options.deep_merge!(standard_helpers_result)
       end
 
-      def apply_advanced_helpers_to(target_options:, source_options:)
-        advanced_helpers = extract_advanced_helpers(options: source_options)
+      def merge_advanced_helpers_into(target_options:, source_options:)
+        advanced_helpers = filter_advanced_helpers(options: source_options)
         return if advanced_helpers.blank?
 
         advanced_helpers_result = transform_helpers_to_options(helpers: advanced_helpers)
         target_options.deep_merge!(advanced_helpers_result)
       end
 
-      def extract_advanced_helpers(options:)
+      def filter_advanced_helpers(options:)
         reserved_options = Servactory::Maintenance::Attributes::Options::Registrar::RESERVED_OPTIONS
         options.except(*reserved_options)
       end
@@ -163,7 +163,7 @@ module Servactory
           next if helper.blank?
 
           transformed_option = transform_helper_to_option(helper:, values:)
-          result.deep_merge!(transformed_option) if transformed_option
+          result.deep_merge!(transformed_option) if transformed_option.present?
         end
       end
 
