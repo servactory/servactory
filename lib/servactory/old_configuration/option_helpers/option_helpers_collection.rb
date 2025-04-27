@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Servactory
-  module Configuration
+  module OldConfiguration
     module OptionHelpers
       class OptionHelpersCollection
         extend Forwardable

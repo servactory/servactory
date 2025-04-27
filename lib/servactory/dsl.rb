@@ -17,7 +17,7 @@ module Servactory
     end
 
     def self.included(base)
-      base.include(Configuration::DSL)
+      base.include(OldConfiguration::DSL)
       base.include(Info::DSL)
       base.include(Context::DSL)
       base.include(Inputs::DSL)
