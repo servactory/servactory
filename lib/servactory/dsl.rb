@@ -8,7 +8,7 @@ module Servactory
       end
 
       def self.register(*extensions)
-        @registry.concat(extensions)
+        registry.concat(extensions)
       end
 
       def self.clear
