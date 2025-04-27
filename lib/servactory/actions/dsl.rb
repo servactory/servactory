@@ -86,11 +86,11 @@ module Servactory
           collection_of_stages << current_stage
         end
 
-        def method_missing(name, ...)
-          return method_missing_for_action_aliases(...) if config.action_aliases.include?(name)
+        def method_missing(name, *args, &block)
+          return method_missing_for_action_aliases(*args) if config.action_aliases.include?(name)
 
           if (action_shortcut = config.action_shortcuts.find_by(name:)).present?
-            return method_missing_for_shortcuts_for_make(action_shortcut, ...)
+            return method_missing_for_shortcuts_for_make(action_shortcut, *args)
           end
 
           super

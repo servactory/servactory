@@ -1,11 +1,19 @@
 module Servactory
   class Result
+    STATE_PREDICATE_NAMES: Array[Symbol]
+
     @context: instance?
     @exception: Exception?
     @outputs: Outputs
 
     class Outputs
       def initialize: (outputs: Hash[Symbol, untyped], predicate_methods_enabled: bool) -> void
+
+      def inspect: () -> String
+
+      private
+
+      def draw_result: () -> String
     end
 
     def self.success_for: (context: instance) -> self
@@ -14,13 +22,15 @@ module Servactory
 
     def initialize: (context: instance, ?exception: Exception?) -> void
 
+    def to_h: () -> Hash[Symbol, untyped]
+
     def inspect: () -> String
 
     def on_success: () -> self
 
     def on_failure: (Symbol type) -> self
 
-    def respond_to_missing?: -> void
+    def respond_to_missing?: (Symbol name, *untyped) -> void
 
     private
 

@@ -21,7 +21,7 @@ module Servactory
 
       def initialize: (Symbol name, Array[Symbol] helpers, option_helpers: untyped, **untyped options) -> void
 
-      def method_missing: (Symbol name, *untyped args) { () -> untyped } -> untyped
+      def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
 
       def respond_to_missing?: (Symbol name, *untyped) -> bool
 

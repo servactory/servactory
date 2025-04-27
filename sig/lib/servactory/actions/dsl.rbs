@@ -25,7 +25,7 @@ module Servactory
 
         def make: (Symbol name, position: Integer?, **untyped options) -> void
 
-        def method_missing: (Symbol name, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
+        def method_missing: (Symbol name, *untyped args) ?{ () -> untyped } -> void
 
         def method_missing_for_action_aliases: (*untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
 
