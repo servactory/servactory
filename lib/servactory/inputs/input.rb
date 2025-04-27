@@ -163,7 +163,7 @@ module Servactory
           next if helper.blank?
 
           transformed_option = transform_helper_to_option(helper:, values:)
-          result.deep_merge!(transformed_option) if transformed_option
+          result.deep_merge!(transformed_option) if transformed_option.present?
         end
       end
 
