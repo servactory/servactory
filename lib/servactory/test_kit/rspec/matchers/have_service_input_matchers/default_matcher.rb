@@ -46,6 +46,8 @@ module Servactory
             def submatcher_passes?(_subject)
               attribute_default_value = attribute_data.fetch(:default)
 
+              return default_value.nil? if attribute_default_value.is_a?(NilClass)
+
               attribute_default_value.to_s.casecmp(default_value.to_s).zero?
             end
 
