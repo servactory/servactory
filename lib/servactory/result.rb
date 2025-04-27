@@ -66,7 +66,7 @@ module Servactory
       self
     end
 
-    def method_missing(name, *_args)
+    def method_missing(name, *args, &block)
       super
     rescue NoMethodError => e
       rescue_no_method_error_with(exception: e)
