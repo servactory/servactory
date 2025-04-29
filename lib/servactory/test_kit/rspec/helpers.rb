@@ -58,23 +58,13 @@ module Servactory
                      if yield.is_a?(Hash)
                        yield
                      else
-                       { exception: yield }
+                       { with_bang ? :exception : :error => yield }
                      end
                    else
                      {}
                    end
 
-          # puts
-          # puts <<~RUBY
-          #   allow(#{service_class}).to(
-          #     receive(#{method_call.inspect})
-          #       .public_send(
-          #         #{and_return_or_raise.inspect},
-          #         Servactory::TestKit::Result.public_send(#{result_type.inspect}, #{result})
-          #       )
-          #   )
-          # RUBY
-          # puts
+          result[:service_class] = service_class
 
           allow(service_class).to(
             receive(method_call)
@@ -89,11 +79,7 @@ module Servactory
               )
               .public_send(
                 and_return_or_raise,
-                if as_success || !with_bang
-                  Servactory::TestKit::Result.public_send(result_type, **result)
-                else
-                  Servactory::TestKit::Result.public_send(result_type, result)
-                end
+                Servactory::TestKit::Result.public_send(result_type, **result)
               )
           )
         end
