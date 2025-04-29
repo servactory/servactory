@@ -3,21 +3,16 @@
 module Servactory
   module TestKit
     class Result
-      def self.as_success(**attributes)
-        service_class = attributes.delete(:service_class) || self
-
+      def self.as_success(attributes = {})
         context = new(attributes)
 
-        service_class.config.result_class.success_for(context:)
+        Servactory::Result.success_for(context:)
       end
 
-      def self.as_failure(**attributes)
-        service_class = attributes.delete(:service_class) || self
-        exception = attributes.delete(:exception)
-
+      def self.as_failure(attributes = {}, exception: nil)
         context = new(attributes)
 
-        service_class.config.result_class.failure_for(context:, exception:)
+        Servactory::Result.failure_for(context:, exception:)
       end
 
       def initialize(attributes = {})
