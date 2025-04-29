@@ -58,7 +58,7 @@ module Servactory
                      if yield.is_a?(Hash)
                        yield
                      else
-                       { (with_bang ? :exception : :error) => yield }
+                       { exception: yield }
                      end
                    else
                      {}
@@ -79,7 +79,11 @@ module Servactory
               )
               .public_send(
                 and_return_or_raise,
-                Servactory::TestKit::Result.public_send(result_type, **result)
+                if as_success || !with_bang
+                  Servactory::TestKit::Result.public_send(result_type, **result)
+                else
+                  result.fetch(:exception)
+                end
               )
           )
         end

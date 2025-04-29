@@ -8,7 +8,11 @@ module Servactory
 
         context = new(attributes)
 
-        service_class.config.result_class.success_for(context:)
+        if service_class == Servactory::TestKit::Result
+          Servactory::Result.success_for(context:)
+        else
+          service_class.config.result_class.success_for(context:)
+        end
       end
 
       def self.as_failure(**attributes)
@@ -17,7 +21,11 @@ module Servactory
 
         context = new(attributes)
 
-        service_class.config.result_class.failure_for(context:, exception:)
+        if service_class == Servactory::TestKit::Result
+          Servactory::Result.failure_for(context:, exception:)
+        else
+          service_class.config.result_class.failure_for(context:, exception:)
+        end
       end
 
       def initialize(attributes = {})
