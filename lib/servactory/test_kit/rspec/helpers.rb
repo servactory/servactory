@@ -58,7 +58,7 @@ module Servactory
                      if yield.is_a?(Hash)
                        yield
                      else
-                       { with_bang ? :exception : :error => yield }
+                       { (with_bang ? :exception : :error) => yield }
                      end
                    else
                      {}
