@@ -7,6 +7,12 @@ module Servactory
 
       def initialize: (type: Symbol?, message: String, meta: untyped?) -> void
 
+      def method_missing: (Symbol name, *untyped _args) { () -> untyped } -> void
+
+      def respond_to_missing?: (Symbol name, *untyped) -> void
+
+      private
+
       def normalize_method_name: (Symbol name) -> Symbol
     end
   end
