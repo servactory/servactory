@@ -6,7 +6,7 @@ module Wrong
       input :event_name,
             type: String,
             inclusion: %w[created rejected approved],
-            prepare: ->(value:) { value }
+            prepare: ->(value:, **) { value }
     end
   end
 end
