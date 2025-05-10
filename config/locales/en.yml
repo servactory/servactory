@@ -44,6 +44,7 @@ en:
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of input `%{input_name}`, expected `%{expected_type}`, got `%{given_type}`"
+            not_specified: "[%{service_class_name}] Input `%{input_name}` must have `type` option"
       tools:
         find_unnecessary:
           error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"
@@ -83,6 +84,7 @@ en:
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
+            not_specified: "[%{service_class_name}] Internal attribute `%{internal_name}` must have `type` option"
     outputs:
       undefined:
         for_fetch: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
@@ -117,3 +119,4 @@ en:
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
+            not_specified: "[%{service_class_name}] Output attribute `%{output_name}` must have `type` option"
