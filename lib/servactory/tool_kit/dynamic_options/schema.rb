@@ -39,6 +39,10 @@ module Servactory
 
           schema = option.value.fetch(:is, option.value)
 
+          if attribute.internal? || attribute.output?
+            schema = schema.transform_values { |options| options.except(:prepare) }
+          end
+
           is_success, reason, meta = validate_for!(object: value, schema:)
 
           prepare_object_with!(object: value, schema:) if is_success
