@@ -29,7 +29,8 @@ module Servactory
           common_condition_with(attribute: output, value:, option:)
         end
 
-        def common_condition_with(attribute:, value:, option:) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def common_condition_with(attribute:, value:, option:)
           return true if option.value == false
           return [false, :wrong_type] unless @default_hash_mode_class_names.intersect?(attribute.types)
 
@@ -49,6 +50,7 @@ module Servactory
 
           [is_success, reason, meta]
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         def validate_for!(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength
           unless object.respond_to?(:fetch)
