@@ -5,7 +5,7 @@ module Wrong
     class Example11 < ApplicationService::Base
       input :invoice_number, type: String
 
-      internal :prepared_invoice_number, type: String
+      internal :prepared_invoice_number, type: [String, NilClass]
 
       output :invoice_number, type: Integer
 
