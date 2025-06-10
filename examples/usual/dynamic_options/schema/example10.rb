@@ -7,8 +7,7 @@ module Usual
         PAYLOAD_SCHEMA = {
           issued_on: {
             type: [Date, DateTime, Time],
-            required: true,
-            prepare: ->(value:) { value.strftime("%Y-%m-%d") }
+            required: true
           }
         }.freeze
         private_constant :PAYLOAD_SCHEMA
@@ -17,7 +16,7 @@ module Usual
                  type: ::Hash,
                  schema: PAYLOAD_SCHEMA
 
-        output :issued_on, type: String
+        output :issued_on, type: [Date, DateTime, Time]
 
         make :assign_internal
 
