@@ -24,8 +24,9 @@ Gem::Specification.new do |spec|
 
   spec.metadata["rubygems_mfa_required"] = "true"
 
-  spec.files = Dir["config/**/*", "lib/**/*", "Rakefile", "README.md"]
+  spec.files = Dir["config/**/*", "lib/**/*", "ext/**/*.{c,rb}", "Rakefile", "README.md"]
   spec.require_paths = ["lib"]
+  spec.extensions = ["ext/servactory/extconf.rb"]
 
   spec.required_ruby_version = Gem::Requirement.new(">= 3.2")
 
@@ -40,6 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "async", ">= 2.23"
   spec.add_development_dependency "datory", ">= 2.2.0"
   spec.add_development_dependency "rake", ">= 13.2"
+  spec.add_development_dependency "rake-compiler", ">= 1.2.5"
   spec.add_development_dependency "rbs", ">= 3.8"
   spec.add_development_dependency "rspec", ">= 3.13"
   spec.add_development_dependency "servactory-rubocop", ">= 0.9"

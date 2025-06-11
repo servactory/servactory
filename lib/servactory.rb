@@ -14,6 +14,13 @@ loader.inflector.inflect(
 )
 loader.setup
 
+# Attempt to load the C extension
+begin
+  require "servactory/servactory"
+rescue LoadError
+  # C extension is not available, continue with pure Ruby
+end
+
 module Servactory; end
 
 require "servactory/engine" if defined?(Rails::Engine)
