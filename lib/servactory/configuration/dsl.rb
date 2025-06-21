@@ -13,7 +13,7 @@ module Servactory
         def inherited(child)
           super
 
-          child.instance_variable_set(:@config, nil)
+          child.send(:reset_config)
         end
 
         def config
@@ -21,6 +21,10 @@ module Servactory
         end
 
         private
+
+        def reset_config
+          @config = nil
+        end
 
         def configuration(&block)
           self.configuration_block = block
