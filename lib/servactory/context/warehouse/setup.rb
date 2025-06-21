@@ -8,6 +8,10 @@ module Servactory
           @context = context
         end
 
+        def configuration
+          @configuration ||= Servactory::Configuration::Setup.new(@context)
+        end
+
         def assign_inputs(arguments)
           context_data[:inputs].merge!(arguments)
         end

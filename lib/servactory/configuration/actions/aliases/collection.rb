@@ -6,10 +6,10 @@ module Servactory
       module Aliases
         class Collection
           extend Forwardable
-          def_delegators :@collection, :<<, :merge, :include?
+          def_delegators :@collection, :merge, :merge!, :fetch, :[], :include?
 
           def initialize(*)
-            @collection = Set.new
+            @collection = {}
           end
         end
       end

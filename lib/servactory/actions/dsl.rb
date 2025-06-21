@@ -6,6 +6,8 @@ module Servactory
       def self.included(base)
         base.extend(ClassMethods)
         base.include(Workspace)
+
+        base.class_attribute :action_rescue_handlers_class_attr, default: []
       end
 
       module ClassMethods
@@ -18,21 +20,23 @@ module Servactory
         private
 
         # NOTE: Based on https://github.com/rails/rails/blob/main/activesupport/lib/active_support/rescuable.rb
-        def fail_on!(*class_names, with: nil, &block) # rubocop:disable Metrics/MethodLength
-          with ||= block || ->(exception:) { exception.message }
+        def fail_on!(*args, with: ->(exception:) { exception.message })
+          direct_exceptions = args.grep(String) + args.grep(Class)
+          aliases = args.grep(Symbol)
 
-          class_names.each do |class_name|
-            key = if class_name.is_a?(Module) && class_name.respond_to?(:===)
-                    class_name.name
-                  elsif class_name.is_a?(String)
-                    class_name
-                  else
-                    raise ArgumentError,
-                          "#{class_name.inspect} must be an Exception class or a String referencing an Exception class"
-                  end
+          exceptions_from_aliases =
+            aliases.filter_map do |alias_name|
+              resolved_alias = config.action_aliases.fetch(alias_name, nil)
 
-            # Put the new handler at the end because the list is read in reverse.
-            config.action_rescue_handlers += [[key, with]]
+              next if resolved_alias == true
+
+              resolved_alias
+            end.flatten
+
+          (direct_exceptions + exceptions_from_aliases).each do |exception_class_or_name|
+            key = Servactory::Utils.constantize_class(exception_class_or_name)
+
+            self.action_rescue_handlers_class_attr += [[key, with]]
           end
         end
 
