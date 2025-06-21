@@ -10,6 +10,8 @@ module Servactory
 
         @outputs: Hash[Symbol, untyped]
 
+        @configuration: Configuration
+
         @context_data: Hash[Symbol, untyped]
 
         @context_id: String
@@ -34,13 +36,15 @@ module Servactory
 
         def outputs: () -> Outputs
 
+        def configuration: () -> Configuration
+
         private
 
         def assign_attribute: (Symbol section, Symbol name, untyped value) -> untyped
 
-        def context_data: () -> { inputs: Inputs, internals: Internals, outputs: Outputs }
+        def context_data: () -> { configuration: Configuration, inputs: Inputs, internals: Internals, outputs: Outputs }
 
-        def state: () -> Hash[String, { inputs: Inputs, internals: Internals, outputs: Outputs }]
+        def state: () -> Hash[String, { configuration: Configuration, inputs: Inputs, internals: Internals, outputs: Outputs }]
 
         def context_id: () -> String
       end

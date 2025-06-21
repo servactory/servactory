@@ -7,6 +7,9 @@ module Servactory
         @collection: Set[Class]
 
         def initialize: (Set[Class] collection) -> void
+
+        def include?: (Class value) -> bool
+        def intersect?: (Enumerable[Class] other) -> bool
       end
     end
   end

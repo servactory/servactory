@@ -1,7 +1,8 @@
+
 module Servactory
   module Inputs
     module DSL
-      def self.included: (untyped base) -> untyped
+      def self.included: (untyped base) -> void
 
       module ClassMethods
         @collection_of_inputs: Collection

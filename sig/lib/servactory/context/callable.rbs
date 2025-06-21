@@ -1,15 +1,19 @@
 module Servactory
   module Context
     module Callable
-      def call!: (?::Hash[untyped, untyped] arguments) -> singleton(Result)
-
-      def call: (?::Hash[untyped, untyped] arguments) -> singleton(Result)
+      def call!: (?Hash[Symbol, untyped] arguments) -> Result
+      def call: (?Hash[Symbol, untyped] arguments) -> Result
 
       private
 
-      def prepare_result_class: () -> Class
-
-      def _call!: (instance context, (::Hash[untyped, untyped] | Datory::Base) incoming_arguments) -> void
+      def _call!: (
+        instance context,
+        incoming_arguments: Hash[Symbol, untyped],
+        collection_of_inputs: Inputs::Collection,
+        collection_of_internals: Internals::Collection,
+        collection_of_outputs: Outputs::Collection,
+        collection_of_stages: Actions::Stages::Collection
+      ) -> void
     end
   end
 end

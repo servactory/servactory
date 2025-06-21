@@ -7,17 +7,20 @@ module Servactory
 
         def initialize: (context: instance, collection_of_inputs: Inputs::Collection) -> void
 
-        def only: (Symbol input_names) -> Hash[Symbol, untyped]
+        def only: (*Symbol names) -> Hash[Symbol, untyped]
 
-        def except: (Symbol input_names) -> Hash[Symbol, untyped]
+        def except: (*Symbol names) -> Hash[Symbol, untyped]
 
-        def method_missing: (Symbol name, *untyped _args) { () -> untyped } -> void
+        def method_missing: (Symbol name, *untyped _args) -> untyped
 
-        def respond_to_missing?: (Symbol name, *untyped) -> void
+        def respond_to_missing?: (Symbol name, *untyped) -> bool
 
         private
 
-        def fetch_with: (name: Symbol) { () -> untyped } -> void
+        attr_reader :context
+        attr_reader :collection_of_inputs
+
+        def fetch_with: (name: Symbol) { () -> untyped } -> untyped
 
         def prepare_hash_values_inside: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) { () -> untyped } -> void
 

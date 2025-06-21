@@ -8,6 +8,14 @@ module Servactory
           @collection: Set[Symbol]
 
           def initialize: (*untyped) -> void
+
+          def <<: (Symbol value) -> self
+          def merge: (Enumerable[Symbol] other) -> self
+          def include?: (Symbol value) -> bool
+
+          private
+
+          attr_reader :collection
         end
       end
     end

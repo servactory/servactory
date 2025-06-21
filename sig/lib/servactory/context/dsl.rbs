@@ -1,13 +1,11 @@
 module Servactory
   module Context
     module DSL
-      def self.included: (untyped base) -> untyped
+      def self.included: (untyped base) -> void
 
-      module Configurable
-        private
+      private
 
-        def configuration: () { () -> void } -> void
-      end
+      def context: () -> self
     end
   end
 end

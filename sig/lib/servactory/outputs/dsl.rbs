@@ -1,7 +1,7 @@
 module Servactory
   module Outputs
     module DSL
-      def self.included: (untyped base) -> untyped
+      def self.included: (untyped base) -> void
 
       module ClassMethods
         @collection_of_outputs: Collection
@@ -10,7 +10,7 @@ module Servactory
 
         private
 
-        def output: (Symbol name, **untyped options) -> void
+        def output: (Symbol name, *Symbol helpers, **untyped options) -> void
 
         def collection_of_outputs: () -> Collection
       end

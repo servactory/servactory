@@ -1,9 +1,2 @@
 module Servactory
-  @configuration: Configuration::Setup
-
-  def self?.configuration: () -> Configuration::Setup
-
-  def self?.reset: () -> void
-
-  def self?.configure: () { (untyped) -> untyped } -> untyped
 end

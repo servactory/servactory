@@ -1,0 +1,21 @@
+module Servactory
+  module Context
+    module Warehouse
+      class Configuration
+        @action_aliases: Configuration::Actions::Aliases::Collection
+        @failure_class: Class
+        @option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
+        @rescue_handlers: Configuration::Actions::RescueHandlers::Collection
+        @shortcuts: Configuration::Actions::Shortcuts::Collection
+
+        def initialize: (
+          action_aliases: Configuration::Actions::Aliases::Collection,
+          failure_class: Class,
+          option_helpers: Configuration::OptionHelpers::OptionHelpersCollection,
+          rescue_handlers: Configuration::Actions::RescueHandlers::Collection,
+          shortcuts: Configuration::Actions::Shortcuts::Collection
+        ) -> void
+      end
+    end
+  end
+end 

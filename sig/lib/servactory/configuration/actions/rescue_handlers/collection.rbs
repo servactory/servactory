@@ -5,9 +5,18 @@ module Servactory
         class Collection
           extend Forwardable
 
-          @collection: Set[untyped]
+          @collection: Set[[Class, Proc]]
 
           def initialize: (*untyped) -> void
+
+          def +: (Enumerable[[Class, Proc]] other) -> Set[[Class, Proc]]
+          def detect: () { ([Class, Proc] element) -> bool } -> [Class, Proc]?
+          def reverse_each: () { ([Class, Proc] element) -> void } -> self
+                        | () -> Enumerator[[Class, Proc]]
+
+          private
+
+          attr_reader :collection
         end
       end
     end

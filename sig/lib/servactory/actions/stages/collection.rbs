@@ -4,11 +4,19 @@ module Servactory
       class Collection
         extend Forwardable
 
-        @collection: Set[Collection]
+        @collection: Set[Stage]
 
-        def initialize: (Set[Collection] collection) -> void
+        def initialize: (?Enumerable[Stage] collection) -> void
 
-        def sorted_by_position: -> Collection
+        def <<: (Stage) -> self
+        def each: () { (Stage) -> void } -> self
+                | () -> Enumerator[Stage]
+        def merge: (Enumerable[Stage] other) -> self
+        def sort_by: () { (Stage) -> untyped } -> Array[Stage]
+        def size: () -> Integer
+        def empty?: () -> bool
+
+        def sorted_by_position: () -> Collection
       end
     end
   end

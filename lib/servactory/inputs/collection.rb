@@ -7,7 +7,7 @@ module Servactory
       def_delegators :@collection, :<<, :filter, :each, :map, :flat_map, :to_h, :merge, :find
 
       def initialize(collection = Set.new)
-        @collection = collection
+        @collection = Set.new(collection)
       end
 
       def only(*names)

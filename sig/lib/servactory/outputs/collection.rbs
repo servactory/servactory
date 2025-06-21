@@ -5,14 +5,25 @@ module Servactory
 
       @collection: Set[Output]
 
-      def initialize: (Set[Output] collection) -> void
+      def initialize: (?Enumerable[Output] collection) -> void
+
+      def <<: (Output) -> self
+      def filter: () { (Output) -> bool } -> Array[Output]
+                | () -> Enumerator[Output]
+      def each: () { (Output) -> void } -> self
+              | () -> Enumerator[Output]
+      def map: () { (Output) -> untyped } -> Array[untyped]
+             | () -> Enumerator[Output]
+      def to_h: () { (Output) -> [Symbol, untyped] } -> Hash[Symbol, untyped]
+              | () -> Enumerator[[Symbol, untyped]]
+      def merge: (Enumerable[Output] other) -> self
+      def find: () { (Output) -> bool } -> Output?
+              | () -> Enumerator[Output]
 
       def only: (Array[Symbol] names) -> Collection
-
       def except: (Array[Symbol] names) -> Collection
 
       def names: () -> Array[Symbol]
-
       def find_by: (name: Symbol) -> Output?
     end
   end

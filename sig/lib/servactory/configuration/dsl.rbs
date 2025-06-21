@@ -1,19 +1,17 @@
 module Servactory
   module Configuration
     module DSL
-      def self.included: (untyped base) -> untyped
+      def self.included: (untyped base) -> void
 
       module ClassMethods
         @config: Setup
         @configuration_factory: Factory
 
-        def inherited: (untyped child) -> void
-
-        def config: -> Setup
+        def config: -> Servactory::Configuration::Setup
 
         private
 
-        def configuration: () { () -> untyped } -> void
+        def configuration: () { () -> untyped } -> Proc
       end
     end
   end

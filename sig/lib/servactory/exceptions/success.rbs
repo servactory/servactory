@@ -1,11 +1,9 @@
 module Servactory
   module Exceptions
-    class Success
-      @context: instance
+    class Success < Base
+      attr_reader context: Servactory::Context::Workspace
 
-      attr_reader context: instance
-
-      def initialize: (context: instance) -> void
+      def initialize: (context: Servactory::Context::Workspace) -> void
     end
   end
 end

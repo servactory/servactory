@@ -15,60 +15,45 @@ module Servactory
         def define_identity_methods: (Input input) -> void
       end
 
-      @option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
-
       attr_reader name: Symbol
       attr_reader internal_name: Symbol
       attr_reader collection_of_options: Maintenance::Attributes::OptionsCollection
       attr_reader options: Hash[Symbol, untyped]
 
       def initialize: (
-          Symbol name,
-          Array[Symbol] helpers,
-          ?as: Symbol?,
-          option_helpers: Configuration::OptionHelpers::OptionHelpersCollection,
-          **untyped options
-        ) -> void
+        Symbol name,
+        *Symbol helpers,
+        option_helpers: Configuration::OptionHelpers::OptionHelpersCollection,
+        **untyped options
+      ) -> void
 
-      def method_missing: (Symbol name, *untyped args) ?{ () -> untyped } -> void
-
+      def method_missing: (Symbol name, *untyped args) -> untyped
       def respond_to_missing?: (Symbol name, *untyped) -> bool
 
-      def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Maintenance::Attributes::OptionsCollection
-
+      def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> void
       def options_for_checks: () -> Hash[Symbol, untyped]
-
-      def conflict_code: () -> untyped
+      def conflict_code: () -> Symbol?
 
       def system_name: () -> Symbol
-
       def i18n_name: () -> String
 
       def with_conflicts?: () -> bool
-
       def input?: () -> true
-
       def internal?: () -> false
-
       def output?: () -> false
 
       private
 
+      attr_reader :option_helpers
+
       def create_options_registrar: (options: Hash[Symbol, untyped]) -> Maintenance::Attributes::Options::Registrar
-
       def available_feature_options: () -> Hash[Symbol, bool]
-
       def augment_options_with_helpers: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
-
-      def merge_standard_helpers_into: (target_options: Hash[Symbol, untyped], helpers: Array[Symbol]) -> Hash[Symbol, untyped]
-
-      def merge_advanced_helpers_into: (target_options: Hash[Symbol, untyped], source_options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
-
+      def merge_standard_helpers_into: (target_options: Hash[Symbol, untyped], helpers: Array[Symbol]) -> void
+      def merge_advanced_helpers_into: (target_options: Hash[Symbol, untyped], source_options: Hash[Symbol, untyped]) -> void
       def filter_advanced_helpers: (options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
-
-      def transform_helpers_to_options: (helpers: (Array[Symbol] | Hash[Symbol, untyped])) -> Hash[Symbol, untyped]
-
-      def transform_helper_to_option: (helper: Maintenance::Attributes::OptionHelper, values: untyped) -> Hash[Symbol, untyped]
+      def transform_helpers_to_options: (helpers: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      def transform_helper_to_option: (helper: Maintenance::Attributes::OptionHelper, values: untyped) -> Hash[Symbol, untyped]?
     end
   end
 end

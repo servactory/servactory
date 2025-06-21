@@ -22,7 +22,7 @@ module Servactory
         end
 
         def methods
-          @methods ||= Collection.new
+          @methods ||= Servactory::Actions::Collection.new
         end
       end
     end
