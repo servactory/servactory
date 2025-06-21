@@ -13,9 +13,11 @@ module Servactory
           def merge: (Enumerable[Symbol] other) -> self
           def include?: (Symbol value) -> bool
 
+          def collection: () -> Set[String]
+
           private
 
-          attr_reader :collection
+          attr_reader collection: Set[String]
         end
       end
     end

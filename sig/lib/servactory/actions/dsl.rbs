@@ -32,7 +32,7 @@ module Servactory
         def next_position: () -> Integer
         def collection_of_stages: () -> Stages::Collection
 
-        attr_reader :current_stage
+        attr_reader current_stage: Stages::Stage?
       end
     end
   end

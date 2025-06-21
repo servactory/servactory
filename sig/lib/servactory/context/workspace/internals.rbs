@@ -17,8 +17,8 @@ module Servactory
 
         private
 
-        attr_reader :context
-        attr_reader :collection_of_internals
+        attr_reader context: Servactory::Context::Workspace
+        attr_reader collection_of_internals: Servactory::Internals::Collection
 
         def assign_with: (prepared_name: Symbol, value: untyped) { () -> untyped } -> untyped
         def fetch_with: (name: Symbol) { () -> untyped } -> untyped

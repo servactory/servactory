@@ -14,9 +14,11 @@ module Servactory
           def reverse_each: () { ([Class, Proc] element) -> void } -> self
                         | () -> Enumerator[[Class, Proc]]
 
+          def collection: () -> Array[[Class, Proc]]
+
           private
 
-          attr_reader :collection
+          attr_reader collection: Array[[Class, Proc]]
         end
       end
     end

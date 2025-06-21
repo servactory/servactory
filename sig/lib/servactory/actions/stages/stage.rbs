@@ -19,10 +19,6 @@ module Servactory
 
         def next_method_position: () -> Integer
         def methods: () -> Servactory::Actions::Collection
-
-        private
-
-        attr_reader :methods
       end
     end
   end

@@ -17,8 +17,8 @@ module Servactory
 
         private
 
-        attr_reader :context
-        attr_reader :collection_of_inputs
+        attr_reader context: Servactory::Context::Workspace
+        attr_reader collection_of_inputs: Servactory::Inputs::Collection
 
         def fetch_with: (name: Symbol) { () -> untyped } -> untyped
 

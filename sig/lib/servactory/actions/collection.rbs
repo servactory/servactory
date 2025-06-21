@@ -16,7 +16,7 @@ module Servactory
 
       private
 
-      attr_reader :collection
+      attr_reader collection: (Set[Action] | Array[Action])
     end
   end
 end

@@ -44,7 +44,7 @@ module Servactory
 
       private
 
-      attr_reader :option_helpers
+      attr_reader option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
 
       def create_options_registrar: (options: Hash[Symbol, untyped]) -> Maintenance::Attributes::Options::Registrar
       def available_feature_options: () -> Hash[Symbol, bool]
