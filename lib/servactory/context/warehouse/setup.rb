@@ -45,7 +45,7 @@ module Servactory
         end
 
         def configuration
-          @configuration ||= Servactory::Configuration::Setup.new(@context)
+          @configuration ||= context_data.fetch(:configuration)
         end
 
         private
@@ -63,7 +63,8 @@ module Servactory
             context_id => {
               inputs: Servactory::Context::Warehouse::Inputs.new(@context),
               internals: Servactory::Context::Warehouse::Internals.new,
-              outputs: Servactory::Context::Warehouse::Outputs.new
+              outputs: Servactory::Context::Warehouse::Outputs.new,
+              configuration: Servactory::Context::Warehouse::Configuration.new(@context)
             }
           }
         end
