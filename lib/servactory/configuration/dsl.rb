@@ -12,6 +12,7 @@ module Servactory
       module ClassMethods
         def inherited(child)
           super
+
           child.instance_variable_set(:@config, nil)
         end
 
