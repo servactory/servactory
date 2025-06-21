@@ -21,19 +21,9 @@ module Servactory
 
         # NOTE: Based on https://github.com/rails/rails/blob/main/activesupport/lib/active_support/rescuable.rb
         def fail_on!(*args, with: ->(exception:) { exception.message })
-          direct_exceptions = args.grep(String) + args.grep(Class)
-          aliases = args.grep(Symbol)
+          exceptions = args.grep(String) + args.grep(Class)
 
-          exceptions_from_aliases =
-            aliases.filter_map do |alias_name|
-              resolved_alias = config.action_aliases.fetch(alias_name, nil)
-
-              next if resolved_alias == true
-
-              resolved_alias
-            end.flatten
-
-          (direct_exceptions + exceptions_from_aliases).each do |exception_class_or_name|
+          exceptions.each do |exception_class_or_name|
             key = Servactory::Utils.constantize_class(exception_class_or_name)
 
             self.action_rescue_handlers_class_attr += [[key, with]]

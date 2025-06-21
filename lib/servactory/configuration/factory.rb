@@ -60,11 +60,7 @@ module Servactory
       end
 
       def action_aliases(aliases)
-        if aliases.is_a?(Array)
-          @config.action_aliases.merge!(aliases.to_h { |alias_name| [alias_name, true] })
-        else
-          @config.action_aliases.merge!(aliases)
-        end
+        @config.action_aliases.merge(aliases)
       end
 
       def action_shortcuts(array, hash = {}) # rubocop:disable Metrics/MethodLength
