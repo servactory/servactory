@@ -59,8 +59,8 @@ module Servactory
         @config.output_option_helpers.merge(output_option_helpers)
       end
 
-      def action_aliases(aliases)
-        @config.action_aliases.merge(aliases)
+      def action_aliases(action_aliases)
+        @config.action_aliases.merge(action_aliases)
       end
 
       def action_shortcuts(array, hash = {}) # rubocop:disable Metrics/MethodLength
