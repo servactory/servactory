@@ -20,8 +20,8 @@ module Servactory
           def attribute: -> (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)
 
           def reserved_name?: () -> bool
-          def exception_class: () -> (Exceptions::Input | Exceptions::Internal | Exceptions::Output | ArgumentError)
-          def raise_exception!: () -> (Exceptions::Input | Exceptions::Internal | Exceptions::Output | ArgumentError)
+          def exception_class: () -> void
+          def raise_exception!: () -> void
           def exception_message: () -> String
         end
       end
