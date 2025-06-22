@@ -19,7 +19,7 @@ module Servactory
         @type == normalize_method_name(name)
       end
 
-      def respond_to_missing?(name, *)
+      def respond_to_missing?(name, *_args)
         @type == normalize_method_name(name) || super
       end
 

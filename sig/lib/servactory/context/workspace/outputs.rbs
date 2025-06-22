@@ -3,9 +3,9 @@ module Servactory
     module Workspace
       class Outputs
         @context: untyped
-        @collection_of_outputs: Outputs::Collection
+        @collection_of_outputs: Servactory::Outputs::Collection
 
-        def initialize: (context: instance, collection_of_outputs: Outputs::Collection) -> void
+        def initialize: (context: instance, collection_of_outputs: Servactory::Outputs::Collection) -> void
 
         def only: (*Symbol names) -> Hash[Symbol, untyped]
 
@@ -13,7 +13,7 @@ module Servactory
 
         def method_missing: (Symbol name, *untyped args) -> untyped
 
-        def respond_to_missing?: (Symbol name, *untyped) -> bool
+        def respond_to_missing?: (Symbol name, *untyped _args) -> bool
 
         private
 

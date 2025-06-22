@@ -15,9 +15,9 @@ module Servactory
       @outputs: Outputs
       @servactory_service_warehouse: Context::Warehouse::Setup
 
-      attr_reader collection_of_inputs: Inputs::Collection
+      attr_reader collection_of_inputs: Servactory::Inputs::Collection
       attr_reader collection_of_internals: Internals::Collection
-      attr_reader collection_of_outputs: Outputs::Collection
+      attr_reader collection_of_outputs: Servactory::Outputs::Collection
 
       def inputs: -> Workspace::Inputs
       alias inp inputs
@@ -48,16 +48,16 @@ module Servactory
 
       def _call!: (
         incoming_arguments: Hash[Symbol, untyped],
-        collection_of_inputs: Inputs::Collection,
+        collection_of_inputs: Servactory::Inputs::Collection,
         collection_of_internals: Internals::Collection,
-        collection_of_outputs: Outputs::Collection,
+        collection_of_outputs: Servactory::Outputs::Collection,
         collection_of_stages: Actions::Stages::Collection
       ) -> void
 
       def call!: (
-        collection_of_inputs: Inputs::Collection,
+        collection_of_inputs: Servactory::Inputs::Collection,
         collection_of_internals: Internals::Collection,
-        collection_of_outputs: Outputs::Collection,
+        collection_of_outputs: Servactory::Outputs::Collection,
         **untyped
       ) -> void
 

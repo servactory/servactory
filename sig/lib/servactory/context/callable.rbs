@@ -9,9 +9,9 @@ module Servactory
       def _call!: (
         instance context,
         incoming_arguments: Hash[Symbol, untyped],
-        collection_of_inputs: Inputs::Collection,
-        collection_of_internals: Internals::Collection,
-        collection_of_outputs: Outputs::Collection,
+        collection_of_inputs: Servactory::Inputs::Collection,
+        collection_of_internals: Servactory::Internals::Collection,
+        collection_of_outputs: Servactory::Outputs::Collection,
         collection_of_stages: Actions::Stages::Collection
       ) -> void
     end

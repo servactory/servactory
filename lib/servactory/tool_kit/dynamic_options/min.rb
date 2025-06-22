@@ -20,7 +20,7 @@ module Servactory
           common_condition_with(...)
         end
 
-        def common_condition_with(value:, option:, **) # rubocop:disable Naming/PredicateMethod
+        def common_condition_with(value:, option:, **_options) # rubocop:disable Naming/PredicateMethod
           case value
           when Integer
             value >= option.value
@@ -33,7 +33,7 @@ module Servactory
 
         ########################################################################
 
-        def message_for_input_with(service:, input:, value:, option_name:, option_value:, **)
+        def message_for_input_with(service:, input:, value:, option_name:, option_value:, **_options)
           service.translate(
             "inputs.validations.must.dynamic_options.min.default",
             input_name: input.name,
@@ -43,7 +43,7 @@ module Servactory
           )
         end
 
-        def message_for_internal_with(service:, internal:, value:, option_name:, option_value:, **)
+        def message_for_internal_with(service:, internal:, value:, option_name:, option_value:, **_options)
           service.translate(
             "internals.validations.must.dynamic_options.min.default",
             internal_name: internal.name,
@@ -53,7 +53,7 @@ module Servactory
           )
         end
 
-        def message_for_output_with(service:, output:, value:, option_name:, option_value:, **)
+        def message_for_output_with(service:, output:, value:, option_name:, option_value:, **_options)
           service.translate(
             "outputs.validations.must.dynamic_options.min.default",
             output_name: output.name,

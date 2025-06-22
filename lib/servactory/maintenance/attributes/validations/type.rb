@@ -5,7 +5,7 @@ module Servactory
     module Attributes
       module Validations
         class Type < Base
-          def self.check(context:, attribute:, value:, check_key:, **)
+          def self.check(context:, attribute:, value:, check_key:, **_options)
             return unless should_be_checked_for?(attribute, value, check_key)
 
             new(context:, attribute:, value:).check

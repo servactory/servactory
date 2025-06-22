@@ -56,7 +56,7 @@ module Servactory
         option.body
       end
 
-      def respond_to_missing?(name, *)
+      def respond_to_missing?(name, *_args)
         @collection_of_options.names.include?(name) || super
       end
 

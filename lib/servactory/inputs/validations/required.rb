@@ -4,7 +4,7 @@ module Servactory
   module Inputs
     module Validations
       class Required < Base
-        def self.check(context:, attribute:, value:, check_key:, **)
+        def self.check(context:, attribute:, value:, check_key:, **_options)
           return unless should_be_checked_for?(attribute, check_key)
 
           new(context:, input: attribute, value:).check

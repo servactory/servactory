@@ -128,7 +128,7 @@ module Servactory
           parts.join.to_sym
         end
 
-        def respond_to_missing?(name, *)
+        def respond_to_missing?(name, *_args)
           config.action_aliases.include?(name) || config.action_shortcuts.shortcuts.include?(name) || super
         end
 
