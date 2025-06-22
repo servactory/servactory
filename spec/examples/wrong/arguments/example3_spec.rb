@@ -4,10 +4,10 @@ RSpec.describe Wrong::Arguments::Example3, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
-    let(:attributes) { { input: "test" } }
+    let(:attributes) { { internal: "test" } }
 
     it_behaves_like "check class info",
-                    inputs: %i[input],
+                    inputs: %i[internal],
                     internals: %i[],
                     outputs: %i[]
 
@@ -16,7 +16,7 @@ RSpec.describe Wrong::Arguments::Example3, type: :service do
         it "raises an input reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example3] Input uses reserved name `input`"
+            "[Wrong::Arguments::Example3] Input uses reserved name `internal`"
           )
         end
       end
@@ -26,10 +26,10 @@ RSpec.describe Wrong::Arguments::Example3, type: :service do
   describe ".call" do
     subject(:perform) { described_class.call(**attributes) }
 
-    let(:attributes) { { input: "test" } }
+    let(:attributes) { { internal: "test" } }
 
     it_behaves_like "check class info",
-                    inputs: %i[input],
+                    inputs: %i[internal],
                     internals: %i[],
                     outputs: %i[]
 
@@ -38,10 +38,10 @@ RSpec.describe Wrong::Arguments::Example3, type: :service do
         it "raises an input reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example3] Input uses reserved name `input`"
+            "[Wrong::Arguments::Example3] Input uses reserved name `internal`"
           )
         end
       end
     end
   end
-end
+end 

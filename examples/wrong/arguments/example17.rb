@@ -3,15 +3,15 @@
 module Wrong
   module Arguments
     class Example17 < ApplicationService::Base
-      output :inputs, type: String
+      input :fail, type: String
 
-      make :assign_inputs
+      make :smth
 
       private
 
-      def assign_inputs
-        outputs.inputs = "test"
+      def smth
+        # ...
       end
     end
   end
-end 
+end

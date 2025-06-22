@@ -4,16 +4,10 @@ RSpec.describe Wrong::Arguments::Example1, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
-    let(:attributes) do
-      {
-        fail: fail_value
-      }
-    end
-
-    let(:fail_value) { "something" }
+    let(:attributes) { { input: "test" } }
 
     it_behaves_like "check class info",
-                    inputs: %i[fail],
+                    inputs: %i[input],
                     internals: %i[],
                     outputs: %i[]
 
@@ -22,7 +16,7 @@ RSpec.describe Wrong::Arguments::Example1, type: :service do
         it "raises an input reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example1] Input uses reserved name `fail`"
+            "[Wrong::Arguments::Example1] Input uses reserved name `input`"
           )
         end
       end
@@ -32,16 +26,10 @@ RSpec.describe Wrong::Arguments::Example1, type: :service do
   describe ".call" do
     subject(:perform) { described_class.call(**attributes) }
 
-    let(:attributes) do
-      {
-        fail: fail_value
-      }
-    end
-
-    let(:fail_value) { "something" }
+    let(:attributes) { { input: "test" } }
 
     it_behaves_like "check class info",
-                    inputs: %i[fail],
+                    inputs: %i[input],
                     internals: %i[],
                     outputs: %i[]
 
@@ -50,10 +38,10 @@ RSpec.describe Wrong::Arguments::Example1, type: :service do
         it "raises an input reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example1] Input uses reserved name `fail`"
+            "[Wrong::Arguments::Example1] Input uses reserved name `input`"
           )
         end
       end
     end
   end
-end
+end 

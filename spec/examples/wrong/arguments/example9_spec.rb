@@ -2,21 +2,19 @@
 
 RSpec.describe Wrong::Arguments::Example9, type: :service do
   describe ".call!" do
-    subject(:perform) { described_class.call!(**attributes) }
-
-    let(:attributes) { { internal: "test" } }
+    subject(:perform) { described_class.call! }
 
     it_behaves_like "check class info",
-                    inputs: %i[internal],
-                    internals: %i[],
-                    outputs: %i[]
+                    inputs: %i[],
+                    internals: %i[input],
+                    outputs: %i[result]
 
     describe "but the data required for work is invalid" do
-      describe "because the input name is reserved" do
-        it "raises an input reserved name exception" do
+      describe "because the internal name is reserved" do
+        it "raises an internal reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example9] Input uses reserved name `internal`"
+            ApplicationService::Exceptions::Internal,
+            "[Wrong::Arguments::Example9] Internal attribute uses reserved name `input`"
           )
         end
       end
@@ -24,21 +22,19 @@ RSpec.describe Wrong::Arguments::Example9, type: :service do
   end
 
   describe ".call" do
-    subject(:perform) { described_class.call(**attributes) }
-
-    let(:attributes) { { internal: "test" } }
+    subject(:perform) { described_class.call }
 
     it_behaves_like "check class info",
-                    inputs: %i[internal],
-                    internals: %i[],
-                    outputs: %i[]
+                    inputs: %i[],
+                    internals: %i[input],
+                    outputs: %i[result]
 
     describe "but the data required for work is invalid" do
-      describe "because the input name is reserved" do
-        it "raises an input reserved name exception" do
+      describe "because the internal name is reserved" do
+        it "raises an internal reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example9] Input uses reserved name `internal`"
+            ApplicationService::Exceptions::Internal,
+            "[Wrong::Arguments::Example9] Internal attribute uses reserved name `input`"
           )
         end
       end

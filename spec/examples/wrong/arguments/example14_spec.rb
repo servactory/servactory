@@ -6,15 +6,15 @@ RSpec.describe Wrong::Arguments::Example14, type: :service do
 
     it_behaves_like "check class info",
                     inputs: %i[],
-                    internals: %i[inputs],
-                    outputs: %i[result]
+                    internals: %i[],
+                    outputs: %i[inputs]
 
     describe "but the data required for work is invalid" do
-      describe "because the internal name is reserved" do
-        it "raises an internal reserved name exception" do
+      describe "because the output name is reserved" do
+        it "raises an output reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Internal,
-            "[Wrong::Arguments::Example14] Internal attribute uses reserved name `inputs`"
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Arguments::Example14] Output attribute uses reserved name `inputs`"
           )
         end
       end
@@ -26,15 +26,15 @@ RSpec.describe Wrong::Arguments::Example14, type: :service do
 
     it_behaves_like "check class info",
                     inputs: %i[],
-                    internals: %i[inputs],
-                    outputs: %i[result]
+                    internals: %i[],
+                    outputs: %i[inputs]
 
     describe "but the data required for work is invalid" do
-      describe "because the internal name is reserved" do
-        it "raises an internal reserved name exception" do
+      describe "because the output name is reserved" do
+        it "raises an output reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Internal,
-            "[Wrong::Arguments::Example14] Internal attribute uses reserved name `inputs`"
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Arguments::Example14] Output attribute uses reserved name `inputs`"
           )
         end
       end

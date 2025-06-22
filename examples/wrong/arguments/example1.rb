@@ -3,7 +3,7 @@
 module Wrong
   module Arguments
     class Example1 < ApplicationService::Base
-      input :fail, type: String
+      input :input, type: String
 
       make :smth
 
@@ -14,4 +14,4 @@ module Wrong
       end
     end
   end
-end
+end 

@@ -2,19 +2,21 @@
 
 RSpec.describe Wrong::Arguments::Example19, type: :service do
   describe ".call!" do
-    subject(:perform) { described_class.call! }
+    subject(:perform) { described_class.call!(**attributes) }
+
+    let(:attributes) { { success: "something" } }
 
     it_behaves_like "check class info",
-                    inputs: %i[],
+                    inputs: %i[success],
                     internals: %i[],
-                    outputs: %i[internals]
+                    outputs: %i[]
 
     describe "but the data required for work is invalid" do
-      describe "because the output name is reserved" do
-        it "raises an output reserved name exception" do
+      describe "because the input name is reserved" do
+        it "raises an input reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Output,
-            "[Wrong::Arguments::Example19] Output attribute uses reserved name `internals`"
+            ApplicationService::Exceptions::Input,
+            "[Wrong::Arguments::Example19] Input uses reserved name `success`"
           )
         end
       end
@@ -22,19 +24,21 @@ RSpec.describe Wrong::Arguments::Example19, type: :service do
   end
 
   describe ".call" do
-    subject(:perform) { described_class.call }
+    subject(:perform) { described_class.call(**attributes) }
+
+    let(:attributes) { { success: "something" } }
 
     it_behaves_like "check class info",
-                    inputs: %i[],
+                    inputs: %i[success],
                     internals: %i[],
-                    outputs: %i[internals]
+                    outputs: %i[]
 
     describe "but the data required for work is invalid" do
-      describe "because the output name is reserved" do
-        it "raises an output reserved name exception" do
+      describe "because the input name is reserved" do
+        it "raises an input reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Output,
-            "[Wrong::Arguments::Example19] Output attribute uses reserved name `internals`"
+            ApplicationService::Exceptions::Input,
+            "[Wrong::Arguments::Example19] Input uses reserved name `success`"
           )
         end
       end

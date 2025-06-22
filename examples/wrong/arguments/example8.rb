@@ -3,14 +3,16 @@
 module Wrong
   module Arguments
     class Example8 < ApplicationService::Base
-      output :outputs, type: String
+      internal :internals, type: String
 
-      make :assign_outputs
+      output :result, type: String
+
+      make :assign_result
 
       private
 
-      def assign_outputs
-        outputs.outputs = "test"
+      def assign_result
+        outputs.result = internals.internals
       end
     end
   end
