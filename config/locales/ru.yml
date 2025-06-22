@@ -50,7 +50,7 @@ ru:
         rules:
           error: "[%{service_class_name}] Конфликт в опциях инпута `%{input_name}`: `%{conflict_code}`"
         reserved_name:
-          error: "[%{service_class_name}] Имя `%{input_name}` зарезервировано и не может быть использовано как инпут."
+          error: "[%{service_class_name}] Имя `%{input_name}` зарезервировано и не может быть использовано для инпута"
     internals:
       undefined:
         for_fetch: "[%{service_class_name}] Неизвестный внутренний атрибут `%{internal_name}`"
@@ -87,7 +87,7 @@ ru:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
       tools:
         reserved_name:
-          error: "[%{service_class_name}] Имя `%{internal_name}` зарезервировано и не может быть использовано как внутренний атрибут."
+          error: "[%{service_class_name}] Имя `%{internal_name}` зарезервировано и не может быть использовано для внутреннего атрибута"
     outputs:
       undefined:
         for_fetch: "[%{service_class_name}] Неизвестный выходящий атрибут `%{output_name}`"
@@ -124,4 +124,4 @@ ru:
             default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
       tools:
         reserved_name:
-          error: "[%{service_class_name}] Имя `%{output_name}` зарезервировано и не может быть использовано как выходящий атрибут."
+          error: "[%{service_class_name}] Имя `%{output_name}` зарезервировано и не может быть использовано для выходящего атрибута"
