@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+module Wrong
+  module Arguments
+    class Example5 < ApplicationService::Base
+      internal :internal, type: String
+
+      output :result, type: String
+
+      make :assign_result
+
+      private
+
+      def assign_result
+        outputs.result = internals.internal
+      end
+    end
+  end
+end

@@ -6,9 +6,15 @@ module Servactory
       module Tools
         class CheckReservedNames
           RESERVED = {
-            input: %i[fail success],
-            internal: [],
-            output: %i[failure success]
+            input: %i[
+              fail failure success input inputs
+            ],
+            internal: %i[
+              fail failure success internal internals
+            ],
+            output: %i[
+              fail failure success output outputs
+            ]
           }.freeze
           private_constant :RESERVED
 
