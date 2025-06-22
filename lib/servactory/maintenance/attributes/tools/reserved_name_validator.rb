@@ -40,6 +40,9 @@ module Servactory
             when :input then @context.class.config.input_exception_class
             when :internal then @context.class.config.internal_exception_class
             when :output then @context.class.config.output_exception_class
+            else
+              raise ArgumentError, "Unable to determine attribute exception class. " \
+                                   "Attribute: `#{attribute.system_name}`."
             end
           end
 
