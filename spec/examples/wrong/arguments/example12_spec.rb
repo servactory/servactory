@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Arguments::Example7, type: :service do
+RSpec.describe Wrong::Arguments::Example12, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
     it_behaves_like "check class info",
                     inputs: %i[],
-                    internals: %i[internal],
-                    outputs: %i[result]
+                    internals: %i[],
+                    outputs: %i[outputs]
 
     describe "but the data required for work is invalid" do
       describe "because the internal name is reserved" do
         it "raises an internal reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Internal,
-            "[Wrong::Arguments::Example7] Internal attribute uses reserved name `internal`"
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Arguments::Example12] Output attribute uses reserved name `outputs`"
           )
         end
       end
@@ -26,15 +26,15 @@ RSpec.describe Wrong::Arguments::Example7, type: :service do
 
     it_behaves_like "check class info",
                     inputs: %i[],
-                    internals: %i[internal],
-                    outputs: %i[result]
+                    internals: %i[],
+                    outputs: %i[outputs]
 
     describe "but the data required for work is invalid" do
       describe "because the internal name is reserved" do
         it "raises an internal reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Internal,
-            "[Wrong::Arguments::Example7] Internal attribute uses reserved name `internal`"
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Arguments::Example12] Output attribute uses reserved name `outputs`"
           )
         end
       end
