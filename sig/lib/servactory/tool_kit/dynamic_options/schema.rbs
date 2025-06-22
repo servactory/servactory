@@ -23,6 +23,10 @@ module Servactory
         def fetch_default_from: (untyped value) -> untyped
 
         def prepare_object_with!: (object: untyped, schema: Hash[Symbol, untyped]) -> Array[untyped]
+
+        def message_for_input_with: (service: Servactory::Context::Workspace, input: Servactory::Inputs::Input, reason: Symbol?, meta: Hash[Symbol, untyped]?, **untyped) -> String
+        def message_for_internal_with: (service: Servactory::Context::Workspace, internal: Servactory::Internals::Internal, reason: Symbol?, meta: Hash[Symbol, untyped]?, **untyped) -> String
+        def message_for_output_with: (service: Servactory::Context::Workspace, output: Servactory::Outputs::Output, reason: Symbol?, meta: Hash[Symbol, untyped]?, **untyped) -> String
       end
     end
   end

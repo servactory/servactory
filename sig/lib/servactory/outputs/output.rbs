@@ -6,11 +6,11 @@ module Servactory
         attr_reader types: Array[Class]
         attr_reader options: Hash[Symbol, untyped]
 
-        def initialize: (output: Output) -> void
+        def initialize: (Output output) -> void
 
         private
 
-        def define_identity_methods: (output: Output) -> void
+        def define_identity_methods: (Output output) -> void
       end
 
       attr_reader name: Symbol
@@ -47,8 +47,8 @@ module Servactory
       def merge_standard_helpers_into: (target_options: Hash[Symbol, untyped], helpers: Array[Symbol]) -> void
       def merge_advanced_helpers_into: (target_options: Hash[Symbol, untyped], source_options: Hash[Symbol, untyped]) -> void
       def filter_advanced_helpers: (options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
-      def transform_helpers_to_options: (helpers: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
-      def transform_helper_to_option: (helper: Maintenance::Attributes::OptionHelper, values: untyped) -> Hash[Symbol, untyped]?
+      def transform_helpers_to_options: (helpers: Array[Symbol]) -> Hash[Symbol, untyped]
+      def transform_helper_to_option: (helper: Servactory::Maintenance::Attributes::OptionHelper, values: untyped) -> Hash[Symbol, untyped]?
     end
   end
 end

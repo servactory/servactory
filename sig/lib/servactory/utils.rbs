@@ -4,20 +4,20 @@ module Servactory
     def self.adapt: (untyped data) -> Hash[Symbol, untyped]
 
     def self.fetch_hash_with_desired_attribute: (
-      (Inputs::Input | Internals::Internal | Outputs::Output) attribute
+      (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output) attribute
     ) -> Hash[Symbol, untyped]
 
     def self.define_attribute_with: (
-      ?input: Inputs::Input?,
-      ?internal: Internals::Internal?,
-      ?output: Outputs::Output?
-    ) -> (Inputs::Input | Internals::Internal | Outputs::Output)
+      ?input: Servactory::Inputs::Input?,
+      ?internal: Servactory::Internals::Internal?,
+      ?output: Servactory::Outputs::Output?
+    ) -> (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)
 
-    def self.really_input?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
+    def self.really_input?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
 
-    def self.really_internal?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
+    def self.really_internal?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
 
-    def self.really_output?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
+    def self.really_output?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
 
     def self.extract_special_character_from: (String string) -> [String, String?]
 

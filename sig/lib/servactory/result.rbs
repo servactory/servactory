@@ -3,7 +3,7 @@ module Servactory
     STATE_PREDICATE_NAMES: Array[Symbol]
 
     @context: (Servactory::Context::Workspace | Servactory::TestKit::Result)
-    @exception: Exception?
+    @exception: (Servactory::Exceptions::Failure | Exception)?
     @outputs: Outputs
 
     class Outputs
@@ -23,16 +23,20 @@ module Servactory
       exception: Exception
     ) -> self
 
-    def initialize: (context: (Servactory::Context::Workspace | Servactory::TestKit::Result), ?exception: Exception?) -> void
+    def initialize: (context: (Servactory::Context::Workspace | Servactory::TestKit::Result), ?exception: (Servactory::Exceptions::Failure | Exception)?) -> void
 
     def to_h: () -> Hash[Symbol, untyped]
 
     def inspect: () -> String
 
+    def success?: () -> bool
+    def failure?: (?Symbol type) -> bool
+
     def on_success: () ?{ (outputs: Outputs) -> untyped } -> self
 
-    def on_failure: (?Symbol type) ?{ (outputs: Outputs, exception: Exception?) -> untyped } -> self
+    def on_failure: (?Symbol type) ?{ (outputs: Outputs, exception: (Servactory::Exceptions::Failure | Exception)?) -> untyped } -> self
 
+    def method_missing: (Symbol name, *untyped args) ?{ () -> untyped } -> untyped
     def respond_to_missing?: (Symbol name, *untyped) -> bool
 
     private

@@ -5,5 +5,5 @@ target :lib do
 
   check "lib"
 
-  # ignore "lib/servactory/inputs/option.rb"
+  ignore "lib/servactory/test_kit"
 end

@@ -17,18 +17,25 @@ module Servactory
 
       attr_reader name: Symbol
       attr_reader internal_name: Symbol
-      attr_reader collection_of_options: Maintenance::Attributes::OptionsCollection
+      attr_reader collection_of_options: Servactory::Maintenance::Attributes::OptionsCollection
       attr_reader options: Hash[Symbol, untyped]
 
       def initialize: (
         Symbol name,
         *Symbol helpers,
-        option_helpers: Configuration::OptionHelpers::OptionHelpersCollection,
+        ?as: Symbol?,
+        option_helpers: Servactory::Configuration::OptionHelpers::OptionHelpersCollection,
         **untyped options
       ) -> void
 
       def method_missing: (Symbol name, *untyped args) -> untyped
       def respond_to_missing?: (Symbol name, *untyped) -> bool
+
+      def types: () -> Array[String]
+      def default: () -> untyped
+      def default_value_present?: () -> bool
+      def optional?: () -> bool
+      def required?: () -> bool
 
       def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> void
       def options_for_checks: () -> Hash[Symbol, untyped]
@@ -52,8 +59,8 @@ module Servactory
       def merge_standard_helpers_into: (target_options: Hash[Symbol, untyped], helpers: Array[Symbol]) -> void
       def merge_advanced_helpers_into: (target_options: Hash[Symbol, untyped], source_options: Hash[Symbol, untyped]) -> void
       def filter_advanced_helpers: (options: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
-      def transform_helpers_to_options: (helpers: Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
-      def transform_helper_to_option: (helper: Maintenance::Attributes::OptionHelper, values: untyped) -> Hash[Symbol, untyped]?
+      def transform_helpers_to_options: (helpers: Array[Symbol]) -> Hash[Symbol, untyped]
+      def transform_helper_to_option: (helper: Servactory::Maintenance::Attributes::OptionHelper, values: untyped) -> Hash[Symbol, untyped]?
     end
   end
 end

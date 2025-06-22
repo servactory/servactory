@@ -8,16 +8,25 @@ module Servactory
 
         def initialize: () -> void
 
+        def <<: (Option) -> self
+        def filter: () { (Option) -> bool } -> OptionsCollection
+        def each: () { (Option) -> void } -> void
+        def map: () { (Option) -> untyped } -> Array[untyped]
+        def flat_map: () { (Option) -> untyped } -> Array[untyped]
+        def find: () { (Option) -> bool } -> Option?
+        def empty?: () -> bool
+        def size: () -> Integer
+
         def names: () -> Array[Symbol]
         def validation_classes: () -> Array[Class]
         def options_for_checks: () -> Hash[Symbol, untyped]
         def defined_conflict_code: () -> untyped
-        def find_by: (name: Symbol) -> untyped
+        def find_by: (name: Symbol) -> Option?
 
         private
 
-        def extract_normalized_body_from: (option: untyped) -> untyped
-        def resolve_conflicts_from: (option: untyped) -> Array[untyped]
+        def extract_normalized_body_from: (option: Option) -> untyped
+        def resolve_conflicts_from: (option: Option) -> Array[untyped]
       end
     end
   end

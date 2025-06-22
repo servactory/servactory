@@ -13,9 +13,9 @@ module Servactory
         @body_key: Symbol
         @body_fallback: Symbol?
 
-        def initialize: (Symbol option_name, Symbol body_key) -> void
+        def initialize: (Symbol option_name, ?Symbol body_key) -> void
 
-        def must: (Symbol option_name) -> Maintenance::Attributes::OptionHelper
+        def must: (Symbol option_name) -> Servactory::Maintenance::Attributes::OptionHelper
 
         def equivalent_with: (Symbol name) -> Proc
 

@@ -6,9 +6,9 @@ module Servactory
         @context: instance
         @unnecessary_attributes: Array[Symbol]
 
-        def self.find!: (*untyped, **untyped) ?{ (?) -> untyped } -> Exception?
+        def self.find!: (context: Servactory::Context::Workspace, collection_of_inputs: Servactory::Inputs::Collection) -> Exception?
 
-        def initialize: (instance context, Collection collection_of_inputs) -> void
+        def initialize: (context: Servactory::Context::Workspace, collection_of_inputs: Servactory::Inputs::Collection) -> void
 
         def find!: () -> Exception?
 

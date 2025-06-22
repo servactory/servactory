@@ -5,9 +5,9 @@ module Servactory
         @context: instance
         @collection_of_inputs: Collection
 
-        def self.validate!: (*untyped, **untyped) ?{ (?) -> untyped } -> Exception?
+        def self.validate!: (context: Servactory::Context::Workspace, collection_of_inputs: Servactory::Inputs::Collection) -> Exception?
 
-        def initialize: (instance context, Collection collection_of_inputs) -> void
+        def initialize: (context: Servactory::Context::Workspace, collection_of_inputs: Servactory::Inputs::Collection) -> void
 
         def validate!: () -> Exception?
 
@@ -15,15 +15,20 @@ module Servactory
 
         @errors: Maintenance::Attributes::Tools::CheckErrors
 
-        def process_input: (Input input) -> void
+        def process_input: (Servactory::Inputs::Input) -> void
 
-        def process_option: (Symbol check_key, Hash[Symbol, untyped] check_options, input: Input) -> void
+        def process_option: (Symbol, untyped, input: Servactory::Inputs::Input) -> void
 
-        def process_validation_class: (validation_class: Class, input: Input, check_key: Symbol, check_options: Hash[Symbol, untyped]) -> instance
+        def process_validation_class: (
+          validation_class: Class,
+          input: Servactory::Inputs::Input,
+          check_key: Symbol,
+          check_options: untyped
+        ) -> Servactory::Maintenance::Attributes::Tools::CheckErrors
 
-        def validation_classes_from: (Input input) -> Array[Class]
+        def validation_classes_from: (Servactory::Inputs::Input) -> Array[Class]
 
-        def errors: -> Maintenance::Attributes::Tools::CheckErrors
+        def errors: () -> Servactory::Maintenance::Attributes::Tools::CheckErrors
 
         def raise_errors: () -> void
       end
