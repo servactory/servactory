@@ -29,10 +29,11 @@ module Servactory
 
           private
 
-          attr_reader :context, :attribute
+          attr_reader :context,
+                      :attribute
 
           def reserved_name?
-            attribute.name && attribute.system_name && RESERVED[attribute.system_name]&.include?(attribute.name)
+            RESERVED[attribute.system_name].include?(attribute.name)
           end
 
           def exception_class
