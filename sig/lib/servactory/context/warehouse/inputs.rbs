@@ -12,7 +12,7 @@ module Servactory
 
         def method_missing: (Symbol name, *untyped _args) -> untyped
 
-        def respond_to_missing?: (Symbol name, *untyped) -> bool
+        def respond_to_missing?: (Symbol name, *untyped _args) -> bool
 
         def raise_error_for: (Symbol input_name) -> Exception
       end

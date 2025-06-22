@@ -35,7 +35,7 @@ module Servactory
         @context = context
       end
 
-      def method_missing(name, *)
+      def method_missing(name, *_args)
         configuration_store.public_send(name)
       end
 

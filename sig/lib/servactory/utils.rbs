@@ -21,7 +21,6 @@ module Servactory
 
     def self.extract_special_character_from: (String string) -> [String, String?]
 
-    private_constant :FALSE_VALUES
     FALSE_VALUES: Set[false | nil | String | Symbol | Integer]
 
     # @param value [#to_s]

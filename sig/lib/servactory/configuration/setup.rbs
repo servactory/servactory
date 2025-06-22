@@ -39,7 +39,7 @@ module Servactory
 
       def self.build_for: (untyped service_class) -> Store
 
-      def method_missing: (Symbol name, *untyped) -> untyped
+      def method_missing: (Symbol name, *untyped _args) -> untyped
       def respond_to_missing?: (Symbol name, bool include_private) -> bool
 
       private
