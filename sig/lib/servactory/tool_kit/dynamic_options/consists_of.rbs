@@ -14,7 +14,11 @@ module Servactory
 
         def fails_presence_validation?: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), values: Array[untyped], consists_of_types: Array[Class]) -> bool
 
-        def given_type_for: (values: Array[untyped], option_value: untyped) -> String?
+        def message_for_input_with: (service: Servactory::Context::Workspace, input: Servactory::Inputs::Input, value: untyped, option_name: Symbol, option_value: untyped, reason: Symbol, **untyped) -> String
+        def message_for_internal_with: (service: Servactory::Context::Workspace, internal: Servactory::Internals::Internal, value: untyped, option_name: Symbol, option_value: untyped, reason: Symbol, **untyped) -> String
+        def message_for_output_with: (service: Servactory::Context::Workspace, output: Servactory::Outputs::Output, value: untyped, option_name: Symbol, option_value: untyped, reason: Symbol, **untyped) -> String
+
+        def given_type_for: (values: untyped, option_value: untyped) -> String
       end
     end
   end

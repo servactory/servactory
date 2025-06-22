@@ -22,8 +22,8 @@ module Servactory
       def find: () { (Input) -> bool } -> Input?
               | () -> Enumerator[Input]
 
-      def only: (Array[Symbol] input_names) -> Collection
-      def except: (Array[Symbol] input_names) -> Collection
+      def only: (*Symbol input_names) -> Collection
+      def except: (*Symbol input_names) -> Collection
 
       def names: () -> Array[Symbol]
       def find_by: (name: Symbol) -> Input?

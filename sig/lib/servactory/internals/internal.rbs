@@ -21,10 +21,10 @@ module Servactory
         Symbol name,
         *Symbol helpers,
         option_helpers: Configuration::OptionHelpers::OptionHelpersCollection,
-        **untyped options
+        **untyped
       ) -> void
 
-      def method_missing: (Symbol name, *untyped args) -> untyped
+      def method_missing: (Symbol, *untyped) -> untyped
       def respond_to_missing?: (Symbol name, *untyped) -> bool
 
       def register_options: (helpers: Array[Symbol], options: Hash[Symbol, untyped]) -> void

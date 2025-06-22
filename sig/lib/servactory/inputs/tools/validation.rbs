@@ -5,9 +5,9 @@ module Servactory
         @context: instance
         @collection_of_inputs: Collection
 
-        def self.validate!: (context: Servactory::Context::Workspace, collection_of_inputs: Servactory::Inputs::Collection) -> Exception?
+        def self.validate!: (Servactory::Context::Workspace, Servactory::Inputs::Collection) -> Exception?
 
-        def initialize: (context: Servactory::Context::Workspace, collection_of_inputs: Servactory::Inputs::Collection) -> void
+        def initialize: (Servactory::Context::Workspace, Servactory::Inputs::Collection) -> void
 
         def validate!: () -> Exception?
 

@@ -1,42 +1,40 @@
 module Servactory
   module Utils
-    # @param data [Hash, Datory::Base]
-    def self.adapt: (untyped data) -> Hash[Symbol, untyped]
+    def adapt: (untyped data) -> Hash[Symbol, untyped]
 
-    def self.fetch_hash_with_desired_attribute: (
+    def fetch_hash_with_desired_attribute: (
       (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output) attribute
     ) -> Hash[Symbol, untyped]
 
-    def self.define_attribute_with: (
+    def define_attribute_with: (
       ?input: Servactory::Inputs::Input?,
       ?internal: Servactory::Internals::Internal?,
       ?output: Servactory::Outputs::Output?
-    ) -> (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)
+    ) -> (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)?
 
-    def self.really_input?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
-
-    def self.really_internal?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
-
-    def self.really_output?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
-
-    def self.extract_special_character_from: (String string) -> [String, String?]
+    def extract_special_character_from: (String string) -> [String, String?]
 
     FALSE_VALUES: Set[false | nil | String | Symbol | Integer]
 
     # @param value [#to_s]
-    def self.true?: (untyped value) -> bool
+    def true?: (untyped value) -> bool
 
     # @param value [#to_s]
-    def self.value_present?: (untyped value) -> bool
+    def value_present?: (untyped value) -> bool
 
     # @param value [#to_s]
-    def self.query_attribute: (untyped value) -> bool
+    def query_attribute: (untyped value) -> bool
 
-    def self.constantize_class: ((Class | String | Symbol) class_or_name) -> Class?
+    def constantize_class: ((Class | String | Symbol) class_or_name) -> Class?
 
     private
 
-    # @param data [Datory::Base]
-    def self.instance_variables_to_hash_from: (untyped data) -> Hash[Symbol, untyped]
+    def really_input?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
+
+    def really_internal?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
+
+    def really_output?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
+
+    def instance_variables_to_hash_from: (untyped data) -> Hash[Symbol, untyped]
   end
 end
