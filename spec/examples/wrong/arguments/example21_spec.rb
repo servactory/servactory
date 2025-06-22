@@ -40,4 +40,4 @@ RSpec.describe Wrong::Arguments::Example21, type: :service do
       end
     end
   end
-end 
+end
