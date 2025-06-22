@@ -7,13 +7,16 @@ module Servactory
         class CheckReservedNames
           RESERVED = {
             input: %i[
-              fail failure success input inputs internal internals output outputs
+              input inputs internal internals output outputs
+              fail failure success
             ],
             internal: %i[
               input inputs internal internals output outputs
             ],
             output: %i[
-              failure success input inputs internal internals output outputs
+              input inputs internal internals output outputs
+              failure success
+              error
             ]
           }.freeze
           private_constant :RESERVED
