@@ -4,7 +4,7 @@ module Servactory
   module Maintenance
     module Attributes
       module Tools
-        class ReservedNameValidator
+        class CheckReservedNames
           RESERVED = {
             input: %i[fail success],
             internal: [],

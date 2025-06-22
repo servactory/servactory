@@ -16,7 +16,7 @@ module Servactory
           end
 
           def validate!
-            Servactory::Maintenance::Attributes::Tools::ReservedNameValidator.validate!(
+            Servactory::Maintenance::Attributes::Tools::CheckReservedNames.validate!(
               context: @context,
               attribute: @attribute
             )
