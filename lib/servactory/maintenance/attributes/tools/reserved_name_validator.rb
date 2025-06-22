@@ -7,8 +7,8 @@ module Servactory
         class ReservedNameValidator
           RESERVED = {
             input: %i[fail success],
-            output: %i[failure success],
-            internal: []
+            internal: [],
+            output: %i[failure success]
           }.freeze
           private_constant :RESERVED
 
