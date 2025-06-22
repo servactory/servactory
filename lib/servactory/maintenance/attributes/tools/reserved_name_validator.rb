@@ -10,9 +10,10 @@ module Servactory
             output: %i[failure success],
             internal: []
           }.freeze
+          private_constant :RESERVED
 
-          def self.validate!(context:, attribute:)
-            new(context: context, attribute: attribute).validate!
+          def self.validate!(...)
+            new(...).validate!
           end
 
           def initialize(context:, attribute:)
@@ -22,6 +23,7 @@ module Servactory
 
           def validate!
             return unless reserved_name?
+
             raise_exception!
           end
 
@@ -29,23 +31,12 @@ module Servactory
 
           attr_reader :context, :attribute
 
-          def name
-            attribute.respond_to?(:name) ? attribute.name.to_sym : nil
-          end
-
-          def type
-            return :input if attribute.respond_to?(:input?) && attribute.input?
-            return :output if attribute.respond_to?(:output?) && attribute.output?
-            return :internal if attribute.respond_to?(:internal?) && attribute.internal?
-            nil
-          end
-
           def reserved_name?
-            name && type && RESERVED[type]&.include?(name)
+            attribute.name && attribute.system_name && RESERVED[attribute.system_name]&.include?(attribute.name)
           end
 
           def exception_class
-            case type
+            case attribute.system_name
             when :input then Servactory::Exceptions::Input
             when :output then Servactory::Exceptions::Output
             when :internal then Servactory::Exceptions::Internal
@@ -54,31 +45,21 @@ module Servactory
 
           def raise_exception!
             raise exception_class.new(
-              context: context,
+              context:,
               message: exception_message,
-              "#{type}_name": name
+              "#{attribute.system_name}_name": attribute.name
             )
           end
 
           def exception_message
-            i18n_key = case type
-                       when :input then "servactory.inputs.tools.reserved_name.error"
-                       when :output then "servactory.outputs.tools.reserved_name.error"
-                       when :internal then "servactory.internals.tools.reserved_name.error"
-                       end
-            attr_key = case type
-                       when :input then :input_name
-                       when :output then :output_name
-                       when :internal then :internal_name
-                       end
-            I18n.t(
-              i18n_key,
-              service_class_name: context.class.name,
-              attr_key => name
+            service = context.send(:servactory_service_info)
+            service.translate(
+              "#{attribute.i18n_name}.tools.reserved_name",
+              "#{attribute.system_name}_name": attribute.name
             )
           end
         end
       end
     end
   end
-end 
+end

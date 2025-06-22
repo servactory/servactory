@@ -15,7 +15,11 @@ module Servactory
 
         def validate!
           @collection_of_inputs.each do |input|
-            Servactory::Maintenance::Attributes::Tools::ReservedNameValidator.validate!(context: @context, attribute: input)
+            Servactory::Maintenance::Attributes::Tools::ReservedNameValidator.validate!(
+              context: @context,
+              attribute: input
+            )
+
             process_input(input)
           end
 
