@@ -1,22 +1,20 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Arguments::Example6, type: :service do
+RSpec.describe Wrong::Arguments::Example11, type: :service do
   describe ".call!" do
-    subject(:perform) { described_class.call!(**attributes) }
-
-    let(:attributes) { { output: "test" } }
+    subject(:perform) { described_class.call! }
 
     it_behaves_like "check class info",
-                    inputs: %i[output],
+                    inputs: %i[],
                     internals: %i[],
-                    outputs: %i[]
+                    outputs: %i[output]
 
     describe "but the data required for work is invalid" do
-      describe "because the input name is reserved" do
-        it "raises an input reserved name exception" do
+      describe "because the output name is reserved" do
+        it "raises an output reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example6] Input uses reserved name `output`"
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Arguments::Example11] Output attribute uses reserved name `output`"
           )
         end
       end
@@ -24,21 +22,19 @@ RSpec.describe Wrong::Arguments::Example6, type: :service do
   end
 
   describe ".call" do
-    subject(:perform) { described_class.call(**attributes) }
-
-    let(:attributes) { { output: "test" } }
+    subject(:perform) { described_class.call }
 
     it_behaves_like "check class info",
-                    inputs: %i[output],
+                    inputs: %i[],
                     internals: %i[],
-                    outputs: %i[]
+                    outputs: %i[output]
 
     describe "but the data required for work is invalid" do
-      describe "because the input name is reserved" do
-        it "raises an input reserved name exception" do
+      describe "because the output name is reserved" do
+        it "raises an output reserved name exception" do
           expect { perform }.to raise_error(
-            ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example6] Input uses reserved name `output`"
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Arguments::Example11] Output attribute uses reserved name `output`"
           )
         end
       end
