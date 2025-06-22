@@ -49,6 +49,8 @@ en:
           error: "[%{service_class_name}] Unexpected attributes: `%{unnecessary_attributes}`"
         rules:
           error: "[%{service_class_name}] Conflict in `%{input_name}` input options: `%{conflict_code}`"
+        reserved_name:
+          error: "[%{service_class_name}] The name `%{input_name}` is reserved and cannot be used as an input."
     internals:
       undefined:
         for_fetch: "[%{service_class_name}] Undefined internal attribute `%{internal_name}`"
@@ -83,6 +85,9 @@ en:
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
+      tools:
+        reserved_name:
+          error: "[%{service_class_name}] The name `%{internal_name}` is reserved and cannot be used as an internal attribute."
     outputs:
       undefined:
         for_fetch: "[%{service_class_name}] Undefined output attribute `%{output_name}`"
@@ -117,3 +122,6 @@ en:
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
+      tools:
+        reserved_name:
+          error: "[%{service_class_name}] The name `%{output_name}` is reserved and cannot be used as an output."

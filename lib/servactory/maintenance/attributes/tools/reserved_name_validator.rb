@@ -61,7 +61,21 @@ module Servactory
           end
 
           def exception_message
-            "[#{context.class.name}] Имя :#{name} зарезервировано для #{type}s"
+            i18n_key = case type
+                       when :input then "servactory.inputs.tools.reserved_name.error"
+                       when :output then "servactory.outputs.tools.reserved_name.error"
+                       when :internal then "servactory.internals.tools.reserved_name.error"
+                       end
+            attr_key = case type
+                       when :input then :input_name
+                       when :output then :output_name
+                       when :internal then :internal_name
+                       end
+            I18n.t(
+              i18n_key,
+              service_class_name: context.class.name,
+              attr_key => name
+            )
           end
         end
       end
