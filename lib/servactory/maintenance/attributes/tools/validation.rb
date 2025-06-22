@@ -16,6 +16,7 @@ module Servactory
           end
 
           def validate!
+            Servactory::Maintenance::Attributes::Tools::ReservedNameValidator.validate!(context: @context, attribute: @attribute)
             process
 
             raise_errors
