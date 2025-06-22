@@ -15,11 +15,7 @@ module Servactory
 
         def validate!
           @collection_of_inputs.each do |input|
-            Servactory::Maintenance::Attributes::Tools::CheckReservedNames.validate!(
-              context: @context,
-              attribute: input
-            )
-
+            check_reserved_names_for(input)
             process_input(input)
           end
 
@@ -27,6 +23,15 @@ module Servactory
         end
 
         private
+
+        def check_reserved_names_for(input)
+          Servactory::Maintenance::Attributes::Tools::CheckReservedNames.validate!(
+            context: @context,
+            attribute: input
+          )
+        end
+
+        ########################################################################
 
         def process_input(input)
           input.options_for_checks.each do |check_key, check_options|
