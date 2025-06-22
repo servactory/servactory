@@ -9,19 +9,19 @@ module Servactory
         collection_of_inputs: Servactory::Inputs::Collection,
         collection_of_internals: Servactory::Internals::Collection,
         collection_of_outputs: Servactory::Outputs::Collection,
-        config: Servactory::Configuration::Store
+        config: Servactory::Configuration::Setup
       ) -> self
 
       def build: (
         collection_of_inputs: Servactory::Inputs::Collection,
         collection_of_internals: Servactory::Internals::Collection,
         collection_of_outputs: Servactory::Outputs::Collection,
-        config: Servactory::Configuration::Store
+        config: Servactory::Configuration::Setup
       ) -> self
 
       private
 
-      def extract_dynamic_options_from: (Servactory::Configuration::Store config) -> Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+      def extract_dynamic_options_from: (Servactory::Configuration::Setup config) -> Servactory::Configuration::OptionHelpers::OptionHelpersCollection
 
       def build_all_attributes: (
         inputs: Servactory::Inputs::Collection,

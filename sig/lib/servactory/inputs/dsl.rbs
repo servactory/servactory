@@ -1,4 +1,3 @@
-
 module Servactory
   module Inputs
     module DSL
@@ -6,6 +5,8 @@ module Servactory
 
       module ClassMethods
         @collection_of_inputs: Collection
+
+        attr_reader config: Servactory::Configuration::Setup
 
         def inherited: (untyped child) -> void
 

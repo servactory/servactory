@@ -27,13 +27,13 @@ module Servactory
 
     def constantize_class: ((Class | String | Symbol) class_or_name) -> Class?
 
-    private
-
     def really_input?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
 
     def really_internal?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
 
     def really_output?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
+
+    private
 
     def instance_variables_to_hash_from: (untyped data) -> Hash[Symbol, untyped]
   end

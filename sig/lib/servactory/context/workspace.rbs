@@ -15,6 +15,7 @@ module Servactory
       @outputs: Outputs
       @servactory_service_warehouse: Context::Warehouse::Setup
 
+      attr_reader servactory_service_class: singleton(Servactory::Base)
       attr_reader collection_of_inputs: Servactory::Inputs::Collection
       attr_reader collection_of_internals: Internals::Collection
       attr_reader collection_of_outputs: Servactory::Outputs::Collection

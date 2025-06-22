@@ -9,7 +9,7 @@ module Servactory
         attr_reader define_methods: Array[DefineMethod]?
         attr_reader define_conflicts: Array[DefineConflict]?
         attr_reader need_for_checks: bool
-        attr_reader body: Hash[Symbol, untyped]
+        attr_reader body: Hash[Symbol?, untyped]
 
         def initialize: (
           name: Symbol,
@@ -44,16 +44,16 @@ module Servactory
           body_key: Symbol?,
           body_value: (bool | Class)?,
           body_fallback: (bool | Class | Hash[untyped, untyped])?
-        ) -> Hash[Symbol, untyped]
+        ) -> Hash[Symbol?, untyped]
 
         def create_default_body: (
           body_key: Symbol?,
           body_fallback: (bool | Class | Hash[untyped, untyped])?
-        ) -> Hash[Symbol, untyped]
+        ) -> Hash[Symbol?, untyped]
 
         def extract_body_from_options: (
           options: Hash[Symbol, untyped],
-          default_body: Hash[Symbol, untyped]
+          default_body: Hash[Symbol?, untyped]
         ) -> untyped
 
         def construct_advanced_body: (
@@ -61,17 +61,17 @@ module Servactory
           body_key: Symbol?,
           body_value: (bool | Class)?,
           body_fallback: (bool | Class | Hash[untyped, untyped])?
-        ) -> Hash[Symbol, untyped]
+        ) -> Hash[Symbol?, untyped]
 
         def build_hash_body: (
-          body: Hash[Symbol, untyped],
+          body: Hash[Symbol?, untyped],
           body_key: Symbol?,
           body_value: (bool | Class)?,
           body_fallback: (bool | Class | Hash[untyped, untyped])?
-        ) -> Hash[Symbol, untyped]
+        ) -> Hash[Symbol?, untyped]
 
         def extract_body_content: (
-          body: Hash[Symbol, untyped],
+          body: Hash[Symbol?, untyped],
           body_key: Symbol?,
           body_value: (bool | Class)?,
           body_fallback: (bool | Class | Hash[untyped, untyped])?,
@@ -81,13 +81,13 @@ module Servactory
         def build_simple_body: (
           body_key: Symbol?,
           body: untyped
-        ) -> Hash[Symbol, untyped]
+        ) -> Hash[Symbol?, untyped]
 
         def apply_dynamic_methods_to: (
           attribute: (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)
         ) -> void
 
-        def generate_methods_code: () -> String?
+        def generate_methods_code: () -> String
       end
     end
   end

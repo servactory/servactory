@@ -6,6 +6,8 @@ module Servactory
       module ClassMethods
         @collection_of_outputs: Collection
 
+        attr_reader config: Servactory::Configuration::Setup
+
         def inherited: (untyped child) -> void
 
         private

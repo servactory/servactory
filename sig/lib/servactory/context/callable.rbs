@@ -1,6 +1,12 @@
 module Servactory
   module Context
     module Callable
+      module ClassMethods
+        attr_reader config: Servactory::Configuration::Setup
+      end
+
+      def self.included: (Class base) -> void
+
       def call!: (?Hash[Symbol, untyped] arguments) -> Result
       def call: (?Hash[Symbol, untyped] arguments) -> Result
 
