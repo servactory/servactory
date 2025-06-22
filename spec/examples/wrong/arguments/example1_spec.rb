@@ -22,7 +22,7 @@ RSpec.describe Wrong::Arguments::Example1, type: :service do
         it "raises an input reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example1] Name `fail` is reserved and cannot be used for input"
+            "[Wrong::Arguments::Example1] Input uses reserved name `fail`"
           )
         end
       end
@@ -50,7 +50,7 @@ RSpec.describe Wrong::Arguments::Example1, type: :service do
         it "raises an input reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Input,
-            "[Wrong::Arguments::Example1] Name `fail` is reserved and cannot be used for input"
+            "[Wrong::Arguments::Example1] Input uses reserved name `fail`"
           )
         end
       end

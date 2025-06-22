@@ -14,7 +14,7 @@ RSpec.describe Wrong::Arguments::Example2, type: :service do
         it "raises an output reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Output,
-            "[Wrong::Arguments::Example2] Name `success` is reserved and cannot be used for output attribute"
+            "[Wrong::Arguments::Example2] Output attribute uses reserved name `success`"
           )
         end
       end
@@ -34,7 +34,7 @@ RSpec.describe Wrong::Arguments::Example2, type: :service do
         it "raises an output reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Output,
-            "[Wrong::Arguments::Example2] Name `success` is reserved and cannot be used for output attribute"
+            "[Wrong::Arguments::Example2] Output attribute uses reserved name `success`"
           )
         end
       end
