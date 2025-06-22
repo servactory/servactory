@@ -37,9 +37,9 @@ module Servactory
 
           def exception_class
             case attribute.system_name
-            when :input then Servactory::Exceptions::Input
-            when :output then Servactory::Exceptions::Output
-            when :internal then Servactory::Exceptions::Internal
+            when :input then @context.class.config.input_exception_class
+            when :internal then @context.class.config.internal_exception_class
+            when :output then @context.class.config.output_exception_class
             end
           end
 
