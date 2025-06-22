@@ -20,7 +20,7 @@ module Servactory
           def attribute: -> (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)
 
           def reserved_name?: () -> bool
-          def exception_class: () -> void
+          def fail_method: () -> Symbol
           def raise_exception!: () -> void
           def exception_message: () -> String
         end

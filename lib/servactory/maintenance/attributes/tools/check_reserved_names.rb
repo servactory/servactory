@@ -36,11 +36,11 @@ module Servactory
             RESERVED[attribute.system_name].include?(attribute.name)
           end
 
-          def exception_class
+          def fail_method
             case attribute.system_name
-            when :input then @context.class.config.input_exception_class
-            when :internal then @context.class.config.internal_exception_class
-            when :output then @context.class.config.output_exception_class
+            when :input then :fail_input!
+            when :internal then :fail_internal!
+            when :output then :fail_output!
             else
               raise ArgumentError, "Unable to determine attribute exception class. " \
                                    "Attribute: `#{attribute.system_name}`."
@@ -48,17 +48,16 @@ module Servactory
           end
 
           def raise_exception!
-            raise exception_class.new(
-              context:,
-              message: exception_message,
-              "#{attribute.system_name}_name": attribute.name
+            @context.send(
+              fail_method,
+              attribute.name,
+              message: exception_message
             )
           end
 
           def exception_message
-            service = context.send(:servactory_service_info)
-            service.translate(
-              "#{attribute.i18n_name}.tools.reserved_name",
+            @context.send(:servactory_service_info).translate(
+              "#{attribute.i18n_name}.tools.reserved_name.error",
               "#{attribute.system_name}_name": attribute.name
             )
           end
