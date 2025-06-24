@@ -37,7 +37,7 @@
 - Добавить примеры использования новой поддержки коллекций в `examples/usual/dynamic_options/schema`.
 - Пример:
   ```ruby
-  input :items, type: Array, schema: {
+  input :items, type: Array, consists_of: Hash, schema: {
     id: { type: String, required: true },
     name: { type: String, required: true }
   }
