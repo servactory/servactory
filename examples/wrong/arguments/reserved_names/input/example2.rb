@@ -2,15 +2,19 @@
 
 module Wrong
   module Arguments
-    class Example2 < ApplicationService::Base
-      input :inputs, type: String
+    module ReservedNames
+      module Input
+        class Example2 < ApplicationService::Base
+          input :inputs, type: String
 
-      make :smth
+          make :smth
 
-      private
+          private
 
-      def smth
-        # ...
+          def smth
+            # ...
+          end
+        end
       end
     end
   end

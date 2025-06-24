@@ -2,15 +2,19 @@
 
 module Wrong
   module Arguments
-    class Example20 < ApplicationService::Base
-      output :failure, type: String
+    module ReservedNames
+      module Output
+        class Example20 < ApplicationService::Base
+          output :failure, type: String
 
-      make :assign_failure
+          make :assign_failure
 
-      private
+          private
 
-      def assign_failure
-        outputs.failure = "test"
+          def assign_failure
+            outputs.failure = "test"
+          end
+        end
       end
     end
   end

@@ -2,17 +2,21 @@
 
 module Wrong
   module Arguments
-    class Example23 < ApplicationService::Base
-      internal :outputs, type: String
+    module ReservedNames
+      module Internal
+        class Example23 < ApplicationService::Base
+          internal :outputs, type: String
 
-      output :result, type: String
+          output :result, type: String
 
-      make :assign_result
+          make :assign_result
 
-      private
+          private
 
-      def assign_result
-        outputs.result = internals.outputs
+          def assign_result
+            outputs.result = internals.outputs
+          end
+        end
       end
     end
   end

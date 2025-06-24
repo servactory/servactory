@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Wrong::Arguments::Example21, type: :service do
+RSpec.describe Wrong::Arguments::ReservedNames::Output::Example21, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
@@ -14,7 +14,7 @@ RSpec.describe Wrong::Arguments::Example21, type: :service do
         it "raises an output reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Output,
-            "[Wrong::Arguments::Example21] Output attribute uses reserved name `success`"
+            "[Wrong::Arguments::ReservedNames::Output::Example21] Output attribute uses reserved name `success`"
           )
         end
       end
@@ -34,7 +34,7 @@ RSpec.describe Wrong::Arguments::Example21, type: :service do
         it "raises an output reserved name exception" do
           expect { perform }.to raise_error(
             ApplicationService::Exceptions::Output,
-            "[Wrong::Arguments::Example21] Output attribute uses reserved name `success`"
+            "[Wrong::Arguments::ReservedNames::Output::Example21] Output attribute uses reserved name `success`"
           )
         end
       end

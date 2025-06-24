@@ -2,15 +2,19 @@
 
 module Wrong
   module Arguments
-    class Example14 < ApplicationService::Base
-      output :inputs, type: String
+    module ReservedNames
+      module Output
+        class Example14 < ApplicationService::Base
+          output :inputs, type: String
 
-      make :assign_inputs
+          make :assign_inputs
 
-      private
+          private
 
-      def assign_inputs
-        outputs.inputs = "test"
+          def assign_inputs
+            outputs.inputs = "test"
+          end
+        end
       end
     end
   end
