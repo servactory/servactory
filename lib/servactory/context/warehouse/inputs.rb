@@ -44,11 +44,7 @@ module Servactory
             input_name:
           )
 
-          raise @context.class.config.input_exception_class.new(
-            context: @context,
-            message: message_text,
-            input_name:
-          )
+          @context.fail_input!(input_name, message: message_text)
         end
       end
     end
