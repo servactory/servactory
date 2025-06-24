@@ -33,8 +33,9 @@ module Servactory
         def common_condition_with(attribute:, value:, option:)
           return true if option.value == false
 
-          # Поддержка коллекций Array/Set с consists_of: Hash
-          is_collection_of_hash = (attribute.types.include?(Array) || attribute.types.include?(Set)) && attribute.options[:consists_of] == Hash
+          is_collection_of_hash =
+            (attribute.types.include?(Array) || attribute.types.include?(Set)) &&
+            attribute.options[:consists_of] == Hash
 
           unless @default_hash_mode_class_names.intersect?(attribute.types) || is_collection_of_hash
             return [false, :wrong_type]
@@ -50,16 +51,7 @@ module Servactory
             schema = schema.transform_values { |options| options.except(:prepare) }
           end
 
-          if is_collection_of_hash
-            return true if value.blank? && attribute.optional?
-            return [false, :wrong_type] unless value.is_a?(Enumerable)
-
-            value.each_with_index do |element, idx|
-              is_success, reason, meta = validate_for!(object: element, schema: schema)
-              return [false, :wrong_element_in_collection, meta] unless is_success
-            end
-            return true
-          end
+          return validate_collection!(value, schema) if is_collection_of_hash
 
           is_success, reason, meta = validate_for!(object: value, schema: schema)
 
@@ -68,6 +60,27 @@ module Servactory
           [is_success, reason, meta]
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+        def validate_collection!(collection, schema)
+          return true if collection.blank?
+          return [false, :wrong_type] unless collection.is_a?(Enumerable)
+
+          collection.each_with_index do |element, idx|
+            is_success, reason, meta = validate_for!(object: element, schema: schema)
+            next if is_success
+
+            return [false, :wrong_element_in_collection, build_collection_meta(element, idx, meta)]
+          end
+          true
+        end
+
+        def build_collection_meta(element, idx, meta)
+          {
+            key_name: (meta && meta[:key_name]) || "element[#{idx}]",
+            expected_type: (meta && meta[:expected_type]) || Hash.to_s,
+            given_type: (meta && meta[:given_type]) || element.class.to_s
+          }
+        end
 
         def validate_for!(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength
           unless object.respond_to?(:fetch)
