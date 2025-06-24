@@ -44,9 +44,21 @@ module Servactory
             schema = schema.transform_values { |options| options.except(:prepare) }
           end
 
-          is_success, reason, meta = validate_for!(object: value, schema:)
+          # Новая логика: поддержка коллекций Array/Set с consists_of: Hash
+          if (attribute.types.include?(Array) || attribute.types.include?(Set)) && attribute.options[:consists_of] == Hash
+            return true if value.blank? && attribute.optional?
+            return [false, :wrong_type] unless value.is_a?(Enumerable)
 
-          prepare_object_with!(object: value, schema:) if is_success
+            value.each_with_index do |element, idx|
+              is_success, reason, meta = validate_for!(object: element, schema: schema)
+              return [false, :wrong_element_in_collection, { index: idx, reason: reason, meta: meta }] unless is_success
+            end
+            return true
+          end
+
+          is_success, reason, meta = validate_for!(object: value, schema: schema)
+
+          prepare_object_with!(object: value, schema: schema) if is_success
 
           [is_success, reason, meta]
         end
