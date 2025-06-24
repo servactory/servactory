@@ -8,7 +8,8 @@ module Servactory
           RESERVED = {
             input: %i[
               input inputs internal internals output outputs
-              fail failure success
+              fail
+              failure success
             ],
             internal: %i[
               input inputs internal internals output outputs
