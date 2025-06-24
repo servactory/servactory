@@ -32,7 +32,13 @@ module Servactory
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def common_condition_with(attribute:, value:, option:)
           return true if option.value == false
-          return [false, :wrong_type] unless @default_hash_mode_class_names.intersect?(attribute.types)
+
+          # Поддержка коллекций Array/Set с consists_of: Hash
+          is_collection_of_hash = (attribute.types.include?(Array) || attribute.types.include?(Set)) && attribute.options[:consists_of] == Hash
+
+          unless @default_hash_mode_class_names.intersect?(attribute.types) || is_collection_of_hash
+            return [false, :wrong_type]
+          end
 
           if value.blank? && ((attribute.input? && attribute.optional?) || attribute.internal? || attribute.output?)
             return true
@@ -44,21 +50,20 @@ module Servactory
             schema = schema.transform_values { |options| options.except(:prepare) }
           end
 
-          # Новая логика: поддержка коллекций Array/Set с consists_of: Hash
-          if (attribute.types.include?(Array) || attribute.types.include?(Set)) && attribute.options[:consists_of] == Hash
+          if is_collection_of_hash
             return true if value.blank? && attribute.optional?
             return [false, :wrong_type] unless value.is_a?(Enumerable)
 
             value.each_with_index do |element, idx|
               is_success, reason, meta = validate_for!(object: element, schema: schema)
-              return [false, :wrong_element_in_collection, { index: idx, reason: reason, meta: meta }] unless is_success
+              return [false, :wrong_element_in_collection, meta] unless is_success
             end
             return true
           end
 
           is_success, reason, meta = validate_for!(object: value, schema: schema)
 
-          prepare_object_with!(object: value, schema: schema) if is_success
+          prepare_object_with!(object: value, schema:) if is_success
 
           [is_success, reason, meta]
         end
