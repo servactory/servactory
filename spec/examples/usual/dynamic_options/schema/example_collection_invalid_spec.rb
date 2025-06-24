@@ -14,7 +14,7 @@ RSpec.describe Usual::DynamicOptions::Schema::ExampleCollectionInvalid, type: :s
     end
 
     it "raises an error for invalid element in collection" do
-      expect { perform }.to raise_error(ApplicationService::Exceptions::Input)
+      expect { perform }.to raise_error(ApplicationService::Exceptions::Input, "[Usual::DynamicOptions::Schema::ExampleCollectionInvalid] Wrong element in input collection `items` at index 1: required")
     end
   end
 end 
