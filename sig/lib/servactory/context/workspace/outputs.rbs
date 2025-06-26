@@ -2,24 +2,28 @@ module Servactory
   module Context
     module Workspace
       class Outputs
-        @context: instance
-        @collection_of_outputs: Outputs::Collection
+        @context: untyped
+        @collection_of_outputs: Servactory::Outputs::Collection
 
-        def initialize: (context: instance, collection_of_outputs: Outputs::Collection) -> void
+        def initialize: (context: instance, collection_of_outputs: Servactory::Outputs::Collection) -> void
 
-        def only: (Symbol names) -> Hash[Symbol, untyped]
+        def only: (*Symbol names) -> Hash[Symbol, untyped]
 
-        def except: (Symbol names) -> Hash[Symbol, untyped]
+        def except: (*Symbol names) -> Hash[Symbol, untyped]
 
-        def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
+        def method_missing: (Symbol name, *untyped args) -> untyped
 
-        def respond_to_missing?: (Symbol name, *untyped) -> void
+        def respond_to_missing?: (Symbol name, *untyped _args) -> bool
 
         private
 
-        def assign_with: (prepared_name: Symbol, value: untyped?) { () -> untyped } -> void
+        attr_reader context: Servactory::Context::Workspace
+        attr_reader collection_of_outputs: Servactory::Outputs::Collection
 
-        def fetch_with: (name: Symbol) { () -> untyped } -> void
+        def assign_with: (prepared_name: Symbol, value: untyped) { () -> untyped } -> untyped
+        def fetch_with: (name: Symbol) { () -> untyped } -> untyped
+
+        def raise_error_for: (Symbol type, Symbol name) -> Exception
       end
     end
   end

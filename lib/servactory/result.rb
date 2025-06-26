@@ -72,7 +72,7 @@ module Servactory
       rescue_no_method_error_with(exception: e)
     end
 
-    def respond_to_missing?(*)
+    def respond_to_missing?(*_args)
       super
     end
 

@@ -63,7 +63,7 @@ module Servactory
             dynamic_options:
           )
 
-          if include_specific_options
+          if include_specific_options && attribute.input?
             options[:required] = attribute.required
             options[:default] = attribute.default
           end

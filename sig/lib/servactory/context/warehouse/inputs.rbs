@@ -4,17 +4,17 @@ module Servactory
       class Inputs < Base
         @context: untyped
 
-        def initialize: (untyped context, ?::Hash[untyped, untyped] arguments) -> void
+        def initialize: (untyped context, ?Hash[Symbol, untyped] arguments) -> void
 
-        def names: () -> untyped
+        def names: () -> Array[Symbol]
 
-        def merge!: (untyped arguments) -> untyped
+        def merge!: (Hash[Symbol, untyped] arguments) -> self
 
-        def method_missing: (Symbol name, *untyped _args) { () -> untyped } -> void
+        def method_missing: (Symbol name, *untyped _args) -> untyped
 
-        def respond_to_missing?: (Symbol name, *untyped) -> void
+        def respond_to_missing?: (Symbol name, *untyped _args) -> bool
 
-        def raise_error_for: (untyped input_name) -> untyped
+        def raise_error_for: (Symbol input_name) -> Exception
       end
     end
   end

@@ -44,6 +44,10 @@ module Servactory
           @outputs ||= context_data.fetch(:outputs)
         end
 
+        def configuration
+          @configuration ||= context_data.fetch(:configuration)
+        end
+
         private
 
         def assign_attribute(section, name, value)
@@ -59,7 +63,8 @@ module Servactory
             context_id => {
               inputs: Servactory::Context::Warehouse::Inputs.new(@context),
               internals: Servactory::Context::Warehouse::Internals.new,
-              outputs: Servactory::Context::Warehouse::Outputs.new
+              outputs: Servactory::Context::Warehouse::Outputs.new,
+              configuration: Servactory::Context::Warehouse::Configuration.new(@context)
             }
           }
         end

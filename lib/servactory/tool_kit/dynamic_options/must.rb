@@ -132,27 +132,27 @@ module Servactory
 
         ########################################################################
 
-        def condition_for_input_with(**)
+        def condition_for_input_with(**_attributes)
           raise "Need to implement `condition_for_input_with(**attributes)` method"
         end
 
-        def condition_for_internal_with(**)
+        def condition_for_internal_with(**_attributes)
           raise "Need to implement `condition_for_internal_with(**attributes)` method"
         end
 
-        def condition_for_output_with(**)
+        def condition_for_output_with(**_attributes)
           raise "Need to implement `condition_for_output_with(**attributes)` method"
         end
 
-        def message_for_input_with(**)
+        def message_for_input_with(**_attributes)
           raise "Need to implement `message_for_input_with(**attributes)` method"
         end
 
-        def message_for_internal_with(**)
+        def message_for_internal_with(**_attributes)
           raise "Need to implement `message_for_internal_with(**attributes)` method"
         end
 
-        def message_for_output_with(**)
+        def message_for_output_with(**_attributes)
           raise "Need to implement `message_for_output_with(**attributes)` method"
         end
       end

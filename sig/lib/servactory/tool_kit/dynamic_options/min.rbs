@@ -2,9 +2,17 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Min < Must
-        def self.use: (?::Symbol option_name) -> Maintenance::Attributes::OptionHelper
+        def self.use: (?::Symbol option_name) -> Servactory::Maintenance::Attributes::OptionHelper
 
-        def common_condition_with: (value: untyped, option: Must::WorkOption, **untyped `**`) -> bool
+        def condition_for_input_with: (**untyped) -> bool
+        def condition_for_internal_with: (**untyped) -> bool
+        def condition_for_output_with: (**untyped) -> bool
+
+        def common_condition_with: (value: untyped, option: WorkOption, **untyped) -> bool
+
+        def message_for_input_with: (service: Servactory::Context::Workspace, input: Servactory::Inputs::Input, value: untyped, option_name: Symbol, option_value: untyped, **untyped) -> String
+        def message_for_internal_with: (service: Servactory::Context::Workspace, internal: Servactory::Internals::Internal, value: untyped, option_name: Symbol, option_value: untyped, **untyped) -> String
+        def message_for_output_with: (service: Servactory::Context::Workspace, output: Servactory::Outputs::Output, value: untyped, option_name: Symbol, option_value: untyped, **untyped) -> String
       end
     end
   end

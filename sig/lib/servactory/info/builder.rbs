@@ -1,84 +1,74 @@
 module Servactory
   module Info
     class Builder
-      attr_reader inputs: Hash[Symbol, untyped]
-      attr_reader internals: Hash[Symbol, untyped]
-      attr_reader outputs: Hash[Symbol, untyped]
+      attr_reader inputs: Hash[Symbol, Hash[Symbol, untyped]]
+      attr_reader internals: Hash[Symbol, Hash[Symbol, untyped]]
+      attr_reader outputs: Hash[Symbol, Hash[Symbol, untyped]]
 
       def self.build: (
-          collection_of_inputs: Inputs::Collection,
-          collection_of_internals: Internals::Collection,
-          collection_of_outputs: Outputs::Collection,
-          config: Configuration::Setup
-        ) -> Builder
+        collection_of_inputs: Servactory::Inputs::Collection,
+        collection_of_internals: Servactory::Internals::Collection,
+        collection_of_outputs: Servactory::Outputs::Collection,
+        config: Servactory::Configuration::Setup
+      ) -> self
 
       def build: (
-          collection_of_inputs: Inputs::Collection,
-          collection_of_internals: Internals::Collection,
-          collection_of_outputs: Outputs::Collection,
-          config: Configuration::Setup
-        ) -> self
+        collection_of_inputs: Servactory::Inputs::Collection,
+        collection_of_internals: Servactory::Internals::Collection,
+        collection_of_outputs: Servactory::Outputs::Collection,
+        config: Servactory::Configuration::Setup
+      ) -> self
 
       private
 
-      def extract_dynamic_options_from: (Configuration::Setup config) -> Configuration::OptionHelpers::OptionHelpersCollection
+      def extract_dynamic_options_from: (Servactory::Configuration::Setup config) -> Servactory::Configuration::OptionHelpers::OptionHelpersCollection
 
       def build_all_attributes: (
-          inputs: Inputs::Collection,
-          internals: Internals::Collection,
-          outputs: Outputs::Collection,
-          dynamic_options: untyped
-        ) -> void
+        inputs: Servactory::Inputs::Collection,
+        internals: Servactory::Internals::Collection,
+        outputs: Servactory::Outputs::Collection,
+        dynamic_options: Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+      ) -> void
 
       def build_input_attributes_with: (
-          collection: Inputs::Collection,
-          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
-        ) -> Hash[Symbol, untyped]
+        collection: Servactory::Inputs::Collection,
+        dynamic_options: Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+      ) -> void
 
       def build_internal_attributes_with: (
-          collection: Internals::Collection,
-          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
-        ) -> Hash[Symbol, untyped]
+        collection: Servactory::Internals::Collection,
+        dynamic_options: Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+      ) -> void
 
       def build_output_attributes_with: (
-          collection: Outputs::Collection,
-          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
-        ) -> Hash[Symbol, untyped]
+        collection: Servactory::Outputs::Collection,
+        dynamic_options: Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+      ) -> void
 
       def build_attributes_with: (
-          collection: (Inputs::Collection | Internals::Collection | Outputs::Collection),
-          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection,
-          ?include_specific_options: bool
-        ) -> Hash[Symbol, untyped]
+        collection: (Servactory::Inputs::Collection | Servactory::Internals::Collection | Servactory::Outputs::Collection),
+        dynamic_options: Servactory::Configuration::OptionHelpers::OptionHelpersCollection,
+        ?include_specific_options: bool
+      ) -> Hash[Symbol, Hash[Symbol, untyped]]
 
       def process_options_for: (
-          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
-        ) -> Hash[Symbol, untyped]
+        attribute: (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output),
+        dynamic_options: Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+      ) -> Hash[Symbol, untyped]
 
       def build_dynamic_options_for: (
-          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
-        ) -> Hash[Symbol, untyped]
+        attribute: (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output),
+        dynamic_options: Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+      ) -> Hash[Symbol, untyped]
 
-      def format_option_value: (
-          body_key: Symbol,
-          value: untyped
-        ) -> Hash[Symbol, untyped]
-
-      def extract_value_for_body_key: (
-          body_key: Symbol,
-          value: untyped
-        ) -> untyped
-
-      def extract_message_from_value: (
-          value: untyped
-        ) -> (String | nil)
+      def format_option_value: (body_key: Symbol, value: untyped) -> Hash[Symbol, untyped]
+      def extract_value_for_body_key: (body_key: Symbol, value: untyped) -> untyped
+      def extract_message_from_value: (value: untyped) -> String?
 
       def enrich_options_with_common_fields: (
-          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-          options: Hash[Symbol, untyped]
-        ) -> Hash[Symbol, untyped]
+        attribute: (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output),
+        options: Hash[Symbol, untyped]
+      ) -> Hash[Symbol, untyped]
     end
   end
 end

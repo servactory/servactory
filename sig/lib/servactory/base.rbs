@@ -9,5 +9,7 @@ module Servactory
     include Outputs::DSL
 
     include Actions::DSL
+
+    def self.config: () -> Servactory::Configuration::Setup
   end
 end

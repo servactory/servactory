@@ -2,33 +2,34 @@ module Servactory
   module Maintenance
     module Validations
       class Types
-        @context: instance
-        @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
+        @context: Servactory::Context::Workspace
+        @attribute: (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)
         @types: Array[Class]
         @value: untyped
         @error_callback: Proc
         @prepared_types: Array[Class]
 
         def self.validate!: (
-          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
-          types: Array[Class],
-          value: untyped,
-          error_callback: Proc
-        ) ?{ () -> untyped } -> void
-
-        def initialize: (
-          contect: instance,
-          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          context: Servactory::Context::Workspace,
+          attribute: (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output),
           types: Array[Class],
           value: untyped,
           error_callback: Proc
         ) -> void
 
-        def validate!: -> (bool | Inputs::Validations::Errors | Exception)
+        def initialize: (
+          context: Servactory::Context::Workspace,
+          attribute: (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output),
+          types: Array[Class],
+          value: untyped,
+          error_callback: Proc
+        ) -> void
+
+        def validate!: () -> void
 
         private
 
-        def prepared_types: -> Array[Class]
+        def prepared_types: () -> Array[Class]
 
         def prepared_types_from: (Array[Class] types) -> Array[Class]
       end

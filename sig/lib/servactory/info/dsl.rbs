@@ -4,6 +4,13 @@ module Servactory
       def self.included: (untyped base) -> untyped
 
       module ClassMethods
+        include Servactory::DSL
+
+        attr_reader config: Servactory::Configuration::Setup
+        attr_reader collection_of_inputs: Servactory::Inputs::Collection
+        attr_reader collection_of_internals: Servactory::Internals::Collection
+        attr_reader collection_of_outputs: Servactory::Outputs::Collection
+
         def info: () -> Result
       end
     end

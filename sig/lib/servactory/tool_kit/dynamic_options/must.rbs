@@ -13,9 +13,9 @@ module Servactory
         @body_key: Symbol
         @body_fallback: Symbol?
 
-        def initialize: (Symbol option_name, Symbol body_key) -> void
+        def initialize: (Symbol option_name, ?Symbol body_key) -> void
 
-        def must: (Symbol option_name) -> Maintenance::Attributes::OptionHelper
+        def must: (Symbol option_name) -> Servactory::Maintenance::Attributes::OptionHelper
 
         def equivalent_with: (Symbol name) -> Proc
 
@@ -25,17 +25,17 @@ module Servactory
 
         def must_content_message_with: (WorkOption option) -> Proc
 
-        def condition_for_input_with: (** untyped) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
+        def condition_for_input_with: (**untyped _options) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
 
-        def condition_for_internal_with: (** untyped) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
+        def condition_for_internal_with: (**untyped _options) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
 
-        def condition_for_output_with: (** untyped) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
+        def condition_for_output_with: (**untyped _options) -> (::Array[Hash[Symbol, untyped] | Symbol | bool] | bool)
 
-        def message_for_input_with: (** untyped) -> String
+        def message_for_input_with: (**untyped _options) -> String
 
-        def message_for_internal_with: (** untyped) -> String
+        def message_for_internal_with: (**untyped _options) -> String
 
-        def message_for_output_with: (** untyped) -> String
+        def message_for_output_with: (**untyped _options) -> String
       end
     end
   end

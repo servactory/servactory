@@ -31,7 +31,7 @@ module Servactory
           end
         end
 
-        def respond_to_missing?(name, *)
+        def respond_to_missing?(name, *_args)
           @collection_of_inputs.names.include?(name) || super
         end
 

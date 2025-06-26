@@ -1,3 +1,4 @@
+
 module Servactory
   module DSL
     module Extensions
@@ -5,12 +6,12 @@ module Servactory
 
       def self.registry: () -> Array[Module]
 
-      def self.register: () -> Array[Module]
+      def self.register: (*Module extensions) -> Array[Module]
 
       def self.clear: () -> []
     end
 
-    def self.included: (untyped base) -> untyped
+    def self.included: (untyped base) -> void
 
     def self.with_extensions: (*Module extensions) -> singleton(DSL)
   end

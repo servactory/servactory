@@ -1,39 +1,40 @@
 module Servactory
   module Utils
-    FALSE_VALUES: Set[false | Symbol | String | Integer]
+    def adapt: (untyped data) -> Hash[Symbol, untyped]
 
-    def self?.adapt: ((::Hash[untyped, untyped] | Datory::Base) data) -> Hash[Symbol, untyped]
+    def fetch_hash_with_desired_attribute: (
+      (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output) attribute
+    ) -> Hash[Symbol, untyped]
 
-    def self?.fetch_hash_with_desired_attribute: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> Hash[Symbol, untyped]
+    def define_attribute_with: (
+      ?input: Servactory::Inputs::Input?,
+      ?internal: Servactory::Internals::Internal?,
+      ?output: Servactory::Outputs::Output?
+    ) -> (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)?
 
-    def self?.define_attribute_with: (input: Inputs::Input?, internal: Internals::Internal?, output: Outputs::Output?) -> (Inputs::Input | Internals::Internal | Outputs::Output | Exception)
+    def extract_special_character_from: (String string) -> [String, String?]
 
-    def self?.really_input?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
-
-    def self?.really_internal?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
-
-    def self?.really_output?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
-
-    def self?.extract_special_character_from: (String string) -> Array[String | nil]
-
-    # @param value [#to_s]
-    # @return [Boolean]
-    def self?.true?: (untyped value) -> untyped
+    FALSE_VALUES: Set[false | nil | String | Symbol | Integer]
 
     # @param value [#to_s]
-    # @return [Boolean]
-    def self?.value_present?: (untyped value) -> untyped
+    def true?: (untyped value) -> bool
 
-    # NOTE: Based on `query_cast_attribute` from ActiveRecord:
-    #       https://github.com/rails/rails/blob/main/activerecord/lib/active_record/attribute_methods/query.rb
     # @param value [#to_s]
-    # @return [Boolean]
-    def self?.query_attribute: (untyped value) -> untyped
+    def value_present?: (untyped value) -> bool
 
-    def self?.constantize_class: (untyped class_or_name) -> Class?
+    # @param value [#to_s]
+    def query_attribute: (untyped value) -> bool
+
+    def constantize_class: ((Class | String | Symbol) class_or_name) -> Class?
+
+    def really_input?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
+
+    def really_internal?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
+
+    def really_output?: ((Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)? attribute) -> bool
 
     private
 
-    def self?.instance_variables_to_hash_from: (Datory::Base data) -> Hash[Symbol, untyped]
+    def instance_variables_to_hash_from: (untyped data) -> Hash[Symbol, untyped]
   end
 end

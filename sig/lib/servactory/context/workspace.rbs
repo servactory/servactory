@@ -7,7 +7,6 @@ module Servactory
         @i18n_root_key: String
 
         def initialize: (instance context) -> void
-
         def translate: (String key, **untyped options) -> String
       end
 
@@ -16,11 +15,12 @@ module Servactory
       @outputs: Outputs
       @servactory_service_warehouse: Context::Warehouse::Setup
 
-      attr_reader collection_of_inputs: Inputs::Collection
+      attr_reader servactory_service_class: singleton(Servactory::Base)
+      attr_reader collection_of_inputs: Servactory::Inputs::Collection
       attr_reader collection_of_internals: Internals::Collection
-      attr_reader collection_of_outputs: Outputs::Collection
+      attr_reader collection_of_outputs: Servactory::Outputs::Collection
 
-      def inputs: -> Inputs
+      def inputs: -> Workspace::Inputs
       alias inp inputs
 
       def internals: -> Internals
@@ -39,7 +39,7 @@ module Servactory
 
       def fail_output!: (Symbol output_name, message: String, meta: untyped?) -> Exception
 
-      def fail!: (Symbol type, message: String, meta: untyped?) -> Exception
+      def fail!: (?Symbol type, message: String, meta: untyped?) -> Exception
 
       def fail_result!: (Result service_result) -> Exception
 
@@ -49,20 +49,20 @@ module Servactory
 
       def _call!: (
         incoming_arguments: Hash[Symbol, untyped],
-        collection_of_inputs: Inputs::Collection,
+        collection_of_inputs: Servactory::Inputs::Collection,
         collection_of_internals: Internals::Collection,
-        collection_of_outputs: Outputs::Collection,
+        collection_of_outputs: Servactory::Outputs::Collection,
         collection_of_stages: Actions::Stages::Collection
       ) -> void
 
       def call!: (
-        collection_of_inputs: Inputs::Collection,
+        collection_of_inputs: Servactory::Inputs::Collection,
         collection_of_internals: Internals::Collection,
-        collection_of_outputs: Outputs::Collection,
-        ** untyped
+        collection_of_outputs: Servactory::Outputs::Collection,
+        **untyped
       ) -> void
 
-      def call: -> Exception
+      def call: () -> Exception
 
       def servactory_service_info: -> Actor
 

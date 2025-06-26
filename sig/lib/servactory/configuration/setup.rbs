@@ -33,11 +33,18 @@ module Servactory
 
       attr_accessor predicate_methods_enabled: bool
 
-      def initialize: () -> void
+      def initialize: (untyped context) -> void
 
       def predicate_methods_enabled?: -> bool
 
+      def self.build_for: (untyped service_class) -> Store
+
+      def method_missing: (Symbol name, *untyped _args) -> untyped
+      def respond_to_missing?: (Symbol name, bool include_private) -> bool
+
       private
+
+      def configuration_store: () -> Store
 
       def default_collection_mode_class_names: -> Set[Class]
 
@@ -48,6 +55,9 @@ module Servactory
       def default_internal_option_helpers: -> Set[Maintenance::Attributes::OptionHelper]
 
       def default_output_option_helpers: -> Set[Maintenance::Attributes::OptionHelper]
+
+      def self.apply_service_configuration_for: (Store store, untyped service_class) -> void
+      def self.servactory_ancestors_for: (untyped service_class) -> Array[untyped]
     end
   end
 end

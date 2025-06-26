@@ -1,7 +1,7 @@
 module Servactory
   module Actions
     module DSL
-      def self.included: (untyped base) -> untyped
+      def self.included: (untyped base) -> void
 
       module ClassMethods
         @current_stage: Stages::Stage?
@@ -11,33 +11,28 @@ module Servactory
 
         private
 
-        def fail_on!: (*Class class_names, with: Proc?) { () -> untyped } -> Array[Class]
-
-        def stage: () { () -> untyped } -> nil
-
-        def wrap_in: (Proc? wrapper) -> Proc?
-
-        def rollback: (Symbol? rollback) -> Symbol?
-
-        def only_if: ((bool | Proc)? condition) -> (bool | Proc)?
-
-        def only_unless: ((bool | Proc)? condition) -> (bool | Proc)?
-
-        def make: (Symbol name, position: Integer?, **untyped options) -> void
-
-        def method_missing: (Symbol name, *untyped args) ?{ () -> untyped } -> void
-
-        def method_missing_for_action_aliases: (*untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
-
-        def method_missing_for_shortcuts_for_make: (Hash[Symbol, untyped] action_shortcut, *untyped, **untyped) ?{ (*untyped, **untyped) -> untyped } -> void
-
-        def build_method_name_for_shortcuts_for_make_with: (Symbol name, Hash[Symbol, untyped] action_shortcut) -> Symbol
-
-        def respond_to_missing?: (Symbol name, *untyped) -> bool
-
-        def next_position: -> Integer
-
+        def fail_on!: (*(Class | String) exceptions, with: Proc) -> void
+        def stage: () { () -> untyped } -> void
+        def wrap_in: (Proc wrapper) -> (Proc | nil)
+        def rollback: (Symbol rollback) -> (Symbol | nil)
+        def only_if: ((bool | Proc) condition) -> ((bool | Proc) | nil)
+        def only_unless: ((bool | Proc) condition) -> ((bool | Proc) | nil)
+        def make: (Symbol name, ?position: Integer?, **untyped options) -> Stages::Collection
+        def method_missing: (Symbol name, *untyped args) ?{ () -> untyped } -> untyped
+        def method_missing_for_action_aliases: (*untyped args) -> (void | nil)
+        def method_missing_for_shortcuts_for_make: (
+          Configuration::Actions::Shortcuts::Shortcut action_shortcut,
+          *untyped args
+        ) -> void
+        def build_method_name_for_shortcuts_for_make_with: (
+          String method_name,
+          Configuration::Actions::Shortcuts::Shortcut action_shortcut
+        ) -> Symbol
+        def respond_to_missing?: (Symbol name, bool) -> bool
+        def next_position: () -> Integer
         def collection_of_stages: () -> Stages::Collection
+
+        attr_reader current_stage: Stages::Stage?
       end
     end
   end

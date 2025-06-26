@@ -5,7 +5,7 @@ module Servactory
     module Workspace
       private
 
-      def call!(incoming_arguments:, **)
+      def call!(incoming_arguments:, **_options)
         super
 
         Tools::Warehouse.assign(self, incoming_arguments)

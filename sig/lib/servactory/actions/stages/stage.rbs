@@ -3,27 +3,22 @@ module Servactory
     module Stages
       class Stage
         attr_accessor position: Integer
-
         attr_accessor wrapper: Proc?
-
         attr_accessor rollback: Symbol?
-
         attr_accessor condition: (bool | Proc)?
-
         attr_accessor is_condition_opposite: bool
 
-        @methods: Actions::Collection
+        @methods: Servactory::Actions::Collection
 
         def initialize: (
           position: Integer,
           ?wrapper: Proc?,
           ?rollback: Symbol?,
-          ?condition: (bool | Proc)?,
+          ?condition: (bool | Proc)?
         ) -> void
 
         def next_method_position: () -> Integer
-
-        def methods: () -> Actions::Collection
+        def methods: () -> Servactory::Actions::Collection
       end
     end
   end

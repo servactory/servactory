@@ -6,7 +6,16 @@ module Servactory
 
         @collection: Set[Maintenance::Attributes::OptionHelper]
 
-        def initialize: (Set[Maintenance::Attributes::OptionHelper] collection) -> void
+        def initialize: (?Set[Maintenance::Attributes::OptionHelper] collection) -> void
+
+        def <<: (Maintenance::Attributes::OptionHelper) -> self
+        def filter: () { (Maintenance::Attributes::OptionHelper) -> bool } -> Array[Maintenance::Attributes::OptionHelper]
+                  | () -> Enumerator[Maintenance::Attributes::OptionHelper]
+        def map: () { (Maintenance::Attributes::OptionHelper) -> untyped } -> Array[untyped]
+               | () -> Enumerator[Maintenance::Attributes::OptionHelper]
+        def find: () { (Maintenance::Attributes::OptionHelper) -> bool } -> Maintenance::Attributes::OptionHelper?
+                | () -> Enumerator[Maintenance::Attributes::OptionHelper]
+        def merge: (Enumerable[Maintenance::Attributes::OptionHelper] other) -> self
 
         def dynamic_options: -> OptionHelpersCollection
 

@@ -8,7 +8,7 @@ module Servactory
           extend Forwardable
           def_delegators :@collection, :+, :detect, :reverse_each
 
-          def initialize(*)
+          def initialize(*_args)
             @collection = Set.new
           end
         end

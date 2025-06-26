@@ -5,7 +5,7 @@ module Servactory
     module Workspace
       private
 
-      def call!(collection_of_stages:, **)
+      def call!(collection_of_stages:, **_options)
         super
 
         Servactory::Actions::Tools::Rules.check!(self)

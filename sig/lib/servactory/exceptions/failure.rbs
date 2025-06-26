@@ -1,19 +1,19 @@
 module Servactory
   module Exceptions
     class Failure < Base
-      attr_reader type: Symbol?
+      attr_reader type: Symbol
       attr_reader message: String
       attr_reader meta: untyped?
 
-      def initialize: (type: Symbol?, message: String, meta: untyped?) -> void
+      def initialize: (?type: Symbol, message: String, ?meta: untyped?) -> void
 
-      def method_missing: (Symbol name, *untyped _args) { () -> untyped } -> void
+      def method_missing: (Symbol name, *untyped _args) -> bool
 
-      def respond_to_missing?: (Symbol name, *untyped) -> void
+      def respond_to_missing?: (Symbol name, *untyped) -> bool
 
       private
 
       def normalize_method_name: (Symbol name) -> Symbol
     end
   end
-end
+end 

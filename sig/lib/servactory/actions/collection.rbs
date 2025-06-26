@@ -3,11 +3,20 @@ module Servactory
     class Collection
       extend Forwardable
 
-      @collection: Set[Action]
+      @collection: (Set[Action] | Array[Action])
 
-      def initialize: (Set[Action] collection) -> void
+      def initialize: (?Enumerable[Action] collection) -> void
 
       def sorted_by_position: -> Collection
+
+      def <<: (Action value) -> self
+      def each: () { (Action) -> void } -> self
+              | () -> Enumerator[Action]
+      def sort_by: () { (Action) -> untyped } -> Array[Action]
+
+      private
+
+      attr_reader collection: (Set[Action] | Array[Action])
     end
   end
 end
