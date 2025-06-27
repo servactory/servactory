@@ -16,6 +16,7 @@ module Servactory
             ],
             output: %i[
               input inputs internal internals output outputs
+              info
               success failure
               error
             ]
