@@ -9,14 +9,14 @@ module Servactory
             input: %i[
               input inputs internal internals output outputs
               fail
-              failure success
+              success failure
             ],
             internal: %i[
               input inputs internal internals output outputs
             ],
             output: %i[
               input inputs internal internals output outputs
-              failure success
+              success failure
               error
             ]
           }.freeze
