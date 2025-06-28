@@ -10,49 +10,90 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyClass1 }
+    let(:service_class) { described_class::MyFirstService }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
                     internals: %i[service_class],
                     outputs: %i[result]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid (MyClass1)" do
-        it_behaves_like "success result class"
-        it {
-          expect(perform).to(
-            have_output(:result)
-              .contains("Usual::DynamicOptions::Target::Example11::MyClass1")
-          )
-        }
-      end
-
-      describe "and the data required for work is also valid (MyClass2)" do
-        let(:service_class) { described_class::MyClass2 }
-
-        it_behaves_like "success result class"
-        it {
-          expect(perform).to(
-            have_output(:result)
-              .contains("Usual::DynamicOptions::Target::Example11::MyClass2")
-          )
-        }
-      end
-
-      describe "но internal не проходит inclusion" do
-        let(:service_class) { String }
-
-        it "возвращает динамическую ошибку internal" do
+    describe "validations" do
+      describe "inputs" do
+        it do
           expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Internal,
-              "Internal `service_class`: String is not allowed. " \
-              "Allowed: Usual::DynamicOptions::Target::Example11::MyClass1, " \
-              "Usual::DynamicOptions::Target::Example11::MyClass2"
-            )
+            have_input(:service_class)
+              .type(Class)
+              .required
+              .valid_with(attributes)
           )
         end
+      end
+
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:service_class)
+              .type(Class)
+              .target([described_class::MyFirstService, described_class::MySecondService], name: :expect)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:result)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    context "when the input arguments are valid" do
+      describe "and the data required for work is also valid (MyFirstService)" do
+        it_behaves_like "success result class"
+        it {
+          expect(perform).to(
+            have_output(:result)
+              .contains("Usual::DynamicOptions::Target::Example11::MyFirstService")
+          )
+        }
+      end
+
+      describe "and the data required for work is also valid (MySecondService)" do
+        let(:service_class) { described_class::MySecondService }
+
+        it_behaves_like "success result class"
+        it {
+          expect(perform).to(
+            have_output(:result)
+              .contains("Usual::DynamicOptions::Target::Example11::MySecondService")
+          )
+        }
+      end
+
+      it { expect(perform).to be_success_service }
+
+      it {
+        expect(perform).to(
+          have_output(:result)
+            .contains(service_class.name)
+        )
+      }
+    end
+
+    context "when the internal does not pass target validation" do
+      let(:service_class) { String }
+
+      it "raises a dynamic internal error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Internal,
+            "Internal `service_class`: String is not allowed. " \
+            "Allowed: Usual::DynamicOptions::Target::Example11::MyFirstService, " \
+            "Usual::DynamicOptions::Target::Example11::MySecondService"
+          )
+        )
       end
     end
   end

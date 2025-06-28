@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
+# TODO: Need to add a wrong example to test the exception.
 module Usual
   module DynamicOptions
     module Target
       class Example8 < ApplicationService::Base
-        MyClass1 = Struct.new(:id, keyword_init: true)
-        MyClass2 = Struct.new(:id, keyword_init: true)
-
-        input :service_class, type: Class
+        class MyFirstService; end # rubocop:disable Lint/EmptyClass
+        class MySecondService; end # rubocop:disable Lint/EmptyClass
 
         internal :service_class,
                  type: Class,
-                 target: {
-                   in: [MyClass1, MyClass2],
+                 expect: {
+                   in: [MyFirstService, MySecondService],
                    message: "Internal custom error"
                  }
 
@@ -24,7 +23,7 @@ module Usual
         private
 
         def assign_internal
-          internals.service_class = inputs.service_class
+          internals.service_class = MyFirstService
         end
 
         def assign_result

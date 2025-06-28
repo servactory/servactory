@@ -4,13 +4,13 @@ module Usual
   module DynamicOptions
     module Target
       class Example5 < ApplicationService::Base
-        MyClass1 = Struct.new(:id, keyword_init: true)
-        MyClass2 = Struct.new(:id, keyword_init: true)
+        class MyFirstService; end # rubocop:disable Lint/EmptyClass
+        class MySecondService; end # rubocop:disable Lint/EmptyClass
 
         input :service_class,
               type: Class,
               target: {
-                in: [MyClass1, MyClass2],
+                in: [MyFirstService, MySecondService],
                 message: "Custom error for array"
               }
 

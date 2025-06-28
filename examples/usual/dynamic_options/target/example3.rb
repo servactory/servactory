@@ -4,9 +4,13 @@ module Usual
   module DynamicOptions
     module Target
       class Example3 < ApplicationService::Base
-        MyClass1 = Struct.new(:id, keyword_init: true)
+        class MyFirstService; end # rubocop:disable Lint/EmptyClass
 
-        input :service_class, type: Class, target: { in: MyClass1 }
+        input :service_class,
+              type: Class,
+              target: {
+                in: MyFirstService
+              }
 
         output :result, type: String
 

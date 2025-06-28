@@ -154,12 +154,13 @@ module Servactory
             self
           end
 
-          def target(values)
+          def target(values, options = {})
             add_submatcher(
               HaveServiceAttributeMatchers::TargetMatcher,
               described_class,
               :input,
               input_name,
+              options.fetch(:name, :target), # option_name
               Array(values)
             )
             self

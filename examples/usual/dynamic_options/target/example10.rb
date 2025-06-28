@@ -4,15 +4,16 @@ module Usual
   module DynamicOptions
     module Target
       class Example10 < ApplicationService::Base
-        MyClass1 = Struct.new(:id, keyword_init: true)
-        MyClass2 = Struct.new(:id, keyword_init: true)
+        class MyFirstService; end # rubocop:disable Lint/EmptyClass
+        class MySecondService; end # rubocop:disable Lint/EmptyClass
 
+        # NOTE: Option `target` is not specifically used here.
         input :service_class, type: Class
 
         output :service_class,
                type: Class,
                target: {
-                 in: [MyClass1, MyClass2],
+                 in: [MyFirstService, MySecondService],
                  message: "Output custom error"
                }
 

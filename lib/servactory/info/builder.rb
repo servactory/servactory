@@ -16,7 +16,7 @@ module Servactory
           inputs: collection_of_inputs,
           internals: collection_of_internals,
           outputs: collection_of_outputs,
-          dynamic_options: extract_dynamic_options_from(config)
+          config:
         )
 
         self
@@ -24,15 +24,24 @@ module Servactory
 
       private
 
-      def extract_dynamic_options_from(config)
-        config.input_option_helpers.dynamic_options
-      end
+      # rubocop:disable Metrics/MethodLength
+      def build_all_attributes(inputs:, internals:, outputs:, config:)
+        build_input_attributes_with(
+          collection: inputs, dynamic_options:
+          config.input_option_helpers.dynamic_options
+        )
 
-      def build_all_attributes(inputs:, internals:, outputs:, dynamic_options:)
-        build_input_attributes_with(collection: inputs, dynamic_options:)
-        build_internal_attributes_with(collection: internals, dynamic_options:)
-        build_output_attributes_with(collection: outputs, dynamic_options:)
+        build_internal_attributes_with(
+          collection: internals, dynamic_options:
+          config.internal_option_helpers.dynamic_options
+        )
+
+        build_output_attributes_with(
+          collection: outputs, dynamic_options:
+          config.output_option_helpers.dynamic_options
+        )
       end
+      # rubocop:enable Metrics/MethodLength
 
       def build_input_attributes_with(collection:, dynamic_options:)
         @inputs = build_attributes_with(

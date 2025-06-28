@@ -2,7 +2,7 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class Inclusion < Must
-        def self.use: (?option_name: Symbol) -> void
+        def self.use: (?::Symbol option_name) -> void
 
         private
 

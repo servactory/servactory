@@ -10,36 +10,57 @@ RSpec.describe Usual::DynamicOptions::Target::Example4, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyClass1 }
+    let(:service_class) { described_class::MyFirstService }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
                     internals: %i[],
                     outputs: %i[result]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        it {
-          expect(perform).to(
-            have_output(:result)
-              .contains("Usual::DynamicOptions::Target::Example4::MyClass1")
-          )
-        }
-      end
-
-      describe "но значение не входит в список" do
-        let(:service_class) { String }
-
-        it "возвращает кастомную ошибку" do
+    describe "validations" do
+      describe "inputs" do
+        it do
           expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Input,
-              "Custom error"
-            )
+            have_input(:service_class)
+              .type(Class)
+              .required
+              .target([described_class::MyFirstService])
+              .valid_with(attributes)
           )
         end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:result)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    context "when the input arguments are valid" do
+      it { expect(perform).to be_success_service }
+
+      it {
+        expect(perform).to(
+          have_output(:result)
+            .contains("Usual::DynamicOptions::Target::Example4::MyFirstService")
+        )
+      }
+    end
+
+    context "when the input arguments are invalid" do
+      let(:service_class) { String }
+
+      it "raises a custom error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Input,
+            "Custom error"
+          )
+        )
       end
     end
   end

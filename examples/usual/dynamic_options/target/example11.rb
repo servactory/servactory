@@ -4,15 +4,16 @@ module Usual
   module DynamicOptions
     module Target
       class Example11 < ApplicationService::Base
-        MyClass1 = Struct.new(:id, keyword_init: true)
-        MyClass2 = Struct.new(:id, keyword_init: true)
+        class MyFirstService; end # rubocop:disable Lint/EmptyClass
+        class MySecondService; end # rubocop:disable Lint/EmptyClass
 
+        # NOTE: Option `target` is not specifically used here.
         input :service_class, type: Class
 
         internal :service_class,
                  type: Class,
-                 target: {
-                   in: [MyClass1, MyClass2],
+                 expect: {
+                   in: [MyFirstService, MySecondService],
                    message: lambda { |internal:, value:, option_value:, **|
                      "Internal `#{internal.name}`: #{value.inspect} is not allowed. " \
                        "Allowed: #{Array(option_value).map(&:name).join(', ')}"

@@ -6,7 +6,7 @@ module Servactory
       class Target < Must
         def self.use(option_name = :target)
           instance = new(option_name, :in)
-          instance.must(:be_target)
+          instance.must(:"be_#{option_name}")
         end
 
         def condition_for_input_with(input:, value:, option:)

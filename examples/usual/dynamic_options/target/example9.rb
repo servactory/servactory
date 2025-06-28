@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
+# TODO: Need to add a wrong example to test the exception.
 module Usual
   module DynamicOptions
     module Target
       class Example9 < ApplicationService::Base
-        MyClass1 = Struct.new(:id, keyword_init: true)
+        class MyFirstService; end # rubocop:disable Lint/EmptyClass
 
+        # NOTE: Option `target` is not specifically used here.
         input :service_class, type: Class
 
-        output :service_class, type: Class, target: MyClass1
+        output :service_class, type: Class, target: MyFirstService
 
         make :assign_output
 
