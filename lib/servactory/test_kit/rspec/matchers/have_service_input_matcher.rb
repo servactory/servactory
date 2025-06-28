@@ -4,6 +4,7 @@ require_relative "have_service_input_matchers/default_matcher"
 require_relative "have_service_input_matchers/optional_matcher"
 require_relative "have_service_input_matchers/required_matcher"
 require_relative "have_service_input_matchers/valid_with_matcher"
+require_relative "have_service_attribute_matchers/target_matcher"
 
 module Servactory
   module TestKit
@@ -149,6 +150,17 @@ module Servactory
               input_name,
               @last_submatcher,
               message
+            )
+            self
+          end
+
+          def target(values)
+            add_submatcher(
+              HaveServiceAttributeMatchers::TargetMatcher,
+              described_class,
+              :input,
+              input_name,
+              Array(values)
             )
             self
           end

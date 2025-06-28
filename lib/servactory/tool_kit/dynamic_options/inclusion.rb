@@ -10,23 +10,23 @@ module Servactory
         end
 
         def condition_for_input_with(input:, value:, option:)
-          if input.required? || (input.optional? && !value.nil?) # rubocop:disable Style/IfUnlessModifier
-            return option.value.include?(value)
-          end
+          inclusion_values = normalize_inclusion_values(option.value)
 
-          if input.optional? && value.nil? && !input.default.nil? # rubocop:disable Style/IfUnlessModifier
-            return option.value.include?(input.default)
-          end
+          return inclusion_values.include?(value) if input.required? || (input.optional? && !value.nil?)
+
+          return inclusion_values.include?(input.default) if input.optional? && value.nil? && !input.default.nil?
 
           true
         end
 
         def condition_for_internal_with(value:, option:, **)
-          option.value.include?(value)
+          inclusion_values = normalize_inclusion_values(option.value)
+          inclusion_values.include?(value)
         end
 
         def condition_for_output_with(value:, option:, **)
-          option.value.include?(value)
+          inclusion_values = normalize_inclusion_values(option.value)
+          inclusion_values.include?(value)
         end
 
         ########################################################################
@@ -56,6 +56,12 @@ module Servactory
             value: value.inspect,
             output_inclusion: option_value.inspect
           )
+        end
+
+        private
+
+        def normalize_inclusion_values(option_value)
+          option_value.is_a?(Array) ? option_value : [option_value]
         end
       end
     end

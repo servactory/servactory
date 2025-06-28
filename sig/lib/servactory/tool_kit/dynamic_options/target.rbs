@@ -1,0 +1,16 @@
+module Servactory
+  module ToolKit
+    module DynamicOptions
+      class Target < Must
+        def self.use: (?option_name: Symbol) -> void
+
+        private
+
+        def normalize_target_values: (
+            (Array[untyped] | untyped) option_value,
+          Array[Class]types
+        ) -> Array[untyped]
+      end
+    end
+  end
+end 

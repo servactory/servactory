@@ -5,8 +5,8 @@ module Servactory
     module Rspec
       module Matchers
         module HaveServiceAttributeMatchers
-          class InclusionMatcher
-            OPTION_NAME = :inclusion
+          class TargetMatcher
+            OPTION_NAME = :target
             OPTION_BODY_KEY = :in
 
             attr_reader :missing_option
@@ -24,7 +24,7 @@ module Servactory
             end
 
             def description
-              "inclusion: #{values.join(', ')}"
+              "target: #{values.map { |v| v.respond_to?(:name) ? v.name : v.to_s }.join(', ')}"
             end
 
             def matches?(subject)
@@ -47,27 +47,25 @@ module Servactory
                         :attribute_data
 
             def submatcher_passes?(_subject)
-              attribute_inclusion = attribute_data.fetch(OPTION_NAME)
-              attribute_inclusion_in = attribute_inclusion.fetch(OPTION_BODY_KEY)
+              attribute_target = attribute_data.fetch(OPTION_NAME)
+              attribute_target_in = attribute_target.fetch(OPTION_BODY_KEY)
 
-              # Приводим к массиву, если не respond_to?(:difference)
               expected = values.respond_to?(:difference) ? values : [values]
-              actual =
-                attribute_inclusion_in.respond_to?(:difference) ? attribute_inclusion_in : [attribute_inclusion_in]
+              actual = attribute_target_in.respond_to?(:difference) ? attribute_target_in : [attribute_target_in]
 
               actual.difference(expected).empty? &&
                 expected.difference(actual).empty?
             end
 
             def build_missing_option
-              attribute_inclusion = attribute_data.fetch(OPTION_NAME)
-              attribute_inclusion_in = attribute_inclusion.fetch(OPTION_BODY_KEY)
+              attribute_target = attribute_data.fetch(OPTION_NAME)
+              attribute_target_in = attribute_target.fetch(OPTION_BODY_KEY)
 
               <<~MESSAGE
-                should include the expected values
+                should include the expected target values
 
                   expected #{values.inspect}
-                       got #{attribute_inclusion_in.inspect}
+                       got #{attribute_target_in.inspect}
               MESSAGE
             end
           end
