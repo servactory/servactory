@@ -39,18 +39,22 @@ module Servactory
           end
         end
 
-        def process_option(check_key, check_options, input:)
-          validation_classes_from(input).each do |validation_class|
+        def process_option(check_key, check_options, input:) # rubocop:disable Metrics/MethodLength
+          # Store in local variable to avoid multiple method calls, even though validation_classes_from is memoized
+          validation_classes = validation_classes_from(input)
+          return if validation_classes.empty?
+
+          validation_classes.each do |validation_class|
             errors_from_checks = process_validation_class(
               validation_class:,
               input:,
               check_key:,
               check_options:
-            ).to_a
+            )
 
-            next if errors_from_checks.empty?
+            next if errors_from_checks.nil? || errors_from_checks.empty?
 
-            errors.merge(errors_from_checks)
+            errors.merge(errors_from_checks.to_a)
           end
         end
 
@@ -72,7 +76,8 @@ module Servactory
         ########################################################################
 
         def validation_classes_from(input)
-          input.collection_of_options.validation_classes
+          @validation_classes_cache ||= {}
+          @validation_classes_cache[input.name] ||= input.collection_of_options.validation_classes
         end
 
         ########################################################################
