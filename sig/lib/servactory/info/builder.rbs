@@ -27,7 +27,7 @@ module Servactory
           inputs: Inputs::Collection,
           internals: Internals::Collection,
           outputs: Outputs::Collection,
-          dynamic_options: untyped
+          config: Configuration::Setup
         ) -> void
 
       def build_input_attributes_with: (
