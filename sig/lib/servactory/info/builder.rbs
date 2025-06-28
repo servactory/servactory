@@ -21,8 +21,6 @@ module Servactory
 
       private
 
-      def extract_dynamic_options_from: (Configuration::Setup config) -> Configuration::OptionHelpers::OptionHelpersCollection
-
       def build_all_attributes: (
           inputs: Inputs::Collection,
           internals: Internals::Collection,
