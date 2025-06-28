@@ -2,7 +2,7 @@
 
 module Servactory
   module Info
-    class Builder
+    class Builder # rubocop:disable Metrics/ClassLength
       attr_reader :inputs,
                   :internals,
                   :outputs
@@ -27,18 +27,18 @@ module Servactory
       # rubocop:disable Metrics/MethodLength
       def build_all_attributes(inputs:, internals:, outputs:, config:)
         build_input_attributes_with(
-          collection: inputs, dynamic_options:
-          config.input_option_helpers.dynamic_options
+          collection: inputs,
+          dynamic_options: config.input_option_helpers.dynamic_options
         )
 
         build_internal_attributes_with(
-          collection: internals, dynamic_options:
-          config.internal_option_helpers.dynamic_options
+          collection: internals,
+          dynamic_options: config.internal_option_helpers.dynamic_options
         )
 
         build_output_attributes_with(
-          collection: outputs, dynamic_options:
-          config.output_option_helpers.dynamic_options
+          collection: outputs,
+          dynamic_options: config.output_option_helpers.dynamic_options
         )
       end
       # rubocop:enable Metrics/MethodLength
