@@ -1,0 +1,9 @@
+module Servactory
+  module Outputs
+    module Tools
+      class ReservedNames
+        RESERVED_NAMES: Array[Symbol]
+      end
+    end
+  end
+end

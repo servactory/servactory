@@ -2,18 +2,16 @@ module Servactory
   module Inputs
     module Tools
       class Validation
-        @context: Servactory::Context::Workspace
+        @context: Context::Workspace
         @collection_of_inputs: Collection
 
         def self.validate!: (*untyped, **untyped) ?{ (?) -> untyped } -> void
 
-        def initialize: (Servactory::Context::Workspace context, Collection collection_of_inputs) -> void
+        def initialize: (Context::Workspace context, Collection collection_of_inputs) -> void
 
         def validate!: () -> void
 
         private
-
-        def check_reserved_names_for: (Input input) -> void
 
         @errors: Maintenance::Attributes::Tools::CheckErrors
 

@@ -3,7 +3,7 @@ module Servactory
     module Attributes
       module Tools
         class Validation
-          @context: Servactory::Context::Workspace
+          @context: Context::Workspace
           @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
           @value: untyped
           @validation_classes: Array[Class]
@@ -15,8 +15,6 @@ module Servactory
           def validate!: () -> void
 
           private
-
-          def check_reserved_names: () -> void
 
           @errors: Maintenance::Attributes::Tools::CheckErrors
 
