@@ -34,8 +34,6 @@ module Servactory
             )
           end
 
-          ######################################################################
-
           def fail_method_for(attribute)
             case attribute.system_name
             when :input then :fail_input!

@@ -24,17 +24,22 @@ module Servactory
         def check_for!(input)
           return unless input.with_conflicts?
 
-          raise_error_for(input)
+          raise_exception_for(input)
         end
 
-        def raise_error_for(input)
-          message_text = @context.send(:servactory_service_info).translate(
+        def raise_exception_for(input)
+          @context.fail_input!(
+            input.name,
+            message: exception_message_for(input)
+          )
+        end
+
+        def exception_message_for(input)
+          @context.send(:servactory_service_info).translate(
             "inputs.tools.rules.error",
             input_name: input.name,
             conflict_code: input.conflict_code
           )
-
-          @context.fail_input!(input.name, message: message_text)
         end
       end
     end
