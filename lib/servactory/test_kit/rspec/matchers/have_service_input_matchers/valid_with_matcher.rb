@@ -133,13 +133,8 @@ module Servactory
 
               return true if input_inclusion_in.blank?
 
-              wrong_value_class =
-                if input_inclusion_in.respond_to?(:first)
-                  input_inclusion_in.first.class
-                else
-                  input_inclusion_in.class
-                end
-              wrong_value = Servactory::TestKit::Utils::Faker.fetch_value_for(wrong_value_class)
+              wrong_value =
+                Servactory::TestKit::Utils::Faker.fetch_value_for(input_inclusion_in.first.class)
 
               prepared_attributes = attributes.dup
               prepared_attributes[attribute_name] = wrong_value
