@@ -1,43 +1,29 @@
 # frozen_string_literal: true
 
 RSpec.describe Usual::DynamicOptions::Target::Example12, type: :service do
+  let(:attributes) { { service_class: } }
+  let(:service_class) { described_class::MyFirstService }
+
+  it_behaves_like "check class info",
+                  inputs: %i[service_class],
+                  internals: %i[],
+                  outputs: %i[service_class]
+
+  describe "validations" do
+    describe "inputs" do
+      it do
+        expect { perform }.to(
+          have_input(:service_class)
+            .type(Class)
+            .required
+            .valid_with(attributes)
+        )
+      end
+    end
+  end
+
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
-
-    let(:attributes) do
-      {
-        service_class:
-      }
-    end
-
-    let(:service_class) { described_class::MyFirstService }
-
-    it_behaves_like "check class info",
-                    inputs: %i[service_class],
-                    internals: %i[],
-                    outputs: %i[service_class]
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:service_class)
-              .type(Class)
-              .required
-              .valid_with(attributes)
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:service_class)
-              .instance_of(Class)
-          )
-        end
-      end
-    end
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid (MyFirstService)" do
@@ -52,7 +38,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example12, type: :service do
         it { expect(perform).to have_output(:service_class).contains(described_class::MySecondService) }
       end
 
-      describe "when output does not pass target validation" do
+      context "when required data for work is invalid" do
         let(:service_class) { String }
 
         it "raises a dynamic output error" do
@@ -65,6 +51,39 @@ RSpec.describe Usual::DynamicOptions::Target::Example12, type: :service do
             )
           )
         end
+      end
+    end
+  end
+
+  describe ".call" do
+    subject(:perform) { described_class.call(**attributes) }
+
+    context "when the input arguments are valid" do
+      describe "and the data required for work is also valid (MyFirstService)" do
+        it { expect(perform).to be_success_service }
+        it { expect(perform).to have_output(:service_class).contains(described_class::MyFirstService) }
+      end
+
+      describe "and the data required for work is also valid (MySecondService)" do
+        let(:service_class) { described_class::MySecondService }
+
+        it { expect(perform).to be_success_service }
+        it { expect(perform).to have_output(:service_class).contains(described_class::MySecondService) }
+      end
+    end
+
+    context "when required data for work is invalid" do
+      let(:service_class) { String }
+
+      it "returns expected failure" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Output,
+            "Output `service_class`: String is not allowed. " \
+            "Allowed: Usual::DynamicOptions::Target::Example12::MyFirstService, " \
+            "Usual::DynamicOptions::Target::Example12::MySecondService"
+          )
+        )
       end
     end
   end
