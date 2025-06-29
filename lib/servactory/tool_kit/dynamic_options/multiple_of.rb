@@ -5,7 +5,7 @@ module Servactory
     module DynamicOptions
       class MultipleOf < Must
         def self.use(option_name = :multiple_of)
-          new(option_name).must(:be_multiple_of)
+          new(option_name).must(:"be_#{option_name}")
         end
 
         def condition_for_input_with(...)
