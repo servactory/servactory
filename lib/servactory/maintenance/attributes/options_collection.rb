@@ -17,7 +17,7 @@ module Servactory
         end
 
         def validation_classes
-          filter { |option| option.validation_class.present? }
+          @validation_classes ||= filter { |option| option.validation_class.present? }
             .map(&:validation_class)
             .uniq
         end
