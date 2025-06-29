@@ -14,18 +14,14 @@ module Servactory
         end
 
         def check!
-          @collection_of_inputs.each do |input|
-            check_for!(input)
-          end
-        end
+          input = @collection_of_inputs.find(&:with_conflicts?)
 
-        private
-
-        def check_for!(input)
-          return unless input.with_conflicts?
+          return if input.nil?
 
           raise_exception_for(input)
         end
+
+        private
 
         def raise_exception_for(input)
           @context.fail_input!(

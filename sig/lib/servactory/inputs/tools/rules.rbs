@@ -13,8 +13,6 @@ module Servactory
 
         private
 
-        def check_for!: (Input input) -> void
-
         def raise_exception_for: (Input input) -> void
 
         def exception_message_for: (Input input) -> String
