@@ -17,6 +17,7 @@ module Servactory
 
           def validate!
             process
+
             raise_errors
           end
 
