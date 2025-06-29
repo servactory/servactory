@@ -50,13 +50,8 @@ module Servactory
               attribute_inclusion = attribute_data.fetch(OPTION_NAME)
               attribute_inclusion_in = attribute_inclusion.fetch(OPTION_BODY_KEY)
 
-              # Приводим к массиву, если не respond_to?(:difference)
-              expected = values.respond_to?(:difference) ? values : [values]
-              actual =
-                attribute_inclusion_in.respond_to?(:difference) ? attribute_inclusion_in : [attribute_inclusion_in]
-
-              actual.difference(expected).empty? &&
-                expected.difference(actual).empty?
+              attribute_inclusion_in.difference(values).empty? &&
+                values.difference(attribute_inclusion_in).empty?
             end
 
             def build_missing_option
