@@ -49,7 +49,7 @@ ru:
           error: "[%{service_class_name}] Неожиданные атрибуты: `%{unnecessary_attributes}`"
         rules:
           error: "[%{service_class_name}] Конфликт в опциях инпута `%{input_name}`: `%{conflict_code}`"
-        reserved_name:
+        reserved_names:
           error: "[%{service_class_name}] Инпут использует зарезервированное имя `%{input_name}`"
     internals:
       undefined:
@@ -86,7 +86,7 @@ ru:
           default_error:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
       tools:
-        reserved_name:
+        reserved_names:
           error: "[%{service_class_name}] Внутренний атрибут использует зарезервированное имя `%{internal_name}`"
     outputs:
       undefined:
@@ -123,5 +123,5 @@ ru:
           default_error:
             default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
       tools:
-        reserved_name:
+        reserved_names:
           error: "[%{service_class_name}] Выходящий атрибут использует зарезервированное имя `%{output_name}`"

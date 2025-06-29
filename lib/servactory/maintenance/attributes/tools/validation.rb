@@ -16,21 +16,11 @@ module Servactory
           end
 
           def validate!
-            check_reserved_names
             process
             raise_errors
           end
 
           private
-
-          def check_reserved_names
-            Servactory::Maintenance::Attributes::Tools::CheckReservedNames.validate!(
-              context: @context,
-              attribute: @attribute
-            )
-          end
-
-          ######################################################################
 
           def process
             @attribute.options_for_checks.each do |check_key, check_options|
