@@ -30,12 +30,16 @@ module Servactory
           end
 
           def process_option(check_key, check_options)
+            return if validation_classes.empty?
+
             validation_classes.each do |validation_class|
               errors_from_checks = process_validation_class(
                 validation_class:,
                 check_key:,
                 check_options:
               )
+
+              next if errors_from_checks.nil? || errors_from_checks.empty?
 
               errors.merge(errors_from_checks.to_a)
             end
