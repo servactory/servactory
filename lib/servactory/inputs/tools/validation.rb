@@ -65,8 +65,7 @@ module Servactory
         ########################################################################
 
         def validation_classes_from(input)
-          @validation_classes_cache ||= {}
-          @validation_classes_cache[input.name] ||= input.collection_of_options.validation_classes
+          @validation_classes_cache ||= input.collection_of_options.validation_classes # rubocop:disable Naming/MemoizedInstanceVariableName
         end
 
         ########################################################################
