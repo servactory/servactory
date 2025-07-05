@@ -73,13 +73,14 @@ module Servactory
         @stages = collection.to_h do |stage|
           [
             :"stage_#{stage.position}",
-            stage.actions.map do |action|
-              {
-                action.name => {
+            stage.actions.to_h do |action|
+              [
+                action.name,
+                {
                   position: action.position,
                   condition: action.condition
                 }
-              }
+              ]
             end
           ]
         end
