@@ -21,8 +21,6 @@ module Servactory
           ?condition: (bool | Proc)?,
         ) -> void
 
-        def next_action_position: () -> Integer
-
         def actions: () -> Actions::Collection
       end
     end

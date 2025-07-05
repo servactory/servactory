@@ -17,10 +17,6 @@ module Servactory
           @condition = condition
         end
 
-        def next_action_position
-          actions.size + 1
-        end
-
         def actions
           @actions ||= Servactory::Actions::Collection.new
         end
