@@ -5,6 +5,8 @@ module Servactory
 
       module ClassMethods
         def info: () -> Result
+
+        def servactory?: -> bool
       end
     end
   end
