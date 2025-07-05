@@ -5,6 +5,7 @@ module Servactory
     module DSL
       def self.included(base)
         base.extend(ClassMethods)
+        base.include(Workspace)
       end
 
       module ClassMethods

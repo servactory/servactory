@@ -11,6 +11,7 @@ module Servactory
         Tools::Warehouse.assign(self, incoming_arguments)
 
         Tools::Unnecessary.find!(self, collection_of_inputs)
+        Tools::ReservedNames.check!(self, collection_of_inputs)
         Tools::Rules.check!(self, collection_of_inputs)
         Tools::Validation.validate!(self, collection_of_inputs)
       end

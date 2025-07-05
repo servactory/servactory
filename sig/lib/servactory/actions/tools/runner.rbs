@@ -29,7 +29,7 @@ module Servactory
 
         def prepare_condition_for: ((Proc | bool)? condition) -> bool
 
-        def rescue_with_handler: (Exception exception) -> Exception?
+        def rescue_with_handler: (Exception exception) -> void
       end
     end
   end
