@@ -77,7 +77,7 @@ module Servactory
 
           current_stage = @current_stage.presence || Stages::Stage.new(position:)
 
-          current_stage.methods << Action.new(
+          current_stage.actions << Action.new(
             name,
             position:,
             **options

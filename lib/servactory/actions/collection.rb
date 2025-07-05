@@ -4,7 +4,7 @@ module Servactory
   module Actions
     class Collection
       extend Forwardable
-      def_delegators :@collection, :<<, :each, :sort_by
+      def_delegators :@collection, :<<, :each, :map, :sort_by
 
       def initialize(collection = Set.new)
         @collection = collection

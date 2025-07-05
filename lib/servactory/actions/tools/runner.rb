@@ -32,17 +32,17 @@ module Servactory
 
           wrapper = stage.wrapper
           rollback = stage.rollback
-          methods = stage.methods.sorted_by_position
+          actions = stage.actions.sorted_by_position
 
           if wrapper.is_a?(Proc)
-            call_wrapper_with_methods(wrapper, rollback, methods)
+            call_wrapper_with_actions(wrapper, rollback, actions)
           else
-            call_methods(methods)
+            call_actions(actions)
           end
         end
 
-        def call_wrapper_with_methods(wrapper, rollback, methods) # rubocop:disable Metrics/MethodLength
-          wrapper.call(methods: -> { call_methods(methods) }, context: @context)
+        def call_wrapper_with_actions(wrapper, rollback, actions) # rubocop:disable Metrics/MethodLength
+          wrapper.call(methods: -> { call_actions(actions) }, context: @context)
         rescue StandardError => e
           if rollback.present?
             @context.send(rollback, e)
@@ -56,16 +56,16 @@ module Servactory
           end
         end
 
-        def call_methods(methods)
-          methods.each do |method|
-            next if unnecessary_for_make?(method)
+        def call_actions(actions)
+          actions.each do |action|
+            next if unnecessary_for_make?(action)
 
-            call_method(method)
+            call_action(action)
           end
         end
 
-        def call_method(method)
-          @context.send(method.name)
+        def call_action(action)
+          @context.send(action.name)
         rescue StandardError => e
           rescue_with_handler(e) || raise
         end
@@ -79,9 +79,9 @@ module Servactory
           is_condition_opposite ? !result : result
         end
 
-        def unnecessary_for_make?(make_method)
-          condition = make_method.condition
-          is_condition_opposite = make_method.is_condition_opposite
+        def unnecessary_for_make?(make_action)
+          condition = make_action.condition
+          is_condition_opposite = make_action.is_condition_opposite
 
           result = prepare_condition_for(condition)
 
