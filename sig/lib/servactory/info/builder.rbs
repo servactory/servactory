@@ -10,6 +10,7 @@ module Servactory
           collection_of_inputs: Inputs::Collection,
           collection_of_internals: Internals::Collection,
           collection_of_outputs: Outputs::Collection,
+          collection_of_stages: Actions::Stages::Collection,
           config: Configuration::Setup
         ) -> Builder
 
