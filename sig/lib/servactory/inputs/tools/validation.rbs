@@ -4,6 +4,7 @@ module Servactory
       class Validation
         @context: instance
         @collection_of_inputs: Collection
+        @validation_classes_cache: Array[Class]
 
         def self.validate!: (*untyped, **untyped) ?{ (?) -> untyped } -> Exception?
 
