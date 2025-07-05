@@ -3,7 +3,7 @@
 module Servactory
   module VERSION
     MAJOR = 2
-    MINOR = 14
+    MINOR = 15
     PATCH = 1
     PRE = nil
 

@@ -46,7 +46,12 @@ RSpec.describe Usual::DynamicOptions::Schema::Example9, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it { expect(perform).to have_output(:issued_on).contains("2023-01-01") }
+      it do
+        expect(perform).to(
+          have_output(:issued_on)
+            .contains("2023-01-01")
+        )
+      end
     end
   end
 
@@ -56,7 +61,12 @@ RSpec.describe Usual::DynamicOptions::Schema::Example9, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it { expect(perform).to have_output(:issued_on).contains("2023-01-01") }
+      it do
+        expect(perform).to(
+          have_output(:issued_on)
+            .contains("2023-01-01")
+        )
+      end
     end
   end
 end

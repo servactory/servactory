@@ -18,6 +18,10 @@ module Servactory
 
           Result.new(builder)
         end
+
+        def servactory?
+          true
+        end
       end
     end
   end
