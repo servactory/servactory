@@ -19,6 +19,7 @@ module Servactory
           Result.new(builder)
         end
 
+        # API: Servactory Web
         def servactory?
           true
         end
