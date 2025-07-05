@@ -21,7 +21,7 @@ module Servactory
           ?condition: (bool | Proc)?,
         ) -> void
 
-        def next_method_position: () -> Integer
+        def next_action_position: () -> Integer
 
         def methods: () -> Actions::Collection
       end

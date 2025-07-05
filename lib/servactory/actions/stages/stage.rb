@@ -17,12 +17,12 @@ module Servactory
           @condition = condition
         end
 
-        def next_method_position
-          methods.size + 1
+        def next_action_position
+          actions.size + 1
         end
 
-        def methods
-          @methods ||= Collection.new
+        def actions
+          @actions ||= Collection.new
         end
       end
     end
