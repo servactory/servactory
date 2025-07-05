@@ -3,20 +3,48 @@
 module Servactory
   module Context
     module Callable
-      def call!(arguments = {})
-        context = send(:new)
+      module Arguments
+        def self.collection
+          @collection ||= {}
+        end
 
-        _call!(context, arguments)
+        def self.add(name, value)
+          collection[name] = value
+        end
+
+        def self.merge(incoming_arguments)
+          incoming_arguments = Servactory::Utils.adapt(incoming_arguments)
+
+          collection.merge!(incoming_arguments)
+        end
+
+        def self.clear
+          @collection = {}
+        end
+      end
+
+      def call!(arguments = {})
+        Arguments.merge(arguments)
+
+        context = send(:new, Arguments.collection)
+
+        Arguments.clear
+
+        _call!(context)
 
         config.result_class.success_for(context:)
       rescue config.success_class => e
         config.result_class.success_for(context: e.context)
       end
 
-      def call(arguments = {})
-        context = send(:new)
+      def call(arguments = {}) # rubocop:disable Metrics/AbcSize
+        Arguments.merge(arguments)
 
-        _call!(context, arguments)
+        context = send(:new, Arguments.collection)
+
+        Arguments.clear
+
+        _call!(context)
 
         config.result_class.success_for(context:)
       rescue config.success_class => e
@@ -25,12 +53,26 @@ module Servactory
         config.result_class.failure_for(context:, exception: e)
       end
 
+      def method_missing(name, *args)
+        return super unless (input = collection_of_inputs.find_by(name:)).present?
+
+        value = args.first
+        value = true if input.types.include?(TrueClass) && value.nil?
+
+        Arguments.add(name, value)
+
+        self
+      end
+
+      def respond_to_missing?(name, *)
+        collection_of_inputs.names.include?(name) || super
+      end
+
       private
 
-      def _call!(context, incoming_arguments)
+      def _call!(context)
         context.send(
           :_call!,
-          incoming_arguments:,
           collection_of_inputs:,
           collection_of_internals:,
           collection_of_outputs:,
