@@ -22,7 +22,7 @@ module Servactory
         end
 
         def actions
-          @actions ||= Collection.new
+          @actions ||= Servactory::Actions::Collection.new
         end
       end
     end

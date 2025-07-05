@@ -5,17 +5,19 @@ module Servactory
     class Builder # rubocop:disable Metrics/ClassLength
       attr_reader :inputs,
                   :internals,
-                  :outputs
+                  :outputs,
+                  :stages
 
       def self.build(...)
         new.build(...)
       end
 
-      def build(collection_of_inputs:, collection_of_internals:, collection_of_outputs:, config:)
+      def build(collection_of_inputs:, collection_of_internals:, collection_of_outputs:, collection_of_stages:, config:)
         build_all_attributes(
           inputs: collection_of_inputs,
           internals: collection_of_internals,
           outputs: collection_of_outputs,
+          stages: collection_of_stages,
           config:
         )
 
@@ -25,7 +27,7 @@ module Servactory
       private
 
       # rubocop:disable Metrics/MethodLength
-      def build_all_attributes(inputs:, internals:, outputs:, config:)
+      def build_all_attributes(inputs:, internals:, outputs:, stages:, config:)
         build_input_attributes_with(
           collection: inputs,
           dynamic_options: config.input_option_helpers.dynamic_options
@@ -40,6 +42,8 @@ module Servactory
           collection: outputs,
           dynamic_options: config.output_option_helpers.dynamic_options
         )
+
+        build_action_stages_with(collection: stages)
       end
       # rubocop:enable Metrics/MethodLength
 
@@ -63,6 +67,22 @@ module Servactory
           collection:,
           dynamic_options:
         )
+      end
+
+      def build_action_stages_with(collection:) # rubocop:disable Metrics/MethodLength
+        @stages = collection.to_h do |stage|
+          [
+            :"stage_#{stage.position}",
+            stage.actions.map do |action|
+              {
+                action.name => {
+                  position: action.position,
+                  condition: action.condition
+                }
+              }
+            end
+          ]
+        end
       end
 
       def build_attributes_with(collection:, dynamic_options:, include_specific_options: false) # rubocop:disable Metrics/MethodLength
