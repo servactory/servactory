@@ -2,15 +2,15 @@ module Servactory
   module Inputs
     module Tools
       class Validation
-        @context: instance
+        @context: Context::Workspace
         @collection_of_inputs: Collection
         @validation_classes_cache: Array[Class]
 
-        def self.validate!: (*untyped, **untyped) ?{ (?) -> untyped } -> Exception?
+        def self.validate!: (*untyped, **untyped) ?{ (?) -> untyped } -> void
 
-        def initialize: (instance context, Collection collection_of_inputs) -> void
+        def initialize: (Context::Workspace context, Collection collection_of_inputs) -> void
 
-        def validate!: () -> Exception?
+        def validate!: () -> void
 
         private
 
