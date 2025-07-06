@@ -5,10 +5,8 @@ module Servactory
     module Workspace
       private
 
-      def call!(incoming_arguments:, **)
+      def call!(**)
         super
-
-        Tools::Warehouse.assign(self, incoming_arguments)
 
         Tools::Unnecessary.find!(self, collection_of_inputs)
         Tools::Rules.check!(self, collection_of_inputs)
