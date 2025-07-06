@@ -23,8 +23,8 @@ module Servactory
             NilClass => method(:fake_nil_class)
           }
 
-          fake_klass = faker[class_for_fake] || -> { unsupported_faker(class_for_fake) }
-          fake_klass.call
+          fake_class = faker[class_for_fake] || -> { unsupported_faker(class_for_fake) }
+          fake_class.call
         end
 
         private
