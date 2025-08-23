@@ -4,11 +4,13 @@ module Servactory
       attr_reader inputs: Hash[Symbol, untyped]
       attr_reader internals: Hash[Symbol, untyped]
       attr_reader outputs: Hash[Symbol, untyped]
+      attr_reader stages: Hash[Symbol, untyped]
 
       def self.build: (
           collection_of_inputs: Inputs::Collection,
           collection_of_internals: Internals::Collection,
           collection_of_outputs: Outputs::Collection,
+          collection_of_stages: Actions::Stages::Collection,
           config: Configuration::Setup
         ) -> Builder
 
@@ -16,6 +18,7 @@ module Servactory
           collection_of_inputs: Inputs::Collection,
           collection_of_internals: Internals::Collection,
           collection_of_outputs: Outputs::Collection,
+          collection_of_stages: Actions::Stages::Collection,
           config: Configuration::Setup
         ) -> self
 
@@ -25,6 +28,7 @@ module Servactory
           inputs: Inputs::Collection,
           internals: Internals::Collection,
           outputs: Outputs::Collection,
+          stages: Actions::Stages::Collection,
           config: Configuration::Setup
         ) -> void
 
@@ -41,6 +45,10 @@ module Servactory
       def build_output_attributes_with: (
           collection: Outputs::Collection,
           dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
+        ) -> Hash[Symbol, untyped]
+
+      def build_action_stages_with: (
+          collection: Actions::Stages::Collection,
         ) -> Hash[Symbol, untyped]
 
       def build_attributes_with: (
