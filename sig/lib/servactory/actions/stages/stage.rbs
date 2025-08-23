@@ -12,7 +12,7 @@ module Servactory
 
         attr_accessor is_condition_opposite: bool
 
-        @methods: Actions::Collection
+        @actions: Actions::Collection
 
         def initialize: (
           position: Integer,
@@ -21,9 +21,7 @@ module Servactory
           ?condition: (bool | Proc)?,
         ) -> void
 
-        def next_method_position: () -> Integer
-
-        def methods: () -> Actions::Collection
+        def actions: () -> Actions::Collection
       end
     end
   end
