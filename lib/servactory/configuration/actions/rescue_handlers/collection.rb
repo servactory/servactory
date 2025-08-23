@@ -6,6 +6,7 @@ module Servactory
       module RescueHandlers
         class Collection
           extend Forwardable
+
           def_delegators :@collection, :+, :detect, :reverse_each
 
           def initialize(*)

@@ -6,6 +6,7 @@ module Servactory
       module Shortcuts
         class Collection
           extend Forwardable
+
           def_delegators :@collection, :merge!, :fetch, :keys
 
           def initialize(*)
