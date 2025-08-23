@@ -17,15 +17,15 @@ module Servactory
 
         def call_stage: (Stages::Stage stage) -> void
 
-        def call_wrapper_with_methods: (Proc wrapper, Symbol? rollback, Collection methods) -> void
+        def call_wrapper_with_actions: (Proc wrapper, Symbol? rollback, Collection actions) -> void
 
-        def call_methods: (Collection methods) -> void
+        def call_actions: (Collection actions) -> void
 
-        def call_method: (Action method) -> void
+        def call_action: (Action action) -> void
 
         def unnecessary_for_stage?: (Stages::Stage stage) -> bool
 
-        def unnecessary_for_make?: (Action method) -> bool
+        def unnecessary_for_make?: (Action action) -> bool
 
         def prepare_condition_for: ((Proc | bool)? condition) -> bool
 

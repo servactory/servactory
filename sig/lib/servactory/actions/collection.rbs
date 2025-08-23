@@ -5,7 +5,7 @@ module Servactory
 
       @collection: Set[Action]
 
-      def initialize: (Set[Action] collection) -> void
+      def initialize: (?Set[Action] collection) -> void
 
       def sorted_by_position: -> Collection
     end
