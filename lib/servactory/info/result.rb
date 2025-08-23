@@ -5,12 +5,14 @@ module Servactory
     class Result
       attr_reader :inputs,
                   :internals,
-                  :outputs
+                  :outputs,
+                  :stages
 
       def initialize(builder)
         @inputs = builder.inputs
         @internals = builder.internals
         @outputs = builder.outputs
+        @stages = builder.stages
       end
     end
   end

@@ -13,10 +13,16 @@ module Servactory
             collection_of_inputs:,
             collection_of_internals:,
             collection_of_outputs:,
+            collection_of_stages:,
             config:
           )
 
           Result.new(builder)
+        end
+
+        # API: Servactory Web
+        def servactory?
+          true
         end
       end
     end

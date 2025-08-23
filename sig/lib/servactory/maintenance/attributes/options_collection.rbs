@@ -5,6 +5,7 @@ module Servactory
         extend Forwardable
 
         @collection: Set[Option]
+        @validation_classes: Array[Class]
 
         def initialize: () -> void
 
