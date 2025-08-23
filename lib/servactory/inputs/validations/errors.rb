@@ -5,6 +5,7 @@ module Servactory
     module Validations
       class Errors
         extend Forwardable
+
         def_delegators :@collection, :<<, :to_a
 
         def initialize(*)

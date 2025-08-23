@@ -5,6 +5,7 @@ module Servactory
     module Stages
       class Collection
         extend Forwardable
+
         def_delegators :@collection, :<<, :each, :merge, :to_h, :sort_by, :size, :empty?
 
         def initialize(collection = Set.new)

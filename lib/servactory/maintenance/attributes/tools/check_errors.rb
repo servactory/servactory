@@ -6,6 +6,7 @@ module Servactory
       module Tools
         class CheckErrors
           extend Forwardable
+
           def_delegators :@collection, :merge, :reject, :first, :empty?
 
           def initialize(collection = Set.new)
