@@ -20,40 +20,6 @@ module Servactory
 
         ########################################################################
 
-        config_accessor(:default_input_option_helpers, instance_accessor: false) do
-          Set[
-            Servactory::Maintenance::Attributes::OptionHelper
-            .new(name: :optional, equivalent: { required: false }),
-            Servactory::ToolKit::DynamicOptions::ConsistsOf
-              .use(collection_mode_class_names:),
-            Servactory::ToolKit::DynamicOptions::Schema
-              .use(default_hash_mode_class_names:),
-            Servactory::ToolKit::DynamicOptions::Inclusion.use
-          ]
-        end
-
-        config_accessor(:default_internal_option_helpers, instance_accessor: false) do
-          Set[
-            Servactory::ToolKit::DynamicOptions::ConsistsOf
-            .use(collection_mode_class_names:),
-            Servactory::ToolKit::DynamicOptions::Schema
-              .use(default_hash_mode_class_names:),
-            Servactory::ToolKit::DynamicOptions::Inclusion.use
-          ]
-        end
-
-        config_accessor(:default_output_option_helpers, instance_accessor: false) do
-          Set[
-            Servactory::ToolKit::DynamicOptions::ConsistsOf
-            .use(collection_mode_class_names:),
-            Servactory::ToolKit::DynamicOptions::Schema
-              .use(default_hash_mode_class_names:),
-            Servactory::ToolKit::DynamicOptions::Inclusion.use
-          ]
-        end
-
-        ########################################################################
-
         config_accessor(:input_exception_class, instance_accessor: false) do
           Servactory::Exceptions::Input
         end
@@ -85,17 +51,17 @@ module Servactory
 
         config_accessor(:input_option_helpers, instance_accessor: false) do
           Servactory::Configuration::OptionHelpers::OptionHelpersCollection
-            .new(config.default_input_option_helpers)
+            .new(default_input_option_helpers)
         end
 
         config_accessor(:internal_option_helpers, instance_accessor: false) do
           Servactory::Configuration::OptionHelpers::OptionHelpersCollection
-            .new(config.default_internal_option_helpers)
+            .new(default_internal_option_helpers)
         end
 
         config_accessor(:output_option_helpers, instance_accessor: false) do
           Servactory::Configuration::OptionHelpers::OptionHelpersCollection
-            .new(config.default_output_option_helpers)
+            .new(default_output_option_helpers)
         end
 
         config_accessor(:action_aliases, instance_accessor: false) do
@@ -111,7 +77,7 @@ module Servactory
         end
       end
 
-      class_methods do
+      class_methods do # rubocop:disable Metrics/BlockLength
         private
 
         def default_collection_mode_class_names
@@ -120,6 +86,31 @@ module Servactory
 
         def default_hash_mode_class_names
           Set[Hash]
+        end
+
+        def default_input_option_helpers
+          Set[
+            Servactory::Maintenance::Attributes::OptionHelper.new(name: :optional, equivalent: { required: false }),
+            Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Inclusion.use
+          ]
+        end
+
+        def default_internal_option_helpers
+          Set[
+            Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Inclusion.use
+          ]
+        end
+
+        def default_output_option_helpers
+          Set[
+            Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Inclusion.use
+          ]
         end
       end
     end
