@@ -5,6 +5,7 @@ module Servactory
     module DSL
       def self.included(base)
         base.extend(ClassMethods)
+        base.include(Configurable)
       end
 
       module ClassMethods
@@ -33,10 +34,6 @@ module Servactory
           child.config.i18n_root_key = config.i18n_root_key
 
           child.config.predicate_methods_enabled = config.predicate_methods_enabled
-        end
-
-        def config
-          @config ||= Servactory::Configuration::Setup.new
         end
 
         private

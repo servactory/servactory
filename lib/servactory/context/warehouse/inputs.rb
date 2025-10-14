@@ -21,11 +21,11 @@ module Servactory
         ##########################################################################
 
         def method_missing(name, *_args)
-          input_name = @context.class.config.config.predicate_methods_enabled ? name.to_s.chomp("?").to_sym : name
+          input_name = @context.config.predicate_methods_enabled ? name.to_s.chomp("?").to_sym : name
 
           input_value = @arguments.fetch(input_name) { raise_error_for(input_name) }
 
-          if name.to_s.end_with?("?") && @context.class.config.config.predicate_methods_enabled
+          if name.to_s.end_with?("?") && @context.config.predicate_methods_enabled
             Servactory::Utils.query_attribute(input_value)
           else
             input_value
