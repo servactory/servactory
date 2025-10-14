@@ -44,11 +44,10 @@ module Servactory
     end
 
     def to_h
-      filtered = methods(false).filter do |key|
-        !key.in?(STATE_PREDICATE_NAMES) && !key.to_s.end_with?("?")
-      end
-
-      filtered.to_h { |key| [key, public_send(key)] }.compact
+      methods(false)
+        .reject { |key| key.in?(STATE_PREDICATE_NAMES) || key.to_s.end_with?("?") }
+        .to_h { |key| [key, public_send(key)] }
+        .compact
     end
 
     def inspect
@@ -67,7 +66,7 @@ module Servactory
       self
     end
 
-    def method_missing(name, *_args)
+    def method_missing(name, *args, &block)
       super
     rescue NoMethodError => e
       rescue_no_method_error_with(exception: e)

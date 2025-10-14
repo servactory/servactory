@@ -6,6 +6,7 @@ module Servactory
           @context: instance
           @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
           @value: untyped
+          @validation_classes: Array[Class]
 
           def self.validate!: (*untyped) ?{ () -> untyped } -> void
 

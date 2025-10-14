@@ -1,35 +1,90 @@
 module Servactory
   module Info
     class Builder
-      @inputs: Hash[Symbol, untyped]
-
-      @internals: Hash[Symbol, untyped]
-
-      @outputs: Hash[Symbol, untyped]
-
       attr_reader inputs: Hash[Symbol, untyped]
-
       attr_reader internals: Hash[Symbol, untyped]
-
       attr_reader outputs: Hash[Symbol, untyped]
+      attr_reader stages: Hash[Symbol, untyped]
 
-      def self.build: (*untyped, **untyped) ?{ (?) -> untyped } -> untyped
+      def self.build: (
+          collection_of_inputs: Inputs::Collection,
+          collection_of_internals: Internals::Collection,
+          collection_of_outputs: Outputs::Collection,
+          collection_of_stages: Actions::Stages::Collection,
+          config: Configuration::Setup
+        ) -> Builder
 
-      def build: (collection_of_inputs: Inputs::Collection, collection_of_internals: Internals::Collection, collection_of_outputs: Outputs::Collection, config: Configuration::Setup) -> self
+      def build: (
+          collection_of_inputs: Inputs::Collection,
+          collection_of_internals: Internals::Collection,
+          collection_of_outputs: Outputs::Collection,
+          collection_of_stages: Actions::Stages::Collection,
+          config: Configuration::Setup
+        ) -> self
 
       private
 
-      def build_inputs_with: (collection_of_inputs: Inputs::Collection, dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection) -> Hash[Symbol, untyped]
+      def build_all_attributes: (
+          inputs: Inputs::Collection,
+          internals: Internals::Collection,
+          outputs: Outputs::Collection,
+          stages: Actions::Stages::Collection,
+          config: Configuration::Setup
+        ) -> void
 
-      def build_internals_with: (collection_of_internals: Internals::Collection, dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection) -> Hash[Symbol, untyped]
+      def build_input_attributes_with: (
+          collection: Inputs::Collection,
+          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
+        ) -> Hash[Symbol, untyped]
 
-      def build_outputs_with: (collection_of_outputs: Outputs::Collection, dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection) -> Hash[Symbol, untyped]
+      def build_internal_attributes_with: (
+          collection: Internals::Collection,
+          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
+        ) -> Hash[Symbol, untyped]
 
-      def build_options_for: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute, Configuration::OptionHelpers::OptionHelpersCollection dynamic_options) -> Hash[Symbol, untyped]
+      def build_output_attributes_with: (
+          collection: Outputs::Collection,
+          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
+        ) -> Hash[Symbol, untyped]
 
-      def build_option_from: (body_key: Symbol, value: untyped) -> ::Hash[Symbol, untyped]
+      def build_action_stages_with: (
+          collection: Actions::Stages::Collection,
+        ) -> Hash[Symbol, untyped]
 
-      def enrich_options_for: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute, untyped options) -> Hash[Symbol, untyped]
+      def build_attributes_with: (
+          collection: (Inputs::Collection | Internals::Collection | Outputs::Collection),
+          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection,
+          ?include_specific_options: bool
+        ) -> Hash[Symbol, untyped]
+
+      def process_options_for: (
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
+        ) -> Hash[Symbol, untyped]
+
+      def build_dynamic_options_for: (
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          dynamic_options: Configuration::OptionHelpers::OptionHelpersCollection
+        ) -> Hash[Symbol, untyped]
+
+      def format_option_value: (
+          body_key: Symbol,
+          value: untyped
+        ) -> Hash[Symbol, untyped]
+
+      def extract_value_for_body_key: (
+          body_key: Symbol,
+          value: untyped
+        ) -> untyped
+
+      def extract_message_from_value: (
+          value: untyped
+        ) -> (String | nil)
+
+      def enrich_options_with_common_fields: (
+          attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+          options: Hash[Symbol, untyped]
+        ) -> Hash[Symbol, untyped]
     end
   end
 end

@@ -21,10 +21,7 @@ module Servactory
             unnecessary_attributes: unnecessary_attributes.join(", ")
           )
 
-          raise @context.class.config.input_exception_class.new(
-            context: @context,
-            message: message_text
-          )
+          @context.fail_input!(nil, message: message_text)
         end
 
         private

@@ -7,13 +7,13 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers # rubocop:disable Metrics/ModuleLength
-        def have_service_input(input_name) # rubocop:disable Naming/PredicateName
+        def have_service_input(input_name) # rubocop:disable Naming/PredicatePrefix
           HaveServiceInputMatcher.new(described_class, input_name)
         end
 
         RSpec::Matchers.alias_matcher :have_input, :have_service_input
 
-        def have_service_internal(internal_name) # rubocop:disable Naming/PredicateName
+        def have_service_internal(internal_name) # rubocop:disable Naming/PredicatePrefix
           HaveServiceInternalMatcher.new(described_class, internal_name)
         end
 

@@ -29,14 +29,19 @@ module Servactory
           end
         end
 
-        def process_option(check_key, check_options, input:)
-          validation_classes_from(input).each do |validation_class|
+        def process_option(check_key, check_options, input:) # rubocop:disable Metrics/MethodLength
+          validation_classes = validation_classes_from(input)
+          return if validation_classes.empty?
+
+          validation_classes.each do |validation_class|
             errors_from_checks = process_validation_class(
               validation_class:,
               input:,
               check_key:,
               check_options:
             )
+
+            next if errors_from_checks.nil? || errors_from_checks.empty?
 
             errors.merge(errors_from_checks.to_a)
           end
@@ -60,7 +65,7 @@ module Servactory
         ########################################################################
 
         def validation_classes_from(input)
-          input.collection_of_options.validation_classes
+          @validation_classes_cache ||= input.collection_of_options.validation_classes # rubocop:disable Naming/MemoizedInstanceVariableName
         end
 
         ########################################################################
@@ -72,10 +77,7 @@ module Servactory
         def raise_errors
           return if (tmp_errors = errors.not_blank).empty?
 
-          raise @context.class.config.input_exception_class.new(
-            context: @context,
-            message: tmp_errors.first
-          )
+          @context.fail_input!(nil, message: tmp_errors.first)
         end
       end
     end

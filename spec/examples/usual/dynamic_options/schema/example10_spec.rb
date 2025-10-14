@@ -16,8 +16,7 @@ RSpec.describe Usual::DynamicOptions::Schema::Example10, type: :service do
               {
                 issued_on: {
                   type: [Date, DateTime, Time],
-                  required: true,
-                  prepare: be_a(Proc)
+                  required: true
                 }
               }
             )
@@ -32,7 +31,12 @@ RSpec.describe Usual::DynamicOptions::Schema::Example10, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it { expect(perform).to have_output(:issued_on).contains("2023-01-01") }
+      it do
+        expect(perform).to(
+          have_output(:issued_on)
+            .contains(DateTime.new(2023, 1, 1))
+        )
+      end
     end
   end
 
@@ -42,7 +46,12 @@ RSpec.describe Usual::DynamicOptions::Schema::Example10, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it { expect(perform).to have_output(:issued_on).contains("2023-01-01") }
+      it do
+        expect(perform).to(
+          have_output(:issued_on)
+            .contains(DateTime.new(2023, 1, 1))
+        )
+      end
     end
   end
 end

@@ -17,13 +17,18 @@ RSpec.describe Usual::DynamicOptions::Schema::Example11, type: :service do
           have_output(:payload)
             .contains(
               {
-                issued_on: "2023-01-01"
+                issued_on: DateTime.new(2023, 1, 1)
               }
             )
         )
       end
 
-      it { expect(perform).to have_output(:issued_on).contains("2023-01-01") }
+      it do
+        expect(perform).to(
+          have_output(:issued_on)
+            .contains(DateTime.new(2023, 1, 1))
+        )
+      end
     end
   end
 
@@ -38,13 +43,18 @@ RSpec.describe Usual::DynamicOptions::Schema::Example11, type: :service do
           have_output(:payload)
             .contains(
               {
-                issued_on: "2023-01-01"
+                issued_on: DateTime.new(2023, 1, 1)
               }
             )
         )
       end
 
-      it { expect(perform).to have_output(:issued_on).contains("2023-01-01") }
+      it do
+        expect(perform).to(
+          have_output(:issued_on)
+            .contains(DateTime.new(2023, 1, 1))
+        )
+      end
     end
   end
 end

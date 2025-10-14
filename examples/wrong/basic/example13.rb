@@ -2,10 +2,10 @@
 
 module Wrong
   module Basic
-    class Example11 < ApplicationService::Base
+    class Example13 < ApplicationService::Base
       input :invoice_number, type: String
 
-      internal :prepared_invoice_number, type: [String, NilClass]
+      internal :prepared_invoice_number, type: String
 
       output :invoice_number, type: Integer
 

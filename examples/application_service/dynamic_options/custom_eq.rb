@@ -19,7 +19,7 @@ module ApplicationService
         common_condition_with(...)
       end
 
-      def common_condition_with(value:, option:, **)
+      def common_condition_with(value:, option:, **) # rubocop:disable Naming/PredicateMethod
         case value
         when Integer
           value == option.value
