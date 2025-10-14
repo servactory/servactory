@@ -1,0 +1,23 @@
+module Servactory
+  module Context
+    class StoreInputs
+      @context: instance
+
+      @arguments: Hash[Symbol, untyped]
+
+      attr_reader arguments: Hash[Symbol, untyped]
+
+      def initialize: (instance context, **Hash[Symbol, untyped] arguments) -> void
+
+      def names: () -> Array[Symbol]
+
+      def fetch: (Symbol name, untyped default_value) -> untyped
+
+      def assign: (untyped key, untyped value) -> untyped
+
+      def method_missing: (Symbol name, *untyped args) { (?) -> untyped } -> untyped
+
+      def respond_to_missing?: (Symbol name, *untyped) -> untyped
+    end
+  end
+end
