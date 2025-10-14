@@ -74,7 +74,7 @@ module Servactory
           condition = stage.condition
           is_condition_opposite = stage.is_condition_opposite
 
-          result = prepare_condition_for(condition)
+          result = checks_passed_for?(condition)
 
           is_condition_opposite ? !result : result
         end
@@ -83,12 +83,12 @@ module Servactory
           condition = make_action.condition
           is_condition_opposite = make_action.is_condition_opposite
 
-          result = prepare_condition_for(condition)
+          result = checks_passed_for?(condition)
 
           is_condition_opposite ? !result : result
         end
 
-        def prepare_condition_for(condition)
+        def checks_passed_for?(condition)
           return false if condition.nil?
           return !Servactory::Utils.true?(condition) unless condition.is_a?(Proc)
 
