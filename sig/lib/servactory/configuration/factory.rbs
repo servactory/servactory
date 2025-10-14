@@ -3,15 +3,15 @@ module Servactory
     class Factory
       @config: Setup
 
-      def input_exception_class: (singleton(Exceptions::Input) input_exception__class) -> (singleton(Exceptions::Input) | Exception)
+      def input_exception_class: (Exceptions::Input input_exception__class) -> (Exceptions::Input | Exception)
 
-      def internal_exception_class: (singleton(Exceptions::Internal) internal_exception__class) -> (singleton(Exceptions::Internal) | Exception)
+      def internal_exception_class: (Exceptions::Internal internal_exception__class) -> (Exceptions::Internal | Exception)
 
-      def output_exception_class: (singleton(Exceptions::Output) output_exception__class) -> (singleton(Exceptions::Output) | Exception)
+      def output_exception_class: (Exceptions::Output output_exception__class) -> (Exceptions::Output | Exception)
 
-      def failure_class: (singleton(Exceptions::Failure) failure_class) -> (singleton(Exceptions::Failure) | Exception)
+      def failure_class: (Exceptions::Failure failure_class) -> (Exceptions::Failure | Exception)
 
-      def result_class: (singleton(Result) failure_class) -> (singleton(Result) | Exception)
+      def result_class: (Result failure_class) -> (Result | Exception)
 
       def collection_mode_class_names: (Array[Hash[Symbol, untyped]] collection_mode_class_names) -> CollectionMode::ClassNamesCollection
 
