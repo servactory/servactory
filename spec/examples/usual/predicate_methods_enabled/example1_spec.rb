@@ -27,7 +27,6 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
 
         it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
 
-        # rubocop:disable Layout/LineLength
         it "returns expected error", :aggregate_failures do
           expect { perform.full_name? }.to raise_error do |exception|
             expect(exception).to be_a(ApplicationService::Exceptions::Failure)
@@ -44,7 +43,6 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
             expect(exception.meta).to match(original_exception: be_a(NoMethodError))
           end
         end
-        # rubocop:enable Layout/LineLength
       end
     end
 
@@ -81,7 +79,6 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
 
         it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
 
-        # rubocop:disable Layout/LineLength
         it "returns expected error", :aggregate_failures do
           expect { perform.full_name? }.to raise_error do |exception|
             expect(exception).to be_a(ApplicationService::Exceptions::Failure)
@@ -98,7 +95,6 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
             expect(exception.meta).to match(original_exception: be_a(NoMethodError))
           end
         end
-        # rubocop:enable Layout/LineLength
       end
     end
 
