@@ -9,7 +9,7 @@ module Servactory
           instance.must(:"be_#{option_name}")
         end
 
-        def condition_for_input_with(input:, value:, option:)
+        def condition_for_input_with(input:, value:, option:) # rubocop:disable Naming/PredicateMethod
           target_values = normalize_target_values(option.value, input.types)
 
           return target_values.include?(value) if input.required? || (input.optional? && !value.nil?)
@@ -19,13 +19,13 @@ module Servactory
           true
         end
 
-        def condition_for_internal_with(value:, option:, internal: nil, **)
+        def condition_for_internal_with(value:, option:, internal: nil, **) # rubocop:disable Naming/PredicateMethod
           target_values = normalize_target_values(option.value, internal.types)
 
           target_values.include?(value)
         end
 
-        def condition_for_output_with(value:, option:, output: nil, **)
+        def condition_for_output_with(value:, option:, output: nil, **) # rubocop:disable Naming/PredicateMethod
           target_values = normalize_target_values(option.value, output.types)
 
           target_values.include?(value)
