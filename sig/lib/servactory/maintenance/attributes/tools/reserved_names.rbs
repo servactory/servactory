@@ -1,0 +1,26 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Tools
+        class ReservedNames
+          @context: Context::Workspace
+          @collection: (Inputs | Internals | Outputs)
+
+          def self.check!: (*untyped, **untyped) ?{ (?) -> untyped } -> void
+
+          def initialize: (Context::Workspace context, (Inputs | Internals | Outputs) collection) -> void
+
+          def check!: () -> void
+
+          private
+
+          def raise_exception_for: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> void
+
+          def fail_method_for: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> Symbol
+
+          def exception_message_for: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> String
+        end
+      end
+    end
+  end
+end 

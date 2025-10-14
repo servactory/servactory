@@ -10,19 +10,19 @@ module Servactory
 
         def initialize: (untyped context) -> void
 
-        def check!: () -> Exception?
+        def check!: () -> void
 
         private
 
-        def check_public_methods!: () -> Exception?
+        def check_public_methods!: () -> void
 
-        def check_protected_methods!: () -> Exception?
+        def check_protected_methods!: () -> void
 
-        def check_private_methods!: () -> Exception?
+        def check_private_methods!: () -> void
 
-        def check_in!: (Array[Symbol] list_of_methods) -> Exception?
+        def check_in!: (Array[Symbol] list_of_methods) -> void
 
-        def raise_message_with!: (String formatted_text) -> Exception
+        def raise_message_with!: (String formatted_text) -> void
       end
     end
   end

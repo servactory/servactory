@@ -7,7 +7,7 @@ module Servactory
 
           @collection: Set[String]
 
-          def initialize: (Set[String] collection) -> void
+          def initialize: (?Set[String] collection) -> void
 
           def not_blank: -> CheckErrors
         end
