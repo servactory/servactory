@@ -5,6 +5,7 @@ module Servactory
     module OptionHelpers
       class OptionHelpersCollection
         extend Forwardable
+
         def_delegators :@collection, :<<, :filter, :map, :find, :merge
 
         def initialize(collection = Set.new)

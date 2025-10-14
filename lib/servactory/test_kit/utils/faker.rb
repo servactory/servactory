@@ -57,11 +57,11 @@ module Servactory
           of == :integer ? { fake: 1 } : { fake: :yes }
         end
 
-        def fake_true_class
+        def fake_true_class # rubocop:disable Naming/PredicateMethod
           true
         end
 
-        def fake_false_class
+        def fake_false_class # rubocop:disable Naming/PredicateMethod
           false
         end
 

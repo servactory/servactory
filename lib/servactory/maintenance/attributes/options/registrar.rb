@@ -37,56 +37,46 @@ module Servactory
           ########################################################################
 
           def register
-            # Validation Class: Servactory::Inputs::Validations::Required
-            register_required_option if @features.fetch(:required)
-
-            # Validation Class: Servactory::Maintenance::Attributes::Validations::Type
-            register_types_option if @features.fetch(:types)
-            register_default_option if @features.fetch(:default)
-
-            # Validation Class: Servactory::Maintenance::Attributes::Validations::Must
-            register_must_option if @features.fetch(:must)
-
-            # Validation Class: nil
-            register_prepare_option if @features.fetch(:prepare)
+            register_feature(:required, Servactory::Inputs::Validations::Required)
+            register_feature(:types, Servactory::Maintenance::Attributes::Validations::Type)
+            register_feature(:default, Servactory::Maintenance::Attributes::Validations::Type)
+            register_feature(:must, Servactory::Maintenance::Attributes::Validations::Must)
+            register_feature(:prepare, nil)
 
             self
           end
 
+          def collection
+            @collection ||= Servactory::Maintenance::Attributes::OptionsCollection.new
+          end
+
+          private
+
+          def register_feature(feature_name, validation_class)
+            return unless @features.fetch(feature_name)
+
+            method_name = "register_#{feature_name}_option"
+            send(method_name, validation_class)
+          end
+
           ########################################################################
 
-          def register_required_option # rubocop:disable Metrics/MethodLength
-            collection << Servactory::Maintenance::Attributes::Option.new(
+          def register_required_option(validation_class)
+            create_option(
               name: :required,
-              attribute: @attribute,
-              validation_class: Servactory::Inputs::Validations::Required,
-              define_methods: [
-                Servactory::Maintenance::Attributes::DefineMethod.new(
-                  name: :required?,
-                  content: ->(option:) { Servactory::Utils.true?(option[:is]) }
-                ),
-                Servactory::Maintenance::Attributes::DefineMethod.new(
-                  name: :optional?,
-                  content: ->(option:) { !Servactory::Utils.true?(option[:is]) }
-                )
-              ],
-              define_conflicts: [
-                Servactory::Maintenance::Attributes::DefineConflict.new(
-                  content: -> { :required_vs_default if @attribute.required? && @attribute.default_value_present? }
-                )
-              ],
+              validation_class:,
+              define_methods: required_define_methods,
+              define_conflicts: required_define_conflicts,
               need_for_checks: true,
               body_key: :is,
-              body_fallback: true,
-              **@options
+              body_fallback: true
             )
           end
 
-          def register_types_option
-            collection << Servactory::Maintenance::Attributes::Option.new(
+          def register_types_option(validation_class)
+            create_option(
               name: :types,
-              attribute: @attribute,
-              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
+              validation_class:,
               original_value: Array(@options.fetch(:type)).uniq,
               need_for_checks: true,
               body_fallback: nil,
@@ -94,31 +84,28 @@ module Servactory
             )
           end
 
-          def register_default_option # rubocop:disable Metrics/MethodLength
-            collection << Servactory::Maintenance::Attributes::Option.new(
+          def register_default_option(validation_class) # rubocop:disable Metrics/MethodLength
+            create_option(
               name: :default,
-              attribute: @attribute,
-              validation_class: Servactory::Maintenance::Attributes::Validations::Type,
+              validation_class:,
               define_methods: [
-                Servactory::Maintenance::Attributes::DefineMethod.new(
+                create_define_method(
                   name: :default_value_present?,
                   content: ->(option:) { !option.nil? }
                 )
               ],
               need_for_checks: true,
               body_fallback: nil,
-              with_advanced_mode: false,
-              **@options
+              with_advanced_mode: false
             )
           end
 
-          def register_must_option # rubocop:disable Metrics/MethodLength
-            collection << Servactory::Maintenance::Attributes::Option.new(
+          def register_must_option(validation_class) # rubocop:disable Metrics/MethodLength
+            create_option(
               name: :must,
-              attribute: @attribute,
-              validation_class: Servactory::Maintenance::Attributes::Validations::Must,
+              validation_class:,
               define_methods: [
-                Servactory::Maintenance::Attributes::DefineMethod.new(
+                create_define_method(
                   name: :must_present?,
                   content: ->(option:) { option.present? }
                 )
@@ -126,33 +113,66 @@ module Servactory
               need_for_checks: true,
               body_key: :is,
               body_fallback: nil,
-              with_advanced_mode: false,
-              **@options
+              with_advanced_mode: false
             )
           end
 
-          def register_prepare_option # rubocop:disable Metrics/MethodLength
-            collection << Servactory::Maintenance::Attributes::Option.new(
+          def register_prepare_option(_validation_class) # rubocop:disable Metrics/MethodLength
+            create_option(
               name: :prepare,
-              attribute: @attribute,
               validation_class: nil,
               define_methods: [
-                Servactory::Maintenance::Attributes::DefineMethod.new(
+                create_define_method(
                   name: :prepare_present?,
                   content: ->(option:) { option[:in].present? }
                 )
               ],
               need_for_checks: false,
               body_key: :in,
-              body_fallback: false,
-              **@options
+              body_fallback: false
             )
           end
 
           ########################################################################
 
-          def collection
-            @collection ||= Servactory::Maintenance::Attributes::OptionsCollection.new
+          def required_define_methods
+            [
+              create_define_method(
+                name: :required?,
+                content: ->(option:) { Servactory::Utils.true?(option[:is]) }
+              ),
+              create_define_method(
+                name: :optional?,
+                content: ->(option:) { !Servactory::Utils.true?(option[:is]) }
+              )
+            ]
+          end
+
+          def required_define_conflicts
+            [
+              Servactory::Maintenance::Attributes::DefineConflict.new(
+                content: -> { :required_vs_default if @attribute.required? && @attribute.default_value_present? }
+              )
+            ]
+          end
+
+          ########################################################################
+
+          def create_option(name:, validation_class:, **options)
+            collection << Servactory::Maintenance::Attributes::Option.new(
+              name:,
+              attribute: @attribute,
+              validation_class:,
+              **options,
+              **@options
+            )
+          end
+
+          def create_define_method(name:, content:)
+            Servactory::Maintenance::Attributes::DefineMethod.new(
+              name:,
+              content:
+            )
           end
         end
       end

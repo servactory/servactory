@@ -10,9 +10,9 @@ module Servactory
 
         def merge!: (untyped arguments) -> untyped
 
-        def method_missing: (untyped name, *untyped _args) -> untyped
+        def method_missing: (Symbol name, *untyped _args) { () -> untyped } -> void
 
-        def respond_to_missing?: (untyped name, *untyped) -> untyped
+        def respond_to_missing?: (Symbol name, *untyped) -> void
 
         def raise_error_for: (untyped input_name) -> untyped
       end
