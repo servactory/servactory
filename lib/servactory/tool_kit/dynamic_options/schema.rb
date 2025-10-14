@@ -29,7 +29,8 @@ module Servactory
           common_condition_with(attribute: output, value:, option:)
         end
 
-        def common_condition_with(attribute:, value:, option:) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        def common_condition_with(attribute:, value:, option:)
           return true if option.value == false
           return [false, :wrong_type] unless @default_hash_mode_class_names.intersect?(attribute.types)
 
@@ -39,12 +40,17 @@ module Servactory
 
           schema = option.value.fetch(:is, option.value)
 
+          if attribute.internal? || attribute.output?
+            schema = schema.transform_values { |options| options.except(:prepare) }
+          end
+
           is_success, reason, meta = validate_for!(object: value, schema:)
 
           prepare_object_with!(object: value, schema:) if is_success
 
           [is_success, reason, meta]
         end
+        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         def validate_for!(object:, schema:, root_schema_key: nil) # rubocop:disable Metrics/MethodLength
           unless object.respond_to?(:fetch)

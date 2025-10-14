@@ -9,7 +9,7 @@ module Servactory
           instance.must(:be_inclusion)
         end
 
-        def condition_for_input_with(input:, value:, option:)
+        def condition_for_input_with(input:, value:, option:) # rubocop:disable Naming/PredicateMethod
           if input.required? || (input.optional? && !value.nil?) # rubocop:disable Style/IfUnlessModifier
             return option.value.include?(value)
           end
@@ -21,11 +21,11 @@ module Servactory
           true
         end
 
-        def condition_for_internal_with(value:, option:, **)
+        def condition_for_internal_with(value:, option:, **) # rubocop:disable Naming/PredicateMethod
           option.value.include?(value)
         end
 
-        def condition_for_output_with(value:, option:, **)
+        def condition_for_output_with(value:, option:, **) # rubocop:disable Naming/PredicateMethod
           option.value.include?(value)
         end
 

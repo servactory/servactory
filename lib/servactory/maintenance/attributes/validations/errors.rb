@@ -6,7 +6,8 @@ module Servactory
       module Validations
         class Errors
           extend Forwardable
-          def_delegators :@collection, :<<, :to_a
+
+          def_delegators :@collection, :<<, :to_a, :empty?
 
           def initialize(*)
             @collection = Set.new
