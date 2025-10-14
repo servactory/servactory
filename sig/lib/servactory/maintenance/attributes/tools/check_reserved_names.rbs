@@ -1,0 +1,30 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Tools
+        class CheckReservedNames
+          RESERVED: Hash[Symbol, Array[Symbol]]
+
+          @context: Servactory::Context::Workspace
+          @attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
+
+          def self.validate!: (context: Servactory::Context::Workspace, attribute: (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)) -> void
+
+          def initialize: (context: Servactory::Context::Workspace, attribute: (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)) -> void
+
+          def validate!: () -> void
+
+          private
+
+          def context: -> Servactory::Context::Workspace
+          def attribute: -> (Servactory::Inputs::Input | Servactory::Internals::Internal | Servactory::Outputs::Output)
+
+          def reserved_name?: () -> bool
+          def fail_method: () -> Symbol
+          def raise_exception!: () -> void
+          def exception_message: () -> String
+        end
+      end
+    end
+  end
+end 
