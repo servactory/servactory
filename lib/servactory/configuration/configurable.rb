@@ -16,7 +16,7 @@ module Servactory
           Set[Hash]
         end
 
-        ##########################################################################
+        ########################################################################
 
         config_accessor(:collection_mode_class_names, instance_accessor: false) do
           Servactory::Configuration::CollectionMode::ClassNamesCollection
@@ -28,7 +28,7 @@ module Servactory
             .new(config.default_hash_mode_class_names)
         end
 
-        ##########################################################################
+        ########################################################################
 
         config_accessor(:default_input_option_helpers, instance_accessor: false) do
           Set[
@@ -62,7 +62,7 @@ module Servactory
           ]
         end
 
-        ##########################################################################
+        ########################################################################
 
         config_accessor(:input_exception_class, instance_accessor: false) do
           Servactory::Exceptions::Input
