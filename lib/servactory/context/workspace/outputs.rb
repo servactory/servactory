@@ -54,14 +54,14 @@ module Servactory
         end
 
         def fetch_with(name:, &block) # rubocop:disable Metrics/AbcSize, Lint/UnusedMethodArgument
-          output_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
+          output_name = @context.class.config.config.predicate_methods_enabled ? name.to_s.chomp("?").to_sym : name
           output = @collection_of_outputs.find_by(name: output_name)
 
           return yield if output.nil?
 
           output_value = @context.send(:servactory_service_warehouse).fetch_output(output.name)
 
-          if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
+          if name.to_s.end_with?("?") && @context.class.config.config.predicate_methods_enabled
             Servactory::Utils.query_attribute(output_value)
           else
             output_value

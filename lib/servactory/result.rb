@@ -117,7 +117,7 @@ module Servactory
       @outputs ||= Outputs.new(
         outputs: @context.send(:servactory_service_warehouse).outputs,
         predicate_methods_enabled:
-          @context.is_a?(Servactory::TestKit::Result) || @context.class.config.predicate_methods_enabled?
+          @context.is_a?(Servactory::TestKit::Result) || @context.class.config.config.predicate_methods_enabled
       )
     end
 

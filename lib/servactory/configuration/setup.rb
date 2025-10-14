@@ -3,94 +3,102 @@
 module Servactory
   module Configuration
     class Setup
-      attr_accessor :input_exception_class,
-                    :internal_exception_class,
-                    :output_exception_class,
-                    :success_class,
-                    :failure_class,
-                    :result_class,
-                    :collection_mode_class_names,
-                    :hash_mode_class_names,
-                    :input_option_helpers,
-                    :internal_option_helpers,
-                    :output_option_helpers,
-                    :action_aliases,
-                    :action_shortcuts,
-                    :action_rescue_handlers,
-                    :i18n_root_key,
-                    :predicate_methods_enabled
+      include ActiveSupport::Configurable
 
-      def initialize # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-        @input_exception_class = Servactory::Exceptions::Input
-        @internal_exception_class = Servactory::Exceptions::Internal
-        @output_exception_class = Servactory::Exceptions::Output
-
-        @success_class = Servactory::Exceptions::Success
-        @failure_class = Servactory::Exceptions::Failure
-
-        @result_class = Servactory::Result
-
-        @collection_mode_class_names =
-          Servactory::Configuration::CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
-
-        @hash_mode_class_names =
-          Servactory::Configuration::HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
-
-        @input_option_helpers =
-          Servactory::Configuration::OptionHelpers::OptionHelpersCollection.new(default_input_option_helpers)
-
-        @internal_option_helpers =
-          Servactory::Configuration::OptionHelpers::OptionHelpersCollection.new(default_internal_option_helpers)
-
-        @output_option_helpers =
-          Servactory::Configuration::OptionHelpers::OptionHelpersCollection.new(default_output_option_helpers)
-
-        @action_aliases = Servactory::Configuration::Actions::Aliases::Collection.new
-        @action_shortcuts = Servactory::Configuration::Actions::Shortcuts::Collection.new
-        @action_rescue_handlers = Servactory::Configuration::Actions::RescueHandlers::Collection.new
-
-        @i18n_root_key = "servactory"
-
-        @predicate_methods_enabled = true
-      end
-
-      def predicate_methods_enabled?
-        @predicate_methods_enabled
-      end
-
-      private
-
-      def default_collection_mode_class_names
+      config_accessor :default_collection_mode_class_names, instance_accessor: false do
         Set[Array, Set]
       end
 
-      def default_hash_mode_class_names
+      config_accessor :default_hash_mode_class_names, instance_accessor: false do
         Set[Hash]
       end
 
-      def default_input_option_helpers
+      ##########################################################################
+
+      config_accessor(:collection_mode_class_names) do
+        Servactory::Configuration::CollectionMode::ClassNamesCollection
+          .new(config.default_collection_mode_class_names)
+      end
+
+      config_accessor(:hash_mode_class_names) do
+        Servactory::Configuration::HashMode::ClassNamesCollection
+          .new(config.default_hash_mode_class_names)
+      end
+
+      ##########################################################################
+
+      config_accessor :default_input_option_helpers, instance_accessor: false do
         Set[
-          Servactory::Maintenance::Attributes::OptionHelper.new(name: :optional, equivalent: { required: false }),
-          Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:),
-          Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+          Servactory::Maintenance::Attributes::OptionHelper
+          .new(name: :optional, equivalent: { required: false }),
+          Servactory::ToolKit::DynamicOptions::ConsistsOf
+            .use(collection_mode_class_names: config.collection_mode_class_names),
+          Servactory::ToolKit::DynamicOptions::Schema
+            .use(default_hash_mode_class_names: config.default_hash_mode_class_names),
           Servactory::ToolKit::DynamicOptions::Inclusion.use
         ]
       end
 
-      def default_internal_option_helpers
+      config_accessor :default_internal_option_helpers, instance_accessor: false do
         Set[
-          Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:),
-          Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+          Servactory::ToolKit::DynamicOptions::ConsistsOf
+          .use(collection_mode_class_names: config.collection_mode_class_names),
+          Servactory::ToolKit::DynamicOptions::Schema
+            .use(default_hash_mode_class_names: config.default_hash_mode_class_names),
           Servactory::ToolKit::DynamicOptions::Inclusion.use
         ]
       end
 
-      def default_output_option_helpers
+      config_accessor :default_output_option_helpers, instance_accessor: false do
         Set[
-          Servactory::ToolKit::DynamicOptions::ConsistsOf.use(collection_mode_class_names:),
-          Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+          Servactory::ToolKit::DynamicOptions::ConsistsOf
+          .use(collection_mode_class_names: config.collection_mode_class_names),
+          Servactory::ToolKit::DynamicOptions::Schema
+            .use(default_hash_mode_class_names: config.default_hash_mode_class_names),
           Servactory::ToolKit::DynamicOptions::Inclusion.use
         ]
+      end
+
+      ##########################################################################
+
+      config_accessor(:input_exception_class) { Servactory::Exceptions::Input }
+      config_accessor(:internal_exception_class) { Servactory::Exceptions::Internal }
+      config_accessor(:output_exception_class) { Servactory::Exceptions::Output }
+
+      config_accessor(:failure_class) { Servactory::Exceptions::Failure }
+      config_accessor(:success_class) { Servactory::Exceptions::Success }
+
+      config_accessor(:result_class) { Servactory::Result }
+
+      config_accessor(:i18n_root_key) { "servactory" }
+
+      config_accessor(:predicate_methods_enabled) { true }
+
+      config_accessor(:input_option_helpers) do
+        Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+          .new(config.default_input_option_helpers)
+      end
+
+      config_accessor(:internal_option_helpers) do
+        Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+          .new(config.default_internal_option_helpers)
+      end
+
+      config_accessor(:output_option_helpers) do
+        Servactory::Configuration::OptionHelpers::OptionHelpersCollection
+          .new(config.default_output_option_helpers)
+      end
+
+      config_accessor(:action_aliases) do
+        Servactory::Configuration::Actions::Aliases::Collection.new
+      end
+
+      config_accessor(:action_shortcuts) do
+        Servactory::Configuration::Actions::Shortcuts::Collection.new
+      end
+
+      config_accessor(:action_rescue_handlers) do
+        Servactory::Configuration::Actions::RescueHandlers::Collection.new
       end
     end
   end
