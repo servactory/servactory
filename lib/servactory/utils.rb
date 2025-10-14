@@ -86,7 +86,7 @@ module Servactory
     #       https://github.com/rails/rails/blob/main/activerecord/lib/active_record/attribute_methods/query.rb
     # @param value [#to_s]
     # @return [Boolean]
-    def query_attribute(value) # rubocop:disable Metrics/MethodLength
+    def query_attribute(value) # rubocop:disable Metrics/MethodLength, Naming/PredicateMethod
       case value
       when true        then true
       when false, nil  then false

@@ -1,5 +1,83 @@
 # Changelog
 
+## [v2.16.0](https://github.com/servactory/servactory/tree/v2.16.0) (2025-08-23)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.16.0.rc3...v2.16.0)
+
+**Implemented enhancements:**
+
+- Add information about stages and actions [\#296](https://github.com/servactory/servactory/pull/296) ([afuno](https://github.com/afuno))
+- Add `servactory?` method to service class [\#295](https://github.com/servactory/servactory/pull/295) ([afuno](https://github.com/afuno))
+- Optimize attribute validation processing [\#294](https://github.com/servactory/servactory/pull/294) ([afuno](https://github.com/afuno))
+- Use `fail_*!` methods to raise exceptions [\#290](https://github.com/servactory/servactory/pull/290) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[23.08.2025\] Update libraries [\#297](https://github.com/servactory/servactory/pull/297) ([afuno](https://github.com/afuno))
+
+## [v2.16.0.rc3](https://github.com/servactory/servactory/tree/v2.16.0.rc3) (2025-07-05)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.16.0.rc2...v2.16.0.rc3)
+
+## [v2.16.0.rc2](https://github.com/servactory/servactory/tree/v2.16.0.rc2) (2025-07-05)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.16.0.rc1...v2.16.0.rc2)
+
+**Implemented enhancements:**
+
+- Add information about stages and actions [\#296](https://github.com/servactory/servactory/pull/296) ([afuno](https://github.com/afuno))
+
+## [v2.16.0.rc1](https://github.com/servactory/servactory/tree/v2.16.0.rc1) (2025-07-05)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.15.1...v2.16.0.rc1)
+
+**Implemented enhancements:**
+
+- Add `servactory?` method to service class [\#295](https://github.com/servactory/servactory/pull/295) ([afuno](https://github.com/afuno))
+- Optimize attribute validation processing [\#294](https://github.com/servactory/servactory/pull/294) ([afuno](https://github.com/afuno))
+- Use `fail_*!` methods to raise exceptions [\#290](https://github.com/servactory/servactory/pull/290) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Fix `dynamic_options` in RSpec and Info [\#292](https://github.com/servactory/servactory/pull/292) ([afuno](https://github.com/afuno))
+
+## [v2.15.1](https://github.com/servactory/servactory/tree/v2.15.1) (2025-06-28)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.15.0...v2.15.1)
+
+## [v2.15.0](https://github.com/servactory/servactory/tree/v2.15.0) (2025-06-10)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.15.0.rc1...v2.15.0)
+
+**Implemented enhancements:**
+
+- Refactoring library code [\#282](https://github.com/servactory/servactory/pull/282) ([afuno](https://github.com/afuno))
+- Refactoring library code [\#280](https://github.com/servactory/servactory/pull/280) ([afuno](https://github.com/afuno))
+- Refactor DSL extensions handling to use dedicated module [\#279](https://github.com/servactory/servactory/pull/279) ([afuno](https://github.com/afuno))
+- Add dynamic method handling for failure types [\#278](https://github.com/servactory/servactory/pull/278) ([afuno](https://github.com/afuno))
+
+**Fixed:**
+
+- Fix validation of `internals` when used, and improve `schema` option [\#286](https://github.com/servactory/servactory/pull/286) ([afuno](https://github.com/afuno))
+- Fix default matcher handling for nil default values [\#284](https://github.com/servactory/servactory/pull/284) ([afuno](https://github.com/afuno))
+
+**Dependencies:**
+
+- \[10.06.2025\] Update dependencies [\#287](https://github.com/servactory/servactory/pull/287) ([afuno](https://github.com/afuno))
+- \[26.04.2025\] Update libraries [\#281](https://github.com/servactory/servactory/pull/281) ([afuno](https://github.com/afuno))
+
+## [v2.15.0.rc1](https://github.com/servactory/servactory/tree/v2.15.0.rc1) (2025-06-10)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.14.1...v2.15.0.rc1)
+
+**Fixed:**
+
+- Fix `allow` behavior for `result_class` configuration [\#285](https://github.com/servactory/servactory/pull/285) ([afuno](https://github.com/afuno))
+
+## [v2.14.1](https://github.com/servactory/servactory/tree/v2.14.1) (2025-04-29)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.14.0...v2.14.1)
+
 ## [v2.14.0](https://github.com/servactory/servactory/tree/v2.14.0) (2025-04-21)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.13.3...v2.14.0)

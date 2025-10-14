@@ -4,6 +4,7 @@ module Servactory
   module Internals
     class Collection
       extend Forwardable
+
       def_delegators :@collection, :<<, :filter, :each, :map, :to_h, :merge, :find
 
       def initialize(collection = Set.new)
