@@ -8,7 +8,7 @@ module Usual
       input :last_name, type: String
       input :gender, type: String
 
-      output :full_name, type: String
+      outputs { full_name type: String }
 
       make :assign_full_name
 
