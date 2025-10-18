@@ -13,7 +13,7 @@ module Usual
 
       internal :prepared_full_name, type: String
 
-      output :full_name, type: String
+      outputs { full_name type: String }
 
       make :prepare_full_name
       make :assign_full_name
