@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    servactory (2.16.0)
+    servactory (2.16.1)
       activesupport (>= 5.1)
       base64 (>= 0.2)
       bigdecimal (>= 3.1)
