@@ -43,13 +43,13 @@ module Servactory
 
       def boolean?: (bool value) -> bool
 
-      def raise_error_about_wrong_exception_class_with: (Symbol config_name, Class value) -> Exception
+      def raise_error_about_wrong_exception_class_with: (Symbol config_name, Class value) -> void
 
-      def raise_error_about_wrong_result_class_with: (Symbol config_name, Class value) -> Exception
+      def raise_error_about_wrong_result_class_with: (Symbol config_name, Class value) -> void
 
-      def raise_error_about_wrong_i18n_root_key_with: (Symbol config_name, untyped value) -> Exception
+      def raise_error_about_wrong_i18n_root_key_with: (Symbol config_name, untyped value) -> void
 
-      def raise_error_about_wrong_predicate_methods_enabled_with: (Symbol config_name, untyped value) -> Exception
+      def raise_error_about_wrong_predicate_methods_enabled_with: (Symbol config_name, untyped value) -> void
     end
   end
 end
