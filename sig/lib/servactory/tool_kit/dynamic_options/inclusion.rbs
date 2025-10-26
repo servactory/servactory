@@ -1,0 +1,13 @@
+module Servactory
+  module ToolKit
+    module DynamicOptions
+      class Inclusion < Must
+        def self.use: (?::Symbol option_name) -> void
+
+        private
+
+        def normalize_inclusion_values: ((Array[untyped] | untyped) option_value) -> Array[untyped]
+      end
+    end
+  end
+end 
