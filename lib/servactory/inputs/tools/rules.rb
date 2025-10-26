@@ -14,27 +14,28 @@ module Servactory
         end
 
         def check!
-          @collection_of_inputs.each do |input|
-            check_for!(input)
-          end
+          input = @collection_of_inputs.find(&:with_conflicts?)
+
+          return if input.nil?
+
+          raise_exception_for(input)
         end
 
         private
 
-        def check_for!(input)
-          return unless input.with_conflicts?
-
-          raise_error_for(input)
+        def raise_exception_for(input)
+          @context.fail_input!(
+            input.name,
+            message: exception_message_for(input)
+          )
         end
 
-        def raise_error_for(input)
-          message_text = @context.send(:servactory_service_info).translate(
+        def exception_message_for(input)
+          @context.send(:servactory_service_info).translate(
             "inputs.tools.rules.error",
             input_name: input.name,
             conflict_code: input.conflict_code
           )
-
-          @context.fail_input!(input.name, message: message_text)
         end
       end
     end
