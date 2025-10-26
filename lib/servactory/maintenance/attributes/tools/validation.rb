@@ -74,7 +74,7 @@ module Servactory
           def raise_errors
             return if (tmp_errors = errors.not_blank).empty?
 
-            raise @context.class.config
+            raise @context.config
                           .public_send(:"#{@attribute.system_name}_exception_class")
                           .new(context: @context, message: tmp_errors.first)
           end
