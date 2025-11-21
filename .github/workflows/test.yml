@@ -36,6 +36,7 @@ jobs:
           - "3.3"
           - "3.4"
           - "3.5.0-preview1"
+          - "4.0.0-preview2"
         exclude:
           - gemfile: rails_5.1
             ruby-version: "3.5.0-preview1"
