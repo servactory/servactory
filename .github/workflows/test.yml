@@ -46,8 +46,6 @@ jobs:
             ruby-version: "3.5.0-preview1"
           - gemfile: rails_6.1
             ruby-version: "3.5.0-preview1"
-          - gemfile: rails_7.0
-            ruby-version: "3.5.0-preview1"
 
     steps:
       - uses: actions/checkout@v4
