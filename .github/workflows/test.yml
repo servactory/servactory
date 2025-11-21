@@ -38,6 +38,7 @@ jobs:
           - "3.5.0-preview1"
           - "4.0.0-preview2"
         exclude:
+          # Ruby 3.5.0 Preview 1
           - gemfile: rails_5.1
             ruby-version: "3.5.0-preview1"
           - gemfile: rails_5.2
@@ -46,6 +47,15 @@ jobs:
             ruby-version: "3.5.0-preview1"
           - gemfile: rails_6.1
             ruby-version: "3.5.0-preview1"
+          # Ruby 4.0.0 Preview 2
+          - gemfile: rails_5.1
+            ruby-version: "4.0.0-preview2"
+          - gemfile: rails_5.2
+            ruby-version: "4.0.0-preview2"
+          - gemfile: rails_6.0
+            ruby-version: "4.0.0-preview2"
+          - gemfile: rails_6.1
+            ruby-version: "4.0.0-preview2"
 
     steps:
       - uses: actions/checkout@v4
