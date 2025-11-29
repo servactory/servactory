@@ -113,4 +113,4 @@ Special thanks to all our [contributors](https://github.com/servactory/servactor
 
 ## 📄 License
 
-Servactory is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+Servactory is available as open source under the terms of the [MIT License](./LICENSE).
