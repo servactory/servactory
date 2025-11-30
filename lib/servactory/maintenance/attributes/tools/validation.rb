@@ -59,13 +59,13 @@ module Servactory
             )
           end
 
-          ########################################################################
+          ######################################################################
 
           def validation_classes
             @validation_classes ||= @attribute.collection_of_options.validation_classes
           end
 
-          ########################################################################
+          ######################################################################
 
           def errors
             @errors ||= Servactory::Maintenance::Attributes::Tools::CheckErrors.new

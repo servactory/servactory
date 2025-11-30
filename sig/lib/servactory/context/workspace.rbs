@@ -31,17 +31,17 @@ module Servactory
 
       def initialize: () -> void
 
-      def success!: () -> Exception
+      def success!: () -> void
 
-      def fail_input!: (Symbol input_name, message: String, meta: untyped?) -> Exception
+      def fail_input!: (Symbol input_name, message: String, meta: untyped?) -> void
 
-      def fail_internal!: (Symbol internal_name, message: String, meta: untyped?) -> Exception
+      def fail_internal!: (Symbol internal_name, message: String, meta: untyped?) -> void
 
-      def fail_output!: (Symbol output_name, message: String, meta: untyped?) -> Exception
+      def fail_output!: (Symbol output_name, message: String, meta: untyped?) -> void
 
-      def fail!: (Symbol type, message: String, meta: untyped?) -> Exception
+      def fail!: (Symbol type, message: String, meta: untyped?) -> void
 
-      def fail_result!: (Result service_result) -> Exception
+      def fail_result!: (Result service_result) -> void
 
       private
 
@@ -62,7 +62,7 @@ module Servactory
         ** untyped
       ) -> void
 
-      def call: -> Exception
+      def call: -> void
 
       def servactory_service_info: -> Actor
 

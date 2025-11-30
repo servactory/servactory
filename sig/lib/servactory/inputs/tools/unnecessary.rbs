@@ -2,17 +2,19 @@ module Servactory
   module Inputs
     module Tools
       class Unnecessary
+        @context: Context::Workspace
         @collection_of_inputs: Collection
-        @context: instance
         @unnecessary_attributes: Array[Symbol]
 
-        def self.find!: (*untyped, **untyped) ?{ (?) -> untyped } -> Exception?
+        def self.find!: (*untyped, **untyped) ?{ (?) -> untyped } -> void
 
-        def initialize: (instance context, Collection collection_of_inputs) -> void
+        def initialize: (Context::Workspace context, Collection collection_of_inputs) -> void
 
-        def find!: () -> Exception?
+        def find!: () -> void
 
         private
+
+        def exception_message: -> String
 
         def unnecessary_attributes: () -> Array[Symbol]
       end

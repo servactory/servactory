@@ -14,7 +14,7 @@ module Servactory
 
         def respond_to_missing?: (Symbol name, *untyped) -> void
 
-        def raise_error_for: (untyped input_name) -> untyped
+        def raise_error_for: (untyped input_name) -> void
       end
     end
   end
