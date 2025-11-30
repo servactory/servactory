@@ -52,7 +52,7 @@ module Servactory
           end
 
           input_prepare = input.prepare.fetch(:in, nil)
-          input_value = input_prepare.call(value: input_value) if input_prepare.present?
+          input_value = input_prepare.call(value: input_value, inputs: @incoming_arguments) if input_prepare.present?
 
           if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
             Servactory::Utils.query_attribute(input_value)

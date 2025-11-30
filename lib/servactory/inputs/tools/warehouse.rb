@@ -20,7 +20,7 @@ module Servactory
         private
 
         def adapted_arguments
-          Servactory::Utils.adapt(@incoming_arguments)
+          Servactory::Utils.adapt(@context, @incoming_arguments)
         end
       end
     end
