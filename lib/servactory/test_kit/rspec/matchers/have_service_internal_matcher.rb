@@ -4,6 +4,7 @@ require_relative "have_service_attribute_matchers/types_matcher"
 require_relative "have_service_attribute_matchers/consists_of_matcher"
 require_relative "have_service_attribute_matchers/schema_matcher"
 require_relative "have_service_attribute_matchers/inclusion_matcher"
+require_relative "have_service_attribute_matchers/target_matcher"
 require_relative "have_service_attribute_matchers/must_matcher"
 require_relative "have_service_attribute_matchers/message_matcher"
 
@@ -106,6 +107,18 @@ module Servactory
               internal_name,
               @last_submatcher,
               message
+            )
+            self
+          end
+
+          def target(values, options = {})
+            add_submatcher(
+              HaveServiceAttributeMatchers::TargetMatcher,
+              described_class,
+              :internal,
+              internal_name,
+              options.fetch(:name, :target), # option_name
+              Array(values)
             )
             self
           end
