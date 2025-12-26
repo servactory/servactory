@@ -30,25 +30,25 @@ jobs:
           - rails_7.1
           - rails_7.2
           - rails_8.0
+          - rails_8.1
         ruby-version:
           - "3.2"
           - "3.3"
           - "3.4"
-          - "3.5.0-preview1"
+          - "4.0"
         exclude:
+          # Ruby 4.0
           - gemfile: rails_5.1
-            ruby-version: "3.5.0-preview1"
+            ruby-version: "4.0"
           - gemfile: rails_5.2
-            ruby-version: "3.5.0-preview1"
+            ruby-version: "4.0"
           - gemfile: rails_6.0
-            ruby-version: "3.5.0-preview1"
+            ruby-version: "4.0"
           - gemfile: rails_6.1
-            ruby-version: "3.5.0-preview1"
-          - gemfile: rails_7.0
-            ruby-version: "3.5.0-preview1"
+            ruby-version: "4.0"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1

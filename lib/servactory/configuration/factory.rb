@@ -39,30 +39,6 @@ module Servactory
         raise_error_about_wrong_result_class_with(:result_class, result_class)
       end
 
-      def collection_mode_class_names(collection_mode_class_names)
-        @config.collection_mode_class_names.merge(collection_mode_class_names)
-      end
-
-      def hash_mode_class_names(hash_mode_class_names)
-        @config.hash_mode_class_names.merge(hash_mode_class_names)
-      end
-
-      def input_option_helpers(input_option_helpers)
-        @config.input_option_helpers.merge(input_option_helpers)
-      end
-
-      def internal_option_helpers(internal_option_helpers)
-        @config.internal_option_helpers.merge(internal_option_helpers)
-      end
-
-      def output_option_helpers(output_option_helpers)
-        @config.output_option_helpers.merge(output_option_helpers)
-      end
-
-      def action_aliases(action_aliases)
-        @config.action_aliases.merge(action_aliases)
-      end
-
       def action_shortcuts(array, hash = {}) # rubocop:disable Metrics/MethodLength
         prepared = array.to_h do |action_shortcut|
           [
@@ -77,6 +53,30 @@ module Servactory
         prepared = prepared.merge(hash)
 
         @config.action_shortcuts.merge(prepared)
+      end
+
+      def action_aliases(action_aliases)
+        @config.action_aliases.merge(action_aliases)
+      end
+
+      def input_option_helpers(input_option_helpers)
+        @config.input_option_helpers.merge(input_option_helpers)
+      end
+
+      def internal_option_helpers(internal_option_helpers)
+        @config.internal_option_helpers.merge(internal_option_helpers)
+      end
+
+      def output_option_helpers(output_option_helpers)
+        @config.output_option_helpers.merge(output_option_helpers)
+      end
+
+      def collection_mode_class_names(collection_mode_class_names)
+        @config.collection_mode_class_names.merge(collection_mode_class_names)
+      end
+
+      def hash_mode_class_names(hash_mode_class_names)
+        @config.hash_mode_class_names.merge(hash_mode_class_names)
       end
 
       def i18n_root_key(value)

@@ -8,6 +8,8 @@ module Servactory
           @collection: Set[untyped]
 
           def initialize: (*untyped) -> void
+
+          def initialize_dup: (Collection original) -> void
         end
       end
     end

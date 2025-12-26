@@ -15,13 +15,33 @@
 <p align="center">
   <a href="https://rubygems.org/gems/servactory"><img src="https://img.shields.io/gem/v/servactory?logo=rubygems&logoColor=fff" alt="Gem version"></a>
   <a href="https://github.com/servactory/servactory/releases"><img src="https://img.shields.io/github/release-date/servactory/servactory" alt="Release Date"></a>
+  <a href="https://rubygems.org/gems/servactory"><img src="https://img.shields.io/gem/dt/servactory" alt="Downloads"></a>
+  <a href="https://www.ruby-lang.org"><img src="https://img.shields.io/badge/Ruby-3.2+-red" alt="Ruby version"></a>
 </p>
 
-## Documentation
 
-See [servactory.com](https://servactory.com) for documentation.
+## 📚 Documentation
 
-## Quick Start
+See [servactory.com](https://servactory.com) for comprehensive documentation, including:
+
+- Detailed guides for all features
+- Advanced configuration options
+- Best practices and patterns
+- Migration guides
+- API reference
+
+## 💡 Why Servactory?
+
+Building reliable services shouldn't be complicated. Servactory provides a battle-tested framework for creating service objects with:
+
+- 🛡️ **Type Safety** - Enforce types on inputs and outputs, catch errors early
+- ✅ **Built-in Validation** - Rich validation DSL with custom rules
+- 🧪 **Test-Friendly** - RSpec matchers for easy testing
+- 📊 **Structured Output** - Consistent Result object pattern
+- 🔧 **Highly Configurable** - Extensions, helpers, and custom options
+- 📚 **Well Documented** - Comprehensive guides and examples
+
+## 🚀 Quick Start
 
 ### Installation
 
@@ -76,12 +96,21 @@ class SessionsController < ApplicationController
 end
 ```
 
-## Contributing
+## 🤝 Contributing
 
-This project is intended to be a safe, welcoming space for collaboration. 
-Contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct. 
-We recommend reading the [contributing guide](https://servactory.com/CONTRIBUTING) as well.
+We love contributions! Check out our [Contributing Guide](https://servactory.com/CONTRIBUTING) to get started.
 
-## License
+**Ways to contribute:**
+- 🐛 Report bugs and issues
+- 💡 Suggest new features
+- 📝 Improve documentation
+- 🧪 Add test cases
+- 🔧 Submit pull requests
 
-Servactory is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+## 🙏 Acknowledgments
+
+Special thanks to all our [contributors](https://github.com/servactory/servactory/graphs/contributors)!
+
+## 📄 License
+
+Servactory is available as open source under the terms of the [MIT License](./LICENSE).

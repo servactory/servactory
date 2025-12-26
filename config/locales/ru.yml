@@ -23,9 +23,11 @@ ru:
             format:
               default: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Инпут `%{input_name}` не соответствует формату `%{format_name}`"
+              wrong_type: "[%{service_class_name}] Инпут `%{input_name}` должен быть строкой для валидации формата `%{format_name}`"
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у инпута `%{input_name}`"
             inclusion:
               default: "[%{service_class_name}] Неправильное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`, получено `%{value}`"
+              invalid_option: "[%{service_class_name}] Инпут `%{input_name}` имеет незаполненное значение в опции `%{option_name}`"
             min:
               default: "[%{service_class_name}] Инпут `%{input_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -67,9 +69,11 @@ ru:
             format:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` не соответствует формату `%{format_name}`"
+              wrong_type: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` должен быть строкой для валидации формата `%{format_name}`"
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у внутреннего атрибута `%{internal_name}`"
             inclusion:
               default: "[%{service_class_name}] Неправильное значение в `%{internal_name}`, должно быть одним из `%{internal_inclusion}`, получено `%{value}`"
+              invalid_option: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` имеет незаполненное значение в опции `%{option_name}`"
             min:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -103,9 +107,11 @@ ru:
             format:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
               wrong_pattern: "[%{service_class_name}] Выходящий атрибут `%{output_name}` не соответствует формату `%{format_name}`"
+              wrong_type: "[%{service_class_name}] Выходящий атрибут `%{output_name}` должен быть строкой для валидации формата `%{format_name}`"
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у выходящего атрибута `%{output_name}`"
             inclusion:
               default: "[%{service_class_name}] Неправильное значение в `%{output_name}`, должно быть одним из `%{output_inclusion}`, получено `%{value}`"
+              invalid_option: "[%{service_class_name}] Выходящий атрибут `%{output_name}` имеет незаполненное значение в опции `%{option_name}`"
             min:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
