@@ -6,7 +6,7 @@ module Servactory
       class Format < Must # rubocop:disable Metrics/ClassLength
         DEFAULT_FORMATS = {
           uuid: {
-            pattern: /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/,
+            pattern: /\A[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\z/,
             validator: ->(value:) { value.present? }
           },
           email: {
@@ -18,7 +18,7 @@ module Servactory
             #       Password must contain one digit from 1 to 9, one lowercase letter, one
             #       uppercase letter, and one underscore, and it must be 8-16 characters long.
             #       Usage of any other special character and usage of space is optional.
-            pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
+            pattern: /\A(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}\z/,
             validator: ->(value:) { value.present? }
           },
           duration: {
@@ -54,7 +54,7 @@ module Servactory
             end
           },
           boolean: {
-            pattern: /^(true|false|0|1)$/i,
+            pattern: /\A(true|false|0|1)\z/i,
             validator: ->(value:) { %w[true 1].include?(value&.downcase) }
           }
         }.freeze
@@ -105,7 +105,12 @@ module Servactory
 
           format_pattern = option.properties.fetch(:pattern, format_options.fetch(:pattern))
 
-          return [false, :wrong_pattern] if format_pattern.present? && !value.match?(Regexp.compile(format_pattern))
+          if format_pattern.present?
+            return [false, :wrong_type] unless value.respond_to?(:match?)
+
+            compiled_pattern = format_pattern.is_a?(Regexp) ? format_pattern : Regexp.compile(format_pattern)
+            return [false, :wrong_pattern] unless value.match?(compiled_pattern)
+          end
 
           option.properties.fetch(:validator, format_options.fetch(:validator)).call(value:)
         end
