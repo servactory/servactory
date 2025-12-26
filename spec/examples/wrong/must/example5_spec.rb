@@ -19,7 +19,7 @@ RSpec.describe Wrong::Must::Example5, type: :service do
               if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
                 "[Wrong::Must::Example5] Syntax error inside `be_6_characters` of `invoice_numbers` output attribute: undefined local variable or method 'this_method_does_not_exist' for class Wrong::Must::Example5"
               else
-                /\[Wrong::Must::Example5\] Syntax error inside `be_6_characters` of `invoice_numbers` output attribute: undefined method `this_method_does_not_exist' for (.*)Wrong::Must::Example5/
+                "[Wrong::Must::Example5] Syntax error inside `be_6_characters` of `invoice_numbers` output attribute: undefined local variable or method 'this_method_does_not_exist' for Wrong::Must::Example5:Class"
               end
             )
           )
@@ -47,7 +47,7 @@ RSpec.describe Wrong::Must::Example5, type: :service do
               if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
                 "[Wrong::Must::Example5] Syntax error inside `be_6_characters` of `invoice_numbers` output attribute: undefined local variable or method 'this_method_does_not_exist' for class Wrong::Must::Example5"
               else
-                /\[Wrong::Must::Example5\] Syntax error inside `be_6_characters` of `invoice_numbers` output attribute: undefined method `this_method_does_not_exist' for (.*)Wrong::Must::Example5/
+                "[Wrong::Must::Example5] Syntax error inside `be_6_characters` of `invoice_numbers` output attribute: undefined local variable or method 'this_method_does_not_exist' for Wrong::Must::Example5:Class"
               end
             )
           )
