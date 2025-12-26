@@ -1,7 +1,9 @@
 module Servactory
   module Configuration
     class Factory
-      @config: Setup
+      @config: Config
+
+      def initialize: (Config config) -> void
 
       def input_exception_class: (Exceptions::Input input_exception__class) -> (Exceptions::Input | Exception)
 

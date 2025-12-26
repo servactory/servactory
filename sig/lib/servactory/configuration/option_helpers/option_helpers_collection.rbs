@@ -6,7 +6,9 @@ module Servactory
 
         @collection: Set[Maintenance::Attributes::OptionHelper]
 
-        def initialize: (Set[Maintenance::Attributes::OptionHelper] collection) -> void
+        def initialize: (?Set[Maintenance::Attributes::OptionHelper] collection) -> void
+
+        def initialize_dup: (OptionHelpersCollection original) -> void
 
         def dynamic_options: -> OptionHelpersCollection
 
