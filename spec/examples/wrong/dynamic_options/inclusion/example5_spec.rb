@@ -25,7 +25,7 @@ RSpec.describe Wrong::DynamicOptions::Inclusion::Example5, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Output,
                 "[Wrong::DynamicOptions::Inclusion::Example5] " \
-                "The `in` option for output attribute `event_type` must be specified"
+                "Output attribute `event_type` has missing value in `inclusion` option"
               )
             )
           end
@@ -62,7 +62,7 @@ RSpec.describe Wrong::DynamicOptions::Inclusion::Example5, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Output,
                 "[Wrong::DynamicOptions::Inclusion::Example5] " \
-                "The `in` option for output attribute `event_type` must be specified"
+                "Output attribute `event_type` has missing value in `inclusion` option"
               )
             )
           end

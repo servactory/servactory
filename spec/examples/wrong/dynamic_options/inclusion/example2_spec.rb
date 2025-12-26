@@ -25,7 +25,7 @@ RSpec.describe Wrong::DynamicOptions::Inclusion::Example2, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Wrong::DynamicOptions::Inclusion::Example2] " \
-                "The `in` option for input `event_name` must be specified"
+                "Input `event_name` has missing value in `inclusion` option"
               )
             )
           end
@@ -63,7 +63,7 @@ RSpec.describe Wrong::DynamicOptions::Inclusion::Example2, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Input,
                 "[Wrong::DynamicOptions::Inclusion::Example2] " \
-                "The `in` option for input `event_name` must be specified"
+                "Input `event_name` has missing value in `inclusion` option"
               )
             )
           end

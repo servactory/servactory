@@ -25,7 +25,7 @@ RSpec.describe Wrong::DynamicOptions::Inclusion::Example4, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Internal,
                 "[Wrong::DynamicOptions::Inclusion::Example4] " \
-                "The `in` option for internal attribute `event_type` must be specified"
+                "Internal attribute `event_type` has missing value in `inclusion` option"
               )
             )
           end
@@ -62,7 +62,7 @@ RSpec.describe Wrong::DynamicOptions::Inclusion::Example4, type: :service do
               raise_error(
                 ApplicationService::Exceptions::Internal,
                 "[Wrong::DynamicOptions::Inclusion::Example4] " \
-                "The `in` option for internal attribute `event_type` must be specified"
+                "Internal attribute `event_type` has missing value in `inclusion` option"
               )
             )
           end
