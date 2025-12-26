@@ -26,6 +26,7 @@ ru:
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у инпута `%{input_name}`"
             inclusion:
               default: "[%{service_class_name}] Неправильное значение в `%{input_name}`, должно быть одним из `%{input_inclusion}`, получено `%{value}`"
+              invalid_option: "[%{service_class_name}] Опция `in` для инпута `%{input_name}` должна быть указана"
             min:
               default: "[%{service_class_name}] Инпут `%{input_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -68,6 +69,7 @@ ru:
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у внутреннего атрибута `%{internal_name}`"
             inclusion:
               default: "[%{service_class_name}] Неправильное значение в `%{internal_name}`, должно быть одним из `%{internal_inclusion}`, получено `%{value}`"
+              invalid_option: "[%{service_class_name}] Опция `in` для внутреннего атрибута `%{internal_name}` должна быть указана"
             min:
               default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
@@ -102,6 +104,7 @@ ru:
               unknown: "[%{service_class_name}] Указан неизвестный формат `%{format_name}` у выходящего атрибута `%{output_name}`"
             inclusion:
               default: "[%{service_class_name}] Неправильное значение в `%{output_name}`, должно быть одним из `%{output_inclusion}`, получено `%{value}`"
+              invalid_option: "[%{service_class_name}] Опция `in` для выходящего атрибута `%{output_name}` должна быть указана"
             min:
               default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` получил значение `%{value}`, которое меньше `%{option_value}`"
             max:
