@@ -40,6 +40,9 @@ ru:
               wrong_type: "[%{service_class_name}] Неправильный тип инпута `%{input_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
               wrong_element_value: "[%{service_class_name}] Неправильное значение в хеше инпута `%{input_name}`, для `%{key_name}` ожидалось значение с типом `%{expected_type}`, получено `%{given_type}`"
+            target:
+              default: "[%{service_class_name}] Инпут `%{input_name}` имеет неправильное значение, должно быть `%{expected_target}`, получено `%{value}`"
+              invalid_option: "[%{service_class_name}] Инпут `%{input_name}` имеет незаполненное значение в опции `%{option_name}`"
         required:
           default_error:
             default: "[%{service_class_name}] Обязательный инпут `%{input_name}` отсутствует"
@@ -84,6 +87,9 @@ ru:
               wrong_type: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше внутреннего атрибута `%{internal_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
               wrong_element_value: "[%{service_class_name}] Неправильное значение в хеше внутреннего атрибута `%{internal_name}`, для `%{key_name}` ожидалось значение с типом `%{expected_type}`, получено `%{given_type}`"
+            target:
+              default: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` имеет неправильное значение, должно быть `%{expected_target}`, получено `%{value}`"
+              invalid_option: "[%{service_class_name}] Внутренний атрибут `%{internal_name}` имеет незаполненное значение в опции `%{option_name}`"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип внутреннего атрибута `%{internal_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
@@ -120,6 +126,9 @@ ru:
               wrong_type: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"
               wrong_element_type: "[%{service_class_name}] Неправильный тип в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось `%{expected_type}`, получено `%{given_type}`"
               wrong_element_value: "[%{service_class_name}] Неправильное значение в хеше выходящего атрибута `%{output_name}`, для `%{key_name}` ожидалось значение с типом `%{expected_type}`, получено `%{given_type}`"
+            target:
+              default: "[%{service_class_name}] Выходящий атрибут `%{output_name}` имеет неправильное значение, должно быть `%{expected_target}`, получено `%{value}`"
+              invalid_option: "[%{service_class_name}] Выходящий атрибут `%{output_name}` имеет незаполненное значение в опции `%{option_name}`"
         type:
           default_error:
             default: "[%{service_class_name}] Неправильный тип выходящего атрибута `%{output_name}`, ожидалось `%{expected_type}`, получено `%{given_type}`"

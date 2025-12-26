@@ -5,17 +5,17 @@ module Servactory
     module Rspec
       module Matchers
         module HaveServiceAttributeMatchers
-          class InclusionMatcher
-            OPTION_NAME = :inclusion
+          class TargetMatcher
             OPTION_BODY_KEY = :in
 
             attr_reader :missing_option
 
-            def initialize(described_class, attribute_type, attribute_name, values)
+            def initialize(described_class, attribute_type, attribute_name, option_name, values)
               @described_class = described_class
               @attribute_type = attribute_type
               @attribute_type_plural = attribute_type.to_s.pluralize.to_sym
               @attribute_name = attribute_name
+              @option_name = option_name
               @values = values
 
               @attribute_data = described_class.info.public_send(attribute_type_plural).fetch(attribute_name)
@@ -24,7 +24,7 @@ module Servactory
             end
 
             def description
-              "inclusion: #{values.join(', ')}"
+              "#{option_name}: #{formatted_values}"
             end
 
             def matches?(subject)
@@ -44,32 +44,49 @@ module Servactory
                         :attribute_type_plural,
                         :attribute_name,
                         :values,
-                        :attribute_data
+                        :attribute_data,
+                        :option_name
 
-            def attribute_inclusion
-              @attribute_inclusion ||= attribute_data[OPTION_NAME]
+            def formatted_values
+              values.map do |v|
+                case v
+                when nil then "nil"
+                when Class then v.name
+                else v.to_s
+                end
+              end.join(", ")
             end
 
-            def attribute_inclusion_in
-              return @attribute_inclusion_in if defined?(@attribute_inclusion_in)
+            def attribute_target
+              @attribute_target ||= attribute_data[option_name]
+            end
 
-              @attribute_inclusion_in = attribute_inclusion&.dig(OPTION_BODY_KEY)
+            def attribute_target_in
+              return @attribute_target_in if defined?(@attribute_target_in)
+
+              @attribute_target_in = attribute_target&.dig(OPTION_BODY_KEY)
             end
 
             def submatcher_passes?(_subject)
-              return false unless attribute_inclusion.is_a?(Hash)
-              return false if attribute_inclusion_in.nil?
+              return false unless attribute_target.is_a?(Hash)
+              return false if attribute_target_in.nil?
 
-              attribute_inclusion_in.difference(values).empty? &&
-                values.difference(attribute_inclusion_in).empty?
+              expected = normalize_to_array(values)
+              actual = normalize_to_array(attribute_target_in)
+
+              actual.difference(expected).empty? && expected.difference(actual).empty?
+            end
+
+            def normalize_to_array(value)
+              value.respond_to?(:difference) ? value : [value]
             end
 
             def build_missing_option
               <<~MESSAGE
-                should include the expected values
+                should include the expected #{option_name} values
 
                   expected #{values.inspect}
-                       got #{attribute_inclusion_in.inspect}
+                       got #{attribute_target_in.inspect}
               MESSAGE
             end
           end
