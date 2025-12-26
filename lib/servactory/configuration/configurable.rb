@@ -18,21 +18,27 @@ module Servactory
 
         def build_default_config # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           Config.new.tap do |config|
-            config.collection_mode_class_names = CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
-            config.hash_mode_class_names = HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
+            # NOTE: Internal (MUST be first - used by option_helpers)
+            config.collection_mode_class_names =
+              CollectionMode::ClassNamesCollection.new(default_collection_mode_class_names)
+            config.hash_mode_class_names =
+              HashMode::ClassNamesCollection.new(default_hash_mode_class_names)
 
+            # NOTE: Exception classes
             config.input_exception_class = Servactory::Exceptions::Input
             config.internal_exception_class = Servactory::Exceptions::Internal
             config.output_exception_class = Servactory::Exceptions::Output
-
             config.failure_class = Servactory::Exceptions::Failure
             config.success_class = Servactory::Exceptions::Success
 
+            # NOTE: Result
             config.result_class = Servactory::Result
 
-            config.i18n_root_key = "servactory"
-            config.predicate_methods_enabled = true
+            # NOTE: Actions
+            config.action_shortcuts = Actions::Shortcuts::Collection.new
+            config.action_aliases = Actions::Aliases::Collection.new
 
+            # NOTE: Option helpers (uses collection_mode_class_names)
             config.input_option_helpers =
               OptionHelpers::OptionHelpersCollection.new(default_input_option_helpers(config))
             config.internal_option_helpers =
@@ -40,9 +46,10 @@ module Servactory
             config.output_option_helpers =
               OptionHelpers::OptionHelpersCollection.new(default_output_option_helpers(config))
 
-            config.action_aliases = Actions::Aliases::Collection.new
-            config.action_shortcuts = Actions::Shortcuts::Collection.new
+            # NOTE: Other
             config.action_rescue_handlers = Actions::RescueHandlers::Collection.new
+            config.i18n_root_key = "servactory"
+            config.predicate_methods_enabled = true
           end
         end
 
