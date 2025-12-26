@@ -23,6 +23,7 @@ en:
             format:
               default: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Input `%{input_name}` does not match `%{format_name}` format"
+              wrong_type: "[%{service_class_name}] Input `%{input_name}` must be a String for `%{format_name}` format validation"
               unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for input `%{input_name}`"
             inclusion:
               default: "[%{service_class_name}] Wrong value in `%{input_name}`, must be one of `%{input_inclusion}`, got `%{value}`"
@@ -66,6 +67,7 @@ en:
             format:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Internal attribute `%{internal_name}` does not match `%{format_name}` format"
+              wrong_type: "[%{service_class_name}] Internal attribute `%{internal_name}` must be a String for `%{format_name}` format validation"
               unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for internal attribute `%{internal_name}`"
             inclusion:
               default: "[%{service_class_name}] Wrong value in `%{internal_name}`, must be one of `%{internal_inclusion}`, got `%{value}`"
@@ -101,6 +103,7 @@ en:
             format:
               default: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
               wrong_pattern: "[%{service_class_name}] Output attribute `%{output_name}` does not match `%{format_name}` format"
+              wrong_type: "[%{service_class_name}] Output attribute `%{output_name}` must be a String for `%{format_name}` format validation"
               unknown: "[%{service_class_name}] Unknown `%{format_name}` format specified for output attribute `%{output_name}`"
             inclusion:
               default: "[%{service_class_name}] Wrong value in `%{output_name}`, must be one of `%{output_inclusion}`, got `%{value}`"
