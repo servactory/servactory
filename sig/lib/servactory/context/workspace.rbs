@@ -14,6 +14,7 @@ module Servactory
       @inputs: Inputs
       @internals: Internals
       @outputs: Outputs
+      @servactory_service_info: Actor
       @servactory_service_warehouse: Context::Warehouse::Setup
 
       attr_reader collection_of_inputs: Inputs::Collection
@@ -21,15 +22,10 @@ module Servactory
       attr_reader collection_of_outputs: Outputs::Collection
 
       def inputs: -> Inputs
-      alias inp inputs
 
       def internals: -> Internals
-      alias int internals
 
       def outputs: -> Outputs
-      alias out outputs
-
-      def initialize: () -> void
 
       def success!: () -> Exception
 
@@ -39,13 +35,13 @@ module Servactory
 
       def fail_output!: (Symbol output_name, message: String, meta: untyped?) -> Exception
 
-      def fail!: (Symbol type, message: String, meta: untyped?) -> Exception
+      def fail!: (?Symbol type, message: String, meta: untyped?) -> Exception
 
       def fail_result!: (Result service_result) -> Exception
 
-      private
+      def config: -> Configuration::Config
 
-      @servactory_service_info: Actor
+      private
 
       def _call!: (
         incoming_arguments: Hash[Symbol, untyped],

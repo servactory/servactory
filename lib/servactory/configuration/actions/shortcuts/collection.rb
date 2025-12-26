@@ -13,6 +13,11 @@ module Servactory
             @collection = {}
           end
 
+          def initialize_dup(original)
+            super
+            @collection = original.instance_variable_get(:@collection).dup
+          end
+
           alias merge merge!
 
           def shortcuts

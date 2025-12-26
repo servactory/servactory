@@ -96,7 +96,7 @@ module Servactory
         end
 
         def rescue_with_handler(exception) # rubocop:disable Metrics/MethodLength
-          _, handler = @context.class.config.action_rescue_handlers.reverse_each.detect do |class_or_name, _|
+          _, handler = @context.config.action_rescue_handlers.reverse_each.detect do |class_or_name, _|
             if (detected_exception = Servactory::Utils.constantize_class(class_or_name))
               detected_exception === exception # rubocop:disable Style/CaseEquality
             end

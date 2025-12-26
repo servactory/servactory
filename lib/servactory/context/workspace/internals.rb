@@ -54,7 +54,7 @@ module Servactory
         end
 
         def fetch_with(name:, &block) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Lint/UnusedMethodArgument
-          internal_name = @context.class.config.predicate_methods_enabled? ? name.to_s.chomp("?").to_sym : name
+          internal_name = @context.config.predicate_methods_enabled ? name.to_s.chomp("?").to_sym : name
           internal = @collection_of_internals.find_by(name: internal_name)
 
           return yield if internal.nil?
@@ -67,7 +67,7 @@ module Servactory
             value: internal_value
           )
 
-          if name.to_s.end_with?("?") && @context.class.config.predicate_methods_enabled?
+          if name.to_s.end_with?("?") && @context.config.predicate_methods_enabled
             Servactory::Utils.query_attribute(internal_value)
           else
             internal_value

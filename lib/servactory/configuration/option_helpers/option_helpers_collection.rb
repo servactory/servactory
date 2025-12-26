@@ -12,6 +12,11 @@ module Servactory
           @collection = collection
         end
 
+        def initialize_dup(original)
+          super
+          @collection = original.instance_variable_get(:@collection).dup
+        end
+
         def dynamic_options
           OptionHelpersCollection.new(filter(&:dynamic_option?))
         end
