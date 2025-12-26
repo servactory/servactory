@@ -1,240 +1,65 @@
 # frozen_string_literal: true
 
-require_relative "have_service_input_matchers/default_matcher"
-require_relative "have_service_input_matchers/optional_matcher"
-require_relative "have_service_input_matchers/required_matcher"
-require_relative "have_service_input_matchers/valid_with_matcher"
-
 module Servactory
   module TestKit
     module Rspec
       module Matchers
-        class HaveServiceInputMatcher # rubocop:disable Metrics/ClassLength
-          attr_reader :described_class, :input_name, :options
+        class HaveServiceInputMatcher < Base::AttributeMatcher
+          for_attribute_type :input
 
-          def initialize(described_class, input_name)
-            @described_class = described_class
-            @input_name = input_name
+          # Shared submatchers
+          register_submatcher :types,
+            class_name: "Shared::TypesSubmatcher",
+            chain_method: :type,
+            chain_aliases: [:types],
+            transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] },
+            stores_option_types: true
 
-            @options = {}
-            @submatchers = []
+          register_submatcher :consists_of,
+            class_name: "Shared::ConsistsOfSubmatcher",
+            transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] },
+            requires_option_types: true
 
-            @missing = ""
-          end
+          register_submatcher :schema,
+            class_name: "Shared::SchemaSubmatcher",
+            transform_args: ->(args, _kwargs = {}) { [args.first || {}] },
+            requires_option_types: true
 
-          def supports_block_expectations?
-            true
-          end
+          register_submatcher :inclusion,
+            class_name: "Shared::InclusionSubmatcher",
+            transform_args: ->(args, _kwargs = {}) { [Array(args.first)] }
 
-          def type(type)
-            @option_types = Array(type)
-            add_submatcher(
-              HaveServiceAttributeMatchers::TypesMatcher,
-              described_class,
-              :input,
-              input_name,
-              @option_types
-            )
-            self
-          end
+          register_submatcher :must,
+            class_name: "Shared::MustSubmatcher",
+            transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] }
 
-          def types(*types)
-            @option_types = types
-            add_submatcher(
-              HaveServiceAttributeMatchers::TypesMatcher,
-              described_class,
-              :input,
-              input_name,
-              @option_types
-            )
-            self
-          end
+          register_submatcher :message,
+            class_name: "Shared::MessageSubmatcher",
+            transform_args: ->(args, _kwargs = {}) { [args.first] },
+            requires_last_submatcher: true
 
-          def required(custom_message = nil)
-            remove_submatcher(HaveServiceInputMatchers::OptionalMatcher)
-            add_submatcher(
-              HaveServiceInputMatchers::RequiredMatcher,
-              described_class,
-              :input,
-              input_name,
-              custom_message
-            )
-            self
-          end
+          register_submatcher :target,
+            class_name: "Shared::TargetSubmatcher",
+            transform_args: ->(args, kwargs = {}) { [kwargs.fetch(:name, :target), Array(args.first)] },
+            accepts_trailing_options: true
 
-          def optional
-            remove_submatcher(HaveServiceInputMatchers::RequiredMatcher)
-            add_submatcher(
-              HaveServiceInputMatchers::OptionalMatcher,
-              described_class,
-              :input,
-              input_name
-            )
-            self
-          end
+          # Input-specific submatchers
+          register_submatcher :required,
+            class_name: "Input::RequiredSubmatcher",
+            transform_args: ->(args, _kwargs = {}) { [args.first] },
+            mutually_exclusive_with: [:optional]
 
-          def default(value)
-            add_submatcher(
-              HaveServiceInputMatchers::DefaultMatcher,
-              described_class,
-              :input,
-              input_name,
-              value
-            )
-            self
-          end
+          register_submatcher :optional,
+            class_name: "Input::OptionalSubmatcher",
+            mutually_exclusive_with: [:required]
 
-          def consists_of(*types)
-            add_submatcher(
-              HaveServiceAttributeMatchers::ConsistsOfMatcher,
-              described_class,
-              :input,
-              input_name,
-              @option_types,
-              Array(types)
-            )
-            self
-          end
+          register_submatcher :default,
+            class_name: "Input::DefaultSubmatcher",
+            transform_args: ->(args, _kwargs = {}) { [args.first] }
 
-          def schema(data = {})
-            add_submatcher(
-              HaveServiceAttributeMatchers::SchemaMatcher,
-              described_class,
-              :input,
-              input_name,
-              @option_types,
-              data
-            )
-            self
-          end
-
-          def inclusion(values)
-            add_submatcher(
-              HaveServiceAttributeMatchers::InclusionMatcher,
-              described_class,
-              :input,
-              input_name,
-              Array(values)
-            )
-            self
-          end
-
-          def must(*must_names)
-            add_submatcher(
-              HaveServiceAttributeMatchers::MustMatcher,
-              described_class,
-              :input,
-              input_name,
-              Array(must_names)
-            )
-            self
-          end
-
-          def valid_with(attributes)
-            add_submatcher(
-              HaveServiceInputMatchers::ValidWithMatcher,
-              described_class,
-              :input,
-              input_name,
-              attributes
-            )
-            self
-          end
-
-          def message(message)
-            add_submatcher(
-              HaveServiceAttributeMatchers::MessageMatcher,
-              described_class,
-              :input,
-              input_name,
-              @last_submatcher,
-              message
-            )
-            self
-          end
-
-          def target(values, options = {})
-            add_submatcher(
-              HaveServiceAttributeMatchers::TargetMatcher,
-              described_class,
-              :input,
-              input_name,
-              options.fetch(:name, :target), # option_name
-              Array(values)
-            )
-            self
-          end
-
-          # NOTE: Used for delayed chain implementation
-          # def not_implemented_chain(*description)
-          #   Kernel.warn <<-MESSAGE.squish
-          #     This chain has not yet been implemented.
-          #     This message is for informational purposes only.
-          #     Description: #{description}
-          #   MESSAGE
-          #   self
-          # end
-
-          def description
-            "#{input_name} with #{submatchers.map(&:description).join(', ')}"
-          end
-
-          def failure_message
-            "Expected #{expectation}, which #{missing_options}"
-          end
-
-          def failure_message_when_negated
-            "Did not expect #{expectation} with specified options"
-          end
-
-          def matches?(subject)
-            @subject = subject
-
-            submatchers_match?
-          end
-
-          protected
-
-          attr_reader :last_submatcher, :submatchers, :missing, :subject
-
-          def add_submatcher(matcher_class, *args)
-            remove_submatcher(matcher_class)
-            @last_submatcher = matcher_class.new(*args)
-            submatchers << @last_submatcher
-          end
-
-          def remove_submatcher(matcher_class)
-            submatchers.delete_if do |submatcher|
-              submatcher.is_a?(matcher_class)
-            end
-          end
-
-          def expectation
-            "#{described_class.name} to have a service input attribute named #{input_name}"
-          end
-
-          def missing_options
-            missing_options = [missing, missing_options_for_failing_submatchers]
-            missing_options.flatten.select(&:present?).join(", ")
-          end
-
-          def failing_submatchers
-            @failing_submatchers ||= submatchers.reject do |matcher|
-              matcher.matches?(subject)
-            end
-          end
-
-          def missing_options_for_failing_submatchers
-            if defined?(failing_submatchers)
-              failing_submatchers.map(&:missing_option)
-            else
-              []
-            end
-          end
-
-          def submatchers_match?
-            failing_submatchers.empty?
-          end
+          register_submatcher :valid_with,
+            class_name: "Input::ValidWithSubmatcher",
+            transform_args: ->(args, _kwargs = {}) { [args.first] }
         end
       end
     end
