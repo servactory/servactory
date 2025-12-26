@@ -42,6 +42,7 @@ en:
               wrong_element_value: "[%{service_class_name}] Wrong value in input hash `%{input_name}`, expected value of type `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
             target:
               default: "[%{service_class_name}] Input `%{input_name}` has wrong target, must be `%{expected_target}`, got `%{value}`"
+              invalid_option: "[%{service_class_name}] Input `%{input_name}` has missing value in `%{option_name}` option"
         required:
           default_error:
             default: "[%{service_class_name}] Required input `%{input_name}` is missing"
@@ -88,6 +89,7 @@ en:
               wrong_element_value: "[%{service_class_name}] Wrong value in internal attribute hash `%{internal_name}`, expected value of type `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
             target:
               default: "[%{service_class_name}] Internal attribute `%{internal_name}` has wrong target, must be `%{expected_target}`, got `%{value}`"
+              invalid_option: "[%{service_class_name}] Internal attribute `%{internal_name}` has missing value in `%{option_name}` option"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of internal attribute `%{internal_name}`, expected `%{expected_type}`, got `%{given_type}`"
@@ -126,6 +128,7 @@ en:
               wrong_element_value: "[%{service_class_name}] Wrong value in output attribute hash `%{output_name}`, expected value of type `%{expected_type}` for `%{key_name}`, got `%{given_type}`"
             target:
               default: "[%{service_class_name}] Output attribute `%{output_name}` has wrong target, must be `%{expected_target}`, got `%{value}`"
+              invalid_option: "[%{service_class_name}] Output attribute `%{output_name}` has missing value in `%{option_name}` option"
         type:
           default_error:
             default: "[%{service_class_name}] Wrong type of output attribute `%{output_name}`, expected `%{expected_type}`, got `%{given_type}`"
