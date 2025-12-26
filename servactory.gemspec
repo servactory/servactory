@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = Gem::Requirement.new(">= 3.2")
 
-  spec.add_dependency "activesupport", ">= 5.1", "< 8.1"
+  spec.add_dependency "activesupport", ">= 5.1"
   spec.add_dependency "base64", ">= 0.2"
   spec.add_dependency "bigdecimal", ">= 3.1"
   spec.add_dependency "i18n", ">= 1.14"
