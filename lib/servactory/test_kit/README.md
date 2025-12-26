@@ -675,12 +675,17 @@ Servactory::TestKit::Utils::Faker.fetch_value_for(class_or_name, of: :string)
 | `Integer` | `123` |
 | `Float` | `12.3` |
 | `Range` | `1..3` |
-| `Array` | `[1, 2, 3]` or `["fake"]` |
-| `Hash` | `{ fake: 1 }` or `{ fake: :yes }` |
 | `TrueClass` | `true` |
 | `FalseClass` | `false` |
 | `NilClass` | `nil` |
 | Other | Attempts `.new` or returns class |
+
+**Collection types with `of:` parameter:**
+
+| Class | When `of: :integer` | When `of: :string` (default) |
+|-------|---------------------|------------------------------|
+| `Array` | `[1, 2, 3]` | `["fake"]` |
+| `Hash` | `{ fake: 1 }` | `{ fake: :yes }` |
 
 ---
 
