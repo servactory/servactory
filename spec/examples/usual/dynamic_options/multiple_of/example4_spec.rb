@@ -36,7 +36,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
           it { expect(perform).to have_output(:number?).contains(true) }
           it { expect(perform).to have_output(:number).contains(60.0) }
         end
-
       end
 
       describe "but the number required for work is invalid" do
@@ -132,7 +131,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
           it { expect(perform).to have_output(:number?).contains(true) }
           it { expect(perform).to have_output(:number).contains(60.0) }
         end
-
       end
 
       describe "but the number required for work is invalid" do
