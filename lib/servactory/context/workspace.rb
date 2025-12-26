@@ -80,6 +80,10 @@ module Servactory
         fail!(service_result.error.type, message: service_result.error.message, meta: service_result.error.meta)
       end
 
+      def config
+        self.class.config
+      end
+
       private
 
       attr_reader :collection_of_inputs,
