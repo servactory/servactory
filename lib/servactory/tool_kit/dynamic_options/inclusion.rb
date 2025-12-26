@@ -9,53 +9,81 @@ module Servactory
           instance.must(:be_inclusion)
         end
 
-        def condition_for_input_with(input:, value:, option:) # rubocop:disable Naming/PredicateMethod
+        def condition_for_input_with(input:, value:, option:) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+          return [false, :invalid_option] if option.value.nil?
+
+          inclusion_values = normalize_inclusion_values(option.value)
+
           if input.required? || (input.optional? && !value.nil?) # rubocop:disable Style/IfUnlessModifier
-            return option.value.include?(value)
+            return inclusion_values.include?(value)
           end
 
           if input.optional? && value.nil? && !input.default.nil? # rubocop:disable Style/IfUnlessModifier
-            return option.value.include?(input.default)
+            return inclusion_values.include?(input.default)
           end
 
           true
         end
 
-        def condition_for_internal_with(value:, option:, **) # rubocop:disable Naming/PredicateMethod
-          option.value.include?(value)
+        def condition_for_internal_with(value:, option:, **)
+          return [false, :invalid_option] if option.value.nil?
+
+          inclusion_values = normalize_inclusion_values(option.value)
+          inclusion_values.include?(value)
         end
 
-        def condition_for_output_with(value:, option:, **) # rubocop:disable Naming/PredicateMethod
-          option.value.include?(value)
+        def condition_for_output_with(value:, option:, **)
+          return [false, :invalid_option] if option.value.nil?
+
+          inclusion_values = normalize_inclusion_values(option.value)
+          inclusion_values.include?(value)
         end
 
         ########################################################################
 
-        def message_for_input_with(service:, input:, value:, option_value:, **)
+        def message_for_input_with(service:, input:, value:, option_name:, option_value:, reason:, **)
+          i18n_key = "inputs.validations.must.dynamic_options.inclusion"
+          i18n_key += reason.present? ? ".#{reason}" : ".default"
+
           service.translate(
-            "inputs.validations.must.dynamic_options.inclusion.default",
+            i18n_key,
             input_name: input.name,
             value: value.inspect,
-            input_inclusion: option_value.inspect
+            input_inclusion: option_value.inspect,
+            option_name:
           )
         end
 
-        def message_for_internal_with(service:, internal:, value:, option_value:, **)
+        def message_for_internal_with(service:, internal:, value:, option_name:, option_value:, reason:, **)
+          i18n_key = "internals.validations.must.dynamic_options.inclusion"
+          i18n_key += reason.present? ? ".#{reason}" : ".default"
+
           service.translate(
-            "internals.validations.must.dynamic_options.inclusion.default",
+            i18n_key,
             internal_name: internal.name,
             value: value.inspect,
-            internal_inclusion: option_value.inspect
+            internal_inclusion: option_value.inspect,
+            option_name:
           )
         end
 
-        def message_for_output_with(service:, output:, value:, option_value:, **)
+        def message_for_output_with(service:, output:, value:, option_name:, option_value:, reason:, **)
+          i18n_key = "outputs.validations.must.dynamic_options.inclusion"
+          i18n_key += reason.present? ? ".#{reason}" : ".default"
+
           service.translate(
-            "outputs.validations.must.dynamic_options.inclusion.default",
+            i18n_key,
             output_name: output.name,
             value: value.inspect,
-            output_inclusion: option_value.inspect
+            output_inclusion: option_value.inspect,
+            option_name:
           )
+        end
+
+        private
+
+        def normalize_inclusion_values(option_value)
+          option_value.is_a?(Array) ? option_value : [option_value]
         end
       end
     end

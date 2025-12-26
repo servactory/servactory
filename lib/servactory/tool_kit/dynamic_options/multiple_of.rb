@@ -24,10 +24,11 @@ module Servactory
           case value
           when Integer, Float, Rational, BigDecimal
             return false if option.value.blank?
-            return false unless [Numeric, Float, Rational, BigDecimal].any? { |c| option.value.is_a?(c) }
+            return false unless option.value.is_a?(Numeric)
             return false if option.value.zero?
 
-            (value % option.value).zero?
+            remainder = value % option.value
+            remainder.zero? || remainder.abs < Float::EPSILON * [value.abs, option.value.abs].max
           else
             false
           end
@@ -40,8 +41,7 @@ module Servactory
 
           i18n_key += if option_value.blank?
                         ".blank"
-                      elsif [Numeric, Float, Rational, BigDecimal].any? { |c| option_value.is_a?(c) } &&
-                            option_value.zero?
+                      elsif option_value.is_a?(Numeric) && option_value.zero?
                         ".divided_by_0"
                       else
                         ".default"
@@ -61,8 +61,7 @@ module Servactory
 
           i18n_key += if option_value.blank?
                         ".blank"
-                      elsif [Numeric, Float, Rational, BigDecimal].any? { |c| option_value.is_a?(c) } &&
-                            option_value.zero?
+                      elsif option_value.is_a?(Numeric) && option_value.zero?
                         ".divided_by_0"
                       else
                         ".default"
@@ -82,8 +81,7 @@ module Servactory
 
           i18n_key += if option_value.blank?
                         ".blank"
-                      elsif [Numeric, Float, Rational, BigDecimal].any? { |c| option_value.is_a?(c) } &&
-                            option_value.zero?
+                      elsif option_value.is_a?(Numeric) && option_value.zero?
                         ".divided_by_0"
                       else
                         ".default"

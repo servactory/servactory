@@ -5,38 +5,14 @@ module Servactory
     module DSL
       def self.included(base)
         base.extend(ClassMethods)
+        base.include(Configurable)
       end
 
       module ClassMethods
-        def inherited(child) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        def inherited(child)
           super
 
-          child.config.input_exception_class = config.input_exception_class
-          child.config.internal_exception_class = config.internal_exception_class
-          child.config.output_exception_class = config.output_exception_class
-
-          child.config.success_class = config.success_class
-          child.config.failure_class = config.failure_class
-
-          child.config.result_class = config.result_class
-
-          child.config.collection_mode_class_names = config.collection_mode_class_names
-
-          child.config.input_option_helpers = config.input_option_helpers
-          child.config.internal_option_helpers = config.internal_option_helpers
-          child.config.output_option_helpers = config.output_option_helpers
-
-          child.config.action_aliases = config.action_aliases
-          child.config.action_shortcuts = config.action_shortcuts
-          child.config.action_rescue_handlers = config.action_rescue_handlers
-
-          child.config.i18n_root_key = config.i18n_root_key
-
-          child.config.predicate_methods_enabled = config.predicate_methods_enabled
-        end
-
-        def config
-          @config ||= Servactory::Configuration::Setup.new
+          child.instance_variable_set(:@config, config.dup_for_inheritance)
         end
 
         private

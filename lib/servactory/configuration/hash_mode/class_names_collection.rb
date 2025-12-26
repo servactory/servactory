@@ -11,6 +11,11 @@ module Servactory
         def initialize(collection)
           @collection = collection
         end
+
+        def initialize_dup(original)
+          super
+          @collection = original.instance_variable_get(:@collection).dup
+        end
       end
     end
   end
