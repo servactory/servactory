@@ -46,18 +46,25 @@ module Servactory
                         :values,
                         :attribute_data
 
+            def attribute_inclusion
+              @attribute_inclusion ||= attribute_data[OPTION_NAME]
+            end
+
+            def attribute_inclusion_in
+              return @attribute_inclusion_in if defined?(@attribute_inclusion_in)
+
+              @attribute_inclusion_in = attribute_inclusion&.dig(OPTION_BODY_KEY)
+            end
+
             def submatcher_passes?(_subject)
-              attribute_inclusion = attribute_data.fetch(OPTION_NAME)
-              attribute_inclusion_in = attribute_inclusion.fetch(OPTION_BODY_KEY)
+              return false unless attribute_inclusion.is_a?(Hash)
+              return false if attribute_inclusion_in.nil?
 
               attribute_inclusion_in.difference(values).empty? &&
                 values.difference(attribute_inclusion_in).empty?
             end
 
             def build_missing_option
-              attribute_inclusion = attribute_data.fetch(OPTION_NAME)
-              attribute_inclusion_in = attribute_inclusion.fetch(OPTION_BODY_KEY)
-
               <<~MESSAGE
                 should include the expected values
 

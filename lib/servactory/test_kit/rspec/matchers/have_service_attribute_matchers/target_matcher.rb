@@ -24,7 +24,7 @@ module Servactory
             end
 
             def description
-              "#{@option_name}: #{values.map { |v| v.respond_to?(:name) ? v.name : v.to_s }.join(', ')}"
+              "#{option_name}: #{formatted_values}"
             end
 
             def matches?(subject)
@@ -47,21 +47,41 @@ module Servactory
                         :attribute_data,
                         :option_name
 
+            def formatted_values
+              values.map do |v|
+                case v
+                when nil then "nil"
+                when Class then v.name
+                else v.to_s
+                end
+              end.join(", ")
+            end
+
+            def attribute_target
+              @attribute_target ||= attribute_data[option_name]
+            end
+
+            def attribute_target_in
+              return @attribute_target_in if defined?(@attribute_target_in)
+
+              @attribute_target_in = attribute_target&.dig(OPTION_BODY_KEY)
+            end
+
             def submatcher_passes?(_subject)
-              attribute_target = attribute_data.fetch(option_name)
-              attribute_target_in = attribute_target.fetch(OPTION_BODY_KEY)
+              return false unless attribute_target.is_a?(Hash)
+              return false if attribute_target_in.nil?
 
-              expected = values.respond_to?(:difference) ? values : [values]
-              actual = attribute_target_in.respond_to?(:difference) ? attribute_target_in : [attribute_target_in]
+              expected = normalize_to_array(values)
+              actual = normalize_to_array(attribute_target_in)
 
-              actual.difference(expected).empty? &&
-                expected.difference(actual).empty?
+              actual.difference(expected).empty? && expected.difference(actual).empty?
+            end
+
+            def normalize_to_array(value)
+              value.respond_to?(:difference) ? value : [value]
             end
 
             def build_missing_option
-              attribute_target = attribute_data.fetch(option_name)
-              attribute_target_in = attribute_target.fetch(OPTION_BODY_KEY)
-
               <<~MESSAGE
                 should include the expected #{option_name} values
 
