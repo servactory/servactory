@@ -20,7 +20,7 @@ module Servactory
                     :action_shortcuts,
                     :action_rescue_handlers
 
-      def dup_for_inheritance
+      def dup_for_inheritance # rubocop:disable Metrics/AbcSize
         dup.tap do |copy|
           copy.collection_mode_class_names = collection_mode_class_names.dup
           copy.hash_mode_class_names = hash_mode_class_names.dup
