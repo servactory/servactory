@@ -12,12 +12,14 @@ module Servactory
         def condition_for_input_with(input:, value:, option:) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
           return [false, :invalid_option] if option.value.nil?
 
+          inclusion_values = normalize_inclusion_values(option.value)
+
           if input.required? || (input.optional? && !value.nil?) # rubocop:disable Style/IfUnlessModifier
-            return option.value.include?(value)
+            return inclusion_values.include?(value)
           end
 
           if input.optional? && value.nil? && !input.default.nil? # rubocop:disable Style/IfUnlessModifier
-            return option.value.include?(input.default)
+            return inclusion_values.include?(input.default)
           end
 
           true
@@ -26,13 +28,15 @@ module Servactory
         def condition_for_internal_with(value:, option:, **)
           return [false, :invalid_option] if option.value.nil?
 
-          option.value.include?(value)
+          inclusion_values = normalize_inclusion_values(option.value)
+          inclusion_values.include?(value)
         end
 
         def condition_for_output_with(value:, option:, **)
           return [false, :invalid_option] if option.value.nil?
 
-          option.value.include?(value)
+          inclusion_values = normalize_inclusion_values(option.value)
+          inclusion_values.include?(value)
         end
 
         ########################################################################
@@ -74,6 +78,12 @@ module Servactory
             output_inclusion: option_value.inspect,
             option_name:
           )
+        end
+
+        private
+
+        def normalize_inclusion_values(option_value)
+          option_value.is_a?(Array) ? option_value : [option_value]
         end
       end
     end
