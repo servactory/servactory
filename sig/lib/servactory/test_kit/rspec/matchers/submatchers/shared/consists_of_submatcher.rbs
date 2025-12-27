@@ -16,13 +16,11 @@ module Servactory
 
               def description: () -> String
 
-              protected
+              private
 
               def passes?: () -> bool
 
               def build_failure_message: () -> String
-
-              private
 
               attr_reader consists_of_types: Array[Class]
             end

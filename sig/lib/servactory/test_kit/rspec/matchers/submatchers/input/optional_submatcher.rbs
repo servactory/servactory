@@ -7,7 +7,7 @@ module Servactory
             class OptionalSubmatcher < Base::Submatcher
               def description: () -> String
 
-              protected
+              private
 
               def passes?: () -> bool
 

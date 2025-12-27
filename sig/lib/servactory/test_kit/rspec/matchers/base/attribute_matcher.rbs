@@ -38,7 +38,7 @@ module Servactory
 
             def failure_message_when_negated: () -> String
 
-            protected
+            private
 
             attr_reader submatchers: Array[Submatcher]
 
@@ -63,8 +63,6 @@ module Servactory
             def add_submatcher: (Submatcher submatcher) -> void
 
             def remove_submatcher: (Class matcher_class) -> void
-
-            private
 
             def build_chain_methods_from_registry: () -> void
 
