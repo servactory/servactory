@@ -46,12 +46,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
               .with_exception(error)
           end
 
-          it "returns expected error", :aggregate_failures do
-            result = described_class.call(**attributes)
-
-            expect(result).to be_failure_service.type(:base)
-            expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
-            expect(result.error.message).to eq("Payment declined")
+          it "raises expected exception", :aggregate_failures do
+            expect { perform }.to raise_error(ApplicationService::Exceptions::Failure) do |exception|
+              expect(exception.type).to eq(:base)
+              expect(exception.message).to eq("Payment declined")
+            end
           end
         end
       end
