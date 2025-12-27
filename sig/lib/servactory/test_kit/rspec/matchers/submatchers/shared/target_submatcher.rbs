@@ -10,6 +10,8 @@ module Servactory
               @option_name: Symbol
               @values: Array[untyped]
               @actual_values: Array[untyped]
+              @attribute_target: untyped
+              @attribute_target_in: untyped
 
               def initialize: (Base::SubmatcherContext context, Symbol option_name, Array[untyped] values) -> void
 
@@ -24,6 +26,14 @@ module Servactory
               attr_reader option_name: Symbol
 
               attr_reader values: Array[untyped]
+
+              def formatted_values: () -> String
+
+              def attribute_target: () -> untyped
+
+              def attribute_target_in: () -> untyped
+
+              def normalize_to_array: (untyped value) -> Array[untyped]
             end
           end
         end
