@@ -13,11 +13,11 @@ module Servactory
 
               private
 
+              attr_reader custom_message: String?
+
               def passes?: () -> bool
 
               def build_failure_message: () -> String
-
-              attr_reader custom_message: String?
 
               def default_required_message: () -> String
             end

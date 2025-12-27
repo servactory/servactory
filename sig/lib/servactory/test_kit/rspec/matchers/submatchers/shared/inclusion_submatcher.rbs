@@ -20,11 +20,11 @@ module Servactory
 
               private
 
+              attr_reader values: Array[untyped]
+
               def passes?: () -> bool
 
               def build_failure_message: () -> String
-
-              attr_reader values: Array[untyped]
 
               def attribute_inclusion: () -> untyped
 

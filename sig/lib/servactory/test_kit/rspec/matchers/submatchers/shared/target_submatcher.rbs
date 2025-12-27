@@ -19,13 +19,13 @@ module Servactory
 
               private
 
-              def passes?: () -> bool
-
-              def build_failure_message: () -> String
-
               attr_reader option_name: Symbol
 
               attr_reader values: Array[untyped]
+
+              def passes?: () -> bool
+
+              def build_failure_message: () -> String
 
               def formatted_values: () -> String
 

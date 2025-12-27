@@ -26,11 +26,11 @@ module Servactory
 
             private
 
+            attr_reader context: SubmatcherContext
+
             def passes?: () -> bool
 
             def build_failure_message: () -> String
-
-            attr_reader context: SubmatcherContext
           end
         end
       end

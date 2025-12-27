@@ -15,11 +15,11 @@ module Servactory
 
               private
 
+              attr_reader must_names: Array[Symbol]
+
               def passes?: () -> bool
 
               def build_failure_message: () -> String
-
-              attr_reader must_names: Array[Symbol]
             end
           end
         end
