@@ -1,0 +1,38 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Submatchers
+          module Shared
+            class MessageSubmatcher < Base::Submatcher
+              OPTION_NAME: Symbol
+
+              OPTION_BODY_KEY: Symbol
+
+              @custom_message: (String | Proc)?
+              @actual_message: String?
+              @option_name: Symbol?
+              @attribute_schema_is: untyped
+              @attribute_schema_message: untyped
+              @schema_message_equal: bool?
+
+              def initialize: (Base::SubmatcherContext context, (String | Proc)? custom_message) -> void
+
+              def description: () -> String
+
+              private
+
+              attr_reader custom_message: (String | Proc)?
+
+              def passes?: () -> bool
+
+              def build_failure_message: () -> String
+
+              def schema_message_equal?: () -> bool
+            end
+          end
+        end
+      end
+    end
+  end
+end

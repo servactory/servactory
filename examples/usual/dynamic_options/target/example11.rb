@@ -14,10 +14,10 @@ module Usual
                  type: Class,
                  expect: {
                    in: [MyFirstService, MySecondService],
-                   message: lambda { |internal:, value:, option_value:, **|
+                   message: lambda do |internal:, value:, option_value:, **|
                      "Internal `#{internal.name}`: #{value.inspect} is not allowed. " \
                        "Allowed: #{Array(option_value).map(&:name).join(', ')}"
-                   }
+                   end
                  }
 
         output :result, type: String

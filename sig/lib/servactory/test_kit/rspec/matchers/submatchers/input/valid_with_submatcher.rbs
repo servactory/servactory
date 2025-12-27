@@ -1,0 +1,40 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Submatchers
+          module Input
+            class ValidWithSubmatcher < Base::Submatcher
+              @attributes: Hash[Symbol, untyped] | Datory::Base
+              @failure_reason: String?
+
+              def initialize: (Base::SubmatcherContext context, Hash[Symbol, untyped] | Datory::Base attributes) -> void
+
+              def description: () -> String
+
+              private
+
+              attr_reader attributes: Hash[Symbol, untyped] | Datory::Base
+
+              def passes?: () -> bool
+
+              def build_failure_message: () -> String
+
+              def success_passes?: () -> bool
+
+              def failure_type_passes?: () -> bool
+
+              def failure_required_passes?: () -> bool
+
+              def failure_optional_passes?: () -> bool
+
+              def failure_inclusion_passes?: () -> bool
+
+              def expect_failure_with!: (Hash[Symbol, untyped] prepared_attributes, (String | Symbol)? expected_message) -> bool
+            end
+          end
+        end
+      end
+    end
+  end
+end

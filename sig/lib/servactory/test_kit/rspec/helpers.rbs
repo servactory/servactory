@@ -1,0 +1,48 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        def allow_service_as_success!: (
+          Class service_class,
+          ?with: Hash[Symbol, untyped]?
+        ) ?{ () -> Hash[Symbol, untyped] } -> void
+
+        def allow_service_as_success: (
+          Class service_class,
+          ?with: Hash[Symbol, untyped]?
+        ) ?{ () -> Hash[Symbol, untyped] } -> void
+
+        def allow_service_as_failure!: (
+          Class service_class,
+          ?with: Hash[Symbol, untyped]?
+        ) ?{ () -> (Hash[Symbol, untyped] | Exceptions::Failure) } -> void
+
+        def allow_service_as_failure: (
+          Class service_class,
+          ?with: Hash[Symbol, untyped]?
+        ) ?{ () -> (Hash[Symbol, untyped] | Exceptions::Failure) } -> void
+
+        private
+
+        def allow_service!: (
+          Class service_class,
+          Symbol result_type,
+          ?with: Hash[Symbol, untyped]?
+        ) ?{ () -> untyped } -> void
+
+        def allow_service: (
+          Class service_class,
+          Symbol result_type,
+          ?with: Hash[Symbol, untyped]?
+        ) ?{ () -> untyped } -> void
+
+        def allow_servactory: (
+          Class service_class,
+          Symbol method_call,
+          Symbol result_type,
+          ?with: Hash[Symbol, untyped]?
+        ) -> untyped
+      end
+    end
+  end
+end

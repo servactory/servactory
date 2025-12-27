@@ -1,0 +1,60 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        class HaveServiceOutputMatcher
+          include ::RSpec::Matchers::Composable
+
+          @output_name: Symbol
+          @instance_of_class: Class?
+          @nested_methods: Array[Symbol]
+          @expected_value: untyped
+          @value_defined: bool
+          @actual: untyped
+          @given_value: untyped
+
+          def initialize: (Symbol output_name) -> void
+
+          def supports_block_expectations?: () -> bool
+
+          def matches?: (untyped actual) -> bool
+
+          def description: () -> String
+
+          def failure_message: () -> String
+
+          def failure_message_when_negated: () -> String
+
+          # Chain methods
+          def instance_of: ((Class | String) class_or_name) -> self
+
+          def nested: (*Symbol methods) -> self
+
+          def contains: (untyped value) -> self
+
+          private
+
+          attr_reader output_name: Symbol
+
+          attr_reader actual: untyped
+
+          attr_reader given_value: untyped
+
+          attr_reader instance_of_class: Class?
+
+          attr_reader nested_methods: Array[Symbol]
+
+          attr_reader expected_value: untyped
+
+          def check_instance_of: () -> bool
+
+          def check_nested: () -> bool
+
+          def check_contains: () -> bool
+
+          def match_for_failure: () -> String
+        end
+      end
+    end
+  end
+end

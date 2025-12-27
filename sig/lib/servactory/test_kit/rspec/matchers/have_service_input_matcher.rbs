@@ -1,0 +1,34 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        class HaveServiceInputMatcher < Base::AttributeMatcher
+          # Chain methods from registered submatchers
+          def type: (*Class types) -> self
+
+          def types: (*Class types) -> self
+
+          def consists_of: (*Class types) -> self
+
+          def schema: (?Hash[Symbol, untyped] schema_data) -> self
+
+          def inclusion: (Array[untyped] values) -> self
+
+          def target: (*untyped values, ?name: Symbol) -> self
+
+          def must: (*Symbol must_names) -> self
+
+          def message: ((String | Proc)? custom_message) -> self
+
+          def required: (?String? custom_message) -> self
+
+          def optional: () -> self
+
+          def default: (untyped expected_value) -> self
+
+          def valid_with: (Hash[Symbol, untyped] attributes) -> self
+        end
+      end
+    end
+  end
+end

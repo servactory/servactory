@@ -1,0 +1,28 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Submatchers
+          module Shared
+            class TypesSubmatcher < Base::Submatcher
+              @expected_types: Array[Class]
+              @actual_types: Array[Class]
+
+              def initialize: (Base::SubmatcherContext context, Array[Class] expected_types) -> void
+
+              def description: () -> String
+
+              private
+
+              attr_reader expected_types: Array[Class]
+
+              def passes?: () -> bool
+
+              def build_failure_message: () -> String
+            end
+          end
+        end
+      end
+    end
+  end
+end

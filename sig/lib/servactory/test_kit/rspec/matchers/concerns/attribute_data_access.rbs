@@ -1,0 +1,27 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Concerns
+          module AttributeDataAccess
+            def described_class: () -> Class
+
+            def attribute_type: () -> Symbol
+
+            def attribute_name: () -> Symbol
+
+            def attribute_type_plural: () -> Symbol
+
+            def i18n_root_key: () -> String
+
+            def attribute_data: () -> Hash[Symbol, untyped]
+
+            def fetch_option: (Symbol key, ?untyped default) -> untyped
+
+            def option_present?: (Symbol key) -> bool
+          end
+        end
+      end
+    end
+  end
+end
