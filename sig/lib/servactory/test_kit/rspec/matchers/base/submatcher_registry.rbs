@@ -22,19 +22,19 @@ module Servactory
             class SubmatcherDefinition
               attr_reader name: Symbol
 
-              attr_reader class_name: String?
+              attr_reader class_name: String
 
-              attr_reader chain_method: Symbol?
+              attr_reader chain_method: Symbol
 
-              attr_reader chain_aliases: Array[Symbol]?
+              attr_reader chain_aliases: Array[Symbol]
 
-              attr_reader transform_args: (^(Array[untyped], ?Hash[Symbol, untyped]) -> Array[untyped])?
+              attr_reader transform_args: ^(Array[untyped], ?Hash[Symbol, untyped]) -> Array[untyped]
 
               attr_reader requires_option_types: bool
 
               attr_reader requires_last_submatcher: bool
 
-              attr_reader mutually_exclusive_with: Array[Symbol]?
+              attr_reader mutually_exclusive_with: Array[Symbol]
 
               attr_reader stores_option_types: bool
 
@@ -42,13 +42,13 @@ module Servactory
 
               def initialize: (
                 name: Symbol,
-                class_name: String?,
-                ?chain_method: Symbol?,
-                ?chain_aliases: Array[Symbol]?,
-                ?transform_args: (^(Array[untyped], ?Hash[Symbol, untyped]) -> Array[untyped])?,
+                class_name: String,
+                ?chain_method: Symbol,
+                ?chain_aliases: Array[Symbol],
+                ?transform_args: ^(Array[untyped], ?Hash[Symbol, untyped]) -> Array[untyped],
                 ?requires_option_types: bool,
                 ?requires_last_submatcher: bool,
-                ?mutually_exclusive_with: Array[Symbol]?,
+                ?mutually_exclusive_with: Array[Symbol],
                 ?stores_option_types: bool,
                 ?accepts_trailing_options: bool
               ) -> void
