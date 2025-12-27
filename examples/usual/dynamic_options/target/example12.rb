@@ -14,10 +14,10 @@ module Usual
                type: Class,
                target: {
                  in: [MyFirstService, MySecondService],
-                 message: lambda { |output:, value:, option_value:, **|
+                 message: lambda do |output:, value:, option_value:, **|
                    "Output `#{output.name}`: #{value.inspect} is not allowed. " \
                      "Allowed: #{Array(option_value).map(&:name).join(', ')}"
-                 }
+                 end
                }
 
         make :assign_output

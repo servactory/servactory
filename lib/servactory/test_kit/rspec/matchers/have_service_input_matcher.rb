@@ -40,9 +40,9 @@ module Servactory
 
           register_submatcher :target,
                               class_name: "Shared::TargetSubmatcher",
-                              transform_args: lambda { |args, kwargs = {}|
+                              transform_args: (lambda do |args, kwargs = {}|
                                 [kwargs.fetch(:name, :target), Array(args.first)]
-                              },
+                              end),
                               accepts_trailing_options: true
 
           # Input-specific submatchers
