@@ -5,11 +5,14 @@ module Usual
     module Rspec
       module Matchers
         class NestedOutputService < ApplicationService::Base
-          output :response, type: OpenStruct
+          ResponseData = Struct.new(:items, :meta, keyword_init: true)
+          Response = Struct.new(:data, keyword_init: true)
+
+          output :response, type: Response
 
           def call
-            outputs.response = OpenStruct.new(
-              data: OpenStruct.new(
+            outputs.response = Response.new(
+              data: ResponseData.new(
                 items: [1, 2, 3],
                 meta: { count: 3 }
               )
