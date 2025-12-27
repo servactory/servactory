@@ -53,7 +53,9 @@ module Servactory
 
             protected
 
-            attr_reader :submatchers, :subject, :last_submatcher
+            attr_reader :submatchers,
+                        :subject,
+                        :last_submatcher
 
             def attribute_type
               self.class.attribute_type

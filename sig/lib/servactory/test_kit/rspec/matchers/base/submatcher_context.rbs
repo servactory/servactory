@@ -18,6 +18,8 @@ module Servactory
 
             attr_reader i18n_root_key: String?
 
+            @attribute_type_plural: Symbol?
+
             def initialize: (
               described_class: Class,
               attribute_type: Symbol,
