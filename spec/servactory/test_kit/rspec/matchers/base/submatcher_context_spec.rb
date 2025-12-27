@@ -13,7 +13,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext do
     )
   end
 
-  describe "struct attributes" do
+  describe "attributes" do
     it "provides access to described_class" do
       expect(submatcher_context.described_class).to eq(Usual::TestKit::Rspec::Matchers::MinimalInputService)
     end
