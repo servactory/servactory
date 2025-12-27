@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::ConsistsOfSubmatcher do
-  subject { described_class.new(context, [String]) }
+  subject(:submatcher) { described_class.new(context, [String]) }
 
   let(:context) do
     Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
@@ -17,47 +17,47 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Consis
 
   describe "#description" do
     it "includes 'consists_of'" do
-      expect(subject.description).to include("consists_of")
+      expect(submatcher.description).to include("consists_of")
     end
 
     it "includes the type" do
-      expect(subject.description).to include("String")
+      expect(submatcher.description).to include("String")
     end
   end
 
   describe "#matches?" do
     context "when consists_of matches" do
       it "returns true" do
-        expect(subject.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be true
       end
     end
 
     context "when consists_of doesn't match" do
-      subject { described_class.new(context, [Integer]) }
+      subject(:submatcher) { described_class.new(context, [Integer]) }
 
       it "returns false" do
-        expect(subject.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be false
       end
 
       it "sets missing_option" do
-        subject.matches?(nil)
-        expect(subject.missing_option).not_to be_empty
+        submatcher.matches?(nil)
+        expect(submatcher.missing_option).not_to be_empty
       end
     end
   end
 
   describe "#failure_message" do
     context "when match fails" do
-      subject { described_class.new(context, [Integer]) }
+      subject(:submatcher) { described_class.new(context, [Integer]) }
 
-      before { subject.matches?(nil) }
+      before { submatcher.matches?(nil) }
 
       it "includes expected type" do
-        expect(subject.failure_message).to include("Integer")
+        expect(submatcher.failure_message).to include("Integer")
       end
 
       it "includes actual type" do
-        expect(subject.failure_message).to include("String")
+        expect(submatcher.failure_message).to include("String")
       end
     end
   end

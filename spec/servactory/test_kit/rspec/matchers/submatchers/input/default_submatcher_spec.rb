@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::DefaultSubmatcher do
-  subject { described_class.new(context_with_default, 18) }
+  subject(:submatcher) { described_class.new(context_with_default, 18) }
 
   let(:context_with_default) do
     Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
@@ -27,26 +27,26 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Default
 
   describe "#description" do
     it "includes 'default'" do
-      expect(subject.description).to include("default")
+      expect(submatcher.description).to include("default")
     end
 
     it "includes the expected value" do
-      expect(subject.description).to include("18")
+      expect(submatcher.description).to include("18")
     end
 
     context "with nil expected value" do
-      subject { described_class.new(context_without_default, nil) }
+      subject(:submatcher) { described_class.new(context_without_default, nil) }
 
       it "shows nil in description" do
-        expect(subject.description).to include("nil")
+        expect(submatcher.description).to include("nil")
       end
     end
 
     context "with string expected value" do
-      subject { described_class.new(context_with_default, "test") }
+      subject(:submatcher) { described_class.new(context_with_default, "test") }
 
       it "shows string value in description" do
-        expect(subject.description).to include("test")
+        expect(submatcher.description).to include("test")
       end
     end
   end
@@ -54,69 +54,69 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Default
   describe "#matches?" do
     context "when default value matches" do
       it "returns true" do
-        expect(subject.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be true
       end
 
       it "leaves missing_option empty" do
-        subject.matches?(nil)
-        expect(subject.missing_option).to eq("")
+        submatcher.matches?(nil)
+        expect(submatcher.missing_option).to eq("")
       end
     end
 
     context "when default value doesn't match" do
-      subject { described_class.new(context_with_default, 21) }
+      subject(:submatcher) { described_class.new(context_with_default, 21) }
 
       it "returns false" do
-        expect(subject.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be false
       end
 
       it "sets missing_option with failure message" do
-        subject.matches?(nil)
-        expect(subject.missing_option).not_to be_empty
+        submatcher.matches?(nil)
+        expect(submatcher.missing_option).not_to be_empty
       end
     end
 
     context "when no default is set and expecting nil" do
-      subject { described_class.new(context_without_default, nil) }
+      subject(:submatcher) { described_class.new(context_without_default, nil) }
 
       it "returns true" do
-        expect(subject.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be true
       end
     end
 
     context "when no default is set but expecting a value" do
-      subject { described_class.new(context_without_default, 25) }
+      subject(:submatcher) { described_class.new(context_without_default, 25) }
 
       it "returns false" do
-        expect(subject.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be false
       end
     end
 
     context "when default exists but expecting nil" do
-      subject { described_class.new(context_with_default, nil) }
+      subject(:submatcher) { described_class.new(context_with_default, nil) }
 
       it "returns false" do
-        expect(subject.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be false
       end
     end
   end
 
   describe "#failure_message" do
     context "when match fails" do
-      subject { described_class.new(context_with_default, 21) }
+      subject(:submatcher) { described_class.new(context_with_default, 21) }
 
-      before { subject.matches?(nil) }
+      before { submatcher.matches?(nil) }
 
       it "includes expected value" do
-        expect(subject.failure_message).to include("21")
+        expect(submatcher.failure_message).to include("21")
       end
 
       it "includes actual value" do
-        expect(subject.failure_message).to include("18")
+        expect(submatcher.failure_message).to include("18")
       end
 
       it "describes the failure" do
-        expect(subject.failure_message).to include("default")
+        expect(submatcher.failure_message).to include("default")
       end
     end
   end

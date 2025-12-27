@@ -25,7 +25,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       expect(test_matcher_class.submatcher_definitions).to have_key(:test_option)
     end
 
-    it "sets default values for optional parameters" do
+    it "sets default values for optional parameters", :aggregate_failures do
       test_matcher_class.register_submatcher(:simple, class_name: "Simple::Submatcher")
 
       definition = test_matcher_class.submatcher_definitions[:simple]
@@ -114,11 +114,11 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       expect(definition.accepts_trailing_options).to be true
     end
 
-    it "accepts all configuration options together" do
+    it "accepts all configuration options together", :aggregate_failures do
       test_matcher_class.register_submatcher(:full_config,
                                              class_name: "Full::Submatcher",
                                              chain_method: :custom_chain,
-                                             chain_aliases: %i[alias1 alias2],
+                                             chain_aliases: %i[alias_one alias_two],
                                              transform_args: ->(args, _kwargs) { args.map(&:to_s) },
                                              requires_option_types: true,
                                              requires_last_submatcher: true,
@@ -131,7 +131,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       expect(definition.name).to eq(:full_config)
       expect(definition.class_name).to eq("Full::Submatcher")
       expect(definition.chain_method).to eq(:custom_chain)
-      expect(definition.chain_aliases).to eq(%i[alias1 alias2])
+      expect(definition.chain_aliases).to eq(%i[alias_one alias_two])
       expect(definition.requires_option_types).to be true
       expect(definition.requires_last_submatcher).to be true
       expect(definition.mutually_exclusive_with).to eq([:other])
@@ -149,7 +149,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       expect(subclass.submatcher_definitions).to have_key(:parent_option)
     end
 
-    it "isolates subclass modifications from parent" do
+    it "isolates subclass modifications from parent", :aggregate_failures do
       test_matcher_class.register_submatcher(:parent_option, class_name: "Parent::Submatcher")
 
       subclass = Class.new(test_matcher_class)
@@ -160,7 +160,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       expect(subclass.submatcher_definitions).to have_key(:parent_option)
     end
 
-    it "allows subclass to override parent definitions" do
+    it "allows subclass to override parent definitions", :aggregate_failures do
       test_matcher_class.register_submatcher(:shared_option, class_name: "Parent::Submatcher")
 
       subclass = Class.new(test_matcher_class)
@@ -176,7 +176,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry::SubmatcherDefinition
     end
 
-    it "is a Struct with keyword_init" do
+    it "is a Struct with keyword_init", :aggregate_failures do
       definition = definition_class.new(
         name: :test,
         class_name: "Test",
@@ -194,12 +194,12 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       expect(definition.class_name).to eq("Test")
     end
 
-    it "exposes all required attributes" do
+    it "exposes all required attributes", :aggregate_failures do
       definition = definition_class.new(
         name: :test,
         class_name: "Test",
         chain_method: :test,
-        chain_aliases: [:alias],
+        chain_aliases: [:some_alias],
         transform_args: ->(args, _kwargs) { args },
         requires_option_types: true,
         requires_last_submatcher: true,

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSubmatcher do
-  subject { described_class.new(context, [:be_positive]) }
+  subject(:submatcher) { described_class.new(context, [:be_positive]) }
 
   let(:context) do
     Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
@@ -17,19 +17,19 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
 
   describe "#description" do
     it "includes 'must'" do
-      expect(subject.description).to include("must")
+      expect(submatcher.description).to include("must")
     end
 
     it "includes the must name" do
-      expect(subject.description).to include("be_positive")
+      expect(submatcher.description).to include("be_positive")
     end
 
     context "with multiple must conditions" do
-      subject { described_class.new(context, %i[be_positive be_even]) }
+      subject(:submatcher) { described_class.new(context, %i[be_positive be_even]) }
 
-      it "includes all must names" do
-        expect(subject.description).to include("be_positive")
-        expect(subject.description).to include("be_even")
+      it "includes all must names", :aggregate_failures do
+        expect(submatcher.description).to include("be_positive")
+        expect(submatcher.description).to include("be_even")
       end
     end
   end
@@ -37,23 +37,23 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
   describe "#matches?" do
     context "when must conditions match" do
       it "returns true" do
-        expect(subject.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be true
       end
     end
 
     context "when must conditions don't match" do
-      subject { described_class.new(context, [:be_even]) }
+      subject(:submatcher) { described_class.new(context, [:be_even]) }
 
       it "returns false" do
-        expect(subject.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be false
       end
     end
 
     context "when expected is superset of actual" do
-      subject { described_class.new(context, %i[be_positive be_even]) }
+      subject(:submatcher) { described_class.new(context, %i[be_positive be_even]) }
 
       it "returns false" do
-        expect(subject.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be false
       end
     end
   end

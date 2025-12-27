@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::RequiredSubmatcher do
-  subject { described_class.new(required_context) }
+  subject(:submatcher) { described_class.new(required_context) }
 
   let(:required_context) do
     Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
@@ -27,58 +27,58 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Require
 
   describe "#description" do
     it "includes 'required'" do
-      expect(subject.description).to include("required")
+      expect(submatcher.description).to include("required")
     end
 
     it "indicates true" do
-      expect(subject.description).to include("true")
+      expect(submatcher.description).to include("true")
     end
   end
 
   describe "#matches?" do
     context "when input is required" do
       it "returns true" do
-        expect(subject.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be true
       end
 
       it "leaves missing_option empty" do
-        subject.matches?(nil)
-        expect(subject.missing_option).to eq("")
+        submatcher.matches?(nil)
+        expect(submatcher.missing_option).to eq("")
       end
     end
 
     context "when input is optional" do
-      subject { described_class.new(optional_context) }
+      subject(:submatcher) { described_class.new(optional_context) }
 
       it "returns false" do
-        expect(subject.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be false
       end
 
       it "sets missing_option with failure message" do
-        subject.matches?(nil)
-        expect(subject.missing_option).not_to be_empty
+        submatcher.matches?(nil)
+        expect(submatcher.missing_option).not_to be_empty
       end
     end
 
     context "without custom message" do
       it "passes when required is true" do
-        expect(subject.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be true
       end
     end
   end
 
   describe "#failure_message" do
     context "when match fails" do
-      subject { described_class.new(optional_context) }
+      subject(:submatcher) { described_class.new(optional_context) }
 
-      before { subject.matches?(nil) }
+      before { submatcher.matches?(nil) }
 
       it "indicates expected required state" do
-        expect(subject.failure_message).to include("required: true")
+        expect(submatcher.failure_message).to include("required: true")
       end
 
       it "indicates actual required state" do
-        expect(subject.failure_message).to include("required: false")
+        expect(submatcher.failure_message).to include("required: false")
       end
     end
   end
