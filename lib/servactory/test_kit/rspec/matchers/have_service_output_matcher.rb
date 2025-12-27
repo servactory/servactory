@@ -4,7 +4,7 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers
-        class HaveServiceOutputMatcher
+        class HaveServiceOutputMatcher # rubocop:disable Metrics/ClassLength
           include RSpec::Matchers::Composable
 
           def initialize(output_name)
