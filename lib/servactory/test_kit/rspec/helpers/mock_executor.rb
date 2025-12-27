@@ -49,7 +49,7 @@ module Servactory
           end
 
           def all_returns?
-            @configs.none? { |cfg| cfg.failure? && cfg.bang_method? }
+            @configs.none? { |config| config.failure? && config.bang_method? }
           end
 
           def execute_sequential_returns(method_name, arg_matcher)
