@@ -19,6 +19,24 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
     context "when the input arguments are valid" do
       describe "and the number required for work is also valid" do
+        it do
+          expect(described_class.info.inputs.dig(:number, :must).keys).to(
+            contain_exactly(:be_multiple_of)
+          )
+        end
+
+        it do
+          expect(described_class.info.internals.dig(:number, :must).keys).to(
+            contain_exactly(:be_divisible_by)
+          )
+        end
+
+        it do
+          expect(described_class.info.outputs.dig(:number, :must).keys).to(
+            contain_exactly(:be_multiple_of)
+          )
+        end
+
         context "when `number` is `Integer`" do
           it_behaves_like "success result class"
 
@@ -256,6 +274,24 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
     context "when the input arguments are valid" do
       describe "and the number required for work is also valid" do
+        it do
+          expect(described_class.info.inputs.dig(:number, :must).keys).to(
+            contain_exactly(:be_multiple_of)
+          )
+        end
+
+        it do
+          expect(described_class.info.internals.dig(:number, :must).keys).to(
+            contain_exactly(:be_divisible_by)
+          )
+        end
+
+        it do
+          expect(described_class.info.outputs.dig(:number, :must).keys).to(
+            contain_exactly(:be_multiple_of)
+          )
+        end
+
         context "when `number` is `Integer`" do
           it_behaves_like "success result class"
 
