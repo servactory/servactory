@@ -112,5 +112,4 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext do
       expect(context.last_submatcher).to be_nil
     end
   end
-
 end
