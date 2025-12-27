@@ -6,35 +6,39 @@ module Servactory
       module Matchers
         module Concerns
           module ErrorMessageBuilder
-            extend ActiveSupport::Concern
-
-            def build_diff_message(expected:, actual:, prefix: "")
-              <<~MESSAGE
-                #{prefix}
-                  expected: #{format_value(expected)}
-                       got: #{format_value(actual)}
-              MESSAGE
+            def self.included(base)
+              base.include(InstanceMethods)
             end
 
-            def format_value(value) # rubocop:disable Metrics/MethodLength
-              case value
-              when Array
-                "[#{value.map { |v| format_value(v) }.join(', ')}]"
-              when Hash
-                value.inspect
-              when Class
-                value.name
-              when nil
-                "nil"
-              else # rubocop:disable Lint/DuplicateBranch
-                value.inspect
+            module InstanceMethods
+              def build_diff_message(expected:, actual:, prefix: "")
+                <<~MESSAGE
+                  #{prefix}
+                    expected: #{format_value(expected)}
+                         got: #{format_value(actual)}
+                MESSAGE
               end
-            end
 
-            def build_list_message(items, prefix: "")
-              return "#{prefix}(empty)" if items.empty?
+              def format_value(value) # rubocop:disable Metrics/MethodLength
+                case value
+                when Array
+                  "[#{value.map { |v| format_value(v) }.join(', ')}]"
+                when Hash
+                  value.inspect
+                when Class
+                  value.name
+                when nil
+                  "nil"
+                else # rubocop:disable Lint/DuplicateBranch
+                  value.inspect
+                end
+              end
 
-              "#{prefix}#{items.join(', ')}"
+              def build_list_message(items, prefix: "")
+                return "#{prefix}(empty)" if items.empty?
+
+                "#{prefix}#{items.join(', ')}"
+              end
             end
           end
         end
