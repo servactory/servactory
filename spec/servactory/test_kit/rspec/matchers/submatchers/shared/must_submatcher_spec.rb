@@ -56,5 +56,41 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
         expect(submatcher.matches?(nil)).to be false
       end
     end
+
+    context "when attribute has inclusion dynamic option" do
+      subject(:submatcher) { described_class.new(context_with_inclusion, []) }
+
+      let(:context_with_inclusion) do
+        Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
+          described_class: Usual::TestKit::Rspec::Matchers::MinimalInputService,
+          attribute_type: :input,
+          attribute_name: :status,
+          attribute_data: Usual::TestKit::Rspec::Matchers::MinimalInputService.info.inputs[:status],
+          i18n_root_key: "servactory"
+        )
+      end
+
+      it "ignores :be_inclusion key and returns true" do
+        expect(submatcher.matches?(nil)).to be true
+      end
+    end
+
+    context "when attribute has target dynamic option" do
+      subject(:submatcher) { described_class.new(context_with_target, []) }
+
+      let(:context_with_target) do
+        Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
+          described_class: Usual::TestKit::Rspec::Matchers::MinimalInputService,
+          attribute_type: :input,
+          attribute_name: :options,
+          attribute_data: Usual::TestKit::Rspec::Matchers::MinimalInputService.info.inputs[:options],
+          i18n_root_key: "servactory"
+        )
+      end
+
+      it "ignores :be_target key and returns true" do
+        expect(submatcher.matches?(nil)).to be true
+      end
+    end
   end
 end

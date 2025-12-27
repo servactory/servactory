@@ -7,7 +7,7 @@ module Servactory
         module Submatchers
           module Input
             # DEPRECATED: This submatcher is planned to be decommissioned.
-            class ValidWithSubmatcher < Base::Submatcher
+            class ValidWithSubmatcher < Base::Submatcher # rubocop:disable Metrics/ClassLength
               def initialize(context, attributes)
                 super(context)
                 @attributes = attributes.is_a?(FalseClass) ? attributes : Servactory::Utils.adapt(attributes)
@@ -26,7 +26,8 @@ module Servactory
                   failure_type_passes? &&
                   failure_required_passes? &&
                   failure_optional_passes? &&
-                  failure_inclusion_passes?
+                  failure_inclusion_passes? &&
+                  failure_target_passes?
               end
 
               def build_failure_message
@@ -115,6 +116,36 @@ module Servactory
                     service_class_name: described_class.name,
                     input_name: attribute_name,
                     input_inclusion: input_inclusion_in.inspect,
+                    value: wrong_value.inspect
+                  )
+                end
+
+                expect_failure_with!(prepared_attributes, input_required_message)
+              end
+
+              def failure_target_passes? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+                input_target_in = attribute_data.dig(:target, :in)
+                return true if input_target_in.blank?
+
+                wrong_value = Servactory::TestKit::Utils::Faker.fetch_value_for(input_target_in.first.class)
+
+                prepared_attributes = attributes.dup
+                prepared_attributes[attribute_name] = wrong_value
+
+                input_required_message = attribute_data.fetch(:target).fetch(:message)
+
+                # If message is a Proc, we can't easily evaluate it in the test context
+                # (it may require runtime args like input:, value:), so skip message comparison
+                if input_required_message.is_a?(Proc)
+                  return expect_failure_with!(prepared_attributes, :skip_message_check)
+                end
+
+                if input_required_message.nil?
+                  input_required_message = I18n.t(
+                    "#{i18n_root_key}.inputs.validations.must.dynamic_options.target.default",
+                    service_class_name: described_class.name,
+                    input_name: attribute_name,
+                    expected_target: input_target_in.inspect,
                     value: wrong_value.inspect
                   )
                 end

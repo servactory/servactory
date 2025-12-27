@@ -25,7 +25,8 @@ module Servactory
                 # NOTE: Dynamic options that are also `must` but tested separately
                 attribute_must_keys.delete(:consists_of)
                 attribute_must_keys.delete(:schema)
-                attribute_must_keys.delete(:inclusion)
+                attribute_must_keys.delete(:be_inclusion)
+                attribute_must_keys.delete(:be_target)
 
                 attribute_must_keys.difference(must_names).empty? &&
                   must_names.difference(attribute_must_keys).empty?
