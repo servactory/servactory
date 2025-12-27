@@ -126,9 +126,9 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
     end
 
     # NOTE: Proc message testing is skipped because:
-    # Procs with arguments (like ->(input:, value:)) require runtime context
-    # that cannot be easily provided in unit tests. This behavior is covered
-    # in integration tests where the full service context is available.
+    #       Procs with arguments (like ->(input:, value:)) require runtime context
+    #       that cannot be easily provided in unit tests. This behavior is covered
+    #       in integration tests where the full service context is available.
   end
 
   describe "#failure_message" do
