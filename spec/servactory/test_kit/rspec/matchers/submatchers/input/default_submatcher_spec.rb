@@ -54,7 +54,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Default
   describe "#matches?" do
     context "when default value matches" do
       it "returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
 
       it "leaves missing_option empty" do
@@ -67,7 +67,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Default
       subject(:submatcher) { described_class.new(context_with_default, 21) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
 
       it "sets missing_option with failure message" do
@@ -80,7 +80,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Default
       subject(:submatcher) { described_class.new(context_without_default, nil) }
 
       it "returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
 
@@ -88,7 +88,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Default
       subject(:submatcher) { described_class.new(context_without_default, 25) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
     end
 
@@ -96,7 +96,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Default
       subject(:submatcher) { described_class.new(context_with_default, nil) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
     end
   end

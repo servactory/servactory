@@ -28,7 +28,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Schema
   describe "#matches?" do
     context "when schema matches exactly" do
       it "returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
 
       it "leaves missing_option empty" do
@@ -41,7 +41,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Schema
       subject(:submatcher) { described_class.new(context, { different_key: { type: Integer } }) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
 
       it "sets missing_option with failure message" do
@@ -54,7 +54,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Schema
       subject(:submatcher) { described_class.new(context, {}) }
 
       it "returns true (empty schema matches anything)" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
 
@@ -62,7 +62,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Schema
       subject(:submatcher) { described_class.new(context, nil) }
 
       it "returns true (nil schema matches anything)" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
   end

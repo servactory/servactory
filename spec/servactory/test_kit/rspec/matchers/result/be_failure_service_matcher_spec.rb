@@ -10,7 +10,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
 
   describe "#supports_block_expectations?" do
     it "returns false" do
-      expect(matcher.supports_block_expectations?).to be false
+      expect(matcher.supports_block_expectations?).to be(false)
     end
   end
 
@@ -24,27 +24,27 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
     context "with failure result" do
       it "returns true with default type :base" do
         # base_failure_result has type :base by default from fail!
-        expect(matcher.matches?(base_failure_result)).to be true
+        expect(matcher.matches?(base_failure_result)).to be(true)
       end
     end
 
     context "with success result" do
       it "returns false" do
-        expect(matcher.matches?(success_result)).to be false
+        expect(matcher.matches?(success_result)).to be(false)
       end
     end
 
     context "with non-Result object" do
       it "returns false for string" do
-        expect(matcher.matches?("not a result")).to be false
+        expect(matcher.matches?("not a result")).to be(false)
       end
 
       it "returns false for nil" do
-        expect(matcher.matches?(nil)).to be false
+        expect(matcher.matches?(nil)).to be(false)
       end
 
       it "returns false for hash" do
-        expect(matcher.matches?({ error: "something" })).to be false
+        expect(matcher.matches?({ error: "something" })).to be(false)
       end
     end
   end
@@ -53,14 +53,14 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
     context "when type matches" do
       it "returns true" do
         chained_matcher = matcher.type(:validation_error)
-        expect(chained_matcher.matches?(failure_result)).to be true
+        expect(chained_matcher.matches?(failure_result)).to be(true)
       end
     end
 
     context "when type doesn't match" do
       it "returns false" do
         chained_matcher = matcher.type(:wrong_type)
-        expect(chained_matcher.matches?(failure_result)).to be false
+        expect(chained_matcher.matches?(failure_result)).to be(false)
       end
     end
 
@@ -73,14 +73,14 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
     context "when message matches" do
       it "returns true" do
         chained_matcher = matcher.type(:validation_error).message("Expected failure")
-        expect(chained_matcher.matches?(failure_result)).to be true
+        expect(chained_matcher.matches?(failure_result)).to be(true)
       end
     end
 
     context "when message doesn't match" do
       it "returns false" do
         chained_matcher = matcher.type(:validation_error).message("wrong message")
-        expect(chained_matcher.matches?(failure_result)).to be false
+        expect(chained_matcher.matches?(failure_result)).to be(false)
       end
     end
 
@@ -93,19 +93,19 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
     context "when meta matches" do
       it "returns true" do
         chained_matcher = matcher.type(:validation_error).meta(code: 422)
-        expect(chained_matcher.matches?(failure_result)).to be true
+        expect(chained_matcher.matches?(failure_result)).to be(true)
       end
     end
 
     context "when meta doesn't match" do
       it "returns false for wrong value" do
         chained_matcher = matcher.type(:validation_error).meta(code: 500)
-        expect(chained_matcher.matches?(failure_result)).to be false
+        expect(chained_matcher.matches?(failure_result)).to be(false)
       end
 
       it "returns false for wrong key" do
         chained_matcher = matcher.type(:validation_error).meta(wrong_key: 422)
-        expect(chained_matcher.matches?(failure_result)).to be false
+        expect(chained_matcher.matches?(failure_result)).to be(false)
       end
     end
 
@@ -118,14 +118,14 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
     context "when failure class matches" do
       it "returns true" do
         chained_matcher = matcher.with(Wrong::TestKit::Rspec::Matchers::CustomFailure).type(:custom)
-        expect(chained_matcher.matches?(custom_failure_result)).to be true
+        expect(chained_matcher.matches?(custom_failure_result)).to be(true)
       end
     end
 
     context "when failure class doesn't match" do
       it "returns false" do
         chained_matcher = matcher.with(Wrong::TestKit::Rspec::Matchers::CustomFailure).type(:validation_error)
-        expect(chained_matcher.matches?(failure_result)).to be false
+        expect(chained_matcher.matches?(failure_result)).to be(false)
       end
     end
 
@@ -141,7 +141,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
                         .message("Expected failure")
                         .meta(code: 422)
 
-      expect(chained_matcher.matches?(failure_result)).to be true
+      expect(chained_matcher.matches?(failure_result)).to be(true)
     end
 
     it "fails when any condition doesn't match" do
@@ -150,7 +150,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
                         .message("Expected failure")
                         .meta(code: 500) # wrong meta
 
-      expect(chained_matcher.matches?(failure_result)).to be false
+      expect(chained_matcher.matches?(failure_result)).to be(false)
     end
   end
 

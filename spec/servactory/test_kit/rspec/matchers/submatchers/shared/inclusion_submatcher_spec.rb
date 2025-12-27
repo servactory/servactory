@@ -29,7 +29,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Inclus
   describe "#matches?" do
     context "when inclusion values match exactly" do
       it "returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Inclus
       subject(:submatcher) { described_class.new(context, %i[pending completed]) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
 
       it "sets missing_option" do
@@ -50,7 +50,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Inclus
       subject(:submatcher) { described_class.new(context, [:active]) }
 
       it "returns false (missing inactive)" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Inclus
       subject(:submatcher) { described_class.new(context, %i[active inactive pending]) }
 
       it "returns false (extra pending)" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
     end
 
@@ -66,7 +66,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Inclus
       subject(:submatcher) { described_class.new(context, %i[inactive active]) }
 
       it "returns true (order independent)" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
   end

@@ -44,28 +44,28 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
 
   describe "#supports_block_expectations?" do
     it "returns true" do
-      expect(matcher.supports_block_expectations?).to be true
+      expect(matcher.supports_block_expectations?).to be(true)
     end
   end
 
   describe "#matches?" do
     context "with no submatchers" do
       it "returns true" do
-        expect(matcher.matches?(nil)).to be true
+        expect(matcher.matches?(nil)).to be(true)
       end
     end
 
     context "with passing submatcher" do
       it "returns true" do
         matcher.type(String)
-        expect(matcher.matches?(nil)).to be true
+        expect(matcher.matches?(nil)).to be(true)
       end
     end
 
     context "with failing submatcher" do
       it "returns false" do
         matcher.type(Integer)
-        expect(matcher.matches?(nil)).to be false
+        expect(matcher.matches?(nil)).to be(false)
       end
     end
 
@@ -73,7 +73,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
       context "when all pass" do
         it "returns true" do
           matcher.type(String)
-          expect(matcher.matches?(nil)).to be true
+          expect(matcher.matches?(nil)).to be(true)
         end
       end
 
@@ -81,7 +81,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
         it "returns false" do
           # name is String and required, but we test with Integer
           matcher.type(Integer)
-          expect(matcher.matches?(nil)).to be false
+          expect(matcher.matches?(nil)).to be(false)
         end
       end
     end
@@ -178,7 +178,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
 
       it "passes for required input" do
         email_matcher.required
-        expect(email_matcher.matches?(nil)).to be true
+        expect(email_matcher.matches?(nil)).to be(true)
       end
     end
 
@@ -196,7 +196,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
 
       it "passes for optional input" do
         age_matcher.optional
-        expect(age_matcher.matches?(nil)).to be true
+        expect(age_matcher.matches?(nil)).to be(true)
       end
     end
 
@@ -214,12 +214,12 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
 
       it "passes when default matches" do
         age_matcher.default(18)
-        expect(age_matcher.matches?(nil)).to be true
+        expect(age_matcher.matches?(nil)).to be(true)
       end
 
       it "fails when default doesn't match" do
         age_matcher.default(21)
-        expect(age_matcher.matches?(nil)).to be false
+        expect(age_matcher.matches?(nil)).to be(false)
       end
     end
 

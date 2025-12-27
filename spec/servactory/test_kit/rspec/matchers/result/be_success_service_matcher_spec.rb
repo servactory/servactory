@@ -8,7 +8,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMat
 
   describe "#supports_block_expectations?" do
     it "returns false" do
-      expect(matcher.supports_block_expectations?).to be false
+      expect(matcher.supports_block_expectations?).to be(false)
     end
   end
 
@@ -21,27 +21,27 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMat
   describe "#matches?" do
     context "with successful result" do
       it "returns true" do
-        expect(matcher.matches?(success_result)).to be true
+        expect(matcher.matches?(success_result)).to be(true)
       end
     end
 
     context "with failure result" do
       it "returns false" do
-        expect(matcher.matches?(failure_result)).to be false
+        expect(matcher.matches?(failure_result)).to be(false)
       end
     end
 
     context "with non-Result object" do
       it "returns false for string" do
-        expect(matcher.matches?("not a result")).to be false
+        expect(matcher.matches?("not a result")).to be(false)
       end
 
       it "returns false for nil" do
-        expect(matcher.matches?(nil)).to be false
+        expect(matcher.matches?(nil)).to be(false)
       end
 
       it "returns false for hash" do
-        expect(matcher.matches?({ success: true })).to be false
+        expect(matcher.matches?({ success: true })).to be(false)
       end
     end
   end
@@ -50,24 +50,24 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMat
     context "when output matches" do
       it "returns true" do
         chained_matcher = matcher.with_output(:result, "TEST")
-        expect(chained_matcher.matches?(success_result)).to be true
+        expect(chained_matcher.matches?(success_result)).to be(true)
       end
 
       it "validates symbol output" do
         chained_matcher = matcher.with_output(:status, :completed)
-        expect(chained_matcher.matches?(success_result)).to be true
+        expect(chained_matcher.matches?(success_result)).to be(true)
       end
     end
 
     context "when output doesn't match" do
       it "returns false for wrong value" do
         chained_matcher = matcher.with_output(:result, "wrong")
-        expect(chained_matcher.matches?(success_result)).to be false
+        expect(chained_matcher.matches?(success_result)).to be(false)
       end
 
       it "returns false for non-existent output" do
         chained_matcher = matcher.with_output(:nonexistent, "value")
-        expect(chained_matcher.matches?(success_result)).to be false
+        expect(chained_matcher.matches?(success_result)).to be(false)
       end
     end
 
@@ -80,14 +80,14 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMat
     context "when all outputs match" do
       it "returns true" do
         chained_matcher = matcher.with_outputs(result: "TEST", status: :completed)
-        expect(chained_matcher.matches?(success_result)).to be true
+        expect(chained_matcher.matches?(success_result)).to be(true)
       end
     end
 
     context "when any output doesn't match" do
       it "returns false for wrong value" do
         chained_matcher = matcher.with_outputs(result: "TEST", status: :wrong)
-        expect(chained_matcher.matches?(success_result)).to be false
+        expect(chained_matcher.matches?(success_result)).to be(false)
       end
     end
 
@@ -151,7 +151,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMat
   describe "fluent interface" do
     it "allows chaining with_output and with_outputs", :aggregate_failures do
       expect(matcher.with_output(:result, "TEST").with_outputs(status: :completed)).to eq(matcher)
-      expect(matcher.matches?(success_result)).to be true
+      expect(matcher.matches?(success_result)).to be(true)
     end
   end
 

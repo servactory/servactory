@@ -38,7 +38,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Require
   describe "#matches?" do
     context "when input is required" do
       it "returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
 
       it "leaves missing_option empty" do
@@ -51,7 +51,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Require
       subject(:submatcher) { described_class.new(optional_context) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
 
       it "sets missing_option with failure message" do
@@ -62,7 +62,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Require
 
     context "without custom message" do
       it "passes when required is true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
   end

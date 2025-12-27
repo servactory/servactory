@@ -36,7 +36,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
   describe "#matches?" do
     context "when passes? returns true" do
       it "returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
 
       it "does not set missing_option" do
@@ -67,7 +67,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
       end
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
 
       it "sets missing_option from build_failure_message" do

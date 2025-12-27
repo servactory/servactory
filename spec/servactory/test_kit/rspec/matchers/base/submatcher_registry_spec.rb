@@ -34,11 +34,11 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       expect(definition.class_name).to eq("Simple::Submatcher")
       expect(definition.chain_method).to eq(:simple)
       expect(definition.chain_aliases).to eq([])
-      expect(definition.requires_option_types).to be false
-      expect(definition.requires_last_submatcher).to be false
+      expect(definition.requires_option_types).to be(false)
+      expect(definition.requires_last_submatcher).to be(false)
       expect(definition.mutually_exclusive_with).to eq([])
-      expect(definition.stores_option_types).to be false
-      expect(definition.accepts_trailing_options).to be false
+      expect(definition.stores_option_types).to be(false)
+      expect(definition.accepts_trailing_options).to be(false)
     end
 
     it "accepts custom chain_method" do
@@ -83,7 +83,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       )
 
       definition = test_matcher_class.submatcher_definitions[:consists_of]
-      expect(definition.requires_option_types).to be true
+      expect(definition.requires_option_types).to be(true)
     end
 
     it "accepts requires_last_submatcher flag" do
@@ -94,7 +94,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       )
 
       definition = test_matcher_class.submatcher_definitions[:message]
-      expect(definition.requires_last_submatcher).to be true
+      expect(definition.requires_last_submatcher).to be(true)
     end
 
     it "accepts mutually_exclusive_with option" do
@@ -116,7 +116,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       )
 
       definition = test_matcher_class.submatcher_definitions[:types]
-      expect(definition.stores_option_types).to be true
+      expect(definition.stores_option_types).to be(true)
     end
 
     it "accepts accepts_trailing_options flag" do
@@ -127,7 +127,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       )
 
       definition = test_matcher_class.submatcher_definitions[:target]
-      expect(definition.accepts_trailing_options).to be true
+      expect(definition.accepts_trailing_options).to be(true)
     end
 
     it "accepts all configuration options together", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
@@ -150,11 +150,11 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       expect(definition.class_name).to eq("Full::Submatcher")
       expect(definition.chain_method).to eq(:custom_chain)
       expect(definition.chain_aliases).to eq(%i[alias_one alias_two])
-      expect(definition.requires_option_types).to be true
-      expect(definition.requires_last_submatcher).to be true
+      expect(definition.requires_option_types).to be(true)
+      expect(definition.requires_last_submatcher).to be(true)
       expect(definition.mutually_exclusive_with).to eq([:other])
-      expect(definition.stores_option_types).to be true
-      expect(definition.accepts_trailing_options).to be true
+      expect(definition.stores_option_types).to be(true)
+      expect(definition.accepts_trailing_options).to be(true)
     end
   end
 

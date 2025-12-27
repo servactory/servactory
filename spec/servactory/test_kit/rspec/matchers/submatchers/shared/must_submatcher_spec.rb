@@ -37,7 +37,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
   describe "#matches?" do
     context "when must conditions match" do
       it "returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
 
@@ -45,7 +45,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
       subject(:submatcher) { described_class.new(context, [:be_even]) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
       subject(:submatcher) { described_class.new(context, %i[be_positive be_even]) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
     end
 
@@ -71,7 +71,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
       end
 
       it "ignores :be_inclusion key and returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
 
@@ -89,7 +89,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
       end
 
       it "ignores :be_target key and returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
   end

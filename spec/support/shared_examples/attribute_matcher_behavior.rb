@@ -9,7 +9,7 @@ RSpec.shared_examples "an attribute matcher" do
 
   describe "#supports_block_expectations?" do
     it "returns true" do
-      expect(subject.supports_block_expectations?).to be true
+      expect(subject.supports_block_expectations?).to be(true)
     end
   end
 

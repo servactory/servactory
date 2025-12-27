@@ -53,7 +53,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Target
   describe "#matches?" do
     context "when target values match exactly" do
       it "returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
 
       it "leaves missing_option empty" do
@@ -66,7 +66,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Target
       subject(:submatcher) { described_class.new(context, :target, %i[wrong_target]) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
 
       it "sets missing_option with failure message" do
@@ -79,7 +79,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Target
       subject(:submatcher) { described_class.new(context, :target, []) }
 
       it "returns false (missing sidekiq)" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
     end
 
@@ -87,7 +87,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Target
       subject(:submatcher) { described_class.new(context, :target, %i[sidekiq extra]) }
 
       it "returns false (extra value)" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
     end
 
@@ -105,7 +105,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Target
       end
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
     end
   end

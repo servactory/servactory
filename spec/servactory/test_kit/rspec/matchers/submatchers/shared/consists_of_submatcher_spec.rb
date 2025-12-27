@@ -28,7 +28,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Consis
   describe "#matches?" do
     context "when consists_of matches" do
       it "returns true" do
-        expect(submatcher.matches?(nil)).to be true
+        expect(submatcher.matches?(nil)).to be(true)
       end
     end
 
@@ -36,7 +36,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Consis
       subject(:submatcher) { described_class.new(context, [Integer]) }
 
       it "returns false" do
-        expect(submatcher.matches?(nil)).to be false
+        expect(submatcher.matches?(nil)).to be(false)
       end
 
       it "sets missing_option" do
