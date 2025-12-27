@@ -16,7 +16,7 @@ module Servactory
               MESSAGE
             end
 
-            def format_value(value)
+            def format_value(value) # rubocop:disable Metrics/MethodLength
               case value
               when Array
                 "[#{value.map { |v| format_value(v) }.join(', ')}]"
@@ -26,7 +26,7 @@ module Servactory
                 value.name
               when nil
                 "nil"
-              else
+              else # rubocop:disable Lint/DuplicateBranch
                 value.inspect
               end
             end

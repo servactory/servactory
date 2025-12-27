@@ -34,7 +34,7 @@ module Servactory
               "service success"
             end
 
-            def failure_message # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+            def failure_message # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
               unless result.is_a?(Servactory::Result)
                 return <<~MESSAGE
                   Incorrect service result:

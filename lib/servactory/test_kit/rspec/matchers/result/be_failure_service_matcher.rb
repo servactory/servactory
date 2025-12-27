@@ -22,7 +22,7 @@ module Servactory
               false
             end
 
-            def matches?(result) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+            def matches?(result) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
               @result = result
 
               failure_class = expected_failure_class || Servactory::Exceptions::Failure

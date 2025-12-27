@@ -9,39 +9,41 @@ module Servactory
 
           # Shared submatchers
           register_submatcher :types,
-            class_name: "Shared::TypesSubmatcher",
-            chain_method: :type,
-            chain_aliases: [:types],
-            transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] },
-            stores_option_types: true
+                              class_name: "Shared::TypesSubmatcher",
+                              chain_method: :type,
+                              chain_aliases: [:types],
+                              transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] },
+                              stores_option_types: true
 
           register_submatcher :consists_of,
-            class_name: "Shared::ConsistsOfSubmatcher",
-            transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] },
-            requires_option_types: true
+                              class_name: "Shared::ConsistsOfSubmatcher",
+                              transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] },
+                              requires_option_types: true
 
           register_submatcher :schema,
-            class_name: "Shared::SchemaSubmatcher",
-            transform_args: ->(args, _kwargs = {}) { [args.first || {}] },
-            requires_option_types: true
+                              class_name: "Shared::SchemaSubmatcher",
+                              transform_args: ->(args, _kwargs = {}) { [args.first || {}] },
+                              requires_option_types: true
 
           register_submatcher :inclusion,
-            class_name: "Shared::InclusionSubmatcher",
-            transform_args: ->(args, _kwargs = {}) { [Array(args.first)] }
+                              class_name: "Shared::InclusionSubmatcher",
+                              transform_args: ->(args, _kwargs = {}) { [Array(args.first)] }
 
           register_submatcher :must,
-            class_name: "Shared::MustSubmatcher",
-            transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] }
+                              class_name: "Shared::MustSubmatcher",
+                              transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] }
 
           register_submatcher :message,
-            class_name: "Shared::MessageSubmatcher",
-            transform_args: ->(args, _kwargs = {}) { [args.first] },
-            requires_last_submatcher: true
+                              class_name: "Shared::MessageSubmatcher",
+                              transform_args: ->(args, _kwargs = {}) { [args.first] },
+                              requires_last_submatcher: true
 
           register_submatcher :target,
-            class_name: "Shared::TargetSubmatcher",
-            transform_args: ->(args, kwargs = {}) { [kwargs.fetch(:name, :target), Array(args.first)] },
-            accepts_trailing_options: true
+                              class_name: "Shared::TargetSubmatcher",
+                              transform_args: lambda { |args, kwargs = {}|
+                                [kwargs.fetch(:name, :target), Array(args.first)]
+                              },
+                              accepts_trailing_options: true
         end
       end
     end

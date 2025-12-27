@@ -60,14 +60,14 @@ module Servactory
           attr_reader :output_name, :actual, :given_value, :instance_of_class,
                       :nested_methods, :expected_value
 
-          def check_instance_of
+          def check_instance_of # rubocop:disable Naming/PredicateMethod
             return true unless instance_of_class
 
             matcher = RSpec::Matchers::BuiltIn::BeAnInstanceOf.new(instance_of_class)
             matcher.matches?(@given_value)
           end
 
-          def check_nested
+          def check_nested # rubocop:disable Naming/PredicateMethod
             return true if nested_methods.empty?
 
             nested_methods.each do |method_name|
@@ -78,7 +78,7 @@ module Servactory
             true
           end
 
-          def check_contains # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
+          def check_contains # rubocop:disable Metrics/MethodLength, Naming/PredicateMethod
             return true unless @value_defined
 
             matcher = case expected_value
@@ -102,9 +102,7 @@ module Servactory
 
             if instance_of_class
               matcher = RSpec::Matchers::BuiltIn::BeAnInstanceOf.new(instance_of_class)
-              unless matcher.matches?(given_value_for_check)
-                return matcher.failure_message
-              end
+              return matcher.failure_message unless matcher.matches?(given_value_for_check)
             end
 
             if nested_methods.present?

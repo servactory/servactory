@@ -7,7 +7,7 @@ module Servactory
         module Submatchers
           module Input
             # DEPRECATED: This submatcher is planned to be decommissioned.
-            class ValidWithSubmatcher < Base::Submatcher # rubocop:disable Metrics/ClassLength
+            class ValidWithSubmatcher < Base::Submatcher
               def initialize(context, attributes)
                 super(context)
                 @attributes = attributes.is_a?(FalseClass) ? attributes : Servactory::Utils.adapt(attributes)

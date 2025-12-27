@@ -15,9 +15,9 @@ module Servactory
                 @submatcher_definitions ||= {}
               end
 
-              def register_submatcher(name, options = {})
+              def register_submatcher(name, options = {}) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
                 submatcher_definitions[name] = SubmatcherDefinition.new(
-                  name: name,
+                  name:,
                   class_name: options[:class_name],
                   chain_method: options[:chain_method] || name,
                   chain_aliases: options[:chain_aliases] || [],

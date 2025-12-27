@@ -10,12 +10,12 @@ RSpec.shared_examples "a submatcher" do
   describe "#matches?" do
     it "returns boolean" do
       result = subject.matches?(nil)
-      expect(result).to eq(true).or eq(false)
+      expect(result).to be(true).or be(false)
     end
   end
 
   describe "#description" do
-    it "returns non-empty string" do
+    it "returns non-empty string", :aggregate_failures do
       expect(subject.description).to be_a(String)
       expect(subject.description).not_to be_empty
     end

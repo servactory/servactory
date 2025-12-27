@@ -47,11 +47,11 @@ module Servactory
               def schema_data_equal?
                 @schema_data_equal ||= begin
                   matcher_result = RSpec::Expectations::ExpectationHelper
-                    .with_matcher(
-                      RSpec::Expectations::PositiveExpectationHandler,
-                      RSpec::Matchers::BuiltIn::Match.new(schema_data),
-                      nil
-                    ) { |matcher| matcher.matches?(@attribute_schema_is) }
+                                   .with_matcher(
+                                     RSpec::Expectations::PositiveExpectationHandler,
+                                     RSpec::Matchers::BuiltIn::Match.new(schema_data),
+                                     nil
+                                   ) { |matcher| matcher.matches?(@attribute_schema_is) }
 
                   (schema_data.present? && matcher_result) || schema_data.blank?
                 end

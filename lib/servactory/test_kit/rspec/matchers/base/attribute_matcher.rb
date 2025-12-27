@@ -5,7 +5,7 @@ module Servactory
     module Rspec
       module Matchers
         module Base
-          class AttributeMatcher
+          class AttributeMatcher # rubocop:disable Metrics/ClassLength
             include SubmatcherRegistry
             include RSpec::Matchers::Composable
 
@@ -65,8 +65,8 @@ module Servactory
 
             def attribute_data
               @attribute_data ||= described_class.info
-                .public_send(attribute_type_plural)
-                .fetch(attribute_name)
+                                                 .public_send(attribute_type_plural)
+                                                 .fetch(attribute_name)
             end
 
             def i18n_root_key
@@ -103,7 +103,7 @@ module Servactory
               end
             end
 
-            def define_chain_method_for(definition) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+            def define_chain_method_for(definition) # rubocop:disable Metrics/MethodLength
               define_singleton_method(definition.chain_method) do |*args|
                 # For methods that accept trailing options hash (like target(value, name: :option)),
                 # we need to extract it. We use a heuristic: if the method expects options AND
@@ -112,9 +112,7 @@ module Servactory
 
                 handle_mutually_exclusive(definition)
 
-                if definition.stores_option_types
-                  @option_types = definition.transform_args.call(args, options)
-                end
+                @option_types = definition.transform_args.call(args, options) if definition.stores_option_types
 
                 submatcher = build_submatcher(definition, args, options)
                 add_submatcher(submatcher)
@@ -149,13 +147,13 @@ module Servactory
 
             def build_submatcher(definition, args, options) # rubocop:disable Metrics/MethodLength
               context = SubmatcherContext.new(
-                described_class: described_class,
-                attribute_type: attribute_type,
-                attribute_name: attribute_name,
-                attribute_data: attribute_data,
+                described_class:,
+                attribute_type:,
+                attribute_name:,
+                attribute_data:,
                 option_types: definition.requires_option_types ? option_types : nil,
                 last_submatcher: definition.requires_last_submatcher ? last_submatcher : nil,
-                i18n_root_key: i18n_root_key
+                i18n_root_key:
               )
 
               transformed_args = definition.transform_args.call(args, options)

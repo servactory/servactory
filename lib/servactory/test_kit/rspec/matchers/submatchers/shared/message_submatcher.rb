@@ -45,7 +45,7 @@ module Servactory
 
               attr_reader :custom_message
 
-              def schema_message_equal? # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+              def schema_message_equal? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
                 @schema_message_equal ||= begin
                   if custom_message.present? && !@attribute_schema_message.nil?
                     if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)

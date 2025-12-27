@@ -42,18 +42,22 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
     end
 
     it "accepts custom chain_method" do
-      test_matcher_class.register_submatcher(:types,
-                                             class_name: "Types::Submatcher",
-                                             chain_method: :type)
+      test_matcher_class.register_submatcher(
+        :types,
+        class_name: "Types::Submatcher",
+        chain_method: :type
+      )
 
       definition = test_matcher_class.submatcher_definitions[:types]
       expect(definition.chain_method).to eq(:type)
     end
 
     it "accepts chain_aliases" do
-      test_matcher_class.register_submatcher(:types,
-                                             class_name: "Types::Submatcher",
-                                             chain_aliases: [:type])
+      test_matcher_class.register_submatcher(
+        :types,
+        class_name: "Types::Submatcher",
+        chain_aliases: [:type]
+      )
 
       definition = test_matcher_class.submatcher_definitions[:types]
       expect(definition.chain_aliases).to eq([:type])
@@ -61,70 +65,84 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
 
     it "accepts transform_args lambda" do
       transform = ->(args, _kwargs) { args.map(&:to_s) }
-      test_matcher_class.register_submatcher(:custom,
-                                             class_name: "Custom::Submatcher",
-                                             transform_args: transform)
+      test_matcher_class.register_submatcher(
+        :custom,
+        class_name: "Custom::Submatcher",
+        transform_args: transform
+      )
 
       definition = test_matcher_class.submatcher_definitions[:custom]
       expect(definition.transform_args.call([1, 2], {})).to eq(%w[1 2])
     end
 
     it "accepts requires_option_types flag" do
-      test_matcher_class.register_submatcher(:consists_of,
-                                             class_name: "ConsistsOf::Submatcher",
-                                             requires_option_types: true)
+      test_matcher_class.register_submatcher(
+        :consists_of,
+        class_name: "ConsistsOf::Submatcher",
+        requires_option_types: true
+      )
 
       definition = test_matcher_class.submatcher_definitions[:consists_of]
       expect(definition.requires_option_types).to be true
     end
 
     it "accepts requires_last_submatcher flag" do
-      test_matcher_class.register_submatcher(:message,
-                                             class_name: "Message::Submatcher",
-                                             requires_last_submatcher: true)
+      test_matcher_class.register_submatcher(
+        :message,
+        class_name: "Message::Submatcher",
+        requires_last_submatcher: true
+      )
 
       definition = test_matcher_class.submatcher_definitions[:message]
       expect(definition.requires_last_submatcher).to be true
     end
 
     it "accepts mutually_exclusive_with option" do
-      test_matcher_class.register_submatcher(:required,
-                                             class_name: "Required::Submatcher",
-                                             mutually_exclusive_with: [:optional])
+      test_matcher_class.register_submatcher(
+        :required,
+        class_name: "Required::Submatcher",
+        mutually_exclusive_with: [:optional]
+      )
 
       definition = test_matcher_class.submatcher_definitions[:required]
       expect(definition.mutually_exclusive_with).to eq([:optional])
     end
 
     it "accepts stores_option_types flag" do
-      test_matcher_class.register_submatcher(:types,
-                                             class_name: "Types::Submatcher",
-                                             stores_option_types: true)
+      test_matcher_class.register_submatcher(
+        :types,
+        class_name: "Types::Submatcher",
+        stores_option_types: true
+      )
 
       definition = test_matcher_class.submatcher_definitions[:types]
       expect(definition.stores_option_types).to be true
     end
 
     it "accepts accepts_trailing_options flag" do
-      test_matcher_class.register_submatcher(:target,
-                                             class_name: "Target::Submatcher",
-                                             accepts_trailing_options: true)
+      test_matcher_class.register_submatcher(
+        :target,
+        class_name: "Target::Submatcher",
+        accepts_trailing_options: true
+      )
 
       definition = test_matcher_class.submatcher_definitions[:target]
       expect(definition.accepts_trailing_options).to be true
     end
 
-    it "accepts all configuration options together", :aggregate_failures do
-      test_matcher_class.register_submatcher(:full_config,
-                                             class_name: "Full::Submatcher",
-                                             chain_method: :custom_chain,
-                                             chain_aliases: %i[alias_one alias_two],
-                                             transform_args: ->(args, _kwargs) { args.map(&:to_s) },
-                                             requires_option_types: true,
-                                             requires_last_submatcher: true,
-                                             mutually_exclusive_with: [:other],
-                                             stores_option_types: true,
-                                             accepts_trailing_options: true)
+    it "accepts all configuration options together", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
+      test_matcher_class.register_submatcher(
+        :full_config,
+        class_name: "Full::Submatcher",
+        chain_method: :custom_chain,
+        chain_aliases: %i[alias_one alias_two],
+        transform_args: ->(args, _kwargs) { args.map(&:to_s) },
+        requires_option_types: true,
+        requires_last_submatcher: true,
+        mutually_exclusive_with: [:other],
+        stores_option_types: true,
+        accepts_trailing_options: true
+      )
 
       definition = test_matcher_class.submatcher_definitions[:full_config]
 
@@ -194,7 +212,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       expect(definition.class_name).to eq("Test")
     end
 
-    it "exposes all required attributes", :aggregate_failures do
+    it "exposes all required attributes", :aggregate_failures do # rubocop:disable RSpec/ExampleLength
       definition = definition_class.new(
         name: :test,
         class_name: "Test",
