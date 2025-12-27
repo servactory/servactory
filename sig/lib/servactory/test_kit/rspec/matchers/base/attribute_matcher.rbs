@@ -76,7 +76,7 @@ module Servactory
 
             def build_submatcher: (SubmatcherRegistry::SubmatcherDefinition definition, Array[untyped] args, Hash[Symbol, untyped] options) -> Submatcher
 
-            def resolve_submatcher_class: (String class_name) -> Class
+            def resolve_submatcher_class: (String class_name) -> untyped
           end
         end
       end

@@ -138,7 +138,7 @@ module Servactory
               return {} unless args.last.is_a?(Hash)
               return {} if args.last.is_a?(Class)
 
-              args.pop
+              args.pop || {}
             end
 
             def handle_mutually_exclusive(definition)
