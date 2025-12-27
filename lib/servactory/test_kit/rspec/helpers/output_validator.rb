@@ -42,7 +42,7 @@ module Servactory
             )
           end
 
-          def validate_output_types!
+          def validate_output_types! # rubocop:disable Metrics/MethodLength
             @outputs.each do |name, value|
               output_info = @service_class.info.outputs[name]
               next unless output_info

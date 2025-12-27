@@ -30,8 +30,8 @@ module Servactory
             def unknown_outputs_message(service_class:, unknown_outputs:, defined_outputs:)
               <<~MESSAGE.squish
                 Unknown output(s) for #{service_class.name}:
-                provided: #{unknown_outputs.map(&:inspect).join(", ")},
-                defined: #{defined_outputs.map(&:inspect).join(", ")}.
+                provided: #{unknown_outputs.map(&:inspect).join(', ')},
+                defined: #{defined_outputs.map(&:inspect).join(', ')}.
                 Hint: Check that the output names match the service definition.
               MESSAGE
             end
@@ -39,7 +39,7 @@ module Servactory
             def type_mismatch_message(service_class:, output_name:, expected_types:, actual_value:)
               <<~MESSAGE.squish
                 Type mismatch for output :#{output_name} in #{service_class.name}.
-                Expected: #{expected_types.map(&:name).join(" or ")},
+                Expected: #{expected_types.map(&:name).join(' or ')},
                 got: #{actual_value.class.name} (#{actual_value.inspect}).
                 Hint: Ensure the mocked value matches the expected type.
               MESSAGE
@@ -66,7 +66,7 @@ module Servactory
               MESSAGE
             end
 
-            def invalid_exception_type_message(service_class:, expected_class:, actual_class:)
+            def invalid_exception_type_message(service_class:, expected_class:, actual_class:) # rubocop:disable Metrics/MethodLength
               <<~MESSAGE.squish
                 Invalid exception type for failure mock of #{service_class.name}.
                 Expected: instance of #{expected_class.name} (configured failure_class),

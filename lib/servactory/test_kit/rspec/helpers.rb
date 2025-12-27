@@ -141,7 +141,7 @@ module Servactory
           config
         end
 
-        def process_legacy_block_result(config, block_result)
+        def process_legacy_block_result(config, block_result) # rubocop:disable Metrics/MethodLength
           validate_legacy_block_result!(block_result, config.success?)
 
           if block_result.is_a?(Hash)

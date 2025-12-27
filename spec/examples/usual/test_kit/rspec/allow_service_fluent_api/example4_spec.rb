@@ -102,5 +102,4 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
       end
     end
   end
-
 end

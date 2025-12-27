@@ -4,7 +4,7 @@ module Servactory
   module TestKit
     module Rspec
       module Helpers
-        class ServiceMockBuilder
+        class ServiceMockBuilder # rubocop:disable Metrics/ClassLength
           include Concerns::ServiceClassValidation
           include Concerns::ErrorMessages
 

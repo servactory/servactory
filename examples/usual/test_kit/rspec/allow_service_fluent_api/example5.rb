@@ -43,10 +43,10 @@ module Usual
               customer_id: inputs.customer_id
             )
 
-            if result.success?
-              outputs.order_total = result.line_total
-              outputs.has_discount = result.discount_applied
-            end
+            return unless result.success?
+
+            outputs.order_total = result.line_total
+            outputs.has_discount = result.discount_applied
           end
         end
       end

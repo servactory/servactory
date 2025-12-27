@@ -35,9 +35,7 @@ module Usual
           def process_payment
             result = Example1Child.call(amount: inputs.amount)
 
-            if result.failure?
-              fail!(message: result.error.message)
-            end
+            fail!(message: result.error.message) if result.failure?
 
             outputs.payment_status = result.status
             outputs.payment_transaction_id = result.transaction_id

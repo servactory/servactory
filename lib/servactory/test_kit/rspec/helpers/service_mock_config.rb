@@ -63,7 +63,7 @@ module Servactory
             input_names.to_h { |input_name| [input_name, rspec_context.anything] }
           end
 
-          def dup
+          def dup # rubocop:disable Metrics/AbcSize
             copy = self.class.new(service_class:)
             copy.result_type = result_type
             copy.method_type = method_type
