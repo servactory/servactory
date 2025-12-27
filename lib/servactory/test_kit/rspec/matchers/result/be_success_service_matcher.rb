@@ -103,7 +103,8 @@ module Servactory
 
             private
 
-            attr_reader :result, :expected_outputs
+            attr_reader :result,
+                        :expected_outputs
           end
         end
       end

@@ -57,8 +57,12 @@ module Servactory
 
           private
 
-          attr_reader :output_name, :actual, :given_value, :instance_of_class,
-                      :nested_methods, :expected_value
+          attr_reader :output_name,
+                      :actual,
+                      :given_value,
+                      :instance_of_class,
+                      :nested_methods,
+                      :expected_value
 
           def check_instance_of # rubocop:disable Naming/PredicateMethod
             return true unless instance_of_class

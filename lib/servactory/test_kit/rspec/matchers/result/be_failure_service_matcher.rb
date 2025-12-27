@@ -154,8 +154,11 @@ module Servactory
 
             private
 
-            attr_reader :result, :expected_failure_class, :expected_type,
-                        :expected_message, :expected_meta
+            attr_reader :result,
+                        :expected_failure_class,
+                        :expected_type,
+                        :expected_message,
+                        :expected_meta
           end
         end
       end

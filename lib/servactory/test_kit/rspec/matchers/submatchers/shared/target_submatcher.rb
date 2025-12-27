@@ -42,7 +42,8 @@ module Servactory
 
               private
 
-              attr_reader :option_name, :values
+              attr_reader :option_name,
+                          :values
 
               def formatted_values
                 values.map do |v|
