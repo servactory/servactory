@@ -97,7 +97,8 @@ module Servactory
                 input_inclusion_in = attribute_data.dig(:inclusion, :in)
                 return true if input_inclusion_in.blank?
 
-                wrong_value = Servactory::TestKit::Utils::Faker.fetch_value_for(input_inclusion_in.first.class)
+                inclusion_values = input_inclusion_in.is_a?(Array) ? input_inclusion_in : [input_inclusion_in]
+                wrong_value = Servactory::TestKit::Utils::Faker.fetch_value_for(inclusion_values.first.class)
 
                 prepared_attributes = attributes.dup
                 prepared_attributes[attribute_name] = wrong_value
@@ -127,7 +128,8 @@ module Servactory
                 input_target_in = attribute_data.dig(:target, :in)
                 return true if input_target_in.blank?
 
-                wrong_value = Servactory::TestKit::Utils::Faker.fetch_value_for(input_target_in.first.class)
+                target_values = input_target_in.is_a?(Array) ? input_target_in : [input_target_in]
+                wrong_value = Servactory::TestKit::Utils::Faker.fetch_value_for(target_values.first.class)
 
                 prepared_attributes = attributes.dup
                 prepared_attributes[attribute_name] = wrong_value
