@@ -83,6 +83,18 @@ before do
 end
 ```
 
+**With RSpec matchers:**
+
+The `with:` parameter also accepts RSpec argument matchers for flexible matching:
+
+```ruby
+before do
+  allow_service_as_success!(PaymentService, with: hash_including(amount: 100)) do
+    { transaction_id: "txn_123" }
+  end
+end
+```
+
 ### `allow_service_as_success(service_class, with: nil, &block)`
 
 Same as `allow_service_as_success!` but mocks the `call` method (non-bang version).
@@ -349,6 +361,8 @@ it { expect(described_class).to have_input(:enabled).types(TrueClass, FalseClass
 it { expect(described_class).to have_input(:data).types(String, Integer, Array) }
 ```
 
+> **Note:** `.type()` and `.types()` are aliases for the same matcher. Use whichever reads better for your test.
+
 #### Chain: `.required(custom_message = nil)`
 
 Asserts input is required:
@@ -370,6 +384,8 @@ Asserts input is optional:
 ```ruby
 it { expect(described_class).to have_input(:nickname).optional }
 ```
+
+> **Note:** `.required` and `.optional` are mutually exclusive. If you chain both, only the last one takes effect.
 
 #### Chain: `.default(value)`
 
@@ -472,9 +488,17 @@ it do
 end
 ```
 
-#### Chain: `.target(values, options = {})`
+> **Note:** `.message()` validates the error message of the **preceding** validation chain (like `.inclusion()`, `.must()`, `.schema()`, `.required()`, etc.). It must follow a validation chain method.
 
-Asserts dynamic option targeting:
+#### Chain: `.target(values, name: :option_name)`
+
+Asserts dynamic option targeting. Use this to verify inputs that are passed to specific processing targets.
+
+**Parameters:**
+- `values` - Array of target identifiers (symbols)
+- `name:` (optional) - Custom option name. Defaults to `:target`
+
+**Basic usage:**
 
 ```ruby
 it do
@@ -487,6 +511,8 @@ end
 **With custom option name:**
 
 ```ruby
+# For inputs defined with custom target option name
+# input :data, type: Hash, some_option: [:background], name: :job_options
 it do
   expect(described_class).to have_input(:data)
     .target([:background], name: :job_options)
