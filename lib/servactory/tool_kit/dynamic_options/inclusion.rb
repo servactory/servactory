@@ -3,21 +3,76 @@
 module Servactory
   module ToolKit
     module DynamicOptions
+      # Validates that attribute value is included in a specified set.
+      #
+      # ## Purpose
+      #
+      # Inclusion provides set membership validation for attributes.
+      # It ensures that the value is present within a predefined list
+      # of acceptable values. This is similar to ActiveModel's inclusion
+      # validation and is useful for enum-like constraints.
+      #
+      # ## Usage
+      #
+      # Register the option in your service configuration:
+      #
+      # ```ruby
+      # configuration do
+      #   input_option_helpers([
+      #     Servactory::ToolKit::DynamicOptions::Inclusion.use
+      #   ])
+      # end
+      # ```
+      #
+      # Use in your service definition:
+      #
+      # ```ruby
+      # class CreateUserService < ApplicationService::Base
+      #   input :role, type: String, inclusion: { in: %w[admin user guest] }
+      #   input :status, type: Symbol, inclusion: { in: [:active, :inactive] }
+      #   input :level, type: Integer, inclusion: { in: 1..10 }
+      # end
+      # ```
+      #
+      # ## Validation Rules
+      #
+      # - Value must be present in the inclusion list
+      # - Supports arrays and ranges as inclusion sets
+      # - Optional inputs with nil value validate against default
+      # - Returns `:invalid_option` error if inclusion set is nil
+      #
+      # ## Important Notes
+      #
+      # - Use `inclusion: { in: [...] }` syntax for specifying allowed values
+      # - Single values are automatically wrapped in an array
+      # - For optional inputs with nil value, validates default if present
       class Inclusion < Must
+        # Creates an Inclusion validator instance.
+        #
+        # @param option_name [Symbol] The option name (default: :inclusion)
+        # @return [Servactory::Maintenance::Attributes::OptionHelper]
         def self.use(option_name = :inclusion)
           instance = new(option_name, :in)
           instance.must(:be_inclusion)
         end
 
+        # Validates inclusion condition for input attribute.
+        #
+        # @param input [Object] Input attribute object
+        # @param value [Object] Value to validate
+        # @param option [WorkOption] Inclusion configuration
+        # @return [Boolean, Array] true if valid, or [false, reason]
         def condition_for_input_with(input:, value:, option:) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
           return [false, :invalid_option] if option.value.nil?
 
           inclusion_values = normalize_inclusion_values(option.value)
 
+          # Required inputs or optional with non-nil value.
           if input.required? || (input.optional? && !value.nil?) # rubocop:disable Style/IfUnlessModifier
             return inclusion_values.include?(value)
           end
 
+          # Optional with nil value but has default.
           if input.optional? && value.nil? && !input.default.nil? # rubocop:disable Style/IfUnlessModifier
             return inclusion_values.include?(input.default)
           end
@@ -25,6 +80,11 @@ module Servactory
           true
         end
 
+        # Validates inclusion condition for internal attribute.
+        #
+        # @param value [Object] Value to validate
+        # @param option [WorkOption] Inclusion configuration
+        # @return [Boolean, Array] true if valid, or [false, reason]
         def condition_for_internal_with(value:, option:, **)
           return [false, :invalid_option] if option.value.nil?
 
@@ -32,6 +92,11 @@ module Servactory
           inclusion_values.include?(value)
         end
 
+        # Validates inclusion condition for output attribute.
+        #
+        # @param value [Object] Value to validate
+        # @param option [WorkOption] Inclusion configuration
+        # @return [Boolean, Array] true if valid, or [false, reason]
         def condition_for_output_with(value:, option:, **)
           return [false, :invalid_option] if option.value.nil?
 
@@ -41,6 +106,15 @@ module Servactory
 
         ########################################################################
 
+        # Generates error message for input validation failure.
+        #
+        # @param service [Object] Service context
+        # @param input [Object] Input attribute
+        # @param value [Object] Failed value
+        # @param option_name [Symbol] Option name
+        # @param option_value [Object] Allowed values
+        # @param reason [Symbol] Failure reason
+        # @return [String] Localized error message
         def message_for_input_with(service:, input:, value:, option_name:, option_value:, reason:, **)
           i18n_key = "inputs.validations.must.dynamic_options.inclusion"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
@@ -54,6 +128,15 @@ module Servactory
           )
         end
 
+        # Generates error message for internal validation failure.
+        #
+        # @param service [Object] Service context
+        # @param internal [Object] Internal attribute
+        # @param value [Object] Failed value
+        # @param option_name [Symbol] Option name
+        # @param option_value [Object] Allowed values
+        # @param reason [Symbol] Failure reason
+        # @return [String] Localized error message
         def message_for_internal_with(service:, internal:, value:, option_name:, option_value:, reason:, **)
           i18n_key = "internals.validations.must.dynamic_options.inclusion"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
@@ -67,6 +150,15 @@ module Servactory
           )
         end
 
+        # Generates error message for output validation failure.
+        #
+        # @param service [Object] Service context
+        # @param output [Object] Output attribute
+        # @param value [Object] Failed value
+        # @param option_name [Symbol] Option name
+        # @param option_value [Object] Allowed values
+        # @param reason [Symbol] Failure reason
+        # @return [String] Localized error message
         def message_for_output_with(service:, output:, value:, option_name:, option_value:, reason:, **)
           i18n_key = "outputs.validations.must.dynamic_options.inclusion"
           i18n_key += reason.present? ? ".#{reason}" : ".default"
@@ -82,6 +174,10 @@ module Servactory
 
         private
 
+        # Normalizes inclusion values into array format.
+        #
+        # @param option_value [Object] Inclusion value(s)
+        # @return [Array] Normalized array of allowed values
         def normalize_inclusion_values(option_value)
           option_value.is_a?(Array) ? option_value : [option_value]
         end
