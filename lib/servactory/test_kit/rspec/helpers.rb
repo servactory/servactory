@@ -7,7 +7,6 @@ require_relative "helpers/mock_executor"
 require_relative "helpers/output_validator"
 require_relative "helpers/argument_matchers"
 require_relative "helpers/service_mock_builder"
-require_relative "helpers/service_expectation_builder"
 
 module Servactory
   module TestKit
@@ -19,7 +18,7 @@ module Servactory
         # New Fluent API
         # ============================================================
 
-        # Start building a service mock with fluent API
+        # Start building a service mock with fluent API for .call method
         #
         # @param service_class [Class] The service class to mock
         # @return [ServiceMockBuilder] Builder for fluent configuration
@@ -33,30 +32,34 @@ module Servactory
         # @example Failure mock
         #   allow_service(PaymentService)
         #     .as_failure
-        #     .with_exception(PaymentError.new("Declined"))
+        #     .with_exception(error)
         #
         # @example Sequential returns
         #   allow_service(PaymentService)
         #     .as_success.with_outputs(status: :pending)
         #     .then_as_success.with_outputs(status: :completed)
         #
-        def mock_service(service_class)
-          Helpers::ServiceMockBuilder.new(service_class, rspec_context: self)
+        def allow_service(service_class)
+          Helpers::ServiceMockBuilder.new(service_class, method_type: :call, rspec_context: self)
         end
 
-        # Start building a service expectation (spy) with fluent API
+        # Start building a service mock with fluent API for .call! method
         #
-        # @param service_class [Class] The service class to verify
-        # @return [ServiceExpectationBuilder] Builder for verification
+        # @param service_class [Class] The service class to mock
+        # @return [ServiceMockBuilder] Builder for fluent configuration
         #
-        # @example Verify call count
-        #   expect_service(PaymentService)
+        # @example Success mock for call!
+        #   allow_service!(PaymentService)
         #     .as_success
-        #     .to_have_been_called.once
-        #     .with(amount: 100)
+        #     .with_outputs(transaction_id: "txn_123")
         #
-        def expect_service(service_class)
-          Helpers::ServiceExpectationBuilder.new(service_class, rspec_context: self)
+        # @example Failure mock for call! (raises exception)
+        #   allow_service!(PaymentService)
+        #     .as_failure
+        #     .with_exception(error)
+        #
+        def allow_service!(service_class)
+          Helpers::ServiceMockBuilder.new(service_class, method_type: :call!, rspec_context: self)
         end
 
         # ============================================================

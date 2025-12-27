@@ -5,6 +5,8 @@ module Servactory
     module Rspec
       module Helpers
         class MockExecutor
+          include Concerns::ErrorMessages
+
           def initialize(service_class:, configs:, rspec_context:)
             @service_class = service_class
             @configs = configs
@@ -12,6 +14,8 @@ module Servactory
           end
 
           def execute
+            validate_configs!
+
             if sequential?
               execute_sequential
             else
@@ -74,8 +78,7 @@ module Servactory
 
           def build_callable(config)
             if config.failure? && config.bang_method?
-              exception = config.exception || build_default_exception
-              ->(*_args) { raise exception }
+              ->(*_args) { raise config.exception }
             else
               result = config.build_result
               ->(*_args) { result }
@@ -84,18 +87,44 @@ module Servactory
 
           def apply_return_behavior(message_expectation, config)
             if config.failure? && config.bang_method?
-              exception = config.exception || build_default_exception
-              message_expectation.and_raise(exception)
+              message_expectation.and_raise(config.exception)
             else
               message_expectation.and_return(config.build_result)
             end
           end
 
-          def build_default_exception
-            Servactory::Exceptions::Failure.new(
-              type: :base,
-              message: "Service failure (mocked)"
+          def validate_configs!
+            @configs.each { |config| validate_config!(config) }
+          end
+
+          def validate_config!(config)
+            validate_failure_has_exception!(config)
+            validate_exception_type!(config)
+          end
+
+          def validate_failure_has_exception!(config)
+            return unless config.failure? && config.exception.nil?
+
+            raise ArgumentError, missing_exception_for_failure_message(config.service_class)
+          end
+
+          def validate_exception_type!(config)
+            return if config.exception.nil?
+            return if valid_exception_type?(config)
+
+            raise ArgumentError, invalid_exception_type_message(
+              service_class: config.service_class,
+              expected_class: failure_class_for(config),
+              actual_class: config.exception.class
             )
+          end
+
+          def valid_exception_type?(config)
+            config.exception.is_a?(failure_class_for(config))
+          end
+
+          def failure_class_for(config)
+            config.service_class.config.failure_class
           end
         end
       end

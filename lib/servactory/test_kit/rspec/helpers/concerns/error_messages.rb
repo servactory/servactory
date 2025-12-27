@@ -52,6 +52,31 @@ module Servactory
                 Example: allow_service(MyService).as_success.with_outputs(data: "value")
               MESSAGE
             end
+
+            def missing_exception_for_failure_message(service_class)
+              <<~MESSAGE.squish
+                Exception is required for failure mock of #{service_class.name}.
+                Servactory supports custom exception classes via configuration,
+                so you must explicitly specify the exception.
+                Example:
+                  allow_service(#{service_class.name})
+                    .as_failure
+                    .with_exception(Servactory::Exceptions::Failure.new(type: :error, message: "..."))
+              MESSAGE
+            end
+
+            def invalid_exception_type_message(service_class:, expected_class:, actual_class:)
+              <<~MESSAGE.squish
+                Invalid exception type for failure mock of #{service_class.name}.
+                Expected: instance of #{expected_class.name} (configured failure_class),
+                got: #{actual_class.name}.
+                Hint: Use the service's configured failure class or its subclass.
+                Example:
+                  allow_service(#{service_class.name})
+                    .as_failure
+                    .with_exception(#{expected_class.name}.new(type: :error, message: "..."))
+              MESSAGE
+            end
           end
         end
       end

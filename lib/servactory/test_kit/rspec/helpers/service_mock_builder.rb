@@ -10,12 +10,13 @@ module Servactory
 
           attr_reader :service_class, :config
 
-          def initialize(service_class, rspec_context:)
+          def initialize(service_class, method_type:, rspec_context:)
             validate_service_class!(service_class)
 
             @service_class = service_class
             @rspec_context = rspec_context
             @config = ServiceMockConfig.new(service_class:)
+            @config.method_type = method_type
             @sequential_configs = []
             @executed = false
           end
@@ -55,19 +56,6 @@ module Servactory
           # Input argument matching
           def when_called_with(args_hash_or_matcher)
             @config.argument_matcher = args_hash_or_matcher
-            re_execute_mock
-            self
-          end
-
-          # Method type selection
-          def using_call!
-            @config.method_type = :call!
-            re_execute_mock
-            self
-          end
-
-          def using_call
-            @config.method_type = :call
             re_execute_mock
             self
           end
