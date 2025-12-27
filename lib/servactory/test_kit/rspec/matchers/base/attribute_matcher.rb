@@ -17,7 +17,9 @@ module Servactory
               end
             end
 
-            attr_reader :described_class, :attribute_name, :option_types
+            attr_reader :described_class,
+                        :attribute_name,
+                        :option_types
 
             def initialize(described_class, attribute_name)
               @described_class = described_class
@@ -66,9 +68,11 @@ module Servactory
             end
 
             def attribute_data
-              @attribute_data ||= described_class.info
-                                                 .public_send(attribute_type_plural)
-                                                 .fetch(attribute_name)
+              @attribute_data ||=
+                described_class
+                .info
+                .public_send(attribute_type_plural)
+                .fetch(attribute_name)
             end
 
             def i18n_root_key

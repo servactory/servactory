@@ -7,6 +7,8 @@ module Servactory
             include SubmatcherRegistry
             include ::RSpec::Matchers::Composable
 
+            self.@attribute_type: Symbol?
+
             @submatchers: Array[Submatcher]
             @option_types: Array[Class]?
             @last_submatcher: Submatcher?
