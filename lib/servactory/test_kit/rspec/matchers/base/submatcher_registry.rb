@@ -39,13 +39,14 @@ module Servactory
               end
             end
 
-            SubmatcherDefinition = Struct.new(
+            class SubmatcherDefinition < Struct.new( # rubocop:disable Style/StructInheritance
               :name, :class_name, :chain_method, :chain_aliases,
               :transform_args, :requires_option_types,
               :requires_last_submatcher, :mutually_exclusive_with,
               :stores_option_types, :accepts_trailing_options,
               keyword_init: true
             )
+            end
           end
         end
       end

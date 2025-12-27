@@ -5,7 +5,7 @@ module Servactory
     module Rspec
       module Matchers
         module Base
-          SubmatcherContext = Struct.new(
+          class SubmatcherContext < Struct.new( # rubocop:disable Style/StructInheritance
             :described_class,
             :attribute_type,
             :attribute_name,
@@ -14,7 +14,7 @@ module Servactory
             :last_submatcher,
             :i18n_root_key,
             keyword_init: true
-          ) do
+          )
             def attribute_type_plural
               @attribute_type_plural ||= attribute_type.to_s.pluralize.to_sym
             end
