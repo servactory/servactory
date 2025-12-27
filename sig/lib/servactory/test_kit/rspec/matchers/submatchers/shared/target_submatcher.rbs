@@ -1,0 +1,35 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Submatchers
+          module Shared
+            class TargetSubmatcher < Base::Submatcher
+              OPTION_BODY_KEY: Symbol
+
+              @option_name: Symbol
+              @values: Array[untyped]
+              @actual_values: Array[untyped]
+
+              def initialize: (Base::SubmatcherContext context, Symbol option_name, Array[untyped] values) -> void
+
+              def description: () -> String
+
+              protected
+
+              def passes?: () -> bool
+
+              def build_failure_message: () -> String
+
+              private
+
+              attr_reader option_name: Symbol
+
+              attr_reader values: Array[untyped]
+            end
+          end
+        end
+      end
+    end
+  end
+end

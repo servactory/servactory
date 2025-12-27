@@ -1,0 +1,31 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Submatchers
+          module Shared
+            class MustSubmatcher < Base::Submatcher
+              @must_names: Array[Symbol]
+              @actual_must_names: Array[Symbol]
+              @missing_must_names: Array[Symbol]
+
+              def initialize: (Base::SubmatcherContext context, Array[Symbol] must_names) -> void
+
+              def description: () -> String
+
+              protected
+
+              def passes?: () -> bool
+
+              def build_failure_message: () -> String
+
+              private
+
+              attr_reader must_names: Array[Symbol]
+            end
+          end
+        end
+      end
+    end
+  end
+end

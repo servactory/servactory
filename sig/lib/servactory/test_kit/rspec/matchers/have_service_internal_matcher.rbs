@@ -1,0 +1,26 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        class HaveServiceInternalMatcher < Base::AttributeMatcher
+          # Chain methods from registered submatchers
+          def type: (*Class types) -> self
+
+          def types: (*Class types) -> self
+
+          def consists_of: (*Class types) -> self
+
+          def schema: (?Hash[Symbol, untyped] schema_data) -> self
+
+          def inclusion: (Array[untyped] values) -> self
+
+          def must: (*Symbol must_names) -> self
+
+          def message: ((String | Proc)? custom_message) -> self
+
+          def target: (*untyped values, ?name: Symbol) -> self
+        end
+      end
+    end
+  end
+end

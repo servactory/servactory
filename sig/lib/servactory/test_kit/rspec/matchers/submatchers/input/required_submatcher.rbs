@@ -1,0 +1,31 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Submatchers
+          module Input
+            class RequiredSubmatcher < Base::Submatcher
+              @custom_message: String?
+
+              def initialize: (Base::SubmatcherContext context, ?String? custom_message) -> void
+
+              def description: () -> String
+
+              protected
+
+              def passes?: () -> bool
+
+              def build_failure_message: () -> String
+
+              private
+
+              attr_reader custom_message: String?
+
+              def default_required_message: () -> String
+            end
+          end
+        end
+      end
+    end
+  end
+end

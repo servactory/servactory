@@ -1,0 +1,51 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Base
+          class SubmatcherContext < ::Struct[untyped]
+            attr_reader described_class: Class
+
+            attr_reader attribute_type: Symbol
+
+            attr_reader attribute_name: Symbol
+
+            attr_reader attribute_data: Hash[Symbol, untyped]
+
+            attr_reader option_types: Array[Class]?
+
+            attr_reader last_submatcher: Submatcher?
+
+            attr_reader i18n_root_key: String
+
+            def self.new: (
+              described_class: Class,
+              attribute_type: Symbol,
+              attribute_name: Symbol,
+              attribute_data: Hash[Symbol, untyped],
+              ?option_types: Array[Class]?,
+              ?last_submatcher: Submatcher?,
+              ?i18n_root_key: String
+            ) -> instance
+
+            def self.[]: (
+              described_class: Class,
+              attribute_type: Symbol,
+              attribute_name: Symbol,
+              attribute_data: Hash[Symbol, untyped],
+              ?option_types: Array[Class]?,
+              ?last_submatcher: Submatcher?,
+              ?i18n_root_key: String
+            ) -> instance
+
+            def self.members: () -> Array[Symbol]
+
+            def members: () -> Array[Symbol]
+
+            def attribute_type_plural: () -> Symbol
+          end
+        end
+      end
+    end
+  end
+end

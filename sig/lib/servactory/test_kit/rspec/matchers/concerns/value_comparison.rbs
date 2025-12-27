@@ -1,0 +1,17 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Concerns
+          module ValueComparison
+            def values_match?: (untyped expected, untyped actual) -> bool
+
+            def arrays_match?: (Array[untyped] expected, Array[untyped] actual) -> bool
+
+            def types_match?: (Array[Class] expected_types, Array[Class] actual_types) -> bool
+          end
+        end
+      end
+    end
+  end
+end

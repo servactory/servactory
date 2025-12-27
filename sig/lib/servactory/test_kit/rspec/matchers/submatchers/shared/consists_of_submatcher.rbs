@@ -1,0 +1,34 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Submatchers
+          module Shared
+            class ConsistsOfSubmatcher < Base::Submatcher
+              OPTION_NAME: Symbol
+
+              OPTION_BODY_KEY: Symbol
+
+              @consists_of_types: Array[Class]
+              @actual_types: Array[Class]
+
+              def initialize: (Base::SubmatcherContext context, Array[Class] consists_of_types) -> void
+
+              def description: () -> String
+
+              protected
+
+              def passes?: () -> bool
+
+              def build_failure_message: () -> String
+
+              private
+
+              attr_reader consists_of_types: Array[Class]
+            end
+          end
+        end
+      end
+    end
+  end
+end
