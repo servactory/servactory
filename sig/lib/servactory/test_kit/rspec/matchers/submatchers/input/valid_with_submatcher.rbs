@@ -5,10 +5,10 @@ module Servactory
         module Submatchers
           module Input
             class ValidWithSubmatcher < Base::Submatcher
-              @attributes: Hash[Symbol, untyped]
+              @attributes: Hash[Symbol, untyped] | bool
               @failure_reason: String?
 
-              def initialize: (Base::SubmatcherContext context, Hash[Symbol, untyped] attributes) -> void
+              def initialize: (Base::SubmatcherContext context, Hash[Symbol, untyped] | bool attributes) -> void
 
               def description: () -> String
 
@@ -18,7 +18,7 @@ module Servactory
 
               def build_failure_message: () -> String
 
-              attr_reader attributes: Hash[Symbol, untyped]
+              attr_reader attributes: Hash[Symbol, untyped] | bool
 
               def success_passes?: () -> bool
 
@@ -29,6 +29,8 @@ module Servactory
               def failure_optional_passes?: () -> bool
 
               def failure_inclusion_passes?: () -> bool
+
+              def expect_failure_with!: (Hash[Symbol, untyped] prepared_attributes, (String | Symbol)? expected_message) -> bool
             end
           end
         end

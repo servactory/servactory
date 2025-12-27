@@ -46,11 +46,11 @@ module Servactory
                           :values
 
               def formatted_values
-                values.map do |v|
-                  case v
+                values.map do |value|
+                  case value
                   when nil then "nil"
-                  when Class then v.name
-                  else v.to_s
+                  when Class then value.name
+                  else value.to_s
                   end
                 end.join(", ")
               end

@@ -11,6 +11,8 @@ module Servactory
 
               @values: Array[untyped]
               @actual_values: Array[untyped]
+              @attribute_inclusion: untyped
+              @attribute_inclusion_in: untyped
 
               def initialize: (Base::SubmatcherContext context, Array[untyped] values) -> void
 
@@ -23,6 +25,10 @@ module Servactory
               def build_failure_message: () -> String
 
               attr_reader values: Array[untyped]
+
+              def attribute_inclusion: () -> untyped
+
+              def attribute_inclusion_in: () -> untyped
             end
           end
         end

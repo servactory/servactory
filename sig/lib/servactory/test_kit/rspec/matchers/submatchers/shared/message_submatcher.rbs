@@ -5,9 +5,16 @@ module Servactory
         module Submatchers
           module Shared
             class MessageSubmatcher < Base::Submatcher
+              OPTION_NAME: Symbol
+
+              OPTION_BODY_KEY: Symbol
+
               @custom_message: (String | Proc)?
               @actual_message: String?
               @option_name: Symbol?
+              @attribute_schema_is: untyped
+              @attribute_schema_message: untyped
+              @schema_message_equal: bool?
 
               def initialize: (Base::SubmatcherContext context, (String | Proc)? custom_message) -> void
 
@@ -20,6 +27,8 @@ module Servactory
               def build_failure_message: () -> String
 
               attr_reader custom_message: (String | Proc)?
+
+              def schema_message_equal?: () -> bool
             end
           end
         end
