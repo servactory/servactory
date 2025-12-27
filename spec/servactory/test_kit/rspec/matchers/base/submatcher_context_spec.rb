@@ -113,9 +113,4 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext do
     end
   end
 
-  describe "keyword_init" do
-    it "is a Struct with keyword initialization" do
-      expect(described_class.ancestors).to include(Struct)
-    end
-  end
 end

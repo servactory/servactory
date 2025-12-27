@@ -39,13 +39,41 @@ module Servactory
               end
             end
 
-            class SubmatcherDefinition < Struct.new( # rubocop:disable Style/StructInheritance
-              :name, :class_name, :chain_method, :chain_aliases,
-              :transform_args, :requires_option_types,
-              :requires_last_submatcher, :mutually_exclusive_with,
-              :stores_option_types, :accepts_trailing_options,
-              keyword_init: true
-            )
+            class SubmatcherDefinition
+              attr_reader :name,
+                          :class_name,
+                          :chain_method,
+                          :chain_aliases,
+                          :transform_args,
+                          :requires_option_types,
+                          :requires_last_submatcher,
+                          :mutually_exclusive_with,
+                          :stores_option_types,
+                          :accepts_trailing_options
+
+              def initialize(
+                name:,
+                class_name:,
+                chain_method: nil,
+                chain_aliases: nil,
+                transform_args: nil,
+                requires_option_types: false,
+                requires_last_submatcher: false,
+                mutually_exclusive_with: nil,
+                stores_option_types: false,
+                accepts_trailing_options: false
+              )
+                @name = name
+                @class_name = class_name
+                @chain_method = chain_method
+                @chain_aliases = chain_aliases
+                @transform_args = transform_args
+                @requires_option_types = requires_option_types
+                @requires_last_submatcher = requires_last_submatcher
+                @mutually_exclusive_with = mutually_exclusive_with
+                @stores_option_types = stores_option_types
+                @accepts_trailing_options = accepts_trailing_options
+              end
             end
           end
         end

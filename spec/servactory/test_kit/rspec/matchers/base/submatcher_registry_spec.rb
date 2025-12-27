@@ -194,7 +194,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry do
       Servactory::TestKit::Rspec::Matchers::Base::SubmatcherRegistry::SubmatcherDefinition
     end
 
-    it "is a Struct with keyword_init", :aggregate_failures do
+    it "creates instance with keyword arguments", :aggregate_failures do
       definition = definition_class.new(
         name: :test,
         class_name: "Test",
