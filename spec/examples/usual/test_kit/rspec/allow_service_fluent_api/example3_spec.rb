@@ -51,6 +51,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
                 expect(exception).to be_a(ApplicationService::Exceptions::Failure)
                 expect(exception.type).to eq(:user_not_found)
                 expect(exception.message).to eq("User with ID 42 not found")
+                expect(exception.meta).to be_nil
               end
             )
           end

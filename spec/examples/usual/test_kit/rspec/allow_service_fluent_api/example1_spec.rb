@@ -50,6 +50,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
             expect { perform }.to raise_error(ApplicationService::Exceptions::Failure) do |exception|
               expect(exception.type).to eq(:base)
               expect(exception.message).to eq("Payment declined")
+              expect(exception.meta).to be_nil
             end
           end
         end
