@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
+  subject { matcher }
+
   let(:described_service) { Usual::TestKit::Rspec::Matchers::MinimalInputService }
 
   let(:matcher) do
@@ -9,8 +11,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
       :name
     )
   end
-
-  subject { matcher }
 
   it_behaves_like "an attribute matcher"
 
@@ -107,17 +107,16 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
         )
       end
 
-      it "includes all submatcher descriptions" do
+      it "includes all submatcher descriptions", :aggregate_failures do
         email_matcher.type(String).required
-        description = email_matcher.description
-        expect(description).to include("String")
-        expect(description).to include("required")
+        expect(email_matcher.description).to include("String")
+        expect(email_matcher.description).to include("required")
       end
     end
   end
 
   describe "#failure_message" do
-    it "describes the expectation" do
+    it "describes the expectation", :aggregate_failures do
       matcher.type(Integer)
       matcher.matches?(nil)
 
@@ -252,17 +251,16 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
     end
 
     describe "mutual exclusivity" do
-      it "removes required when optional is added" do
+      it "removes required when optional is added", :aggregate_failures do
         matcher.required.optional
 
-        submatchers = matcher.send(:submatchers)
-        submatcher_classes = submatchers.map { |s| s.class.name }
-
-        expect(submatcher_classes).to include("Servactory::TestKit::Rspec::Matchers::Submatchers::Input::OptionalSubmatcher")
-        expect(submatcher_classes).not_to include("Servactory::TestKit::Rspec::Matchers::Submatchers::Input::RequiredSubmatcher")
+        expect(matcher.send(:submatchers).map { |s| s.class.name })
+          .to include("Servactory::TestKit::Rspec::Matchers::Submatchers::Input::OptionalSubmatcher")
+        expect(matcher.send(:submatchers).map { |s| s.class.name })
+          .not_to include("Servactory::TestKit::Rspec::Matchers::Submatchers::Input::RequiredSubmatcher")
       end
 
-      it "removes optional when required is added" do
+      it "removes optional when required is added", :aggregate_failures do
         age_matcher = Servactory::TestKit::Rspec::Matchers::HaveServiceInputMatcher.new(
           described_service,
           :age
@@ -270,11 +268,10 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::AttributeMatcher do
 
         age_matcher.optional.required
 
-        submatchers = age_matcher.send(:submatchers)
-        submatcher_classes = submatchers.map { |s| s.class.name }
-
-        expect(submatcher_classes).to include("Servactory::TestKit::Rspec::Matchers::Submatchers::Input::RequiredSubmatcher")
-        expect(submatcher_classes).not_to include("Servactory::TestKit::Rspec::Matchers::Submatchers::Input::OptionalSubmatcher")
+        expect(age_matcher.send(:submatchers).map { |s| s.class.name })
+          .to include("Servactory::TestKit::Rspec::Matchers::Submatchers::Input::RequiredSubmatcher")
+        expect(age_matcher.send(:submatchers).map { |s| s.class.name })
+          .not_to include("Servactory::TestKit::Rspec::Matchers::Submatchers::Input::OptionalSubmatcher")
       end
     end
   end

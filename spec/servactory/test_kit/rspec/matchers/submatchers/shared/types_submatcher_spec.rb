@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesSubmatcher do
+  subject { described_class.new(context, [String]) }
+
   let(:context) do
     Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
       described_class: Usual::TestKit::Rspec::Matchers::MinimalInputService,
@@ -10,8 +12,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesS
       i18n_root_key: "servactory"
     )
   end
-
-  subject { described_class.new(context, [String]) }
 
   it_behaves_like "a submatcher"
 
@@ -25,6 +25,8 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesS
     end
 
     context "with multiple types" do
+      subject { described_class.new(multi_context, [String, Hash, Array]) }
+
       let(:multi_context) do
         Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
           described_class: Usual::TestKit::Rspec::Matchers::MultipleTypesService,
@@ -34,8 +36,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesS
           i18n_root_key: "servactory"
         )
       end
-
-      subject { described_class.new(multi_context, [String, Hash, Array]) }
 
       it "includes all type names" do
         description = subject.description
@@ -72,6 +72,8 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesS
     end
 
     context "when types match in different order" do
+      subject { described_class.new(multi_context, [Array, Hash, String]) }
+
       let(:multi_context) do
         Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
           described_class: Usual::TestKit::Rspec::Matchers::MultipleTypesService,
@@ -81,8 +83,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesS
           i18n_root_key: "servactory"
         )
       end
-
-      subject { described_class.new(multi_context, [Array, Hash, String]) }
 
       it "returns true (order independent)" do
         expect(subject.matches?(nil)).to be true
@@ -90,6 +90,8 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesS
     end
 
     context "when expected types is subset of actual" do
+      subject { described_class.new(multi_context, [String, Hash]) }
+
       let(:multi_context) do
         Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
           described_class: Usual::TestKit::Rspec::Matchers::MultipleTypesService,
@@ -99,8 +101,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesS
           i18n_root_key: "servactory"
         )
       end
-
-      subject { described_class.new(multi_context, [String, Hash]) }
 
       it "returns false (missing Array)" do
         expect(subject.matches?(nil)).to be false

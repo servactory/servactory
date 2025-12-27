@@ -2,6 +2,8 @@
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MessageSubmatcher do
   # Use the actual submatcher classes to avoid constant definition issues
+  subject { described_class.new(context, "Config schema validation failed") }
+
   let(:schema_context_for_mock) do
     Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
       described_class: Usual::TestKit::Rspec::Matchers::CustomMessageService,
@@ -29,8 +31,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
       i18n_root_key: "servactory"
     )
   end
-
-  subject { described_class.new(context, "Config schema validation failed") }
 
   it_behaves_like "a submatcher"
 
@@ -90,6 +90,8 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
     end
 
     context "with inclusion submatcher" do
+      subject { described_class.new(inclusion_context, "Status must be active or inactive") }
+
       let(:inclusion_context_for_mock) do
         Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
           described_class: Usual::TestKit::Rspec::Matchers::CustomMessageService,
@@ -117,8 +119,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
           i18n_root_key: "servactory"
         )
       end
-
-      subject { described_class.new(inclusion_context, "Status must be active or inactive") }
 
       it "returns true when message matches" do
         expect(subject.matches?(nil)).to be true

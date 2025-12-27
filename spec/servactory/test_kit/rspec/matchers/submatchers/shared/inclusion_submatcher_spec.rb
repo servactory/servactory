@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::InclusionSubmatcher do
+  subject { described_class.new(context, %i[active inactive]) }
+
   let(:context) do
     Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
       described_class: Usual::TestKit::Rspec::Matchers::MinimalInputService,
@@ -10,8 +12,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Inclus
       i18n_root_key: "servactory"
     )
   end
-
-  subject { described_class.new(context, %i[active inactive]) }
 
   it_behaves_like "a submatcher"
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
+  subject { concrete_submatcher_class.new(context) }
+
   let(:concrete_submatcher_class) do
     Class.new(described_class) do
       def description
@@ -29,8 +31,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
     )
   end
 
-  subject { concrete_submatcher_class.new(context) }
-
   it_behaves_like "a submatcher"
 
   describe "#matches?" do
@@ -46,6 +46,8 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
     end
 
     context "when passes? returns false" do
+      subject { failing_submatcher_class.new(context) }
+
       let(:failing_submatcher_class) do
         Class.new(described_class) do
           def description
@@ -64,8 +66,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
         end
       end
 
-      subject { failing_submatcher_class.new(context) }
-
       it "returns false" do
         expect(subject.matches?(nil)).to be false
       end
@@ -83,6 +83,8 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
     end
 
     context "after failed match" do
+      subject { failing_submatcher_class.new(context) }
+
       let(:failing_submatcher_class) do
         Class.new(described_class) do
           def description
@@ -101,8 +103,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
         end
       end
 
-      subject { failing_submatcher_class.new(context) }
-
       it "returns the failure message" do
         subject.matches?(nil)
         expect(subject.failure_message).to eq("specific failure")
@@ -117,11 +117,11 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
   end
 
   describe "abstract method enforcement" do
+    subject { incomplete_submatcher_class.new(context) }
+
     let(:incomplete_submatcher_class) do
       Class.new(described_class)
     end
-
-    subject { incomplete_submatcher_class.new(context) }
 
     it "raises NotImplementedError for #description" do
       expect { subject.description }.to raise_error(NotImplementedError, /must implement #description/)
@@ -132,7 +132,9 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
     end
 
     it "raises NotImplementedError for #build_failure_message" do
-      expect { subject.send(:build_failure_message) }.to raise_error(NotImplementedError, /must implement #build_failure_message/)
+      expect do
+        subject.send(:build_failure_message)
+      end.to raise_error(NotImplementedError, /must implement #build_failure_message/)
     end
   end
 

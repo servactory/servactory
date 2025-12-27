@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMatcher do
+  subject { described_class.new }
+
   let(:failure_result) { Wrong::TestKit::Rspec::Matchers::FailureService.call(should_fail: true) }
   let(:success_result) { Usual::TestKit::Rspec::Matchers::SuccessService.call(data: "test") }
   let(:custom_failure_result) { Wrong::TestKit::Rspec::Matchers::CustomFailureService.call(error_type: :custom) }
   let(:base_failure_result) { Wrong::TestKit::Rspec::Matchers::CustomFailureService.call(error_type: :base) }
-
-  subject { described_class.new }
 
   describe "#supports_block_expectations?" do
     it "returns false" do
@@ -137,18 +137,18 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
   describe "chained validation" do
     it "validates all conditions together" do
       matcher = subject
-        .type(:validation_error)
-        .message("Expected failure")
-        .meta(code: 422)
+                .type(:validation_error)
+                .message("Expected failure")
+                .meta(code: 422)
 
       expect(matcher.matches?(failure_result)).to be true
     end
 
     it "fails when any condition doesn't match" do
       matcher = subject
-        .type(:validation_error)
-        .message("Expected failure")
-        .meta(code: 500) # wrong meta
+                .type(:validation_error)
+                .message("Expected failure")
+                .meta(code: 500) # wrong meta
 
       expect(matcher.matches?(failure_result)).to be false
     end
@@ -158,20 +158,18 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
     context "with non-Result object" do
       before { subject.matches?("string") }
 
-      it "describes the type error" do
-        message = subject.failure_message
-        expect(message).to include("Servactory::Result")
-        expect(message).to include("String")
+      it "describes the type error", :aggregate_failures do
+        expect(subject.failure_message).to include("Servactory::Result")
+        expect(subject.failure_message).to include("String")
       end
     end
 
     context "with success result" do
       before { subject.matches?(success_result) }
 
-      it "describes success/failure mismatch" do
-        message = subject.failure_message
-        expect(message).to include("expected failure")
-        expect(message).to include("got success")
+      it "describes success/failure mismatch", :aggregate_failures do
+        expect(subject.failure_message).to include("expected failure")
+        expect(subject.failure_message).to include("got success")
       end
     end
 
@@ -181,11 +179,10 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
         subject.matches?(failure_result)
       end
 
-      it "describes the type mismatch" do
-        message = subject.failure_message
-        expect(message).to include("Incorrect error type")
-        expect(message).to include("wrong_type")
-        expect(message).to include("validation_error")
+      it "describes the type mismatch", :aggregate_failures do
+        expect(subject.failure_message).to include("Incorrect error type")
+        expect(subject.failure_message).to include("wrong_type")
+        expect(subject.failure_message).to include("validation_error")
       end
     end
 
@@ -195,11 +192,10 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
         subject.matches?(failure_result)
       end
 
-      it "describes the message mismatch" do
-        message = subject.failure_message
-        expect(message).to include("Incorrect error message")
-        expect(message).to include("wrong message")
-        expect(message).to include("Expected failure")
+      it "describes the message mismatch", :aggregate_failures do
+        expect(subject.failure_message).to include("Incorrect error message")
+        expect(subject.failure_message).to include("wrong message")
+        expect(subject.failure_message).to include("Expected failure")
       end
     end
 
@@ -209,11 +205,10 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
         subject.matches?(failure_result)
       end
 
-      it "describes the meta mismatch" do
-        message = subject.failure_message
-        expect(message).to include("Incorrect error meta")
-        expect(message).to include("500")
-        expect(message).to include("422")
+      it "describes the meta mismatch", :aggregate_failures do
+        expect(subject.failure_message).to include("Incorrect error meta")
+        expect(subject.failure_message).to include("500")
+        expect(subject.failure_message).to include("422")
       end
     end
 
@@ -223,10 +218,9 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
         subject.matches?(failure_result)
       end
 
-      it "describes the class mismatch" do
-        message = subject.failure_message
-        expect(message).to include("Incorrect instance error")
-        expect(message).to include("CustomFailure")
+      it "describes the class mismatch", :aggregate_failures do
+        expect(subject.failure_message).to include("Incorrect instance error")
+        expect(subject.failure_message).to include("CustomFailure")
       end
     end
   end
@@ -240,10 +234,10 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeFailureServiceMat
   describe "fluent interface" do
     it "allows full chaining" do
       result = subject
-        .with(Servactory::Exceptions::Failure)
-        .type(:validation_error)
-        .message("Expected failure")
-        .meta(code: 422)
+               .with(Servactory::Exceptions::Failure)
+               .type(:validation_error)
+               .message("Expected failure")
+               .meta(code: 422)
 
       expect(result).to eq(subject)
     end

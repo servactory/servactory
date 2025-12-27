@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMatcher do
+  subject { described_class.new }
+
   let(:success_result) { Usual::TestKit::Rspec::Matchers::SuccessService.call(data: "test") }
   let(:failure_result) { Wrong::TestKit::Rspec::Matchers::FailureService.call(should_fail: true) }
-
-  subject { described_class.new }
 
   describe "#supports_block_expectations?" do
     it "returns false" do
@@ -100,20 +100,18 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMat
     context "with non-Result object" do
       before { subject.matches?("string") }
 
-      it "describes the type error" do
-        message = subject.failure_message
-        expect(message).to include("Servactory::Result")
-        expect(message).to include("String")
+      it "describes the type error", :aggregate_failures do
+        expect(subject.failure_message).to include("Servactory::Result")
+        expect(subject.failure_message).to include("String")
       end
     end
 
     context "with failure result" do
       before { subject.matches?(failure_result) }
 
-      it "describes success/failure mismatch" do
-        message = subject.failure_message
-        expect(message).to include("expected success")
-        expect(message).to include("got failure")
+      it "describes success/failure mismatch", :aggregate_failures do
+        expect(subject.failure_message).to include("expected success")
+        expect(subject.failure_message).to include("got failure")
       end
     end
 
@@ -123,10 +121,9 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMat
         subject.matches?(success_result)
       end
 
-      it "describes the missing key" do
-        message = subject.failure_message
-        expect(message).to include("Non-existent value key")
-        expect(message).to include("nonexistent")
+      it "describes the missing key", :aggregate_failures do
+        expect(subject.failure_message).to include("Non-existent value key")
+        expect(subject.failure_message).to include("nonexistent")
       end
     end
 
@@ -136,12 +133,11 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMat
         subject.matches?(success_result)
       end
 
-      it "describes the value mismatch" do
-        message = subject.failure_message
-        expect(message).to include("Incorrect result value")
-        expect(message).to include("result")
-        expect(message).to include("wrong")
-        expect(message).to include("TEST")
+      it "describes the value mismatch", :aggregate_failures do
+        expect(subject.failure_message).to include("Incorrect result value")
+        expect(subject.failure_message).to include("result")
+        expect(subject.failure_message).to include("wrong")
+        expect(subject.failure_message).to include("TEST")
       end
     end
   end
@@ -153,13 +149,9 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Result::BeSuccessServiceMat
   end
 
   describe "fluent interface" do
-    it "allows chaining with_output and with_outputs" do
-      result = subject
-        .with_output(:result, "TEST")
-        .with_outputs(status: :completed)
-
-      expect(result).to eq(subject)
-      expect(result.matches?(success_result)).to be true
+    it "allows chaining with_output and with_outputs", :aggregate_failures do
+      expect(subject.with_output(:result, "TEST").with_outputs(status: :completed)).to eq(subject)
+      expect(subject.matches?(success_result)).to be true
     end
   end
 

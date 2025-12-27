@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TargetSubmatcher do
+  subject { described_class.new(context, :target, %i[sidekiq]) }
+
   let(:context) do
     Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
       described_class: Usual::TestKit::Rspec::Matchers::MinimalInputService,
@@ -10,8 +12,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Target
       i18n_root_key: "servactory"
     )
   end
-
-  subject { described_class.new(context, :target, %i[sidekiq]) }
 
   it_behaves_like "a submatcher"
 
@@ -93,6 +93,8 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Target
     end
 
     context "when attribute has no target option" do
+      subject { described_class.new(context_without_target, :target, %i[sidekiq]) }
+
       let(:context_without_target) do
         Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
           described_class: Usual::TestKit::Rspec::Matchers::MinimalInputService,
@@ -102,8 +104,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Target
           i18n_root_key: "servactory"
         )
       end
-
-      subject { described_class.new(context_without_target, :target, %i[sidekiq]) }
 
       it "returns false" do
         expect(subject.matches?(nil)).to be false

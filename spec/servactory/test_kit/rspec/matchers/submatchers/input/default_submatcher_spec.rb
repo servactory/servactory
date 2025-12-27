@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::DefaultSubmatcher do
+  subject { described_class.new(context_with_default, 18) }
+
   let(:context_with_default) do
     Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
       described_class: Usual::TestKit::Rspec::Matchers::MinimalInputService,
@@ -20,8 +22,6 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Default
       i18n_root_key: "servactory"
     )
   end
-
-  subject { described_class.new(context_with_default, 18) }
 
   it_behaves_like "a submatcher"
 
