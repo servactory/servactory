@@ -1,0 +1,21 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        module Concerns
+          module ErrorMessages
+            private
+
+            def invalid_service_class_message: (untyped given) -> String
+            def invalid_block_return_message: (untyped given, String expected_type) -> String
+            def unknown_outputs_message: (service_class: Class, unknown_outputs: Array[Symbol], defined_outputs: Array[Symbol]) -> String
+            def type_mismatch_message: (service_class: Class, output_name: Symbol, expected_types: Array[Class], actual_value: untyped) -> String
+            def missing_result_type_message: () -> String
+            def missing_exception_for_failure_message: (Class service_class) -> String
+            def invalid_exception_type_message: (service_class: Class, expected_class: Class, actual_class: Class) -> String
+          end
+        end
+      end
+    end
+  end
+end

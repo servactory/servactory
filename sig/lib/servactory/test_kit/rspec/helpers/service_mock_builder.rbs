@@ -1,0 +1,47 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class ServiceMockBuilder
+          include Concerns::ServiceClassValidation
+          include Concerns::ErrorMessages
+
+          @service_class: Class
+          @rspec_context: untyped
+          @config: ServiceMockConfig
+          @sequential_configs: Array[ServiceMockConfig]
+          @executed: bool
+
+          attr_reader service_class: Class
+          attr_reader config: ServiceMockConfig
+
+          def initialize: (Class service_class, method_type: Symbol, rspec_context: untyped) -> void
+
+          def as_success: () -> self
+          def as_failure: () -> self
+
+          def with_outputs: (Hash[Symbol, untyped] outputs_hash) -> self
+          def with_output: (Symbol name, untyped value) -> self
+
+          def with_exception: (Exception exception) -> self
+
+          def when_called_with: (untyped args_hash_or_matcher) -> self
+
+          def validate_outputs!: () -> self
+          def skip_output_validation: () -> self
+
+          def then_as_success: () -> self
+          def then_as_failure: () -> self
+
+          private
+
+          def finalize_current_to_sequence: () -> void
+          def execute_mock: () -> void
+          def re_execute_mock: () -> void
+          def execute_sequential_mock: () -> void
+          def validate_outputs_if_needed!: (Hash[Symbol, untyped] outputs_hash) -> void
+        end
+      end
+    end
+  end
+end

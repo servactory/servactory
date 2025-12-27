@@ -2,6 +2,13 @@ module Servactory
   module TestKit
     module Rspec
       module Helpers
+        include Helpers::ArgumentMatchers
+
+        # New Fluent API
+        def allow_service: (Class service_class) -> Helpers::ServiceMockBuilder
+        def allow_service!: (Class service_class) -> Helpers::ServiceMockBuilder
+
+        # Legacy API (backward compatible)
         def allow_service_as_success!: (
           Class service_class,
           ?with: Hash[Symbol, untyped]?
@@ -24,24 +31,39 @@ module Servactory
 
         private
 
-        def allow_service!: (
+        def allow_service_legacy!: (
           Class service_class,
           Symbol result_type,
           ?with: Hash[Symbol, untyped]?
         ) ?{ () -> untyped } -> void
 
-        def allow_service: (
+        def allow_service_legacy: (
           Class service_class,
           Symbol result_type,
           ?with: Hash[Symbol, untyped]?
         ) ?{ () -> untyped } -> void
 
-        def allow_servactory: (
+        def allow_servactory_legacy: (
           Class service_class,
           Symbol method_call,
           Symbol result_type,
           ?with: Hash[Symbol, untyped]?
-        ) -> untyped
+        ) -> void
+
+        def build_legacy_config: (
+          Class service_class,
+          Symbol method_call,
+          Symbol result_type,
+          untyped with_arg,
+          untyped block_result
+        ) -> Helpers::ServiceMockConfig
+
+        def process_legacy_block_result: (
+          Helpers::ServiceMockConfig config,
+          untyped block_result
+        ) -> void
+
+        def validate_legacy_block_result!: (untyped block_result, bool is_success) -> void
       end
     end
   end

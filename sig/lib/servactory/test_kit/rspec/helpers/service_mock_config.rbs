@@ -1,0 +1,37 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class ServiceMockConfig
+          @service_class: Class
+          @result_type: Symbol?
+          @method_type: Symbol
+          @outputs: Hash[Symbol, untyped]
+          @exception: Exception?
+          @argument_matcher: untyped
+          @validate_outputs: bool
+
+          attr_accessor service_class: Class
+          attr_accessor result_type: Symbol?
+          attr_accessor method_type: Symbol
+          attr_accessor outputs: Hash[Symbol, untyped]
+          attr_accessor exception: Exception?
+          attr_accessor argument_matcher: untyped
+          attr_accessor validate_outputs: bool
+
+          def initialize: (service_class: Class) -> void
+
+          def success?: () -> bool
+          def failure?: () -> bool
+          def bang_method?: () -> bool
+          def validate_outputs?: () -> bool
+          def result_type_defined?: () -> bool
+
+          def build_result: () -> Servactory::TestKit::Result
+          def build_argument_matcher: (untyped rspec_context) -> untyped
+          def dup: () -> ServiceMockConfig
+        end
+      end
+    end
+  end
+end
