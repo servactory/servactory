@@ -30,7 +30,8 @@ module Servactory
 
           def as_failure
             @config.result_type = :failure
-            execute_mock
+            # Don't execute mock yet - wait for with_exception
+            # Validation requires exception for failures
             self
           end
 
@@ -49,7 +50,15 @@ module Servactory
           # Exception configuration (for failures)
           def with_exception(exception)
             @config.exception = exception
-            re_execute_mock
+
+            if @sequential_configs.any?
+              execute_sequential_mock
+            elsif @executed
+              re_execute_mock
+            else
+              execute_mock
+            end
+
             self
           end
 
@@ -86,7 +95,7 @@ module Servactory
             @config = ServiceMockConfig.new(service_class:)
             @config.result_type = :failure
             @config.method_type = @sequential_configs.last&.method_type || :call
-            execute_sequential_mock
+            # Don't execute mock yet - wait for with_exception
             self
           end
 
