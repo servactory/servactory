@@ -124,7 +124,7 @@ end
 allow_service_as_failure(PaymentService) do
   {
     exception: ApplicationService::Exceptions::Failure.new(
-      type: :error,
+      type: :base,
       message: "Failed"
     )
   }

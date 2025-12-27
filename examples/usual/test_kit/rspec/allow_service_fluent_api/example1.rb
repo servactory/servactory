@@ -36,10 +36,7 @@ module Usual
             result = Example1Child.call(amount: inputs.amount)
 
             if result.failure?
-              return fail!(
-                result.error.type,
-                message: result.error.message
-              )
+              fail!(message: result.error.message)
             end
 
             outputs.payment_status = result.status

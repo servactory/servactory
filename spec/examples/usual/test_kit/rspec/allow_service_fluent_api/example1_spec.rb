@@ -35,7 +35,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
         describe "because child service fails" do
           let(:error) do
             ApplicationService::Exceptions::Failure.new(
-              type: :payment_error,
+              type: :base,
               message: "Payment declined"
             )
           end
@@ -49,7 +49,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
           it "returns expected error", :aggregate_failures do
             result = described_class.call(**attributes)
 
-            expect(result).to be_failure_service.type(:payment_error)
+            expect(result).to be_failure_service.type(:base)
             expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
             expect(result.error.message).to eq("Payment declined")
           end
@@ -87,7 +87,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
         describe "because child service fails" do
           let(:error) do
             ApplicationService::Exceptions::Failure.new(
-              type: :payment_error,
+              type: :base,
               message: "Payment declined"
             )
           end
@@ -101,7 +101,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
           it "returns the expected value in `error`", :aggregate_failures do
             expect(perform.error).to be_a(ApplicationService::Exceptions::Failure)
             expect(perform.error).to an_object_having_attributes(
-              type: :payment_error,
+              type: :base,
               message: "Payment declined"
             )
           end

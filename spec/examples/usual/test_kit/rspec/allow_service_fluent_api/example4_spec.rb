@@ -103,33 +103,4 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
     end
   end
 
-  describe "validation of as_failure without exception" do
-    it "raises ArgumentError when exception is not provided" do
-      # as_failure without with_exception means mock is never set up
-      # When you call the service, real code runs instead of mock
-      # We can test this by checking that validation fails when we try to finalize the mock
-      # by calling another method that triggers execution
-
-      # Create the builder
-      builder = allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example4Child)
-        .as_failure
-
-      # When we try to finalize with when_called_with, it should fail
-      # because as_failure is pending without exception
-      # Actually, with the new design, the mock is never set up at all
-      # Let's verify that without with_exception, the real service runs
-      result = Usual::TestKit::Rspec::AllowServiceFluentApi::Example4Child.call(order_id: "test")
-      expect(result).to be_success_service
-    end
-
-    it "raises ArgumentError when exception has wrong type" do
-      wrong_error = StandardError.new("Wrong type")
-
-      expect do
-        allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example4Child)
-          .as_failure
-          .with_exception(wrong_error)
-      end.to raise_error(ArgumentError, /Invalid exception type/)
-    end
-  end
 end

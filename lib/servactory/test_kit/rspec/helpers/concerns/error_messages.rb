@@ -61,7 +61,7 @@ module Servactory
                 Example:
                   allow_service(#{service_class.name})
                     .as_failure
-                    .with_exception(Servactory::Exceptions::Failure.new(type: :error, message: "..."))
+                    .with_exception(Servactory::Exceptions::Failure.new(type: :base, message: "..."))
               MESSAGE
             end
 
@@ -74,7 +74,7 @@ module Servactory
                 Example:
                   allow_service(#{service_class.name})
                     .as_failure
-                    .with_exception(#{expected_class.name}.new(type: :error, message: "..."))
+                    .with_exception(#{expected_class.name}.new(type: :base, message: "..."))
               MESSAGE
             end
           end
