@@ -5,10 +5,10 @@ module Servactory
         module Submatchers
           module Input
             class ValidWithSubmatcher < Base::Submatcher
-              @attributes: Hash[Symbol, untyped] | bool
+              @attributes: Hash[Symbol, untyped] | Datory::Base
               @failure_reason: String?
 
-              def initialize: (Base::SubmatcherContext context, Hash[Symbol, untyped] | bool attributes) -> void
+              def initialize: (Base::SubmatcherContext context, Hash[Symbol, untyped] | Datory::Base attributes) -> void
 
               def description: () -> String
 
@@ -18,7 +18,7 @@ module Servactory
 
               def build_failure_message: () -> String
 
-              attr_reader attributes: Hash[Symbol, untyped] | bool
+              attr_reader attributes: Hash[Symbol, untyped] | Datory::Base
 
               def success_passes?: () -> bool
 
