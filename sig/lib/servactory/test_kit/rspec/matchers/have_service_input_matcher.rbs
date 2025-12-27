@@ -14,11 +14,11 @@ module Servactory
 
           def inclusion: (Array[untyped] values) -> self
 
+          def target: (*untyped values, ?name: Symbol) -> self
+
           def must: (*Symbol must_names) -> self
 
           def message: ((String | Proc)? custom_message) -> self
-
-          def target: (*untyped values, ?name: Symbol) -> self
 
           def required: (?String? custom_message) -> self
 

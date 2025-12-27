@@ -29,6 +29,13 @@ module Servactory
                               class_name: "Shared::InclusionSubmatcher",
                               transform_args: ->(args, _kwargs = {}) { [Array(args.first)] }
 
+          register_submatcher :target,
+                              class_name: "Shared::TargetSubmatcher",
+                              transform_args: (lambda do |args, kwargs = {}|
+                                [kwargs.fetch(:name, :target), Array(args.first)]
+                              end),
+                              accepts_trailing_options: true
+
           register_submatcher :must,
                               class_name: "Shared::MustSubmatcher",
                               transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] }
@@ -37,13 +44,6 @@ module Servactory
                               class_name: "Shared::MessageSubmatcher",
                               transform_args: ->(args, _kwargs = {}) { [args.first] },
                               requires_last_submatcher: true
-
-          register_submatcher :target,
-                              class_name: "Shared::TargetSubmatcher",
-                              transform_args: (lambda do |args, kwargs = {}|
-                                [kwargs.fetch(:name, :target), Array(args.first)]
-                              end),
-                              accepts_trailing_options: true
         end
       end
     end
