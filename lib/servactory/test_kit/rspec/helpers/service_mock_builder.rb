@@ -17,32 +17,35 @@ module Servactory
         # Basic success mock:
         #
         # ```ruby
-        # allow_service(MyService).to_receive(:call).as_success
-        #   .with_outputs(result: "value")
+        # allow_service(MyService)
+        #   .as_success
+        #   .outputs(result: "value")
         # ```
         #
         # Failure mock with exception:
         #
         # ```ruby
-        # allow_service(MyService).to_receive(:call).as_failure
+        # allow_service(MyService)
+        #   .as_failure
         #   .with_exception(MyService::Failure.new(message: "Error"))
         # ```
         #
         # Sequential returns (first call succeeds, second fails):
         #
         # ```ruby
-        # allow_service(MyService).to_receive(:call)
-        #   .as_success.with_outputs(count: 1)
-        #   .then_as_success.with_outputs(count: 2)
+        # allow_service(MyService)
+        #   .as_success.outputs(count: 1)
+        #   .then_as_success.outputs(count: 2)
         #   .then_as_failure.with_exception(error)
         # ```
         #
-        # With input argument matching:
+        # With input matching:
         #
         # ```ruby
-        # allow_service(MyService).to_receive(:call).as_success
-        #   .when_called_with(user_id: 123)
-        #   .with_outputs(user: user)
+        # allow_service(MyService)
+        #   .as_success
+        #   .inputs(user_id: 123)
+        #   .outputs(user: user)
         # ```
         #
         # ## Features
@@ -51,7 +54,7 @@ module Servactory
         # - **Success/Failure** - configure expected result type
         # - **Output Configuration** - specify mock output values
         # - **Exception Handling** - attach exceptions for failure mocks
-        # - **Argument Matching** - match specific input arguments
+        # - **Input Matching** - match specific service inputs
         # - **Sequential Responses** - different results for consecutive calls
         # - **Output Validation** - optionally validate outputs against service definition
         #
@@ -111,24 +114,24 @@ module Servactory
             self
           end
 
-          # Adds output values to the mock result.
+          # Sets output values for the mock result.
           #
           # @param outputs_hash [Hash{Symbol => Object}] Output name-value pairs
           # @return [ServiceMockBuilder] self for method chaining
-          def with_outputs(outputs_hash)
+          def outputs(outputs_hash)
             validate_outputs_if_needed!(outputs_hash)
             @config.outputs = @config.outputs.merge(outputs_hash)
             re_execute_mock
             self
           end
 
-          # Adds a single output value to the mock result.
+          # Sets a single output value for the mock result.
           #
           # @param name [Symbol] Output name
           # @param value [Object] Output value
           # @return [ServiceMockBuilder] self for method chaining
-          def with_output(name, value)
-            with_outputs(name => value)
+          def output(name, value)
+            outputs(name => value)
           end
 
           # Attaches an exception to a failure mock.
@@ -152,19 +155,19 @@ module Servactory
             self
           end
 
-          # Configures argument matching for the mock.
+          # Configures input matching for the mock.
           #
-          # @param args_hash_or_matcher [Hash, Object] Input arguments to match or RSpec matcher
+          # @param inputs_hash_or_matcher [Hash, Object] Service inputs to match or RSpec matcher
           # @return [ServiceMockBuilder] self for method chaining
-          def when_called_with(args_hash_or_matcher)
-            @config.argument_matcher = args_hash_or_matcher
+          def inputs(inputs_hash_or_matcher)
+            @config.argument_matcher = inputs_hash_or_matcher
             re_execute_mock
             self
           end
 
           # Enables output validation against service definition.
           #
-          # When enabled, with_outputs will validate that output names
+          # When enabled, outputs will validate that output names
           # match the service's declared outputs.
           #
           # @return [ServiceMockBuilder] self for method chaining

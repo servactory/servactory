@@ -22,7 +22,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
         before do
           allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example4Child)
             .as_success
-            .with_outputs(order_status: :shipped, shipped_at: Time.now)
+            .outputs(order_status: :shipped, shipped_at: Time.now)
         end
 
         it_behaves_like "success result class"
@@ -71,7 +71,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
         before do
           allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example4Child)
             .as_success
-            .with_outputs(order_status: :shipped, shipped_at: Time.now)
+            .outputs(order_status: :shipped, shipped_at: Time.now)
         end
 
         it_behaves_like "success result class"

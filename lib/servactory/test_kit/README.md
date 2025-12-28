@@ -29,18 +29,18 @@ allow_service(NotificationService).as_success
 # Mock with outputs
 allow_service(PaymentService)
   .as_success
-  .with_outputs(transaction_id: "txn_123", status: :completed)
+  .outputs(transaction_id: "txn_123", status: :completed)
 
-# Mock with input argument matching
+# Mock with input matching
 allow_service(PaymentService)
   .as_success
-  .with_outputs(transaction_id: "txn_100")
-  .when_called_with(amount: 100)
+  .inputs(amount: 100)
+  .outputs(transaction_id: "txn_100")
 
 # Mock with partial input matching
 allow_service(PaymentService)
   .as_success
-  .when_called_with(including(amount: 100))
+  .inputs(including(amount: 100))
 ```
 
 Use `allow_service!` for mocking `.call!` method (raises exception on failure):
@@ -49,7 +49,7 @@ Use `allow_service!` for mocking `.call!` method (raises exception on failure):
 # Mock successful call!
 allow_service!(PaymentService)
   .as_success
-  .with_outputs(transaction_id: "txn_123")
+  .outputs(transaction_id: "txn_123")
 
 # Mock failure - raises exception
 allow_service!(PaymentService)
@@ -87,21 +87,21 @@ Mock different responses for consecutive calls:
 # First call returns pending, second returns completed
 allow_service(PaymentService)
   .as_success
-  .with_outputs(status: :pending)
+  .outputs(status: :pending)
   .then_as_success
-  .with_outputs(status: :completed)
+  .outputs(status: :completed)
 
 # Failure then success (retry scenario)
 allow_service(RetryService)
   .as_failure
   .with_exception(error)
   .then_as_success
-  .with_outputs(result: :ok)
+  .outputs(result: :ok)
 
 # Multiple successes then failure
 allow_service(PaymentService)
-  .as_success.with_outputs(attempt: 1)
-  .then_as_success.with_outputs(attempt: 2)
+  .as_success.outputs(attempt: 1)
+  .then_as_success.outputs(attempt: 2)
   .then_as_failure.with_exception(error)
 ```
 
@@ -131,22 +131,22 @@ allow_service_as_failure(PaymentService) do
 end
 ```
 
-## Argument Matchers
+## Input Matchers
 
-Helpers for flexible argument matching:
+Helpers for flexible input matching:
 
 ```ruby
 # Match only specified keys
-when_called_with(including(amount: 100))
+inputs(including(amount: 100))
 
 # Match excluding specified keys
-when_called_with(excluding(secret: anything))
+inputs(excluding(secret: anything))
 
 # Match any inputs
-when_called_with(any_inputs)
+inputs(any_inputs)
 
 # Match no inputs
-when_called_with(no_inputs)
+inputs(no_inputs)
 ```
 
 ## Service Verification (Spy Pattern)
@@ -157,7 +157,7 @@ Use standard RSpec expectations to verify service calls:
 # Setup mock first
 allow_service(PaymentService)
   .as_success
-  .with_outputs(transaction_id: "txn_123")
+  .outputs(transaction_id: "txn_123")
 
 # Execute code that calls the service
 described_class.call(amount: 100)
@@ -184,13 +184,13 @@ Enable validation of mock outputs against service schema:
 allow_service(PaymentService)
   .as_success
   .validate_outputs!  # Will raise if outputs don't match service definition
-  .with_outputs(transaction_id: "txn_123")
+  .outputs(transaction_id: "txn_123")
 
 # Or skip validation explicitly
 allow_service(PaymentService)
   .as_success
   .skip_output_validation
-  .with_outputs(anything: "allowed")
+  .outputs(anything: "allowed")
 ```
 
 ## Result Matchers
@@ -228,11 +228,11 @@ RSpec.describe CheckoutService, type: :service do
         before do
           allow_service(PaymentService)
             .as_success
-            .with_outputs(
+            .inputs(including(amount: 100))
+            .outputs(
               transaction_id: "txn_123",
               status: :completed
             )
-            .when_called_with(including(amount: 100))
         end
 
         it_behaves_like "success result class"
@@ -284,7 +284,7 @@ RSpec.describe CheckoutService, type: :service do
         before do
           allow_service(PaymentService)
             .as_success
-            .with_outputs(transaction_id: "txn_123", status: :completed)
+            .outputs(transaction_id: "txn_123", status: :completed)
         end
 
         it_behaves_like "success result class"

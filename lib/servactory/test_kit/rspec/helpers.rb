@@ -59,8 +59,8 @@ module Servactory
         # @example Success mock
         #   allow_service(PaymentService)
         #     .as_success
-        #     .with_outputs(transaction_id: "txn_123")
-        #     .when_called_with(amount: 100)
+        #     .inputs(amount: 100)
+        #     .outputs(transaction_id: "txn_123")
         #
         # @example Failure mock
         #   allow_service(PaymentService)
@@ -69,8 +69,8 @@ module Servactory
         #
         # @example Sequential returns
         #   allow_service(PaymentService)
-        #     .as_success.with_outputs(status: :pending)
-        #     .then_as_success.with_outputs(status: :completed)
+        #     .as_success.outputs(status: :pending)
+        #     .then_as_success.outputs(status: :completed)
         #
         def allow_service(service_class)
           Helpers::ServiceMockBuilder.new(service_class, method_type: :call, rspec_context: self)
@@ -84,7 +84,7 @@ module Servactory
         # @example Success mock for call!
         #   allow_service!(PaymentService)
         #     .as_success
-        #     .with_outputs(transaction_id: "txn_123")
+        #     .outputs(transaction_id: "txn_123")
         #
         # @example Failure mock for call! (raises exception)
         #   allow_service!(PaymentService)

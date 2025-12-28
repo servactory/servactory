@@ -23,12 +23,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        describe "with exact argument matching" do
+        describe "with exact input matching" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
               .as_success
-              .with_outputs(line_total: 500, discount_applied: false)
-              .when_called_with(product_id: "PROD-001", quantity: 5, customer_id: "CUST-123")
+              .inputs(product_id: "PROD-001", quantity: 5, customer_id: "CUST-123")
+              .outputs(line_total: 500, discount_applied: false)
           end
 
           it_behaves_like "success result class"
@@ -37,12 +37,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
           it { expect(perform).to have_output(:has_discount).contains(false) }
         end
 
-        describe "with partial argument matching using including()" do
+        describe "with partial input matching using including()" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
               .as_success
-              .with_outputs(line_total: 500, discount_applied: true)
-              .when_called_with(including(quantity: 5))
+              .inputs(including(quantity: 5))
+              .outputs(line_total: 500, discount_applied: true)
           end
 
           it_behaves_like "success result class"
@@ -51,12 +51,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
           it { expect(perform).to have_output(:has_discount).contains(true) }
         end
 
-        describe "with partial argument matching for multiple keys" do
+        describe "with partial input matching for multiple keys" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
               .as_success
-              .with_outputs(line_total: 1000, discount_applied: true)
-              .when_called_with(including(product_id: "PROD-001", quantity: 5))
+              .inputs(including(product_id: "PROD-001", quantity: 5))
+              .outputs(line_total: 1000, discount_applied: true)
           end
 
           it_behaves_like "success result class"
@@ -88,8 +88,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
               .as_success
-              .with_outputs(line_total: 500, discount_applied: false)
-              .when_called_with(any_inputs)
+              .inputs(any_inputs)
+              .outputs(line_total: 500, discount_applied: false)
           end
 
           it_behaves_like "success result class"
@@ -101,8 +101,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
               .as_success
-              .with_outputs(line_total: 750, discount_applied: true)
-              .when_called_with(excluding(secret_key: anything))
+              .inputs(excluding(secret_key: anything))
+              .outputs(line_total: 750, discount_applied: true)
           end
 
           it_behaves_like "success result class"

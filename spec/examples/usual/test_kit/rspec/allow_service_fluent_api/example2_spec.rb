@@ -23,7 +23,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
               .as_success
-              .with_outputs(status: :completed, attempt_number: 1)
+              .outputs(status: :completed, attempt_number: 1)
           end
 
           it_behaves_like "success result class"
@@ -36,9 +36,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
               .as_success
-              .with_outputs(status: :processing, attempt_number: 1)
+              .outputs(status: :processing, attempt_number: 1)
               .then_as_success
-              .with_outputs(status: :completed, attempt_number: 2)
+              .outputs(status: :completed, attempt_number: 2)
           end
 
           it_behaves_like "success result class"
@@ -51,11 +51,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
               .as_success
-              .with_outputs(status: :processing, attempt_number: 1)
+              .outputs(status: :processing, attempt_number: 1)
               .then_as_success
-              .with_outputs(status: :processing, attempt_number: 2)
+              .outputs(status: :processing, attempt_number: 2)
               .then_as_success
-              .with_outputs(status: :processing, attempt_number: 3)
+              .outputs(status: :processing, attempt_number: 3)
           end
 
           it_behaves_like "success result class"
@@ -84,7 +84,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
               .as_success
-              .with_outputs(status: :completed, attempt_number: 1)
+              .outputs(status: :completed, attempt_number: 1)
           end
 
           it_behaves_like "success result class"
@@ -96,9 +96,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
               .as_success
-              .with_outputs(status: :processing, attempt_number: 1)
+              .outputs(status: :processing, attempt_number: 1)
               .then_as_success
-              .with_outputs(status: :completed, attempt_number: 2)
+              .outputs(status: :completed, attempt_number: 2)
           end
 
           it_behaves_like "success result class"

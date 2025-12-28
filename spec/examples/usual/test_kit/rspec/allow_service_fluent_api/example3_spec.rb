@@ -22,7 +22,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example3Child)
             .as_success
-            .with_outputs(user_name: "John Doe", user_email: "john@example.com")
+            .outputs(user_name: "John Doe", user_email: "john@example.com")
         end
 
         it_behaves_like "success result class"
@@ -76,7 +76,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example3Child)
             .as_success
-            .with_outputs(user_name: "John Doe", user_email: "john@example.com")
+            .outputs(user_name: "John Doe", user_email: "john@example.com")
         end
 
         it_behaves_like "success result class"

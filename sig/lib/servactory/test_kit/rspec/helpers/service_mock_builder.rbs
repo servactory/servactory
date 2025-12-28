@@ -20,12 +20,12 @@ module Servactory
           def as_success: () -> self
           def as_failure: () -> self
 
-          def with_outputs: (Hash[Symbol, untyped] outputs_hash) -> self
-          def with_output: (Symbol name, untyped value) -> self
+          def outputs: (Hash[Symbol, untyped] outputs_hash) -> self
+          def output: (Symbol name, untyped value) -> self
 
           def with_exception: (Exception exception) -> self
 
-          def when_called_with: (untyped args_hash_or_matcher) -> self
+          def inputs: (untyped inputs_hash_or_matcher) -> self
 
           def validate_outputs!: () -> self
           def skip_output_validation: () -> self

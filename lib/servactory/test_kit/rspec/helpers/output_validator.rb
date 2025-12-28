@@ -19,7 +19,7 @@ module Servactory
         # ```ruby
         # allow_service(MyService)
         #   .as_success
-        #   .with_outputs(user: user)
+        #   .outputs(user: user)
         #   .validate_outputs!
         # ```
         #
@@ -103,9 +103,9 @@ module Servactory
               output_info = @service_class.info.outputs[name]
               next unless output_info
 
-              expected_types = output_info.types
+              expected_types = output_info[:types]
               next if value.nil?
-              next if expected_types.empty?
+              next if expected_types.nil? || expected_types.empty?
               next if expected_types.any? { |type| value.is_a?(type) }
 
               raise ValidationError, type_mismatch_message(

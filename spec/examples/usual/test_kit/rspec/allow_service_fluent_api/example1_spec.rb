@@ -22,7 +22,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
         before do
           allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example1Child)
             .as_success
-            .with_outputs(transaction_id: "txn_mocked", status: :completed)
+            .outputs(transaction_id: "txn_mocked", status: :completed)
         end
 
         it_behaves_like "success result class"
@@ -74,7 +74,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
         before do
           allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example1Child)
             .as_success
-            .with_outputs(transaction_id: "txn_mocked", status: :completed)
+            .outputs(transaction_id: "txn_mocked", status: :completed)
         end
 
         it_behaves_like "success result class"
