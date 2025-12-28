@@ -11,6 +11,39 @@ require_relative "helpers/service_mock_builder"
 module Servactory
   module TestKit
     module Rspec
+      # RSpec helper methods for mocking Servactory services.
+      #
+      # ## Purpose
+      #
+      # Provides convenient helper methods for mocking Servactory service calls
+      # in RSpec tests. Supports both a modern fluent API and backward-compatible
+      # legacy methods.
+      #
+      # ## Usage
+      #
+      # Include in RSpec configuration:
+      #
+      # ```ruby
+      # RSpec.configure do |config|
+      #   config.include Servactory::TestKit::Rspec::Helpers, type: :service
+      # end
+      # ```
+      #
+      # ## Available Helpers
+      #
+      # **Fluent API (recommended):**
+      # - `allow_service(ServiceClass)` - mock `.call` method
+      # - `allow_service!(ServiceClass)` - mock `.call!` method
+      #
+      # **Backward-Compatible API:**
+      # - `allow_service_as_success!` / `allow_service_as_success`
+      # - `allow_service_as_failure!` / `allow_service_as_failure`
+      #
+      # **Argument Matchers:**
+      # - `including(hash)` - partial hash matching
+      # - `excluding(hash)` - exclusion matching
+      # - `any_inputs` - match any arguments
+      # - `no_inputs` - match no arguments
       module Helpers
         include Helpers::ArgumentMatchers
 
@@ -108,18 +141,36 @@ module Servactory
 
         private
 
-        # ============================================================
-        # Legacy Implementation (Internal methods for backward compat)
-        # ============================================================
+        # Legacy Implementation
+        # ---------------------
 
+        # Builds legacy mock for .call! method.
+        #
+        # @param service_class [Class] The service class to mock
+        # @param result_type [Symbol] :as_success or :as_failure
+        # @param with [Hash, nil] Argument matcher
+        # @return [void]
         def allow_service_legacy!(service_class, result_type, with: nil, &block)
           allow_servactory_legacy(service_class, :call!, result_type, with:, &block)
         end
 
+        # Builds legacy mock for .call method.
+        #
+        # @param service_class [Class] The service class to mock
+        # @param result_type [Symbol] :as_success or :as_failure
+        # @param with [Hash, nil] Argument matcher
+        # @return [void]
         def allow_service_legacy(service_class, result_type, with: nil, &block)
           allow_servactory_legacy(service_class, :call, result_type, with:, &block)
         end
 
+        # Core legacy mock implementation.
+        #
+        # @param service_class [Class] The service class to mock
+        # @param method_call [Symbol] :call or :call!
+        # @param result_type [Symbol] :as_success or :as_failure
+        # @param with [Hash, nil] Argument matcher
+        # @return [void]
         def allow_servactory_legacy(service_class, method_call, result_type, with: nil)
           config = build_legacy_config(service_class, method_call, result_type, with, block_given? ? yield : nil)
 
@@ -130,6 +181,14 @@ module Servactory
           ).execute
         end
 
+        # Builds ServiceMockConfig from legacy parameters.
+        #
+        # @param service_class [Class] The service class
+        # @param method_call [Symbol] :call or :call!
+        # @param result_type [Symbol] :as_success or :as_failure
+        # @param with_arg [Hash, nil] Argument matcher
+        # @param block_result [Hash, Object, nil] Block return value
+        # @return [ServiceMockConfig] Configured mock config
         def build_legacy_config(service_class, method_call, result_type, with_arg, block_result)
           config = Helpers::ServiceMockConfig.new(service_class:)
           config.method_type = method_call.to_sym
@@ -141,6 +200,11 @@ module Servactory
           config
         end
 
+        # Processes block result into config outputs/exception.
+        #
+        # @param config [ServiceMockConfig] The config to update
+        # @param block_result [Hash, Object] Block return value
+        # @return [void]
         def process_legacy_block_result(config, block_result) # rubocop:disable Metrics/MethodLength
           validate_legacy_block_result!(block_result, config.success?)
 
@@ -156,6 +220,12 @@ module Servactory
           end
         end
 
+        # Validates block result format for legacy API.
+        #
+        # @param block_result [Object] The block return value
+        # @param is_success [Boolean] Whether this is a success mock
+        # @raise [ArgumentError] If success mock block doesn't return Hash
+        # @return [void]
         def validate_legacy_block_result!(block_result, is_success)
           return unless is_success && !block_result.is_a?(Hash)
 

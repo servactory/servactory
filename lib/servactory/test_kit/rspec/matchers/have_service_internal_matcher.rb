@@ -4,6 +4,38 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers
+        # RSpec matcher for validating Servactory service internal definitions.
+        #
+        # ## Purpose
+        #
+        # Validates that a service class has the expected internal attribute with
+        # specified type, schema, and other options. Internal attributes are used
+        # for intermediate values during service execution.
+        #
+        # ## Usage
+        #
+        # ```ruby
+        # RSpec.describe MyService, type: :service do
+        #   it { is_expected.to have_service_internal(:processed_data).type(Hash) }
+        #   it { is_expected.to have_service_internal(:items).type(Array).consists_of(Item) }
+        #   it { is_expected.to have_service_internal(:config).schema({ key: String }) }
+        # end
+        # ```
+        #
+        # ## Chain Methods
+        #
+        # - `.type(Class)` / `.types(Class, ...)` - expected type(s)
+        # - `.consists_of(Class)` - for Array/Hash element types
+        # - `.schema(Hash)` - expected schema definition
+        # - `.inclusion(Array)` - expected inclusion values
+        # - `.must(Array)` - custom validation rules
+        # - `.target(value, name:)` - target validation
+        # - `.message(String)` - expected error message (after other chain)
+        #
+        # ## Architecture
+        #
+        # Inherits from Base::AttributeMatcher with `for_attribute_type :internal`.
+        # Uses shared submatchers for common validations.
         class HaveServiceInternalMatcher < Base::AttributeMatcher
           for_attribute_type :internal
 
