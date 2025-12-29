@@ -33,7 +33,7 @@ module Usual
 
           private
 
-          def process_with_retries # rubocop:disable Metrics/MethodLength
+          def process_with_retries # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
             attempt = 1
             result = nil
             error = nil
