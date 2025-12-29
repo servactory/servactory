@@ -68,9 +68,7 @@ module Servactory
           end
 
           # Optional with nil value but has default.
-          if input.optional? && value.nil? && !input.default.nil? # rubocop:disable Style/IfUnlessModifier
-            return value_in_inclusion?(inclusion_values, input.default)
-          end
+          return value_in_inclusion?(inclusion_values, input.default) if input.optional? && value.nil? && !input.default.nil?
 
           true
         end
@@ -175,8 +173,7 @@ module Servactory
         # @return [Range, Array] Range preserved as-is, others normalized to array
         def normalize_inclusion_values(option_value)
           case option_value
-          when Range then option_value
-          when Array then option_value
+          when Range, Array then option_value
           else [option_value]
           end
         end

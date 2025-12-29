@@ -46,7 +46,7 @@ module Servactory
               def description
                 formatted = case values
                             when Range then values.inspect
-                            else values.join(', ')
+                            else values.join(", ")
                             end
                 "inclusion: #{formatted}"
               end
@@ -101,7 +101,7 @@ module Servactory
               # @param actual [Range, Array] Actual inclusion value
               # @param expected [Range, Array] Expected inclusion value
               # @return [Boolean] True if values are equivalent
-              def compare_inclusion_values(actual, expected)
+              def inclusion_values_match?(actual, expected)
                 case [actual.class, expected.class]
                 when [Range, Range]
                   actual == expected
