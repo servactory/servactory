@@ -48,7 +48,7 @@ module Servactory
                 Expected a class responding to `.call` and `.call!`,
                 got: #{given.inspect} (#{given.class.name}).
                 Hint: Ensure you're passing the service class, not an instance.
-                Example: allow_service(MyService).as_success
+                Example: allow_service(MyService).succeeds(result: "value")
               MESSAGE
             end
 
@@ -103,8 +103,8 @@ module Servactory
             def missing_result_type_message
               <<~MESSAGE.squish
                 Result type not specified.
-                Use .as_success or .as_failure to specify the mock result type.
-                Example: allow_service(MyService).as_success.with_outputs(data: "value")
+                Use .succeeds() or .fails() to specify the mock result type.
+                Example: allow_service(MyService).succeeds(data: "value")
               MESSAGE
             end
 
@@ -119,9 +119,8 @@ module Servactory
                 so you must explicitly specify the exception.
                 Example:
                   allow_service(#{service_class.name})
-                    .as_failure
-                    .with_exception(Servactory::Exceptions::Failure.new(message: "..."))
-                Full signature: .new(type: :custom_type, message: "...", meta: { key: :value })
+                    .fails(message: "Error message")
+                Full signature: .fails(type: :custom_type, message: "...", meta: { key: :value })
               MESSAGE
             end
 
@@ -131,7 +130,7 @@ module Servactory
             # @param expected_class [Class] The configured failure class
             # @param actual_class [Class] The provided exception's class
             # @return [String] Error message with hint and example
-            def invalid_exception_type_message(service_class:, expected_class:, actual_class:) # rubocop:disable Metrics/MethodLength
+            def invalid_exception_type_message(service_class:, expected_class:, actual_class:)
               <<~MESSAGE.squish
                 Invalid exception type for failure mock of #{service_class.name}.
                 Expected: instance of #{expected_class.name} (configured failure_class),
@@ -139,9 +138,8 @@ module Servactory
                 Hint: Use the service's configured failure class or its subclass.
                 Example:
                   allow_service(#{service_class.name})
-                    .as_failure
-                    .with_exception(#{expected_class.name}.new(message: "..."))
-                Full signature: .new(type: :custom_type, message: "...", meta: { key: :value })
+                    .fails(#{expected_class.name}, message: "Error message")
+                Full signature: .fails(ExceptionClass, type: :custom_type, message: "...", meta: { key: :value })
               MESSAGE
             end
 

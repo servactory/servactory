@@ -65,7 +65,7 @@ module Servactory
         #
         # @example Success with input matching
         #   allow_service(PaymentService)
-        #     .inputs(amount: 100)
+        #     .with(amount: 100)
         #     .succeeds(transaction_id: "txn_123")
         #
         # @example Failure mock

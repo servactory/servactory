@@ -13,18 +13,22 @@ module Servactory
         #
         # ## Usage
         #
+        # **Fluent API:**
+        #
         # ```ruby
-        # # Match specific inputs
-        # allow_service_as_success!(Service, with: including(amount: 100))
+        # allow_service(Service).with(including(amount: 100)).succeeds(result: "ok")
+        # allow_service(Service).with(excluding(secret: anything)).succeeds(result: "ok")
+        # allow_service(Service).with(any_inputs).succeeds(result: "ok")
+        # allow_service(EmptyService).with(no_inputs).succeeds(result: "ok")
+        # ```
         #
-        # # Exclude certain keys
-        # allow_service_as_success!(Service, with: excluding(secret: anything))
+        # **Legacy API:**
         #
-        # # Match any inputs
-        # allow_service_as_success!(Service, with: any_inputs)
-        #
-        # # Match no inputs
-        # allow_service_as_success!(Service, with: no_inputs)
+        # ```ruby
+        # allow_service_as_success!(Service, with: including(amount: 100)) { { result: "ok" } }
+        # allow_service_as_success!(Service, with: excluding(secret: anything)) { { result: "ok" } }
+        # allow_service_as_success!(Service, with: any_inputs) { { result: "ok" } }
+        # allow_service_as_success!(EmptyService, with: no_inputs) { { result: "ok" } }
         # ```
         module ArgumentMatchers
           # Matches a hash containing specified key-value pairs.
@@ -34,8 +38,11 @@ module Servactory
           # @param hash [Hash] Expected key-value pairs
           # @return [RSpec::Mocks::ArgumentMatchers::HashIncludingMatcher]
           #
-          # @example
-          #   allow_service_as_success!(Service, with: including(amount: 100))
+          # @example Fluent API
+          #   allow_service(Service).with(including(amount: 100)).succeeds(result: "ok")
+          #
+          # @example Legacy API
+          #   allow_service_as_success!(Service, with: including(amount: 100)) { { result: "ok" } }
           def including(hash)
             hash_including(hash)
           end
@@ -47,8 +54,11 @@ module Servactory
           # @param hash [Hash] Key-value pairs to exclude
           # @return [RSpec::Mocks::ArgumentMatchers::HashExcludingMatcher]
           #
-          # @example
-          #   allow_service_as_success!(Service, with: excluding(secret: anything))
+          # @example Fluent API
+          #   allow_service(Service).with(excluding(secret: anything)).succeeds(result: "ok")
+          #
+          # @example Legacy API
+          #   allow_service_as_success!(Service, with: excluding(secret: anything)) { { result: "ok" } }
           def excluding(hash)
             hash_excluding(hash)
           end
@@ -59,8 +69,11 @@ module Servactory
           #
           # @return [RSpec::Mocks::ArgumentMatchers::AnyArgMatcher]
           #
-          # @example
-          #   allow_service_as_success!(Service, with: any_inputs)
+          # @example Fluent API
+          #   allow_service(Service).with(any_inputs).succeeds(result: "ok")
+          #
+          # @example Legacy API
+          #   allow_service_as_success!(Service, with: any_inputs) { { result: "ok" } }
           def any_inputs
             anything
           end
@@ -69,8 +82,11 @@ module Servactory
           #
           # @return [RSpec::Mocks::ArgumentMatchers::NoArgsMatcher]
           #
-          # @example
-          #   allow_service_as_success!(EmptyService, with: no_inputs)
+          # @example Fluent API
+          #   allow_service(EmptyService).with(no_inputs).succeeds(result: "ok")
+          #
+          # @example Legacy API
+          #   allow_service_as_success!(EmptyService, with: no_inputs) { { result: "ok" } }
           def no_inputs
             no_args
           end

@@ -26,7 +26,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with exact input matching" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .inputs(product_id: "PROD-001", quantity: 5, customer_id: "CUST-123")
+              .with(product_id: "PROD-001", quantity: 5, customer_id: "CUST-123")
               .succeeds(line_total: 500, discount_applied: false)
           end
 
@@ -39,7 +39,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with partial input matching using including()" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .inputs(including(quantity: 5))
+              .with(including(quantity: 5))
               .succeeds(line_total: 500, discount_applied: true)
           end
 
@@ -52,7 +52,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with partial input matching for multiple keys" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .inputs(including(product_id: "PROD-001", quantity: 5))
+              .with(including(product_id: "PROD-001", quantity: 5))
               .succeeds(line_total: 1000, discount_applied: true)
           end
 
@@ -84,7 +84,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with any_inputs matcher" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .inputs(any_inputs)
+              .with(any_inputs)
               .succeeds(line_total: 500, discount_applied: false)
           end
 
@@ -96,7 +96,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with excluding() matcher" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .inputs(excluding(secret_key: anything))
+              .with(excluding(secret_key: anything))
               .succeeds(line_total: 750, discount_applied: true)
           end
 

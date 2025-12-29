@@ -16,7 +16,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
         describe "with no_inputs matcher" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .inputs(no_inputs)
+              .with(no_inputs)
               .succeeds(timestamp: mock_timestamp, status: :healthy)
           end
 
@@ -29,7 +29,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
         describe "with service returning degraded status" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .inputs(no_inputs)
+              .with(no_inputs)
               .succeeds(timestamp: mock_timestamp, status: :degraded)
           end
 
@@ -51,7 +51,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
         describe "with no_inputs matcher" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .inputs(no_inputs)
+              .with(no_inputs)
               .succeeds(timestamp: mock_timestamp, status: :healthy)
           end
 

@@ -22,9 +22,6 @@ module Servactory
           def fails: (?Class? exception_class, message: String, ?type: Symbol, ?meta: untyped?) -> self
           def with: (untyped inputs_hash_or_matcher) -> self
 
-          # @deprecated Use #with instead
-          alias inputs with
-
           # Sequential Call API
           def then_succeeds: (?Hash[Symbol, untyped] outputs_hash) -> self
           def then_fails: (?Class? exception_class, message: String, ?type: Symbol, ?meta: untyped?) -> self

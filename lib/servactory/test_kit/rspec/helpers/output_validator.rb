@@ -14,13 +14,11 @@ module Servactory
         #
         # ## Usage
         #
-        # Called automatically when `validate_outputs!` is used on builder:
+        # Called automatically when `succeeds()` is used on builder:
         #
         # ```ruby
         # allow_service(MyService)
-        #   .as_success
-        #   .outputs(user: user)
-        #   .validate_outputs!
+        #   .succeeds(user: user)
         # ```
         #
         # Can also be called directly:

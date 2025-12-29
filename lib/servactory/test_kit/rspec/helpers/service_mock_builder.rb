@@ -48,13 +48,13 @@ module Servactory
         #
         # ```ruby
         # allow_service(MyService)
-        #   .inputs(user_id: 123)
+        #   .with(user_id: 123)
         #   .succeeds(user: user)
         #
         # # Or order doesn't matter:
         # allow_service(MyService)
         #   .succeeds(user: user)
-        #   .inputs(user_id: 123)
+        #   .with(user_id: 123)
         # ```
         #
         # ## Features
@@ -187,9 +187,6 @@ module Servactory
             re_execute_mock if @executed
             self
           end
-
-          # @deprecated Use {#with} instead
-          alias inputs with
 
           # ============================================================
           # Sequential Call API

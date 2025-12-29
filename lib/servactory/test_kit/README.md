@@ -159,8 +159,6 @@ allow_service(HealthCheckService)
   .succeeds(status: :healthy)
 ```
 
-> **Note:** The `.inputs()` method is deprecated and will be removed in a future version.
-> Please use `.with()` instead.
 
 ## Service Verification (Spy Pattern)
 
