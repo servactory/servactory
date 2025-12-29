@@ -84,17 +84,17 @@ module Servactory
       #     name: { type: String },
       #     email: { type: String }
       #   },
-      #   message: lambda do |input:, reason:, meta:, **|
+      #   message: lambda do |input:, reason:, key_name:, expected_type:, given_type:, **|
       #     "Schema error in `#{input.name}`: " \
-      #       "key `#{meta[:key_name]}` expected #{meta[:expected_type]}, got #{meta[:given_type]}"
+      #       "key `#{key_name}` expected #{expected_type}, got #{given_type}"
       #   end
       # }
       # ```
       #
       # Lambda receives the following parameters:
-      # - For inputs: `input:, reason:, meta:, **` where meta contains `key_name`, `expected_type`, `given_type`
-      # - For internals: `internal:, reason:, meta:, **`
-      # - For outputs: `output:, reason:, meta:, **`
+      # - For inputs: `input:, reason:, key_name:, expected_type:, given_type:, **`
+      # - For internals: `internal:, reason:, key_name:, expected_type:, given_type:, **`
+      # - For outputs: `output:, reason:, key_name:, expected_type:, given_type:, **`
       #
       # Use `schema: false` to disable schema validation.
       #

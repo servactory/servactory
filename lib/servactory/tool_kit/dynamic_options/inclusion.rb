@@ -65,9 +65,9 @@ module Servactory
       # ```
       #
       # Lambda receives the following parameters:
-      # - For inputs: `input:, option_value:, value:, **`
-      # - For internals: `internal:, option_value:, value:, **`
-      # - For outputs: `output:, option_value:, value:, **`
+      # - For inputs: `input:, value:, option_value:, reason:, **`
+      # - For internals: `internal:, value:, option_value:, reason:, **`
+      # - For outputs: `output:, value:, option_value:, reason:, **`
       #
       # ## Validation Rules
       #
