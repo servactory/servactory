@@ -151,7 +151,7 @@ module Servactory
           #     .fails(CustomException, type: :error, message: "Error")
           #
           # @raise [ArgumentError] if called after then_succeeds/then_fails
-          def fails(exception_class = nil, type: :base, message:, meta: nil)
+          def fails(exception_class = nil, type: :base, message:, meta: nil) # rubocop:disable Style/KeywordParametersOrder
             validate_not_in_sequential_mode!(:fails)
             validate_result_type_not_switched!(:fails)
 
@@ -236,7 +236,7 @@ module Servactory
           #     .then_fails(type: :timeout, message: "Request timed out")
           #
           # @raise [ArgumentError] if called without first calling succeeds/fails
-          def then_fails(exception_class = nil, type: :base, message:, meta: nil)
+          def then_fails(exception_class = nil, type: :base, message:, meta: nil) # rubocop:disable Style/KeywordParametersOrder
             validate_result_type_defined!(:then_fails)
 
             finalize_current_to_sequence
