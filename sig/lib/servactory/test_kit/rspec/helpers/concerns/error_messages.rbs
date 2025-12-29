@@ -13,6 +13,8 @@ module Servactory
             def missing_result_type_message: () -> String
             def missing_exception_for_failure_message: (Class service_class) -> String
             def invalid_exception_type_message: (service_class: Class, expected_class: Class, actual_class: Class) -> String
+            def unknown_inputs_message: (service_class: Class, unknown_inputs: Array[Symbol], defined_inputs: Array[Symbol]) -> String
+            def no_inputs_but_required_message: (service_class: Class, required_inputs: Array[Symbol]) -> String
           end
         end
       end

@@ -98,7 +98,7 @@ module Servactory
           #
           # @raise [ValidationError] If type mismatch found
           # @return [void]
-          def validate_output_types! # rubocop:disable Metrics/MethodLength
+          def validate_output_types! # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
             @outputs.each do |name, value|
               output_info = @service_class.info.outputs[name]
               next unless output_info

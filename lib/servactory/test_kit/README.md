@@ -29,18 +29,18 @@ allow_service(PaymentService)
 
 # Mock with input matching
 allow_service(PaymentService)
-  .inputs(amount: 100)
+  .with(amount: 100)
   .succeeds(transaction_id: "txn_100")
 
 # Mock with partial input matching
 allow_service(PaymentService)
-  .inputs(including(amount: 100))
+  .with(including(amount: 100))
   .succeeds(transaction_id: "txn_100")
 
-# Order doesn't matter - inputs can come after succeeds
+# Order doesn't matter - with() can come after succeeds
 allow_service(PaymentService)
   .succeeds(transaction_id: "txn_100")
-  .inputs(amount: 100)
+  .with(amount: 100)
 ```
 
 Use `allow_service!` for mocking `.call!` method (raises exception on failure):
@@ -135,21 +135,32 @@ end
 
 ## Input Matchers
 
-Helpers for flexible input matching:
+Helpers for flexible input matching with `.with()`:
 
 ```ruby
 # Match only specified keys
-inputs(including(amount: 100))
+allow_service(PaymentService)
+  .with(including(amount: 100))
+  .succeeds(status: :ok)
 
 # Match excluding specified keys
-inputs(excluding(secret: anything))
+allow_service(PaymentService)
+  .with(excluding(secret: anything))
+  .succeeds(status: :ok)
 
 # Match any inputs
-inputs(any_inputs)
+allow_service(PaymentService)
+  .with(any_inputs)
+  .succeeds(status: :ok)
 
-# Match no inputs
-inputs(no_inputs)
+# Match no inputs (for services without arguments)
+allow_service(HealthCheckService)
+  .with(no_inputs)
+  .succeeds(status: :healthy)
 ```
+
+> **Note:** The `.inputs()` method is deprecated and will be removed in a future version.
+> Please use `.with()` instead.
 
 ## Service Verification (Spy Pattern)
 
@@ -177,19 +188,45 @@ expect(PaymentService).to have_received(:call).with(amount: 100).once
 .at_most(5).times # 5 or fewer times
 ```
 
-## Output Validation
+## Automatic Validation
 
-Enable validation of mock outputs against service schema:
+Inputs and outputs are validated automatically against the service definition:
+
+### Output Validation
+
+When calling `.succeeds()` or `.then_succeeds()`, outputs are automatically validated:
 
 ```ruby
+# This raises OutputValidator::ValidationError - unknown output
 allow_service(PaymentService)
-  .validate_outputs!  # Will raise if outputs don't match service definition
-  .succeeds(transaction_id: "txn_123")
+  .succeeds(unknown_output: "value")
+# => Error: Unknown output(s) for PaymentService: provided: :unknown_output
 
-# Or skip validation explicitly
+# This raises OutputValidator::ValidationError - type mismatch
 allow_service(PaymentService)
-  .skip_output_validation
-  .succeeds(anything: "allowed")
+  .succeeds(transaction_id: 123)  # Should be String
+# => Error: Type mismatch for PaymentService output :transaction_id
+```
+
+### Input Validation
+
+When calling `.with()`, inputs are automatically validated:
+
+```ruby
+# This raises InputValidator::ValidationError - unknown input
+allow_service(PaymentService)
+  .with(unknown_input: "value")
+  .succeeds(transaction_id: "txn_123")
+# => Error: Unknown input(s) for PaymentService: provided: :unknown_input
+
+# Validation is skipped for special matchers
+allow_service(PaymentService)
+  .with(any_inputs)      # No validation
+  .succeeds(status: :ok)
+
+allow_service(PaymentService)
+  .with(excluding(key: anything))  # No validation
+  .succeeds(status: :ok)
 ```
 
 ## Result Matchers
@@ -265,7 +302,7 @@ RSpec.describe CheckoutService, type: :service do
       describe "and the data required for work is also valid" do
         before do
           allow_service!(PaymentService)
-            .inputs(including(amount: 100))
+            .with(including(amount: 100))
             .succeeds(transaction_id: "txn_123", status: :completed)
         end
 

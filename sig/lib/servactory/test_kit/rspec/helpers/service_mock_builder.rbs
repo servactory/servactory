@@ -20,9 +20,10 @@ module Servactory
           # Primary Fluent API
           def succeeds: (?Hash[Symbol, untyped] outputs_hash) -> self
           def fails: (?Class? exception_class, message: String, ?type: Symbol, ?meta: untyped?) -> self
-          def inputs: (untyped inputs_hash_or_matcher) -> self
-          def validate_outputs!: () -> self
-          def skip_output_validation: () -> self
+          def with: (untyped inputs_hash_or_matcher) -> self
+
+          # @deprecated Use #with instead
+          alias inputs with
 
           # Sequential Call API
           def then_succeeds: (?Hash[Symbol, untyped] outputs_hash) -> self
@@ -33,7 +34,9 @@ module Servactory
           # Validation
           def validate_not_in_sequential_mode!: (Symbol method_name) -> void
           def validate_result_type_defined!: (Symbol method_name) -> void
-          def validate_outputs_if_needed!: (Hash[Symbol, untyped] outputs_hash) -> void
+          def validate_result_type_not_switched!: (Symbol new_type) -> void
+          def validate_outputs!: (Hash[Symbol, untyped] outputs_hash) -> void
+          def validate_inputs!: (untyped inputs_matcher) -> void
 
           # Exception Building
           def build_exception: (Class? exception_class, message: String, type: Symbol, meta: untyped?) -> Exception

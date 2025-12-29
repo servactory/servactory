@@ -144,6 +144,35 @@ module Servactory
                 Full signature: .new(type: :custom_type, message: "...", meta: { key: :value })
               MESSAGE
             end
+
+            # Builds error message for unknown input names.
+            #
+            # @param service_class [Class] The service class
+            # @param unknown_inputs [Array<Symbol>] Inputs not defined in service
+            # @param defined_inputs [Array<Symbol>] Valid input names
+            # @return [String] Error message with hint
+            def unknown_inputs_message(service_class:, unknown_inputs:, defined_inputs:)
+              <<~MESSAGE.squish
+                Unknown input(s) for #{service_class.name}:
+                provided: #{unknown_inputs.map(&:inspect).join(', ')},
+                defined: #{defined_inputs.map(&:inspect).join(', ')}.
+                Hint: Check that the input names match the service definition.
+              MESSAGE
+            end
+
+            # Builds error message when no_inputs used but service has required inputs.
+            #
+            # @param service_class [Class] The service class
+            # @param required_inputs [Array<Symbol>] Required input names
+            # @return [String] Error message with hint
+            def no_inputs_but_required_message(service_class:, required_inputs:)
+              <<~MESSAGE.squish
+                Service #{service_class.name} has required inputs,
+                but no_inputs matcher was used.
+                Required inputs: #{required_inputs.map(&:inspect).join(', ')}.
+                Hint: Use with({...}) with the required inputs instead of no_inputs.
+              MESSAGE
+            end
           end
         end
       end

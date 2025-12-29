@@ -19,11 +19,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example9, type: :se
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        describe "with validate_outputs! and valid outputs" do
+        describe "with valid outputs (automatic validation passes)" do
           before do
             allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example9Child)
-              .inputs(order_id: "ORD-12345")
-              .validate_outputs!
+              .with(order_id: "ORD-12345")
               .succeeds(order_number: 1001, customer_name: "John Doe", total_amount: 99.99)
           end
 
@@ -31,45 +30,46 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example9, type: :se
 
           it { expect(perform).to have_output(:order_summary).contains("Order #1001: John Doe - $99.99") }
         end
+      end
 
-        describe "with skip_output_validation after validate_outputs!" do
-          before do
-            allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example9Child)
-              .inputs(order_id: "ORD-12345")
-              .validate_outputs!
-              .skip_output_validation
-              .succeeds(order_number: 2002, customer_name: "Jane Smith", total_amount: 150.00)
+      describe "automatic output validation catches errors" do
+        describe "raises error for unknown output" do
+          it "raises ValidationError with output name" do
+            expect do
+              allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example9Child)
+                .succeeds(unknown_output: "value")
+            end.to raise_error(
+              Servactory::TestKit::Rspec::Helpers::OutputValidator::ValidationError,
+              /unknown_output/
+            )
           end
+        end
 
-          it_behaves_like "success result class"
-
-          it { expect(perform).to have_output(:order_summary).contains("Order #2002: Jane Smith - $150.0") }
+        describe "raises error for type mismatch" do
+          it "raises ValidationError with type information" do
+            expect do
+              allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example9Child)
+                .succeeds(order_number: "not_an_integer")
+            end.to raise_error(
+              Servactory::TestKit::Rspec::Helpers::OutputValidator::ValidationError,
+              /order_number.*Integer.*String/m
+            )
+          end
         end
       end
 
-      describe "but validate_outputs! catches invalid output names" do
-        it "raises error for unknown output" do
-          expect do
-            allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example9Child)
-              .validate_outputs!
-              .succeeds(unknown_output: "value")
-          end.to raise_error(
-            Servactory::TestKit::Rspec::Helpers::OutputValidator::ValidationError,
-            /unknown_output/
-          )
-        end
-      end
-
-      describe "but validate_outputs! catches type mismatches" do
-        it "raises error for wrong type" do
-          expect do
-            allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example9Child)
-              .validate_outputs!
-              .succeeds(order_number: "not_an_integer")
-          end.to raise_error(
-            Servactory::TestKit::Rspec::Helpers::OutputValidator::ValidationError,
-            /order_number.*Integer.*String/m
-          )
+      describe "automatic input validation catches errors" do
+        describe "raises error for unknown input" do
+          it "raises ValidationError with input name" do
+            expect do
+              allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example9Child)
+                .with(unknown_input: "value")
+                .succeeds(order_number: 1001, customer_name: "Test", total_amount: 50.0)
+            end.to raise_error(
+              Servactory::TestKit::Rspec::Helpers::InputValidator::ValidationError,
+              /unknown_input/
+            )
+          end
         end
       end
     end
@@ -88,10 +88,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example9, type: :se
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        describe "with validate_outputs! on non-bang allow_service" do
+        describe "with valid outputs" do
           before do
             allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example9Child)
-              .validate_outputs!
               .succeeds(order_number: 3003, customer_name: "Test User", total_amount: 200.50)
           end
 
@@ -99,15 +98,18 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example9, type: :se
 
           it { expect(perform).to have_output(:order_summary).contains("Order #3003: Test User - $200.5") }
         end
+      end
 
-        describe "without validate_outputs! allows any outputs" do
-          before do
-            # This would fail with validate_outputs! but passes without it
+      describe "automatic validation catches errors in then_succeeds" do
+        it "raises error for unknown output in sequential call" do
+          expect do
             allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example9Child)
-              .succeeds(order_number: 4004, customer_name: "Unknown", total_amount: 0.0, extra_field: "ignored")
-          end
-
-          it_behaves_like "success result class"
+              .succeeds(order_number: 1001, customer_name: "First", total_amount: 10.0)
+              .then_succeeds(unknown_sequential_output: "invalid")
+          end.to raise_error(
+            Servactory::TestKit::Rspec::Helpers::OutputValidator::ValidationError,
+            /unknown_sequential_output/
+          )
         end
       end
     end

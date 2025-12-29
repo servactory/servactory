@@ -62,9 +62,9 @@ module Servactory
         # - **Fluent API** - chainable methods for readable test setup
         # - **Success/Failure** - configure expected result type in one method
         # - **Exception Handling** - auto-creates exceptions with type, message, meta
-        # - **Input Matching** - match specific service inputs
+        # - **Input Matching** - match specific service inputs with `.with()`
         # - **Sequential Responses** - different results for consecutive calls
-        # - **Output Validation** - optionally validate outputs against service definition
+        # - **Automatic Validation** - validates inputs and outputs against service definition
         #
         # ## Architecture
         #
@@ -72,6 +72,7 @@ module Servactory
         # - ServiceMockConfig - holds mock configuration state
         # - MockExecutor - executes the actual RSpec stubbing
         # - OutputValidator - validates outputs match service definition
+        # - InputValidator - validates inputs match service definition
         class ServiceMockBuilder # rubocop:disable Metrics/ClassLength
           include Concerns::ServiceClassValidation
           include Concerns::ErrorMessages
@@ -104,6 +105,8 @@ module Servactory
 
           # Configures the mock to return a successful result with outputs.
           #
+          # Outputs are automatically validated against service definition.
+          #
           # @param outputs_hash [Hash{Symbol => Object}] Output name-value pairs
           # @return [ServiceMockBuilder] self for method chaining
           #
@@ -113,13 +116,15 @@ module Servactory
           # @example With input matching
           #   allow_service(PaymentService)
           #     .succeeds(transaction_id: "txn_123")
-          #     .inputs(amount: 100)
+          #     .with(amount: 100)
           #
           # @raise [ArgumentError] if called after then_succeeds/then_fails
+          # @raise [OutputValidator::ValidationError] if outputs don't match service definition
           def succeeds(outputs_hash = {})
             validate_not_in_sequential_mode!(:succeeds)
+            validate_result_type_not_switched!(:succeeds)
 
-            validate_outputs_if_needed!(outputs_hash)
+            validate_outputs!(outputs_hash)
             @config.result_type = :success
             @config.outputs = outputs_hash
             execute_or_re_execute_mock
@@ -148,6 +153,7 @@ module Servactory
           # @raise [ArgumentError] if called after then_succeeds/then_fails
           def fails(exception_class = nil, message:, type: :base, meta: nil)
             validate_not_in_sequential_mode!(:fails)
+            validate_result_type_not_switched!(:fails)
 
             @config.result_type = :failure
             @config.exception = build_exception(exception_class, type:, message:, meta:)
@@ -157,40 +163,33 @@ module Servactory
 
           # Configures input matching for the mock.
           #
-          # Can be called before or after succeeds/fails.
+          # Can be called at any position in the chain (before/after succeeds/fails,
+          # or after then_* methods). Applies to the entire mock chain.
+          #
+          # Inputs are automatically validated against service definition.
           #
           # @param inputs_hash_or_matcher [Hash, Object] Service inputs to match or RSpec matcher
           # @return [ServiceMockBuilder] self for method chaining
           #
           # @example Exact match
-          #   allow_service(S).inputs(amount: 100).succeeds(result: :ok)
+          #   allow_service(S).with(amount: 100).succeeds(result: :ok)
           #
           # @example With matchers
-          #   allow_service(S).inputs(including(amount: 100)).succeeds(result: :ok)
-          def inputs(inputs_hash_or_matcher)
+          #   allow_service(S).with(including(amount: 100)).succeeds(result: :ok)
+          #
+          # @example Any position in chain
+          #   allow_service(S).succeeds(result: :ok).with(amount: 100)
+          #
+          # @raise [InputValidator::ValidationError] if inputs don't match service definition
+          def with(inputs_hash_or_matcher)
+            validate_inputs!(inputs_hash_or_matcher)
             @config.argument_matcher = inputs_hash_or_matcher
             re_execute_mock if @executed
             self
           end
 
-          # Enables output validation against service definition.
-          #
-          # When enabled, outputs will validate that output names
-          # match the service's declared outputs.
-          #
-          # @return [ServiceMockBuilder] self for method chaining
-          def validate_outputs!
-            @config.validate_outputs = true
-            self
-          end
-
-          # Disables output validation.
-          #
-          # @return [ServiceMockBuilder] self for method chaining
-          def skip_output_validation
-            @config.validate_outputs = false
-            self
-          end
+          # @deprecated Use {#with} instead
+          alias inputs with
 
           # ============================================================
           # Sequential Call API
@@ -199,6 +198,7 @@ module Servactory
           # Adds a successful result for sequential call handling.
           #
           # Use for testing code that calls the same service multiple times.
+          # Outputs are automatically validated against service definition.
           #
           # @param outputs_hash [Hash{Symbol => Object}] Output name-value pairs
           # @return [ServiceMockBuilder] self for method chaining
@@ -209,9 +209,11 @@ module Servactory
           #     .then_succeeds(status: :completed)
           #
           # @raise [ArgumentError] if called without first calling succeeds/fails
+          # @raise [OutputValidator::ValidationError] if outputs don't match service definition
           def then_succeeds(outputs_hash = {})
             validate_result_type_defined!(:then_succeeds)
 
+            validate_outputs!(outputs_hash)
             finalize_current_to_sequence
             @config = ServiceMockConfig.new(service_class:)
             @config.result_type = :success
@@ -280,17 +282,49 @@ module Servactory
                   "Cannot call #{method_name}() without first calling succeeds() or fails()."
           end
 
-          # Validates outputs against service definition if validation is enabled.
+          # Validates that result type is not being switched.
+          #
+          # Prevents accidental switching between succeeds() and fails().
+          #
+          # @param new_type [Symbol] :succeeds or :fails
+          # @raise [ArgumentError] if trying to switch result type
+          # @return [void]
+          def validate_result_type_not_switched!(new_type) # rubocop:disable Metrics/CyclomaticComplexity
+            return unless @config.result_type_defined?
+
+            current_type = @config.success? ? :succeeds : :fails
+            return if (new_type == :succeeds && current_type == :succeeds) ||
+                      (new_type == :fails && current_type == :fails)
+
+            raise ArgumentError,
+                  "Cannot call #{new_type}() after #{current_type}() was already called. " \
+                  "#{new_type == :succeeds ? 'succeeds()' : 'fails()'} replaces the result type, " \
+                  "which is likely a mistake. Create a new mock if you need different behavior."
+          end
+
+          # Validates outputs against service definition.
           #
           # @param outputs_hash [Hash] Outputs to validate
           # @return [void]
-          # @raise [OutputValidator::InvalidOutputError] If outputs don't match service definition
-          def validate_outputs_if_needed!(outputs_hash)
-            return unless @config.validate_outputs?
+          # @raise [OutputValidator::ValidationError] If outputs don't match service definition
+          def validate_outputs!(outputs_hash)
+            return if outputs_hash.empty?
 
             OutputValidator.validate!(
               service_class:,
               outputs: outputs_hash
+            )
+          end
+
+          # Validates inputs against service definition.
+          #
+          # @param inputs_matcher [Hash, Object] Inputs or matcher to validate
+          # @return [void]
+          # @raise [InputValidator::ValidationError] If inputs don't match service definition
+          def validate_inputs!(inputs_matcher)
+            InputValidator.validate!(
+              service_class:,
+              inputs_matcher:
             )
           end
 

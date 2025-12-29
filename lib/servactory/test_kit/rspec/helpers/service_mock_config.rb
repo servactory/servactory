@@ -32,15 +32,13 @@ module Servactory
         # - `outputs` - Hash of output values
         # - `exception` - Exception for failure mocks
         # - `argument_matcher` - RSpec argument matcher or Hash
-        # - `validate_outputs` - Whether to validate output types
         class ServiceMockConfig
           attr_accessor :service_class,
                         :result_type,
                         :method_type,
                         :outputs,
                         :exception,
-                        :argument_matcher,
-                        :validate_outputs
+                        :argument_matcher
 
           # Creates a new mock configuration.
           #
@@ -53,7 +51,6 @@ module Servactory
             @outputs = {}
             @exception = nil
             @argument_matcher = nil
-            @validate_outputs = false
           end
 
           # Checks if this is a success mock.
@@ -75,13 +72,6 @@ module Servactory
           # @return [Boolean] True if method_type is :call!
           def bang_method?
             method_type == :call!
-          end
-
-          # Checks if output validation is enabled.
-          #
-          # @return [Boolean] True if outputs should be validated
-          def validate_outputs?
-            @validate_outputs
           end
 
           # Checks if result type has been set.
@@ -123,14 +113,13 @@ module Servactory
           # Creates a deep copy of this config.
           #
           # @return [ServiceMockConfig] New config with copied values
-          def dup # rubocop:disable Metrics/AbcSize
+          def dup
             copy = self.class.new(service_class:)
             copy.result_type = result_type
             copy.method_type = method_type
             copy.outputs = outputs.dup
             copy.exception = exception
             copy.argument_matcher = argument_matcher
-            copy.validate_outputs = validate_outputs
             copy
           end
         end
