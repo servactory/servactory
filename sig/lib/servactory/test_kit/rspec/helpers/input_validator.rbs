@@ -1,0 +1,30 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class InputValidator
+          include Concerns::ErrorMessages
+
+          class ValidationError < StandardError
+          end
+
+          @service_class: Class
+          @inputs_matcher: untyped
+
+          def self.validate!: (service_class: Class, inputs_matcher: untyped) -> void
+
+          def initialize: (service_class: Class, inputs_matcher: untyped) -> void
+
+          def validate!: () -> void
+
+          private
+
+          def extract_keys_for_validation: () -> (Array[Symbol] | Symbol | nil)
+          def extract_hash_including_keys: () -> Array[Symbol]?
+          def validate_input_names!: (Array[Symbol] provided_keys) -> void
+          def validate_service_has_no_required_inputs!: () -> void
+        end
+      end
+    end
+  end
+end

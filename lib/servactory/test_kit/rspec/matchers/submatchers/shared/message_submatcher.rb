@@ -6,21 +6,54 @@ module Servactory
       module Matchers
         module Submatchers
           module Shared
+            # Submatcher for validating custom error messages.
+            #
+            # ## Purpose
+            #
+            # Validates that the previous submatcher's option has the expected
+            # custom error message. Must be used after another submatcher that
+            # defines an option with a message field.
+            #
+            # ## Usage
+            #
+            # ```ruby
+            # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message("Invalid email") }
+            # it { is_expected.to have_service_input(:data).schema({ key: String }).message("Invalid schema") }
+            # ```
+            #
+            # ## Note
+            #
+            # Requires `requires_last_submatcher: true` - must follow another
+            # submatcher. Uses the previous submatcher's OPTION_NAME constant
+            # to find the message field.
             class MessageSubmatcher < Base::Submatcher
+              # Option name in attribute data (unused - uses last submatcher's)
               OPTION_NAME = :message
+              # Key for the message within the option
               OPTION_BODY_KEY = :message
 
+              # Creates a new message submatcher.
+              #
+              # @param context [Base::SubmatcherContext] The submatcher context
+              # @param custom_message [String] Expected error message
+              # @return [MessageSubmatcher] New submatcher instance
               def initialize(context, custom_message)
                 super(context)
                 @custom_message = custom_message
               end
 
+              # Returns description for RSpec output.
+              #
+              # @return [String] Human-readable description with message
               def description
                 "message: #{@attribute_schema_message}"
               end
 
               protected
 
+              # Checks if the option's message matches expected message.
+              #
+              # @return [Boolean] True if messages match
               def passes?
                 last_submatcher = context.last_submatcher
                 attribute_schema = attribute_data.fetch(last_submatcher.class::OPTION_NAME)
@@ -30,6 +63,9 @@ module Servactory
                 schema_message_equal?
               end
 
+              # Builds the failure message for message validation.
+              #
+              # @return [String] Failure message with expected vs actual message
               def build_failure_message
                 return "" if schema_message_equal?
 
@@ -45,6 +81,11 @@ module Servactory
 
               attr_reader :custom_message
 
+              # Compares expected and actual messages with type-aware logic.
+              #
+              # Handles RSpec matchers, Procs, and plain strings.
+              #
+              # @return [Boolean] True if messages match
               def schema_message_equal? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
                 @schema_message_equal ||= begin
                   if custom_message.present? && !@attribute_schema_message.nil?

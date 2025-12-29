@@ -6,19 +6,57 @@ module Servactory
       module Matchers
         module Submatchers
           module Input
-            # DEPRECATED: This submatcher is planned to be decommissioned.
+            # Submatcher for integration testing of input validation.
+            #
+            # ## Purpose
+            #
+            # Performs integration testing of input attributes by calling the
+            # actual service and verifying validation behavior. Tests type checks,
+            # required/optional status, inclusion, and target validations.
+            #
+            # ## Usage
+            #
+            # ```ruby
+            # it { is_expected.to have_service_input(:status).valid_with(valid_attributes) }
+            # it { is_expected.to have_service_input(:count).valid_with(false) }
+            # ```
+            #
+            # ## Deprecation Notice
+            #
+            # This submatcher is planned to be decommissioned. Consider using
+            # direct service call tests instead.
+            #
+            # ## Validation Steps
+            #
+            # 1. `success_passes?` - service succeeds with valid attributes
+            # 2. `failure_type_passes?` - fails correctly with wrong type
+            # 3. `failure_required_passes?` - fails when required input is nil
+            # 4. `failure_optional_passes?` - succeeds when optional input is nil
+            # 5. `failure_inclusion_passes?` - fails with value outside inclusion
+            # 6. `failure_target_passes?` - fails with value outside target
             class ValidWithSubmatcher < Base::Submatcher # rubocop:disable Metrics/ClassLength
+              # Creates a new valid_with submatcher.
+              #
+              # @param context [Base::SubmatcherContext] The submatcher context
+              # @param attributes [Hash, FalseClass] Test attributes or false to skip
+              # @return [ValidWithSubmatcher] New submatcher instance
               def initialize(context, attributes)
                 super(context)
                 @attributes = attributes.is_a?(FalseClass) ? attributes : Servactory::Utils.adapt(attributes)
               end
 
+              # Returns description for RSpec output.
+              #
+              # @return [String] Human-readable description
               def description
                 "valid_with attribute checking"
               end
 
               protected
 
+              # Runs all validation checks in sequence.
+              #
+              # @return [Boolean] True if all validation scenarios pass
               def passes?
                 return true if attributes.is_a?(FalseClass)
 
@@ -30,6 +68,9 @@ module Servactory
                   failure_target_passes?
               end
 
+              # Builds the failure message for valid_with validation.
+              #
+              # @return [String] Generic failure message
               def build_failure_message
                 "should work as expected on the specified attributes based on its options"
               end
@@ -38,6 +79,9 @@ module Servactory
 
               attr_reader :attributes
 
+              # Checks that service succeeds with valid attributes.
+              #
+              # @return [Boolean] True if service call succeeds
               def success_passes?
                 described_class.call!(attributes).success?
               rescue Servactory::Exceptions::Input
@@ -46,6 +90,9 @@ module Servactory
                 true
               end
 
+              # Checks that service fails with wrong type.
+              #
+              # @return [Boolean] True if type validation fails as expected
               def failure_type_passes? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
                 option_types = attribute_data.fetch(:types)
 
@@ -63,6 +110,9 @@ module Servactory
                 expect_failure_with!(prepared_attributes, input_required_message)
               end
 
+              # Checks that required validation fails when input is nil.
+              #
+              # @return [Boolean] True if required validation fails as expected
               def failure_required_passes? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
                 input_required = attribute_data.fetch(:required).fetch(:is)
                 return true unless input_required
@@ -83,6 +133,9 @@ module Servactory
                 expect_failure_with!(prepared_attributes, input_required_message)
               end
 
+              # Checks that optional input accepts nil without failure.
+              #
+              # @return [Boolean] True if service doesn't fail on nil optional
               def failure_optional_passes?
                 input_required = attribute_data.fetch(:required).fetch(:is)
                 return true if input_required
@@ -93,6 +146,9 @@ module Servactory
                 expect_failure_with!(prepared_attributes, nil)
               end
 
+              # Checks that inclusion validation fails with wrong value.
+              #
+              # @return [Boolean] True if inclusion validation fails as expected
               def failure_inclusion_passes? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
                 input_inclusion_in = attribute_data.dig(:inclusion, :in)
                 return true if input_inclusion_in.blank?
@@ -124,6 +180,9 @@ module Servactory
                 expect_failure_with!(prepared_attributes, input_required_message)
               end
 
+              # Checks that target validation fails with wrong value.
+              #
+              # @return [Boolean] True if target validation fails as expected
               def failure_target_passes? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
                 input_target_in = attribute_data.dig(:target, :in)
                 return true if input_target_in.blank?
@@ -155,6 +214,11 @@ module Servactory
                 expect_failure_with!(prepared_attributes, input_required_message)
               end
 
+              # Calls service and verifies it fails with expected message.
+              #
+              # @param prepared_attributes [Hash] Attributes to pass to service
+              # @param expected_message [String, Symbol, nil] Expected error message
+              # @return [Boolean] True if service fails with expected message
               def expect_failure_with!(prepared_attributes, expected_message)
                 described_class.call!(prepared_attributes).success?
               rescue Servactory::Exceptions::Input => e

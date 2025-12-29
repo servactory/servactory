@@ -1,0 +1,28 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class OutputValidator
+          include Concerns::ErrorMessages
+
+          class ValidationError < StandardError
+          end
+
+          @service_class: Class
+          @outputs: Hash[Symbol, untyped]
+
+          def self.validate!: (service_class: Class, outputs: Hash[Symbol, untyped]) -> void
+
+          def initialize: (service_class: Class, outputs: Hash[Symbol, untyped]) -> void
+
+          def validate!: () -> void
+
+          private
+
+          def validate_output_names!: () -> void
+          def validate_output_types!: () -> void
+        end
+      end
+    end
+  end
+end

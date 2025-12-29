@@ -5,9 +5,60 @@ module Servactory
     module Rspec
       module Matchers
         module Result
+          # RSpec matcher for validating failed service results.
+          #
+          # ## Purpose
+          #
+          # Validates that a service result is a failure with expected error type,
+          # message, and metadata. Supports custom failure classes configured via
+          # Servactory settings.
+          #
+          # ## Usage
+          #
+          # ```ruby
+          # RSpec.describe MyService, type: :service do
+          #   it "fails with validation error" do
+          #     result = described_class.call(invalid: true)
+          #
+          #     expect(result).to be_failure_service
+          #       .type(:validation_error)
+          #       .message("Invalid input provided")
+          #   end
+          #
+          #   it "fails with custom exception and meta" do
+          #     result = described_class.call(bad_data: true)
+          #
+          #     expect(result).to be_failure_service
+          #       .with(MyCustomFailure)
+          #       .type(:processing_error)
+          #       .meta(field: :data, code: 422)
+          #   end
+          # end
+          # ```
+          #
+          # ## Chain Methods
+          #
+          # - `.with(Class)` - expected custom failure class
+          # - `.type(Symbol)` - expected error type (defaults to `:base`)
+          # - `.message(String)` - expected error message
+          # - `.meta(Hash)` - expected error metadata
+          #
+          # ## Validation Steps
+          #
+          # 1. Checks result is a `Servactory::Result` instance
+          # 2. Verifies `result.success?` returns false
+          # 3. Verifies `result.failure?` returns true
+          # 4. Validates error is a `Servactory::Exceptions::Failure`
+          # 5. Validates failure class if specified via `.with`
+          # 6. Validates error type (defaults to `:base`)
+          # 7. Validates message if specified
+          # 8. Validates meta if specified
           class BeFailureServiceMatcher # rubocop:disable Metrics/ClassLength
             include RSpec::Matchers::Composable
 
+            # Creates a new failure matcher with empty expectations.
+            #
+            # @return [BeFailureServiceMatcher] New matcher instance
             def initialize
               @expected_failure_class = nil
               @expected_type = nil
@@ -18,10 +69,17 @@ module Servactory
               @meta_defined = false
             end
 
+            # Indicates this matcher does not support block expectations.
+            #
+            # @return [Boolean] Always false
             def supports_block_expectations?
               false
             end
 
+            # Performs the match against the actual service result.
+            #
+            # @param result [Servactory::Result] The service result to validate
+            # @return [Boolean] True if result is failure with matching error attributes
             def matches?(result) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
               @result = result
 
@@ -40,10 +98,19 @@ module Servactory
               matched
             end
 
+            # Returns a description of what this matcher validates.
+            #
+            # @return [String] Human-readable matcher description
             def description
               "service failure"
             end
 
+            # Returns detailed failure message explaining what check failed.
+            #
+            # Checks in order: result type, failure status, error class, failure class,
+            # error type, message, and meta.
+            #
+            # @return [String] Detailed failure message with expected vs actual
             def failure_message # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
               unless result.is_a?(Servactory::Result)
                 return <<~MESSAGE
@@ -124,28 +191,51 @@ module Servactory
               MESSAGE
             end
 
+            # Returns the failure message for negated expectations.
+            #
+            # @return [String] Negated failure message
             def failure_message_when_negated
               "Expected result not to be a failed service"
             end
 
-            # Chain methods
+            # Chain Methods
+            # -------------
+
+            # Specifies the expected custom failure class.
+            #
+            # Use when service is configured with a custom failure_class.
+            #
+            # @param failure_class [Class] Expected failure exception class
+            # @return [self] For method chaining
             def with(failure_class)
               @expected_failure_class = failure_class
               self
             end
 
+            # Specifies the expected error type.
+            #
+            # @param expected_type [Symbol] Expected type (defaults to :base if not set)
+            # @return [self] For method chaining
             def type(expected_type)
               @expected_type = expected_type
               @type_defined = true
               self
             end
 
+            # Specifies the expected error message.
+            #
+            # @param expected_message [String] Expected error message text
+            # @return [self] For method chaining
             def message(expected_message)
               @expected_message = expected_message
               @message_defined = true
               self
             end
 
+            # Specifies the expected error metadata.
+            #
+            # @param expected_meta [Hash] Expected meta hash
+            # @return [self] For method chaining
             def meta(expected_meta)
               @expected_meta = expected_meta
               @meta_defined = true

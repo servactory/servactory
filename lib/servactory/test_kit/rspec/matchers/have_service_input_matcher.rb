@@ -4,6 +4,35 @@ module Servactory
   module TestKit
     module Rspec
       module Matchers
+        # RSpec matcher for validating Servactory service input definitions.
+        #
+        # ## Purpose
+        #
+        # Validates that a service class has the expected input attribute with
+        # specified type, required status, defaults, and other options.
+        #
+        # ## Usage
+        #
+        # ```ruby
+        # RSpec.describe MyService, type: :service do
+        #   it { is_expected.to have_service_input(:user_id).type(Integer).required }
+        #   it { is_expected.to have_service_input(:name).type(String).optional }
+        #   it { is_expected.to have_service_input(:age).type(Integer).default(18) }
+        #   it { is_expected.to have_service_input(:status).inclusion(%w[active inactive]) }
+        # end
+        # ```
+        #
+        # ## Chain Methods
+        #
+        # - `.type(Class)` / `.types(Class, ...)` - expected type(s)
+        # - `.required` / `.optional` - required status
+        # - `.default(value)` - expected default value
+        # - `.consists_of(Class)` - for Array/Hash element types
+        # - `.schema(Hash)` - expected schema definition
+        # - `.inclusion(Array)` - expected inclusion values
+        # - `.must(Array)` - custom validation rules
+        # - `.target(value, name:)` - target validation
+        # - `.message(String)` - expected error message (after other chain)
         class HaveServiceInputMatcher < Base::AttributeMatcher
           for_attribute_type :input
 
