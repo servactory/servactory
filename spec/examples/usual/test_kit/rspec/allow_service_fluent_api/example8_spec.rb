@@ -1,0 +1,94 @@
+# frozen_string_literal: true
+
+RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :service do
+  describe ".call!" do
+    subject(:perform) { described_class.call!(**attributes) }
+
+    let(:attributes) do
+      {
+        user_id:
+      }
+    end
+
+    let(:user_id) { 42 }
+
+    it_behaves_like "check class info",
+                    inputs: %i[user_id],
+                    internals: %i[],
+                    outputs: %i[display_name contact_email account_status]
+
+    context "when the input arguments are valid" do
+      describe "and the data required for work is also valid" do
+        describe "with succeeds() providing all outputs at once" do
+          before do
+            allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
+              .with(user_id: 42)
+              .succeeds(user_name: "John Doe", user_email: "john@example.com", is_active: true)
+          end
+
+          it_behaves_like "success result class"
+
+          it { expect(perform).to have_output(:display_name).contains("John Doe") }
+          it { expect(perform).to have_output(:contact_email).contains("john@example.com") }
+          it { expect(perform).to have_output(:account_status).contains(:active) }
+        end
+
+        describe "with inputs before succeeds" do
+          before do
+            allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
+              .with(user_id: 42)
+              .succeeds(user_name: "Jane Smith", user_email: "jane@example.com", is_active: false)
+          end
+
+          it_behaves_like "success result class"
+
+          it { expect(perform).to have_output(:display_name).contains("Jane Smith") }
+          it { expect(perform).to have_output(:contact_email).contains("jane@example.com") }
+          it { expect(perform).to have_output(:account_status).contains(:inactive) }
+        end
+
+        describe "with succeeds before inputs" do
+          before do
+            allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
+              .succeeds(user_name: "Updated Name", user_email: "updated@example.com", is_active: true)
+              .with(user_id: 42)
+          end
+
+          it_behaves_like "success result class"
+
+          it { expect(perform).to have_output(:display_name).contains("Updated Name") }
+        end
+      end
+    end
+  end
+
+  describe ".call" do
+    subject(:perform) { described_class.call(**attributes) }
+
+    let(:attributes) do
+      {
+        user_id:
+      }
+    end
+
+    let(:user_id) { 99 }
+
+    context "when the input arguments are valid" do
+      describe "and the data required for work is also valid" do
+        describe "with inputs after succeeds" do
+          before do
+            allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
+              .succeeds(is_active: true, user_email: "order@example.com", user_name: "Order Test")
+              .with(user_id: 99)
+          end
+
+          it_behaves_like "success result class"
+
+          it { expect(perform).to have_output(:display_name).contains("Order Test") }
+          it { expect(perform).to have_output(:contact_email).contains("order@example.com") }
+          it { expect(perform).to have_output(:account_status).contains(:active) }
+        end
+      end
+    end
+  end
+end

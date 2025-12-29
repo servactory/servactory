@@ -1,0 +1,79 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        # Backward-compatible API for mocking Servactory services in RSpec tests.
+        #
+        # Provides legacy helper methods for mocking Servactory service calls.
+        # These methods are maintained for backward compatibility with existing tests.
+        module Legacy
+          # Mock the `call!` method to return a successful result.
+          def allow_service_as_success!: (
+            Class service_class,
+            ?with: Hash[Symbol, untyped]?
+          ) ?{ () -> Hash[Symbol, untyped] } -> void
+
+          # Mock the `call` method to return a successful result.
+          def allow_service_as_success: (
+            Class service_class,
+            ?with: Hash[Symbol, untyped]?
+          ) ?{ () -> Hash[Symbol, untyped] } -> void
+
+          # Mock the `call!` method to raise a failure exception.
+          def allow_service_as_failure!: (
+            Class service_class,
+            ?with: Hash[Symbol, untyped]?
+          ) ?{ () -> (Hash[Symbol, untyped] | Exceptions::Failure) } -> void
+
+          # Mock the `call` method to return a failure result.
+          def allow_service_as_failure: (
+            Class service_class,
+            ?with: Hash[Symbol, untyped]?
+          ) ?{ () -> (Hash[Symbol, untyped] | Exceptions::Failure) } -> void
+
+          private
+
+          # Builds legacy mock for .call! method.
+          def allow_service_legacy!: (
+            Class service_class,
+            Symbol result_type,
+            ?with: Hash[Symbol, untyped]?
+          ) ?{ () -> untyped } -> void
+
+          # Builds legacy mock for .call method.
+          def allow_service_legacy: (
+            Class service_class,
+            Symbol result_type,
+            ?with: Hash[Symbol, untyped]?
+          ) ?{ () -> untyped } -> void
+
+          # Core legacy mock implementation.
+          def allow_servactory_legacy: (
+            Class service_class,
+            Symbol method_call,
+            Symbol result_type,
+            ?with: Hash[Symbol, untyped]?
+          ) -> void
+
+          # Builds ServiceMockConfig from legacy parameters.
+          def build_legacy_config: (
+            Class service_class,
+            Symbol method_call,
+            Symbol result_type,
+            untyped with_arg,
+            untyped block_result
+          ) -> Helpers::ServiceMockConfig
+
+          # Processes block result into config outputs/exception.
+          def process_legacy_block_result: (
+            Helpers::ServiceMockConfig config,
+            untyped block_result
+          ) -> void
+
+          # Validates block result format for legacy API.
+          def validate_legacy_block_result!: (untyped block_result, bool is_success) -> void
+        end
+      end
+    end
+  end
+end

@@ -1,47 +1,15 @@
 module Servactory
   module TestKit
     module Rspec
+      # RSpec helper methods for mocking Servactory services.
+      #
+      # Provides convenient helper methods for mocking Servactory service calls
+      # in RSpec tests. Supports both a modern fluent API and backward-compatible
+      # legacy methods.
       module Helpers
-        def allow_service_as_success!: (
-          Class service_class,
-          ?with: Hash[Symbol, untyped]?
-        ) ?{ () -> Hash[Symbol, untyped] } -> void
-
-        def allow_service_as_success: (
-          Class service_class,
-          ?with: Hash[Symbol, untyped]?
-        ) ?{ () -> Hash[Symbol, untyped] } -> void
-
-        def allow_service_as_failure!: (
-          Class service_class,
-          ?with: Hash[Symbol, untyped]?
-        ) ?{ () -> (Hash[Symbol, untyped] | Exceptions::Failure) } -> void
-
-        def allow_service_as_failure: (
-          Class service_class,
-          ?with: Hash[Symbol, untyped]?
-        ) ?{ () -> (Hash[Symbol, untyped] | Exceptions::Failure) } -> void
-
-        private
-
-        def allow_service!: (
-          Class service_class,
-          Symbol result_type,
-          ?with: Hash[Symbol, untyped]?
-        ) ?{ () -> untyped } -> void
-
-        def allow_service: (
-          Class service_class,
-          Symbol result_type,
-          ?with: Hash[Symbol, untyped]?
-        ) ?{ () -> untyped } -> void
-
-        def allow_servactory: (
-          Class service_class,
-          Symbol method_call,
-          Symbol result_type,
-          ?with: Hash[Symbol, untyped]?
-        ) -> untyped
+        include Helpers::ArgumentMatchers
+        include Helpers::Fluent
+        include Helpers::Legacy
       end
     end
   end

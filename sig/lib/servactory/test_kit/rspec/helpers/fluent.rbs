@@ -1,0 +1,23 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        # Fluent API for mocking Servactory services in RSpec tests.
+        #
+        # Provides modern fluent builder interface for configuring service mocks
+        # with chainable method calls. This is the recommended API for new tests.
+        module Fluent
+          # Start building a service mock with fluent API for .call method.
+          #
+          # When service fails, returns Result with `.error` attribute.
+          def allow_service: (Class service_class) -> Helpers::ServiceMockBuilder
+
+          # Start building a service mock with fluent API for .call! method.
+          #
+          # When service fails, raises exception.
+          def allow_service!: (Class service_class) -> Helpers::ServiceMockBuilder
+        end
+      end
+    end
+  end
+end

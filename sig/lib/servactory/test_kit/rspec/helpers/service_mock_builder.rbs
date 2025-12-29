@@ -1,0 +1,52 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class ServiceMockBuilder
+          include Concerns::ServiceClassValidation
+          include Concerns::ErrorMessages
+
+          @service_class: Class
+          @rspec_context: untyped
+          @config: ServiceMockConfig
+          @sequential_configs: Array[ServiceMockConfig]
+          @executed: bool
+
+          attr_reader service_class: Class
+          attr_reader config: ServiceMockConfig
+
+          def initialize: (Class service_class, method_type: Symbol, rspec_context: untyped) -> void
+
+          # Primary Fluent API
+          def succeeds: (?Hash[Symbol, untyped] outputs_hash) -> self
+          def fails: (?Class? exception_class, ?type: Symbol, message: String, ?meta: untyped?) -> self
+          def with: (untyped inputs_hash_or_matcher) -> self
+
+          # Sequential Call API
+          def then_succeeds: (?Hash[Symbol, untyped] outputs_hash) -> self
+          def then_fails: (?Class? exception_class, ?type: Symbol, message: String, ?meta: untyped?) -> self
+
+          private
+
+          # Validation
+          def validate_not_in_sequential_mode!: (Symbol method_name) -> void
+          def validate_result_type_defined!: (Symbol method_name) -> void
+          def validate_result_type_not_switched!: (Symbol new_type) -> void
+          def validate_outputs!: (Hash[Symbol, untyped] outputs_hash) -> void
+          def validate_inputs!: (untyped inputs_matcher) -> void
+
+          # Exception Building
+          def build_exception: (Class? exception_class, type: Symbol, message: String, meta: untyped?) -> Exception
+          def default_failure_class: () -> Class
+
+          # Mock Execution
+          def execute_or_re_execute_mock: () -> void
+          def finalize_current_to_sequence: () -> void
+          def execute_mock: () -> void
+          def re_execute_mock: () -> void
+          def execute_sequential_mock: () -> void
+        end
+      end
+    end
+  end
+end

@@ -1,93 +1,60 @@
 # frozen_string_literal: true
 
+require_relative "helpers/concerns/error_messages"
+require_relative "helpers/concerns/service_class_validation"
+require_relative "helpers/service_mock_config"
+require_relative "helpers/mock_executor"
+require_relative "helpers/input_validator"
+require_relative "helpers/output_validator"
+require_relative "helpers/argument_matchers"
+require_relative "helpers/service_mock_builder"
+require_relative "helpers/fluent"
+require_relative "helpers/legacy"
+
 module Servactory
   module TestKit
     module Rspec
+      # RSpec helper methods for mocking Servactory services.
+      #
+      # ## Purpose
+      #
+      # Provides convenient helper methods for mocking Servactory service calls
+      # in RSpec tests. Supports both a modern fluent API and backward-compatible
+      # legacy methods.
+      #
+      # ## Usage
+      #
+      # Include in RSpec configuration:
+      #
+      # ```ruby
+      # RSpec.configure do |config|
+      #   config.include Servactory::TestKit::Rspec::Helpers, type: :service
+      # end
+      # ```
+      #
+      # ## Available Helpers
+      #
+      # **Fluent API (recommended):**
+      # - `allow_service(ServiceClass)` - mock `.call` method (returns Result)
+      # - `allow_service!(ServiceClass)` - mock `.call!` method (raises on failure)
+      #
+      # **Backward-Compatible API:**
+      # - `allow_service_as_success!` / `allow_service_as_success`
+      # - `allow_service_as_failure!` / `allow_service_as_failure`
+      #
+      # **Argument Matchers:**
+      # - `including(hash)` - partial hash matching
+      # - `excluding(hash)` - exclusion matching
+      # - `any_inputs` - match any arguments
+      # - `no_inputs` - match no arguments
+      #
+      # @see Helpers::Fluent for fluent API documentation
+      # @see Helpers::Legacy for backward-compatible API documentation
+      # @see Helpers::ArgumentMatchers for argument matcher documentation
       module Helpers
-        def allow_service_as_success!(service_class, with: nil, &block)
-          allow_service!(service_class, :as_success, with:, &block)
-        end
-
-        def allow_service_as_success(service_class, with: nil, &block)
-          allow_service(service_class, :as_success, with:, &block)
-        end
-
-        def allow_service_as_failure!(service_class, with: nil, &block)
-          allow_service!(service_class, :as_failure, with:, &block)
-        end
-
-        def allow_service_as_failure(service_class, with: nil, &block)
-          allow_service(service_class, :as_failure, with:, &block)
-        end
-
-        ########################################################################
-
-        def allow_service!(service_class, result_type, with: nil, &block)
-          allow_servactory(service_class, :call!, result_type, with:, &block)
-        end
-
-        def allow_service(service_class, result_type, with: nil, &block)
-          allow_servactory(service_class, :call, result_type, with:, &block)
-        end
-
-        ########################################################################
-
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-        def allow_servactory(service_class, method_call, result_type, with: nil)
-          method_call = method_call.to_sym
-          result_type = result_type.to_sym
-
-          unless %i[call! call].include?(method_call)
-            raise ArgumentError, "Invalid value for `method_call`. Must be `:call!` or `:call`."
-          end
-
-          unless %i[as_success as_failure].include?(result_type)
-            raise ArgumentError, "Invalid value for `result_type`. Must be `:as_success` or `:as_failure`."
-          end
-
-          as_success = result_type == :as_success
-          with_bang = method_call == :call!
-
-          if block_given? && !yield.is_a?(Hash) && as_success
-            raise ArgumentError, "Invalid value for block. Must be a Hash with attributes."
-          end
-
-          and_return_or_raise = with_bang && !as_success ? :and_raise : :and_return
-
-          result = if block_given?
-                     if yield.is_a?(Hash)
-                       yield
-                     else
-                       { exception: yield }
-                     end
-                   else
-                     {}
-                   end
-
-          result[:service_class] = service_class
-
-          allow(service_class).to(
-            receive(method_call)
-              .with(
-                if with.present?
-                  with
-                elsif (input_names = service_class.info.inputs.keys).present?
-                  input_names.to_h { |input_name| [input_name, anything] }
-                else
-                  no_args
-                end
-              )
-              .public_send(
-                and_return_or_raise,
-                if as_success || !with_bang
-                  Servactory::TestKit::Result.public_send(result_type, **result)
-                else
-                  result.fetch(:exception)
-                end
-              )
-          )
-        end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        include Helpers::ArgumentMatchers
+        include Helpers::Fluent
+        include Helpers::Legacy
       end
     end
   end

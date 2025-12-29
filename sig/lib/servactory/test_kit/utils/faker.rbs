@@ -1,0 +1,23 @@
+module Servactory
+  module TestKit
+    module Utils
+      module Faker
+        def self?.fetch_value_for: ((Class | String) class_or_name, ?of: Symbol) -> untyped
+
+        private
+
+        def self?.fake_symbol: () -> Symbol
+        def self?.fake_string: () -> String
+        def self?.fake_integer: () -> Integer
+        def self?.fake_float: () -> Float
+        def self?.fake_range: () -> Range[Integer]
+        def self?.fake_array: (Symbol of) -> (Array[Integer] | Array[String])
+        def self?.fake_hash: (Symbol of) -> (Hash[Symbol, Integer] | Hash[Symbol, Symbol])
+        def self?.fake_true_class: () -> true
+        def self?.fake_false_class: () -> false
+        def self?.fake_nil_class: () -> nil
+        def self?.unsupported_faker: (Class class_for_fake) -> untyped
+      end
+    end
+  end
+end

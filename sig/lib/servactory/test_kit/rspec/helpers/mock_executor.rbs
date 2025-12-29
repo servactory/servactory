@@ -1,0 +1,36 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class MockExecutor
+          include Concerns::ErrorMessages
+
+          @service_class: Class
+          @configs: Array[ServiceMockConfig]
+          @rspec_context: untyped
+
+          def initialize: (service_class: Class, configs: Array[ServiceMockConfig], rspec_context: untyped) -> void
+
+          def execute: () -> void
+
+          private
+
+          def sequential?: () -> bool
+          def execute_single: () -> void
+          def execute_sequential: () -> void
+          def all_returns?: () -> bool
+          def execute_sequential_returns: (Symbol method_name, untyped arg_matcher) -> void
+          def execute_sequential_invoke: (Symbol method_name, untyped arg_matcher) -> void
+          def build_callable: (ServiceMockConfig config) -> ^(*untyped) -> untyped
+          def apply_return_behavior: (untyped message_expectation, ServiceMockConfig config) -> void
+          def validate_configs!: () -> void
+          def validate_config!: (ServiceMockConfig config) -> void
+          def validate_failure_has_exception!: (ServiceMockConfig config) -> void
+          def validate_exception_type!: (ServiceMockConfig config) -> void
+          def valid_exception_type?: (ServiceMockConfig config) -> bool
+          def failure_class_for: (ServiceMockConfig config) -> Class
+        end
+      end
+    end
+  end
+end
