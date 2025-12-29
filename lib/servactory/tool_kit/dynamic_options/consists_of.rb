@@ -26,7 +26,9 @@ module Servactory
       # end
       # ```
       #
-      # Use in your service definition:
+      # ## Simple Mode
+      #
+      # Specify type directly as the option value:
       #
       # ```ruby
       # class ProcessUsersService < ApplicationService::Base
@@ -35,6 +37,36 @@ module Servactory
       #   input :scores, type: Array, consists_of: Float
       # end
       # ```
+      #
+      # ## Advanced Mode
+      #
+      # Specify type with custom error message using a hash.
+      # Note: Advanced mode uses `:type` key (not `:is` like other options).
+      #
+      # With static message:
+      #
+      # ```ruby
+      # input :ids, type: Array, consists_of: {
+      #   type: String,
+      #   message: "Input `ids` must be an array of `String`"
+      # }
+      # ```
+      #
+      # With dynamic lambda message:
+      #
+      # ```ruby
+      # input :ids, type: Array, consists_of: {
+      #   type: String,
+      #   message: lambda do |input:, option_value:, **|
+      #     "Input `#{input.name}` must be an array of `#{Array(option_value).join(', ')}`"
+      #   end
+      # }
+      # ```
+      #
+      # Lambda receives the following parameters:
+      # - For inputs: `input:, option_value:, value:, **`
+      # - For internals: `internal:, option_value:, value:, **`
+      # - For outputs: `output:, option_value:, value:, **`
       #
       # ## Validation Rules
       #
@@ -50,6 +82,8 @@ module Servactory
       # - Use `consists_of: false` to disable validation
       # - NilClass in types allows nil elements in the collection
       # - Nested arrays are automatically flattened for validation
+      # - Advanced mode uses `:type` key (not `:is` like other options)
+      # - Numeric types use exact class matching (Integer != Float)
       class ConsistsOf < Must
         # Creates a ConsistsOf validator instance.
         #
