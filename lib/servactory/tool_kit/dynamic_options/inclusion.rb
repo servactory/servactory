@@ -202,10 +202,7 @@ module Servactory
         # @param value [Object] Value to check
         # @return [Boolean] true if matches
         def element_matches?(element, value)
-          case element
-          when Range then range_covers?(element, value)
-          else element == value
-          end
+          element.is_a?(Range) ? range_covers?(element, value) : element == value
         end
 
         # Safely checks if Range covers the value.
@@ -214,6 +211,8 @@ module Servactory
         # @param value [Object] Value to check
         # @return [Boolean] true if range covers value, false on type errors
         def range_covers?(range, value)
+          return false if value.nil?
+
           range.cover?(value)
         rescue ArgumentError, TypeError
           false
