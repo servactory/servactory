@@ -52,7 +52,7 @@ allow_service!(PaymentService)
 
 # Mock failure - raises exception
 allow_service!(PaymentService)
-  .fails(message: "Card declined", type: :payment_declined)
+  .fails(type: :payment_declined, message: "Card declined")
 ```
 
 ### Failure Mocking
@@ -66,19 +66,19 @@ allow_service(PaymentService)
 
 # With error type
 allow_service(PaymentService)
-  .fails(message: "Card declined", type: :payment_declined)
+  .fails(type: :payment_declined, message: "Card declined")
 
 # With metadata
 allow_service(PaymentService)
   .fails(
-    message: "Card declined",
     type: :payment_declined,
+    message: "Card declined",
     meta: { card_last4: "1234" }
   )
 
 # With custom exception class
 allow_service(PaymentService)
-  .fails(CustomException, message: "Custom error", type: :error)
+  .fails(CustomException, type: :error, message: "Custom error")
 ```
 
 The exception class is determined by:
@@ -98,13 +98,13 @@ allow_service(PaymentService)
 # Success then failure (retry scenario)
 allow_service(RetryService)
   .succeeds(status: :pending)
-  .then_fails(message: "Request timed out", type: :timeout)
+  .then_fails(type: :timeout, message: "Request timed out")
 
 # Multiple successes then failure
 allow_service(PaymentService)
   .succeeds(attempt: 1)
   .then_succeeds(attempt: 2)
-  .then_fails(message: "Max retries exceeded", type: :max_retries)
+  .then_fails(type: :max_retries, message: "Max retries exceeded")
 ```
 
 ### Legacy API
@@ -255,7 +255,7 @@ expect(result).to have_output(:status).instance_of(Symbol)
 describe ".call" do
   before do
     allow_service(PaymentService)
-      .fails(message: "Insufficient funds", type: :payment_declined)
+      .fails(type: :payment_declined, message: "Insufficient funds")
   end
 
   it "returns the expected value in `error`", :aggregate_failures do
@@ -274,7 +274,7 @@ end
 describe ".call!" do
   before do
     allow_service!(PaymentService)
-      .fails(message: "Insufficient funds", type: :payment_declined)
+      .fails(type: :payment_declined, message: "Insufficient funds")
   end
 
   it "raises expected exception", :aggregate_failures do
@@ -313,7 +313,7 @@ RSpec.describe CheckoutService, type: :service do
         describe "because payment service fails" do
           before do
             allow_service!(PaymentService)
-              .fails(message: "Insufficient funds", type: :payment_declined)
+              .fails(type: :payment_declined, message: "Insufficient funds")
           end
 
           it "raises expected exception", :aggregate_failures do
@@ -348,7 +348,7 @@ RSpec.describe CheckoutService, type: :service do
       describe "but the data required for work is invalid" do
         before do
           allow_service(PaymentService)
-            .fails(message: "Insufficient funds", type: :payment_declined)
+            .fails(type: :payment_declined, message: "Insufficient funds")
         end
 
         it "returns the expected value in `error`", :aggregate_failures do

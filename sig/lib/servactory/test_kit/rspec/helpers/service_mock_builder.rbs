@@ -19,12 +19,12 @@ module Servactory
 
           # Primary Fluent API
           def succeeds: (?Hash[Symbol, untyped] outputs_hash) -> self
-          def fails: (?Class? exception_class, message: String, ?type: Symbol, ?meta: untyped?) -> self
+          def fails: (?Class? exception_class, ?type: Symbol, message: String, ?meta: untyped?) -> self
           def with: (untyped inputs_hash_or_matcher) -> self
 
           # Sequential Call API
           def then_succeeds: (?Hash[Symbol, untyped] outputs_hash) -> self
-          def then_fails: (?Class? exception_class, message: String, ?type: Symbol, ?meta: untyped?) -> self
+          def then_fails: (?Class? exception_class, ?type: Symbol, message: String, ?meta: untyped?) -> self
 
           private
 
@@ -36,7 +36,7 @@ module Servactory
           def validate_inputs!: (untyped inputs_matcher) -> void
 
           # Exception Building
-          def build_exception: (Class? exception_class, message: String, type: Symbol, meta: untyped?) -> Exception
+          def build_exception: (Class? exception_class, type: Symbol, message: String, meta: untyped?) -> Exception
           def default_failure_class: () -> Class
 
           # Mock Execution

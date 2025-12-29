@@ -70,13 +70,13 @@ module Servactory
         #
         # @example Failure mock
         #   allow_service(PaymentService)
-        #     .fails(message: "Card declined", type: :payment_declined)
+        #     .fails(type: :payment_declined, message: "Card declined")
         #
         # @example Sequential returns
         #   allow_service(PaymentService)
         #     .succeeds(status: :pending)
         #     .then_succeeds(status: :completed)
-        #     .then_fails(message: "Request timed out", type: :timeout)
+        #     .then_fails(type: :timeout, message: "Request timed out")
         #
         def allow_service(service_class)
           Helpers::ServiceMockBuilder.new(service_class, method_type: :call, rspec_context: self)
@@ -95,12 +95,12 @@ module Servactory
         #
         # @example Failure mock for call! (raises exception)
         #   allow_service!(PaymentService)
-        #     .fails(message: "Insufficient funds", type: :payment_declined)
+        #     .fails(type: :payment_declined, message: "Insufficient funds")
         #
         # @example Sequential returns
         #   allow_service!(RetryService)
         #     .succeeds(status: :pending)
-        #     .then_fails(message: "Request timed out", type: :timeout)
+        #     .then_fails(type: :timeout, message: "Request timed out")
         #
         def allow_service!(service_class)
           Helpers::ServiceMockBuilder.new(service_class, method_type: :call!, rspec_context: self)
