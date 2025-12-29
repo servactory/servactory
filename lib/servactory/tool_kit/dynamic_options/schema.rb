@@ -17,16 +17,12 @@ module Servactory
       # This option is **included by default** for inputs, internals, and outputs.
       # No registration required for basic usage.
       #
-      # To customize Hash-compatible types:
+      # To extend supported Hash-compatible types, use the
+      # `hash_mode_class_names` configuration:
       #
       # ```ruby
       # configuration do
-      #   input_option_helpers([
-      #     Servactory::ToolKit::DynamicOptions::Schema.use(
-      #       default_hash_mode_class_names: [Hash, ActiveSupport::HashWithIndifferentAccess]
-      #     )
-      #   ])
-      #   # Similarly for internal_option_helpers and output_option_helpers
+      #   hash_mode_class_names([CustomHashClass])
       # end
       # ```
       #

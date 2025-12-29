@@ -17,16 +17,12 @@ module Servactory
       # This option is **included by default** for inputs, internals, and outputs.
       # No registration required for basic usage.
       #
-      # To customize collection types (e.g., add Set support):
+      # To extend supported collection types (e.g., add `ActiveRecord::Relation`),
+      # use the `collection_mode_class_names` configuration:
       #
       # ```ruby
       # configuration do
-      #   input_option_helpers([
-      #     Servactory::ToolKit::DynamicOptions::ConsistsOf.use(
-      #       collection_mode_class_names: [Array, Set]
-      #     )
-      #   ])
-      #   # Similarly for internal_option_helpers and output_option_helpers
+      #   collection_mode_class_names([ActiveRecord::Relation])
       # end
       # ```
       #
