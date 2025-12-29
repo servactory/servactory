@@ -9,18 +9,18 @@ module Servactory
 
               OPTION_BODY_KEY: Symbol
 
-              @values: Array[untyped]
-              @actual_values: Array[untyped]
+              @values: (Range[untyped] | Array[untyped])
+              @actual_values: (Range[untyped] | Array[untyped])
               @attribute_inclusion: untyped
-              @attribute_inclusion_in: untyped
+              @attribute_inclusion_in: (Range[untyped] | Array[untyped] | nil)
 
-              def initialize: (Base::SubmatcherContext context, Array[untyped] values) -> void
+              def initialize: (Base::SubmatcherContext context, (Range[untyped] | Array[untyped]) values) -> void
 
               def description: () -> String
 
               private
 
-              attr_reader values: Array[untyped]
+              attr_reader values: (Range[untyped] | Array[untyped])
 
               def passes?: () -> bool
 
@@ -28,7 +28,9 @@ module Servactory
 
               def attribute_inclusion: () -> untyped
 
-              def attribute_inclusion_in: () -> untyped
+              def attribute_inclusion_in: () -> (Range[untyped] | Array[untyped] | nil)
+
+              def compare_inclusion_values: ((Range[untyped] | Array[untyped]) actual, (Range[untyped] | Array[untyped]) expected) -> bool
             end
           end
         end
