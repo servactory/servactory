@@ -67,6 +67,47 @@ module Servactory
       # | `:time` | Parseable time string |
       # | `:boolean` | Truthy boolean string ("true" or "1") |
       #
+      # ## Simple Mode
+      #
+      # Specify format directly as the option value:
+      #
+      # ```ruby
+      # class ValidateUserService < ApplicationService::Base
+      #   input :uuid, type: String, format: :uuid
+      #   input :email, type: String, format: :email
+      #   input :password, type: String, format: :password
+      # end
+      # ```
+      #
+      # ## Advanced Mode
+      #
+      # Specify format with custom error message using a hash:
+      #
+      # With static message:
+      #
+      # ```ruby
+      # input :email, type: String, format: {
+      #   is: :email,
+      #   message: "Input `email` must be a valid email address"
+      # }
+      # ```
+      #
+      # With dynamic lambda message:
+      #
+      # ```ruby
+      # input :email, type: String, format: {
+      #   is: :email,
+      #   message: lambda do |input:, value:, option_value:, **|
+      #     "Input `#{input.name}` with value `#{value}` does not match `#{option_value}` format"
+      #   end
+      # }
+      # ```
+      #
+      # Lambda receives the following parameters:
+      # - For inputs: `input:, value:, option_value:, reason:, **`
+      # - For internals: `internal:, value:, option_value:, reason:, **`
+      # - For outputs: `output:, value:, option_value:, reason:, **`
+      #
       # ## Important Notes
       #
       # - Optional inputs with blank values skip validation

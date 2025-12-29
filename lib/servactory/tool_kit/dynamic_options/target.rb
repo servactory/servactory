@@ -44,6 +44,48 @@ module Servactory
       # end
       # ```
       #
+      # ## Simple Mode
+      #
+      # Specify target values directly:
+      #
+      # ```ruby
+      # class ProcessOrderService < ApplicationService::Base
+      #   input :status, type: Symbol, target: :pending
+      #   input :priority, type: Integer, target: [1, 2, 3]
+      #   input :model_class, type: Class, target: [User, Admin]
+      # end
+      # ```
+      #
+      # ## Advanced Mode
+      #
+      # Specify target with custom error message using a hash.
+      # Note: Advanced mode uses `:in` key (not `:is`).
+      #
+      # With static message:
+      #
+      # ```ruby
+      # input :status, type: Symbol, target: {
+      #   in: [:pending, :processing, :complete],
+      #   message: "Input `status` must be one of: pending, processing, complete"
+      # }
+      # ```
+      #
+      # With dynamic lambda message:
+      #
+      # ```ruby
+      # input :status, type: Symbol, target: {
+      #   in: [:pending, :processing, :complete],
+      #   message: lambda do |input:, value:, option_value:, **|
+      #     "Input `#{input.name}` has invalid value `#{value}`, expected: #{option_value.inspect}"
+      #   end
+      # }
+      # ```
+      #
+      # Lambda receives the following parameters:
+      # - For inputs: `input:, value:, option_value:, reason:, **`
+      # - For internals: `internal:, value:, option_value:, reason:, **`
+      # - For outputs: `output:, value:, option_value:, reason:, **`
+      #
       # ## Validation Rules
       #
       # - Value must exactly match one of the target values

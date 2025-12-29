@@ -46,6 +46,43 @@ module Servactory
       # end
       # ```
       #
+      # ## Simple Mode
+      #
+      # Custom validators support simple mode with direct value:
+      #
+      # ```ruby
+      # input :value, type: Integer, my_option: 10
+      # ```
+      #
+      # ## Advanced Mode
+      #
+      # Custom validators support advanced mode with custom messages:
+      #
+      # With static message:
+      #
+      # ```ruby
+      # input :value, type: Integer, my_option: {
+      #   is: 10,
+      #   message: "Custom validation failed"
+      # }
+      # ```
+      #
+      # With dynamic lambda message:
+      #
+      # ```ruby
+      # input :value, type: Integer, my_option: {
+      #   is: 10,
+      #   message: lambda do |input:, value:, option_value:, **|
+      #     "Input `#{input.name}` failed validation with value `#{value}`"
+      #   end
+      # }
+      # ```
+      #
+      # Lambda receives the following parameters:
+      # - For inputs: `input:, option_value:, value:, **`
+      # - For internals: `internal:, option_value:, value:, **`
+      # - For outputs: `output:, option_value:, value:, **`
+      #
       # ## Architecture
       #
       # The class uses a two-phase validation approach:
