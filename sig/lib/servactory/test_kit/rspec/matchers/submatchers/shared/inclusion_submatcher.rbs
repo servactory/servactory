@@ -30,7 +30,7 @@ module Servactory
 
               def attribute_inclusion_in: () -> (Range[untyped] | Array[untyped] | nil)
 
-              def compare_inclusion_values: ((Range[untyped] | Array[untyped]) actual, (Range[untyped] | Array[untyped]) expected) -> bool
+              def inclusion_values_match?: ((Range[untyped] | Array[untyped]) actual, (Range[untyped] | Array[untyped]) expected) -> bool
             end
           end
         end

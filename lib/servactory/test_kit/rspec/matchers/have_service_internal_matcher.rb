@@ -59,7 +59,9 @@ module Servactory
 
           register_submatcher :inclusion,
                               class_name: "Shared::InclusionSubmatcher",
-                              transform_args: ->(args, _kwargs = {}) { [args.first.is_a?(Range) ? args.first : Array(args.first)] }
+                              transform_args: (lambda do |args, _kwargs = {}|
+                                [args.first.is_a?(Range) ? args.first : Array(args.first)]
+                              end)
 
           register_submatcher :target,
                               class_name: "Shared::TargetSubmatcher",

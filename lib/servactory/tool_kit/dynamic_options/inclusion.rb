@@ -68,7 +68,9 @@ module Servactory
           end
 
           # Optional with nil value but has default.
-          return value_in_inclusion?(inclusion_values, input.default) if input.optional? && value.nil? && !input.default.nil?
+          if input.optional? && value.nil? && !input.default.nil?
+            return value_in_inclusion?(inclusion_values, input.default)
+          end
 
           true
         end

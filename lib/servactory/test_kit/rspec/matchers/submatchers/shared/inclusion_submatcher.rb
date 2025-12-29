@@ -60,7 +60,7 @@ module Servactory
                 return false unless attribute_inclusion.is_a?(Hash)
                 return false if attribute_inclusion_in.nil?
 
-                compare_inclusion_values(attribute_inclusion_in, values)
+                inclusion_values_match?(attribute_inclusion_in, values)
               end
 
               # Builds the failure message for inclusion validation.
