@@ -139,7 +139,7 @@ module Servactory
                 Example:
                   allow_service(#{service_class.name})
                     .fails(#{expected_class.name}, message: "Error message")
-                Full signature: .fails(ExceptionClass, type: :custom_type, message: "...", meta: { key: :value })
+                Full signature: .fails(MyException, type: :custom_type, message: "...", meta: { key: :value })
               MESSAGE
             end
 
