@@ -36,7 +36,7 @@ Building reliable services shouldn't be complicated. Servactory provides a battl
 
 - 🛡️ **Type Safety** - Enforce types on inputs and outputs, catch errors early
 - ✅ **Built-in Validation** - Rich validation DSL with custom rules
-- 🧪 **Test-Friendly** - RSpec matchers for easy testing
+- 🧪 **Test-Friendly** - RSpec matchers and service mocking helpers
 - 📊 **Structured Output** - Consistent Result object pattern
 - 🔧 **Highly Configurable** - Extensions, helpers, and custom options
 - 📚 **Well Documented** - Comprehensive guides and examples
