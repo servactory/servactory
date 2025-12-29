@@ -42,6 +42,47 @@ module Servactory
       # end
       # ```
       #
+      # ## Simple Mode
+      #
+      # Specify minimum value directly:
+      #
+      # ```ruby
+      # class ProcessDataService < ApplicationService::Base
+      #   input :age, type: Integer, min: 18
+      #   input :password, type: String, min: 8
+      #   input :tags, type: Array, min: 1
+      # end
+      # ```
+      #
+      # ## Advanced Mode
+      #
+      # Specify minimum with custom error message using a hash:
+      #
+      # With static message:
+      #
+      # ```ruby
+      # input :age, type: Integer, min: {
+      #   is: 18,
+      #   message: "Input `age` must be at least 18"
+      # }
+      # ```
+      #
+      # With dynamic lambda message:
+      #
+      # ```ruby
+      # input :age, type: Integer, min: {
+      #   is: 18,
+      #   message: lambda do |input:, value:, option_value:, **|
+      #     "Input `#{input.name}` must be >= #{option_value}, got #{value}"
+      #   end
+      # }
+      # ```
+      #
+      # Lambda receives the following parameters:
+      # - For inputs: `input:, option_value:, value:, **`
+      # - For internals: `internal:, option_value:, value:, **`
+      # - For outputs: `output:, option_value:, value:, **`
+      #
       # ## Validation Rules
       #
       # - For Integer: value must be >= min

@@ -42,6 +42,47 @@ module Servactory
       # end
       # ```
       #
+      # ## Simple Mode
+      #
+      # Specify maximum value directly:
+      #
+      # ```ruby
+      # class ProcessDataService < ApplicationService::Base
+      #   input :count, type: Integer, max: 100
+      #   input :name, type: String, max: 255
+      #   input :items, type: Array, max: 50
+      # end
+      # ```
+      #
+      # ## Advanced Mode
+      #
+      # Specify maximum with custom error message using a hash:
+      #
+      # With static message:
+      #
+      # ```ruby
+      # input :count, type: Integer, max: {
+      #   is: 100,
+      #   message: "Input `count` must not exceed 100"
+      # }
+      # ```
+      #
+      # With dynamic lambda message:
+      #
+      # ```ruby
+      # input :count, type: Integer, max: {
+      #   is: 100,
+      #   message: lambda do |input:, value:, option_value:, **|
+      #     "Input `#{input.name}` must be <= #{option_value}, got #{value}"
+      #   end
+      # }
+      # ```
+      #
+      # Lambda receives the following parameters:
+      # - For inputs: `input:, option_value:, value:, **`
+      # - For internals: `internal:, option_value:, value:, **`
+      # - For outputs: `output:, option_value:, value:, **`
+      #
       # ## Validation Rules
       #
       # - For Integer: value must be <= max

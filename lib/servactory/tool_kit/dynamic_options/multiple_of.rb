@@ -42,6 +42,47 @@ module Servactory
       # end
       # ```
       #
+      # ## Simple Mode
+      #
+      # Specify divisor directly:
+      #
+      # ```ruby
+      # class ProcessOrderService < ApplicationService::Base
+      #   input :quantity, type: Integer, multiple_of: 5
+      #   input :price, type: Float, multiple_of: 0.25
+      #   input :batch_size, type: Integer, multiple_of: 100
+      # end
+      # ```
+      #
+      # ## Advanced Mode
+      #
+      # Specify divisor with custom error message using a hash:
+      #
+      # With static message:
+      #
+      # ```ruby
+      # input :quantity, type: Integer, multiple_of: {
+      #   is: 5,
+      #   message: "Input `quantity` must be a multiple of 5"
+      # }
+      # ```
+      #
+      # With dynamic lambda message:
+      #
+      # ```ruby
+      # input :quantity, type: Integer, multiple_of: {
+      #   is: 5,
+      #   message: lambda do |input:, value:, option_value:, **|
+      #     "Input `#{input.name}` must be divisible by #{option_value}, got #{value}"
+      #   end
+      # }
+      # ```
+      #
+      # Lambda receives the following parameters:
+      # - For inputs: `input:, option_value:, value:, **`
+      # - For internals: `internal:, option_value:, value:, **`
+      # - For outputs: `output:, option_value:, value:, **`
+      #
       # ## Supported Types
       #
       # - Integer

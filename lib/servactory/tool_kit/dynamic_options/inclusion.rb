@@ -27,6 +27,48 @@ module Servactory
       # end
       # ```
       #
+      # ## Simple Mode
+      #
+      # Specify inclusion values directly:
+      #
+      # ```ruby
+      # class CreateUserService < ApplicationService::Base
+      #   input :role, type: String, inclusion: %w[admin user guest]
+      #   input :status, type: Symbol, inclusion: [:active, :inactive]
+      #   input :level, type: Integer, inclusion: 1..10
+      # end
+      # ```
+      #
+      # ## Advanced Mode
+      #
+      # Specify inclusion with custom error message using a hash.
+      # Note: Advanced mode uses `:in` key (not `:is`).
+      #
+      # With static message:
+      #
+      # ```ruby
+      # input :role, type: String, inclusion: {
+      #   in: %w[admin user guest],
+      #   message: "Input `role` must be one of: admin, user, guest"
+      # }
+      # ```
+      #
+      # With dynamic lambda message:
+      #
+      # ```ruby
+      # input :role, type: String, inclusion: {
+      #   in: %w[admin user guest],
+      #   message: lambda do |input:, value:, option_value:, **|
+      #     "Input `#{input.name}` has invalid value `#{value}`, allowed: #{option_value.join(', ')}"
+      #   end
+      # }
+      # ```
+      #
+      # Lambda receives the following parameters:
+      # - For inputs: `input:, option_value:, value:, **`
+      # - For internals: `internal:, option_value:, value:, **`
+      # - For outputs: `output:, option_value:, value:, **`
+      #
       # ## Validation Rules
       #
       # - Value must be present in the inclusion list

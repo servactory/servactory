@@ -44,6 +44,60 @@ module Servactory
       # end
       # ```
       #
+      # ## Simple Mode
+      #
+      # Specify schema definition directly:
+      #
+      # ```ruby
+      # class CreateUserService < ApplicationService::Base
+      #   input :user_data,
+      #         type: Hash,
+      #         schema: {
+      #           name: { type: String },
+      #           age: { type: Integer, required: false },
+      #           email: { type: String }
+      #         }
+      # end
+      # ```
+      #
+      # ## Advanced Mode
+      #
+      # Specify schema with custom error message using a hash:
+      #
+      # With static message:
+      #
+      # ```ruby
+      # input :user_data, type: Hash, schema: {
+      #   is: {
+      #     name: { type: String },
+      #     email: { type: String }
+      #   },
+      #   message: "Input `user_data` has invalid structure"
+      # }
+      # ```
+      #
+      # With dynamic lambda message:
+      #
+      # ```ruby
+      # input :user_data, type: Hash, schema: {
+      #   is: {
+      #     name: { type: String },
+      #     email: { type: String }
+      #   },
+      #   message: lambda do |input:, reason:, meta:, **|
+      #     "Schema error in `#{input.name}`: " \
+      #       "key `#{meta[:key_name]}` expected #{meta[:expected_type]}, got #{meta[:given_type]}"
+      #   end
+      # }
+      # ```
+      #
+      # Lambda receives the following parameters:
+      # - For inputs: `input:, reason:, meta:, **` where meta contains `key_name`, `expected_type`, `given_type`
+      # - For internals: `internal:, reason:, meta:, **`
+      # - For outputs: `output:, reason:, meta:, **`
+      #
+      # Use `schema: false` to disable schema validation.
+      #
       # ## Schema Options
       #
       # Each field in the schema supports:
