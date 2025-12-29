@@ -44,20 +44,23 @@ module Servactory
               #
               # @return [String] Human-readable description with values
               def description
-                "inclusion: #{values.join(', ')}"
+                formatted = case values
+                            when Range then values.inspect
+                            else values.join(", ")
+                            end
+                "inclusion: #{formatted}"
               end
 
               protected
 
               # Checks if the inclusion values match expected values.
               #
-              # @return [Boolean] True if inclusion values match (order-independent)
+              # @return [Boolean] True if inclusion values match
               def passes?
                 return false unless attribute_inclusion.is_a?(Hash)
                 return false if attribute_inclusion_in.nil?
 
-                attribute_inclusion_in.difference(values).empty? &&
-                  values.difference(attribute_inclusion_in).empty?
+                inclusion_values_match?(attribute_inclusion_in, values)
               end
 
               # Builds the failure message for inclusion validation.
@@ -85,11 +88,28 @@ module Servactory
 
               # Fetches the inclusion values array from the option.
               #
-              # @return [Array, nil] The allowed values or nil
+              # @return [Array, Range, nil] The allowed values or nil
               def attribute_inclusion_in
                 return @attribute_inclusion_in if defined?(@attribute_inclusion_in)
 
                 @attribute_inclusion_in = attribute_inclusion&.dig(OPTION_BODY_KEY)
+              end
+
+              # Compares two inclusion values for equality.
+              # Supports Range, Array, and mixed types.
+              #
+              # @param actual [Range, Array] Actual inclusion value
+              # @param expected [Range, Array] Expected inclusion value
+              # @return [Boolean] True if values are equivalent
+              def inclusion_values_match?(actual, expected)
+                case [actual.class, expected.class]
+                when [Range, Range]
+                  actual == expected
+                when [Array, Array]
+                  actual.difference(expected).empty? && expected.difference(actual).empty?
+                else
+                  actual.to_s == expected.to_s
+                end
               end
             end
           end

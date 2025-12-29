@@ -1,0 +1,142 @@
+# frozen_string_literal: true
+
+RSpec.describe Usual::DynamicOptions::Inclusion::Example19, type: :service do
+  describe ".call!" do
+    subject(:perform) { described_class.call!(**attributes) }
+
+    let(:attributes) do
+      {
+        digit:
+      }
+    end
+
+    let(:digit) { 5 }
+
+    it_behaves_like "check class info",
+                    inputs: %i[digit],
+                    internals: %i[],
+                    outputs: %i[digit]
+
+    context "when the input arguments are valid" do
+      describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
+        it { expect(perform).to have_output(:digit).contains(5) }
+      end
+
+      describe "and the value is at the lower boundary" do
+        let(:digit) { 1 }
+
+        it_behaves_like "success result class"
+
+        it { expect(perform).to have_output(:digit).contains(1) }
+      end
+
+      describe "and the value is just below upper boundary" do
+        let(:digit) { 9 }
+
+        it_behaves_like "success result class"
+
+        it { expect(perform).to have_output(:digit).contains(9) }
+      end
+
+      describe "but the data required for work is invalid" do
+        describe "because the value of `digit` equals excluded end" do
+          let(:digit) { 10 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Exceptions::Input,
+                "[Usual::DynamicOptions::Inclusion::Example19] Wrong value in `digit`, " \
+                "must be one of `1...10`, " \
+                "got `10`"
+              )
+            )
+          end
+        end
+
+        describe "because the value of `digit` is below range" do
+          let(:digit) { 0 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Exceptions::Input,
+                "[Usual::DynamicOptions::Inclusion::Example19] Wrong value in `digit`, " \
+                "must be one of `1...10`, " \
+                "got `0`"
+              )
+            )
+          end
+        end
+      end
+    end
+
+    context "when the input arguments are invalid" do
+      it do
+        expect { perform }.to(
+          have_input(:digit)
+            .valid_with(attributes)
+            .type(Integer)
+            .required
+            .inclusion(1...10)
+        )
+      end
+    end
+  end
+
+  describe ".call" do
+    subject(:perform) { described_class.call(**attributes) }
+
+    let(:attributes) do
+      {
+        digit:
+      }
+    end
+
+    let(:digit) { 5 }
+
+    it_behaves_like "check class info",
+                    inputs: %i[digit],
+                    internals: %i[],
+                    outputs: %i[digit]
+
+    context "when the input arguments are valid" do
+      describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
+        it { expect(perform).to have_output(:digit).contains(5) }
+      end
+
+      describe "but the data required for work is invalid" do
+        describe "because the value of `digit` equals excluded end" do
+          let(:digit) { 10 }
+
+          it "returns expected error" do
+            expect { perform }.to(
+              raise_error(
+                ApplicationService::Exceptions::Input,
+                "[Usual::DynamicOptions::Inclusion::Example19] Wrong value in `digit`, " \
+                "must be one of `1...10`, " \
+                "got `10`"
+              )
+            )
+          end
+        end
+      end
+    end
+
+    context "when the input arguments are invalid" do
+      it do
+        expect { perform }.to(
+          have_input(:digit)
+            .valid_with(attributes)
+            .type(Integer)
+            .required
+            .inclusion(1...10)
+        )
+      end
+    end
+  end
+end

@@ -153,8 +153,7 @@ module Servactory
                 input_inclusion_in = attribute_data.dig(:inclusion, :in)
                 return true if input_inclusion_in.blank?
 
-                inclusion_values = input_inclusion_in.is_a?(Array) ? input_inclusion_in : [input_inclusion_in]
-                wrong_value = Servactory::TestKit::Utils::Faker.fetch_value_for(inclusion_values.first.class)
+                wrong_value = generate_wrong_value_for_inclusion(input_inclusion_in)
 
                 prepared_attributes = attributes.dup
                 prepared_attributes[attribute_name] = wrong_value
@@ -229,6 +228,39 @@ module Servactory
                 message_to_compare.to_s.casecmp(e.message.to_s).zero?
               rescue Servactory::Exceptions::Internal, Servactory::Exceptions::Output
                 true
+              end
+
+              # Generates a value that is outside the inclusion set.
+              # Handles Range, Array, and scalar values.
+              #
+              # @param inclusion_value [Range, Array, Object] The inclusion constraint
+              # @return [Object] A value guaranteed to be outside the inclusion set
+              def generate_wrong_value_for_inclusion(inclusion_value)
+                case inclusion_value
+                when Range
+                  generate_wrong_value_for_range(inclusion_value)
+                when Array
+                  Servactory::TestKit::Utils::Faker.fetch_value_for(inclusion_value.first.class)
+                else
+                  Servactory::TestKit::Utils::Faker.fetch_value_for(inclusion_value.class)
+                end
+              end
+
+              # Generates a value outside a Range.
+              #
+              # @param range [Range] The range constraint
+              # @return [Object] A value outside the range
+              def generate_wrong_value_for_range(range)
+                if range.begin.nil?
+                  # Beginless range (..100): use value above end
+                  range.end + 1
+                elsif range.end.nil?
+                  # Endless range (1..): use value below begin
+                  range.begin - 1
+                else
+                  # Normal range: use value above end
+                  range.exclude_end? ? range.end : range.end + 1
+                end
               end
             end
           end

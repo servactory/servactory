@@ -39,7 +39,8 @@ module Servactory
       # - Use `inclusion: { in: [...] }` syntax for specifying allowed values
       # - Single values are automatically wrapped in an array
       # - For optional inputs with nil value, validates default if present
-      # - Range objects are NOT directly supported; convert to array first: `(1..10).to_a`
+      # - Range objects ARE supported natively: `(1..10)`, `(1..)`, `(..100)`
+      # - Mixed syntax supported: `[1..5, 10, 15..20]` checks value against all elements
       class Inclusion < Must
         # Creates an Inclusion validator instance.
         #
@@ -63,12 +64,12 @@ module Servactory
 
           # Required inputs or optional with non-nil value.
           if input.required? || (input.optional? && !value.nil?) # rubocop:disable Style/IfUnlessModifier
-            return inclusion_values.include?(value)
+            return value_in_inclusion?(inclusion_values, value)
           end
 
           # Optional with nil value but has default.
-          if input.optional? && value.nil? && !input.default.nil? # rubocop:disable Style/IfUnlessModifier
-            return inclusion_values.include?(input.default)
+          if input.optional? && value.nil? && !input.default.nil?
+            return value_in_inclusion?(inclusion_values, input.default)
           end
 
           true
@@ -83,7 +84,7 @@ module Servactory
           return [false, :invalid_option] if option.value.nil?
 
           inclusion_values = normalize_inclusion_values(option.value)
-          inclusion_values.include?(value)
+          value_in_inclusion?(inclusion_values, value)
         end
 
         # Validates inclusion condition for output attribute.
@@ -95,7 +96,7 @@ module Servactory
           return [false, :invalid_option] if option.value.nil?
 
           inclusion_values = normalize_inclusion_values(option.value)
-          inclusion_values.include?(value)
+          value_in_inclusion?(inclusion_values, value)
         end
 
         ########################################################################
@@ -168,12 +169,53 @@ module Servactory
 
         private
 
-        # Normalizes inclusion values into array format.
+        # Normalizes inclusion values, preserving Range objects.
         #
-        # @param option_value [Object] Inclusion value(s)
-        # @return [Array] Normalized array of allowed values
+        # @param option_value [Range, Array, Object] Inclusion value(s)
+        # @return [Range, Array] Range preserved as-is, others normalized to array
         def normalize_inclusion_values(option_value)
-          option_value.is_a?(Array) ? option_value : [option_value]
+          case option_value
+          when Range, Array then option_value
+          else [option_value]
+          end
+        end
+
+        # Checks if value is included in the normalized inclusion values.
+        #
+        # @param inclusion_values [Range, Array] Normalized inclusion set
+        # @param value [Object] Value to check
+        # @return [Boolean] true if value is in inclusion set
+        def value_in_inclusion?(inclusion_values, value)
+          case inclusion_values
+          when Range
+            range_covers?(inclusion_values, value)
+          when Array
+            inclusion_values.any? { |element| element_matches?(element, value) }
+          else
+            inclusion_values == value
+          end
+        end
+
+        # Checks if value matches a single element (Range or scalar).
+        #
+        # @param element [Range, Object] Element to match against
+        # @param value [Object] Value to check
+        # @return [Boolean] true if matches
+        def element_matches?(element, value)
+          element.is_a?(Range) ? range_covers?(element, value) : element == value
+        end
+
+        # Safely checks if Range covers the value.
+        #
+        # @param range [Range] Range to check against
+        # @param value [Object] Value to check
+        # @return [Boolean] true if range covers value, false on type errors
+        def range_covers?(range, value)
+          return false if value.nil?
+
+          range.cover?(value)
+        rescue ArgumentError, TypeError
+          false
         end
       end
     end
