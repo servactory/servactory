@@ -15,11 +15,20 @@ module Servactory
       #
       # ## Usage
       #
-      # Register the option in your service configuration:
+      # This option is **NOT included by default**. Register it for each
+      # attribute type where you want to use it:
       #
       # ```ruby
       # configuration do
       #   input_option_helpers([
+      #     Servactory::ToolKit::DynamicOptions::Target.use
+      #   ])
+      #
+      #   internal_option_helpers([
+      #     Servactory::ToolKit::DynamicOptions::Target.use
+      #   ])
+      #
+      #   output_option_helpers([
       #     Servactory::ToolKit::DynamicOptions::Target.use
       #   ])
       # end

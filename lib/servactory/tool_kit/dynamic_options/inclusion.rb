@@ -14,15 +14,8 @@ module Servactory
       #
       # ## Usage
       #
-      # Register the option in your service configuration:
-      #
-      # ```ruby
-      # configuration do
-      #   input_option_helpers([
-      #     Servactory::ToolKit::DynamicOptions::Inclusion.use
-      #   ])
-      # end
-      # ```
+      # This option is **included by default** for inputs, internals, and outputs.
+      # No registration required.
       #
       # Use in your service definition:
       #

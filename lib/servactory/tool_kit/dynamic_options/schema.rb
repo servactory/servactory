@@ -14,15 +14,19 @@ module Servactory
       #
       # ## Usage
       #
-      # Register the schema option in your service configuration:
+      # This option is **included by default** for inputs, internals, and outputs.
+      # No registration required for basic usage.
+      #
+      # To customize Hash-compatible types:
       #
       # ```ruby
       # configuration do
       #   input_option_helpers([
       #     Servactory::ToolKit::DynamicOptions::Schema.use(
-      #       default_hash_mode_class_names: [Hash]
+      #       default_hash_mode_class_names: [Hash, ActiveSupport::HashWithIndifferentAccess]
       #     )
       #   ])
+      #   # Similarly for internal_option_helpers and output_option_helpers
       # end
       # ```
       #

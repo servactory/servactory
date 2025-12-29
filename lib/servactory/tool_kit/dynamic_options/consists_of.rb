@@ -14,7 +14,10 @@ module Servactory
       #
       # ## Usage
       #
-      # Register the option in your service configuration:
+      # This option is **included by default** for inputs, internals, and outputs.
+      # No registration required for basic usage.
+      #
+      # To customize collection types (e.g., add Set support):
       #
       # ```ruby
       # configuration do
@@ -23,6 +26,7 @@ module Servactory
       #       collection_mode_class_names: [Array, Set]
       #     )
       #   ])
+      #   # Similarly for internal_option_helpers and output_option_helpers
       # end
       # ```
       #
