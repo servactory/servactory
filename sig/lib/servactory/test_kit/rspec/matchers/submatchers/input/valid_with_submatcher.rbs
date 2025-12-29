@@ -30,7 +30,9 @@ module Servactory
 
               def failure_inclusion_passes?: () -> bool
 
-              def expect_failure_with!: (Hash[Symbol, untyped] prepared_attributes, (String | Symbol)? expected_message) -> bool
+              def failure_target_passes?: () -> bool
+
+              def expect_failure_with!: (Hash[Symbol, untyped] | Datory::Base prepared_attributes, (String | Symbol)? expected_message) -> bool
             end
           end
         end
