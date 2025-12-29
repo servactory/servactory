@@ -56,7 +56,7 @@ module Servactory
       # | `:date` | Parseable date string |
       # | `:datetime` | Parseable datetime string |
       # | `:time` | Parseable time string |
-      # | `:boolean` | String "true", "false", "0", or "1" |
+      # | `:boolean` | Truthy boolean string ("true" or "1") |
       #
       # ## Important Notes
       #
@@ -64,6 +64,9 @@ module Servactory
       # - Custom patterns can be strings or Regexp objects
       # - Validators receive `value:` keyword argument
       # - Unknown format names return `:unknown` error
+      # - Format validation is two-phase: pattern check (if defined), then validator callback
+      # - The `:boolean` format pattern matches "true", "false", "0", "1", but validator
+      #   only passes for truthy values ("true", "1"); "false" and "0" will fail validation
       class Format < Must # rubocop:disable Metrics/ClassLength
         # Built-in format definitions with patterns and validators.
         DEFAULT_FORMATS = {

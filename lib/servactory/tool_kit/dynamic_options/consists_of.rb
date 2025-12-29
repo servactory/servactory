@@ -32,7 +32,7 @@ module Servactory
       # class ProcessUsersService < ApplicationService::Base
       #   input :user_ids, type: Array, consists_of: Integer
       #   input :tags, type: Array, consists_of: [String, Symbol]
-      #   input :scores, type: Array, consists_of: { type: Float }
+      #   input :scores, type: Array, consists_of: Float
       # end
       # ```
       #
@@ -40,8 +40,9 @@ module Servactory
       #
       # - Collection must be of a registered collection type (Array, Set, etc.)
       # - All elements are flattened before validation (nested arrays supported)
-      # - Empty collections pass validation for optional attributes
-      # - Required collections must have all elements present (non-nil)
+      # - Empty collections pass validation for optional input attributes only
+      # - For internal/output attributes, presence check is always performed
+      # - For optional inputs with non-empty collections, presence check is performed
       # - Multiple types can be specified as an array
       #
       # ## Important Notes

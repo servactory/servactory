@@ -61,13 +61,13 @@ module Servactory
       #
       # ## Important Notes
       #
-      # - Empty values for optional attributes skip validation
+      # - Empty values skip validation for: optional inputs, all internal/output attributes
       # - Nested Hash types are validated recursively
       # - The `prepare` option is stripped for internals and outputs
-      # - Reserved options: :type, :required, :default, :payload
+      # - Reserved options: :type, :required, :default, :prepare
       class Schema < Must # rubocop:disable Metrics/ClassLength
         # Reserved keys that are not treated as nested schema definitions.
-        RESERVED_OPTIONS = %i[type required default payload].freeze
+        RESERVED_OPTIONS = %i[type required default prepare].freeze
         private_constant :RESERVED_OPTIONS
 
         # Creates a Schema validator instance.

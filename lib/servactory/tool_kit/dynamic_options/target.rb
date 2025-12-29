@@ -39,7 +39,6 @@ module Servactory
       #
       # - Value must exactly match one of the target values
       # - Supports single value or array of values
-      # - For Class types, special handling preserves array structure
       # - Optional inputs with nil value validate against default
       #
       # ## Important Notes
@@ -47,6 +46,9 @@ module Servactory
       # - Use `target: { in: [...] }` syntax for specifying allowed values
       # - Returns `:invalid_option` error if target is nil
       # - For optional inputs with nil value and default, validates the default
+      # - Internal/output attributes do NOT have default value handling (unlike inputs)
+      # - For Class-typed attributes, arrays of classes are preserved as-is rather
+      #   than being wrapped (e.g., `[User, Admin]` stays as array, not `[[User, Admin]]`)
       class Target < Must
         # Creates a Target validator instance.
         #

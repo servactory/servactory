@@ -30,14 +30,14 @@ module Servactory
       # class CreateUserService < ApplicationService::Base
       #   input :role, type: String, inclusion: { in: %w[admin user guest] }
       #   input :status, type: Symbol, inclusion: { in: [:active, :inactive] }
-      #   input :level, type: Integer, inclusion: { in: 1..10 }
+      #   input :level, type: Integer, inclusion: { in: [1, 2, 3, 4, 5] }
       # end
       # ```
       #
       # ## Validation Rules
       #
       # - Value must be present in the inclusion list
-      # - Supports arrays and ranges as inclusion sets
+      # - Supports arrays as inclusion sets
       # - Optional inputs with nil value validate against default
       # - Returns `:invalid_option` error if inclusion set is nil
       #
@@ -46,6 +46,7 @@ module Servactory
       # - Use `inclusion: { in: [...] }` syntax for specifying allowed values
       # - Single values are automatically wrapped in an array
       # - For optional inputs with nil value, validates default if present
+      # - Range objects are NOT directly supported; convert to array first: `(1..10).to_a`
       class Inclusion < Must
         # Creates an Inclusion validator instance.
         #
