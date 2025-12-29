@@ -19,14 +19,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        describe "with output() singular method for each output" do
+        describe "with succeeds() providing all outputs at once" do
           before do
             allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
-              .as_success
               .inputs(user_id: 42)
-              .output(:user_name, "John Doe")
-              .output(:user_email, "john@example.com")
-              .output(:is_active, true)
+              .succeeds(user_name: "John Doe", user_email: "john@example.com", is_active: true)
           end
 
           it_behaves_like "success result class"
@@ -36,13 +33,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
           it { expect(perform).to have_output(:account_status).contains(:active) }
         end
 
-        describe "mixing output() and outputs()" do
+        describe "with inputs before succeeds" do
           before do
             allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
-              .as_success
               .inputs(user_id: 42)
-              .outputs(user_name: "Jane Smith", user_email: "jane@example.com")
-              .output(:is_active, false)
+              .succeeds(user_name: "Jane Smith", user_email: "jane@example.com", is_active: false)
           end
 
           it_behaves_like "success result class"
@@ -52,15 +47,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
           it { expect(perform).to have_output(:account_status).contains(:inactive) }
         end
 
-        describe "output() can override previous values" do
+        describe "with succeeds before inputs" do
           before do
             allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
-              .as_success
+              .succeeds(user_name: "Updated Name", user_email: "updated@example.com", is_active: true)
               .inputs(user_id: 42)
-              .output(:user_name, "Initial Name")
-              .output(:user_email, "initial@example.com")
-              .output(:is_active, true)
-              .output(:user_name, "Updated Name")
           end
 
           it_behaves_like "success result class"
@@ -84,13 +75,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
-        describe "with output() in different order" do
+        describe "with inputs after succeeds" do
           before do
             allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
-              .as_success
-              .output(:is_active, true)
-              .output(:user_email, "order@example.com")
-              .output(:user_name, "Order Test")
+              .succeeds(is_active: true, user_email: "order@example.com", user_name: "Order Test")
               .inputs(user_id: 99)
           end
 

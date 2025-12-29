@@ -21,8 +21,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
       describe "and the data required for work is also valid" do
         before do
           allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example1Child)
-            .as_success
-            .outputs(transaction_id: "txn_mocked", status: :completed)
+            .succeeds(transaction_id: "txn_mocked", status: :completed)
         end
 
         it_behaves_like "success result class"
@@ -33,17 +32,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
 
       describe "but the data required for work is invalid" do
         describe "because child service fails" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :base,
-              message: "Payment declined"
-            )
-          end
-
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example1Child)
-              .as_failure
-              .with_exception(error)
+              .fails(type: :base, message: "Payment declined")
           end
 
           it "raises expected exception", :aggregate_failures do
@@ -73,8 +64,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
       describe "and the data required for work is also valid" do
         before do
           allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example1Child)
-            .as_success
-            .outputs(transaction_id: "txn_mocked", status: :completed)
+            .succeeds(transaction_id: "txn_mocked", status: :completed)
         end
 
         it_behaves_like "success result class"
@@ -85,17 +75,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
 
       describe "but the data required for work is invalid" do
         describe "because child service fails" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :base,
-              message: "Payment declined"
-            )
-          end
-
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example1Child)
-              .as_failure
-              .with_exception(error)
+              .fails(type: :base, message: "Payment declined")
           end
 
           it "returns the expected value in `error`", :aggregate_failures do

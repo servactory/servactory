@@ -22,8 +22,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
         describe "when child succeeds on first attempt" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .as_success
-              .outputs(status: :completed, attempt_number: 1)
+              .succeeds(status: :completed, attempt_number: 1)
           end
 
           it_behaves_like "success result class"
@@ -35,10 +34,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
         describe "when child succeeds on second attempt (sequential returns)" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .as_success
-              .outputs(status: :processing, attempt_number: 1)
-              .then_as_success
-              .outputs(status: :completed, attempt_number: 2)
+              .succeeds(status: :processing, attempt_number: 1)
+              .then_succeeds(status: :completed, attempt_number: 2)
           end
 
           it_behaves_like "success result class"
@@ -50,12 +47,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
         describe "when child never completes (all attempts return processing)" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .as_success
-              .outputs(status: :processing, attempt_number: 1)
-              .then_as_success
-              .outputs(status: :processing, attempt_number: 2)
-              .then_as_success
-              .outputs(status: :processing, attempt_number: 3)
+              .succeeds(status: :processing, attempt_number: 1)
+              .then_succeeds(status: :processing, attempt_number: 2)
+              .then_succeeds(status: :processing, attempt_number: 3)
           end
 
           it_behaves_like "success result class"
@@ -83,8 +77,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
         describe "when child succeeds on first attempt" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .as_success
-              .outputs(status: :completed, attempt_number: 1)
+              .succeeds(status: :completed, attempt_number: 1)
           end
 
           it_behaves_like "success result class"
@@ -95,10 +88,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
         describe "when child succeeds on second attempt (sequential returns)" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .as_success
-              .outputs(status: :processing, attempt_number: 1)
-              .then_as_success
-              .outputs(status: :completed, attempt_number: 2)
+              .succeeds(status: :processing, attempt_number: 1)
+              .then_succeeds(status: :completed, attempt_number: 2)
           end
 
           it_behaves_like "success result class"

@@ -16,9 +16,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
         describe "with no_inputs matcher" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .as_success
               .inputs(no_inputs)
-              .outputs(timestamp: mock_timestamp, status: :healthy)
+              .succeeds(timestamp: mock_timestamp, status: :healthy)
           end
 
           it_behaves_like "success result class"
@@ -30,9 +29,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
         describe "with service returning degraded status" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .as_success
               .inputs(no_inputs)
-              .outputs(timestamp: mock_timestamp, status: :degraded)
+              .succeeds(timestamp: mock_timestamp, status: :degraded)
           end
 
           it_behaves_like "success result class"
@@ -53,9 +51,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
         describe "with no_inputs matcher" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .as_success
               .inputs(no_inputs)
-              .outputs(timestamp: mock_timestamp, status: :healthy)
+              .succeeds(timestamp: mock_timestamp, status: :healthy)
           end
 
           it_behaves_like "success result class"
@@ -66,17 +63,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
 
       describe "but the data required for work is invalid" do
         describe "because child service fails" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :health_check_failed,
-              message: "Service unreachable"
-            )
-          end
-
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .as_failure
-              .with_exception(error)
+              .fails(type: :health_check_failed, message: "Service unreachable")
           end
 
           it "returns failure result with error", :aggregate_failures do

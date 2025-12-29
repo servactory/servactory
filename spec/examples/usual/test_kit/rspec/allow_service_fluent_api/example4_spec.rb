@@ -21,8 +21,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
       describe "and the data required for work is also valid" do
         before do
           allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example4Child)
-            .as_success
-            .outputs(order_status: :shipped, shipped_at: Time.now)
+            .succeeds(order_status: :shipped, shipped_at: Time.now)
         end
 
         it_behaves_like "success result class"
@@ -33,17 +32,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
 
       describe "but the data required for work is invalid" do
         describe "because child service fails with explicit exception" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :order_not_found,
-              message: "Order ORD-12345 not found"
-            )
-          end
-
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example4Child)
-              .as_failure
-              .with_exception(error)
+              .fails(type: :order_not_found, message: "Order ORD-12345 not found")
           end
 
           it_behaves_like "success result class"
@@ -70,8 +61,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
       describe "and the data required for work is also valid" do
         before do
           allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example4Child)
-            .as_success
-            .outputs(order_status: :shipped, shipped_at: Time.now)
+            .succeeds(order_status: :shipped, shipped_at: Time.now)
         end
 
         it_behaves_like "success result class"
@@ -81,17 +71,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
 
       describe "but the data required for work is invalid" do
         describe "because child service fails with explicit exception" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :order_not_found,
-              message: "Order ORD-12345 not found"
-            )
-          end
-
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example4Child)
-              .as_failure
-              .with_exception(error)
+              .fails(type: :order_not_found, message: "Order ORD-12345 not found")
           end
 
           it "handles failure result", :aggregate_failures do

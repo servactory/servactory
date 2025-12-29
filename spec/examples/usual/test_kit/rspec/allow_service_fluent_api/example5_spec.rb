@@ -26,9 +26,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with exact input matching" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .as_success
               .inputs(product_id: "PROD-001", quantity: 5, customer_id: "CUST-123")
-              .outputs(line_total: 500, discount_applied: false)
+              .succeeds(line_total: 500, discount_applied: false)
           end
 
           it_behaves_like "success result class"
@@ -40,9 +39,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with partial input matching using including()" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .as_success
               .inputs(including(quantity: 5))
-              .outputs(line_total: 500, discount_applied: true)
+              .succeeds(line_total: 500, discount_applied: true)
           end
 
           it_behaves_like "success result class"
@@ -54,9 +52,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with partial input matching for multiple keys" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .as_success
               .inputs(including(product_id: "PROD-001", quantity: 5))
-              .outputs(line_total: 1000, discount_applied: true)
+              .succeeds(line_total: 1000, discount_applied: true)
           end
 
           it_behaves_like "success result class"
@@ -87,9 +84,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with any_inputs matcher" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .as_success
               .inputs(any_inputs)
-              .outputs(line_total: 500, discount_applied: false)
+              .succeeds(line_total: 500, discount_applied: false)
           end
 
           it_behaves_like "success result class"
@@ -100,9 +96,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
         describe "with excluding() matcher" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .as_success
               .inputs(excluding(secret_key: anything))
-              .outputs(line_total: 750, discount_applied: true)
+              .succeeds(line_total: 750, discount_applied: true)
           end
 
           it_behaves_like "success result class"

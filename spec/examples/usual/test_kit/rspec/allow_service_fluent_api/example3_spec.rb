@@ -21,8 +21,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
       describe "and the data required for work is also valid" do
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example3Child)
-            .as_success
-            .outputs(user_name: "John Doe", user_email: "john@example.com")
+            .succeeds(user_name: "John Doe", user_email: "john@example.com")
         end
 
         it_behaves_like "success result class"
@@ -32,17 +31,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
 
       describe "but the data required for work is invalid" do
         describe "because child service fails with call!" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :user_not_found,
-              message: "User with ID 42 not found"
-            )
-          end
-
           before do
             allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example3Child)
-              .as_failure
-              .with_exception(error)
+              .fails(type: :user_not_found, message: "User with ID 42 not found")
           end
 
           it "raises expected error", :aggregate_failures do
@@ -75,8 +66,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
       describe "and the data required for work is also valid" do
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example3Child)
-            .as_success
-            .outputs(user_name: "John Doe", user_email: "john@example.com")
+            .succeeds(user_name: "John Doe", user_email: "john@example.com")
         end
 
         it_behaves_like "success result class"
@@ -86,17 +76,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
 
       describe "but the data required for work is invalid" do
         describe "because child service fails with call!" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :user_not_found,
-              message: "User with ID 42 not found"
-            )
-          end
-
           before do
             allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example3Child)
-              .as_failure
-              .with_exception(error)
+              .fails(type: :user_not_found, message: "User with ID 42 not found")
           end
 
           it "returns failure result with error", :aggregate_failures do

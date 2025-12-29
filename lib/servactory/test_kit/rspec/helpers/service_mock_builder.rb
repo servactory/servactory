@@ -18,42 +18,50 @@ module Servactory
         #
         # ```ruby
         # allow_service(MyService)
-        #   .as_success
-        #   .outputs(result: "value")
+        #   .succeeds(result: "value")
         # ```
         #
-        # Failure mock with exception:
+        # Failure mock:
         #
         # ```ruby
         # allow_service(MyService)
-        #   .as_failure
-        #   .with_exception(MyService::Failure.new(message: "Error"))
+        #   .fails(type: :base, message: "Error")
+        # ```
+        #
+        # Failure mock with custom exception class:
+        #
+        # ```ruby
+        # allow_service(MyService)
+        #   .fails(CustomException, type: :base, message: "Error")
         # ```
         #
         # Sequential returns (first call succeeds, second fails):
         #
         # ```ruby
         # allow_service(MyService)
-        #   .as_success.outputs(count: 1)
-        #   .then_as_success.outputs(count: 2)
-        #   .then_as_failure.with_exception(error)
+        #   .succeeds(count: 1)
+        #   .then_succeeds(count: 2)
+        #   .then_fails(type: :base, message: "Error")
         # ```
         #
         # With input matching:
         #
         # ```ruby
         # allow_service(MyService)
-        #   .as_success
         #   .inputs(user_id: 123)
-        #   .outputs(user: user)
+        #   .succeeds(user: user)
+        #
+        # # Or order doesn't matter:
+        # allow_service(MyService)
+        #   .succeeds(user: user)
+        #   .inputs(user_id: 123)
         # ```
         #
         # ## Features
         #
         # - **Fluent API** - chainable methods for readable test setup
-        # - **Success/Failure** - configure expected result type
-        # - **Output Configuration** - specify mock output values
-        # - **Exception Handling** - attach exceptions for failure mocks
+        # - **Success/Failure** - configure expected result type in one method
+        # - **Exception Handling** - auto-creates exceptions with type, message, meta
         # - **Input Matching** - match specific service inputs
         # - **Sequential Responses** - different results for consecutive calls
         # - **Output Validation** - optionally validate outputs against service definition
@@ -90,78 +98,78 @@ module Servactory
             @executed = false
           end
 
-          # Configures the mock to return a successful result.
-          #
-          # Executes the mock immediately after setting result type.
-          #
-          # @return [ServiceMockBuilder] self for method chaining
-          def as_success
-            @config.result_type = :success
-            execute_mock
-            self
-          end
+          # ============================================================
+          # Primary Fluent API
+          # ============================================================
 
-          # Configures the mock to return a failure result.
-          #
-          # Does not execute mock immediately - waits for with_exception to be called,
-          # as failure mocks require an exception to be specified.
-          #
-          # @return [ServiceMockBuilder] self for method chaining
-          def as_failure
-            @config.result_type = :failure
-            # Don't execute mock yet - wait for with_exception.
-            # Validation requires exception for failures.
-            self
-          end
-
-          # Sets output values for the mock result.
+          # Configures the mock to return a successful result with outputs.
           #
           # @param outputs_hash [Hash{Symbol => Object}] Output name-value pairs
           # @return [ServiceMockBuilder] self for method chaining
-          def outputs(outputs_hash)
+          #
+          # @example Basic success
+          #   allow_service(PaymentService).succeeds(status: :completed)
+          #
+          # @example With input matching
+          #   allow_service(PaymentService)
+          #     .succeeds(transaction_id: "txn_123")
+          #     .inputs(amount: 100)
+          #
+          # @raise [ArgumentError] if called after then_succeeds/then_fails
+          def succeeds(outputs_hash = {})
+            validate_not_in_sequential_mode!(:succeeds)
+
             validate_outputs_if_needed!(outputs_hash)
-            @config.outputs = @config.outputs.merge(outputs_hash)
-            re_execute_mock
+            @config.result_type = :success
+            @config.outputs = outputs_hash
+            execute_or_re_execute_mock
             self
           end
 
-          # Sets a single output value for the mock result.
+          # Configures the mock to return a failure result with exception.
           #
-          # @param name [Symbol] Output name
-          # @param value [Object] Output value
+          # @param exception_class [Class, nil] Exception class (default: service config.failure_class)
+          # @param type [Symbol] Error type (default: :base)
+          # @param message [String] Error message (required)
+          # @param meta [Object, nil] Optional metadata for the exception
           # @return [ServiceMockBuilder] self for method chaining
-          def output(name, value)
-            outputs(name => value)
-          end
-
-          # Attaches an exception to a failure mock.
           #
-          # For bang methods (call!), the exception will be raised.
-          # For non-bang methods (call), the exception will be wrapped in the result.
+          # @example Minimal failure
+          #   allow_service(PaymentService).fails(message: "Card declined")
           #
-          # @param exception [Exception] The failure exception instance
-          # @return [ServiceMockBuilder] self for method chaining
-          def with_exception(exception)
-            @config.exception = exception
+          # @example With type
+          #   allow_service(PaymentService)
+          #     .fails(type: :payment_declined, message: "Insufficient funds")
+          #
+          # @example With custom exception class
+          #   allow_service(PaymentService)
+          #     .fails(CustomException, type: :error, message: "Error")
+          #
+          # @raise [ArgumentError] if called after then_succeeds/then_fails
+          def fails(exception_class = nil, message:, type: :base, meta: nil)
+            validate_not_in_sequential_mode!(:fails)
 
-            if @sequential_configs.any?
-              execute_sequential_mock
-            elsif @executed
-              re_execute_mock
-            else
-              execute_mock
-            end
-
+            @config.result_type = :failure
+            @config.exception = build_exception(exception_class, type:, message:, meta:)
+            execute_or_re_execute_mock
             self
           end
 
           # Configures input matching for the mock.
           #
+          # Can be called before or after succeeds/fails.
+          #
           # @param inputs_hash_or_matcher [Hash, Object] Service inputs to match or RSpec matcher
           # @return [ServiceMockBuilder] self for method chaining
+          #
+          # @example Exact match
+          #   allow_service(S).inputs(amount: 100).succeeds(result: :ok)
+          #
+          # @example With matchers
+          #   allow_service(S).inputs(including(amount: 100)).succeeds(result: :ok)
           def inputs(inputs_hash_or_matcher)
             @config.argument_matcher = inputs_hash_or_matcher
-            re_execute_mock
+            re_execute_mock if @executed
             self
           end
 
@@ -184,15 +192,30 @@ module Servactory
             self
           end
 
+          # ============================================================
+          # Sequential Call API
+          # ============================================================
+
           # Adds a successful result for sequential call handling.
           #
           # Use for testing code that calls the same service multiple times.
           #
+          # @param outputs_hash [Hash{Symbol => Object}] Output name-value pairs
           # @return [ServiceMockBuilder] self for method chaining
-          def then_as_success
+          #
+          # @example Multiple successes
+          #   allow_service(RetryService)
+          #     .succeeds(status: :pending)
+          #     .then_succeeds(status: :completed)
+          #
+          # @raise [ArgumentError] if called without first calling succeeds/fails
+          def then_succeeds(outputs_hash = {})
+            validate_result_type_defined!(:then_succeeds)
+
             finalize_current_to_sequence
             @config = ServiceMockConfig.new(service_class:)
             @config.result_type = :success
+            @config.outputs = outputs_hash
             @config.method_type = @sequential_configs.last&.method_type || :call
             execute_sequential_mock
             self
@@ -201,19 +224,115 @@ module Servactory
           # Adds a failure result for sequential call handling.
           #
           # Use for testing code that calls the same service multiple times.
-          # Requires with_exception to be called afterward.
           #
+          # @param exception_class [Class, nil] Exception class (default: service config.failure_class)
+          # @param type [Symbol] Error type (default: :base)
+          # @param message [String] Error message (required)
+          # @param meta [Object, nil] Optional metadata for the exception
           # @return [ServiceMockBuilder] self for method chaining
-          def then_as_failure
+          #
+          # @example Success then failure
+          #   allow_service(RetryService)
+          #     .succeeds(status: :pending)
+          #     .then_fails(type: :timeout, message: "Request timed out")
+          #
+          # @raise [ArgumentError] if called without first calling succeeds/fails
+          def then_fails(exception_class = nil, message:, type: :base, meta: nil)
+            validate_result_type_defined!(:then_fails)
+
             finalize_current_to_sequence
             @config = ServiceMockConfig.new(service_class:)
             @config.result_type = :failure
+            @config.exception = build_exception(exception_class, type:, message:, meta:)
             @config.method_type = @sequential_configs.last&.method_type || :call
-            # Don't execute mock yet - wait for with_exception.
+            execute_sequential_mock
             self
           end
 
           private
+
+          # ============================================================
+          # Validation
+          # ============================================================
+
+          # Validates that we're not in sequential mode.
+          #
+          # @param method_name [Symbol] The method being called
+          # @raise [ArgumentError] if in sequential mode
+          # @return [void]
+          def validate_not_in_sequential_mode!(method_name)
+            return if @sequential_configs.empty?
+
+            raise ArgumentError,
+                  "Cannot call #{method_name}() after then_succeeds/then_fails. " \
+                  "Use then_succeeds() or then_fails() to add sequential responses."
+          end
+
+          # Validates that result type is defined.
+          #
+          # @param method_name [Symbol] The method being called
+          # @raise [ArgumentError] if result type is not defined
+          # @return [void]
+          def validate_result_type_defined!(method_name)
+            return if @config.result_type_defined?
+
+            raise ArgumentError,
+                  "Cannot call #{method_name}() without first calling succeeds() or fails()."
+          end
+
+          # Validates outputs against service definition if validation is enabled.
+          #
+          # @param outputs_hash [Hash] Outputs to validate
+          # @return [void]
+          # @raise [OutputValidator::InvalidOutputError] If outputs don't match service definition
+          def validate_outputs_if_needed!(outputs_hash)
+            return unless @config.validate_outputs?
+
+            OutputValidator.validate!(
+              service_class:,
+              outputs: outputs_hash
+            )
+          end
+
+          # ============================================================
+          # Exception Building
+          # ============================================================
+
+          # Builds exception instance for failure mocks.
+          #
+          # Uses service's configured failure_class if no exception_class provided.
+          #
+          # @param exception_class [Class, nil] Exception class to use
+          # @param type [Symbol] Error type
+          # @param message [String] Error message
+          # @param meta [Object, nil] Optional metadata
+          # @return [Exception] The constructed exception instance
+          def build_exception(exception_class, type:, message:, meta:)
+            klass = exception_class || default_failure_class
+            klass.new(type:, message:, meta:)
+          end
+
+          # Gets the default failure class from service configuration.
+          #
+          # @return [Class] The service's configured failure class
+          def default_failure_class
+            service_class.config.failure_class
+          end
+
+          # ============================================================
+          # Mock Execution
+          # ============================================================
+
+          # Executes or re-executes mock depending on current state.
+          #
+          # @return [void]
+          def execute_or_re_execute_mock
+            if @executed
+              re_execute_mock
+            else
+              execute_mock
+            end
+          end
 
           # Saves current config to sequential list.
           #
@@ -264,20 +383,6 @@ module Servactory
               configs: all_configs,
               rspec_context: @rspec_context
             ).execute
-          end
-
-          # Validates outputs against service definition if validation is enabled.
-          #
-          # @param outputs_hash [Hash] Outputs to validate
-          # @return [void]
-          # @raise [OutputValidator::InvalidOutputError] If outputs don't match service definition
-          def validate_outputs_if_needed!(outputs_hash)
-            return unless @config.validate_outputs?
-
-            OutputValidator.validate!(
-              service_class:,
-              outputs: outputs_hash
-            )
           end
         end
       end

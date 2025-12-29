@@ -20,21 +20,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         describe "when child succeeds after retries then fails" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :service_unavailable,
-              message: "Service temporarily unavailable"
-            )
-          end
-
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example6Child)
-              .as_success
-              .outputs(status: :processing, attempt_number: 1)
-              .then_as_success
-              .outputs(status: :processing, attempt_number: 2)
-              .then_as_failure
-              .with_exception(error)
+              .succeeds(status: :processing, attempt_number: 1)
+              .then_succeeds(status: :processing, attempt_number: 2)
+              .then_fails(type: :service_unavailable, message: "Service temporarily unavailable")
           end
 
           it_behaves_like "success result class"
@@ -45,17 +35,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
         end
 
         describe "when child fails on first attempt" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :connection_error,
-              message: "Connection refused"
-            )
-          end
-
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example6Child)
-              .as_failure
-              .with_exception(error)
+              .fails(type: :connection_error, message: "Connection refused")
           end
 
           it_behaves_like "success result class"
@@ -68,10 +50,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
         describe "when child succeeds on second attempt" do
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example6Child)
-              .as_success
-              .outputs(status: :processing, attempt_number: 1)
-              .then_as_success
-              .outputs(status: :completed, attempt_number: 2)
+              .succeeds(status: :processing, attempt_number: 1)
+              .then_succeeds(status: :completed, attempt_number: 2)
           end
 
           it_behaves_like "success result class"
@@ -98,19 +78,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
         describe "when child fails after one success (sequential failure)" do
-          let(:error) do
-            ApplicationService::Exceptions::Failure.new(
-              type: :timeout,
-              message: "Request timed out"
-            )
-          end
-
           before do
             allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example6Child)
-              .as_success
-              .outputs(status: :processing, attempt_number: 1)
-              .then_as_failure
-              .with_exception(error)
+              .succeeds(status: :processing, attempt_number: 1)
+              .then_fails(type: :timeout, message: "Request timed out")
           end
 
           it_behaves_like "success result class"
