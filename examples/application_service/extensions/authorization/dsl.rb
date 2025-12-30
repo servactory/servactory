@@ -9,6 +9,10 @@ module ApplicationService
           base.include(InstanceMethods)
         end
 
+        def self.register_hooks(service_class)
+          service_class.before_actions(:_perform_authorization, priority: -100)
+        end
+
         module ClassMethods
           private
 
@@ -22,21 +26,19 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
+          def _perform_authorization(**)
             authorization_method_name = self.class.send(:authorization_method_name)
 
-            if authorization_method_name.present?
-              authorized = send(authorization_method_name)
+            return if authorization_method_name.nil?
 
-              unless authorized
-                fail!(
-                  :unauthorized,
-                  message: "Not authorized to perform this action"
-                )
-              end
+            authorized = send(authorization_method_name)
+
+            unless authorized
+              fail!(
+                :unauthorized,
+                message: "Not authorized to perform this action"
+              )
             end
-
-            super
           end
         end
       end

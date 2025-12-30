@@ -9,6 +9,10 @@ module ApplicationService
           base.include(InstanceMethods)
         end
 
+        def self.register_hooks(service_class)
+          service_class.after_actions(:_verify_post_conditions, priority: 100)
+        end
+
         module ClassMethods
           private
 
@@ -28,9 +32,7 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
-            super
-
+          def _verify_post_conditions(**)
             self.class.send(:post_conditions).each do |condition|
               result = instance_exec(outputs, &condition[:block])
 

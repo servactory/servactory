@@ -9,6 +9,10 @@ module ApplicationService
           base.include(InstanceMethods)
         end
 
+        def self.register_hooks(service_class)
+          service_class.around_actions(:_wrap_in_transaction, priority: 0)
+        end
+
         module ClassMethods
           private
 
@@ -24,16 +28,12 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
-            if self.class.send(:transactional_enabled)
-              transaction_class = self.class.send(:transactional_class) || default_transaction_class
+          def _wrap_in_transaction(proceed:, **)
+            return proceed.call unless self.class.send(:transactional_enabled)
 
-              transaction_class.transaction do
-                super
-              end
-            else
-              super
-            end
+            transaction_class = self.class.send(:transactional_class) || default_transaction_class
+
+            transaction_class.transaction { proceed.call }
           end
 
           def default_transaction_class

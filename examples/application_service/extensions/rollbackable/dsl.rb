@@ -9,6 +9,10 @@ module ApplicationService
           base.include(InstanceMethods)
         end
 
+        def self.register_hooks(service_class)
+          service_class.on_failure(:_perform_rollback, priority: 0)
+        end
+
         module ClassMethods
           private
 
@@ -22,14 +26,10 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
-            super
-          rescue StandardError => e
+          def _perform_rollback(exception:, **) # rubocop:disable Lint/UnusedMethodArgument
             rollback_method_name = self.class.send(:rollback_method_name)
 
             send(rollback_method_name) if rollback_method_name.present?
-
-            raise
           end
         end
       end

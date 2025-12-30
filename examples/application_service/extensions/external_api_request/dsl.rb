@@ -9,6 +9,10 @@ module ApplicationService
           base.include(InstanceMethods)
         end
 
+        def self.register_hooks(service_class)
+          service_class.on_failure(:_handle_external_api_error, priority: -50)
+        end
+
         module ClassMethods
           private
 
@@ -29,17 +33,15 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
-            super
-          rescue StandardError => e
+          def _handle_external_api_error(exception:, **)
             config = self.class.send(:external_api_request_config)
-            error_class = config&.dig(:error_class)
+            return if config.nil?
 
-            if error_class && e.is_a?(error_class)
-              fail!(message: e.message, meta: { original_exception: e })
-            else
-              raise
-            end
+            error_class = config[:error_class]
+
+            return unless exception.is_a?(error_class)
+
+            fail!(message: exception.message, meta: { original_exception: exception })
           end
 
           def perform_api_request!

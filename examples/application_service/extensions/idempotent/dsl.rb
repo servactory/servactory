@@ -9,6 +9,10 @@ module ApplicationService
           base.include(InstanceMethods)
         end
 
+        def self.register_hooks(service_class)
+          service_class.before_actions(:_check_idempotency, priority: -60)
+        end
+
         module ClassMethods
           private
 
@@ -24,9 +28,7 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
-            super
-
+          def _check_idempotency(**)
             idempotency_key_input = self.class.send(:idempotency_key_input)
             return if idempotency_key_input.nil?
 

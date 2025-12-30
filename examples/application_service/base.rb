@@ -12,23 +12,24 @@ require_relative "extensions/external_api_request/dsl"
 
 module ApplicationService
   class Base # rubocop:disable Metrics/ClassLength
-    # All extensions are included via with_extensions
-    # Extensions can use before/after super pattern:
-    # - Before super: Authorization, StatusActive, Idempotent (early exit)
-    # - After super: PostCondition, Publishable (outputs available)
-    # - Around super: Transactional, Rollbackable (wrap with rescue)
+    include Servactory::DSL
+
+    # Register extensions using new hook mechanism
+    # Extensions can use hooks:
+    # - before_actions: Authorization, StatusActive, Idempotent (access to inputs)
+    # - after_actions: PostCondition, Publishable (access to outputs)
+    # - around_actions: Transactional (wrap with transaction)
+    # - on_failure: Rollbackable, ExternalApiRequest (exception handling)
     # - ClassMethods only: ApiAction (generates make calls)
-    include Servactory::DSL.with_extensions(
-      ApplicationService::Extensions::StatusActive::DSL,
-      ApplicationService::Extensions::Authorization::DSL,
-      ApplicationService::Extensions::PostCondition::DSL,
-      ApplicationService::Extensions::Transactional::DSL,
-      ApplicationService::Extensions::Rollbackable::DSL,
-      ApplicationService::Extensions::Publishable::DSL,
-      ApplicationService::Extensions::Idempotent::DSL,
-      ApplicationService::Extensions::ApiAction::DSL,
-      ApplicationService::Extensions::ExternalApiRequest::DSL
-    )
+    register_extension ApplicationService::Extensions::StatusActive::DSL
+    register_extension ApplicationService::Extensions::Authorization::DSL
+    register_extension ApplicationService::Extensions::PostCondition::DSL
+    register_extension ApplicationService::Extensions::Transactional::DSL
+    register_extension ApplicationService::Extensions::Rollbackable::DSL
+    register_extension ApplicationService::Extensions::Publishable::DSL
+    register_extension ApplicationService::Extensions::Idempotent::DSL
+    register_extension ApplicationService::Extensions::ApiAction::DSL
+    register_extension ApplicationService::Extensions::ExternalApiRequest::DSL
 
     FailOnLikeAnActiveRecordException = Class.new(ArgumentError)
 

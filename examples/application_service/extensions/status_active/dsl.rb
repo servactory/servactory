@@ -9,6 +9,10 @@ module ApplicationService
           base.include(InstanceMethods)
         end
 
+        def self.register_hooks(service_class)
+          service_class.before_actions(:_check_status_active, priority: -90)
+        end
+
         module ClassMethods
           private
 
@@ -22,21 +26,19 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
+          def _check_status_active(**)
             status_active_model_name = self.class.send(:status_active_model_name)
 
-            if status_active_model_name.present?
-              is_active = inputs.send(status_active_model_name).active?
+            return if status_active_model_name.nil?
 
-              unless is_active
-                fail_input!(
-                  status_active_model_name,
-                  message: "#{status_active_model_name.to_s.camelize.singularize} is not active"
-                )
-              end
+            is_active = inputs.send(status_active_model_name).active?
+
+            unless is_active
+              fail_input!(
+                status_active_model_name,
+                message: "#{status_active_model_name.to_s.camelize.singularize} is not active"
+              )
             end
-
-            super
           end
         end
       end

@@ -9,6 +9,10 @@ module ApplicationService
           base.include(InstanceMethods)
         end
 
+        def self.register_hooks(service_class)
+          service_class.after_actions(:_publish_events, priority: 80)
+        end
+
         module ClassMethods
           private
 
@@ -28,9 +32,7 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
-            super
-
+          def _publish_events(**)
             self.class.send(:publish_configurations).each do |config|
               event_name = config[:event_name]
               payload_method = config[:payload_method]
