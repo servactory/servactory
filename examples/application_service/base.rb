@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "extensions/status_active/dsl"
+
 module ApplicationService
   class Base # rubocop:disable Metrics/ClassLength
     include Servactory::DSL

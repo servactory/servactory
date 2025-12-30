@@ -1,0 +1,11 @@
+module Servactory
+  module Stroma
+    class Configuration
+      attr_reader hooks: Hooks
+
+      def initialize: () -> void
+
+      def dup_for_inheritance: () -> Configuration
+    end
+  end
+end

@@ -1,0 +1,14 @@
+module Servactory
+  module Stroma
+    class Hook < Data
+      attr_reader type: Symbol
+      attr_reader target_key: Symbol
+      attr_reader mod: Module
+
+      def self.new: (type: Symbol, target_key: Symbol, mod: Module) -> Hook
+
+      def before?: () -> bool
+      def after?: () -> bool
+    end
+  end
+end

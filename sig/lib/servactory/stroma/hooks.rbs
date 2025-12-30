@@ -1,0 +1,19 @@
+module Servactory
+  module Stroma
+    class Hooks
+      @items: Array[Hook]
+
+      def initialize: () -> void
+
+      def add: (Symbol type, Symbol target_key, Module mod) -> Array[Hook]
+
+      def before: (Symbol key) -> Array[Hook]
+
+      def after: (Symbol key) -> Array[Hook]
+
+      def empty?: () -> bool
+
+      def dup_for_inheritance: () -> Hooks
+    end
+  end
+end

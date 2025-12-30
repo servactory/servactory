@@ -1,13 +1,5 @@
 module Servactory
   class Base
-    include Context::DSL
-
-    include Inputs::DSL
-
-    include Internals::DSL
-
-    include Outputs::DSL
-
-    include Actions::DSL
+    include DSL
   end
 end
