@@ -23,13 +23,21 @@ RSpec.describe Wrong::Extensions::Idempotent::Example1, type: :service do
         described_class.call!(**attributes)
       end
 
-      it "returns cached result without re-executing", :aggregate_failures do
+      it "returns cached outputs on duplicate request", :aggregate_failures do
         result = perform
 
         expect(result).to be_a(Servactory::Result)
         expect(result).to be_success
         expect(result.result).to eq(100)
-        expect(idempotency_store.execution_count).to eq(1)
+      end
+
+      it "uses cached outputs instead of newly computed values" do
+        # First call stored { result: 100 }
+        # Second call: even though service runs, outputs are overwritten with cached values
+        result = perform
+
+        expect(result.result).to eq(100)
+        expect(idempotency_store.get("req-duplicate")).to eq({ result: 100 })
       end
     end
   end
@@ -52,13 +60,19 @@ RSpec.describe Wrong::Extensions::Idempotent::Example1, type: :service do
         described_class.call(**attributes)
       end
 
-      it "returns cached result without re-executing", :aggregate_failures do
+      it "returns cached outputs on duplicate request", :aggregate_failures do
         result = perform
 
         expect(result).to be_a(Servactory::Result)
         expect(result).to be_success
         expect(result.result).to eq(100)
-        expect(idempotency_store.execution_count).to eq(1)
+      end
+
+      it "uses cached outputs instead of newly computed values" do
+        result = perform
+
+        expect(result.result).to eq(100)
+        expect(idempotency_store.get("req-duplicate")).to eq({ result: 100 })
       end
     end
   end

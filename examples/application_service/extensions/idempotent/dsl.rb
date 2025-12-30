@@ -25,9 +25,10 @@ module ApplicationService
           private
 
           def call!(**)
-            idempotency_key_input = self.class.send(:idempotency_key_input)
+            super
 
-            return super if idempotency_key_input.nil?
+            idempotency_key_input = self.class.send(:idempotency_key_input)
+            return if idempotency_key_input.nil?
 
             store = self.class.send(:idempotency_store_class) || default_idempotency_store
             key = inputs.send(idempotency_key_input)
@@ -38,13 +39,9 @@ module ApplicationService
               cached_result.each do |output_name, output_value|
                 outputs.send(:"#{output_name}=", output_value)
               end
-
-              return
+            else
+              store.set(key, outputs.except)
             end
-
-            super
-
-            store.set(key, outputs.to_h)
           end
 
           def default_idempotency_store

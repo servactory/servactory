@@ -19,7 +19,7 @@ module Wrong
         end
 
         input :value, type: Integer
-        input :should_fail, type: [TrueClass, FalseClass], default: false
+        input :should_fail, type: [TrueClass, FalseClass], required: false, default: false
 
         output :result, type: Integer
 

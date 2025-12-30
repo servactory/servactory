@@ -20,7 +20,7 @@ module Wrong
         end
 
         input :user_id, type: Integer
-        input :should_fail, type: [TrueClass, FalseClass], default: false
+        input :should_fail, type: [TrueClass, FalseClass], required: false, default: false
 
         output :user_name, type: String
 
