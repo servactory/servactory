@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
-require_relative "extensions/status_active/dsl"
-
 module ApplicationService
   class Base # rubocop:disable Metrics/ClassLength
-    include Servactory::DSL.with_extensions(
-      ApplicationService::Extensions::StatusActive::DSL
-    )
+    include Servactory::DSL
+
+    # Хуки применяются ТОЛЬКО к наследникам Base, не к самому Base
+    extensions do
+      before :actions, ApplicationService::Extensions::StatusActive::DSL
+    end
 
     FailOnLikeAnActiveRecordException = Class.new(ArgumentError)
 
