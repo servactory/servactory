@@ -23,18 +23,20 @@ module ApplicationService
           private
 
           def call!(**)
-            super
-
             authorization_method_name = self.class.send(:authorization_method_name)
-            return if authorization_method_name.nil?
 
-            authorized = send(authorization_method_name)
-            return if authorized
+            if authorization_method_name.present?
+              authorized = send(authorization_method_name)
 
-            fail!(
-              :unauthorized,
-              message: "Not authorized to perform this action"
-            )
+              unless authorized
+                fail!(
+                  :unauthorized,
+                  message: "Not authorized to perform this action"
+                )
+              end
+            end
+
+            super
           end
         end
       end

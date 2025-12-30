@@ -23,10 +23,9 @@ module Servactory
       base.include(Inputs::DSL)
       base.include(Internals::DSL)
       base.include(Outputs::DSL)
+      base.include(Actions::DSL)
 
       Extensions.registry.each { |extension| base.include(extension) }
-
-      base.include(Actions::DSL)
     end
 
     def self.with_extensions(*extensions)

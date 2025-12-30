@@ -12,32 +12,23 @@ require_relative "extensions/external_api_request/dsl"
 
 module ApplicationService
   class Base # rubocop:disable Metrics/ClassLength
-    # Extensions that run BEFORE actions (can access inputs, but outputs not yet set):
-    # - StatusActive: checks if input model is active
-    # - Authorization: checks authorization before actions run
-    # - ApiAction: ClassMethods only, generates make calls
-    # - ExternalApiRequest: rescues specific errors from actions
-    #
-    # Extensions that run AFTER actions (can access outputs):
-    # - PostCondition: validates outputs after actions complete
-    # - Transactional: wraps actions in transaction
-    # - Rollbackable: calls rollback method on failure
-    # - Publishable: publishes events after successful actions
-    # - Idempotent: caches/returns outputs based on idempotency key
+    # All extensions are included via with_extensions
+    # Extensions can use before/after super pattern:
+    # - Before super: Authorization, StatusActive, Idempotent (early exit)
+    # - After super: PostCondition, Publishable (outputs available)
+    # - Around super: Transactional, Rollbackable (wrap with rescue)
+    # - ClassMethods only: ApiAction (generates make calls)
     include Servactory::DSL.with_extensions(
       ApplicationService::Extensions::StatusActive::DSL,
       ApplicationService::Extensions::Authorization::DSL,
-      ApplicationService::Extensions::ApiAction::DSL
+      ApplicationService::Extensions::PostCondition::DSL,
+      ApplicationService::Extensions::Transactional::DSL,
+      ApplicationService::Extensions::Rollbackable::DSL,
+      ApplicationService::Extensions::Publishable::DSL,
+      ApplicationService::Extensions::Idempotent::DSL,
+      ApplicationService::Extensions::ApiAction::DSL,
+      ApplicationService::Extensions::ExternalApiRequest::DSL
     )
-
-    # After-actions extensions: included AFTER Servactory::DSL so they wrap the entire
-    # call! chain including Actions::Workspace (which runs the actions)
-    include ApplicationService::Extensions::PostCondition::DSL
-    include ApplicationService::Extensions::Transactional::DSL
-    include ApplicationService::Extensions::Rollbackable::DSL
-    include ApplicationService::Extensions::Publishable::DSL
-    include ApplicationService::Extensions::Idempotent::DSL
-    include ApplicationService::Extensions::ExternalApiRequest::DSL
 
     FailOnLikeAnActiveRecordException = Class.new(ArgumentError)
 
