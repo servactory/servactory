@@ -1,11 +1,27 @@
 # frozen_string_literal: true
 
 require_relative "extensions/status_active/dsl"
+require_relative "extensions/authorization/dsl"
+require_relative "extensions/post_condition/dsl"
+require_relative "extensions/transactional/dsl"
+require_relative "extensions/rollbackable/dsl"
+require_relative "extensions/publishable/dsl"
+require_relative "extensions/idempotent/dsl"
+require_relative "extensions/api_action/dsl"
+require_relative "extensions/external_api_request/dsl"
 
 module ApplicationService
   class Base # rubocop:disable Metrics/ClassLength
     include Servactory::DSL.with_extensions(
-      ApplicationService::Extensions::StatusActive::DSL
+      ApplicationService::Extensions::StatusActive::DSL,
+      ApplicationService::Extensions::Authorization::DSL,
+      ApplicationService::Extensions::PostCondition::DSL,
+      ApplicationService::Extensions::Transactional::DSL,
+      ApplicationService::Extensions::Rollbackable::DSL,
+      ApplicationService::Extensions::Publishable::DSL,
+      ApplicationService::Extensions::Idempotent::DSL,
+      ApplicationService::Extensions::ApiAction::DSL,
+      ApplicationService::Extensions::ExternalApiRequest::DSL
     )
 
     FailOnLikeAnActiveRecordException = Class.new(ArgumentError)
