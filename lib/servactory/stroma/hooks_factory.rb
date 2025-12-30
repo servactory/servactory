@@ -20,7 +20,7 @@ module Servactory
       private
 
       def validate_key!(key)
-        return if Registry.keys.include?(key)
+        return if Registry.key?(key)
 
         raise ArgumentError,
               "Unknown hook target: #{key.inspect}. " \

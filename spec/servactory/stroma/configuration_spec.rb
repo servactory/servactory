@@ -26,7 +26,7 @@ RSpec.describe Servactory::Stroma::Configuration do
       expect(copy.hooks.before(:actions).size).to eq(1)
     end
 
-    it "creates an independent copy" do
+    it "creates an independent copy", :aggregate_failures do
       copy = configuration.dup_for_inheritance
       copy.hooks.add(:after, :outputs, test_module)
 
@@ -34,7 +34,7 @@ RSpec.describe Servactory::Stroma::Configuration do
       expect(copy.hooks.after(:outputs).size).to eq(1)
     end
 
-    it "returns a new Configuration instance" do
+    it "returns a new Configuration instance", :aggregate_failures do
       copy = configuration.dup_for_inheritance
       expect(copy).to be_a(described_class)
       expect(copy).not_to eq(configuration)

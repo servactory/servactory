@@ -8,12 +8,12 @@ RSpec.describe Servactory::Stroma::DSL do
       end
     end
 
-    it "extends the class with ClassMethods" do
+    it "extends the class with ClassMethods", :aggregate_failures do
       expect(base_class).to respond_to(:stroma)
       expect(base_class).to respond_to(:inherited)
     end
 
-    it "includes all registered DSL modules" do
+    it "includes all registered DSL modules", :aggregate_failures do
       expect(base_class.ancestors).to include(Servactory::Configuration::DSL)
       expect(base_class.ancestors).to include(Servactory::Inputs::DSL)
       expect(base_class.ancestors).to include(Servactory::Outputs::DSL)
@@ -57,12 +57,12 @@ RSpec.describe Servactory::Stroma::DSL do
       expect(child_class.ancestors).to include(extension_module)
     end
 
-    it "child has extension method" do
+    it "child has extension method", :aggregate_failures do
       expect(child_class).to respond_to(:extension_method)
       expect(child_class.extension_method).to eq(:extension_result)
     end
 
-    it "copies stroma configuration to child" do
+    it "copies stroma configuration to child", :aggregate_failures do
       expect(child_class.stroma).not_to eq(base_class.stroma)
       expect(child_class.stroma).to be_a(Servactory::Stroma::Configuration)
     end

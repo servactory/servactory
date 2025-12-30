@@ -11,7 +11,7 @@ RSpec.describe Servactory::Stroma::Registry do
   end
 
   describe ".entries" do
-    it "returns all registered entries" do
+    it "returns all registered entries", :aggregate_failures do
       expect(described_class.entries).to be_an(Array)
       expect(described_class.entries).not_to be_empty
     end
@@ -29,7 +29,7 @@ RSpec.describe Servactory::Stroma::Registry do
   end
 
   describe ".find" do
-    it "returns entry for existing key" do
+    it "returns entry for existing key", :aggregate_failures do
       entry = described_class.find(:inputs)
       expect(entry).to be_a(Servactory::Stroma::Registry::Entry)
       expect(entry.key).to eq(:inputs)
@@ -49,9 +49,9 @@ RSpec.describe Servactory::Stroma::Registry do
 
   describe "Entry" do
     describe ".new" do
-      let(:test_module) { Module.new }
-
       subject(:entry) { Servactory::Stroma::Registry::Entry.new(key: :test, mod: test_module) }
+
+      let(:test_module) { Module.new }
 
       it { expect(entry.key).to eq(:test) }
       it { expect(entry.mod).to eq(test_module) }

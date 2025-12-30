@@ -7,7 +7,7 @@ RSpec.describe Servactory::Stroma::HooksFactory do
   let(:test_module2) { Module.new }
 
   describe "#before" do
-    it "adds a before hook" do
+    it "adds a before hook", :aggregate_failures do
       factory.before(:actions, test_module1)
       expect(hooks.before(:actions).size).to eq(1)
       expect(hooks.before(:actions).first.mod).to eq(test_module1)
@@ -26,7 +26,7 @@ RSpec.describe Servactory::Stroma::HooksFactory do
   end
 
   describe "#after" do
-    it "adds an after hook" do
+    it "adds an after hook", :aggregate_failures do
       factory.after(:outputs, test_module1)
       expect(hooks.after(:outputs).size).to eq(1)
       expect(hooks.after(:outputs).first.mod).to eq(test_module1)

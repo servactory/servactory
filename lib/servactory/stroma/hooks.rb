@@ -8,7 +8,7 @@ module Servactory
       end
 
       def add(type, target_key, mod)
-        @items << Hook.new(type: type, target_key: target_key, mod: mod)
+        @items << Hook.new(type:, target_key:, mod:)
       end
 
       def before(key)

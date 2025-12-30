@@ -23,7 +23,7 @@ module Servactory
         raise FrozenError, "Registry is finalized" if @finalized
         raise ArgumentError, "Key #{key.inspect} already registered" if @keys_index.key?(key)
 
-        entry = Entry.new(key: key, mod: mod)
+        entry = Entry.new(key:, mod:)
         @entries << entry
         @keys_index[key] = entry
       end

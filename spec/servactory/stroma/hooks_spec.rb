@@ -25,7 +25,7 @@ RSpec.describe Servactory::Stroma::Hooks do
       hooks.add(:before, :outputs, test_module2)
     end
 
-    it "returns only before hooks for the specified key" do
+    it "returns only before hooks for the specified key", :aggregate_failures do
       result = hooks.before(:actions)
       expect(result.size).to eq(1)
       expect(result.first.mod).to eq(test_module1)
@@ -42,7 +42,7 @@ RSpec.describe Servactory::Stroma::Hooks do
       hooks.add(:after, :actions, test_module2)
     end
 
-    it "returns only after hooks for the specified key" do
+    it "returns only after hooks for the specified key", :aggregate_failures do
       result = hooks.after(:actions)
       expect(result.size).to eq(1)
       expect(result.first.mod).to eq(test_module2)
@@ -70,13 +70,13 @@ RSpec.describe Servactory::Stroma::Hooks do
       hooks.add(:after, :outputs, test_module2)
     end
 
-    it "creates a copy with the same hooks" do
+    it "creates a copy with the same hooks", :aggregate_failures do
       copy = hooks.dup_for_inheritance
       expect(copy.before(:actions).size).to eq(1)
       expect(copy.after(:outputs).size).to eq(1)
     end
 
-    it "creates an independent copy" do
+    it "creates an independent copy", :aggregate_failures do
       copy = hooks.dup_for_inheritance
       copy.add(:before, :inputs, test_module2)
       expect(hooks.before(:inputs)).to be_empty
