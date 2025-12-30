@@ -38,7 +38,7 @@ RSpec.describe Servactory::Stroma::Hook do
   describe "immutability" do
     it "is immutable (Data object)" do
       hook = described_class.new(type: :before, target_key: :actions, mod: test_module)
-      expect { hook.instance_variable_set(:@type, :after) }.not_to change { hook.type }
+      expect { hook.instance_variable_set(:@type, :after) }.to raise_error(FrozenError)
     end
   end
 end
