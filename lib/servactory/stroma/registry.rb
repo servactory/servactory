@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "singleton"
-
 module Servactory
   module Stroma
     class Registry
@@ -10,7 +8,14 @@ module Servactory
       Entry = Data.define(:key, :extension)
 
       class << self
-        delegate :register, :finalize!, :find, :entries, :keys, :key?, :finalized?, to: :instance
+        delegate :register,
+                 :finalize!,
+                 :find,
+                 :entries,
+                 :keys,
+                 :key?,
+                 :finalized?,
+                 to: :instance
       end
 
       def initialize
