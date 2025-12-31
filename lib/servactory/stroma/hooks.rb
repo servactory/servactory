@@ -7,8 +7,8 @@ module Servactory
         @items = []
       end
 
-      def add(type, target_key, mod)
-        @items << Hook.new(type:, target_key:, mod:)
+      def add(type, target_key, extension)
+        @items << Hook.new(type:, target_key:, extension:)
       end
 
       def before(key)
@@ -26,7 +26,7 @@ module Servactory
       def dup_for_inheritance
         self.class.new.tap do |copy|
           @items.each do |hook|
-            copy.add(hook.type, hook.target_key, hook.mod)
+            copy.add(hook.type, hook.target_key, hook.extension)
           end
         end
       end

@@ -13,11 +13,11 @@ module Servactory
 
         Registry.entries.each do |entry|
           @hooks.before(entry.key).each do |hook|
-            @target_class.include(hook.mod)
+            @target_class.include(hook.extension)
           end
 
           @hooks.after(entry.key).each do |hook|
-            @target_class.include(hook.mod)
+            @target_class.include(hook.extension)
           end
         end
       end

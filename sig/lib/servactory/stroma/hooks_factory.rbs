@@ -5,9 +5,9 @@ module Servactory
 
       def initialize: (Hooks hooks) -> void
 
-      def before: (Symbol key, *Module mods) -> void
+      def before: (Symbol key, *Module extensions) -> void
 
-      def after: (Symbol key, *Module mods) -> void
+      def after: (Symbol key, *Module extensions) -> void
 
       private
 

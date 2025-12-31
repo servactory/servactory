@@ -10,7 +10,7 @@ RSpec.describe Servactory::Stroma::HooksFactory do
     it "adds a before hook", :aggregate_failures do
       factory.before(:actions, test_module1)
       expect(hooks.before(:actions).size).to eq(1)
-      expect(hooks.before(:actions).first.mod).to eq(test_module1)
+      expect(hooks.before(:actions).first.extension).to eq(test_module1)
     end
 
     it "adds multiple modules at once" do
@@ -18,9 +18,11 @@ RSpec.describe Servactory::Stroma::HooksFactory do
       expect(hooks.before(:actions).size).to eq(2)
     end
 
-    it "raises error for unknown key" do
+    it "raises UnknownHookTarget for unknown key" do
       expect { factory.before(:unknown, test_module1) }.to raise_error(
-        ArgumentError, /Unknown hook target: :unknown/
+        Servactory::Stroma::Exceptions::UnknownHookTarget,
+        "Unknown hook target: :unknown. " \
+        "Valid keys: :configuration, :info, :context, :inputs, :internals, :outputs, :actions"
       )
     end
   end
@@ -29,7 +31,7 @@ RSpec.describe Servactory::Stroma::HooksFactory do
     it "adds an after hook", :aggregate_failures do
       factory.after(:outputs, test_module1)
       expect(hooks.after(:outputs).size).to eq(1)
-      expect(hooks.after(:outputs).first.mod).to eq(test_module1)
+      expect(hooks.after(:outputs).first.extension).to eq(test_module1)
     end
 
     it "adds multiple modules at once" do
@@ -37,9 +39,11 @@ RSpec.describe Servactory::Stroma::HooksFactory do
       expect(hooks.after(:outputs).size).to eq(2)
     end
 
-    it "raises error for unknown key" do
+    it "raises UnknownHookTarget for unknown key" do
       expect { factory.after(:unknown, test_module1) }.to raise_error(
-        ArgumentError, /Unknown hook target: :unknown/
+        Servactory::Stroma::Exceptions::UnknownHookTarget,
+        "Unknown hook target: :unknown. " \
+        "Valid keys: :configuration, :info, :context, :inputs, :internals, :outputs, :actions"
       )
     end
   end

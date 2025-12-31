@@ -2,7 +2,7 @@
 
 module Servactory
   module Stroma
-    Hook = Data.define(:type, :target_key, :mod) do
+    Hook = Data.define(:type, :target_key, :extension) do
       def before?
         type == :before
       end

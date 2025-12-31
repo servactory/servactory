@@ -28,7 +28,7 @@ RSpec.describe Servactory::Stroma::Hooks do
     it "returns only before hooks for the specified key", :aggregate_failures do
       result = hooks.before(:actions)
       expect(result.size).to eq(1)
-      expect(result.first.mod).to eq(test_module1)
+      expect(result.first.extension).to eq(test_module1)
     end
 
     it "returns empty array for key without before hooks" do
@@ -45,7 +45,7 @@ RSpec.describe Servactory::Stroma::Hooks do
     it "returns only after hooks for the specified key", :aggregate_failures do
       result = hooks.after(:actions)
       expect(result.size).to eq(1)
-      expect(result.first.mod).to eq(test_module2)
+      expect(result.first.extension).to eq(test_module2)
     end
 
     it "returns empty array for key without after hooks" do

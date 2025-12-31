@@ -7,7 +7,7 @@ module Servactory
         base.extend(ClassMethods)
 
         Registry.entries.each do |entry|
-          base.include(entry.mod)
+          base.include(entry.extension)
         end
       end
 

@@ -7,7 +7,7 @@ module Servactory
     class Registry
       include Singleton
 
-      Entry = Data.define(:key, :mod)
+      Entry = Data.define(:key, :extension)
 
       class << self
         delegate :register, :finalize!, :find, :entries, :keys, :finalized?, to: :instance
@@ -19,11 +19,11 @@ module Servactory
         @finalized = false
       end
 
-      def register(key, mod)
-        raise FrozenError, "Registry is finalized" if @finalized
-        raise ArgumentError, "Key #{key.inspect} already registered" if @keys_index.key?(key)
+      def register(key, extension)
+        raise Exceptions::RegistryFrozen, "Registry is finalized" if @finalized
+        raise Exceptions::KeyAlreadyRegistered, "Key #{key.inspect} already registered" if @keys_index.key?(key)
 
-        entry = Entry.new(key:, mod:)
+        entry = Entry.new(key:, extension:)
         @entries << entry
         @keys_index[key] = entry
       end
@@ -60,7 +60,8 @@ module Servactory
       def ensure_finalized!
         return if @finalized
 
-        raise "Registry not finalized. Call Stroma::Registry.finalize! after registration."
+        raise Exceptions::RegistryNotFinalized,
+              "Registry not finalized. Call Stroma::Registry.finalize! after registration."
       end
     end
   end

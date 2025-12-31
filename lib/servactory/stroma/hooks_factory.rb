@@ -7,22 +7,22 @@ module Servactory
         @hooks = hooks
       end
 
-      def before(key, *mods)
+      def before(key, *extensions)
         validate_key!(key)
-        mods.each { |mod| @hooks.add(:before, key, mod) }
+        extensions.each { |extension| @hooks.add(:before, key, extension) }
       end
 
-      def after(key, *mods)
+      def after(key, *extensions)
         validate_key!(key)
-        mods.each { |mod| @hooks.add(:after, key, mod) }
+        extensions.each { |extension| @hooks.add(:after, key, extension) }
       end
 
       private
 
       def validate_key!(key)
-        return if Registry.key?(key)
+        return if Registry.keys.include?(key)
 
-        raise ArgumentError,
+        raise Exceptions::UnknownHookTarget,
               "Unknown hook target: #{key.inspect}. " \
               "Valid keys: #{Registry.keys.map(&:inspect).join(', ')}"
       end

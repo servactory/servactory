@@ -33,7 +33,7 @@ RSpec.describe Servactory::Stroma::Registry do
       entry = described_class.find(:inputs)
       expect(entry).to be_a(Servactory::Stroma::Registry::Entry)
       expect(entry.key).to eq(:inputs)
-      expect(entry.mod).to eq(Servactory::Inputs::DSL)
+      expect(entry.extension).to eq(Servactory::Inputs::DSL)
     end
 
     it "returns nil for non-existing key" do
@@ -42,19 +42,22 @@ RSpec.describe Servactory::Stroma::Registry do
   end
 
   describe ".register" do
-    it "raises FrozenError when registry is finalized" do
-      expect { described_class.register(:test, Module.new) }.to raise_error(FrozenError, "Registry is finalized")
+    it "raises RegistryFrozen when registry is finalized" do
+      expect { described_class.register(:test, Module.new) }.to raise_error(
+        Servactory::Stroma::Exceptions::RegistryFrozen,
+        "Registry is finalized"
+      )
     end
   end
 
   describe "Entry" do
     describe ".new" do
-      subject(:entry) { Servactory::Stroma::Registry::Entry.new(key: :test, mod: test_module) }
+      subject(:entry) { Servactory::Stroma::Registry::Entry.new(key: :test, extension: test_module) }
 
       let(:test_module) { Module.new }
 
       it { expect(entry.key).to eq(:test) }
-      it { expect(entry.mod).to eq(test_module) }
+      it { expect(entry.extension).to eq(test_module) }
     end
   end
 end

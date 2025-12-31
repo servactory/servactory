@@ -5,7 +5,7 @@ module Servactory
 
       def initialize: () -> void
 
-      def add: (Symbol type, Symbol target_key, Module mod) -> Array[Hook]
+      def add: (Symbol type, Symbol target_key, Module extension) -> Array[Hook]
 
       def before: (Symbol key) -> Array[Hook]
 

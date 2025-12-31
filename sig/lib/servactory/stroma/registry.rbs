@@ -5,16 +5,16 @@ module Servactory
 
       class Entry < Data
         attr_reader key: Symbol
-        attr_reader mod: Module
+        attr_reader extension: Module
 
-        def self.new: (key: Symbol, mod: Module) -> Entry
+        def self.new: (key: Symbol, extension: Module) -> Entry
       end
 
       @entries: Array[Entry]
       @keys_index: Hash[Symbol, Entry]
       @finalized: bool
 
-      def self.register: (Symbol key, Module mod) -> void
+      def self.register: (Symbol key, Module extension) -> void
       def self.finalize!: () -> void
       def self.find: (Symbol key) -> Entry?
       def self.entries: () -> Array[Entry]
@@ -23,7 +23,7 @@ module Servactory
 
       def initialize: () -> void
 
-      def register: (Symbol key, Module mod) -> void
+      def register: (Symbol key, Module extension) -> void
 
       def finalize!: () -> void
 

@@ -3,9 +3,9 @@ module Servactory
     class Hook < Data
       attr_reader type: Symbol
       attr_reader target_key: Symbol
-      attr_reader mod: Module
+      attr_reader extension: Module
 
-      def self.new: (type: Symbol, target_key: Symbol, mod: Module) -> Hook
+      def self.new: (type: Symbol, target_key: Symbol, extension: Module) -> Hook
 
       def before?: () -> bool
       def after?: () -> bool

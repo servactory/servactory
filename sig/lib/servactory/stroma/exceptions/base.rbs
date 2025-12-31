@@ -1,0 +1,8 @@
+module Servactory
+  module Stroma
+    module Exceptions
+      class Base < StandardError
+      end
+    end
+  end
+end
