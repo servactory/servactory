@@ -22,19 +22,6 @@ RSpec.describe Servactory::Stroma::Registry do
     end
   end
 
-  describe ".find" do
-    it "returns entry for existing key", :aggregate_failures do
-      entry = described_class.find(:inputs)
-      expect(entry).to be_a(Servactory::Stroma::Registry::Entry)
-      expect(entry.key).to eq(:inputs)
-      expect(entry.extension).to eq(Servactory::Inputs::DSL)
-    end
-
-    it "returns nil for non-existing key" do
-      expect(described_class.find(:nonexistent)).to be_nil
-    end
-  end
-
   describe ".register" do
     it "raises RegistryFrozen when registry is finalized" do
       expect { described_class.register(:test, Module.new) }.to raise_error(

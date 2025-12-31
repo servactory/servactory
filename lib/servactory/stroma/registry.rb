@@ -10,7 +10,6 @@ module Servactory
       class << self
         delegate :register,
                  :finalize!,
-                 :find,
                  :entries,
                  :keys,
                  :key?,
@@ -43,11 +42,6 @@ module Servactory
       def entries
         ensure_finalized!
         @entries
-      end
-
-      def find(key)
-        ensure_finalized!
-        @keys_index[key]
       end
 
       def keys
