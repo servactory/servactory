@@ -18,7 +18,7 @@ module Servactory
       attr_accessor i18n_root_key: String
       attr_accessor predicate_methods_enabled: bool
 
-      def dup_for_inheritance: -> Config
+      def initialize_dup: (Config original) -> void
     end
   end
 end
