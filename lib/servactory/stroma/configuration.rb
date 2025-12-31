@@ -9,10 +9,9 @@ module Servactory
         @hooks = Hooks.new
       end
 
-      def dup_for_inheritance
-        self.class.new.tap do |copy|
-          copy.instance_variable_set(:@hooks, @hooks.dup_for_inheritance)
-        end
+      def initialize_dup(original)
+        super
+        @hooks = original.instance_variable_get(:@hooks).dup
       end
     end
   end

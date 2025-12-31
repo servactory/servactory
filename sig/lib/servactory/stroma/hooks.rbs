@@ -1,19 +1,25 @@
 module Servactory
   module Stroma
     class Hooks
-      @items: Array[Hook]
+      extend Forwardable
 
-      def initialize: () -> void
+      @collection: Set[Hook]
 
-      def add: (Symbol type, Symbol target_key, Module extension) -> Array[Hook]
+      def initialize: (?Set[Hook] collection) -> void
+
+      def add: (Symbol type, Symbol target_key, Module extension) -> Set[Hook]
 
       def before: (Symbol key) -> Array[Hook]
 
       def after: (Symbol key) -> Array[Hook]
 
+      def each: () { (Hook) -> void } -> Set[Hook]
+
       def empty?: () -> bool
 
-      def dup_for_inheritance: () -> Hooks
+      def size: () -> Integer
+
+      def initialize_dup: (Hooks original) -> void
     end
   end
 end

@@ -13,7 +13,7 @@ RSpec.describe Servactory::Stroma::Configuration do
     end
   end
 
-  describe "#dup_for_inheritance" do
+  describe "#dup (via initialize_dup)" do
     let(:configuration) { described_class.new }
     let(:test_module) { Module.new }
 
@@ -22,12 +22,12 @@ RSpec.describe Servactory::Stroma::Configuration do
     end
 
     it "creates a copy with the same hooks" do
-      copy = configuration.dup_for_inheritance
+      copy = configuration.dup
       expect(copy.hooks.before(:actions).size).to eq(1)
     end
 
     it "creates an independent copy", :aggregate_failures do
-      copy = configuration.dup_for_inheritance
+      copy = configuration.dup
       copy.hooks.add(:after, :outputs, test_module)
 
       expect(configuration.hooks.after(:outputs)).to be_empty
@@ -35,7 +35,7 @@ RSpec.describe Servactory::Stroma::Configuration do
     end
 
     it "returns a new Configuration instance", :aggregate_failures do
-      copy = configuration.dup_for_inheritance
+      copy = configuration.dup
       expect(copy).to be_a(described_class)
       expect(copy).not_to eq(configuration)
     end

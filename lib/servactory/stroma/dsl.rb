@@ -19,10 +19,7 @@ module Servactory
         def inherited(child)
           super
 
-          child.instance_variable_set(
-            :@stroma,
-            stroma.dup_for_inheritance
-          )
+          child.instance_variable_set(:@stroma, stroma.dup)
 
           Applier.new(child, child.stroma.hooks).apply!
         end

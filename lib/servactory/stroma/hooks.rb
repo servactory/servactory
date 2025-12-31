@@ -3,32 +3,29 @@
 module Servactory
   module Stroma
     class Hooks
-      def initialize
-        @items = []
+      extend Forwardable
+
+      def_delegators :@collection, :each, :empty?, :size
+
+      def initialize(collection = Set.new)
+        @collection = collection
       end
 
       def add(type, target_key, extension)
-        @items << Hook.new(type:, target_key:, extension:)
+        @collection << Hook.new(type:, target_key:, extension:)
       end
 
       def before(key)
-        @items.select { |hook| hook.before? && hook.target_key == key }
+        @collection.select { |hook| hook.before? && hook.target_key == key }
       end
 
       def after(key)
-        @items.select { |hook| hook.after? && hook.target_key == key }
+        @collection.select { |hook| hook.after? && hook.target_key == key }
       end
 
-      def empty?
-        @items.empty?
-      end
-
-      def dup_for_inheritance
-        self.class.new.tap do |copy|
-          @items.each do |hook|
-            copy.add(hook.type, hook.target_key, hook.extension)
-          end
-        end
+      def initialize_dup(original)
+        super
+        @collection = original.instance_variable_get(:@collection).dup
       end
     end
   end

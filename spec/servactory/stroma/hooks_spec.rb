@@ -64,20 +64,20 @@ RSpec.describe Servactory::Stroma::Hooks do
     end
   end
 
-  describe "#dup_for_inheritance" do
+  describe "#dup (via initialize_dup)" do
     before do
       hooks.add(:before, :actions, first_module)
       hooks.add(:after, :outputs, second_module)
     end
 
     it "creates a copy with the same hooks", :aggregate_failures do
-      copy = hooks.dup_for_inheritance
+      copy = hooks.dup
       expect(copy.before(:actions).size).to eq(1)
       expect(copy.after(:outputs).size).to eq(1)
     end
 
     it "creates an independent copy", :aggregate_failures do
-      copy = hooks.dup_for_inheritance
+      copy = hooks.dup
       copy.add(:before, :inputs, second_module)
       expect(hooks.before(:inputs)).to be_empty
       expect(copy.before(:inputs).size).to eq(1)

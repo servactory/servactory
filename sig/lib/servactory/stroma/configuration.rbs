@@ -5,7 +5,7 @@ module Servactory
 
       def initialize: () -> void
 
-      def dup_for_inheritance: () -> Configuration
+      def initialize_dup: (Configuration original) -> void
     end
   end
 end
