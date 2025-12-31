@@ -3,9 +3,7 @@
 require_relative "extensions/status_active/dsl"
 
 module ApplicationService
-  class Base # rubocop:disable Metrics/ClassLength
-    include Servactory::DSL
-
+  class Base < Servactory::Base # rubocop:disable Metrics/ClassLength
     extensions do
       before :actions, ApplicationService::Extensions::StatusActive::DSL
     end
