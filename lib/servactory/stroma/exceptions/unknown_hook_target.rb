@@ -31,7 +31,7 @@ module Servactory
       # Valid hook target keys are determined by registered DSL modules:
       # :configuration, :info, :context, :inputs, :internals, :outputs, :actions
       #
-      # Check Registry.keys for the list of valid targets.
+      # Check Servactory::Stroma::Registry.keys for the list of valid targets.
       class UnknownHookTarget < Base
       end
     end

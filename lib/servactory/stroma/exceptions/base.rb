@@ -16,7 +16,7 @@ module Servactory
       #
       # ```ruby
       # begin
-      #   Stroma::Registry.register(:custom, CustomModule)
+      #   Servactory::Stroma::Registry.register(:custom, CustomModule)
       # rescue Servactory::Stroma::Exceptions::Base => e
       #   # Catches any Stroma-specific exception
       #   handle_stroma_error(e)
