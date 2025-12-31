@@ -10,7 +10,7 @@ module Servactory
       Entry = Data.define(:key, :extension)
 
       class << self
-        delegate :register, :finalize!, :find, :entries, :keys, :finalized?, to: :instance
+        delegate :register, :finalize!, :find, :entries, :keys, :key?, :finalized?, to: :instance
       end
 
       def initialize
@@ -49,6 +49,11 @@ module Servactory
       def keys
         ensure_finalized!
         @keys_index.keys
+      end
+
+      def key?(key)
+        ensure_finalized!
+        @keys_index.key?(key)
       end
 
       def finalized?

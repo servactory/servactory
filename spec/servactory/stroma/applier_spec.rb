@@ -8,8 +8,9 @@ RSpec.describe Servactory::Stroma::Applier do
     context "when hooks are empty" do
       it "does nothing" do
         applier = described_class.new(target_class, hooks)
-        expect(target_class).not_to receive(:include)
+        allow(target_class).to receive(:include)
         applier.apply!
+        expect(target_class).not_to have_received(:include)
       end
     end
 
@@ -36,18 +37,18 @@ RSpec.describe Servactory::Stroma::Applier do
     end
 
     context "with multiple hooks for same key" do
-      let(:module1) { Module.new }
-      let(:module2) { Module.new }
+      let(:first_module) { Module.new }
+      let(:second_module) { Module.new }
 
       before do
-        hooks.add(:before, :actions, module1)
-        hooks.add(:before, :actions, module2)
+        hooks.add(:before, :actions, first_module)
+        hooks.add(:before, :actions, second_module)
       end
 
       it "includes all hooks in order" do
         applier = described_class.new(target_class, hooks)
         applier.apply!
-        expect(target_class.ancestors).to include(module1, module2)
+        expect(target_class.ancestors).to include(first_module, second_module)
       end
     end
   end

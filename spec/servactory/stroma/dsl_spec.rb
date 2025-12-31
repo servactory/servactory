@@ -29,13 +29,7 @@ RSpec.describe Servactory::Stroma::DSL do
     let(:extension_module) do
       Module.new do
         def self.included(base)
-          base.extend(ClassMethods)
-        end
-
-        module ClassMethods
-          def extension_method
-            :extension_result
-          end
+          base.define_singleton_method(:extension_method) { :extension_result }
         end
       end
     end
@@ -74,18 +68,18 @@ RSpec.describe Servactory::Stroma::DSL do
   end
 
   describe "#extensions" do
-    let(:test_module1) { Module.new }
-    let(:test_module2) { Module.new }
+    let(:first_module) { Module.new }
+    let(:second_module) { Module.new }
 
     let(:base_class) do
-      mod1 = test_module1
-      mod2 = test_module2
+      first_ext = first_module
+      second_ext = second_module
       Class.new do
         include Servactory::Stroma::DSL
 
         extensions do
-          before :actions, mod1
-          after :outputs, mod2
+          before :actions, first_ext
+          after :outputs, second_ext
         end
       end
     end

@@ -19,6 +19,7 @@ module Servactory
       def self.find: (Symbol key) -> Entry?
       def self.entries: () -> Array[Entry]
       def self.keys: () -> Array[Symbol]
+      def self.key?: (Symbol key) -> bool
       def self.finalized?: () -> bool
 
       def initialize: () -> void
@@ -32,6 +33,8 @@ module Servactory
       def find: (Symbol key) -> Entry?
 
       def keys: () -> Array[Symbol]
+
+      def key?: (Symbol key) -> bool
 
       def finalized?: () -> bool
 
