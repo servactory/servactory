@@ -4,12 +4,6 @@ RSpec.describe Servactory::Stroma::Registry do
   # NOTE: Registry is a Singleton and is already populated by Servactory::DSL.
   # We test using the already-finalized registry.
 
-  describe ".finalized?" do
-    it "returns true (registry is finalized by Servactory::DSL)" do
-      expect(described_class.finalized?).to be(true)
-    end
-  end
-
   describe ".entries" do
     it "returns all registered entries", :aggregate_failures do
       expect(described_class.entries).to be_an(Array)

@@ -14,7 +14,6 @@ module Servactory
                  :entries,
                  :keys,
                  :key?,
-                 :finalized?,
                  to: :instance
       end
 
@@ -59,10 +58,6 @@ module Servactory
       def key?(key)
         ensure_finalized!
         @keys_index.key?(key)
-      end
-
-      def finalized?
-        @finalized
       end
 
       private
