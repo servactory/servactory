@@ -4,7 +4,6 @@ module Servactory
       include Singleton
 
       @entries: Array[Entry]
-      @keys_index: Hash[Symbol, Entry]
       @finalized: bool
 
       def self.register: (Symbol key, Module extension) -> void

@@ -16,24 +16,23 @@ module Servactory
 
       def initialize
         @entries = []
-        @keys_index = {}
         @finalized = false
       end
 
       def register(key, extension)
         raise Exceptions::RegistryFrozen, "Registry is finalized" if @finalized
-        raise Exceptions::KeyAlreadyRegistered, "Key #{key.inspect} already registered" if @keys_index.key?(key)
 
-        entry = Entry.new(key:, extension:)
-        @entries << entry
-        @keys_index[key] = entry
+        if @entries.any? { |e| e.key == key }
+          raise Exceptions::KeyAlreadyRegistered, "Key #{key.inspect} already registered"
+        end
+
+        @entries << Entry.new(key:, extension:)
       end
 
       def finalize!
         return if @finalized
 
         @entries.freeze
-        @keys_index.freeze
         @finalized = true
       end
 
@@ -44,12 +43,12 @@ module Servactory
 
       def keys
         ensure_finalized!
-        @keys_index.keys
+        @entries.map(&:key)
       end
 
       def key?(key)
         ensure_finalized!
-        @keys_index.key?(key)
+        @entries.any? { |e| e.key == key }
       end
 
       private
