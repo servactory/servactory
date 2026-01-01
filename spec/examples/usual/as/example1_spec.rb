@@ -28,17 +28,16 @@ RSpec.describe Usual::As::Example1, type: :service do
     end
 
     describe "validations" do
-
       describe "inputs" do
-      it do
-        expect { perform }.to(
-          have_input(:email_address)
-            .valid_with(attributes)
-            .type(String)
-            .required
-        )
+        it do
+          expect { perform }.to(
+            have_input(:email_address)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
-    end
     end
   end
 
@@ -69,13 +68,16 @@ RSpec.describe Usual::As::Example1, type: :service do
     end
 
     describe "validations" do
-
       describe "inputs" do
-      it {
-        expect do
-          perform
-        end.to have_input(:email_address).valid_with(attributes).type(String).required
-      }
+        it do
+          expect { perform }.to(
+            have_input(:email_address)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
     end
   end
 end
