@@ -27,7 +27,9 @@ RSpec.describe Usual::As::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
+    describe "validations" do
+
+      describe "inputs" do
       it do
         expect { perform }.to(
           have_input(:email_address)
@@ -36,6 +38,7 @@ RSpec.describe Usual::As::Example1, type: :service do
             .required
         )
       end
+    end
     end
   end
 
@@ -65,7 +68,9 @@ RSpec.describe Usual::As::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
+    describe "validations" do
+
+      describe "inputs" do
       it {
         expect do
           perform

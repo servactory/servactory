@@ -44,14 +44,16 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example3, type: :servic
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:email)
-            .valid_with(attributes)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:email)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
     end
   end
@@ -99,14 +101,16 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example3, type: :servic
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:email)
-            .valid_with(attributes)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:email)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
     end
   end

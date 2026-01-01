@@ -64,6 +64,7 @@ RSpec.describe Usual::ToH::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:middle_name)
@@ -72,6 +73,7 @@ RSpec.describe Usual::ToH::Example1, type: :service do
             .optional
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:last_name)
@@ -146,6 +148,7 @@ RSpec.describe Usual::ToH::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:middle_name)
@@ -154,6 +157,7 @@ RSpec.describe Usual::ToH::Example1, type: :service do
             .optional
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:last_name)

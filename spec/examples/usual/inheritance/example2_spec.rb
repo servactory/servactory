@@ -34,6 +34,7 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:first_name)
@@ -42,6 +43,7 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:middle_name)
@@ -50,6 +52,7 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:last_name)
@@ -58,6 +61,7 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:date)
@@ -102,6 +106,7 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:first_name)
@@ -110,6 +115,7 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:middle_name)
@@ -118,6 +124,7 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:last_name)
@@ -126,6 +133,7 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:date)

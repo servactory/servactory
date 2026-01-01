@@ -47,14 +47,16 @@ RSpec.describe Usual::Async::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:id)
-            .valid_with(attributes)
-            .type(Integer)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:id)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
+        end
       end
     end
   end
@@ -101,14 +103,16 @@ RSpec.describe Usual::Async::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:id)
-            .valid_with(attributes)
-            .type(Integer)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:id)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
+        end
       end
     end
   end

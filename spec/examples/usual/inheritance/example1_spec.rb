@@ -55,6 +55,7 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:input_2)
@@ -63,6 +64,7 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:input_3)
@@ -128,6 +130,7 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:input_2)
@@ -136,6 +139,7 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:input_3)

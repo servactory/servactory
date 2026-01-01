@@ -49,14 +49,16 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example3
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:boolean)
-            .valid_with(attributes)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:boolean)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
     end
   end
@@ -109,14 +111,16 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example3
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:boolean)
-            .valid_with(attributes)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:boolean)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
     end
   end

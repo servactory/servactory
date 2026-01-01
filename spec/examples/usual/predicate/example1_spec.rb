@@ -80,6 +80,7 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:text)
@@ -88,6 +89,7 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:number)
@@ -178,6 +180,7 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:text)
@@ -186,6 +189,7 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
             .required
         )
       end
+
       it do
         expect { perform }.to(
           have_input(:number)
