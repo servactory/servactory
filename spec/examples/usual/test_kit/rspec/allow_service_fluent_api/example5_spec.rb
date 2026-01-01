@@ -21,71 +21,69 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
                     internals: %i[],
                     outputs: %i[order_total has_discount]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        describe "with exact input matching" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .with(product_id: "PROD-001", quantity: 5, customer_id: "CUST-123")
-              .succeeds(line_total: 500, discount_applied: false)
-          end
-
-          it_behaves_like "success result class"
-
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:order_total, 500)
-            )
-          end
-
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:has_discount, false)
-            )
-          end
+    describe "and the data required for work is also valid" do
+      describe "with exact input matching" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
+            .with(product_id: "PROD-001", quantity: 5, customer_id: "CUST-123")
+            .succeeds(line_total: 500, discount_applied: false)
         end
 
-        describe "with partial input matching using including()" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .with(including(quantity: 5))
-              .succeeds(line_total: 500, discount_applied: true)
-          end
+        it_behaves_like "success result class"
 
-          it_behaves_like "success result class"
-
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:order_total, 500)
-            )
-          end
-
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:has_discount, true)
-            )
-          end
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:order_total, 500)
+          )
         end
 
-        describe "with partial input matching for multiple keys" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .with(including(product_id: "PROD-001", quantity: 5))
-              .succeeds(line_total: 1000, discount_applied: true)
-          end
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:has_discount, false)
+          )
+        end
+      end
 
-          it_behaves_like "success result class"
+      describe "with partial input matching using including()" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
+            .with(including(quantity: 5))
+            .succeeds(line_total: 500, discount_applied: true)
+        end
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:order_total, 1000)
-            )
-          end
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:order_total, 500)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:has_discount, true)
+          )
+        end
+      end
+
+      describe "with partial input matching for multiple keys" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
+            .with(including(product_id: "PROD-001", quantity: 5))
+            .succeeds(line_total: 1000, discount_applied: true)
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:order_total, 1000)
+          )
         end
       end
     end
@@ -106,40 +104,38 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
     let(:quantity) { 5 }
     let(:customer_id) { "CUST-123" }
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        describe "with any_inputs matcher" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .with(any_inputs)
-              .succeeds(line_total: 500, discount_applied: false)
-          end
-
-          it_behaves_like "success result class"
-
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:order_total, 500)
-            )
-          end
+    describe "and the data required for work is also valid" do
+      describe "with any_inputs matcher" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
+            .with(any_inputs)
+            .succeeds(line_total: 500, discount_applied: false)
         end
 
-        describe "with excluding() matcher" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
-              .with(excluding(secret_key: anything))
-              .succeeds(line_total: 750, discount_applied: true)
-          end
+        it_behaves_like "success result class"
 
-          it_behaves_like "success result class"
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:order_total, 500)
+          )
+        end
+      end
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:order_total, 750)
-            )
-          end
+      describe "with excluding() matcher" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example5Child)
+            .with(excluding(secret_key: anything))
+            .succeeds(line_total: 750, discount_applied: true)
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:order_total, 750)
+          )
         end
       end
     end

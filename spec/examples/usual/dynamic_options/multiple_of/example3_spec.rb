@@ -17,252 +17,250 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
                     internals: %i[number],
                     outputs: [:number]
 
-    context "when the input arguments are valid" do
-      describe "and the number required for work is also valid" do
-        context "when `number` is `Integer`" do
-          it_behaves_like "success result class"
+    describe "and the number required for work is also valid" do
+      context "when `number` is `Integer`" do
+        it_behaves_like "success result class"
 
-          it do
-            expect(perform).to(
-              have_output(:number?).contains(true)
-            )
-          end
-
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 90)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:number?).contains(true)
+          )
         end
 
-        context "when `number` is `Float`" do
-          let(:number) { 90.0 }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 90)
+          )
+        end
+      end
 
-          it_behaves_like "success result class"
+      context "when `number` is `Float`" do
+        let(:number) { 90.0 }
 
-          it do
-            expect(perform).to(
-              have_output(:number?).contains(true)
-            )
-          end
+        it_behaves_like "success result class"
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 90.0)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:number?).contains(true)
+          )
         end
 
-        context "when `number` is `Rational`" do
-          let(:number) { Rational(90) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 90.0)
+          )
+        end
+      end
 
-          it_behaves_like "success result class"
+      context "when `number` is `Rational`" do
+        let(:number) { Rational(90) }
 
-          it do
-            expect(perform).to(
-              have_output(:number?).contains(true)
-            )
-          end
+        it_behaves_like "success result class"
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 90 / 1)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:number?).contains(true)
+          )
         end
 
-        context "when `number` is `BigDecimal`" do
-          let(:number) { BigDecimal(90) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 90 / 1)
+          )
+        end
+      end
 
-          it_behaves_like "success result class"
+      context "when `number` is `BigDecimal`" do
+        let(:number) { BigDecimal(90) }
 
-          it do
-            expect(perform).to(
-              have_output(:number?).contains(true)
-            )
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            have_output(:number?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 0.90e2)
+          )
+        end
+      end
+    end
+
+    describe "but the number required for work is invalid" do
+      context "when `number` is `Integer`" do
+        describe "because the value is greater than specified" do
+          describe "for `input` attribute" do
+            let(:number) { 12 }
+
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Input,
+                  "The input is an incorrect multiple"
+                )
+              )
+            end
           end
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 0.90e2)
-            )
+          describe "for `internal` attribute" do
+            let(:number) { 9 }
+
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Internal,
+                  "The internal is an incorrect multiple"
+                )
+              )
+            end
+          end
+
+          describe "for `output` attribute" do
+            let(:number) { 18 }
+
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Output,
+                  "The output is an incorrect multiple"
+                )
+              )
+            end
           end
         end
       end
 
-      describe "but the number required for work is invalid" do
-        context "when `number` is `Integer`" do
-          describe "because the value is greater than specified" do
-            describe "for `input` attribute" do
-              let(:number) { 12 }
+      context "when `number` is `Float`" do
+        describe "because the value is greater than specified" do
+          describe "for `input` attribute" do
+            let(:number) { 12.0 }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Input,
-                    "The input is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Input,
+                  "The input is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `internal` attribute" do
-              let(:number) { 9 }
+          describe "for `internal` attribute" do
+            let(:number) { 9.0 }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Internal,
-                    "The internal is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Internal,
+                  "The internal is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `output` attribute" do
-              let(:number) { 18 }
+          describe "for `output` attribute" do
+            let(:number) { 18.0 }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Output,
-                    "The output is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Output,
+                  "The output is an incorrect multiple"
                 )
-              end
+              )
             end
           end
         end
+      end
 
-        context "when `number` is `Float`" do
-          describe "because the value is greater than specified" do
-            describe "for `input` attribute" do
-              let(:number) { 12.0 }
+      context "when `number` is `Rational`" do
+        describe "because the value is greater than specified" do
+          describe "for `input` attribute" do
+            let(:number) { Rational(12) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Input,
-                    "The input is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Input,
+                  "The input is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `internal` attribute" do
-              let(:number) { 9.0 }
+          describe "for `internal` attribute" do
+            let(:number) { Rational(9) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Internal,
-                    "The internal is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Internal,
+                  "The internal is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `output` attribute" do
-              let(:number) { 18.0 }
+          describe "for `output` attribute" do
+            let(:number) { Rational(18) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Output,
-                    "The output is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Output,
+                  "The output is an incorrect multiple"
                 )
-              end
+              )
             end
           end
         end
+      end
 
-        context "when `number` is `Rational`" do
-          describe "because the value is greater than specified" do
-            describe "for `input` attribute" do
-              let(:number) { Rational(12) }
+      context "when `number` is `BigDecimal`" do
+        describe "because the value is greater than specified" do
+          describe "for `input` attribute" do
+            let(:number) { BigDecimal(12) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Input,
-                    "The input is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Input,
+                  "The input is an incorrect multiple"
                 )
-              end
-            end
-
-            describe "for `internal` attribute" do
-              let(:number) { Rational(9) }
-
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Internal,
-                    "The internal is an incorrect multiple"
-                  )
-                )
-              end
-            end
-
-            describe "for `output` attribute" do
-              let(:number) { Rational(18) }
-
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Output,
-                    "The output is an incorrect multiple"
-                  )
-                )
-              end
+              )
             end
           end
-        end
 
-        context "when `number` is `BigDecimal`" do
-          describe "because the value is greater than specified" do
-            describe "for `input` attribute" do
-              let(:number) { BigDecimal(12) }
+          describe "for `internal` attribute" do
+            let(:number) { BigDecimal(9) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Input,
-                    "The input is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Internal,
+                  "The internal is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `internal` attribute" do
-              let(:number) { BigDecimal(9) }
+          describe "for `output` attribute" do
+            let(:number) { BigDecimal(18) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Internal,
-                    "The internal is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Output,
+                  "The output is an incorrect multiple"
                 )
-              end
-            end
-
-            describe "for `output` attribute" do
-              let(:number) { BigDecimal(18) }
-
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Output,
-                    "The output is an incorrect multiple"
-                  )
-                )
-              end
+              )
             end
           end
         end
@@ -294,252 +292,250 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
                     internals: %i[number],
                     outputs: [:number]
 
-    context "when the input arguments are valid" do
-      describe "and the number required for work is also valid" do
-        context "when `number` is `Integer`" do
-          it_behaves_like "success result class"
+    describe "and the number required for work is also valid" do
+      context "when `number` is `Integer`" do
+        it_behaves_like "success result class"
 
-          it do
-            expect(perform).to(
-              have_output(:number?).contains(true)
-            )
-          end
-
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 90)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:number?).contains(true)
+          )
         end
 
-        context "when `number` is `Float`" do
-          let(:number) { 90.0 }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 90)
+          )
+        end
+      end
 
-          it_behaves_like "success result class"
+      context "when `number` is `Float`" do
+        let(:number) { 90.0 }
 
-          it do
-            expect(perform).to(
-              have_output(:number?).contains(true)
-            )
-          end
+        it_behaves_like "success result class"
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 90.0)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:number?).contains(true)
+          )
         end
 
-        context "when `number` is `Rational`" do
-          let(:number) { Rational(90) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 90.0)
+          )
+        end
+      end
 
-          it_behaves_like "success result class"
+      context "when `number` is `Rational`" do
+        let(:number) { Rational(90) }
 
-          it do
-            expect(perform).to(
-              have_output(:number?).contains(true)
-            )
-          end
+        it_behaves_like "success result class"
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 90 / 1)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:number?).contains(true)
+          )
         end
 
-        context "when `number` is `BigDecimal`" do
-          let(:number) { BigDecimal(90) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 90 / 1)
+          )
+        end
+      end
 
-          it_behaves_like "success result class"
+      context "when `number` is `BigDecimal`" do
+        let(:number) { BigDecimal(90) }
 
-          it do
-            expect(perform).to(
-              have_output(:number?).contains(true)
-            )
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            have_output(:number?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 0.90e2)
+          )
+        end
+      end
+    end
+
+    describe "but the number required for work is invalid" do
+      context "when `number` is `Integer`" do
+        describe "because the value is greater than specified" do
+          describe "for `input` attribute" do
+            let(:number) { 12 }
+
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Input,
+                  "The input is an incorrect multiple"
+                )
+              )
+            end
           end
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 0.90e2)
-            )
+          describe "for `internal` attribute" do
+            let(:number) { 9 }
+
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Internal,
+                  "The internal is an incorrect multiple"
+                )
+              )
+            end
+          end
+
+          describe "for `output` attribute" do
+            let(:number) { 18 }
+
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Output,
+                  "The output is an incorrect multiple"
+                )
+              )
+            end
           end
         end
       end
 
-      describe "but the number required for work is invalid" do
-        context "when `number` is `Integer`" do
-          describe "because the value is greater than specified" do
-            describe "for `input` attribute" do
-              let(:number) { 12 }
+      context "when `number` is `Float`" do
+        describe "because the value is greater than specified" do
+          describe "for `input` attribute" do
+            let(:number) { 12.0 }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Input,
-                    "The input is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Input,
+                  "The input is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `internal` attribute" do
-              let(:number) { 9 }
+          describe "for `internal` attribute" do
+            let(:number) { 9.0 }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Internal,
-                    "The internal is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Internal,
+                  "The internal is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `output` attribute" do
-              let(:number) { 18 }
+          describe "for `output` attribute" do
+            let(:number) { 18.0 }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Output,
-                    "The output is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Output,
+                  "The output is an incorrect multiple"
                 )
-              end
+              )
             end
           end
         end
+      end
 
-        context "when `number` is `Float`" do
-          describe "because the value is greater than specified" do
-            describe "for `input` attribute" do
-              let(:number) { 12.0 }
+      context "when `number` is `Rational`" do
+        describe "because the value is greater than specified" do
+          describe "for `input` attribute" do
+            let(:number) { Rational(12) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Input,
-                    "The input is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Input,
+                  "The input is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `internal` attribute" do
-              let(:number) { 9.0 }
+          describe "for `internal` attribute" do
+            let(:number) { Rational(9) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Internal,
-                    "The internal is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Internal,
+                  "The internal is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `output` attribute" do
-              let(:number) { 18.0 }
+          describe "for `output` attribute" do
+            let(:number) { Rational(18) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Output,
-                    "The output is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Output,
+                  "The output is an incorrect multiple"
                 )
-              end
+              )
             end
           end
         end
+      end
 
-        context "when `number` is `Rational`" do
-          describe "because the value is greater than specified" do
-            describe "for `input` attribute" do
-              let(:number) { Rational(12) }
+      context "when `number` is `BigDecimal`" do
+        describe "because the value is greater than specified" do
+          describe "for `input` attribute" do
+            let(:number) { BigDecimal(12) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Input,
-                    "The input is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Input,
+                  "The input is an incorrect multiple"
                 )
-              end
-            end
-
-            describe "for `internal` attribute" do
-              let(:number) { Rational(9) }
-
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Internal,
-                    "The internal is an incorrect multiple"
-                  )
-                )
-              end
-            end
-
-            describe "for `output` attribute" do
-              let(:number) { Rational(18) }
-
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Output,
-                    "The output is an incorrect multiple"
-                  )
-                )
-              end
+              )
             end
           end
-        end
 
-        context "when `number` is `BigDecimal`" do
-          describe "because the value is greater than specified" do
-            describe "for `input` attribute" do
-              let(:number) { BigDecimal(12) }
+          describe "for `internal` attribute" do
+            let(:number) { BigDecimal(9) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Input,
-                    "The input is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Internal,
+                  "The internal is an incorrect multiple"
                 )
-              end
+              )
             end
+          end
 
-            describe "for `internal` attribute" do
-              let(:number) { BigDecimal(9) }
+          describe "for `output` attribute" do
+            let(:number) { BigDecimal(18) }
 
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Internal,
-                    "The internal is an incorrect multiple"
-                  )
+            it "returns expected error" do
+              expect { perform }.to(
+                raise_error(
+                  ApplicationService::Exceptions::Output,
+                  "The output is an incorrect multiple"
                 )
-              end
-            end
-
-            describe "for `output` attribute" do
-              let(:number) { BigDecimal(18) }
-
-              it "returns expected error" do
-                expect { perform }.to(
-                  raise_error(
-                    ApplicationService::Exceptions::Output,
-                    "The output is an incorrect multiple"
-                  )
-                )
-              end
+              )
             end
           end
         end

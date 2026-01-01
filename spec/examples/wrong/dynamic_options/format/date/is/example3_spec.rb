@@ -17,18 +17,16 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Is::Example3, type: :service
                     internals: %i[],
                     outputs: %i[started_on]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        describe "because the format specified is incorrect" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Wrong::DynamicOptions::Format::Date::Is::Example3] " \
-                "Unknown `fake` format specified for output attribute `started_on`"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format specified is incorrect" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Wrong::DynamicOptions::Format::Date::Is::Example3] " \
+              "Unknown `fake` format specified for output attribute `started_on`"
             )
-          end
+          )
         end
       end
     end
@@ -54,18 +52,16 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Is::Example3, type: :service
                     internals: %i[],
                     outputs: %i[started_on]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        describe "because the format specified is incorrect" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Wrong::DynamicOptions::Format::Date::Is::Example3] " \
-                "Unknown `fake` format specified for output attribute `started_on`"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format specified is incorrect" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Wrong::DynamicOptions::Format::Date::Is::Example3] " \
+              "Unknown `fake` format specified for output attribute `started_on`"
             )
-          end
+          )
         end
       end
     end

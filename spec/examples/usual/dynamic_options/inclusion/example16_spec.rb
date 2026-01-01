@@ -17,32 +17,30 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example16, type: :service do
                     internals: %i[adjusted_number],
                     outputs: %i[final_number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:final_number, 25)
-          )
-        end
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:final_number, 25)
+        )
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the value of `number` is outside input range" do
-          let(:number) { 150 }
+    describe "but the data required for work is invalid" do
+      describe "because the value of `number` is outside input range" do
+        let(:number) { 150 }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Inclusion::Example16] Wrong value in `number`, " \
-                "must be one of `1..100`, " \
-                "got `150`"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::Inclusion::Example16] Wrong value in `number`, " \
+              "must be one of `1..100`, " \
+              "got `150`"
             )
-          end
+          )
         end
       end
     end
@@ -76,32 +74,30 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example16, type: :service do
                     internals: %i[adjusted_number],
                     outputs: %i[final_number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:final_number, 25)
-          )
-        end
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:final_number, 25)
+        )
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the value of `number` is outside input range" do
-          let(:number) { 150 }
+    describe "but the data required for work is invalid" do
+      describe "because the value of `number` is outside input range" do
+        let(:number) { 150 }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Inclusion::Example16] Wrong value in `number`, " \
-                "must be one of `1..100`, " \
-                "got `150`"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::Inclusion::Example16] Wrong value in `number`, " \
+              "must be one of `1..100`, " \
+              "got `150`"
             )
-          end
+          )
         end
       end
     end

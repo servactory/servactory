@@ -15,16 +15,14 @@ RSpec.describe Usual::Datory::Example2, type: :service do
                     internals: %i[],
                     outputs: %i[id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:id, id)
-          )
-        end
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:id, id)
+        )
       end
     end
 
@@ -47,16 +45,14 @@ RSpec.describe Usual::Datory::Example2, type: :service do
                     internals: %i[],
                     outputs: %i[id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:id, id)
-          )
-        end
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:id, id)
+        )
       end
     end
 

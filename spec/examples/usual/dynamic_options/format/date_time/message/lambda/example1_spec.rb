@@ -17,31 +17,29 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
                     internals: %i[],
                     outputs: %i[started_at]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            have_output(:started_at?).contains(true)
-          )
-        end
-
-        it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
+      it do
+        expect(perform).to(
+          have_output(:started_at?).contains(true)
+        )
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date_time`" do
-          let(:started_at) { "2023-04-14 26:70" }
+      it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
+    end
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "Value `2023-04-14 26:70` does not match the format of `datetime` in `started_at`"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `date_time`" do
+        let(:started_at) { "2023-04-14 26:70" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "Value `2023-04-14 26:70` does not match the format of `datetime` in `started_at`"
             )
-          end
+          )
         end
       end
     end
@@ -67,31 +65,29 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
                     internals: %i[],
                     outputs: %i[started_at]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            have_output(:started_at?).contains(true)
-          )
-        end
-
-        it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
+      it do
+        expect(perform).to(
+          have_output(:started_at?).contains(true)
+        )
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date_time`" do
-          let(:started_at) { "2023-04-14 26:70" }
+      it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
+    end
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "Value `2023-04-14 26:70` does not match the format of `datetime` in `started_at`"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `date_time`" do
+        let(:started_at) { "2023-04-14 26:70" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "Value `2023-04-14 26:70` does not match the format of `datetime` in `started_at`"
             )
-          end
+          )
         end
       end
     end

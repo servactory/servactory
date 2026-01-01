@@ -17,36 +17,34 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example2, 
                     internals: %i[email],
                     outputs: %i[email]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            have_output(:email?).contains(true)
-          )
-        end
-
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:email, "No Reply <noreply@servactory.com>")
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:email?).contains(true)
+        )
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `email`" do
-          let(:email) { "noreply at servactory.com" }
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:email, "No Reply <noreply@servactory.com>")
+        )
+      end
+    end
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "Value `noreply at servactory.com` does not match the format of `email` in `email`"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `email`" do
+        let(:email) { "noreply at servactory.com" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "Value `noreply at servactory.com` does not match the format of `email` in `email`"
             )
-          end
+          )
         end
       end
     end
@@ -72,36 +70,34 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example2, 
                     internals: %i[email],
                     outputs: %i[email]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            have_output(:email?).contains(true)
-          )
-        end
-
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:email, "No Reply <noreply@servactory.com>")
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:email?).contains(true)
+        )
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `email`" do
-          let(:email) { "noreply at servactory.com" }
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:email, "No Reply <noreply@servactory.com>")
+        )
+      end
+    end
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "Value `noreply at servactory.com` does not match the format of `email` in `email`"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `email`" do
+        let(:email) { "noreply at servactory.com" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "Value `noreply at servactory.com` does not match the format of `email` in `email`"
             )
-          end
+          )
         end
       end
     end

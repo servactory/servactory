@@ -24,17 +24,15 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example1, type: :service do
                     internals: %i[ids],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Internal,
-              "[Wrong::DynamicOptions::ConsistsOf::Example1] Wrong type of internal attribute `ids`, " \
-              "expected `Set`, got `Array`"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Internal,
+            "[Wrong::DynamicOptions::ConsistsOf::Example1] Wrong type of internal attribute `ids`, " \
+            "expected `Set`, got `Array`"
           )
-        end
+        )
       end
     end
 
@@ -66,17 +64,15 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example1, type: :service do
                     internals: %i[ids],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Internal,
-              "[Wrong::DynamicOptions::ConsistsOf::Example1] Wrong type of internal attribute `ids`, " \
-              "expected `Set`, got `Array`"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Internal,
+            "[Wrong::DynamicOptions::ConsistsOf::Example1] Wrong type of internal attribute `ids`, " \
+            "expected `Set`, got `Array`"
           )
-        end
+        )
       end
     end
 

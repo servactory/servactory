@@ -17,31 +17,29 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Exa
                     internals: %i[],
                     outputs: %i[started_at]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
+      it "returns the expected value", :aggregate_failures do
+        result = perform
 
-          expect(result.started_at?).to be(true)
-          expect(result.started_at).to eq("2023-04-14T08:58:00+00:00")
-        end
+        expect(result.started_at?).to be(true)
+        expect(result.started_at).to eq("2023-04-14T08:58:00+00:00")
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `datetime`" do
-          let(:started_at) { "2023-04-14 8:58" }
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `datetime`" do
+        let(:started_at) { "2023-04-14 8:58" }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Example3] " \
-                "Output attribute `started_at` does not match `datetime` format"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Example3] " \
+              "Output attribute `started_at` does not match `datetime` format"
             )
-          end
+          )
         end
       end
     end
@@ -67,31 +65,29 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Exa
                     internals: %i[],
                     outputs: %i[started_at]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
+      it "returns the expected value", :aggregate_failures do
+        result = perform
 
-          expect(result.started_at?).to be(true)
-          expect(result.started_at).to eq("2023-04-14T08:58:00+00:00")
-        end
+        expect(result.started_at?).to be(true)
+        expect(result.started_at).to eq("2023-04-14T08:58:00+00:00")
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `datetime`" do
-          let(:started_at) { "2023-04-14 8:58" }
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `datetime`" do
+        let(:started_at) { "2023-04-14 8:58" }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Example3] " \
-                "Output attribute `started_at` does not match `datetime` format"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Example3] " \
+              "Output attribute `started_at` does not match `datetime` format"
             )
-          end
+          )
         end
       end
     end

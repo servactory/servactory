@@ -17,28 +17,26 @@ RSpec.describe Usual::Arguments::Example1, type: :service do
                     internals: %i[invoice_number],
                     outputs: %i[invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        context "when `invoice_number` is `String`" do
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:invoice_number, "AA-7650AE")
-            )
-          end
+      context "when `invoice_number` is `String`" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:invoice_number, "AA-7650AE")
+          )
         end
+      end
 
-        context "when `invoice_number` is `Integer`" do
-          let(:invoice_number) { 123 }
+      context "when `invoice_number` is `Integer`" do
+        let(:invoice_number) { 123 }
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:invoice_number, 123)
-            )
-          end
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:invoice_number, 123)
+          )
         end
       end
     end
@@ -64,28 +62,26 @@ RSpec.describe Usual::Arguments::Example1, type: :service do
                     internals: %i[invoice_number],
                     outputs: %i[invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        context "when `invoice_number` is `String`" do
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:invoice_number, "AA-7650AE")
-            )
-          end
+      context "when `invoice_number` is `String`" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:invoice_number, "AA-7650AE")
+          )
         end
+      end
 
-        context "when `invoice_number` is `Integer`" do
-          let(:invoice_number) { 123 }
+      context "when `invoice_number` is `Integer`" do
+        let(:invoice_number) { 123 }
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:invoice_number, 123)
-            )
-          end
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:invoice_number, 123)
+          )
         end
       end
     end

@@ -17,31 +17,29 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
+      it "returns the expected values", :aggregate_failures do
+        result = perform
 
-          expect(result).to be_a(Servactory::Result)
-          expect(result).to be_success
-          expect(result).not_to be_failure
-        end
+        expect(result).to be_a(Servactory::Result)
+        expect(result).to be_success
+        expect(result).not_to be_failure
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the user is not active" do
-          let(:user) { Usual::Extensions::Example1::User.new(active: false) }
+    describe "but the data required for work is invalid" do
+      describe "because the user is not active" do
+        let(:user) { Usual::Extensions::Example1::User.new(active: false) }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "User is not active"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "User is not active"
             )
-          end
+          )
         end
       end
     end
@@ -74,31 +72,29 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
+      it "returns the expected values", :aggregate_failures do
+        result = perform
 
-          expect(result).to be_a(Servactory::Result)
-          expect(result).to be_success
-          expect(result).not_to be_failure
-        end
+        expect(result).to be_a(Servactory::Result)
+        expect(result).to be_success
+        expect(result).not_to be_failure
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the user is not active" do
-          let(:user) { Usual::Extensions::Example1::User.new(active: false) }
+    describe "but the data required for work is invalid" do
+      describe "because the user is not active" do
+        let(:user) { Usual::Extensions::Example1::User.new(active: false) }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "User is not active"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "User is not active"
             )
-          end
+          )
         end
       end
     end

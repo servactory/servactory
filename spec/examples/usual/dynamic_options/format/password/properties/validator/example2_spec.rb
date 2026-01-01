@@ -17,31 +17,29 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Validator::E
                     internals: %i[password],
                     outputs: %i[password]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
+      it "returns the expected value", :aggregate_failures do
+        result = perform
 
-          expect(result.password?).to be(true)
-          expect(result.password).to eq("my-best-password")
-        end
+        expect(result.password?).to be(true)
+        expect(result.password).to eq("my-best-password")
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `password`" do
-          let(:password) { "password" }
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `password`" do
+        let(:password) { "password" }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Usual::DynamicOptions::Format::Password::Properties::Validator::Example2] " \
-                "Internal attribute `password` does not match `password` format"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Usual::DynamicOptions::Format::Password::Properties::Validator::Example2] " \
+              "Internal attribute `password` does not match `password` format"
             )
-          end
+          )
         end
       end
     end
@@ -67,31 +65,29 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Validator::E
                     internals: %i[password],
                     outputs: %i[password]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
+      it "returns the expected value", :aggregate_failures do
+        result = perform
 
-          expect(result.password?).to be(true)
-          expect(result.password).to eq("my-best-password")
-        end
+        expect(result.password?).to be(true)
+        expect(result.password).to eq("my-best-password")
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `password`" do
-          let(:password) { "password" }
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `password`" do
+        let(:password) { "password" }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Usual::DynamicOptions::Format::Password::Properties::Validator::Example2] " \
-                "Internal attribute `password` does not match `password` format"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Usual::DynamicOptions::Format::Password::Properties::Validator::Example2] " \
+              "Internal attribute `password` does not match `password` format"
             )
-          end
+          )
         end
       end
     end

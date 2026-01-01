@@ -24,16 +24,14 @@ RSpec.describe Wrong::As::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[first_id]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Input,
-              "[Wrong::As::Example1] Undefined input attribute `ids`"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Input,
+            "[Wrong::As::Example1] Undefined input attribute `ids`"
           )
-        end
+        )
       end
     end
 
@@ -74,16 +72,14 @@ RSpec.describe Wrong::As::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[first_id]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Input,
-              "[Wrong::As::Example1] Undefined input attribute `ids`"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Input,
+            "[Wrong::As::Example1] Undefined input attribute `ids`"
           )
-        end
+        )
       end
     end
 

@@ -21,30 +21,28 @@ RSpec.describe Usual::Async::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        describe "async" do
-          let(:ids) { [1, 2, 3, 4] }
+      describe "async" do
+        let(:ids) { [1, 2, 3, 4] }
 
-          it :aggregate_failures do
-            service_results = Async do
-              barrier = Async::Barrier.new
-              semaphore = Async::Semaphore.new(10, parent: barrier)
+        it :aggregate_failures do
+          service_results = Async do
+            barrier = Async::Barrier.new
+            semaphore = Async::Semaphore.new(10, parent: barrier)
 
-              ids.map do |id|
-                semaphore.async { described_class.call!(id:) }
-              end.map(&:wait)
-            ensure
-              barrier.stop
-            end.wait
+            ids.map do |id|
+              semaphore.async { described_class.call!(id:) }
+            end.map(&:wait)
+          ensure
+            barrier.stop
+          end.wait
 
-            expect(service_results[0].id).to eq(1)
-            expect(service_results[1].id).to eq(2)
-            expect(service_results[2].id).to eq(3)
-            expect(service_results[3].id).to eq(4)
-          end
+          expect(service_results[0].id).to eq(1)
+          expect(service_results[1].id).to eq(2)
+          expect(service_results[2].id).to eq(3)
+          expect(service_results[3].id).to eq(4)
         end
       end
     end
@@ -70,30 +68,28 @@ RSpec.describe Usual::Async::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        describe "async" do
-          let(:ids) { [1, 2, 3, 4] }
+      describe "async" do
+        let(:ids) { [1, 2, 3, 4] }
 
-          it :aggregate_failures do
-            service_results = Async do
-              barrier = Async::Barrier.new
-              semaphore = Async::Semaphore.new(10, parent: barrier)
+        it :aggregate_failures do
+          service_results = Async do
+            barrier = Async::Barrier.new
+            semaphore = Async::Semaphore.new(10, parent: barrier)
 
-              ids.map do |id|
-                semaphore.async { described_class.call(id:) }
-              end.map(&:wait)
-            ensure
-              barrier.stop
-            end.wait
+            ids.map do |id|
+              semaphore.async { described_class.call(id:) }
+            end.map(&:wait)
+          ensure
+            barrier.stop
+          end.wait
 
-            expect(service_results[0].id).to eq(1)
-            expect(service_results[1].id).to eq(2)
-            expect(service_results[2].id).to eq(3)
-            expect(service_results[3].id).to eq(4)
-          end
+          expect(service_results[0].id).to eq(1)
+          expect(service_results[1].id).to eq(2)
+          expect(service_results[2].id).to eq(3)
+          expect(service_results[3].id).to eq(4)
         end
       end
     end

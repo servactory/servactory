@@ -17,28 +17,26 @@ RSpec.describe Usual::Success::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        context "when `number` has a value for early success" do
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 2)
-            )
-          end
+      context "when `number` has a value for early success" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 2)
+          )
         end
+      end
 
-        context "when `number` has no value for early success" do
-          let(:number) { 2 }
+      context "when `number` has no value for early success" do
+        let(:number) { 2 }
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 16)
-            )
-          end
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 16)
+          )
         end
       end
     end
@@ -64,28 +62,26 @@ RSpec.describe Usual::Success::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        context "when `number` has a value for early success" do
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 2)
-            )
-          end
+      context "when `number` has a value for early success" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 2)
+          )
         end
+      end
 
-        context "when `number` has no value for early success" do
-          let(:number) { 2 }
+      context "when `number` has no value for early success" do
+        let(:number) { 2 }
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:number, 16)
-            )
-          end
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 16)
+          )
         end
       end
     end

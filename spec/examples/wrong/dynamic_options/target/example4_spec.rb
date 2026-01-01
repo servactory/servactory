@@ -17,18 +17,16 @@ RSpec.describe Wrong::DynamicOptions::Target::Example4, type: :service do
                     internals: %i[target_class],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the option configuration is invalid" do
-        describe "because the `in` option is nil" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Wrong::DynamicOptions::Target::Example4] " \
-                "Internal attribute `target_class` has missing value in `expect` option"
-              )
+    describe "but the option configuration is invalid" do
+      describe "because the `in` option is nil" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Wrong::DynamicOptions::Target::Example4] " \
+              "Internal attribute `target_class` has missing value in `expect` option"
             )
-          end
+          )
         end
       end
     end
@@ -54,18 +52,16 @@ RSpec.describe Wrong::DynamicOptions::Target::Example4, type: :service do
                     internals: %i[target_class],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the option configuration is invalid" do
-        describe "because the `in` option is nil" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Wrong::DynamicOptions::Target::Example4] " \
-                "Internal attribute `target_class` has missing value in `expect` option"
-              )
+    describe "but the option configuration is invalid" do
+      describe "because the `in` option is nil" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Wrong::DynamicOptions::Target::Example4] " \
+              "Internal attribute `target_class` has missing value in `expect` option"
             )
-          end
+          )
         end
       end
     end

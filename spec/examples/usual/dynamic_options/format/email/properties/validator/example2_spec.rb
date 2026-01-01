@@ -17,31 +17,29 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Properties::Validator::Exam
                     internals: %i[email],
                     outputs: %i[email]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
+      it "returns the expected value", :aggregate_failures do
+        result = perform
 
-          expect(result.email?).to be(true)
-          expect(result.email).to eq("No Reply <noreply at servactory.com>")
-        end
+        expect(result.email?).to be(true)
+        expect(result.email).to eq("No Reply <noreply at servactory.com>")
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `email`" do
-          let(:email) { "noreply@servactory.com" }
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `email`" do
+        let(:email) { "noreply@servactory.com" }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Usual::DynamicOptions::Format::Email::Properties::Validator::Example2] " \
-                "Internal attribute `email` does not match `email` format"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Usual::DynamicOptions::Format::Email::Properties::Validator::Example2] " \
+              "Internal attribute `email` does not match `email` format"
             )
-          end
+          )
         end
       end
     end
@@ -67,31 +65,29 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Properties::Validator::Exam
                     internals: %i[email],
                     outputs: %i[email]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
+      it "returns the expected value", :aggregate_failures do
+        result = perform
 
-          expect(result.email?).to be(true)
-          expect(result.email).to eq("No Reply <noreply at servactory.com>")
-        end
+        expect(result.email?).to be(true)
+        expect(result.email).to eq("No Reply <noreply at servactory.com>")
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `email`" do
-          let(:email) { "noreply@servactory.com" }
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `email`" do
+        let(:email) { "noreply@servactory.com" }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Usual::DynamicOptions::Format::Email::Properties::Validator::Example2] " \
-                "Internal attribute `email` does not match `email` format"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Usual::DynamicOptions::Format::Email::Properties::Validator::Example2] " \
+              "Internal attribute `email` does not match `email` format"
             )
-          end
+          )
         end
       end
     end

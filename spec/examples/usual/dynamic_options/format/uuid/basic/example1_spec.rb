@@ -17,37 +17,35 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Basic::Example1, type: :serv
                     internals: %i[],
                     outputs: %i[service_id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            have_output(:service_id?).contains(true)
-          )
-        end
-
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:service_id?).contains(true)
+        )
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `uuid`" do
-          let(:service_id) { "my-best-uuid" }
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
+        )
+      end
+    end
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Format::Uuid::Basic::Example1] " \
-                "Input `service_id` does not match `uuid` format"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `uuid`" do
+        let(:service_id) { "my-best-uuid" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::Format::Uuid::Basic::Example1] " \
+              "Input `service_id` does not match `uuid` format"
             )
-          end
+          )
         end
       end
     end
@@ -73,37 +71,35 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Basic::Example1, type: :serv
                     internals: %i[],
                     outputs: %i[service_id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            have_output(:service_id?).contains(true)
-          )
-        end
-
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:service_id?).contains(true)
+        )
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `uuid`" do
-          let(:service_id) { "my-best-uuid" }
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
+        )
+      end
+    end
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Format::Uuid::Basic::Example1] " \
-                "Input `service_id` does not match `uuid` format"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `uuid`" do
+        let(:service_id) { "my-best-uuid" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::Format::Uuid::Basic::Example1] " \
+              "Input `service_id` does not match `uuid` format"
             )
-          end
+          )
         end
       end
     end

@@ -17,32 +17,30 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Properties::Pattern::Example
                     internals: %i[started_at],
                     outputs: %i[started_at]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            have_output(:started_at?).contains(true)
-          )
-        end
-
-        it { expect(perform).to have_output(:started_at).contains(Time.parse(started_at)) }
+      it do
+        expect(perform).to(
+          have_output(:started_at?).contains(true)
+        )
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `time`" do
-          let(:started_at) { "8:58" }
+      it { expect(perform).to have_output(:started_at).contains(Time.parse(started_at)) }
+    end
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Usual::DynamicOptions::Format::Time::Properties::Pattern::Example2] " \
-                "Internal attribute `started_at` does not match `time` format"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `time`" do
+        let(:started_at) { "8:58" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Usual::DynamicOptions::Format::Time::Properties::Pattern::Example2] " \
+              "Internal attribute `started_at` does not match `time` format"
             )
-          end
+          )
         end
       end
     end
@@ -68,32 +66,30 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Properties::Pattern::Example
                     internals: %i[started_at],
                     outputs: %i[started_at]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it do
-          expect(perform).to(
-            have_output(:started_at?).contains(true)
-          )
-        end
-
-        it { expect(perform).to have_output(:started_at).contains(Time.parse(started_at)) }
+      it do
+        expect(perform).to(
+          have_output(:started_at?).contains(true)
+        )
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `time`" do
-          let(:started_at) { "8:58" }
+      it { expect(perform).to have_output(:started_at).contains(Time.parse(started_at)) }
+    end
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Usual::DynamicOptions::Format::Time::Properties::Pattern::Example2] " \
-                "Internal attribute `started_at` does not match `time` format"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `time`" do
+        let(:started_at) { "8:58" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Usual::DynamicOptions::Format::Time::Properties::Pattern::Example2] " \
+              "Internal attribute `started_at` does not match `time` format"
             )
-          end
+          )
         end
       end
     end

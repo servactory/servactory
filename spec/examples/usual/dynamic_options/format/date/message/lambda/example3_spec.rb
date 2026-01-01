@@ -17,30 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Lambda::Example3, t
                     internals: %i[],
                     outputs: %i[started_on]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
+      it "returns the expected value", :aggregate_failures do
+        result = perform
 
-          expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023-04-14")
-        end
+        expect(result.started_on?).to be(true)
+        expect(result.started_on).to eq("2023-04-14")
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023-14-14" }
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `date`" do
+        let(:started_on) { "2023-14-14" }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "Value `2023-14-14` does not match the format of `date` in `started_on`"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "Value `2023-14-14` does not match the format of `date` in `started_on`"
             )
-          end
+          )
         end
       end
     end
@@ -66,30 +64,28 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Lambda::Example3, t
                     internals: %i[],
                     outputs: %i[started_on]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
+      it "returns the expected value", :aggregate_failures do
+        result = perform
 
-          expect(result.started_on?).to be(true)
-          expect(result.started_on).to eq("2023-04-14")
-        end
+        expect(result.started_on?).to be(true)
+        expect(result.started_on).to eq("2023-04-14")
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023-14-14" }
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `date`" do
+        let(:started_on) { "2023-14-14" }
 
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "Value `2023-14-14` does not match the format of `date` in `started_on`"
-              )
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "Value `2023-14-14` does not match the format of `date` in `started_on`"
             )
-          end
+          )
         end
       end
     end

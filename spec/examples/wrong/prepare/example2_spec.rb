@@ -17,22 +17,20 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
                     internals: %i[],
                     outputs: %i[balance_with_bonus]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error", :aggregate_failures do
-          expect { perform }.to(
-            raise_error do |exception|
-              expect(exception).to be_a(NoMethodError)
-              expect(exception.message).to(
-                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
-                  eq("undefined method '+' for nil")
-                else
-                  match(/undefined method `\+' for nil|:NilClass/)
-                end
-              )
-            end
-          )
-        end
+    describe "but the data required for work is invalid" do
+      it "returns expected error", :aggregate_failures do
+        expect { perform }.to(
+          raise_error do |exception|
+            expect(exception).to be_a(NoMethodError)
+            expect(exception.message).to(
+              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                eq("undefined method '+' for nil")
+              else
+                match(/undefined method `\+' for nil|:NilClass/)
+              end
+            )
+          end
+        )
       end
     end
 
@@ -59,22 +57,20 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
                     internals: %i[],
                     outputs: %i[balance_with_bonus]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error", :aggregate_failures do
-          expect { perform }.to(
-            raise_error do |exception|
-              expect(exception).to be_a(NoMethodError)
-              expect(exception.message).to(
-                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
-                  eq("undefined method '+' for nil")
-                else
-                  match(/undefined method `\+' for nil|:NilClass/)
-                end
-              )
-            end
-          )
-        end
+    describe "but the data required for work is invalid" do
+      it "returns expected error", :aggregate_failures do
+        expect { perform }.to(
+          raise_error do |exception|
+            expect(exception).to be_a(NoMethodError)
+            expect(exception.message).to(
+              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                eq("undefined method '+' for nil")
+              else
+                match(/undefined method `\+' for nil|:NilClass/)
+              end
+            )
+          end
+        )
       end
     end
 
