@@ -24,6 +24,20 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
                     internals: %i[invoice_numbers],
                     outputs: [:first_invoice_number]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:invoice_numbers)
+              .valid_with(attributes)
+              .type(Array)
+              .consists_of(String)
+              .required
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -36,7 +50,8 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:first_invoice_number?).contains(true)
+          have_output(:first_invoice_number?)
+            .contains(true)
         )
       end
     end
@@ -121,16 +136,6 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
           )
         end
       end
-    end
-
-    describe "validations" do
-
-      describe "inputs" do
-      it {
-        expect do
-          perform
-        end.to have_input(:invoice_numbers).valid_with(attributes).type(Array).consists_of(String).required
-      }
     end
   end
 
@@ -157,6 +162,20 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
                     internals: %i[invoice_numbers],
                     outputs: [:first_invoice_number]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:invoice_numbers)
+              .valid_with(attributes)
+              .type(Array)
+              .consists_of(String)
+              .required
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -166,11 +185,11 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
             .with_output(:first_invoice_number, "7650AE")
         )
       end
-    end
 
       it do
         expect(perform).to(
-          have_output(:first_invoice_number?).contains(true)
+          have_output(:first_invoice_number?)
+            .contains(true)
         )
       end
     end
@@ -252,20 +271,6 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
               "[Usual::InternalOptionHelpers::Example1] Required element in input " \
               "collection `invoice_numbers` is missing"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:invoice_numbers)
-              .valid_with(attributes)
-              .type(Array)
-              .consists_of(String)
-              .required
           )
         end
       end
