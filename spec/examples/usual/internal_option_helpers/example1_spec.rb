@@ -258,13 +258,17 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
     end
 
     describe "validations" do
-
       describe "inputs" do
-      it {
-        expect do
-          perform
-        end.to have_input(:invoice_numbers).valid_with(attributes).type(Array).consists_of(String).required
-      }
+        it do
+          expect { perform }.to(
+            have_input(:invoice_numbers)
+              .valid_with(attributes)
+              .type(Array)
+              .consists_of(String)
+              .required
+          )
+        end
+      end
     end
   end
 end
