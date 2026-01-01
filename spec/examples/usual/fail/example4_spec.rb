@@ -19,26 +19,51 @@ RSpec.describe Usual::Fail::Example4, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
+        it do
+          expect { perform }.to(
+            have_input(:invoice_number)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
       describe "outputs" do
-        it { expect(perform).to be_success_service.with_output(:invoice_number, "AA-7650AE") }
+        it do
+          expect(perform).to(
+            have_output(:invoice_number)
+              .instance_of(String)
+          )
+        end
       end
     end
 
-    describe "because invalid invoice number" do
-      let(:invoice_number) { "BB-7650AE" }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-      it "returns expected error", :aggregate_failures do
-        expect { perform }.to(
-          raise_error do |exception|
-            expect(exception).to be_a(ApplicationService::Exceptions::Failure)
-            expect(exception.type).to eq(:base)
-            expect(exception.message).to eq("Invalid invoice number")
-            expect(exception.meta).to be_nil
-          end
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:invoice_number, "AA-7650AE")
         )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because invalid invoice number" do
+        let(:invoice_number) { "BB-7650AE" }
+
+        it "returns expected error", :aggregate_failures do
+          expect { perform }.to(
+            raise_error do |exception|
+              expect(exception).to be_a(ApplicationService::Exceptions::Failure)
+              expect(exception.type).to eq(:base)
+              expect(exception.message).to eq("Invalid invoice number")
+              expect(exception.meta).to be_nil
+            end
+          )
+        end
       end
     end
   end
@@ -61,30 +86,55 @@ RSpec.describe Usual::Fail::Example4, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
+        it do
+          expect { perform }.to(
+            have_input(:invoice_number)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
       describe "outputs" do
-        it { expect(perform).to be_success_service.with_output(:invoice_number, "AA-7650AE") }
+        it do
+          expect(perform).to(
+            have_output(:invoice_number)
+              .instance_of(String)
+          )
+        end
       end
     end
 
-    describe "because invalid invoice number" do
-      let(:invoice_number) { "BB-7650AE" }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-      it_behaves_like "failure result class"
-
-      it "returns the expected value in `errors`", :aggregate_failures do
-        result = perform
-
-        expect(result.invoice_number).to eq("BB-7650AE")
-
-        expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
-        expect(result.error).to an_object_having_attributes(
-          type: :base,
-          message: "Invalid invoice number",
-          meta: nil
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:invoice_number, "AA-7650AE")
         )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because invalid invoice number" do
+        let(:invoice_number) { "BB-7650AE" }
+
+        it_behaves_like "failure result class"
+
+        it "returns the expected value in `errors`", :aggregate_failures do
+          result = perform
+
+          expect(result.invoice_number).to eq("BB-7650AE")
+
+          expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
+          expect(result.error).to an_object_having_attributes(
+            type: :base,
+            message: "Invalid invoice number",
+            meta: nil
+          )
+        end
       end
     end
   end
