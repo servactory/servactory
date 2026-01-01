@@ -87,7 +87,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:number, 0.90e2)
+              .with_output(:number, 90)
           )
         end
       end
@@ -362,7 +362,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:number, 0.90e2)
+              .with_output(:number, 90)
           )
         end
       end
