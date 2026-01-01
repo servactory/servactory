@@ -30,6 +30,31 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
+    describe "validations" do
+      describe "inputs" do
+        it do # rubocop:disable RSpec/ExampleLength
+          expect { perform }.to(
+            have_input(:payload)
+              .valid_with(attributes)
+              .type(Hash)
+              .schema(
+                {
+                  request_id: { type: String, required: true },
+                  user: {
+                    type: Hash,
+                    required: true,
+                    first_name: { type: String, required: true },
+                    middle_name: { type: String, required: false },
+                    last_name: { type: String, required: true }
+                  }
+                }
+              )
+              .required
+          )
+        end
+      end
+    end
+
     describe "but the data required for work is invalid" do
       describe "because the value type for `first_name` is wrong" do
         let(:first_name) { 123 }
@@ -89,6 +114,31 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example1, type: :service do
                     inputs: %i[payload],
                     internals: %i[],
                     outputs: %i[]
+
+    describe "validations" do
+      describe "inputs" do
+        it do # rubocop:disable RSpec/ExampleLength
+          expect { perform }.to(
+            have_input(:payload)
+              .valid_with(attributes)
+              .type(Hash)
+              .schema(
+                {
+                  request_id: { type: String, required: true },
+                  user: {
+                    type: Hash,
+                    required: true,
+                    first_name: { type: String, required: true },
+                    middle_name: { type: String, required: false },
+                    last_name: { type: String, required: true }
+                  }
+                }
+              )
+              .required
+          )
+        end
+      end
+    end
 
     describe "but the data required for work is invalid" do
       describe "because the value type for `first_name` is wrong" do

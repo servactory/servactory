@@ -9,6 +9,29 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example4, type: :service do
                     internals: %i[payload],
                     outputs: %i[]
 
+    describe "validations" do
+      describe "internals" do
+        it do # rubocop:disable RSpec/ExampleLength
+          expect { perform }.to(
+            have_internal(:payload)
+              .type(Hash)
+              .schema(
+                {
+                  request_id: { type: String, required: true },
+                  user: {
+                    type: Hash,
+                    required: true,
+                    first_name: { type: String, required: true },
+                    middle_name: { type: String, required: false },
+                    last_name: { type: String, required: true }
+                  }
+                }
+              )
+          )
+        end
+      end
+    end
+
     describe "but the data required for work is invalid" do
       it "returns expected error" do
         expect { perform }.to(
@@ -29,6 +52,29 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example4, type: :service do
                     inputs: %i[],
                     internals: %i[payload],
                     outputs: %i[]
+
+    describe "validations" do
+      describe "internals" do
+        it do # rubocop:disable RSpec/ExampleLength
+          expect { perform }.to(
+            have_internal(:payload)
+              .type(Hash)
+              .schema(
+                {
+                  request_id: { type: String, required: true },
+                  user: {
+                    type: Hash,
+                    required: true,
+                    first_name: { type: String, required: true },
+                    middle_name: { type: String, required: false },
+                    last_name: { type: String, required: true }
+                  }
+                }
+              )
+          )
+        end
+      end
+    end
 
     describe "but the data required for work is invalid" do
       it "returns expected error" do
