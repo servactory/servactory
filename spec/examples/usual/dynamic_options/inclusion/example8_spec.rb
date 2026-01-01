@@ -75,15 +75,17 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example8, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:event_name)
-            .valid_with(attributes)
-            .type(String)
-            .required
-            .inclusion(%w[created rejected approved])
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:event_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+              .inclusion(%w[created rejected approved])
+          )
+        end
       end
     end
   end
@@ -162,15 +164,17 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example8, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:event_name)
-            .valid_with(attributes)
-            .type(String)
-            .required
-            .inclusion(%w[created rejected approved])
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:event_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+              .inclusion(%w[created rejected approved])
+          )
+        end
       end
     end
   end

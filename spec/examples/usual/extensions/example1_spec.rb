@@ -44,14 +44,16 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:user)
-            .valid_with(attributes)
-            .type(Usual::Extensions::Example1::User)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:user)
+              .valid_with(attributes)
+              .type(Usual::Extensions::Example1::User)
+              .required
+          )
+        end
       end
     end
   end
@@ -99,14 +101,16 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:user)
-            .valid_with(attributes)
-            .type(Usual::Extensions::Example1::User)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:user)
+              .valid_with(attributes)
+              .type(Usual::Extensions::Example1::User)
+              .required
+          )
+        end
       end
     end
   end

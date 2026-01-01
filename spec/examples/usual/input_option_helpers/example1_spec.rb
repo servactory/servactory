@@ -123,16 +123,18 @@ RSpec.describe Usual::InputOptionHelpers::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:invoice_numbers)
-            .valid_with(attributes)
-            .type(Array)
-            .required
-            .consists_of(String)
-            .must(:be_6_characters)
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:invoice_numbers)
+              .valid_with(attributes)
+              .type(Array)
+              .required
+              .consists_of(String)
+              .must(:be_6_characters)
+          )
+        end
       end
     end
   end
@@ -259,16 +261,18 @@ RSpec.describe Usual::InputOptionHelpers::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:invoice_numbers)
-            .valid_with(attributes)
-            .type(Array)
-            .required
-            .consists_of(String)
-            .must(:be_6_characters)
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:invoice_numbers)
+              .valid_with(attributes)
+              .type(Array)
+              .required
+              .consists_of(String)
+              .must(:be_6_characters)
+          )
+        end
       end
     end
   end

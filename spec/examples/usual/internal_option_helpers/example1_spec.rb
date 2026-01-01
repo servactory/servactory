@@ -123,7 +123,9 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
+    describe "validations" do
+
+      describe "inputs" do
       it {
         expect do
           perform
@@ -164,6 +166,7 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
             .with_output(:first_invoice_number, "7650AE")
         )
       end
+    end
 
       it do
         expect(perform).to(
@@ -254,7 +257,9 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
+    describe "validations" do
+
+      describe "inputs" do
       it {
         expect do
           perform

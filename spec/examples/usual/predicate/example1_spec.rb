@@ -71,14 +71,16 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:enable)
-            .valid_with(attributes)
-            .types(TrueClass, FalseClass)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:enable)
+              .valid_with(attributes)
+              .types(TrueClass, FalseClass)
+              .required
+          )
+        end
       end
 
       it do
@@ -171,14 +173,16 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:enable)
-            .valid_with(attributes)
-            .types(TrueClass, FalseClass)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:enable)
+              .valid_with(attributes)
+              .types(TrueClass, FalseClass)
+              .required
+          )
+        end
       end
 
       it do

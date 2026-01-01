@@ -50,14 +50,16 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example1, type: :s
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:service_id)
-            .valid_with(attributes)
-            .type(String)
-            .optional
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_id)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
       end
     end
   end
@@ -111,14 +113,16 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example1, type: :s
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:service_id)
-            .valid_with(attributes)
-            .type(String)
-            .optional
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_id)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
       end
     end
   end

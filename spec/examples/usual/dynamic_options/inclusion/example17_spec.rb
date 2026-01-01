@@ -86,15 +86,17 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:positive_number)
-            .valid_with(attributes)
-            .type(Integer)
-            .required
-            .inclusion(1..)
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:positive_number)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+              .inclusion(1..)
+          )
+        end
       end
     end
   end
@@ -143,15 +145,17 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:positive_number)
-            .valid_with(attributes)
-            .type(Integer)
-            .required
-            .inclusion(1..)
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:positive_number)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+              .inclusion(1..)
+          )
+        end
       end
     end
   end

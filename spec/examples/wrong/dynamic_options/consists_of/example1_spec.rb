@@ -36,14 +36,16 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:ids)
-            .valid_with(attributes)
-            .type(Array)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:ids)
+              .valid_with(attributes)
+              .type(Array)
+              .required
+          )
+        end
       end
     end
   end
@@ -83,14 +85,16 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:ids)
-            .valid_with(attributes)
-            .type(Array)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:ids)
+              .valid_with(attributes)
+              .type(Array)
+              .required
+          )
+        end
       end
     end
   end

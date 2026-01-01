@@ -267,11 +267,13 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:number).valid_with(attributes).types(Integer, Float, Rational, BigDecimal).required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number).valid_with(attributes).types(Integer, Float, Rational, BigDecimal).required
+          )
+        end
       end
     end
   end
@@ -542,11 +544,13 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:number).valid_with(attributes).types(Integer, Float, Rational, BigDecimal).required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number).valid_with(attributes).types(Integer, Float, Rational, BigDecimal).required
+          )
+        end
       end
     end
   end

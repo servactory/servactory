@@ -34,9 +34,11 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect { perform }.to have_input(:balance_cents).valid_with(attributes).type(Integer).required
+    describe "validations" do
+      describe "inputs" do
+        it "returns expected inputs", :aggregate_failures do
+          expect { perform }.to have_input(:balance_cents).valid_with(attributes).type(Integer).required
+        end
       end
     end
   end
@@ -74,9 +76,11 @@ RSpec.describe Wrong::Prepare::Example2, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it "returns expected inputs", :aggregate_failures do
-        expect { perform }.to have_input(:balance_cents).valid_with(attributes).type(Integer).required
+    describe "validations" do
+      describe "inputs" do
+        it "returns expected inputs", :aggregate_failures do
+          expect { perform }.to have_input(:balance_cents).valid_with(attributes).type(Integer).required
+        end
       end
     end
   end

@@ -55,14 +55,16 @@ RSpec.describe Usual::ToH::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:first_name)
-            .valid_with(attributes)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:first_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
       it do
@@ -139,14 +141,16 @@ RSpec.describe Usual::ToH::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:first_name)
-            .valid_with(attributes)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:first_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
       it do

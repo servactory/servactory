@@ -25,14 +25,16 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
                     internals: %i[],
                     outputs: %i[api_response]
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:api_identifier)
-            .valid_with(attributes)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:api_identifier)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
       it do
@@ -97,14 +99,16 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
                     internals: %i[],
                     outputs: %i[api_response]
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:api_identifier)
-            .valid_with(attributes)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:api_identifier)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
       it do

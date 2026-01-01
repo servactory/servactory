@@ -30,14 +30,16 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Message::Example1, type: :se
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:started_on)
-            .valid_with(false)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_on)
+              .valid_with(false)
+              .type(String)
+              .required
+          )
+        end
       end
     end
   end
@@ -71,14 +73,16 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Message::Example1, type: :se
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:started_on)
-            .valid_with(false)
-            .type(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_on)
+              .valid_with(false)
+              .type(String)
+              .required
+          )
+        end
       end
     end
   end

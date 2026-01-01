@@ -35,16 +35,18 @@ RSpec.describe Wrong::As::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        # FIXME: Add example for `as` (internal_name)
-        expect { perform }.to(
-          have_input(:ids)
-            .valid_with(false)
-            .type(Array)
-            .consists_of(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          # FIXME: Add example for `as` (internal_name)
+          expect { perform }.to(
+            have_input(:ids)
+              .valid_with(false)
+              .type(Array)
+              .consists_of(String)
+              .required
+          )
+        end
       end
     end
   end
@@ -83,16 +85,18 @@ RSpec.describe Wrong::As::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        # FIXME: Add example for `as` (internal_name)
-        expect { perform }.to(
-          have_input(:ids)
-            .valid_with(false)
-            .type(Array)
-            .consists_of(String)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          # FIXME: Add example for `as` (internal_name)
+          expect { perform }.to(
+            have_input(:ids)
+              .valid_with(false)
+              .type(Array)
+              .consists_of(String)
+              .required
+          )
+        end
       end
     end
   end

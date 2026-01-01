@@ -286,14 +286,16 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:data)
-            .valid_with(attributes)
-            .types(Integer, String, Array, Hash)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:data)
+              .valid_with(attributes)
+              .types(Integer, String, Array, Hash)
+              .required
+          )
+        end
       end
     end
   end
@@ -583,14 +585,16 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:data)
-            .valid_with(attributes)
-            .types(Integer, String, Array, Hash)
-            .required
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:data)
+              .valid_with(attributes)
+              .types(Integer, String, Array, Hash)
+              .required
+          )
+        end
       end
     end
   end

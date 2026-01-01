@@ -78,21 +78,23 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:entity_class)
-            .valid_with(attributes)
-            .type(Class)
-            .required
-            .inclusion(
-              [
-                Usual::DynamicOptions::Inclusion::Example11::FirstEntity,
-                Usual::DynamicOptions::Inclusion::Example11::SecondEntity,
-                Usual::DynamicOptions::Inclusion::Example11::ThirdEntity
-              ]
-            )
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:entity_class)
+              .valid_with(attributes)
+              .type(Class)
+              .required
+              .inclusion(
+                [
+                  Usual::DynamicOptions::Inclusion::Example11::FirstEntity,
+                  Usual::DynamicOptions::Inclusion::Example11::SecondEntity,
+                  Usual::DynamicOptions::Inclusion::Example11::ThirdEntity
+                ]
+              )
+          )
+        end
       end
     end
   end
@@ -174,21 +176,23 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
       end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:entity_class)
-            .valid_with(attributes)
-            .type(Class)
-            .required
-            .inclusion(
-              [
-                Usual::DynamicOptions::Inclusion::Example11::FirstEntity,
-                Usual::DynamicOptions::Inclusion::Example11::SecondEntity,
-                Usual::DynamicOptions::Inclusion::Example11::ThirdEntity
-              ]
-            )
-        )
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:entity_class)
+              .valid_with(attributes)
+              .type(Class)
+              .required
+              .inclusion(
+                [
+                  Usual::DynamicOptions::Inclusion::Example11::FirstEntity,
+                  Usual::DynamicOptions::Inclusion::Example11::SecondEntity,
+                  Usual::DynamicOptions::Inclusion::Example11::ThirdEntity
+                ]
+              )
+          )
+        end
       end
     end
   end
