@@ -19,6 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example3, type: :ser
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it "returns the expected value", :aggregate_failures do
           result = perform
 
@@ -67,6 +69,8 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example3, type: :ser
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it "returns the expected value", :aggregate_failures do
           result = perform
 
