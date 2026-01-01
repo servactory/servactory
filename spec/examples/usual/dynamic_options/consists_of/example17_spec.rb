@@ -26,12 +26,40 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).consists_of(String).required }
+        it do
+          expect { perform }.to(
+            have_input(:ids)
+              .valid_with(attributes)
+              .type(Array)
+              .consists_of(String)
+              .required
+          )
+        end
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:first_id?).contains(true) }
-        it { expect(perform).to have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
+        it do
+          expect(perform).to(
+            have_output(:first_id)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:first_id?).contains(true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+        )
       end
     end
 
@@ -121,12 +149,40 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).consists_of(String).required }
+        it do
+          expect { perform }.to(
+            have_input(:ids)
+              .valid_with(attributes)
+              .type(Array)
+              .consists_of(String)
+              .required
+          )
+        end
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:first_id?).contains(true) }
-        it { expect(perform).to have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
+        it do
+          expect(perform).to(
+            have_output(:first_id)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:first_id?).contains(true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+        )
       end
     end
 
