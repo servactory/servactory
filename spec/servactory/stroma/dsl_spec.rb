@@ -13,11 +13,13 @@ RSpec.describe Servactory::Stroma::DSL do
       expect(base_class).to respond_to(:inherited)
     end
 
-    it "includes all registered DSL modules", :aggregate_failures do
-      expect(base_class.ancestors).to include(Servactory::Configuration::DSL)
-      expect(base_class.ancestors).to include(Servactory::Inputs::DSL)
-      expect(base_class.ancestors).to include(Servactory::Outputs::DSL)
-      expect(base_class.ancestors).to include(Servactory::Actions::DSL)
+    it "includes all registered DSL modules" do
+      Servactory::Stroma::Registry.entries.each do |entry|
+        expect(base_class.ancestors).to(
+          include(entry.extension),
+          "Expected ancestors to include #{entry.extension} (key: #{entry.key})"
+        )
+      end
     end
 
     it "creates a stroma configuration" do
