@@ -186,7 +186,7 @@ module Servactory
           # NilClass in types allows nil elements.
           return false if consists_of_types.include?(NilClass)
 
-          check_present = proc { it && !values.all?(&:present?) }
+          check_present = proc { _1 && !values.all?(&:present?) }
 
           [
             check_present[attribute.input? && (attribute.required? || (attribute.optional? && values.present?))],
