@@ -7,6 +7,8 @@ module Servactory
 
       def initialize: (?Set[Hook] collection) -> void
 
+      def initialize_dup: (Hooks original) -> void
+
       def add: (Symbol type, Symbol target_key, Module extension) -> Set[Hook]
 
       def before: (Symbol key) -> Array[Hook]
@@ -18,8 +20,6 @@ module Servactory
       def empty?: () -> bool
 
       def size: () -> Integer
-
-      def initialize_dup: (Hooks original) -> void
     end
   end
 end

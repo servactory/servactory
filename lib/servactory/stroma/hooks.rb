@@ -11,6 +11,11 @@ module Servactory
         @collection = collection
       end
 
+      def initialize_dup(original)
+        super
+        @collection = original.instance_variable_get(:@collection).dup
+      end
+
       def add(type, target_key, extension)
         @collection << Hook.new(type:, target_key:, extension:)
       end
@@ -21,11 +26,6 @@ module Servactory
 
       def after(key)
         @collection.select { |hook| hook.after? && hook.target_key == key }
-      end
-
-      def initialize_dup(original)
-        super
-        @collection = original.instance_variable_get(:@collection).dup
       end
     end
   end
