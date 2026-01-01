@@ -51,7 +51,14 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example1, type: :s
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_at).valid_with(attributes).type(String).optional }
+      it do
+        expect { perform }.to(
+          have_input(:started_at)
+            .valid_with(attributes)
+            .type(String)
+            .optional
+        )
+      end
     end
   end
 
@@ -105,7 +112,14 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example1, type: :s
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_at).valid_with(attributes).type(String).optional }
+      it do
+        expect { perform }.to(
+          have_input(:started_at)
+            .valid_with(attributes)
+            .type(String)
+            .optional
+        )
+      end
     end
   end
 end

@@ -26,11 +26,46 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
                     outputs: %i[api_response]
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:api_identifier).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:date).valid_with(attributes).type(DateTime).required }
+      it do
+        expect { perform }.to(
+          have_input(:api_identifier)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:first_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:middle_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:last_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:date)
+            .valid_with(attributes)
+            .type(DateTime)
+            .required
+        )
+      end
     end
   end
 
@@ -59,11 +94,46 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
                     outputs: %i[api_response]
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:api_identifier).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:date).valid_with(attributes).type(DateTime).required }
+      it do
+        expect { perform }.to(
+          have_input(:api_identifier)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:first_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:middle_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:last_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:date)
+            .valid_with(attributes)
+            .type(DateTime)
+            .required
+        )
+      end
     end
   end
 end

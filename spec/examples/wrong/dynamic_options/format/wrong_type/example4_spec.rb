@@ -32,7 +32,14 @@ RSpec.describe Wrong::DynamicOptions::Format::WrongType::Example4, type: :servic
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:value).valid_with(attributes).type(Integer).required }
+      it do
+        expect { perform }.to(
+          have_input(:value)
+            .valid_with(attributes)
+            .type(Integer)
+            .required
+        )
+      end
     end
   end
 
@@ -67,7 +74,14 @@ RSpec.describe Wrong::DynamicOptions::Format::WrongType::Example4, type: :servic
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:value).valid_with(attributes).type(Integer).required }
+      it do
+        expect { perform }.to(
+          have_input(:value)
+            .valid_with(attributes)
+            .type(Integer)
+            .required
+        )
+      end
     end
   end
 end

@@ -47,9 +47,30 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:input_1).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:input_2).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:input_3).valid_with(attributes).type(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:input_1)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:input_2)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:input_3)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
     end
   end
 
@@ -99,9 +120,30 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:input_1).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:input_2).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:input_3).valid_with(attributes).type(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:input_1)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:input_2)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:input_3)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
     end
   end
 end

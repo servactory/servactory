@@ -51,7 +51,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Properties::Pattern::Exa
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:song_duration).valid_with(attributes).type(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:song_duration)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
     end
   end
 
@@ -105,7 +112,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Properties::Pattern::Exa
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:song_duration).valid_with(attributes).type(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:song_duration)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
     end
   end
 end

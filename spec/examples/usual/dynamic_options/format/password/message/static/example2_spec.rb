@@ -50,7 +50,14 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:password).valid_with(attributes).type(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:password)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
     end
   end
 
@@ -103,7 +110,14 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:password).valid_with(attributes).type(String).required }
+      it do
+        expect { perform }.to(
+          have_input(:password)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
     end
   end
 end

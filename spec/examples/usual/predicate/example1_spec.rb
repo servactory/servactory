@@ -72,9 +72,30 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:enable).valid_with(attributes).types(TrueClass, FalseClass).required }
-      it { expect { perform }.to have_input(:text).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
+      it do
+        expect { perform }.to(
+          have_input(:enable)
+            .valid_with(attributes)
+            .types(TrueClass, FalseClass)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:text)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:number)
+            .valid_with(attributes)
+            .type(Integer)
+            .required
+        )
+      end
     end
   end
 
@@ -149,9 +170,30 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:enable).valid_with(attributes).types(TrueClass, FalseClass).required }
-      it { expect { perform }.to have_input(:text).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
+      it do
+        expect { perform }.to(
+          have_input(:enable)
+            .valid_with(attributes)
+            .types(TrueClass, FalseClass)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:text)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+      it do
+        expect { perform }.to(
+          have_input(:number)
+            .valid_with(attributes)
+            .type(Integer)
+            .required
+        )
+      end
     end
   end
 end

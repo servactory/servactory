@@ -32,7 +32,14 @@ RSpec.describe Wrong::DynamicOptions::Target::Example3, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:service_class).valid_with(attributes).type(Class).required }
+      it do
+        expect { perform }.to(
+          have_input(:service_class)
+            .valid_with(attributes)
+            .type(Class)
+            .required
+        )
+      end
     end
   end
 
@@ -67,7 +74,14 @@ RSpec.describe Wrong::DynamicOptions::Target::Example3, type: :service do
     end
 
     context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:service_class).valid_with(attributes).type(Class).required }
+      it do
+        expect { perform }.to(
+          have_input(:service_class)
+            .valid_with(attributes)
+            .type(Class)
+            .required
+        )
+      end
     end
   end
 end
