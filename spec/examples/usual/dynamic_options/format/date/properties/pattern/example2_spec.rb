@@ -26,7 +26,12 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
         )
       end
 
-      it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
+      it do
+        expect(perform).to(
+          have_output(:started_on)
+            .contains(Date.parse(started_on))
+        )
+      end
     end
 
     describe "but the data required for work is invalid" do
@@ -75,7 +80,12 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
         )
       end
 
-      it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
+      it do
+        expect(perform).to(
+          have_output(:started_on)
+            .contains(Date.parse(started_on))
+        )
+      end
     end
 
     describe "but the data required for work is invalid" do

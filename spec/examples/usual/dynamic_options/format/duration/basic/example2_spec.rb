@@ -26,7 +26,12 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example2, type: :
         )
       end
 
-      it { expect(perform).to have_output(:song_duration).contains(ActiveSupport::Duration.parse(song_duration)) }
+      it do
+        expect(perform).to(
+          have_output(:song_duration)
+            .contains(ActiveSupport::Duration.parse(song_duration))
+        )
+      end
     end
 
     describe "but the data required for work is invalid" do
@@ -75,7 +80,12 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example2, type: :
         )
       end
 
-      it { expect(perform).to have_output(:song_duration).contains(ActiveSupport::Duration.parse(song_duration)) }
+      it do
+        expect(perform).to(
+          have_output(:song_duration)
+            .contains(ActiveSupport::Duration.parse(song_duration))
+        )
+      end
     end
 
     describe "but the data required for work is invalid" do

@@ -26,7 +26,12 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
         )
       end
 
-      it { expect(perform).to have_output(:started_at).contains(Time.parse(started_at)) }
+      it do
+        expect(perform).to(
+          have_output(:started_at)
+            .contains(Time.parse(started_at))
+        )
+      end
     end
 
     describe "but the data required for work is invalid" do
@@ -75,7 +80,12 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
         )
       end
 
-      it { expect(perform).to have_output(:started_at).contains(Time.parse(started_at)) }
+      it do
+        expect(perform).to(
+          have_output(:started_at)
+            .contains(Time.parse(started_at))
+        )
+      end
     end
 
     describe "but the data required for work is invalid" do

@@ -26,7 +26,12 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Static::Example
         )
       end
 
-      it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
+      it do
+        expect(perform).to(
+          have_output(:started_at)
+            .contains(DateTime.parse(started_at))
+        )
+      end
     end
 
     describe "but the data required for work is invalid" do
@@ -74,7 +79,12 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Static::Example
         )
       end
 
-      it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
+      it do
+        expect(perform).to(
+          have_output(:started_at)
+            .contains(DateTime.parse(started_at))
+        )
+      end
     end
 
     describe "but the data required for work is invalid" do

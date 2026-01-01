@@ -21,8 +21,22 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
       it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:balance_with_bonus).instance_of(Usual::Prepare::Example1::Money) }
-      it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).contains(3_000_00) }
-      it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).contains(:USD) }
+
+      it do
+        expect(perform).to(
+          have_output(:balance_with_bonus)
+            .nested(:cents)
+            .contains(3_000_00)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:balance_with_bonus)
+            .nested(:currency)
+            .contains(:USD)
+        )
+      end
     end
 
     context "when the input arguments are invalid" do
@@ -50,8 +64,22 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
       it_behaves_like "success result class"
 
       it { expect(perform).to have_output(:balance_with_bonus).instance_of(Usual::Prepare::Example1::Money) }
-      it { expect(perform).to have_output(:balance_with_bonus).nested(:cents).contains(3_000_00) }
-      it { expect(perform).to have_output(:balance_with_bonus).nested(:currency).contains(:USD) }
+
+      it do
+        expect(perform).to(
+          have_output(:balance_with_bonus)
+            .nested(:cents)
+            .contains(3_000_00)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:balance_with_bonus)
+            .nested(:currency)
+            .contains(:USD)
+        )
+      end
     end
 
     context "when the input arguments are invalid" do
