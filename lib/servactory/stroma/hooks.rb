@@ -29,7 +29,7 @@ module Servactory
     class Hooks
       extend Forwardable
 
-      def_delegators :@collection, :each, :empty?, :size
+      def_delegators :@collection, :each, :map, :size, :empty?
 
       def initialize(collection = Set.new)
         @collection = collection
