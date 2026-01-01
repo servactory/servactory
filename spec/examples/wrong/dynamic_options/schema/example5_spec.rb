@@ -11,7 +11,7 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example5, type: :service do
 
     describe "validations" do
       describe "internals" do
-        it do # rubocop:disable RSpec/ExampleLength
+        it do
           expect { perform }.to(
             have_internal(:payload)
               .type(Hash)
@@ -55,7 +55,7 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example5, type: :service do
 
     describe "validations" do
       describe "internals" do
-        it do # rubocop:disable RSpec/ExampleLength
+        it do
           expect { perform }.to(
             have_internal(:payload)
               .type(Hash)

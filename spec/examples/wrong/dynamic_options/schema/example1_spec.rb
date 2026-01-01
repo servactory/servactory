@@ -32,7 +32,7 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example1, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it do # rubocop:disable RSpec/ExampleLength
+        it do
           expect { perform }.to(
             have_input(:payload)
               .valid_with(attributes)
@@ -117,7 +117,7 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example1, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it do # rubocop:disable RSpec/ExampleLength
+        it do
           expect { perform }.to(
             have_input(:payload)
               .valid_with(attributes)

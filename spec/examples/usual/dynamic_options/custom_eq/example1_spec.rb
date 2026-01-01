@@ -19,7 +19,11 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it { expect { perform }.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required }
+        it {
+          expect do
+            perform
+          end.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required
+        }
       end
 
       describe "outputs" do
@@ -153,7 +157,11 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it { expect { perform }.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required }
+        it {
+          expect do
+            perform
+          end.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required
+        }
       end
 
       describe "outputs" do

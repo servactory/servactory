@@ -24,7 +24,7 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example2, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it do # rubocop:disable RSpec/ExampleLength
+        it do
           expect { perform }.to(
             have_input(:payload)
               .type(Hash)
@@ -82,7 +82,7 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example2, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it do # rubocop:disable RSpec/ExampleLength
+        it do
           expect { perform }.to(
             have_input(:payload)
               .type(Hash)

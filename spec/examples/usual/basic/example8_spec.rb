@@ -69,7 +69,7 @@ RSpec.describe Usual::Basic::Example8, type: :service do
       describe "because wrong email" do
         let(:email) { "wrong@email.com" }
 
-        it "returns expected error" do
+        it "returns expected error", :aggregate_failures do
           expect { perform }.to(
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
@@ -84,7 +84,7 @@ RSpec.describe Usual::Basic::Example8, type: :service do
       describe "because wrong password" do
         let(:password) { "wrong_password" }
 
-        it "returns expected error" do
+        it "returns expected error", :aggregate_failures do
           expect { perform }.to(
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
