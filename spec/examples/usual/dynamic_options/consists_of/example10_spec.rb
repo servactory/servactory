@@ -26,10 +26,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
                     internals: %i[ids],
                     outputs: %i[ids first_id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        # NOTE: In this example, collection mode is disabled.
+        it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).required }
+      end
 
+      describe "outputs" do
         it { expect(perform).to have_output(:ids?).contains(true) }
 
         it do
@@ -41,11 +44,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
         it { expect(perform).to have_output(:first_id?).contains(true) }
         it { expect(perform).to have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
-    end
-
-    context "when the input arguments are invalid" do
-      # NOTE: In this example, collection mode is disabled.
-      it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).required }
     end
   end
 
@@ -74,10 +72,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
                     internals: %i[ids],
                     outputs: %i[ids first_id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        # NOTE: In this example, collection mode is disabled.
+        it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).required }
+      end
 
+      describe "outputs" do
         it { expect(perform).to have_output(:ids?).contains(true) }
 
         it do
@@ -89,11 +90,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
         it { expect(perform).to have_output(:first_id?).contains(true) }
         it { expect(perform).to have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
       end
-    end
-
-    context "when the input arguments are invalid" do
-      # NOTE: In this example, collection mode is disabled.
-      it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).required }
     end
   end
 end

@@ -19,44 +19,42 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
                     internals: %i[letters],
                     outputs: %i[letters desired_letter]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:letters)
+              .valid_with(attributes)
+              .type(Array)
+              .consists_of(String, NilClass)
+              .required
+          )
+        end
+      end
 
+      describe "outputs" do
         it { expect(perform).to have_output(:letters?).contains(true) }
         it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]]) }
         it { expect(perform).to have_output(:desired_letter?).contains(true) }
         it { expect(perform).to have_output(:desired_letter).contains("E") }
       end
-
-      describe "but the data required for work is invalid" do
-        describe "because one element has the wrong type" do
-          let(:letters) do
-            [%w[A B], ["C", :D, %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example9] Wrong element type in input collection `letters`, " \
-                "expected `String, NilClass`, got `Symbol`"
-              )
-            )
-          end
-        end
-      end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:letters)
-            .valid_with(attributes)
-            .type(Array)
-            .consists_of(String, NilClass)
-            .required
-        )
+    describe "but the data required for work is invalid" do
+      describe "because one element has the wrong type" do
+        let(:letters) do
+          [%w[A B], ["C", :D, %w[E F]]]
+        end
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::ConsistsOf::Example9] Wrong element type in input collection `letters`, " \
+              "expected `String, NilClass`, got `Symbol`"
+            )
+          )
+        end
       end
     end
   end
@@ -79,44 +77,42 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
                     internals: %i[letters],
                     outputs: %i[letters desired_letter]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:letters)
+              .valid_with(attributes)
+              .type(Array)
+              .consists_of(String, NilClass)
+              .required
+          )
+        end
+      end
 
+      describe "outputs" do
         it { expect(perform).to have_output(:letters?).contains(true) }
         it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]]) }
         it { expect(perform).to have_output(:desired_letter?).contains(true) }
         it { expect(perform).to have_output(:desired_letter).contains("E") }
       end
-
-      describe "but the data required for work is invalid" do
-        describe "because one element has the wrong type" do
-          let(:letters) do
-            [%w[A B], ["C", :D, %w[E F]]]
-          end
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::ConsistsOf::Example9] Wrong element type in input collection `letters`, " \
-                "expected `String, NilClass`, got `Symbol`"
-              )
-            )
-          end
-        end
-      end
     end
 
-    context "when the input arguments are invalid" do
-      it do
-        expect { perform }.to(
-          have_input(:letters)
-            .valid_with(attributes)
-            .type(Array)
-            .consists_of(String, NilClass)
-            .required
-        )
+    describe "but the data required for work is invalid" do
+      describe "because one element has the wrong type" do
+        let(:letters) do
+          [%w[A B], ["C", :D, %w[E F]]]
+        end
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::ConsistsOf::Example9] Wrong element type in input collection `letters`, " \
+              "expected `String, NilClass`, got `Symbol`"
+            )
+          )
+        end
       end
     end
   end
