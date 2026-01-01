@@ -30,7 +30,13 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceCrossFailure::Example1, type: 
       end
 
       it "accepts any Servactory::Exceptions::Failure subclass" do
-        expect(perform).to be_failure_service.message("Cross-service error from sibling class")
+        expect(perform).to(
+          be_failure_service
+            .with(ApplicationService::Exceptions::Failure)
+            .type(:base)
+            .message("Cross-service error from sibling class")
+            .meta(nil)
+        )
       end
     end
 
@@ -43,7 +49,13 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceCrossFailure::Example1, type: 
       end
 
       it "also works with exact failure class" do
-        expect(perform).to be_failure_service.message("Cross-service error from exact class")
+        expect(perform).to(
+          be_failure_service
+            .with(ApplicationService::Exceptions::Failure)
+            .type(:base)
+            .message("Cross-service error from exact class")
+            .meta(nil)
+        )
       end
     end
   end
@@ -71,7 +83,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceCrossFailure::Example1, type: 
           raise_error do |exception|
             # Parent service uses fail_result! which creates NEW exception with PARENT's failure_class
             expect(exception).to be_a(ApplicationService::Exceptions::Failure)
+            expect(exception.type).to eq(:base)
             expect(exception.message).to eq("Cross-service error with exact class")
+            expect(exception.meta).to be_nil
           end
         )
       end
@@ -91,7 +105,9 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceCrossFailure::Example1, type: 
         expect { perform }.to(
           raise_error do |exception|
             expect(exception).to be_a(ApplicationService::Exceptions::Failure)
+            expect(exception.type).to eq(:base)
             expect(exception.message).to eq("Cross-service error from sibling class")
+            expect(exception.meta).to be_nil
           end
         )
       end
