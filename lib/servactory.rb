@@ -14,6 +14,10 @@ loader.inflector.inflect(
 )
 loader.setup
 
+# Eager load DSL to initialize Stroma::Registry.
+# Registry must be populated before any service class is defined.
+require_relative "servactory/dsl"
+
 module Servactory; end
 
 require "servactory/engine" if defined?(Rails::Engine)

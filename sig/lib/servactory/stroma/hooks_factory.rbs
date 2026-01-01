@@ -1,0 +1,17 @@
+module Servactory
+  module Stroma
+    class HooksFactory
+      @hooks: Hooks
+
+      def initialize: (Hooks hooks) -> void
+
+      def before: (Symbol key, *Module extensions) -> void
+
+      def after: (Symbol key, *Module extensions) -> void
+
+      private
+
+      def validate_key!: (Symbol key) -> void
+    end
+  end
+end

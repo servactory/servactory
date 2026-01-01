@@ -1,0 +1,8 @@
+module Servactory
+  module Stroma
+    module Exceptions
+      class KeyAlreadyRegistered < Base
+      end
+    end
+  end
+end
