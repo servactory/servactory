@@ -33,10 +33,47 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:letters?).contains(true) }
-        it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]]) }
-        it { expect(perform).to have_output(:desired_letter?).contains(true) }
-        it { expect(perform).to have_output(:desired_letter).contains("E") }
+        it do
+          expect(perform).to(
+            have_output(:letters)
+              .instance_of(Array)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:desired_letter)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:letters?).contains(true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]])
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:desired_letter?).contains(true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:desired_letter).contains("E")
+        )
       end
     end
 
@@ -91,10 +128,47 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:letters?).contains(true) }
-        it { expect(perform).to have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]]) }
-        it { expect(perform).to have_output(:desired_letter?).contains(true) }
-        it { expect(perform).to have_output(:desired_letter).contains("E") }
+        it do
+          expect(perform).to(
+            have_output(:letters)
+              .instance_of(Array)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:desired_letter)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:letters?).contains(true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]])
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:desired_letter?).contains(true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:desired_letter).contains("E")
+        )
       end
     end
 

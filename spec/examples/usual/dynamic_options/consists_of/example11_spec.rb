@@ -21,12 +21,40 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).consists_of(String).optional }
+        it do
+          expect { perform }.to(
+            have_input(:ids)
+              .valid_with(attributes)
+              .type(Array)
+              .consists_of(String)
+              .optional
+          )
+        end
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:ids?).contains(false) }
-        it { expect(perform).to have_output(:ids).contains([]) }
+        it do
+          expect(perform).to(
+            have_output(:ids)
+              .instance_of(Array)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:ids?).contains(false)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:ids).contains([])
+        )
       end
     end
 
@@ -111,12 +139,40 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it { expect { perform }.to have_input(:ids).valid_with(attributes).type(Array).consists_of(String).optional }
+        it do
+          expect { perform }.to(
+            have_input(:ids)
+              .valid_with(attributes)
+              .type(Array)
+              .consists_of(String)
+              .optional
+          )
+        end
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:ids?).contains(false) }
-        it { expect(perform).to have_output(:ids).contains([]) }
+        it do
+          expect(perform).to(
+            have_output(:ids)
+              .instance_of(Array)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:ids?).contains(false)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:ids).contains([])
+        )
       end
     end
 

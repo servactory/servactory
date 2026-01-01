@@ -38,39 +38,89 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7, type: :service do
       end
 
       describe "outputs" do
-        context "when `ids` is `String`" do
-          it { expect(perform).to have_output(:ids?).contains(true) }
-
-          it do
-            expect(perform).to(
-              have_output(:ids).contains(
-                %w[
-                  6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-                  bdd30bb6-c6ab-448d-8302-7018de07b9a4
-                  e864b5e7-e515-4d5e-9a7e-7da440323390
-                  b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-                ]
-              )
-            )
-          end
-
-          it { expect(perform).to have_output(:first_id?).contains(true) }
-          it { expect(perform).to have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
+        it do
+          expect(perform).to(
+            have_output(:ids)
+              .instance_of(Array)
+          )
         end
 
-        context "when `ids` is `Integer`" do
-          let(:ids) do
-            [
-              123,
-              456,
-              789
-            ]
-          end
+        it do
+          expect(perform).to(
+            have_output(:first_id)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
-          it { expect(perform).to have_output(:ids?).contains(true) }
-          it { expect(perform).to have_output(:ids).contains([123, 456, 789]) }
-          it { expect(perform).to have_output(:first_id?).contains(true) }
-          it { expect(perform).to have_output(:first_id).contains(123) }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      context "when `ids` is `String`" do
+        it do
+          expect(perform).to(
+            have_output(:ids?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:ids).contains(
+              %w[
+                6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
+                bdd30bb6-c6ab-448d-8302-7018de07b9a4
+                e864b5e7-e515-4d5e-9a7e-7da440323390
+                b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+              ]
+            )
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_id?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+          )
+        end
+      end
+
+      context "when `ids` is `Integer`" do
+        let(:ids) do
+          [
+            123,
+            456,
+            789
+          ]
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:ids?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:ids).contains([123, 456, 789])
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_id?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_id).contains(123)
+          )
         end
       end
     end
@@ -153,39 +203,89 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example7, type: :service do
       end
 
       describe "outputs" do
-        context "when `ids` is `String`" do
-          it { expect(perform).to have_output(:ids?).contains(true) }
-
-          it do
-            expect(perform).to(
-              have_output(:ids).contains(
-                %w[
-                  6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
-                  bdd30bb6-c6ab-448d-8302-7018de07b9a4
-                  e864b5e7-e515-4d5e-9a7e-7da440323390
-                  b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
-                ]
-              )
-            )
-          end
-
-          it { expect(perform).to have_output(:first_id?).contains(true) }
-          it { expect(perform).to have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3") }
+        it do
+          expect(perform).to(
+            have_output(:ids)
+              .instance_of(Array)
+          )
         end
 
-        context "when `ids` is `Integer`" do
-          let(:ids) do
-            [
-              123,
-              456,
-              789
-            ]
-          end
+        it do
+          expect(perform).to(
+            have_output(:first_id)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
-          it { expect(perform).to have_output(:ids?).contains(true) }
-          it { expect(perform).to have_output(:ids).contains([123, 456, 789]) }
-          it { expect(perform).to have_output(:first_id?).contains(true) }
-          it { expect(perform).to have_output(:first_id).contains(123) }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      context "when `ids` is `String`" do
+        it do
+          expect(perform).to(
+            have_output(:ids?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:ids).contains(
+              %w[
+                6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
+                bdd30bb6-c6ab-448d-8302-7018de07b9a4
+                e864b5e7-e515-4d5e-9a7e-7da440323390
+                b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
+              ]
+            )
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_id?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+          )
+        end
+      end
+
+      context "when `ids` is `Integer`" do
+        let(:ids) do
+          [
+            123,
+            456,
+            789
+          ]
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:ids?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:ids).contains([123, 456, 789])
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_id?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_id).contains(123)
+          )
         end
       end
     end

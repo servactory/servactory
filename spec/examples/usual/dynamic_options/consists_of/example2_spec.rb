@@ -39,8 +39,28 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:first_invoice_number?).contains(true) }
-        it { expect(perform).to have_output(:first_invoice_number).contains("7650AE") }
+        it do
+          expect(perform).to(
+            have_output(:first_invoice_number)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:first_invoice_number?).contains(true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:first_invoice_number).contains("7650AE")
+        )
       end
     end
 
@@ -165,8 +185,28 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:first_invoice_number?).contains(true) }
-        it { expect(perform).to have_output(:first_invoice_number).contains("7650AE") }
+        it do
+          expect(perform).to(
+            have_output(:first_invoice_number)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:first_invoice_number?).contains(true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:first_invoice_number).contains("7650AE")
+        )
       end
     end
 
