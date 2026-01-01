@@ -19,6 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it { expect(perform).to have_output(:password?).contains(true) }
         it { expect(perform).to have_output(:password).contains("~hUN`AgY=YpW.061") }
       end
@@ -62,6 +64,8 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it { expect(perform).to have_output(:password?).contains(true) }
         it { expect(perform).to have_output(:password).contains("~hUN`AgY=YpW.061") }
       end

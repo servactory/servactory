@@ -19,6 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example3, type: :s
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it { expect(perform).to have_output(:service_id?).contains(false) }
         it { expect(perform).to have_output(:service_id).contains(nil) }
       end
@@ -63,6 +65,8 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example3, type: :s
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it { expect(perform).to have_output(:service_id?).contains(false) }
         it { expect(perform).to have_output(:service_id).contains(nil) }
       end

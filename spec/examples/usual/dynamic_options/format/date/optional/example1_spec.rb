@@ -19,6 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example1, type: :s
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it { expect(perform).to have_output(:started_on?).contains(false) }
         it { expect(perform).to have_output(:started_on).contains(nil) }
       end
@@ -63,6 +65,8 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example1, type: :s
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it { expect(perform).to have_output(:started_on?).contains(false) }
         it { expect(perform).to have_output(:started_on).contains(nil) }
       end

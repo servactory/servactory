@@ -19,6 +19,8 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example1, type: :service
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it { expect(perform).to have_output(:started_on?).contains(true) }
         it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
       end
@@ -62,6 +64,8 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example1, type: :service
 
     context "when the input arguments are valid" do
       describe "and the data required for work is also valid" do
+        it_behaves_like "success result class"
+
         it { expect(perform).to have_output(:started_on?).contains(true) }
         it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
       end
