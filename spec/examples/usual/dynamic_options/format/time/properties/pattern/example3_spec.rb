@@ -20,11 +20,11 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Properties::Pattern::Example
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.started_at?).to be(true)
-        expect(result.started_at).to eq("08:58:00")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:started_at, "08:58:00")
+        )
       end
     end
 
@@ -77,11 +77,11 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Properties::Pattern::Example
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.started_at?).to be(true)
-        expect(result.started_at).to eq("08:58:00")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:started_at, "08:58:00")
+        )
       end
     end
 

@@ -22,14 +22,8 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Static::Example1, t
 
       it do
         expect(perform).to(
-          have_output(:started_at?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:started_at)
-            .contains(Time.parse(started_at))
+          be_success_service
+            .with_output(:started_at, Time.parse(started_at))
         )
       end
     end
@@ -84,14 +78,8 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Static::Example1, t
 
       it do
         expect(perform).to(
-          have_output(:started_at?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:started_at)
-            .contains(Time.parse(started_at))
+          be_success_service
+            .with_output(:started_at, Time.parse(started_at))
         )
       end
     end

@@ -22,14 +22,8 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Basic::Example1, type: :serv
 
       it do
         expect(perform).to(
-          have_output(:started_on?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:started_on)
-            .contains(Date.parse(started_on))
+          be_success_service
+            .with_output(:started_on, Date.parse(started_on))
         )
       end
     end
@@ -84,14 +78,8 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Basic::Example1, type: :serv
 
       it do
         expect(perform).to(
-          have_output(:started_on?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:started_on)
-            .contains(Date.parse(started_on))
+          be_success_service
+            .with_output(:started_on, Date.parse(started_on))
         )
       end
     end

@@ -20,11 +20,11 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Static::Example
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.song_duration?).to be(true)
-        expect(result.song_duration).to eq("P7D")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:song_duration, "P7D")
+        )
       end
     end
 
@@ -76,11 +76,11 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Static::Example
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.song_duration?).to be(true)
-        expect(result.song_duration).to eq("P7D")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:song_duration, "P7D")
+        )
       end
     end
 

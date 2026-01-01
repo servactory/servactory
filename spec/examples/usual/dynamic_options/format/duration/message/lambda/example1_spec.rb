@@ -22,14 +22,8 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
 
       it do
         expect(perform).to(
-          have_output(:song_duration?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:song_duration)
-            .contains(ActiveSupport::Duration.parse(song_duration))
+          be_success_service
+            .with_output(:song_duration, ActiveSupport::Duration.parse(song_duration))
         )
       end
     end
@@ -84,14 +78,8 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
 
       it do
         expect(perform).to(
-          have_output(:song_duration?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:song_duration)
-            .contains(ActiveSupport::Duration.parse(song_duration))
+          be_success_service
+            .with_output(:song_duration, ActiveSupport::Duration.parse(song_duration))
         )
       end
     end

@@ -22,14 +22,8 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Basic::Example1, type: :
 
       it do
         expect(perform).to(
-          have_output(:started_at?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:started_at)
-            .contains(DateTime.parse(started_at))
+          be_success_service
+            .with_output(:started_at, DateTime.parse(started_at))
         )
       end
     end
@@ -85,14 +79,8 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Basic::Example1, type: :
 
       it do
         expect(perform).to(
-          have_output(:started_at?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:started_at)
-            .contains(DateTime.parse(started_at))
+          be_success_service
+            .with_output(:started_at, DateTime.parse(started_at))
         )
       end
     end
