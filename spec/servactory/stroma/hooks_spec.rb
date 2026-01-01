@@ -103,15 +103,12 @@ RSpec.describe Servactory::Stroma::Hooks do
     end
 
     it "yields each hook" do
-      yielded = []
-      hooks.each { |hook| yielded << hook }
+      yielded = hooks.map { |hook| hook }
       expect(yielded.size).to eq(2)
     end
 
     it "yields Hook objects" do
-      hooks.each do |hook|
-        expect(hook).to be_a(Servactory::Stroma::Hook)
-      end
+      expect(hooks).to all(be_a(Servactory::Stroma::Hook))
     end
   end
 end
