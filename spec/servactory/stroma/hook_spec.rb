@@ -41,4 +41,29 @@ RSpec.describe Servactory::Stroma::Hook do
       expect { hook.instance_variable_set(:@type, :after) }.to raise_error(FrozenError)
     end
   end
+
+  describe "type validation" do
+    it "accepts :before type" do
+      expect { described_class.new(type: :before, target_key: :actions, extension: test_module) }
+        .not_to raise_error
+    end
+
+    it "accepts :after type" do
+      expect { described_class.new(type: :after, target_key: :actions, extension: test_module) }
+        .not_to raise_error
+    end
+
+    it "raises InvalidHookType for invalid type" do
+      expect { described_class.new(type: :invalid, target_key: :actions, extension: test_module) }
+        .to raise_error(
+          Servactory::Stroma::Exceptions::InvalidHookType,
+          "Invalid hook type: :invalid. Valid types: :before, :after"
+        )
+    end
+
+    it "raises InvalidHookType for nil type" do
+      expect { described_class.new(type: nil, target_key: :actions, extension: test_module) }
+        .to raise_error(Servactory::Stroma::Exceptions::InvalidHookType)
+    end
+  end
 end

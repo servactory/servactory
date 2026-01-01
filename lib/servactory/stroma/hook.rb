@@ -27,6 +27,17 @@ module Servactory
     #
     # Hook is immutable (Data object) - once created, it cannot be modified.
     Hook = Data.define(:type, :target_key, :extension) do
+      VALID_TYPES = %i[before after].freeze
+
+      def initialize(type:, target_key:, extension:)
+        unless VALID_TYPES.include?(type)
+          raise Exceptions::InvalidHookType,
+                "Invalid hook type: #{type.inspect}. Valid types: #{VALID_TYPES.map(&:inspect).join(', ')}"
+        end
+
+        super
+      end
+
       def before?
         type == :before
       end
