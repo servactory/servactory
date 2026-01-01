@@ -22,8 +22,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:health_check_time).contains(mock_timestamp) }
-          it { expect(perform).to have_output(:system_status).contains(:healthy) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:health_check_time, mock_timestamp)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:system_status, :healthy)
+            )
+          end
         end
 
         describe "with service returning degraded status" do
@@ -35,7 +46,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:system_status).contains(:degraded) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:system_status, :degraded)
+            )
+          end
         end
       end
     end
@@ -57,7 +73,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:health_check_time).contains(mock_timestamp) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:health_check_time, mock_timestamp)
+            )
+          end
         end
       end
 

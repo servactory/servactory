@@ -22,13 +22,23 @@ RSpec.describe Usual::Success::Example1, type: :service do
         it_behaves_like "success result class"
 
         context "when `number` has a value for early success" do
-          it { expect(perform).to have_output(:number).contains(2) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 2)
+            )
+          end
         end
 
         context "when `number` has no value for early success" do
           let(:number) { 2 }
 
-          it { expect(perform).to have_output(:number).contains(16) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 16)
+            )
+          end
         end
       end
     end
@@ -59,13 +69,23 @@ RSpec.describe Usual::Success::Example1, type: :service do
         it_behaves_like "success result class"
 
         context "when `number` has a value for early success" do
-          it { expect(perform).to have_output(:number).contains(2) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 2)
+            )
+          end
         end
 
         context "when `number` has no value for early success" do
           let(:number) { 2 }
 
-          it { expect(perform).to have_output(:number).contains(16) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 16)
+            )
+          end
         end
       end
     end

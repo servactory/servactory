@@ -53,7 +53,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:ids).contains([])
+          be_success_service
+            .with_output(:ids, [])
         )
       end
     end
@@ -171,7 +172,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:ids).contains([])
+          be_success_service
+            .with_output(:ids, [])
         )
       end
     end

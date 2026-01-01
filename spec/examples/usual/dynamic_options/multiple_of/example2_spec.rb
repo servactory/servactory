@@ -22,8 +22,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
         context "when `number` is `Integer`" do
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(90) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 90)
+            )
+          end
         end
 
         context "when `number` is `Float`" do
@@ -31,8 +41,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(90.0) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 90.0)
+            )
+          end
         end
 
         context "when `number` is `Rational`" do
@@ -40,8 +60,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(90 / 1) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 90 / 1)
+            )
+          end
         end
 
         context "when `number` is `BigDecimal`" do
@@ -49,8 +79,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(0.90e2) } # rubocop:disable Style/ExponentialNotation
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 0.90e2)
+            )
+          end
         end
       end
 
@@ -259,8 +299,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
         context "when `number` is `Integer`" do
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(90) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 90)
+            )
+          end
         end
 
         context "when `number` is `Float`" do
@@ -268,8 +318,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(90.0) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 90.0)
+            )
+          end
         end
 
         context "when `number` is `Rational`" do
@@ -277,8 +337,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(90 / 1) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 90 / 1)
+            )
+          end
         end
 
         context "when `number` is `BigDecimal`" do
@@ -286,8 +356,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(0.90e2) } # rubocop:disable Style/ExponentialNotation
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 0.90e2)
+            )
+          end
         end
       end
 

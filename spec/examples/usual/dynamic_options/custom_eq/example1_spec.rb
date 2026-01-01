@@ -28,15 +28,35 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
       describe "outputs" do
         context "when `data` is `Integer`" do
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains(2) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, 2)
+            )
+          end
         end
 
         context "when `data` is `String`" do
           let(:data) { "Hi" }
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains("Hi") }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, "Hi")
+            )
+          end
         end
 
         context "when `data` is `Array`" do
@@ -53,8 +73,18 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
         context "when `data` is `Hash`" do
           let(:data) { { a: 1, b: 2 } }
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains({ a: 1, b: 2 }) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, { a: 1, b: 2 })
+            )
+          end
         end
       end
     end
@@ -166,15 +196,35 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
       describe "outputs" do
         context "when `data` is `Integer`" do
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains(2) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, 2)
+            )
+          end
         end
 
         context "when `data` is `String`" do
           let(:data) { "Hi" }
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains("Hi") }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, "Hi")
+            )
+          end
         end
 
         context "when `data` is `Array`" do
@@ -191,8 +241,18 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
         context "when `data` is `Hash`" do
           let(:data) { { a: 1, b: 2 } }
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains({ a: 1, b: 2 }) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, { a: 1, b: 2 })
+            )
+          end
         end
       end
     end

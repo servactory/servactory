@@ -26,8 +26,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:tracking_status).contains(:shipped) }
-        it { expect(perform).to have_output(:error_message).contains(nil) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:tracking_status, :shipped)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:error_message, nil)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -39,8 +50,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:tracking_status).contains(:error) }
-          it { expect(perform).to have_output(:error_message).contains("Order ORD-12345 not found") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:tracking_status, :error)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:error_message, "Order ORD-12345 not found")
+            )
+          end
         end
       end
     end
@@ -66,7 +88,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:tracking_status).contains(:shipped) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:tracking_status, :shipped)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

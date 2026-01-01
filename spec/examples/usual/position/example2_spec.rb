@@ -13,7 +13,12 @@ RSpec.describe Usual::Position::Example2, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:number).contains(6) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 6)
+          )
+        end
       end
     end
   end
@@ -30,7 +35,12 @@ RSpec.describe Usual::Position::Example2, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:number).contains(6) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 6)
+          )
+        end
       end
     end
   end

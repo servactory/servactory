@@ -53,7 +53,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example16, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:ids).contains(Set.new)
+          be_success_service
+            .with_output(:ids, Set.new)
         )
       end
     end
@@ -171,7 +172,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example16, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:ids).contains(Set.new)
+          be_success_service
+            .with_output(:ids, Set.new)
         )
       end
     end

@@ -21,7 +21,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example15, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:score).contains(75) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:score, 75)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -73,7 +78,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example15, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:score).contains(75) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:score, 75)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

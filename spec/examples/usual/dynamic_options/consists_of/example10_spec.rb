@@ -67,7 +67,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:ids).contains(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
+          be_success_service
+            .with_output(:ids, ["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
         )
       end
 
@@ -79,7 +80,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+          be_success_service
+            .with_output(:first_id, "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         )
       end
     end
@@ -151,7 +153,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:ids).contains(["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
+          be_success_service
+            .with_output(:ids, ["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
         )
       end
 
@@ -163,7 +166,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:first_id).contains("6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+          be_success_service
+            .with_output(:first_id, "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
         )
       end
     end

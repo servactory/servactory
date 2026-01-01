@@ -60,7 +60,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]])
+          be_success_service
+            .with_output(:letters, [%w[A B], ["C", "D", %w[E F], nil, ""]])
         )
       end
 
@@ -72,7 +73,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:desired_letter).contains("E")
+          be_success_service
+            .with_output(:desired_letter, "E")
         )
       end
     end
@@ -155,7 +157,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:letters).contains([%w[A B], ["C", "D", %w[E F], nil, ""]])
+          be_success_service
+            .with_output(:letters, [%w[A B], ["C", "D", %w[E F], nil, ""]])
         )
       end
 
@@ -167,7 +170,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:desired_letter).contains("E")
+          be_success_service
+            .with_output(:desired_letter, "E")
         )
       end
     end

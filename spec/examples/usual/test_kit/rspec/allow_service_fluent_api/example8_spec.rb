@@ -28,9 +28,26 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:display_name).contains("John Doe") }
-          it { expect(perform).to have_output(:contact_email).contains("john@example.com") }
-          it { expect(perform).to have_output(:account_status).contains(:active) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:display_name, "John Doe")
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:contact_email, "john@example.com")
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:account_status, :active)
+            )
+          end
         end
 
         describe "with inputs before succeeds" do
@@ -42,9 +59,26 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:display_name).contains("Jane Smith") }
-          it { expect(perform).to have_output(:contact_email).contains("jane@example.com") }
-          it { expect(perform).to have_output(:account_status).contains(:inactive) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:display_name, "Jane Smith")
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:contact_email, "jane@example.com")
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:account_status, :inactive)
+            )
+          end
         end
 
         describe "with succeeds before inputs" do
@@ -56,7 +90,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:display_name).contains("Updated Name") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:display_name, "Updated Name")
+            )
+          end
         end
       end
     end
@@ -84,9 +123,26 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:display_name).contains("Order Test") }
-          it { expect(perform).to have_output(:contact_email).contains("order@example.com") }
-          it { expect(perform).to have_output(:account_status).contains(:active) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:display_name, "Order Test")
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:contact_email, "order@example.com")
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:account_status, :active)
+            )
+          end
         end
       end
     end

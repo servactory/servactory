@@ -21,8 +21,18 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example1
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:boolean?).contains(true) }
-        it { expect(perform).to have_output(:boolean).contains("true") }
+        it do
+          expect(perform).to(
+            have_output(:boolean?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:boolean, "true")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -66,8 +76,18 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example1
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:boolean?).contains(true) }
-        it { expect(perform).to have_output(:boolean).contains("true") }
+        it do
+          expect(perform).to(
+            have_output(:boolean?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:boolean, "true")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

@@ -22,13 +22,23 @@ RSpec.describe Usual::Arguments::Example1, type: :service do
         it_behaves_like "success result class"
 
         context "when `invoice_number` is `String`" do
-          it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:invoice_number, "AA-7650AE")
+            )
+          end
         end
 
         context "when `invoice_number` is `Integer`" do
           let(:invoice_number) { 123 }
 
-          it { expect(perform).to have_output(:invoice_number).contains(123) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:invoice_number, 123)
+            )
+          end
         end
       end
     end
@@ -59,13 +69,23 @@ RSpec.describe Usual::Arguments::Example1, type: :service do
         it_behaves_like "success result class"
 
         context "when `invoice_number` is `String`" do
-          it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:invoice_number, "AA-7650AE")
+            )
+          end
         end
 
         context "when `invoice_number` is `Integer`" do
           let(:invoice_number) { 123 }
 
-          it { expect(perform).to have_output(:invoice_number).contains(123) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:invoice_number, 123)
+            )
+          end
         end
       end
     end

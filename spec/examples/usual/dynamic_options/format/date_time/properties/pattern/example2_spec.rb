@@ -21,7 +21,12 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Exa
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:started_at?).contains(true) }
+        it do
+          expect(perform).to(
+            have_output(:started_at?).contains(true)
+          )
+        end
+
         it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
       end
 
@@ -67,7 +72,12 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Properties::Pattern::Exa
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:started_at?).contains(true) }
+        it do
+          expect(perform).to(
+            have_output(:started_at?).contains(true)
+          )
+        end
+
         it { expect(perform).to have_output(:started_at).contains(DateTime.parse(started_at)) }
       end
 

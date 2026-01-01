@@ -59,7 +59,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:first_invoice_number).contains("7650AE")
+          be_success_service
+            .with_output(:first_invoice_number, "7650AE")
         )
       end
     end
@@ -205,7 +206,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:first_invoice_number).contains("7650AE")
+          be_success_service
+            .with_output(:first_invoice_number, "7650AE")
         )
       end
     end

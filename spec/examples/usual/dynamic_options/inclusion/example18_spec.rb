@@ -21,7 +21,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example18, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:limited_number).contains(50) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:limited_number, 50)
+          )
+        end
       end
 
       describe "and the value is at the boundary" do
@@ -29,7 +34,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example18, type: :service do
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:limited_number).contains(100) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:limited_number, 100)
+          )
+        end
       end
 
       describe "and the value is negative" do
@@ -37,7 +47,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example18, type: :service do
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:limited_number).contains(-1000) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:limited_number, -1000)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -106,7 +121,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example18, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:limited_number).contains(50) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:limited_number, 50)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

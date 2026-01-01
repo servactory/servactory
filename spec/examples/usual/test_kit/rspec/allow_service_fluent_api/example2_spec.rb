@@ -27,8 +27,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:final_status).contains(:completed) }
-          it { expect(perform).to have_output(:total_attempts).contains(1) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:final_status, :completed)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:total_attempts, 1)
+            )
+          end
         end
 
         describe "when child succeeds on second attempt (sequential returns)" do
@@ -40,8 +51,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:final_status).contains(:completed) }
-          it { expect(perform).to have_output(:total_attempts).contains(2) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:final_status, :completed)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:total_attempts, 2)
+            )
+          end
         end
 
         describe "when child never completes (all attempts return processing)" do
@@ -54,8 +76,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:final_status).contains(:processing) }
-          it { expect(perform).to have_output(:total_attempts).contains(4) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:final_status, :processing)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:total_attempts, 4)
+            )
+          end
         end
       end
     end
@@ -82,7 +115,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:final_status).contains(:completed) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:final_status, :completed)
+            )
+          end
         end
 
         describe "when child succeeds on second attempt (sequential returns)" do
@@ -94,7 +132,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:final_status).contains(:completed) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:final_status, :completed)
+            )
+          end
         end
       end
     end

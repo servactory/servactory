@@ -28,7 +28,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example9, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:order_summary).contains("Order #1001: John Doe - $99.99") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:order_summary, "Order #1001: John Doe - $99.99")
+            )
+          end
         end
       end
 
@@ -96,7 +101,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example9, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:order_summary).contains("Order #3003: Test User - $200.5") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:order_summary, "Order #3003: Test User - $200.5")
+            )
+          end
         end
       end
 

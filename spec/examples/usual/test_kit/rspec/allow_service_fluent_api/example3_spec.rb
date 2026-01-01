@@ -26,7 +26,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:greeting).contains("Hello, John Doe!") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:greeting, "Hello, John Doe!")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -71,7 +76,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:greeting).contains("Hello, John Doe!") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:greeting, "Hello, John Doe!")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

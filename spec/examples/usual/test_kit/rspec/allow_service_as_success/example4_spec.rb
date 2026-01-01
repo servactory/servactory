@@ -31,7 +31,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:display_value).contains("100 US Dollars") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:display_value, "100 US Dollars")
+            )
+          end
         end
 
         describe "without with: parameter (matches any inputs)" do
@@ -43,7 +48,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:display_value).contains("Any Amount") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:display_value, "Any Amount")
+            )
+          end
         end
       end
     end
@@ -74,7 +84,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:display_value).contains("500 Euros") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:display_value, "500 Euros")
+            )
+          end
         end
       end
     end

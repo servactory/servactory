@@ -25,7 +25,12 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:full_name, "John Fitzgerald Kennedy")
+          )
+        end
 
         it "returns expected error", :aggregate_failures do
           expect { perform.full_name? }.to raise_error do |exception|
@@ -77,7 +82,12 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:full_name, "John Fitzgerald Kennedy")
+          )
+        end
 
         it "returns expected error", :aggregate_failures do
           expect { perform.full_name? }.to raise_error do |exception|

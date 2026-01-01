@@ -21,8 +21,18 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example1, type: :
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:password?).contains(true) }
-        it { expect(perform).to have_output(:password).contains("~hUN`AgY=YpW.061") }
+        it do
+          expect(perform).to(
+            have_output(:password?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:password, "~hUN`AgY=YpW.061")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -67,8 +77,18 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example1, type: :
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:password?).contains(true) }
-        it { expect(perform).to have_output(:password).contains("~hUN`AgY=YpW.061") }
+        it do
+          expect(perform).to(
+            have_output(:password?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:password, "~hUN`AgY=YpW.061")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

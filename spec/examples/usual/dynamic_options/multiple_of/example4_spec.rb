@@ -24,8 +24,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
         context "when `number` is `30.0`" do
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(30.0) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 30.0)
+            )
+          end
         end
 
         context "when `number` is `60.0`" do
@@ -33,8 +43,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(60.0) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 60.0)
+            )
+          end
         end
       end
 
@@ -119,8 +139,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
         context "when `number` is `30.0`" do
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(30.0) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 30.0)
+            )
+          end
         end
 
         context "when `number` is `60.0`" do
@@ -128,8 +158,18 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:number?).contains(true) }
-          it { expect(perform).to have_output(:number).contains(60.0) }
+          it do
+            expect(perform).to(
+              have_output(:number?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:number, 60.0)
+            )
+          end
         end
       end
 

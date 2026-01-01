@@ -21,7 +21,12 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Is::Example1, type: :ser
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:song_duration?).contains(true) }
+        it do
+          expect(perform).to(
+            have_output(:song_duration?).contains(true)
+          )
+        end
+
         it { expect(perform).to have_output(:song_duration).contains(ActiveSupport::Duration.parse(song_duration)) }
       end
 
@@ -67,7 +72,12 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Is::Example1, type: :ser
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:song_duration?).contains(true) }
+        it do
+          expect(perform).to(
+            have_output(:song_duration?).contains(true)
+          )
+        end
+
         it { expect(perform).to have_output(:song_duration).contains(ActiveSupport::Duration.parse(song_duration)) }
       end
 

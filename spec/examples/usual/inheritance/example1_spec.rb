@@ -25,9 +25,26 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:output_1).contains("First") }
-        it { expect(perform).to have_output(:output_2).contains("Second") }
-        it { expect(perform).to have_output(:output_3).contains("Third") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:output_1, "First")
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:output_2, "Second")
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:output_3, "Third")
+          )
+        end
       end
     end
 
@@ -62,9 +79,26 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:output_1).contains("First") }
-        it { expect(perform).to have_output(:output_2).contains("Second") }
-        it { expect(perform).to have_output(:output_3).contains("Third") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:output_1, "First")
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:output_2, "Second")
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:output_3, "Third")
+          )
+        end
       end
     end
 

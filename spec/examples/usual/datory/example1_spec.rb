@@ -19,7 +19,12 @@ RSpec.describe Usual::Datory::Example1, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:id).contains(id) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:id, id)
+          )
+        end
       end
     end
 
@@ -46,7 +51,12 @@ RSpec.describe Usual::Datory::Example1, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:id).contains(id) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:id, id)
+          )
+        end
       end
     end
 

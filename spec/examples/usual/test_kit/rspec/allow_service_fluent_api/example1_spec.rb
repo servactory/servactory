@@ -26,8 +26,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:payment_status).contains(:completed) }
-        it { expect(perform).to have_output(:payment_transaction_id).contains("txn_mocked") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:payment_status, :completed)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:payment_transaction_id, "txn_mocked")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -69,8 +80,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:payment_status).contains(:completed) }
-        it { expect(perform).to have_output(:payment_transaction_id).contains("txn_mocked") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:payment_status, :completed)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:payment_transaction_id, "txn_mocked")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

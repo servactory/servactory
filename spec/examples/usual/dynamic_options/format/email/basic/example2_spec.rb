@@ -21,8 +21,18 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example2, type: :ser
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:email?).contains(true) }
-        it { expect(perform).to have_output(:email).contains("No Reply <noreply@servactory.com>") }
+        it do
+          expect(perform).to(
+            have_output(:email?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:email, "No Reply <noreply@servactory.com>")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -67,8 +77,18 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example2, type: :ser
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:email?).contains(true) }
-        it { expect(perform).to have_output(:email).contains("No Reply <noreply@servactory.com>") }
+        it do
+          expect(perform).to(
+            have_output(:email?).contains(true)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:email, "No Reply <noreply@servactory.com>")
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

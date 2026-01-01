@@ -21,7 +21,12 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Static::Example2, t
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:started_on?).contains(true) }
+        it do
+          expect(perform).to(
+            have_output(:started_on?).contains(true)
+          )
+        end
+
         it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
       end
 
@@ -66,7 +71,12 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Static::Example2, t
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:started_on?).contains(true) }
+        it do
+          expect(perform).to(
+            have_output(:started_on?).contains(true)
+          )
+        end
+
         it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
       end
 

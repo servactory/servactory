@@ -29,9 +29,26 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:final_status).contains(:error) }
-          it { expect(perform).to have_output(:total_attempts).contains(3) }
-          it { expect(perform).to have_output(:error_message).contains("Service temporarily unavailable") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:final_status, :error)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:total_attempts, 3)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:error_message, "Service temporarily unavailable")
+            )
+          end
         end
 
         describe "when child fails on first attempt" do
@@ -42,9 +59,26 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:final_status).contains(:error) }
-          it { expect(perform).to have_output(:total_attempts).contains(1) }
-          it { expect(perform).to have_output(:error_message).contains("Connection refused") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:final_status, :error)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:total_attempts, 1)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:error_message, "Connection refused")
+            )
+          end
         end
 
         describe "when child succeeds on second attempt" do
@@ -56,9 +90,26 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:final_status).contains(:completed) }
-          it { expect(perform).to have_output(:total_attempts).contains(2) }
-          it { expect(perform).to have_output(:error_message).contains(nil) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:final_status, :completed)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:total_attempts, 2)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:error_message, nil)
+            )
+          end
         end
       end
     end
@@ -86,8 +137,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:final_status).contains(:error) }
-          it { expect(perform).to have_output(:error_message).contains("Request timed out") }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:final_status, :error)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:error_message, "Request timed out")
+            )
+          end
         end
       end
     end

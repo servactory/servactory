@@ -22,8 +22,18 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
         context "when `data` is `Integer`" do
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains(10) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, 10)
+            )
+          end
         end
 
         context "when `data` is `String`" do
@@ -31,8 +41,18 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains("Sesquipedalianism") }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, "Sesquipedalianism")
+            )
+          end
         end
 
         context "when `data` is `Array`" do
@@ -40,8 +60,18 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+            )
+          end
         end
 
         context "when `data` is `Hash`" do
@@ -49,8 +79,18 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains({ a: 1, b: 2, c: 3, d: 4 }) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, { a: 1, b: 2, c: 3, d: 4 })
+            )
+          end
         end
       end
 
@@ -263,8 +303,18 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
         context "when `data` is `Integer`" do
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains(10) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, 10)
+            )
+          end
         end
 
         context "when `data` is `String`" do
@@ -272,8 +322,18 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains("Sesquipedalianism") }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, "Sesquipedalianism")
+            )
+          end
         end
 
         context "when `data` is `Array`" do
@@ -281,8 +341,18 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+            )
+          end
         end
 
         context "when `data` is `Hash`" do
@@ -290,8 +360,18 @@ RSpec.describe Usual::DynamicOptions::Min::Example2, type: :service do
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:data?).contains(true) }
-          it { expect(perform).to have_output(:data).contains({ a: 1, b: 2, c: 3, d: 4 }) }
+          it do
+            expect(perform).to(
+              have_output(:data?).contains(true)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:data, { a: 1, b: 2, c: 3, d: 4 })
+            )
+          end
         end
       end
 

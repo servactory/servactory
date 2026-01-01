@@ -21,8 +21,18 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example1, type: :s
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:started_on?).contains(false) }
-        it { expect(perform).to have_output(:started_on).contains(nil) }
+        it do
+          expect(perform).to(
+            have_output(:started_on?).contains(false)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:started_on, nil)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -67,8 +77,18 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Optional::Example1, type: :s
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:started_on?).contains(false) }
-        it { expect(perform).to have_output(:started_on).contains(nil) }
+        it do
+          expect(perform).to(
+            have_output(:started_on?).contains(false)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:started_on, nil)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

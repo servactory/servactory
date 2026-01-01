@@ -21,7 +21,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:positive_number).contains(42) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:positive_number, 42)
+          )
+        end
       end
 
       describe "and the value is at the boundary" do
@@ -29,7 +34,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:positive_number).contains(1) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:positive_number, 1)
+          )
+        end
       end
 
       describe "and the value is very large" do
@@ -37,7 +47,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
 
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:positive_number).contains(1_000_000) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:positive_number, 1_000_000)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do
@@ -106,7 +121,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
       describe "and the data required for work is also valid" do
         it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:positive_number).contains(42) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:positive_number, 42)
+          )
+        end
       end
 
       describe "but the data required for work is invalid" do

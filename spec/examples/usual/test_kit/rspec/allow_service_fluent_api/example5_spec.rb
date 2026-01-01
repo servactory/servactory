@@ -32,8 +32,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:order_total).contains(500) }
-          it { expect(perform).to have_output(:has_discount).contains(false) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:order_total, 500)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:has_discount, false)
+            )
+          end
         end
 
         describe "with partial input matching using including()" do
@@ -45,8 +56,19 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:order_total).contains(500) }
-          it { expect(perform).to have_output(:has_discount).contains(true) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:order_total, 500)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:has_discount, true)
+            )
+          end
         end
 
         describe "with partial input matching for multiple keys" do
@@ -58,7 +80,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:order_total).contains(1000) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:order_total, 1000)
+            )
+          end
         end
       end
     end
@@ -90,7 +117,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:order_total).contains(500) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:order_total, 500)
+            )
+          end
         end
 
         describe "with excluding() matcher" do
@@ -102,7 +134,12 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
 
           it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:order_total).contains(750) }
+          it do
+            expect(perform).to(
+              be_success_service
+                .with_output(:order_total, 750)
+            )
+          end
         end
       end
     end
