@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example2
 
       it do
         expect(perform).to(
-          have_output(:boolean?).contains(true)
+          be_success_service
+            .with_output(:boolean, "true")
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:boolean, "true")
+          have_output(:boolean?).contains(true)
         )
       end
     end
@@ -75,14 +75,14 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example2
 
       it do
         expect(perform).to(
-          have_output(:boolean?).contains(true)
+          be_success_service
+            .with_output(:boolean, "true")
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:boolean, "true")
+          have_output(:boolean?).contains(true)
         )
       end
     end

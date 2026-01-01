@@ -23,14 +23,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:data?).contains(true)
+            be_success_service
+              .with_output(:data, 1)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:data, 1)
+            have_output(:data?).contains(true)
           )
         end
       end
@@ -42,14 +42,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:data?).contains(true)
+            be_success_service
+              .with_output(:data, "Data")
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:data, "Data")
+            have_output(:data?).contains(true)
           )
         end
       end
@@ -61,14 +61,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:data?).contains(true)
+            be_success_service
+              .with_output(:data, [0])
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:data, [0])
+            have_output(:data?).contains(true)
           )
         end
       end
@@ -80,14 +80,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:data?).contains(true)
+            be_success_service
+              .with_output(:data, { a: 1 })
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:data, { a: 1 })
+            have_output(:data?).contains(true)
           )
         end
       end
@@ -315,14 +315,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:data?).contains(true)
+            be_success_service
+              .with_output(:data, 1)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:data, 1)
+            have_output(:data?).contains(true)
           )
         end
       end
@@ -334,14 +334,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:data?).contains(true)
+            be_success_service
+              .with_output(:data, "Data")
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:data, "Data")
+            have_output(:data?).contains(true)
           )
         end
       end
@@ -353,14 +353,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:data?).contains(true)
+            be_success_service
+              .with_output(:data, [0])
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:data, [0])
+            have_output(:data?).contains(true)
           )
         end
       end
@@ -372,14 +372,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:data?).contains(true)
+            be_success_service
+              .with_output(:data, { a: 1 })
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:data, { a: 1 })
+            have_output(:data?).contains(true)
           )
         end
       end

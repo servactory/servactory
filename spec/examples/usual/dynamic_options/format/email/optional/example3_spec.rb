@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example3, type: :
 
       it do
         expect(perform).to(
-          have_output(:email?).contains(false)
+          be_success_service
+            .with_output(:email, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:email, nil)
+          have_output(:email?).contains(false)
         )
       end
     end
@@ -76,14 +76,14 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example3, type: :
 
       it do
         expect(perform).to(
-          have_output(:email?).contains(false)
+          be_success_service
+            .with_output(:email, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:email, nil)
+          have_output(:email?).contains(false)
         )
       end
     end

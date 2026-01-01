@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example2, type:
 
       it do
         expect(perform).to(
-          have_output(:boolean?).contains(false)
+          be_success_service
+            .with_output(:boolean, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:boolean, nil)
+          have_output(:boolean?).contains(false)
         )
       end
     end
@@ -76,14 +76,14 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example2, type:
 
       it do
         expect(perform).to(
-          have_output(:boolean?).contains(false)
+          be_success_service
+            .with_output(:boolean, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:boolean, nil)
+          have_output(:boolean?).contains(false)
         )
       end
     end

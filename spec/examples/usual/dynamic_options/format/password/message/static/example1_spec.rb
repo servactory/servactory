@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
 
       it do
         expect(perform).to(
-          have_output(:password?).contains(true)
+          be_success_service
+            .with_output(:password, "~hUN`AgY=YpW.061")
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:password, "~hUN`AgY=YpW.061")
+          have_output(:password?).contains(true)
         )
       end
     end
@@ -75,14 +75,14 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
 
       it do
         expect(perform).to(
-          have_output(:password?).contains(true)
+          be_success_service
+            .with_output(:password, "~hUN`AgY=YpW.061")
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:password, "~hUN`AgY=YpW.061")
+          have_output(:password?).contains(true)
         )
       end
     end

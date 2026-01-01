@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example1, 
 
       it do
         expect(perform).to(
-          have_output(:email?).contains(true)
+          be_success_service
+            .with_output(:email, "No Reply <noreply@servactory.com>")
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:email, "No Reply <noreply@servactory.com>")
+          have_output(:email?).contains(true)
         )
       end
     end
@@ -75,14 +75,14 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example1, 
 
       it do
         expect(perform).to(
-          have_output(:email?).contains(true)
+          be_success_service
+            .with_output(:email, "No Reply <noreply@servactory.com>")
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:email, "No Reply <noreply@servactory.com>")
+          have_output(:email?).contains(true)
         )
       end
     end

@@ -54,12 +54,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:letters?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
           be_success_service
             .with_output(:letters, [%w[A B], ["C", "D", %w[E F]]])
         )
@@ -67,7 +61,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:desired_letter?).contains(true)
+          have_output(:letters?).contains(true)
         )
       end
 
@@ -75,6 +69,12 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
         expect(perform).to(
           be_success_service
             .with_output(:desired_letter, "E")
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:desired_letter?).contains(true)
         )
       end
     end
@@ -183,12 +183,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:letters?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
           be_success_service
             .with_output(:letters, [%w[A B], ["C", "D", %w[E F]]])
         )
@@ -196,7 +190,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:desired_letter?).contains(true)
+          have_output(:letters?).contains(true)
         )
       end
 
@@ -204,6 +198,12 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
         expect(perform).to(
           be_success_service
             .with_output(:desired_letter, "E")
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:desired_letter?).contains(true)
         )
       end
     end

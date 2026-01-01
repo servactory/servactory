@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example3, type: :s
 
       it do
         expect(perform).to(
-          have_output(:service_id?).contains(false)
+          be_success_service
+            .with_output(:service_id, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:service_id, nil)
+          have_output(:service_id?).contains(false)
         )
       end
     end
@@ -76,14 +76,14 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example3, type: :s
 
       it do
         expect(perform).to(
-          have_output(:service_id?).contains(false)
+          be_success_service
+            .with_output(:service_id, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:service_id, nil)
+          have_output(:service_id?).contains(false)
         )
       end
     end

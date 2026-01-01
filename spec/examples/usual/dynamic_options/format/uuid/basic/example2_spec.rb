@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Basic::Example2, type: :serv
 
       it do
         expect(perform).to(
-          have_output(:service_id?).contains(true)
+          be_success_service
+            .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
+          have_output(:service_id?).contains(true)
         )
       end
     end
@@ -76,14 +76,14 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Basic::Example2, type: :serv
 
       it do
         expect(perform).to(
-          have_output(:service_id?).contains(true)
+          be_success_service
+            .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
+          have_output(:service_id?).contains(true)
         )
       end
     end

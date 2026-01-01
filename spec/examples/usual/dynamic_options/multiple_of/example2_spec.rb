@@ -23,14 +23,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:number?).contains(true)
+            be_success_service
+              .with_output(:number, 90)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:number, 90)
+            have_output(:number?).contains(true)
           )
         end
       end
@@ -42,14 +42,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:number?).contains(true)
+            be_success_service
+              .with_output(:number, 90.0)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:number, 90.0)
+            have_output(:number?).contains(true)
           )
         end
       end
@@ -61,14 +61,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:number?).contains(true)
+            be_success_service
+              .with_output(:number, 90 / 1)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:number, 90 / 1)
+            have_output(:number?).contains(true)
           )
         end
       end
@@ -80,14 +80,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:number?).contains(true)
+            be_success_service
+              .with_output(:number, 90)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:number, 90)
+            have_output(:number?).contains(true)
           )
         end
       end
@@ -298,14 +298,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:number?).contains(true)
+            be_success_service
+              .with_output(:number, 90)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:number, 90)
+            have_output(:number?).contains(true)
           )
         end
       end
@@ -317,14 +317,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:number?).contains(true)
+            be_success_service
+              .with_output(:number, 90.0)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:number, 90.0)
+            have_output(:number?).contains(true)
           )
         end
       end
@@ -336,14 +336,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:number?).contains(true)
+            be_success_service
+              .with_output(:number, 90 / 1)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:number, 90 / 1)
+            have_output(:number?).contains(true)
           )
         end
       end
@@ -355,14 +355,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
 
         it do
           expect(perform).to(
-            have_output(:number?).contains(true)
+            be_success_service
+              .with_output(:number, 90)
           )
         end
 
         it do
           expect(perform).to(
-            be_success_service
-              .with_output(:number, 90)
+            have_output(:number?).contains(true)
           )
         end
       end

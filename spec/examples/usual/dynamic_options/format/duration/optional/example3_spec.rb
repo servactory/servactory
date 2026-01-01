@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Optional::Example3, type
 
       it do
         expect(perform).to(
-          have_output(:song_duration?).contains(false)
+          be_success_service
+            .with_output(:song_duration, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:song_duration, nil)
+          have_output(:song_duration?).contains(false)
         )
       end
     end
@@ -76,14 +76,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Optional::Example3, type
 
       it do
         expect(perform).to(
-          have_output(:song_duration?).contains(false)
+          be_success_service
+            .with_output(:song_duration, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:song_duration, nil)
+          have_output(:song_duration?).contains(false)
         )
       end
     end

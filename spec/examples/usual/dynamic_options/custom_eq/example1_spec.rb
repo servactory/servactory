@@ -30,14 +30,14 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
         context "when `data` is `Integer`" do
           it do
             expect(perform).to(
-              have_output(:data?).contains(true)
+              be_success_service
+                .with_output(:data, 2)
             )
           end
 
           it do
             expect(perform).to(
-              be_success_service
-                .with_output(:data, 2)
+              have_output(:data?).contains(true)
             )
           end
         end
@@ -47,14 +47,14 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
           it do
             expect(perform).to(
-              have_output(:data?).contains(true)
+              be_success_service
+                .with_output(:data, "Hi")
             )
           end
 
           it do
             expect(perform).to(
-              be_success_service
-                .with_output(:data, "Hi")
+              have_output(:data?).contains(true)
             )
           end
         end
@@ -75,14 +75,14 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
           it do
             expect(perform).to(
-              have_output(:data?).contains(true)
+              be_success_service
+                .with_output(:data, { a: 1, b: 2 })
             )
           end
 
           it do
             expect(perform).to(
-              be_success_service
-                .with_output(:data, { a: 1, b: 2 })
+              have_output(:data?).contains(true)
             )
           end
         end
@@ -198,14 +198,14 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
         context "when `data` is `Integer`" do
           it do
             expect(perform).to(
-              have_output(:data?).contains(true)
+              be_success_service
+                .with_output(:data, 2)
             )
           end
 
           it do
             expect(perform).to(
-              be_success_service
-                .with_output(:data, 2)
+              have_output(:data?).contains(true)
             )
           end
         end
@@ -215,14 +215,14 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
           it do
             expect(perform).to(
-              have_output(:data?).contains(true)
+              be_success_service
+                .with_output(:data, "Hi")
             )
           end
 
           it do
             expect(perform).to(
-              be_success_service
-                .with_output(:data, "Hi")
+              have_output(:data?).contains(true)
             )
           end
         end
@@ -243,14 +243,14 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
           it do
             expect(perform).to(
-              have_output(:data?).contains(true)
+              be_success_service
+                .with_output(:data, { a: 1, b: 2 })
             )
           end
 
           it do
             expect(perform).to(
-              be_success_service
-                .with_output(:data, { a: 1, b: 2 })
+              have_output(:data?).contains(true)
             )
           end
         end

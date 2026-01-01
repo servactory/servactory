@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example1, type: :s
 
       it do
         expect(perform).to(
-          have_output(:started_at?).contains(false)
+          be_success_service
+            .with_output(:started_at, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:started_at, nil)
+          have_output(:started_at?).contains(false)
         )
       end
     end
@@ -76,14 +76,14 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example1, type: :s
 
       it do
         expect(perform).to(
-          have_output(:started_at?).contains(false)
+          be_success_service
+            .with_output(:started_at, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:started_at, nil)
+          have_output(:started_at?).contains(false)
         )
       end
     end

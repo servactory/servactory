@@ -52,12 +52,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example19, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:ids?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
           be_success_service
             .with_output(:ids, %w[
                            6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
@@ -65,6 +59,12 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example19, type: :service do
                            e864b5e7-e515-4d5e-9a7e-7da440323390
                            b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
                          ])
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:ids?).contains(true)
         )
       end
     end
@@ -181,12 +181,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example19, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:ids?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
           be_success_service
             .with_output(:ids, %w[
                            6e6ff7d9-6980-4c98-8fd8-ca615ccebab3
@@ -194,6 +188,12 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example19, type: :service do
                            e864b5e7-e515-4d5e-9a7e-7da440323390
                            b0f7c462-86a4-4e5b-8d56-5dcfcabe0f81
                          ])
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:ids?).contains(true)
         )
       end
     end

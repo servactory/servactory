@@ -22,14 +22,14 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Optional::Example2, type
 
       it do
         expect(perform).to(
-          have_output(:password?).contains(false)
+          be_success_service
+            .with_output(:password, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:password, nil)
+          have_output(:password?).contains(false)
         )
       end
     end
@@ -76,14 +76,14 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Optional::Example2, type
 
       it do
         expect(perform).to(
-          have_output(:password?).contains(false)
+          be_success_service
+            .with_output(:password, nil)
         )
       end
 
       it do
         expect(perform).to(
-          be_success_service
-            .with_output(:password, nil)
+          have_output(:password?).contains(false)
         )
       end
     end
