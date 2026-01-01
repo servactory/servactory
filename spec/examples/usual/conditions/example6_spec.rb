@@ -32,52 +32,38 @@ RSpec.describe Usual::Conditions::Example6, type: :service do
       end
 
       describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:number)
-              .instance_of(Integer)
-          )
-        end
+        it { expect(perform).to have_output(:number).instance_of(Integer) }
+        it { expect(perform).to be_success_service.with_output(:number, 7) }
       end
     end
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "because the input `locked` is `nil`" do
+      let(:locked) { nil }
 
-        it { expect(perform).to have_output(:number).contains(7) }
+      it "returns expected error", :aggregate_failures do
+        expect { perform }.to(
+          raise_error do |exception|
+            expect(exception).to be_a(ApplicationService::Exceptions::Failure)
+            expect(exception.type).to eq(:base)
+            expect(exception.message).to eq("Locked!")
+            expect(exception.meta).to be_nil
+          end
+        )
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the input `locked` is `nil`" do
-          let(:locked) { nil }
+    describe "because the input `locked` is `\"\"`" do
+      let(:locked) { "" }
 
-          it "returns expected error", :aggregate_failures do
-            expect { perform }.to(
-              raise_error do |exception|
-                expect(exception).to be_a(ApplicationService::Exceptions::Failure)
-                expect(exception.type).to eq(:base)
-                expect(exception.message).to eq("Locked!")
-                expect(exception.meta).to be_nil
-              end
-            )
+      it "returns expected error", :aggregate_failures do
+        expect { perform }.to(
+          raise_error do |exception|
+            expect(exception).to be_a(ApplicationService::Exceptions::Failure)
+            expect(exception.type).to eq(:base)
+            expect(exception.message).to eq("Locked!")
+            expect(exception.meta).to be_nil
           end
-        end
-
-        describe "because the input `locked` is `\"\"`" do
-          let(:locked) { "" }
-
-          it "returns expected error", :aggregate_failures do
-            expect { perform }.to(
-              raise_error do |exception|
-                expect(exception).to be_a(ApplicationService::Exceptions::Failure)
-                expect(exception.type).to eq(:base)
-                expect(exception.message).to eq("Locked!")
-                expect(exception.meta).to be_nil
-              end
-            )
-          end
-        end
+        )
       end
     end
   end
@@ -113,52 +99,38 @@ RSpec.describe Usual::Conditions::Example6, type: :service do
       end
 
       describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:number)
-              .instance_of(Integer)
-          )
-        end
+        it { expect(perform).to have_output(:number).instance_of(Integer) }
+        it { expect(perform).to be_success_service.with_output(:number, 7) }
       end
     end
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "because the input `locked` is `nil`" do
+      let(:locked) { nil }
 
-        it { expect(perform).to have_output(:number).contains(7) }
+      it "returns the expected value in `errors`", :aggregate_failures do
+        result = perform
+
+        expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
+        expect(result.error).to an_object_having_attributes(
+          type: :base,
+          message: "Locked!",
+          meta: nil
+        )
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because the input `locked` is `nil`" do
-          let(:locked) { nil }
+    describe "because the input `locked` is `\"\"`" do
+      let(:locked) { "" }
 
-          it "returns the expected value in `errors`", :aggregate_failures do
-            result = perform
+      it "returns the expected value in `errors`", :aggregate_failures do
+        result = perform
 
-            expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
-            expect(result.error).to an_object_having_attributes(
-              type: :base,
-              message: "Locked!",
-              meta: nil
-            )
-          end
-        end
-
-        describe "because the input `locked` is `\"\"`" do
-          let(:locked) { "" }
-
-          it "returns the expected value in `errors`", :aggregate_failures do
-            result = perform
-
-            expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
-            expect(result.error).to an_object_having_attributes(
-              type: :base,
-              message: "Locked!",
-              meta: nil
-            )
-          end
-        end
+        expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
+        expect(result.error).to an_object_having_attributes(
+          type: :base,
+          message: "Locked!",
+          meta: nil
+        )
       end
     end
   end

@@ -9,18 +9,16 @@ RSpec.describe Usual::Stage::Example6, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error", :aggregate_failures do
-          expect { perform }.to(
-            raise_error do |exception|
-              expect(exception).to be_a(ApplicationService::Exceptions::Failure)
-              expect(exception.type).to eq(:base)
-              expect(exception.message).to eq("rollback with bad number")
-              expect(exception.meta).to be_nil
-            end
-          )
-        end
+    describe "but the data required for work is invalid" do
+      it "returns expected error", :aggregate_failures do
+        expect { perform }.to(
+          raise_error do |exception|
+            expect(exception).to be_a(ApplicationService::Exceptions::Failure)
+            expect(exception.type).to eq(:base)
+            expect(exception.message).to eq("rollback with bad number")
+            expect(exception.meta).to be_nil
+          end
+        )
       end
     end
   end
@@ -33,20 +31,18 @@ RSpec.describe Usual::Stage::Example6, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it_behaves_like "failure result class"
+    describe "but the data required for work is invalid" do
+      it_behaves_like "failure result class"
 
-        it "returns the expected value in `errors`", :aggregate_failures do
-          result = perform
+      it "returns the expected value in `errors`", :aggregate_failures do
+        result = perform
 
-          expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
-          expect(result.error).to an_object_having_attributes(
-            type: :base,
-            message: "rollback with bad number",
-            meta: nil
-          )
-        end
+        expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
+        expect(result.error).to an_object_having_attributes(
+          type: :base,
+          message: "rollback with bad number",
+          meta: nil
+        )
       end
     end
   end

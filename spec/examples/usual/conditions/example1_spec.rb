@@ -9,11 +9,9 @@ RSpec.describe Usual::Conditions::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        it { expect(perform).to have_output(:number).contains(7) }
+    describe "validations" do
+      describe "outputs" do
+        it { expect(perform).to be_success_service.with_output(:number, 7) }
       end
     end
   end
@@ -26,11 +24,9 @@ RSpec.describe Usual::Conditions::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        it { expect(perform).to have_output(:number).contains(7) }
+    describe "validations" do
+      describe "outputs" do
+        it { expect(perform).to be_success_service.with_output(:number, 7) }
       end
     end
   end

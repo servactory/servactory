@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe Wrong::DynamicOptions::Schema::Example11, type: :service do
-  it_behaves_like "check class info",
-                  inputs: %i[],
-                  internals: %i[],
-                  outputs: %i[payload]
-
   describe ".call!" do
     subject(:perform) { described_class.call! }
+
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[payload]
 
     describe "but the data required for work is invalid" do
       it "returns expected error" do
@@ -24,6 +24,11 @@ RSpec.describe Wrong::DynamicOptions::Schema::Example11, type: :service do
 
   describe ".call" do
     subject(:perform) { described_class.call }
+
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[payload]
 
     describe "but the data required for work is invalid" do
       it "returns expected error" do
