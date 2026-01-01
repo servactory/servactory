@@ -13,15 +13,15 @@ module Servactory
     # ## Usage
     #
     # ```ruby
-    # applier = Applier.new(ChildService, hooks)
+    # applier = Servactory::Stroma::Applier.new(ChildService, hooks)
     # applier.apply!
     # # ChildService now includes all hook modules
     # ```
     #
     # ## Integration
     #
-    # Called by DSL.inherited after duplicating parent's configuration.
-    # Uses Registry.entries to determine hook application order.
+    # Called by Servactory::Stroma::DSL.inherited after duplicating parent's configuration.
+    # Uses Servactory::Stroma::Registry.entries to determine hook application order.
     class Applier
       def initialize(target_class, hooks)
         @target_class = target_class

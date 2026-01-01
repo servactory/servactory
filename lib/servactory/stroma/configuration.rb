@@ -12,7 +12,7 @@ module Servactory
     # ## Usage
     #
     # ```ruby
-    # config = Configuration.new
+    # config = Servactory::Stroma::Configuration.new
     # config.hooks.add(:before, :actions, MyModule)
     #
     # # During inheritance:

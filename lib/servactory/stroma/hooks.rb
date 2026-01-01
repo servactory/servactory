@@ -12,18 +12,19 @@ module Servactory
     # ## Usage
     #
     # ```ruby
-    # hooks = Hooks.new
+    # hooks = Servactory::Stroma::Hooks.new
     # hooks.add(:before, :actions, MyModule)
     # hooks.add(:after, :actions, AnotherModule)
     #
-    # hooks.before(:actions)  # => [Hook(...MyModule...)]
-    # hooks.after(:actions)   # => [Hook(...AnotherModule...)]
+    # hooks.before(:actions)  # => [Servactory::Stroma::Hook(...)]
+    # hooks.after(:actions)   # => [Servactory::Stroma::Hook(...)]
     # hooks.empty?            # => false
     # ```
     #
     # ## Integration
     #
-    # Stored in Configuration and used by Applier to apply hooks to classes.
+    # Stored in Servactory::Stroma::Configuration and used by
+    # Servactory::Stroma::Applier to apply hooks to classes.
     # Properly duplicated during class inheritance via initialize_dup.
     class Hooks
       extend Forwardable

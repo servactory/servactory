@@ -18,7 +18,7 @@ module Servactory
     # ## Usage
     #
     # ```ruby
-    # hook = Hook.new(type: :before, target_key: :actions, extension: MyExtension)
+    # hook = Servactory::Stroma::Hook.new(type: :before, target_key: :actions, extension: MyExtension)
     # hook.before?  # => true
     # hook.after?   # => false
     # ```

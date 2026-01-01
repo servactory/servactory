@@ -14,19 +14,19 @@ module Servactory
     #
     # ```ruby
     # # During gem initialization:
-    # Stroma::Registry.register(:inputs, Inputs::DSL)
-    # Stroma::Registry.register(:outputs, Outputs::DSL)
-    # Stroma::Registry.finalize!
+    # Servactory::Stroma::Registry.register(:inputs, Servactory::Inputs::DSL)
+    # Servactory::Stroma::Registry.register(:outputs, Servactory::Outputs::DSL)
+    # Servactory::Stroma::Registry.finalize!
     #
     # # After finalization:
-    # Stroma::Registry.keys       # => [:inputs, :outputs]
-    # Stroma::Registry.key?(:inputs)  # => true
+    # Servactory::Stroma::Registry.keys       # => [:inputs, :outputs]
+    # Servactory::Stroma::Registry.key?(:inputs)  # => true
     # ```
     #
     # ## Integration
     #
-    # Used by Stroma::DSL to include all registered modules in service classes.
-    # Used by HooksFactory to validate hook target keys.
+    # Used by Servactory::Stroma::DSL to include all registered modules in service classes.
+    # Used by Servactory::Stroma::HooksFactory to validate hook target keys.
     #
     # ## Thread Safety
     #
