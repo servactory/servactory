@@ -2,7 +2,7 @@
 
 RSpec.describe Servactory::Stroma::Registry do
   # NOTE: Registry is a Singleton and is already populated by Servactory::DSL.
-  # We test using the already-finalized registry.
+  #       We test using the already-finalized registry.
 
   describe ".entries" do
     it "returns all registered entries", :aggregate_failures do
@@ -28,17 +28,6 @@ RSpec.describe Servactory::Stroma::Registry do
         Servactory::Stroma::Exceptions::RegistryFrozen,
         "Registry is finalized"
       )
-    end
-  end
-
-  describe "Entry" do
-    describe ".new" do
-      subject(:entry) { Servactory::Stroma::Registry::Entry.new(key: :test, extension: test_module) }
-
-      let(:test_module) { Module.new }
-
-      it { expect(entry.key).to eq(:test) }
-      it { expect(entry.extension).to eq(test_module) }
     end
   end
 end

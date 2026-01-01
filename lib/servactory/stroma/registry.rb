@@ -5,8 +5,6 @@ module Servactory
     class Registry
       include Singleton
 
-      Entry = Data.define(:key, :extension)
-
       class << self
         delegate :register,
                  :finalize!,
