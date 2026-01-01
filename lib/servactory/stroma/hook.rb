@@ -2,6 +2,10 @@
 
 module Servactory
   module Stroma
+    # Valid hook types for Hook validation.
+    VALID_HOOK_TYPES = %i[before after].freeze
+    private_constant :VALID_HOOK_TYPES
+
     # Represents a hook configuration for extending service classes.
     #
     # ## Purpose
@@ -27,12 +31,10 @@ module Servactory
     #
     # Hook is immutable (Data object) - once created, it cannot be modified.
     Hook = Data.define(:type, :target_key, :extension) do
-      VALID_TYPES = %i[before after].freeze
-
       def initialize(type:, target_key:, extension:)
-        unless VALID_TYPES.include?(type)
+        unless VALID_HOOK_TYPES.include?(type)
           raise Exceptions::InvalidHookType,
-                "Invalid hook type: #{type.inspect}. Valid types: #{VALID_TYPES.map(&:inspect).join(', ')}"
+                "Invalid hook type: #{type.inspect}. Valid types: #{VALID_HOOK_TYPES.map(&:inspect).join(', ')}"
         end
 
         super
