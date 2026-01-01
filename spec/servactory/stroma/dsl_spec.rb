@@ -109,8 +109,9 @@ RSpec.describe Servactory::Stroma::DSL do
       end
     end
 
-    it "child modifications do not affect parent" do
-      child_class = Class.new(parent_class)
+    let(:child_class) { Class.new(parent_class) }
+
+    it "child modifications do not affect parent", :aggregate_failures do
       child_extension = Module.new
 
       child_class.class_eval do
@@ -124,14 +125,11 @@ RSpec.describe Servactory::Stroma::DSL do
     end
 
     it "child inherits parent hooks", :aggregate_failures do
-      child_class = Class.new(parent_class)
-
       expect(child_class.stroma.hooks.before(:actions).size).to eq(1)
       expect(child_class.ancestors).to include(extension_module)
     end
 
     it "parent modifications after child creation do not affect child" do
-      child_class = Class.new(parent_class)
       child_before_count = child_class.stroma.hooks.before(:inputs).size
       new_extension = Module.new
 
