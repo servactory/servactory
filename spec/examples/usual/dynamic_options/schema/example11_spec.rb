@@ -1,13 +1,31 @@
 # frozen_string_literal: true
 
 RSpec.describe Usual::DynamicOptions::Schema::Example11, type: :service do
-  it_behaves_like "check class info",
-                  inputs: %i[],
-                  internals: %i[],
-                  outputs: %i[payload issued_on]
-
   describe ".call!" do
     subject(:perform) { described_class.call! }
+
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[payload issued_on]
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:payload)
+              .instance_of(Hash)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:issued_on)
+              .instance_of(DateTime)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
@@ -34,6 +52,29 @@ RSpec.describe Usual::DynamicOptions::Schema::Example11, type: :service do
 
   describe ".call" do
     subject(:perform) { described_class.call }
+
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[payload issued_on]
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:payload)
+              .instance_of(Hash)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:issued_on)
+              .instance_of(DateTime)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
