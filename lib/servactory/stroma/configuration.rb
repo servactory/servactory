@@ -2,6 +2,27 @@
 
 module Servactory
   module Stroma
+    # Per-class configuration storage for Stroma hooks.
+    #
+    # ## Purpose
+    #
+    # Holds the Hooks collection for each service class. Properly copied
+    # during class inheritance to ensure independent hook collections.
+    #
+    # ## Usage
+    #
+    # ```ruby
+    # config = Configuration.new
+    # config.hooks.add(:before, :actions, MyModule)
+    #
+    # # During inheritance:
+    # child_config = config.dup  # Creates independent copy
+    # ```
+    #
+    # ## Integration
+    #
+    # Stored as @stroma instance variable on each service class.
+    # Duplicated in DSL.inherited to provide inheritance isolation.
     class Configuration
       attr_reader :hooks
 

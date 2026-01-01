@@ -2,6 +2,36 @@
 
 module Servactory
   module Stroma
+    # Manages global registration of DSL modules for Servactory.
+    #
+    # ## Purpose
+    #
+    # Singleton registry that stores all DSL modules that will be included
+    # in service classes. Implements two-phase lifecycle: registration
+    # followed by finalization.
+    #
+    # ## Usage
+    #
+    # ```ruby
+    # # During gem initialization:
+    # Stroma::Registry.register(:inputs, Inputs::DSL)
+    # Stroma::Registry.register(:outputs, Outputs::DSL)
+    # Stroma::Registry.finalize!
+    #
+    # # After finalization:
+    # Stroma::Registry.keys       # => [:inputs, :outputs]
+    # Stroma::Registry.key?(:inputs)  # => true
+    # ```
+    #
+    # ## Integration
+    #
+    # Used by Stroma::DSL to include all registered modules in service classes.
+    # Used by HooksFactory to validate hook target keys.
+    #
+    # ## Thread Safety
+    #
+    # Registration must occur during single-threaded boot phase.
+    # After finalization, all read operations are thread-safe.
     class Registry
       include Singleton
 

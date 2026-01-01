@@ -30,4 +30,30 @@ RSpec.describe Servactory::Stroma::Registry do
       )
     end
   end
+
+  describe ".key?" do
+    it "returns true for registered key" do
+      expect(described_class.key?(:inputs)).to be(true)
+    end
+
+    it "returns true for all registered keys" do
+      %i[configuration info context inputs internals outputs actions].each do |key|
+        expect(described_class.key?(key)).to be(true)
+      end
+    end
+
+    it "returns false for unregistered key" do
+      expect(described_class.key?(:unknown)).to be(false)
+    end
+
+    it "returns false for nil" do
+      expect(described_class.key?(nil)).to be(false)
+    end
+  end
+
+  describe ".finalize!" do
+    it "is idempotent - can be called multiple times" do
+      expect { described_class.finalize! }.not_to raise_error
+    end
+  end
 end

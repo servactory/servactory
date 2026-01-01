@@ -2,6 +2,29 @@
 
 module Servactory
   module Stroma
+    # DSL interface for creating hooks in extensions block.
+    #
+    # ## Purpose
+    #
+    # Provides the `before` and `after` methods used within the extensions
+    # block to register hooks. Validates that target keys exist in Registry.
+    #
+    # ## Usage
+    #
+    # ```ruby
+    # class ApplicationService::Base < Servactory::Base
+    #   extensions do
+    #     before :actions, ValidationModule
+    #     after :outputs, LoggingModule
+    #   end
+    # end
+    # ```
+    #
+    # ## Integration
+    #
+    # Created by DSL.extensions and receives instance_eval of the block.
+    # Validates keys against Registry.keys and raises UnknownHookTarget
+    # for invalid keys.
     class HooksFactory
       def initialize(hooks)
         @hooks = hooks

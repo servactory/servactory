@@ -2,6 +2,26 @@
 
 module Servactory
   module Stroma
+    # Applies registered hooks to a target class.
+    #
+    # ## Purpose
+    #
+    # Iterates through all registered DSL modules and includes corresponding
+    # before/after hooks in the target class. Maintains proper ordering:
+    # for each entry, before hooks are included first, then after hooks.
+    #
+    # ## Usage
+    #
+    # ```ruby
+    # applier = Applier.new(ChildService, hooks)
+    # applier.apply!
+    # # ChildService now includes all hook modules
+    # ```
+    #
+    # ## Integration
+    #
+    # Called by DSL.inherited after duplicating parent's configuration.
+    # Uses Registry.entries to determine hook application order.
     class Applier
       def initialize(target_class, hooks)
         @target_class = target_class

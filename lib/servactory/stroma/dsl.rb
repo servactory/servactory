@@ -2,6 +2,31 @@
 
 module Servactory
   module Stroma
+    # Main integration point between Stroma and service classes.
+    #
+    # ## Purpose
+    #
+    # Module that provides the core Stroma functionality to service classes:
+    # - Includes all registered DSL modules
+    # - Provides extensions block for hook registration
+    # - Handles inheritance with proper configuration copying
+    #
+    # ## Usage
+    #
+    # ```ruby
+    # class MyService
+    #   include Servactory::Stroma::DSL
+    #
+    #   extensions do
+    #     before :actions, MyExtension
+    #   end
+    # end
+    # ```
+    #
+    # ## Integration
+    #
+    # Included by Servactory::DSL which is included by Servactory::Base.
+    # Provides ClassMethods with: stroma, inherited, extensions.
     module DSL
       def self.included(base)
         base.extend(ClassMethods)

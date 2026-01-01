@@ -94,4 +94,54 @@ RSpec.describe Servactory::Stroma::DSL do
       expect(base_class.stroma.hooks.after(:outputs).size).to eq(1)
     end
   end
+
+  describe "inheritance isolation" do
+    let(:extension_module) { Module.new }
+
+    let(:parent_class) do
+      ext = extension_module
+      Class.new do
+        include Servactory::Stroma::DSL
+
+        extensions do
+          before :actions, ext
+        end
+      end
+    end
+
+    it "child modifications do not affect parent" do
+      child_class = Class.new(parent_class)
+      child_extension = Module.new
+
+      child_class.class_eval do
+        extensions do
+          after :outputs, child_extension
+        end
+      end
+
+      expect(parent_class.stroma.hooks.after(:outputs)).to be_empty
+      expect(child_class.stroma.hooks.after(:outputs)).not_to be_empty
+    end
+
+    it "child inherits parent hooks", :aggregate_failures do
+      child_class = Class.new(parent_class)
+
+      expect(child_class.stroma.hooks.before(:actions).size).to eq(1)
+      expect(child_class.ancestors).to include(extension_module)
+    end
+
+    it "parent modifications after child creation do not affect child" do
+      child_class = Class.new(parent_class)
+      child_before_count = child_class.stroma.hooks.before(:inputs).size
+      new_extension = Module.new
+
+      parent_class.class_eval do
+        extensions do
+          before :inputs, new_extension
+        end
+      end
+
+      expect(child_class.stroma.hooks.before(:inputs).size).to eq(child_before_count)
+    end
+  end
 end

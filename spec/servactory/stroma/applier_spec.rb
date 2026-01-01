@@ -51,5 +51,38 @@ RSpec.describe Servactory::Stroma::Applier do
         expect(target_class.ancestors).to include(first_module, second_module)
       end
     end
+
+    context "with before and after hooks for same key" do
+      let(:inclusion_order) { [] }
+
+      let(:before_module) do
+        order = inclusion_order
+        Module.new do
+          define_singleton_method(:included) do |_base|
+            order << :before
+          end
+        end
+      end
+
+      let(:after_module) do
+        order = inclusion_order
+        Module.new do
+          define_singleton_method(:included) do |_base|
+            order << :after
+          end
+        end
+      end
+
+      before do
+        hooks.add(:before, :actions, before_module)
+        hooks.add(:after, :actions, after_module)
+      end
+
+      it "includes before hooks before after hooks" do
+        applier = described_class.new(target_class, hooks)
+        applier.apply!
+        expect(inclusion_order).to eq(%i[before after])
+      end
+    end
   end
 end

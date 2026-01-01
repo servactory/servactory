@@ -83,4 +83,35 @@ RSpec.describe Servactory::Stroma::Hooks do
       expect(copy.before(:inputs).size).to eq(1)
     end
   end
+
+  describe "#size" do
+    it "returns 0 for new collection" do
+      expect(hooks.size).to eq(0)
+    end
+
+    it "returns count of hooks" do
+      hooks.add(:before, :actions, first_module)
+      hooks.add(:after, :actions, second_module)
+      expect(hooks.size).to eq(2)
+    end
+  end
+
+  describe "#each" do
+    before do
+      hooks.add(:before, :actions, first_module)
+      hooks.add(:after, :outputs, second_module)
+    end
+
+    it "yields each hook" do
+      yielded = []
+      hooks.each { |hook| yielded << hook }
+      expect(yielded.size).to eq(2)
+    end
+
+    it "yields Hook objects" do
+      hooks.each do |hook|
+        expect(hook).to be_a(Servactory::Stroma::Hook)
+      end
+    end
+  end
 end
