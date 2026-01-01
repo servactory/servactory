@@ -26,7 +26,7 @@ RSpec.describe Usual::Async::Example1, type: :service do
         it_behaves_like "success result class"
 
         describe "async" do
-          ids = [1, 2, 3, 4]
+          let(:ids) { [1, 2, 3, 4] }
 
           it :aggregate_failures do
             service_results = Async do
@@ -75,7 +75,7 @@ RSpec.describe Usual::Async::Example1, type: :service do
         it_behaves_like "success result class"
 
         describe "async" do
-          ids = [1, 2, 3, 4]
+          let(:ids) { [1, 2, 3, 4] }
 
           it :aggregate_failures do
             service_results = Async do
