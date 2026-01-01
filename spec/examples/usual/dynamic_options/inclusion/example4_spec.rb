@@ -31,9 +31,28 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example4, type: :service do
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example4::Event) }
-        it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-        it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example4::Event)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:event).nested(:event_name).contains("created")
+        )
       end
     end
 
@@ -83,9 +102,28 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example4, type: :service do
       end
 
       describe "outputs" do
-        it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example4::Event) }
-        it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-        it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example4::Event)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
+        )
+      end
+
+      it do
+        expect(perform).to(
+          have_output(:event).nested(:event_name).contains("created")
+        )
       end
     end
 
