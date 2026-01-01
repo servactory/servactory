@@ -28,7 +28,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
             described_class.new(
               service_class: alternative_service_class,
               configs: [config],
-              rspec_context: rspec_context
+              rspec_context:
             ).execute
           end.not_to raise_error
         end
@@ -47,7 +47,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
             described_class.new(
               service_class: alternative_service_class,
               configs: [config],
-              rspec_context: rspec_context
+              rspec_context:
             ).execute
           end.not_to raise_error
         end
@@ -64,7 +64,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
             described_class.new(
               service_class: alternative_service_class,
               configs: [config],
-              rspec_context: rspec_context
+              rspec_context:
             ).execute
           end.to raise_error(ArgumentError, /Invalid exception type for failure mock/)
         end
@@ -83,7 +83,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
             described_class.new(
               service_class: alternative_service_class,
               configs: [config],
-              rspec_context: rspec_context
+              rspec_context:
             ).execute
           end.not_to raise_error
         end
@@ -101,7 +101,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
             described_class.new(
               service_class: alternative_service_class,
               configs: [config],
-              rspec_context: rspec_context
+              rspec_context:
             ).execute
           end.to raise_error(ArgumentError, /Invalid exception type for failure mock/)
         end
@@ -132,7 +132,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
             described_class.new(
               service_class: alternative_service_class,
               configs: [config],
-              rspec_context: rspec_context
+              rspec_context:
             ).execute
           end.not_to raise_error
         end
@@ -159,7 +159,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
             described_class.new(
               service_class: alternative_service_class,
               configs: [config],
-              rspec_context: rspec_context
+              rspec_context:
             ).execute
           end.to raise_error(ArgumentError, /Invalid exception type for failure mock/)
         end
