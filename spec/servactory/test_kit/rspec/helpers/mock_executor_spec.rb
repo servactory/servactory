@@ -15,7 +15,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
 
   describe "#valid_exception_type?" do
     describe "differentiated validation strategy" do
-      context "for .call (non-bang) method" do
+      context "when using .call (non-bang) method" do
         it "accepts exception from exact failure_class" do
           expect do
             config = Servactory::TestKit::Rspec::Helpers::ServiceMockConfig.new(
@@ -70,7 +70,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
         end
       end
 
-      context "for .call! (bang) method" do
+      context "when using .call! (bang) method" do
         it "accepts exception from exact failure_class (strict validation)" do
           expect do
             config = Servactory::TestKit::Rspec::Helpers::ServiceMockConfig.new(
@@ -111,7 +111,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
     describe "validation rationale" do
       # These tests document WHY differentiated validation exists
 
-      context "semantic justification for relaxed .call validation" do
+      context "when demonstrating semantic justification for relaxed .call validation" do
         it "accepts sibling class because .call wraps exception in Result (never raised)" do
           # When using .call, the exception is:
           # 1. NOT raised (it's wrapped in Result object)
@@ -138,7 +138,7 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
         end
       end
 
-      context "semantic justification for strict .call! validation" do
+      context "when demonstrating semantic justification for strict .call! validation" do
         it "rejects sibling class because .call! raises exception (rescue clauses matter)" do
           # When using .call!, the exception is:
           # 1. RAISED and can be caught with rescue
