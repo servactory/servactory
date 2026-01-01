@@ -17,21 +17,37 @@ RSpec.describe Wrong::Basic::Example4, type: :service do
                     internals: %i[prepared_invoice_number],
                     outputs: %i[invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
+    describe "validations" do
+      describe "inputs" do
+        it do
           expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Output,
-              "[Wrong::Basic::Example4] Undefined output attribute `number`"
-            )
+            have_input(:invoice_number)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:prepared_invoice_number)
+              .type(String)
           )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Basic::Example4] Undefined output attribute `number`"
+          )
+        )
+      end
     end
   end
 
@@ -51,21 +67,37 @@ RSpec.describe Wrong::Basic::Example4, type: :service do
                     internals: %i[prepared_invoice_number],
                     outputs: %i[invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
+    describe "validations" do
+      describe "inputs" do
+        it do
           expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Output,
-              "[Wrong::Basic::Example4] Undefined output attribute `number`"
-            )
+            have_input(:invoice_number)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:prepared_invoice_number)
+              .type(String)
           )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Basic::Example4] Undefined output attribute `number`"
+          )
+        )
+      end
     end
   end
 end

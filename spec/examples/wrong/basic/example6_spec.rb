@@ -17,22 +17,9 @@ RSpec.describe Wrong::Basic::Example6, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Input,
-              "[Wrong::Basic::Example6] Conflict in `event_name` input options: `required_vs_default`"
-            )
-          )
-        end
-      end
-    end
-
-    context "when the input arguments are invalid" do
-      context "when `event_name`" do
-        describe "is not passed" do
+    describe "validations" do
+      describe "inputs" do
+        describe "when event_name is not passed" do
           let(:event_name) { nil }
 
           it "returns expected error" do
@@ -45,7 +32,7 @@ RSpec.describe Wrong::Basic::Example6, type: :service do
           end
         end
 
-        describe "is of the wrong type" do
+        describe "when event_name is of the wrong type" do
           let(:event_name) { 123 }
 
           it "returns expected error" do
@@ -57,6 +44,17 @@ RSpec.describe Wrong::Basic::Example6, type: :service do
             )
           end
         end
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Input,
+            "[Wrong::Basic::Example6] Conflict in `event_name` input options: `required_vs_default`"
+          )
+        )
       end
     end
   end
@@ -77,22 +75,9 @@ RSpec.describe Wrong::Basic::Example6, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Input,
-              "[Wrong::Basic::Example6] Conflict in `event_name` input options: `required_vs_default`"
-            )
-          )
-        end
-      end
-    end
-
-    context "when the input arguments are invalid" do
-      context "when `event_name`" do
-        describe "is not passed" do
+    describe "validations" do
+      describe "inputs" do
+        describe "when event_name is not passed" do
           let(:event_name) { nil }
 
           it "returns expected error" do
@@ -105,7 +90,7 @@ RSpec.describe Wrong::Basic::Example6, type: :service do
           end
         end
 
-        describe "is of the wrong type" do
+        describe "when event_name is of the wrong type" do
           let(:event_name) { 123 }
 
           it "returns expected error" do
@@ -117,6 +102,17 @@ RSpec.describe Wrong::Basic::Example6, type: :service do
             )
           end
         end
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Input,
+            "[Wrong::Basic::Example6] Conflict in `event_name` input options: `required_vs_default`"
+          )
+        )
       end
     end
   end

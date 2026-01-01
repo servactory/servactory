@@ -1,55 +1,71 @@
 # frozen_string_literal: true
 
 RSpec.describe Usual::DynamicOptions::Target::Example3, type: :service do
-  let(:attributes) { { service_class: } }
-  let(:service_class) { described_class::MyFirstService }
-
-  it_behaves_like "check class info",
-                  inputs: %i[service_class],
-                  internals: %i[],
-                  outputs: %i[result]
-
-  describe "validations" do
-    describe "inputs" do
-      it do
-        expect { perform }.to(
-          have_input(:service_class)
-            .type(Class)
-            .required
-            .target([described_class::MyFirstService])
-            .valid_with(attributes)
-        )
-      end
-    end
-  end
-
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
-    context "when the input arguments are valid" do
-      it { expect(perform).to be_success_service }
+    let(:attributes) do
+      {
+        service_class:
+      }
+    end
+
+    let(:service_class) { described_class::MyFirstService }
+
+    it_behaves_like "check class info",
+                    inputs: %i[service_class],
+                    internals: %i[],
+                    outputs: %i[result]
+
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_class)
+              .valid_with(attributes)
+              .type(Class)
+              .required
+              .target([described_class::MyFirstService])
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:result)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
       it do
         expect(perform).to(
-          have_output(:result)
-            .contains("Usual::DynamicOptions::Target::Example3::MyFirstService")
+          be_success_service
+            .with_output(:result, "Usual::DynamicOptions::Target::Example3::MyFirstService")
         )
       end
     end
 
-    context "when required data for work is invalid" do
-      let(:service_class) { String }
+    describe "but the data required for work is invalid" do
+      describe "because the value of `service_class` is wrong" do
+        let(:service_class) { String }
 
-      it "returns expected error" do
-        expect { perform }.to(
-          raise_error(
-            ApplicationService::Exceptions::Input,
-            "[Usual::DynamicOptions::Target::Example3] " \
-            "Input `service_class` has wrong target, " \
-            "must be `Usual::DynamicOptions::Target::Example3::MyFirstService`, " \
-            "got `String`"
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::Target::Example3] " \
+              "Input `service_class` has wrong target, " \
+              "must be `Usual::DynamicOptions::Target::Example3::MyFirstService`, " \
+              "got `String`"
+            )
           )
-        )
+        end
       end
     end
   end
@@ -57,24 +73,68 @@ RSpec.describe Usual::DynamicOptions::Target::Example3, type: :service do
   describe ".call" do
     subject(:perform) { described_class.call(**attributes) }
 
-    context "when the input arguments are valid" do
-      it { expect(perform).to be_success_service }
-      it { expect(perform).to have_output(:result).contains("Usual::DynamicOptions::Target::Example3::MyFirstService") }
+    let(:attributes) do
+      {
+        service_class:
+      }
     end
 
-    context "when required data for work is invalid" do
-      let(:service_class) { String }
+    let(:service_class) { described_class::MyFirstService }
 
-      it "returns expected failure" do
-        expect { perform }.to(
-          raise_error(
-            ApplicationService::Exceptions::Input,
-            "[Usual::DynamicOptions::Target::Example3] " \
-            "Input `service_class` has wrong target, " \
-            "must be `Usual::DynamicOptions::Target::Example3::MyFirstService`, " \
-            "got `String`"
+    it_behaves_like "check class info",
+                    inputs: %i[service_class],
+                    internals: %i[],
+                    outputs: %i[result]
+
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_class)
+              .valid_with(attributes)
+              .type(Class)
+              .required
+              .target([described_class::MyFirstService])
           )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:result)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:result, "Usual::DynamicOptions::Target::Example3::MyFirstService")
         )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the value of `service_class` is wrong" do
+        let(:service_class) { String }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::Target::Example3] " \
+              "Input `service_class` has wrong target, " \
+              "must be `Usual::DynamicOptions::Target::Example3::MyFirstService`, " \
+              "got `String`"
+            )
+          )
+        end
       end
     end
   end

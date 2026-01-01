@@ -25,42 +25,151 @@ RSpec.describe Usual::Basic::Example9, type: :service do
                       full_name_9 full_name_10
                     ]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:first_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
 
-        it { expect(perform).to have_output(:full_name_1).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_2).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_3).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_4).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_5).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_6).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_7).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_8).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_9).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_10).contains("John Fitzgerald Kennedy") }
+        it do
+          expect { perform }.to(
+            have_input(:middle_name)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
 
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
+        it do
+          expect { perform }.to(
+            have_input(:last_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
 
-          it { expect(perform).to have_output(:full_name_1).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_2).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_3).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_4).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_5).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_6).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_7).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_8).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_9).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_10).contains("John Kennedy") }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:full_name_1)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_2)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_3)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_4)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_5)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_6)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_7)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_8)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_9)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_10)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              full_name_1: "John Fitzgerald Kennedy",
+              full_name_2: "John Fitzgerald Kennedy",
+              full_name_3: "John Fitzgerald Kennedy",
+              full_name_4: "John Fitzgerald Kennedy",
+              full_name_5: "John Fitzgerald Kennedy",
+              full_name_6: "John Fitzgerald Kennedy",
+              full_name_7: "John Fitzgerald Kennedy",
+              full_name_8: "John Fitzgerald Kennedy",
+              full_name_9: "John Fitzgerald Kennedy",
+              full_name_10: "John Fitzgerald Kennedy"
+            )
+        )
+      end
+
+      describe "even if `middle_name` is not specified" do
+        let(:middle_name) { nil }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_outputs(
+                full_name_1: "John Kennedy",
+                full_name_2: "John Kennedy",
+                full_name_3: "John Kennedy",
+                full_name_4: "John Kennedy",
+                full_name_5: "John Kennedy",
+                full_name_6: "John Kennedy",
+                full_name_7: "John Kennedy",
+                full_name_8: "John Kennedy",
+                full_name_9: "John Kennedy",
+                full_name_10: "John Kennedy"
+              )
+          )
+        end
+      end
     end
   end
 
@@ -88,42 +197,151 @@ RSpec.describe Usual::Basic::Example9, type: :service do
                       full_name_9 full_name_10
                     ]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:first_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
 
-        it { expect(perform).to have_output(:full_name_1).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_2).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_3).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_4).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_5).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_6).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_7).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_8).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_9).contains("John Fitzgerald Kennedy") }
-        it { expect(perform).to have_output(:full_name_10).contains("John Fitzgerald Kennedy") }
+        it do
+          expect { perform }.to(
+            have_input(:middle_name)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
 
-        describe "even if `middle_name` is not specified" do
-          let(:middle_name) { nil }
+        it do
+          expect { perform }.to(
+            have_input(:last_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
 
-          it { expect(perform).to have_output(:full_name_1).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_2).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_3).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_4).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_5).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_6).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_7).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_8).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_9).contains("John Kennedy") }
-          it { expect(perform).to have_output(:full_name_10).contains("John Kennedy") }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:full_name_1)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_2)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_3)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_4)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_5)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_6)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_7)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_8)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_9)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:full_name_10)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              full_name_1: "John Fitzgerald Kennedy",
+              full_name_2: "John Fitzgerald Kennedy",
+              full_name_3: "John Fitzgerald Kennedy",
+              full_name_4: "John Fitzgerald Kennedy",
+              full_name_5: "John Fitzgerald Kennedy",
+              full_name_6: "John Fitzgerald Kennedy",
+              full_name_7: "John Fitzgerald Kennedy",
+              full_name_8: "John Fitzgerald Kennedy",
+              full_name_9: "John Fitzgerald Kennedy",
+              full_name_10: "John Fitzgerald Kennedy"
+            )
+        )
+      end
+
+      describe "even if `middle_name` is not specified" do
+        let(:middle_name) { nil }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_outputs(
+                full_name_1: "John Kennedy",
+                full_name_2: "John Kennedy",
+                full_name_3: "John Kennedy",
+                full_name_4: "John Kennedy",
+                full_name_5: "John Kennedy",
+                full_name_6: "John Kennedy",
+                full_name_7: "John Kennedy",
+                full_name_8: "John Kennedy",
+                full_name_9: "John Kennedy",
+                full_name_10: "John Kennedy"
+              )
+          )
+        end
+      end
     end
   end
 end
