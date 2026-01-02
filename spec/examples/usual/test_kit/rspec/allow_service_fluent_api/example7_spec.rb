@@ -77,6 +77,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
 
     let(:mock_timestamp) { Time.new(2024, 1, 15, 14, 30, 0) }
 
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[health_check_time system_status]
+
     describe "validations" do
       describe "outputs" do
         it do

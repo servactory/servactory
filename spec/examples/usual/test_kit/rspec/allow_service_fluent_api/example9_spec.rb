@@ -99,6 +99,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example9, type: :se
 
     let(:order_id) { "ORD-67890" }
 
+    it_behaves_like "check class info",
+                    inputs: %i[order_id],
+                    internals: %i[],
+                    outputs: %i[order_summary]
+
     describe "validations" do
       describe "outputs" do
         it do

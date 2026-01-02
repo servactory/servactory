@@ -120,6 +120,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
 
     let(:max_attempts) { 3 }
 
+    it_behaves_like "check class info",
+                    inputs: %i[max_attempts],
+                    internals: %i[],
+                    outputs: %i[final_status total_attempts]
+
     describe "validations" do
       describe "outputs" do
         it do

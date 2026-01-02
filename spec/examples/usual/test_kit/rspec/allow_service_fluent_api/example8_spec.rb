@@ -134,6 +134,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
 
     let(:user_id) { 99 }
 
+    it_behaves_like "check class info",
+                    inputs: %i[user_id],
+                    internals: %i[],
+                    outputs: %i[display_name contact_email account_status]
+
     describe "validations" do
       describe "outputs" do
         it do

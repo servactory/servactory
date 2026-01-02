@@ -96,6 +96,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
 
     let(:user_id) { 99 }
 
+    it_behaves_like "check class info",
+                    inputs: %i[user_id],
+                    internals: %i[],
+                    outputs: %i[greeting]
+
     describe "but the data required for work is invalid" do
       describe "with exception object" do
         before do

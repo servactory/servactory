@@ -80,6 +80,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4, type: :se
     let(:amount) { 500 }
     let(:currency) { "EUR" }
 
+    it_behaves_like "check class info",
+                    inputs: %i[amount currency],
+                    internals: %i[],
+                    outputs: %i[display_value]
+
     describe "validations" do
       describe "outputs" do
         it do

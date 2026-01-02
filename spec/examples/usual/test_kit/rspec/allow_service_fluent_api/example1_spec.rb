@@ -86,6 +86,11 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
 
     let(:amount) { 100 }
 
+    it_behaves_like "check class info",
+                    inputs: %i[amount],
+                    internals: %i[],
+                    outputs: %i[payment_status payment_transaction_id]
+
     describe "validations" do
       describe "outputs" do
         it do
