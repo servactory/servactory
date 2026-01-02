@@ -51,7 +51,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example16, type: :service do
             .with_output(:ids, Set.new)
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do
@@ -165,7 +164,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example16, type: :service do
             .with_output(:ids, Set.new)
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do

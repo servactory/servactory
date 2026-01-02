@@ -57,7 +57,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
             .with_output(:first_invoice_number, "7650AE")
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do
@@ -199,7 +198,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
             .with_output(:first_invoice_number, "7650AE")
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do

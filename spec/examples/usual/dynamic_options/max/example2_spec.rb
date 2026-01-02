@@ -66,7 +66,6 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
               .with_output(:data, { a: 1 })
           )
         end
-
       end
     end
 
@@ -344,7 +343,6 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
               .with_output(:data, { a: 1 })
           )
         end
-
       end
     end
 

@@ -66,7 +66,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
               .with_output(:number, 90)
           )
         end
-
       end
     end
 
@@ -332,7 +331,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
               .with_output(:number, 90)
           )
         end
-
       end
     end
 
