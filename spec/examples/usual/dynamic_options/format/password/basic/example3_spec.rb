@@ -23,9 +23,13 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example3, type: :
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:password, "~hUN`AgY=YpW.061")
+            .with_outputs(
+              password: "~hUN`AgY=YpW.061",
+              password?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -80,9 +84,13 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Basic::Example3, type: :
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:password, "~hUN`AgY=YpW.061")
+            .with_outputs(
+              password: "~hUN`AgY=YpW.061",
+              password?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

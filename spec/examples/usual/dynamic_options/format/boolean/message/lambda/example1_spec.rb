@@ -23,9 +23,13 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example1
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:boolean, "true")
+            .with_outputs(
+              boolean: "true",
+              boolean?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -79,9 +83,13 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Lambda::Example1
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:boolean, "true")
+            .with_outputs(
+              boolean: "true",
+              boolean?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

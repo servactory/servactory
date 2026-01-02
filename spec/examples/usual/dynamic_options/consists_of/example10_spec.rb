@@ -62,16 +62,15 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:ids, ["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
+            .with_outputs(
+              ids: ["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3],
+              ids?: true,
+              first_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+              first_id?: true
+            )
         )
       end
 
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:first_id, "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        )
-      end
     end
   end
 
@@ -136,16 +135,15 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:ids, ["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3])
+            .with_outputs(
+              ids: ["6e6ff7d9-6980-4c98-8fd8-ca615ccebab3", 123, "", :identifier, nil, 12.3],
+              ids?: true,
+              first_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+              first_id?: true
+            )
         )
       end
 
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:first_id, "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        )
-      end
     end
   end
 end

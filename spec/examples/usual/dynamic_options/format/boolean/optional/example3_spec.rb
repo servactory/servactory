@@ -23,9 +23,13 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example3, type:
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:boolean, nil)
+            .with_outputs(
+              boolean: nil,
+              boolean?: false
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -80,9 +84,13 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example3, type:
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:boolean, nil)
+            .with_outputs(
+              boolean: nil,
+              boolean?: false
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

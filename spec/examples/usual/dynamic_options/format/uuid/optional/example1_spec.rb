@@ -23,9 +23,13 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example1, type: :s
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:service_id, nil)
+            .with_outputs(
+              service_id: nil,
+              service_id?: false
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -80,9 +84,13 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example1, type: :s
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:service_id, nil)
+            .with_outputs(
+              service_id: nil,
+              service_id?: false
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

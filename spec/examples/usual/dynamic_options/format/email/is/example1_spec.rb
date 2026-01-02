@@ -23,9 +23,13 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example1, type: :servic
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:email, "No Reply <noreply@servactory.com>")
+            .with_outputs(
+              email: "No Reply <noreply@servactory.com>",
+              email?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -80,9 +84,13 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example1, type: :servic
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:email, "No Reply <noreply@servactory.com>")
+            .with_outputs(
+              email: "No Reply <noreply@servactory.com>",
+              email?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

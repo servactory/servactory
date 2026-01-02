@@ -54,9 +54,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:first_invoice_number, "7650AE")
+            .with_outputs(
+              first_invoice_number: "7650AE",
+              first_invoice_number?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -195,9 +199,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:first_invoice_number, "7650AE")
+            .with_outputs(
+              first_invoice_number: "7650AE",
+              first_invoice_number?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

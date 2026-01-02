@@ -48,9 +48,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:ids, [])
+            .with_outputs(
+              ids: [],
+              ids?: false
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -161,9 +165,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:ids, [])
+            .with_outputs(
+              ids: [],
+              ids?: false
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

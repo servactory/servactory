@@ -23,9 +23,13 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example1, type: :service
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:started_on, Date.parse(started_on))
+            .with_outputs(
+              started_on: Date.parse(started_on),
+              started_on?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -79,9 +83,13 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example1, type: :service
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:started_on, Date.parse(started_on))
+            .with_outputs(
+              started_on: Date.parse(started_on),
+              started_on?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

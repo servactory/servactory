@@ -23,9 +23,13 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Static::Example2, t
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:started_at, Time.parse(started_at))
+            .with_outputs(
+              started_at: Time.parse(started_at),
+              started_at?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -79,9 +83,13 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Static::Example2, t
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:started_at, Time.parse(started_at))
+            .with_outputs(
+              started_at: Time.parse(started_at),
+              started_at?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

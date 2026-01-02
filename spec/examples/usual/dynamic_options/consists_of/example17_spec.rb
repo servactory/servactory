@@ -53,9 +53,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:first_id, "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+            .with_outputs(
+              first_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+              first_id?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -171,9 +175,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example17, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:first_id, "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
+            .with_outputs(
+              first_id: "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3",
+              first_id?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do

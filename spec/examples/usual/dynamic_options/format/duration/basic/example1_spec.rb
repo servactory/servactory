@@ -23,9 +23,13 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example1, type: :
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:song_duration, ActiveSupport::Duration.parse(song_duration))
+            .with_outputs(
+              song_duration: ActiveSupport::Duration.parse(song_duration),
+              song_duration?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
@@ -80,9 +84,13 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example1, type: :
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:song_duration, ActiveSupport::Duration.parse(song_duration))
+            .with_outputs(
+              song_duration: ActiveSupport::Duration.parse(song_duration),
+              song_duration?: true
+            )
         )
       end
+
     end
 
     describe "but the data required for work is invalid" do
