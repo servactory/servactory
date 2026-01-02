@@ -10,32 +10,63 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[health_check_time system_status]
-
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        describe "with no_inputs matcher" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .with(no_inputs)
-              .succeeds(timestamp: mock_timestamp, status: :healthy)
-          end
-
-          it_behaves_like "success result class"
-
-          it { expect(perform).to have_output(:health_check_time).contains(mock_timestamp) }
-          it { expect(perform).to have_output(:system_status).contains(:healthy) }
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:health_check_time)
+              .instance_of(Time)
+          )
         end
 
-        describe "with service returning degraded status" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .with(no_inputs)
-              .succeeds(timestamp: mock_timestamp, status: :degraded)
-          end
+        it do
+          expect(perform).to(
+            have_output(:system_status)
+              .instance_of(Symbol)
+          )
+        end
+      end
+    end
 
-          it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      describe "with no_inputs matcher" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
+            .with(no_inputs)
+            .succeeds(timestamp: mock_timestamp, status: :healthy)
+        end
 
-          it { expect(perform).to have_output(:system_status).contains(:degraded) }
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:health_check_time, mock_timestamp)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:system_status, :healthy)
+          )
+        end
+      end
+
+      describe "with service returning degraded status" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
+            .with(no_inputs)
+            .succeeds(timestamp: mock_timestamp, status: :degraded)
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:system_status, :degraded)
+          )
         end
       end
     end
@@ -46,34 +77,60 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
 
     let(:mock_timestamp) { Time.new(2024, 1, 15, 14, 30, 0) }
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        describe "with no_inputs matcher" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .with(no_inputs)
-              .succeeds(timestamp: mock_timestamp, status: :healthy)
-          end
+    it_behaves_like "check class info",
+                    inputs: %i[],
+                    internals: %i[],
+                    outputs: %i[health_check_time system_status]
 
-          it_behaves_like "success result class"
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:health_check_time)
+              .instance_of(Time)
+          )
+        end
 
-          it { expect(perform).to have_output(:health_check_time).contains(mock_timestamp) }
+        it do
+          expect(perform).to(
+            have_output(:system_status)
+              .instance_of(Symbol)
+          )
         end
       end
+    end
 
-      describe "but the data required for work is invalid" do
-        describe "because child service fails" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
-              .fails(type: :health_check_failed, message: "Service unreachable")
-          end
+    describe "and the data required for work is also valid" do
+      describe "with no_inputs matcher" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
+            .with(no_inputs)
+            .succeeds(timestamp: mock_timestamp, status: :healthy)
+        end
 
-          it "returns failure result with error", :aggregate_failures do
-            result = perform
+        it_behaves_like "success result class"
 
-            expect(result).to be_failure_service.type(:health_check_failed)
-            expect(result.error.message).to eq("Service unreachable")
-          end
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:health_check_time, mock_timestamp)
+          )
+        end
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because child service fails" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example7Child)
+            .fails(type: :health_check_failed, message: "Service unreachable")
+        end
+
+        it "returns failure result with error", :aggregate_failures do
+          result = perform
+
+          expect(result).to be_failure_service.type(:health_check_failed)
+          expect(result.error.message).to eq("Service unreachable")
         end
       end
     end

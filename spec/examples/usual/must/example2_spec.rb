@@ -8,13 +8,28 @@ RSpec.describe Usual::Must::Example2, type: :service do
                     inputs: %i[],
                     internals: %i[invoice_numbers],
                     outputs: %i[first_invoice_number]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:first_invoice_number)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:first_invoice_number?).contains(true) }
-        it { expect(perform).to have_output(:first_invoice_number).contains("7650AE") }
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              first_invoice_number: "7650AE",
+              first_invoice_number?: true
+            )
+        )
       end
     end
   end
@@ -26,13 +41,28 @@ RSpec.describe Usual::Must::Example2, type: :service do
                     inputs: %i[],
                     internals: %i[invoice_numbers],
                     outputs: %i[first_invoice_number]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:first_invoice_number)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it { expect(perform).to have_output(:first_invoice_number?).contains(true) }
-        it { expect(perform).to have_output(:first_invoice_number).contains("7650AE") }
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              first_invoice_number: "7650AE",
+              first_invoice_number?: true
+            )
+        )
       end
     end
   end

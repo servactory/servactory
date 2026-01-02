@@ -18,32 +18,50 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4, type: :se
                     inputs: %i[amount currency],
                     internals: %i[],
                     outputs: %i[display_value]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:display_value)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        describe "with: parameter for argument matching" do
-          before do
-            allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4Child,
-                                     with: { amount: 100, currency: "USD" }) do
-              { formatted_amount: "100 US Dollars" }
-            end
+    describe "and the data required for work is also valid" do
+      describe "with: parameter for argument matching" do
+        before do
+          allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4Child,
+                                   with: { amount: 100, currency: "USD" }) do
+            { formatted_amount: "100 US Dollars" }
           end
-
-          it_behaves_like "success result class"
-
-          it { expect(perform).to have_output(:display_value).contains("100 US Dollars") }
         end
 
-        describe "without with: parameter (matches any inputs)" do
-          before do
-            allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4Child) do
-              { formatted_amount: "Any Amount" }
-            end
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:display_value, "100 US Dollars")
+          )
+        end
+      end
+
+      describe "without with: parameter (matches any inputs)" do
+        before do
+          allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4Child) do
+            { formatted_amount: "Any Amount" }
           end
+        end
 
-          it_behaves_like "success result class"
+        it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:display_value).contains("Any Amount") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:display_value, "Any Amount")
+          )
         end
       end
     end
@@ -62,19 +80,38 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4, type: :se
     let(:amount) { 500 }
     let(:currency) { "EUR" }
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        describe "with exact with: matching" do
-          before do
-            allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4Child,
-                                     with: { amount: 500, currency: "EUR" }) do
-              { formatted_amount: "500 Euros" }
-            end
+    it_behaves_like "check class info",
+                    inputs: %i[amount currency],
+                    internals: %i[],
+                    outputs: %i[display_value]
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:display_value)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      describe "with exact with: matching" do
+        before do
+          allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4Child,
+                                   with: { amount: 500, currency: "EUR" }) do
+            { formatted_amount: "500 Euros" }
           end
+        end
 
-          it_behaves_like "success result class"
+        it_behaves_like "success result class"
 
-          it { expect(perform).to have_output(:display_value).contains("500 Euros") }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:display_value, "500 Euros")
+          )
         end
       end
     end

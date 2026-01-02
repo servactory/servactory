@@ -9,16 +9,14 @@ RSpec.describe Wrong::Must::Example7, type: :service do
                     internals: %i[],
                     outputs: %i[invoice_numbers first_invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ArgumentError,
-              "missing keyword: :internal"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ArgumentError,
+            "missing keyword: :internal"
           )
-        end
+        )
       end
     end
   end
@@ -31,16 +29,14 @@ RSpec.describe Wrong::Must::Example7, type: :service do
                     internals: %i[],
                     outputs: %i[invoice_numbers first_invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ArgumentError,
-              "missing keyword: :internal"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ArgumentError,
+            "missing keyword: :internal"
           )
-        end
+        )
       end
     end
   end

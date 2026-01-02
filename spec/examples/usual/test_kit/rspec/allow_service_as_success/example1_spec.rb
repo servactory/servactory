@@ -9,23 +9,21 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1, type: :se
                     internals: %i[],
                     outputs: %i[child_result]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        before do
-          allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1Child)
-        end
+    describe "but the data required for work is invalid" do
+      before do
+        allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1Child)
+      end
 
-        it_behaves_like "success result class"
+      it_behaves_like "success result class"
 
-        it "does not raise error" do
-          expect { perform }.not_to raise_error
-        end
+      it "does not raise error" do
+        expect { perform }.not_to raise_error
+      end
 
-        it "returns success of child class" do
-          result = perform
+      it "returns success of child class" do
+        result = perform
 
-          expect(result.child_result).to be_success_service
-        end
+        expect(result.child_result).to be_success_service
       end
     end
   end
@@ -38,19 +36,17 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1, type: :se
                     internals: %i[],
                     outputs: %i[child_result]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        before do
-          allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1Child)
-        end
+    describe "but the data required for work is invalid" do
+      before do
+        allow_service_as_success(Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1Child)
+      end
 
-        it_behaves_like "success result class"
+      it_behaves_like "success result class"
 
-        it "returns success of child class" do
-          result = perform
+      it "returns success of child class" do
+        result = perform
 
-          expect(result.child_result).to be_success_service
-        end
+        expect(result.child_result).to be_success_service
       end
     end
   end

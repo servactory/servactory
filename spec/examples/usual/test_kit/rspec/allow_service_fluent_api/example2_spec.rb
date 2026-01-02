@@ -16,46 +16,94 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
                     inputs: %i[max_attempts],
                     internals: %i[],
                     outputs: %i[final_status total_attempts]
-
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        describe "when child succeeds on first attempt" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .succeeds(status: :completed, attempt_number: 1)
-          end
-
-          it_behaves_like "success result class"
-
-          it { expect(perform).to have_output(:final_status).contains(:completed) }
-          it { expect(perform).to have_output(:total_attempts).contains(1) }
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:final_status)
+              .instance_of(Symbol)
+          )
         end
 
-        describe "when child succeeds on second attempt (sequential returns)" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .succeeds(status: :processing, attempt_number: 1)
-              .then_succeeds(status: :completed, attempt_number: 2)
-          end
+        it do
+          expect(perform).to(
+            have_output(:total_attempts)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
 
-          it_behaves_like "success result class"
-
-          it { expect(perform).to have_output(:final_status).contains(:completed) }
-          it { expect(perform).to have_output(:total_attempts).contains(2) }
+    describe "and the data required for work is also valid" do
+      describe "when child succeeds on first attempt" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
+            .succeeds(status: :completed, attempt_number: 1)
         end
 
-        describe "when child never completes (all attempts return processing)" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .succeeds(status: :processing, attempt_number: 1)
-              .then_succeeds(status: :processing, attempt_number: 2)
-              .then_succeeds(status: :processing, attempt_number: 3)
-          end
+        it_behaves_like "success result class"
 
-          it_behaves_like "success result class"
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:final_status, :completed)
+          )
+        end
 
-          it { expect(perform).to have_output(:final_status).contains(:processing) }
-          it { expect(perform).to have_output(:total_attempts).contains(4) }
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:total_attempts, 1)
+          )
+        end
+      end
+
+      describe "when child succeeds on second attempt (sequential returns)" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
+            .succeeds(status: :processing, attempt_number: 1)
+            .then_succeeds(status: :completed, attempt_number: 2)
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:final_status, :completed)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:total_attempts, 2)
+          )
+        end
+      end
+
+      describe "when child never completes (all attempts return processing)" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
+            .succeeds(status: :processing, attempt_number: 1)
+            .then_succeeds(status: :processing, attempt_number: 2)
+            .then_succeeds(status: :processing, attempt_number: 3)
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:final_status, :processing)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:total_attempts, 4)
+          )
         end
       end
     end
@@ -72,29 +120,60 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
 
     let(:max_attempts) { 3 }
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        describe "when child succeeds on first attempt" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .succeeds(status: :completed, attempt_number: 1)
-          end
+    it_behaves_like "check class info",
+                    inputs: %i[max_attempts],
+                    internals: %i[],
+                    outputs: %i[final_status total_attempts]
 
-          it_behaves_like "success result class"
-
-          it { expect(perform).to have_output(:final_status).contains(:completed) }
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:final_status)
+              .instance_of(Symbol)
+          )
         end
 
-        describe "when child succeeds on second attempt (sequential returns)" do
-          before do
-            allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
-              .succeeds(status: :processing, attempt_number: 1)
-              .then_succeeds(status: :completed, attempt_number: 2)
-          end
+        it do
+          expect(perform).to(
+            have_output(:total_attempts)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
 
-          it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      describe "when child succeeds on first attempt" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
+            .succeeds(status: :completed, attempt_number: 1)
+        end
 
-          it { expect(perform).to have_output(:final_status).contains(:completed) }
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:final_status, :completed)
+          )
+        end
+      end
+
+      describe "when child succeeds on second attempt (sequential returns)" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example2Child)
+            .succeeds(status: :processing, attempt_number: 1)
+            .then_succeeds(status: :completed, attempt_number: 2)
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:final_status, :completed)
+          )
         end
       end
     end

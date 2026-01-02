@@ -9,27 +9,31 @@ RSpec.describe Usual::OnSuccess::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "calls expected methods", :aggregate_failures do
-          result = perform
+      it do
+        expect(perform).to(
+          be_success_service
+        )
+      end
 
-          performed_methods = []
+      it "calls expected methods", :aggregate_failures do
+        result = perform
 
-          expect do
-            result.on_success do
-              performed_methods.push(:call_method_on_success)
-            end.on_failure(:all) do |**| # rubocop:disable Style/MultilineBlockChain
-              performed_methods.push(:call_method_on_failure_all)
-            end
-          end.to(
-            change { performed_methods }.from([]).to(
-              %i[call_method_on_success]
-            )
+        performed_methods = []
+
+        expect do
+          result.on_success do
+            performed_methods.push(:call_method_on_success)
+          end.on_failure(:all) do |**| # rubocop:disable Style/MultilineBlockChain
+            performed_methods.push(:call_method_on_failure_all)
+          end
+        end.to(
+          change { performed_methods }.from([]).to(
+            %i[call_method_on_success]
           )
-        end
+        )
       end
     end
   end
@@ -42,27 +46,31 @@ RSpec.describe Usual::OnSuccess::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-        it "calls expected methods", :aggregate_failures do
-          result = perform
+      it do
+        expect(perform).to(
+          be_success_service
+        )
+      end
 
-          performed_methods = []
+      it "calls expected methods", :aggregate_failures do
+        result = perform
 
-          expect do
-            result.on_success do
-              performed_methods.push(:call_method_on_success)
-            end.on_failure(:all) do |**| # rubocop:disable Style/MultilineBlockChain
-              performed_methods.push(:call_method_on_failure_all)
-            end
-          end.to(
-            change { performed_methods }.from([]).to(
-              %i[call_method_on_success]
-            )
+        performed_methods = []
+
+        expect do
+          result.on_success do
+            performed_methods.push(:call_method_on_success)
+          end.on_failure(:all) do |**| # rubocop:disable Style/MultilineBlockChain
+            performed_methods.push(:call_method_on_failure_all)
+          end
+        end.to(
+          change { performed_methods }.from([]).to(
+            %i[call_method_on_success]
           )
-        end
+        )
       end
     end
   end

@@ -17,24 +17,50 @@ RSpec.describe Usual::Success::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        context "when `number` has a value for early success" do
-          it { expect(perform).to have_output(:number).contains(2) }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
         end
+      end
 
-        context "when `number` has no value for early success" do
-          let(:number) { 2 }
-
-          it { expect(perform).to have_output(:number).contains(16) }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      context "when `number` has a value for early success" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 2)
+          )
+        end
+      end
+
+      context "when `number` has no value for early success" do
+        let(:number) { 2 }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 16)
+          )
+        end
+      end
     end
   end
 
@@ -54,24 +80,50 @@ RSpec.describe Usual::Success::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        context "when `number` has a value for early success" do
-          it { expect(perform).to have_output(:number).contains(2) }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
         end
+      end
 
-        context "when `number` has no value for early success" do
-          let(:number) { 2 }
-
-          it { expect(perform).to have_output(:number).contains(16) }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      context "when `number` has a value for early success" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 2)
+          )
+        end
+      end
+
+      context "when `number` has no value for early success" do
+        let(:number) { 2 }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:number, 16)
+          )
+        end
+      end
     end
   end
 end

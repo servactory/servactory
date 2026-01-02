@@ -17,53 +17,106 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example12, type: :service do
                     internals: %i[],
                     outputs: %i[event]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        describe "and the value of `event_name` is passed" do
-          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
-          it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-          it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
-        end
-
-        describe "and the value of `event_name` is not passed" do
-          let(:event_name) { nil }
-
-          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
-          it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-          it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:event_name)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+              .default("created")
+              .inclusion(%w[created rejected approved])
+          )
         end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the value of `event_name` is wrong" do
-          let(:event_name) { "sent" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Inclusion::Example12] Wrong value in `event_name`, " \
-                "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
-                "got `\"sent\"`"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
       it do
-        expect { perform }.to(
-          have_input(:event_name)
-            .valid_with(attributes)
-            .type(String)
-            .optional
-            .default("created")
-            .inclusion(%w[created rejected approved])
+        expect(perform).to(
+          be_success_service
         )
+      end
+
+      describe "and the value of `event_name` is passed" do
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .nested(:id)
+              .contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .nested(:event_name)
+              .contains("created")
+          )
+        end
+      end
+
+      describe "and the value of `event_name` is not passed" do
+        let(:event_name) { nil }
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .nested(:id)
+              .contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .nested(:event_name)
+              .contains("created")
+          )
+        end
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the value of `event_name` is wrong" do
+        let(:event_name) { "sent" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::Inclusion::Example12] Wrong value in `event_name`, " \
+              "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
+              "got `\"sent\"`"
+            )
+          )
+        end
       end
     end
   end
@@ -84,53 +137,106 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example12, type: :service do
                     internals: %i[],
                     outputs: %i[event]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        describe "and the value of `event_name` is passed" do
-          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
-          it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-          it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
-        end
-
-        describe "and the value of `event_name` is not passed" do
-          let(:event_name) { nil }
-
-          it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
-          it { expect(perform).to have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6") }
-          it { expect(perform).to have_output(:event).nested(:event_name).contains("created") }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:event_name)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+              .default("created")
+              .inclusion(%w[created rejected approved])
+          )
         end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the value of `event_name` is wrong" do
-          let(:event_name) { "sent" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Usual::DynamicOptions::Inclusion::Example12] Wrong value in `event_name`, " \
-                "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
-                "got `\"sent\"`"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
       it do
-        expect { perform }.to(
-          have_input(:event_name)
-            .valid_with(attributes)
-            .type(String)
-            .optional
-            .default("created")
-            .inclusion(%w[created rejected approved])
+        expect(perform).to(
+          be_success_service
         )
+      end
+
+      describe "and the value of `event_name` is passed" do
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .nested(:id)
+              .contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .nested(:event_name)
+              .contains("created")
+          )
+        end
+      end
+
+      describe "and the value of `event_name` is not passed" do
+        let(:event_name) { nil }
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .nested(:id)
+              .contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .nested(:event_name)
+              .contains("created")
+          )
+        end
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the value of `event_name` is wrong" do
+        let(:event_name) { "sent" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Usual::DynamicOptions::Inclusion::Example12] Wrong value in `event_name`, " \
+              "must be one of `[\"created\", \"rejected\", \"approved\"]`, " \
+              "got `\"sent\"`"
+            )
+          )
+        end
       end
     end
   end
