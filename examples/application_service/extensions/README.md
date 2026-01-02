@@ -32,21 +32,21 @@ Each extension contains a `DSL` module with two nested modules:
 
 ### Before — logic before execution
 ```ruby
-def call!(**)
-  # checks before execution
+def call!(incoming_arguments: {}, **)
+  # checks before execution (use incoming_arguments, NOT inputs)
   super
 end
 ```
-**Examples:** `authorization`, `status_active`
+**Note:** `inputs` is NOT available before `super`. Use `incoming_arguments` hash for pre-execution checks.
 
 ### After — logic after execution
 ```ruby
 def call!(**)
   super
-  # actions after execution
+  # actions after execution (inputs and outputs available)
 end
 ```
-**Examples:** `post_condition`, `publishable`
+**Examples:** `authorization`, `status_active`, `post_condition`, `publishable`
 
 ### Around — execution wrapper
 ```ruby
@@ -138,6 +138,15 @@ end
 
 ## Important Notes
 
+### authorization and status_active
+
+These extensions run **AFTER** service actions (`super`) because `inputs` is not available before `super`. This means:
+- Service actions execute before authorization/status checks
+- Side effects may occur even if authorization fails
+- Use these extensions for post-execution validation, not security gates
+
+For true pre-execution authorization, implement custom logic using `incoming_arguments` in a Before pattern extension.
+
 ### external_api_request
 
 The `error_class` parameter must be a **specific** exception class expected from your API client:
@@ -151,6 +160,8 @@ The extension uses `rescue StandardError => e` but filters exceptions via `raise
 ### rollbackable
 
 The rollback method is called on **any** `StandardError`, then the original exception is re-raised. This preserves Servactory's exception flow while allowing cleanup actions.
+
+**Note:** `success!` exceptions are excluded from triggering rollback.
 
 ## Files
 

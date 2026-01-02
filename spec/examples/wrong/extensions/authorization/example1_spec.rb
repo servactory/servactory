@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 RSpec.describe Wrong::Extensions::Authorization::Example1, type: :service do
+  let(:side_effect_tracker) { described_class::LikeASideEffectTracker }
+
+  before { side_effect_tracker.reset! }
+
   describe ".call!" do
     subject(:perform) { described_class.call!(**attributes) }
 
@@ -29,6 +33,12 @@ RSpec.describe Wrong::Extensions::Authorization::Example1, type: :service do
             end
           )
         end
+
+        it "executes service actions before authorization check" do
+          perform rescue nil # rubocop:disable Style/RescueModifier
+
+          expect(side_effect_tracker.executed).to be(true)
+        end
       end
     end
   end
@@ -55,6 +65,12 @@ RSpec.describe Wrong::Extensions::Authorization::Example1, type: :service do
             message: "Not authorized to perform this action",
             meta: nil
           )
+        end
+
+        it "executes service actions before authorization check" do
+          perform
+
+          expect(side_effect_tracker.executed).to be(true)
         end
       end
     end

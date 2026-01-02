@@ -24,7 +24,9 @@ module ApplicationService
 
           def call!(**)
             super
-          rescue StandardError
+          rescue StandardError => e
+            raise e if e.is_a?(Servactory::Exceptions::Success)
+
             rollback_method_name = self.class.send(:rollback_method_name)
 
             send(rollback_method_name) if rollback_method_name.present?

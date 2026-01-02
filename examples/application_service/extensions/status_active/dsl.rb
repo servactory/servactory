@@ -27,16 +27,16 @@ module ApplicationService
 
             status_active_model_name = self.class.send(:status_active_model_name)
 
-            return if status_active_model_name.nil?
+            if status_active_model_name.present?
+              is_active = inputs.send(status_active_model_name).active?
 
-            is_active = inputs.send(status_active_model_name).active?
-
-            return if is_active
-
-            fail_input!(
-              status_active_model_name,
-              message: "#{status_active_model_name.to_s.camelize.singularize} is not active"
-            )
+              unless is_active
+                fail_input!(
+                  status_active_model_name,
+                  message: "#{status_active_model_name.to_s.camelize.singularize} is not active"
+                )
+              end
+            end
           end
         end
       end
