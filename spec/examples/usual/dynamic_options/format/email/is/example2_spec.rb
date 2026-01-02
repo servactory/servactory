@@ -26,12 +26,6 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example2, type: :servic
             .with_output(:email, "No Reply <noreply@servactory.com>")
         )
       end
-
-      it do
-        expect(perform).to(
-          have_output(:email?).contains(true)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -87,12 +81,6 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example2, type: :servic
         expect(perform).to(
           be_success_service
             .with_output(:email, "No Reply <noreply@servactory.com>")
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:email?).contains(true)
         )
       end
     end

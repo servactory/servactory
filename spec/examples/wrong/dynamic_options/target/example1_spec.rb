@@ -30,11 +30,6 @@ RSpec.describe Wrong::DynamicOptions::Target::Example1, type: :service do
         end
       end
     end
-
-    # NOTE: Will not work due to the `nil` value in the option.
-    # context "when the input arguments are invalid" do
-    #   it { expect { perform }.to have_input(:service_class).valid_with(attributes).type(Class).required }
-    # end
   end
 
   describe ".call" do
@@ -66,10 +61,5 @@ RSpec.describe Wrong::DynamicOptions::Target::Example1, type: :service do
         end
       end
     end
-
-    # NOTE: Will not work due to the `nil` value in the option.
-    # context "when the input arguments are invalid" do
-    #   it { expect { perform }.to have_input(:service_class).valid_with(attributes).type(Class).required }
-    # end
   end
 end

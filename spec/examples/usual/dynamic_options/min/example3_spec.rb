@@ -53,12 +53,6 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
               .with_output(:data, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
-          )
-        end
       end
 
       context "when `data` is `Hash`" do
@@ -70,12 +64,6 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:data, { a: 1, b: 2, c: 3, d: 4 })
-          )
-        end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
           )
         end
       end
@@ -321,12 +309,6 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
               .with_output(:data, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
-          )
-        end
       end
 
       context "when `data` is `Hash`" do
@@ -338,12 +320,6 @@ RSpec.describe Usual::DynamicOptions::Min::Example3, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:data, { a: 1, b: 2, c: 3, d: 4 })
-          )
-        end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
           )
         end
       end

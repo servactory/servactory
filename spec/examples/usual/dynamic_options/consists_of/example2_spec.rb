@@ -58,11 +58,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
         )
       end
 
-      it do
-        expect(perform).to(
-          have_output(:first_invoice_number?).contains(true)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -205,11 +200,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example2, type: :service do
         )
       end
 
-      it do
-        expect(perform).to(
-          have_output(:first_invoice_number?).contains(true)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do

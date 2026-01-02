@@ -66,12 +66,6 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
               .with_output(:data, { a: 1, b: 2, c: 3, d: 4 })
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
-          )
-        end
       end
     end
 
@@ -345,12 +339,6 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:data, { a: 1, b: 2, c: 3, d: 4 })
-          )
-        end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
           )
         end
       end

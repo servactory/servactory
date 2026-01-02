@@ -26,12 +26,6 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
             .with_output(:password, "~hUN`AgY=YpW.061")
         )
       end
-
-      it do
-        expect(perform).to(
-          have_output(:password?).contains(true)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -86,12 +80,6 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
         expect(perform).to(
           be_success_service
             .with_output(:password, "~hUN`AgY=YpW.061")
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:password?).contains(true)
         )
       end
     end

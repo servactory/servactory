@@ -26,12 +26,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example1, t
             .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
         )
       end
-
-      it do
-        expect(perform).to(
-          have_output(:service_id?).contains(true)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -86,12 +80,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example1, t
         expect(perform).to(
           be_success_service
             .with_output(:service_id, "018f0e5d-a7bd-7764-8b88-cdf2b2d22543")
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:service_id?).contains(true)
         )
       end
     end

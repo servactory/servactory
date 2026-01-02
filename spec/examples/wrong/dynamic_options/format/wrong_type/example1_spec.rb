@@ -30,11 +30,6 @@ RSpec.describe Wrong::DynamicOptions::Format::WrongType::Example1, type: :servic
         end
       end
     end
-
-    # NOTE: Will not work due to the wrong type for format validation.
-    # context "when the input arguments are invalid" do
-    #   it { expect { perform }.to have_input(:email).valid_with(attributes).type(Integer).required }
-    # end
   end
 
   describe ".call" do
@@ -66,10 +61,5 @@ RSpec.describe Wrong::DynamicOptions::Format::WrongType::Example1, type: :servic
         end
       end
     end
-
-    # NOTE: Will not work due to the wrong type for format validation.
-    # context "when the input arguments are invalid" do
-    #   it { expect { perform }.to have_input(:email).valid_with(attributes).type(Integer).required }
-    # end
   end
 end

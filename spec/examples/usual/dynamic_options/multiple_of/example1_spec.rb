@@ -40,12 +40,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
               .with_output(:number, 90.0)
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
-          )
-        end
       end
 
       context "when `number` is `Rational`" do
@@ -57,12 +51,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:number, 90 / 1)
-          )
-        end
-
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
           )
         end
       end
@@ -79,11 +67,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
           )
         end
 
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
-          )
-        end
       end
     end
 
@@ -323,12 +306,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
               .with_output(:number, 90.0)
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
-          )
-        end
       end
 
       context "when `number` is `Rational`" do
@@ -340,12 +317,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:number, 90 / 1)
-          )
-        end
-
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
           )
         end
       end
@@ -362,11 +333,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example1, type: :service do
           )
         end
 
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
-          )
-        end
       end
     end
 

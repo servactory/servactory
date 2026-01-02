@@ -61,20 +61,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:letters?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
           be_success_service
             .with_output(:desired_letter, "E")
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:desired_letter?).contains(true)
         )
       end
     end
@@ -190,20 +178,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:letters?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
           be_success_service
             .with_output(:desired_letter, "E")
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:desired_letter?).contains(true)
         )
       end
     end

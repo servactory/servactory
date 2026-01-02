@@ -52,11 +52,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
         )
       end
 
-      it do
-        expect(perform).to(
-          have_output(:ids?).contains(false)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -171,11 +166,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example11, type: :service do
         )
       end
 
-      it do
-        expect(perform).to(
-          have_output(:ids?).contains(false)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do

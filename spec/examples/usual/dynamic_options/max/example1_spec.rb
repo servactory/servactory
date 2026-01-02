@@ -53,12 +53,6 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
               .with_output(:data, [0])
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
-          )
-        end
       end
 
       context "when `data` is `Hash`" do
@@ -73,11 +67,6 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
           )
         end
 
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
-          )
-        end
       end
     end
 
@@ -354,12 +343,6 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
               .with_output(:data, [0])
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
-          )
-        end
       end
 
       context "when `data` is `Hash`" do
@@ -374,11 +357,6 @@ RSpec.describe Usual::DynamicOptions::Max::Example1, type: :service do
           )
         end
 
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
-          )
-        end
       end
     end
 

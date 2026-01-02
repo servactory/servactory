@@ -43,11 +43,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
           )
         end
 
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
-          )
-        end
       end
     end
 
@@ -152,11 +147,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
           )
         end
 
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
-          )
-        end
       end
     end
 

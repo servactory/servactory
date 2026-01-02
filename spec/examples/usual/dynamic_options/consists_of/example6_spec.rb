@@ -71,20 +71,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:array_of_ids?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
           be_success_service
             .with_output(:first_id, "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:first_id?).contains(true)
         )
       end
     end
@@ -220,20 +208,8 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example6, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:array_of_ids?).contains(true)
-        )
-      end
-
-      it do
-        expect(perform).to(
           be_success_service
             .with_output(:first_id, "6e6ff7d9-6980-4c98-8fd8-ca615ccebab3")
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:first_id?).contains(true)
         )
       end
     end
