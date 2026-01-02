@@ -43,7 +43,11 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example3, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it { expect(perform).to be_success_service }
+      it do
+        expect(perform).to(
+          be_success_service
+        )
+      end
 
       it do
         expect(perform).to(
@@ -122,7 +126,11 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example3, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it { expect(perform).to be_success_service }
+      it do
+        expect(perform).to(
+          be_success_service
+        )
+      end
 
       it do
         expect(perform).to(

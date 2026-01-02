@@ -12,7 +12,11 @@ RSpec.describe Usual::OnSuccess::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it { expect(perform).to be_success_service }
+      it do
+        expect(perform).to(
+          be_success_service
+        )
+      end
 
       it "calls expected methods", :aggregate_failures do
         result = perform
@@ -45,7 +49,11 @@ RSpec.describe Usual::OnSuccess::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it { expect(perform).to be_success_service }
+      it do
+        expect(perform).to(
+          be_success_service
+        )
+      end
 
       it "calls expected methods", :aggregate_failures do
         result = perform

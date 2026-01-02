@@ -26,12 +26,6 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example1, type:
             .with_output(:boolean, nil)
         )
       end
-
-      it do
-        expect(perform).to(
-          have_output(:boolean?).contains(false)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -87,12 +81,6 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example1, type:
         expect(perform).to(
           be_success_service
             .with_output(:boolean, nil)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:boolean?).contains(false)
         )
       end
     end

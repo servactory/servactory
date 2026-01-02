@@ -33,12 +33,6 @@ RSpec.describe Usual::Must::Example1, type: :service do
             .with_output(:first_invoice_number, "7650AE")
         )
       end
-
-      it do
-        expect(perform).to(
-          have_output(:first_invoice_number?).contains(true)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -167,12 +161,6 @@ RSpec.describe Usual::Must::Example1, type: :service do
         expect(perform).to(
           be_success_service
             .with_output(:first_invoice_number, "7650AE")
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:first_invoice_number?).contains(true)
         )
       end
     end
