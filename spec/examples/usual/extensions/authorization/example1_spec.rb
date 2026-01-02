@@ -18,17 +18,6 @@ RSpec.describe Usual::Extensions::Authorization::Example1, type: :service do
                     outputs: %i[message]
 
     describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:user_role)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
       describe "outputs" do
         it do
           expect(perform).to(
@@ -63,17 +52,6 @@ RSpec.describe Usual::Extensions::Authorization::Example1, type: :service do
     let(:user_role) { "admin" }
 
     describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:user_role)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
       describe "outputs" do
         it do
           expect(perform).to(

@@ -22,21 +22,21 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
-            super
-
+          def call!(incoming_arguments: {}, **)
             status_active_model_name = self.class.send(:status_active_model_name)
 
             if status_active_model_name.present?
-              is_active = inputs.send(status_active_model_name).active?
+              model = incoming_arguments[status_active_model_name]
 
-              unless is_active
+              unless model&.active?
                 fail_input!(
                   status_active_model_name,
                   message: "#{status_active_model_name.to_s.camelize.singularize} is not active"
                 )
               end
             end
+
+            super
           end
         end
       end

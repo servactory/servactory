@@ -39,6 +39,8 @@ end
 ```
 **Note:** `inputs` is NOT available before `super`. Use `incoming_arguments` hash for pre-execution checks.
 
+**Examples:** `authorization`, `status_active`
+
 ### After — logic after execution
 ```ruby
 def call!(**)
@@ -46,7 +48,7 @@ def call!(**)
   # actions after execution (inputs and outputs available)
 end
 ```
-**Examples:** `authorization`, `status_active`, `post_condition`, `publishable`
+**Examples:** `post_condition`, `publishable`
 
 ### Around — execution wrapper
 ```ruby
@@ -126,8 +128,8 @@ end
 
 | Extension | Pattern | Purpose |
 |-----------|---------|---------|
-| `status_active` | After | Checks model active status |
-| `authorization` | After | Checks access permissions |
+| `status_active` | Before | Checks model active status |
+| `authorization` | Before | Checks access permissions |
 | `post_condition` | After | Validates post-conditions on outputs |
 | `transactional` | Around | Executes within DB transaction |
 | `rollbackable` | On_failure | Rollback on error |
@@ -137,15 +139,6 @@ end
 | `api_action` | ClassMethods | Generates make calls for API |
 
 ## Important Notes
-
-### authorization and status_active
-
-These extensions run **AFTER** service actions (`super`) because `inputs` is not available before `super`. This means:
-- Service actions execute before authorization/status checks
-- Side effects may occur even if authorization fails
-- Use these extensions for post-execution validation, not security gates
-
-For true pre-execution authorization, implement custom logic using `incoming_arguments` in a Before pattern extension.
 
 ### external_api_request
 

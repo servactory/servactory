@@ -22,13 +22,11 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
-            super
-
+          def call!(incoming_arguments: {}, **)
             authorization_method_name = self.class.send(:authorization_method_name)
 
             if authorization_method_name.present?
-              authorized = send(authorization_method_name)
+              authorized = send(authorization_method_name, incoming_arguments)
 
               unless authorized
                 fail!(
@@ -37,6 +35,8 @@ module ApplicationService
                 )
               end
             end
+
+            super
           end
         end
       end

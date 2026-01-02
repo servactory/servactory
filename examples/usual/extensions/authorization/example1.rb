@@ -14,8 +14,8 @@ module Usual
 
         private
 
-        def user_authorized?
-          inputs.user_role == "admin"
+        def user_authorized?(incoming_arguments)
+          incoming_arguments[:user_role] == "admin"
         end
 
         def assign_message

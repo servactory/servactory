@@ -34,10 +34,10 @@ RSpec.describe Wrong::Extensions::Authorization::Example1, type: :service do
           )
         end
 
-        it "executes service actions before authorization check" do
+        it "does NOT execute service actions when unauthorized" do
           perform rescue nil # rubocop:disable Style/RescueModifier
 
-          expect(side_effect_tracker.executed).to be(true)
+          expect(side_effect_tracker.executed).to be(false)
         end
       end
     end
@@ -67,10 +67,10 @@ RSpec.describe Wrong::Extensions::Authorization::Example1, type: :service do
           )
         end
 
-        it "executes service actions before authorization check" do
+        it "does NOT execute service actions when unauthorized" do
           perform
 
-          expect(side_effect_tracker.executed).to be(true)
+          expect(side_effect_tracker.executed).to be(false)
         end
       end
     end
