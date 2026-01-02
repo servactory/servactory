@@ -48,8 +48,10 @@ RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
 
       describe "outputs" do
         it do
-          result = perform
-          expect(result.value).to be_a(Integer)
+          expect(perform).to(
+            have_output(:value)
+              .instance_of(Integer)
+          )
         end
       end
     end
@@ -57,9 +59,15 @@ RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "executes and stores value on first call", :aggregate_failures do
-        expect(perform).to be_success_service
-        expect(perform.value).to eq(500)
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:value, 500)
+        )
+      end
+
+      it "stores execution on first call" do
+        perform
         expect(idempotency_store.execution_count).to eq(1)
       end
 
@@ -91,12 +99,45 @@ RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
     let(:request_id) { "unique-request-456" }
     let(:amount) { 200 }
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:request_id)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+
+        it do
+          expect { perform }.to(
+            have_input(:amount)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:value)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with calculated value", :aggregate_failures do
-        expect(perform).to be_success_service
-        expect(perform.value).to eq(1000)
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:value, 1000)
+        )
       end
     end
   end

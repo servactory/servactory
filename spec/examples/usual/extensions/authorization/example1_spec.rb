@@ -31,8 +31,10 @@ RSpec.describe Usual::Extensions::Authorization::Example1, type: :service do
 
       describe "outputs" do
         it do
-          result = perform
-          expect(result.message).to be_a(String)
+          expect(perform).to(
+            have_output(:message)
+              .instance_of(String)
+          )
         end
       end
     end
@@ -40,9 +42,11 @@ RSpec.describe Usual::Extensions::Authorization::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with message", :aggregate_failures do
-        expect(perform).to be_success_service
-        expect(perform.message).to eq("Access granted for admin")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:message, "Access granted for admin")
+        )
       end
     end
   end
@@ -58,12 +62,36 @@ RSpec.describe Usual::Extensions::Authorization::Example1, type: :service do
 
     let(:user_role) { "admin" }
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:user_role)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:message)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with message", :aggregate_failures do
-        expect(perform).to be_success_service
-        expect(perform.message).to eq("Access granted for admin")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:message, "Access granted for admin")
+        )
       end
     end
   end

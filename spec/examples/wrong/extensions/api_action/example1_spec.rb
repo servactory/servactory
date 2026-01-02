@@ -25,6 +25,8 @@ RSpec.describe Wrong::Extensions::ApiAction::Example1, type: :service do
 
     describe "but the data required for work is invalid" do
       describe "because API request fails" do
+        it_behaves_like "failure result class"
+
         it "returns expected error", :aggregate_failures do
           expect { perform }.to(
             raise_error do |exception|
@@ -53,6 +55,8 @@ RSpec.describe Wrong::Extensions::ApiAction::Example1, type: :service do
 
     describe "but the data required for work is invalid" do
       describe "because API request fails" do
+        it_behaves_like "failure result class"
+
         it "returns the expected value in `error`", :aggregate_failures do
           result = perform
 

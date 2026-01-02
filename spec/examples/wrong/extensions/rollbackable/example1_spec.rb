@@ -25,6 +25,8 @@ RSpec.describe Wrong::Extensions::Rollbackable::Example1, type: :service do
 
     describe "but the data required for work is invalid" do
       describe "because operation fails and rollback is triggered" do
+        it_behaves_like "failure result class"
+
         it "returns expected error and calls rollback", :aggregate_failures do
           expect { perform }.to(
             raise_error do |exception|
@@ -53,6 +55,8 @@ RSpec.describe Wrong::Extensions::Rollbackable::Example1, type: :service do
 
     describe "but the data required for work is invalid" do
       describe "because operation fails and rollback is triggered" do
+        it_behaves_like "failure result class"
+
         it "returns the expected value in `error`", :aggregate_failures do
           result = perform
 

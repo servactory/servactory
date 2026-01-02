@@ -37,8 +37,10 @@ RSpec.describe Usual::Extensions::ExternalApiRequest::Example1, type: :service d
 
       describe "outputs" do
         it do
-          result = perform
-          expect(result.api_response).to be_a(described_class::LikeAnApiResponse)
+          expect(perform).to(
+            have_output(:api_response)
+              .instance_of(described_class::LikeAnApiResponse)
+          )
         end
       end
     end
@@ -46,10 +48,18 @@ RSpec.describe Usual::Extensions::ExternalApiRequest::Example1, type: :service d
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with API response", :aggregate_failures do
+      it do
         expect(perform).to be_success_service
-        expect(perform.api_response.id).to eq(99)
-        expect(perform.api_response.name).to eq("User 99")
+      end
+
+      it "returns API response with correct attributes", :aggregate_failures do
+        result = perform
+        expect(result.api_response.id).to eq(99)
+        expect(result.api_response.name).to eq("User 99")
+      end
+
+      it "makes single API request" do
+        perform
         expect(api_client.request_count).to eq(1)
       end
     end
@@ -66,13 +76,39 @@ RSpec.describe Usual::Extensions::ExternalApiRequest::Example1, type: :service d
 
     let(:user_id) { 99 }
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:user_id)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:api_response)
+              .instance_of(described_class::LikeAnApiResponse)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with API response", :aggregate_failures do
+      it do
         expect(perform).to be_success_service
-        expect(perform.api_response.id).to eq(99)
-        expect(perform.api_response.name).to eq("User 99")
+      end
+
+      it "returns API response with correct attributes", :aggregate_failures do
+        result = perform
+        expect(result.api_response.id).to eq(99)
+        expect(result.api_response.name).to eq("User 99")
       end
     end
   end

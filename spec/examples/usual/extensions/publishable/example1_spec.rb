@@ -37,8 +37,10 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
 
       describe "outputs" do
         it do
-          result = perform
-          expect(result.user_name).to be_a(String)
+          expect(perform).to(
+            have_output(:user_name)
+              .instance_of(String)
+          )
         end
       end
     end
@@ -46,9 +48,15 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success and publishes event", :aggregate_failures do
-        expect(perform).to be_success_service
-        expect(perform.user_name).to eq("User 123")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:user_name, "User 123")
+        )
+      end
+
+      it "publishes event" do
+        perform
         expect(event_bus.published_events).to contain_exactly(
           {
             name: :user_created,
@@ -70,12 +78,40 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
 
     let(:user_id) { 123 }
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:user_id)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:user_name)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success and publishes event", :aggregate_failures do
-        expect(perform).to be_success_service
-        expect(perform.user_name).to eq("User 123")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:user_name, "User 123")
+        )
+      end
+
+      it "publishes event" do
+        perform
         expect(event_bus.published_events.size).to eq(1)
       end
     end
