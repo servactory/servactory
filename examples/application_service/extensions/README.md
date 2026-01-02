@@ -136,6 +136,22 @@ end
 | `external_api_request` | On_failure | Handles external API errors |
 | `api_action` | ClassMethods | Generates make calls for API |
 
+## Important Notes
+
+### external_api_request
+
+The `error_class` parameter must be a **specific** exception class expected from your API client:
+
+- `Faraday::Error`, `Net::HTTPError`, `RestClient::Exception`, etc.
+- **NEVER** use `StandardError`, `Exception`, or `Servactory::Exceptions::Base`
+- Using broad exception classes will intercept Servactory's internal exceptions (`fail!`, `success!`, validation errors)
+
+The extension uses `rescue StandardError => e` but filters exceptions via `raise e unless e.is_a?(error_class)`. Only exceptions matching the configured `error_class` are converted to service failures; all others (including Servactory exceptions) are re-raised.
+
+### rollbackable
+
+The rollback method is called on **any** `StandardError`, then the original exception is re-raised. This preserves Servactory's exception flow while allowing cleanup actions.
+
 ## Files
 
 - DSL: `examples/application_service/extensions/*/dsl.rb`
