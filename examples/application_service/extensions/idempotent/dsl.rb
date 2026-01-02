@@ -24,7 +24,7 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+          def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
             idempotency_key_input = self.class.send(:idempotency_key_input)
             idempotency_was_cached = false
             cached_outputs = nil
