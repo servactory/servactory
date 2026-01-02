@@ -51,7 +51,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example12, type: :service do
       end
 
       describe "and the value of `event_name` is passed" do
-        it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
+        end
 
         it do
           expect(perform).to(
@@ -73,7 +78,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example12, type: :service do
       describe "and the value of `event_name` is not passed" do
         let(:event_name) { nil }
 
-        it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
+        end
 
         it do
           expect(perform).to(
@@ -161,7 +171,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example12, type: :service do
       end
 
       describe "and the value of `event_name` is passed" do
-        it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
+        end
 
         it do
           expect(perform).to(
@@ -183,7 +198,12 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example12, type: :service do
       describe "and the value of `event_name` is not passed" do
         let(:event_name) { nil }
 
-        it { expect(perform).to have_output(:event).instance_of(Usual::DynamicOptions::Inclusion::Example12::Event) }
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example12::Event)
+          )
+        end
 
         it do
           expect(perform).to(
