@@ -9,6 +9,14 @@ RSpec.describe Usual::Stage::Example13, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
+    describe "validations" do
+      describe "outputs" do
+        it "defines output :number but service always rolls back before producing it" do
+          expect(described_class.info.outputs.keys).to include(:number)
+        end
+      end
+    end
+
     describe "but the data required for work is invalid" do
       it "returns expected error", :aggregate_failures do
         expect { perform }.to(
@@ -34,6 +42,14 @@ RSpec.describe Usual::Stage::Example13, type: :service do
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[number]
+
+    describe "validations" do
+      describe "outputs" do
+        it "defines output :number but service always rolls back before producing it" do
+          expect(described_class.info.outputs.keys).to include(:number)
+        end
+      end
+    end
 
     describe "but the data required for work is invalid" do
       it_behaves_like "failure result class"

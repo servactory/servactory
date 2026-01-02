@@ -40,27 +40,29 @@ RSpec.describe Usual::DynamicOptions::Target::Example6, type: :service do
       end
     end
 
-    describe "and the data required for work is also valid (MyFirstService)" do
-      it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      context "when using MyFirstService" do
+        it_behaves_like "success result class"
 
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:result, service_class.name)
-        )
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:result, service_class.name)
+          )
+        end
       end
-    end
 
-    describe "and the data required for work is also valid (MySecondService)" do
-      let(:service_class) { described_class::MySecondService }
+      context "when using MySecondService" do
+        let(:service_class) { described_class::MySecondService }
 
-      it_behaves_like "success result class"
+        it_behaves_like "success result class"
 
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:result, service_class.name)
-        )
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:result, service_class.name)
+          )
+        end
       end
     end
 
@@ -121,27 +123,29 @@ RSpec.describe Usual::DynamicOptions::Target::Example6, type: :service do
       end
     end
 
-    describe "and the data required for work is also valid (MyFirstService)" do
-      it_behaves_like "success result class"
+    describe "and the data required for work is also valid" do
+      context "when using MyFirstService" do
+        it_behaves_like "success result class"
 
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:result, service_class.name)
-        )
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:result, service_class.name)
+          )
+        end
       end
-    end
 
-    describe "and the data required for work is also valid (MySecondService)" do
-      let(:service_class) { described_class::MySecondService }
+      context "when using MySecondService" do
+        let(:service_class) { described_class::MySecondService }
 
-      it_behaves_like "success result class"
+        it_behaves_like "success result class"
 
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:result, service_class.name)
-        )
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:result, service_class.name)
+          )
+        end
       end
     end
 

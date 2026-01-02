@@ -9,6 +9,20 @@ RSpec.describe Usual::OnFailure::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[some_value]
 
+    describe "validations" do
+      describe "outputs" do
+        it "defines output :some_value but service always fails before producing it" do
+          expect(described_class.info.outputs.keys).to include(:some_value)
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it "always triggers failure in this example (designed to test on_failure behavior)" do
+        expect { perform }.to raise_error(ApplicationService::Exceptions::Failure)
+      end
+    end
+
     describe "but the data required for work is invalid" do
       it "returns expected error", :aggregate_failures do
         expect { perform }.to(
@@ -36,6 +50,20 @@ RSpec.describe Usual::OnFailure::Example1, type: :service do
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[some_value]
+
+    describe "validations" do
+      describe "outputs" do
+        it "defines output :some_value but service always fails before producing it" do
+          expect(described_class.info.outputs.keys).to include(:some_value)
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it "always triggers failure in this example (designed to test on_failure behavior)" do
+        expect(perform.failure?(:validation)).to be(true)
+      end
+    end
 
     describe "but the data required for work is invalid" do
       # include_examples "failure result class"

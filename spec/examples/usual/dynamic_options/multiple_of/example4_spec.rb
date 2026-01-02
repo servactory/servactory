@@ -17,7 +17,38 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
                     internals: %i[number],
                     outputs: [:number]
 
-    describe "and the number required for work is also valid" do
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .type(Float)
+              .required
+          )
+        end
+      end
+
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:number)
+              .type(Float)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Float)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
       # NOTE: 30.0 is divisible by 2.0, 3.0, and 5.0
 
       context "when `number` is `30.0`" do
@@ -45,7 +76,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
       end
     end
 
-    describe "but the number required for work is invalid" do
+    describe "but the data required for work is invalid" do
       describe "for `input` attribute" do
         context "when value is not multiple of 2.0" do
           let(:number) { 5.0 }
@@ -94,25 +125,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
         end
       end
     end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:number).valid_with(attributes).type(Float).required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:number)
-              .instance_of(Float)
-          )
-        end
-      end
-    end
   end
 
   describe ".call" do
@@ -131,7 +143,38 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
                     internals: %i[number],
                     outputs: [:number]
 
-    describe "and the number required for work is also valid" do
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .type(Float)
+              .required
+          )
+        end
+      end
+
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:number)
+              .type(Float)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Float)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
       context "when `number` is `30.0`" do
         it_behaves_like "success result class"
 
@@ -157,7 +200,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
       end
     end
 
-    describe "but the number required for work is invalid" do
+    describe "but the data required for work is invalid" do
       describe "for `input` attribute" do
         context "when value is not multiple of 2.0" do
           let(:number) { 5.0 }
@@ -203,25 +246,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
               )
             )
           end
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:number).valid_with(attributes).type(Float).required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:number)
-              .instance_of(Float)
-          )
         end
       end
     end

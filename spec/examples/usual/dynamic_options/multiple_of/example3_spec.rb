@@ -17,7 +17,38 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
                     internals: %i[number],
                     outputs: [:number]
 
-    describe "and the number required for work is also valid" do
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .types(Integer, Float, Rational, BigDecimal)
+              .required
+          )
+        end
+      end
+
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:number)
+              .types(Integer, Float, Rational, BigDecimal)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
       context "when `number` is `Integer`" do
         it_behaves_like "success result class"
 
@@ -69,7 +100,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
       end
     end
 
-    describe "but the number required for work is invalid" do
+    describe "but the data required for work is invalid" do
       context "when `number` is `Integer`" do
         describe "because the value is greater than specified" do
           describe "for `input` attribute" do
@@ -239,25 +270,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
               )
             end
           end
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:number).valid_with(attributes).types(Integer, Float, Rational, BigDecimal).required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:number)
-              .instance_of(Integer)
-          )
         end
       end
     end
@@ -279,7 +291,38 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
                     internals: %i[number],
                     outputs: [:number]
 
-    describe "and the number required for work is also valid" do
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .types(Integer, Float, Rational, BigDecimal)
+              .required
+          )
+        end
+      end
+
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:number)
+              .types(Integer, Float, Rational, BigDecimal)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
       context "when `number` is `Integer`" do
         it_behaves_like "success result class"
 
@@ -331,7 +374,7 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
       end
     end
 
-    describe "but the number required for work is invalid" do
+    describe "but the data required for work is invalid" do
       context "when `number` is `Integer`" do
         describe "because the value is greater than specified" do
           describe "for `input` attribute" do
@@ -501,25 +544,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
               )
             end
           end
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:number).valid_with(attributes).types(Integer, Float, Rational, BigDecimal).required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:number)
-              .instance_of(Integer)
-          )
         end
       end
     end

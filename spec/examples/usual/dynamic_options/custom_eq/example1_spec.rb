@@ -19,54 +19,76 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it {
-          expect do
-            perform
-          end.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required
-        }
+        it do
+          expect { perform }.to(
+            have_input(:data)
+              .valid_with(attributes)
+              .types(Integer, String, Array, Hash)
+              .required
+          )
+        end
+      end
+
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:data)
+              .types(Integer, String, Array, Hash)
+          )
+        end
       end
 
       describe "outputs" do
-        context "when `data` is `Integer`" do
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:data, 2)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:data)
+          )
         end
+      end
+    end
 
-        context "when `data` is `String`" do
-          let(:data) { "Hi" }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:data, "Hi")
-            )
-          end
+      context "when `data` is `Integer`" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, 2)
+          )
         end
+      end
 
-        context "when `data` is `Array`" do
-          let(:data) { [0, 1] }
+      context "when `data` is `String`" do
+        let(:data) { "Hi" }
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq([0, 1])
-          end
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, "Hi")
+          )
         end
+      end
 
-        context "when `data` is `Hash`" do
-          let(:data) { { a: 1, b: 2 } }
+      context "when `data` is `Array`" do
+        let(:data) { [0, 1] }
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:data, { a: 1, b: 2 })
-            )
-          end
+        it "returns the expected value", :aggregate_failures do
+          result = perform
+
+          expect(result.data?).to be(true)
+          expect(result.data).to eq([0, 1])
+        end
+      end
+
+      context "when `data` is `Hash`" do
+        let(:data) { { a: 1, b: 2 } }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, { a: 1, b: 2 })
+          )
         end
       end
     end
@@ -169,54 +191,76 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
 
     describe "validations" do
       describe "inputs" do
-        it {
-          expect do
-            perform
-          end.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required
-        }
+        it do
+          expect { perform }.to(
+            have_input(:data)
+              .valid_with(attributes)
+              .types(Integer, String, Array, Hash)
+              .required
+          )
+        end
+      end
+
+      describe "internals" do
+        it do
+          expect { perform }.to(
+            have_internal(:data)
+              .types(Integer, String, Array, Hash)
+          )
+        end
       end
 
       describe "outputs" do
-        context "when `data` is `Integer`" do
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:data, 2)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:data)
+          )
         end
+      end
+    end
 
-        context "when `data` is `String`" do
-          let(:data) { "Hi" }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:data, "Hi")
-            )
-          end
+      context "when `data` is `Integer`" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, 2)
+          )
         end
+      end
 
-        context "when `data` is `Array`" do
-          let(:data) { [0, 1] }
+      context "when `data` is `String`" do
+        let(:data) { "Hi" }
 
-          it "returns the expected value", :aggregate_failures do
-            result = perform
-
-            expect(result.data?).to be(true)
-            expect(result.data).to eq([0, 1])
-          end
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, "Hi")
+          )
         end
+      end
 
-        context "when `data` is `Hash`" do
-          let(:data) { { a: 1, b: 2 } }
+      context "when `data` is `Array`" do
+        let(:data) { [0, 1] }
 
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:data, { a: 1, b: 2 })
-            )
-          end
+        it "returns the expected value", :aggregate_failures do
+          result = perform
+
+          expect(result.data?).to be(true)
+          expect(result.data).to eq([0, 1])
+        end
+      end
+
+      context "when `data` is `Hash`" do
+        let(:data) { { a: 1, b: 2 } }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, { a: 1, b: 2 })
+          )
         end
       end
     end
