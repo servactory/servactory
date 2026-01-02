@@ -21,11 +21,11 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
       context "when `data` is `Integer`" do
         it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.data?).to be(true)
-          expect(result.data).to eq(6)
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, 6)
+          )
         end
       end
 
@@ -34,11 +34,11 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
 
         it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.data?).to be(true)
-          expect(result.data).to eq("Data")
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, "Data")
+          )
         end
       end
 
@@ -47,11 +47,11 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
 
         it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.data?).to be(true)
-          expect(result.data).to eq([0, 1, 2, 3, 4, 5, 6])
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, [0, 1, 2, 3, 4, 5, 6])
+          )
         end
       end
 
@@ -60,11 +60,11 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
 
         it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.data?).to be(true)
-          expect(result.data).to match({ a: 1, b: 2, c: 3, d: 4 })
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, { a: 1, b: 2, c: 3, d: 4 })
+          )
         end
       end
     end
@@ -493,11 +493,11 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
       context "when `data` is `Integer`" do
         it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.data?).to be(true)
-          expect(result.data).to eq(6)
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, 6)
+          )
         end
       end
 
@@ -506,11 +506,11 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
 
         it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.data?).to be(true)
-          expect(result.data).to eq("Data")
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, "Data")
+          )
         end
       end
 
@@ -519,11 +519,11 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
 
         it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.data?).to be(true)
-          expect(result.data).to eq([0, 1, 2, 3, 4, 5, 6])
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, [0, 1, 2, 3, 4, 5, 6])
+          )
         end
       end
 
@@ -532,11 +532,11 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
 
         it_behaves_like "success result class"
 
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.data?).to be(true)
-          expect(result.data).to match({ a: 1, b: 2, c: 3, d: 4 })
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, { a: 1, b: 2, c: 3, d: 4 })
+          )
         end
       end
     end

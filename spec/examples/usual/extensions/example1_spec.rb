@@ -20,13 +20,7 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected values", :aggregate_failures do
-        result = perform
-
-        expect(result).to be_a(Servactory::Result)
-        expect(result).to be_success
-        expect(result).not_to be_failure
-      end
+      it { expect(perform).to be_success_service }
     end
 
     describe "but the data required for work is invalid" do
@@ -77,13 +71,7 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected values", :aggregate_failures do
-        result = perform
-
-        expect(result).to be_a(Servactory::Result)
-        expect(result).to be_success
-        expect(result).not_to be_failure
-      end
+      it { expect(perform).to be_success_service }
     end
 
     describe "but the data required for work is invalid" do

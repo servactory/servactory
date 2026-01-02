@@ -43,15 +43,21 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example4, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
+      it { expect(perform).to be_success_service }
+
       it do
         expect(perform).to(
-          have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
+          have_output(:event)
+            .nested(:id)
+            .contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
         )
       end
 
       it do
         expect(perform).to(
-          have_output(:event).nested(:event_name).contains("created")
+          have_output(:event)
+            .nested(:event_name)
+            .contains("created")
         )
       end
     end
@@ -114,15 +120,21 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example4, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
+      it { expect(perform).to be_success_service }
+
       it do
         expect(perform).to(
-          have_output(:event).nested(:id).contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
+          have_output(:event)
+            .nested(:id)
+            .contains("14fe213e-1b0a-4a68-bca9-ce082db0f2c6")
         )
       end
 
       it do
         expect(perform).to(
-          have_output(:event).nested(:event_name).contains("created")
+          have_output(:event)
+            .nested(:event_name)
+            .contains("created")
         )
       end
     end

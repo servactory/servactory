@@ -42,8 +42,8 @@ RSpec.describe Usual::DynamicOptions::Schema::Example10, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:issued_on)
-            .contains(DateTime.new(2023, 1, 1))
+          be_success_service
+            .with_output(:issued_on, DateTime.new(2023, 1, 1))
         )
       end
     end
@@ -90,8 +90,8 @@ RSpec.describe Usual::DynamicOptions::Schema::Example10, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:issued_on)
-            .contains(DateTime.new(2023, 1, 1))
+          be_success_service
+            .with_output(:issued_on, DateTime.new(2023, 1, 1))
         )
       end
     end

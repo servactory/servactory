@@ -22,8 +22,8 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:entity_class)
-            .contains(Usual::DynamicOptions::Inclusion::Example11::ThirdEntity)
+          be_success_service
+            .with_output(:entity_class, Usual::DynamicOptions::Inclusion::Example11::ThirdEntity)
         )
       end
     end
@@ -120,8 +120,8 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
 
       it do
         expect(perform).to(
-          have_output(:entity_class)
-            .contains(Usual::DynamicOptions::Inclusion::Example11::ThirdEntity)
+          be_success_service
+            .with_output(:entity_class, Usual::DynamicOptions::Inclusion::Example11::ThirdEntity)
         )
       end
     end

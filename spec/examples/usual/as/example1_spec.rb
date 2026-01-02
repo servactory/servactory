@@ -20,10 +20,11 @@ RSpec.describe Usual::As::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected values", :aggregate_failures do
-        result = perform
-
-        expect(result.formatted_email).to eq("No Reply <noreply@servactory.com>")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:formatted_email, "No Reply <noreply@servactory.com>")
+        )
       end
     end
 
@@ -60,10 +61,11 @@ RSpec.describe Usual::As::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected values", :aggregate_failures do
-        result = perform
-
-        expect(result.formatted_email).to eq("No Reply <noreply@servactory.com>")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:formatted_email, "No Reply <noreply@servactory.com>")
+        )
       end
     end
 
