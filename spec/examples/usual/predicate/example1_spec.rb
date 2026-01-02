@@ -25,52 +25,6 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
                       is_number_present is_prepared_number_present
                     ]
 
-    describe "and the data required for work is also valid" do
-      it_behaves_like "success result class"
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_enabled, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_really_enabled, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_text_present, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_prepared_text_present, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_number_present, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_prepared_number_present, true)
-        )
-      end
-    end
-
     describe "validations" do
       describe "inputs" do
         it do
@@ -142,6 +96,52 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
             .valid_with(attributes)
             .type(Integer)
             .required
+        )
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_enabled, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_really_enabled, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_text_present, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_prepared_text_present, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_number_present, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_prepared_number_present, true)
         )
       end
     end
@@ -171,52 +171,6 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
                       is_number_present is_prepared_number_present
                     ]
 
-    describe "and the data required for work is also valid" do
-      it_behaves_like "success result class"
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_enabled, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_really_enabled, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_text_present, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_prepared_text_present, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_number_present, true)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:is_prepared_number_present, true)
-        )
-      end
-    end
-
     describe "validations" do
       describe "inputs" do
         it do
@@ -288,6 +242,52 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
             .valid_with(attributes)
             .type(Integer)
             .required
+        )
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_enabled, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_really_enabled, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_text_present, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_prepared_text_present, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_number_present, true)
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:is_prepared_number_present, true)
         )
       end
     end

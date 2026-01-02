@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example2, t
                     internals: %i[service_id],
                     outputs: %i[service_id]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_id)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:service_id)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -41,28 +63,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example2, t
               ApplicationService::Exceptions::Internal,
               "Invalid date format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:service_id)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:service_id)
-              .instance_of(String)
           )
         end
       end
@@ -85,6 +85,28 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example2, t
                     internals: %i[service_id],
                     outputs: %i[service_id]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_id)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:service_id)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -109,28 +131,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example2, t
               ApplicationService::Exceptions::Internal,
               "Invalid date format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:service_id)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:service_id)
-              .instance_of(String)
           )
         end
       end

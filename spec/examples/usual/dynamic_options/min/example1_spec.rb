@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
                     internals: %i[data],
                     outputs: [:data]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:data)
+              .valid_with(attributes)
+              .types(Integer, String, Array, Hash)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:data)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       context "when `data` is `Integer`" do
         it_behaves_like "success result class"
@@ -258,28 +280,6 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
               )
             end
           end
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:data)
-              .valid_with(attributes)
-              .types(Integer, String, Array, Hash)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:data)
-              .instance_of(Integer)
-          )
         end
       end
     end
@@ -301,6 +301,28 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
                     internals: %i[data],
                     outputs: [:data]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:data)
+              .valid_with(attributes)
+              .types(Integer, String, Array, Hash)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:data)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       context "when `data` is `Integer`" do
         it_behaves_like "success result class"
@@ -542,28 +564,6 @@ RSpec.describe Usual::DynamicOptions::Min::Example1, type: :service do
               )
             end
           end
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:data)
-              .valid_with(attributes)
-              .types(Integer, String, Array, Hash)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:data)
-              .instance_of(Integer)
-          )
         end
       end
     end

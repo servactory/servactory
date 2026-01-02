@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
                     internals: %i[song_duration],
                     outputs: %i[song_duration]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:song_duration)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(ActiveSupport::Duration)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -41,28 +63,6 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
               ApplicationService::Exceptions::Internal,
               "Value `7D` does not match the format of `duration` in `song_duration`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:song_duration)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:song_duration)
-              .instance_of(ActiveSupport::Duration)
           )
         end
       end
@@ -85,6 +85,28 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
                     internals: %i[song_duration],
                     outputs: %i[song_duration]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:song_duration)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(ActiveSupport::Duration)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -109,28 +131,6 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
               ApplicationService::Exceptions::Internal,
               "Value `7D` does not match the format of `duration` in `song_duration`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:song_duration)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:song_duration)
-              .instance_of(ActiveSupport::Duration)
           )
         end
       end

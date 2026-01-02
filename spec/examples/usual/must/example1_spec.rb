@@ -24,6 +24,30 @@ RSpec.describe Usual::Must::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[first_invoice_number]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:invoice_numbers)
+              .valid_with(attributes)
+              .type(Array)
+              .required
+              .consists_of(String)
+              .must(:be_6_characters)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:first_invoice_number)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -113,30 +137,6 @@ RSpec.describe Usual::Must::Example1, type: :service do
               ApplicationService::Exceptions::Input,
               "[Usual::Must::Example1] Required element in input collection `invoice_numbers` is missing"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:invoice_numbers)
-              .valid_with(attributes)
-              .type(Array)
-              .required
-              .consists_of(String)
-              .must(:be_6_characters)
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:first_invoice_number)
-              .instance_of(String)
           )
         end
       end
@@ -166,6 +166,30 @@ RSpec.describe Usual::Must::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[first_invoice_number]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:invoice_numbers)
+              .valid_with(attributes)
+              .type(Array)
+              .required
+              .consists_of(String)
+              .must(:be_6_characters)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:first_invoice_number)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -255,30 +279,6 @@ RSpec.describe Usual::Must::Example1, type: :service do
               ApplicationService::Exceptions::Input,
               "[Usual::Must::Example1] Required element in input collection `invoice_numbers` is missing"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:invoice_numbers)
-              .valid_with(attributes)
-              .type(Array)
-              .required
-              .consists_of(String)
-              .must(:be_6_characters)
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:first_invoice_number)
-              .instance_of(String)
           )
         end
       end

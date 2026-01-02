@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example2, type: :service
                     internals: %i[started_on],
                     outputs: %i[started_on]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_on)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_on)
+              .instance_of(Date)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -42,28 +64,6 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example2, type: :service
               "[Usual::DynamicOptions::Format::Date::Is::Example2] Internal attribute `started_on` " \
               "does not match `date` format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:started_on)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:started_on)
-              .instance_of(Date)
           )
         end
       end
@@ -86,6 +86,28 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example2, type: :service
                     internals: %i[started_on],
                     outputs: %i[started_on]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_on)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_on)
+              .instance_of(Date)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -111,28 +133,6 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example2, type: :service
               "[Usual::DynamicOptions::Format::Date::Is::Example2] Internal attribute `started_on` " \
               "does not match `date` format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:started_on)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:started_on)
-              .instance_of(Date)
           )
         end
       end

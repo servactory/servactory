@@ -17,6 +17,29 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
                     internals: %i[],
                     outputs: %i[positive_number]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:positive_number)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+              .inclusion(1..)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:positive_number)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -85,6 +108,23 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
         end
       end
     end
+  end
+
+  describe ".call" do
+    subject(:perform) { described_class.call(**attributes) }
+
+    let(:attributes) do
+      {
+        positive_number:
+      }
+    end
+
+    let(:positive_number) { 42 }
+
+    it_behaves_like "check class info",
+                    inputs: %i[positive_number],
+                    internals: %i[],
+                    outputs: %i[positive_number]
 
     describe "validations" do
       describe "inputs" do
@@ -108,23 +148,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
         end
       end
     end
-  end
-
-  describe ".call" do
-    subject(:perform) { described_class.call(**attributes) }
-
-    let(:attributes) do
-      {
-        positive_number:
-      }
-    end
-
-    let(:positive_number) { 42 }
-
-    it_behaves_like "check class info",
-                    inputs: %i[positive_number],
-                    internals: %i[],
-                    outputs: %i[positive_number]
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
@@ -149,29 +172,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
               "must be one of `1..`, " \
               "got `0`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:positive_number)
-              .valid_with(attributes)
-              .type(Integer)
-              .required
-              .inclusion(1..)
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:positive_number)
-              .instance_of(Integer)
           )
         end
       end

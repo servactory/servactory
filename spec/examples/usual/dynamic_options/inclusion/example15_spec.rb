@@ -17,6 +17,29 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example15, type: :service do
                     internals: %i[],
                     outputs: %i[score]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:score)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+              .inclusion(0..100)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:score)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -38,29 +61,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example15, type: :service do
               ApplicationService::Exceptions::Input,
               "Score 150 must be between 0 and 100"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:score)
-              .valid_with(attributes)
-              .type(Integer)
-              .required
-              .inclusion(0..100)
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:score)
-              .instance_of(Integer)
           )
         end
       end
@@ -83,6 +83,29 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example15, type: :service do
                     internals: %i[],
                     outputs: %i[score]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:score)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+              .inclusion(0..100)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:score)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -104,29 +127,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example15, type: :service do
               ApplicationService::Exceptions::Input,
               "Score 150 must be between 0 and 100"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:score)
-              .valid_with(attributes)
-              .type(Integer)
-              .required
-              .inclusion(0..100)
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:score)
-              .instance_of(Integer)
           )
         end
       end

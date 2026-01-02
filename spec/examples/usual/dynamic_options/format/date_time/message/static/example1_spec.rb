@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Static::Example
                     internals: %i[],
                     outputs: %i[started_at]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_at)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(DateTime)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -41,28 +63,6 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Static::Example
               ApplicationService::Exceptions::Input,
               "Invalid datetime format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:started_at)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:started_at)
-              .instance_of(DateTime)
           )
         end
       end
@@ -85,6 +85,28 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Static::Example
                     internals: %i[],
                     outputs: %i[started_at]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_at)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(DateTime)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -109,28 +131,6 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Static::Example
               ApplicationService::Exceptions::Input,
               "Invalid datetime format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:started_at)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:started_at)
-              .instance_of(DateTime)
           )
         end
       end

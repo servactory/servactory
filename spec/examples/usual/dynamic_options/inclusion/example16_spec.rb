@@ -17,6 +17,29 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example16, type: :service do
                     internals: %i[adjusted_number],
                     outputs: %i[final_number]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+              .inclusion(1..100)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:final_number)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -40,29 +63,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example16, type: :service do
               "must be one of `1..100`, " \
               "got `150`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:number)
-              .valid_with(attributes)
-              .type(Integer)
-              .required
-              .inclusion(1..100)
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:final_number)
-              .instance_of(Integer)
           )
         end
       end
@@ -85,6 +85,29 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example16, type: :service do
                     internals: %i[adjusted_number],
                     outputs: %i[final_number]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+              .inclusion(1..100)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:final_number)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -108,29 +131,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example16, type: :service do
               "must be one of `1..100`, " \
               "got `150`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:number)
-              .valid_with(attributes)
-              .type(Integer)
-              .required
-              .inclusion(1..100)
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:final_number)
-              .instance_of(Integer)
           )
         end
       end

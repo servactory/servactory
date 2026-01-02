@@ -17,6 +17,28 @@ RSpec.describe Usual::Success::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -36,28 +58,6 @@ RSpec.describe Usual::Success::Example1, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:number, 16)
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:number)
-              .valid_with(attributes)
-              .type(Integer)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:number)
-              .instance_of(Integer)
           )
         end
       end
@@ -80,6 +80,28 @@ RSpec.describe Usual::Success::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:number)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -99,28 +121,6 @@ RSpec.describe Usual::Success::Example1, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:number, 16)
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:number)
-              .valid_with(attributes)
-              .type(Integer)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:number)
-              .instance_of(Integer)
           )
         end
       end

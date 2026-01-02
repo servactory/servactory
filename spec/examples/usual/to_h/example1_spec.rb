@@ -21,40 +21,6 @@ RSpec.describe Usual::ToH::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[full_name]
 
-    describe "and the data required for work is also valid" do
-      it_behaves_like "success result class"
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:full_name, "John Fitzgerald Kennedy")
-        )
-      end
-
-      it "returns the result as a hash" do
-        expect(perform.to_h).to match(
-          full_name: "John Fitzgerald Kennedy"
-        )
-      end
-
-      describe "even if `middle_name` is not specified" do
-        let(:middle_name) { nil }
-
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:full_name, "John Kennedy")
-          )
-        end
-
-        it "returns the result as a hash" do
-          expect(perform.to_h).to match(
-            full_name: "John Kennedy"
-          )
-        end
-      end
-    end
-
     describe "validations" do
       describe "inputs" do
         it do
@@ -92,6 +58,40 @@ RSpec.describe Usual::ToH::Example1, type: :service do
             .type(String)
             .required
         )
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:full_name, "John Fitzgerald Kennedy")
+        )
+      end
+
+      it "returns the result as a hash" do
+        expect(perform.to_h).to match(
+          full_name: "John Fitzgerald Kennedy"
+        )
+      end
+
+      describe "even if `middle_name` is not specified" do
+        let(:middle_name) { nil }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:full_name, "John Kennedy")
+          )
+        end
+
+        it "returns the result as a hash" do
+          expect(perform.to_h).to match(
+            full_name: "John Kennedy"
+          )
+        end
       end
     end
   end
@@ -116,40 +116,6 @@ RSpec.describe Usual::ToH::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[full_name]
 
-    describe "and the data required for work is also valid" do
-      it_behaves_like "success result class"
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:full_name, "John Fitzgerald Kennedy")
-        )
-      end
-
-      it "returns the result as a hash" do
-        expect(perform.to_h).to match(
-          full_name: "John Fitzgerald Kennedy"
-        )
-      end
-
-      describe "even if `middle_name` is not specified" do
-        let(:middle_name) { nil }
-
-        it do
-          expect(perform).to(
-            be_success_service
-              .with_output(:full_name, "John Kennedy")
-          )
-        end
-
-        it "returns the result as a hash" do
-          expect(perform.to_h).to match(
-            full_name: "John Kennedy"
-          )
-        end
-      end
-    end
-
     describe "validations" do
       describe "inputs" do
         it do
@@ -187,6 +153,40 @@ RSpec.describe Usual::ToH::Example1, type: :service do
             .type(String)
             .required
         )
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:full_name, "John Fitzgerald Kennedy")
+        )
+      end
+
+      it "returns the result as a hash" do
+        expect(perform.to_h).to match(
+          full_name: "John Fitzgerald Kennedy"
+        )
+      end
+
+      describe "even if `middle_name` is not specified" do
+        let(:middle_name) { nil }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:full_name, "John Kennedy")
+          )
+        end
+
+        it "returns the result as a hash" do
+          expect(perform.to_h).to match(
+            full_name: "John Kennedy"
+          )
+        end
       end
     end
   end

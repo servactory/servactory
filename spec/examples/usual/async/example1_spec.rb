@@ -21,6 +21,28 @@ RSpec.describe Usual::Async::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[id]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:id)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:id)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -53,6 +75,23 @@ RSpec.describe Usual::Async::Example1, type: :service do
         end
       end
     end
+  end
+
+  describe ".call" do
+    subject(:perform) { described_class.call(**attributes) }
+
+    let(:attributes) do
+      {
+        id:
+      }
+    end
+
+    let(:id) { 123 }
+
+    it_behaves_like "check class info",
+                    inputs: %i[id],
+                    internals: %i[],
+                    outputs: %i[id]
 
     describe "validations" do
       describe "inputs" do
@@ -75,23 +114,6 @@ RSpec.describe Usual::Async::Example1, type: :service do
         end
       end
     end
-  end
-
-  describe ".call" do
-    subject(:perform) { described_class.call(**attributes) }
-
-    let(:attributes) do
-      {
-        id:
-      }
-    end
-
-    let(:id) { 123 }
-
-    it_behaves_like "check class info",
-                    inputs: %i[id],
-                    internals: %i[],
-                    outputs: %i[id]
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
@@ -122,28 +144,6 @@ RSpec.describe Usual::Async::Example1, type: :service do
           expect(service_results[1].id).to eq(2)
           expect(service_results[2].id).to eq(3)
           expect(service_results[3].id).to eq(4)
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:id)
-              .valid_with(attributes)
-              .type(Integer)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:id)
-              .instance_of(Integer)
-          )
         end
       end
     end

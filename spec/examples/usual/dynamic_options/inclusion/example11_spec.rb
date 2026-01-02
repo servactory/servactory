@@ -17,6 +17,35 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
                     internals: %i[entity_class],
                     outputs: %i[entity_class]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:entity_class)
+              .valid_with(attributes)
+              .type(Class)
+              .required
+              .inclusion(
+                [
+                  Usual::DynamicOptions::Inclusion::Example11::FirstEntity,
+                  Usual::DynamicOptions::Inclusion::Example11::SecondEntity,
+                  Usual::DynamicOptions::Inclusion::Example11::ThirdEntity
+                ]
+              )
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:entity_class)
+              .instance_of(Class)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -73,35 +102,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
               "must be one of `[Usual::DynamicOptions::Inclusion::Example11::ThirdEntity]`, " \
               "got `Usual::DynamicOptions::Inclusion::Example11::SecondEntity`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:entity_class)
-              .valid_with(attributes)
-              .type(Class)
-              .required
-              .inclusion(
-                [
-                  Usual::DynamicOptions::Inclusion::Example11::FirstEntity,
-                  Usual::DynamicOptions::Inclusion::Example11::SecondEntity,
-                  Usual::DynamicOptions::Inclusion::Example11::ThirdEntity
-                ]
-              )
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:entity_class)
-              .instance_of(Class)
           )
         end
       end
@@ -124,6 +124,35 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
                     internals: %i[entity_class],
                     outputs: %i[entity_class]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:entity_class)
+              .valid_with(attributes)
+              .type(Class)
+              .required
+              .inclusion(
+                [
+                  Usual::DynamicOptions::Inclusion::Example11::FirstEntity,
+                  Usual::DynamicOptions::Inclusion::Example11::SecondEntity,
+                  Usual::DynamicOptions::Inclusion::Example11::ThirdEntity
+                ]
+              )
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:entity_class)
+              .instance_of(Class)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -180,35 +209,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
               "must be one of `[Usual::DynamicOptions::Inclusion::Example11::ThirdEntity]`, " \
               "got `Usual::DynamicOptions::Inclusion::Example11::SecondEntity`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:entity_class)
-              .valid_with(attributes)
-              .type(Class)
-              .required
-              .inclusion(
-                [
-                  Usual::DynamicOptions::Inclusion::Example11::FirstEntity,
-                  Usual::DynamicOptions::Inclusion::Example11::SecondEntity,
-                  Usual::DynamicOptions::Inclusion::Example11::ThirdEntity
-                ]
-              )
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:entity_class)
-              .instance_of(Class)
           )
         end
       end

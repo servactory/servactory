@@ -17,6 +17,29 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example19, type: :service do
                     internals: %i[],
                     outputs: %i[digit]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:digit)
+              .valid_with(attributes)
+              .type(Integer)
+              .required
+              .inclusion(1...10)
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:digit)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -85,6 +108,23 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example19, type: :service do
         end
       end
     end
+  end
+
+  describe ".call" do
+    subject(:perform) { described_class.call(**attributes) }
+
+    let(:attributes) do
+      {
+        digit:
+      }
+    end
+
+    let(:digit) { 5 }
+
+    it_behaves_like "check class info",
+                    inputs: %i[digit],
+                    internals: %i[],
+                    outputs: %i[digit]
 
     describe "validations" do
       describe "inputs" do
@@ -108,23 +148,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example19, type: :service do
         end
       end
     end
-  end
-
-  describe ".call" do
-    subject(:perform) { described_class.call(**attributes) }
-
-    let(:attributes) do
-      {
-        digit:
-      }
-    end
-
-    let(:digit) { 5 }
-
-    it_behaves_like "check class info",
-                    inputs: %i[digit],
-                    internals: %i[],
-                    outputs: %i[digit]
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
@@ -149,29 +172,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example19, type: :service do
               "must be one of `1...10`, " \
               "got `10`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:digit)
-              .valid_with(attributes)
-              .type(Integer)
-              .required
-              .inclusion(1...10)
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:digit)
-              .instance_of(Integer)
           )
         end
       end

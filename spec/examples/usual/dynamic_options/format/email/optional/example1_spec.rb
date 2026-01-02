@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example1, type: :
                     internals: %i[],
                     outputs: %i[email]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:email)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:email)
+              .instance_of(NilClass)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -42,28 +64,6 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example1, type: :
               "[Usual::DynamicOptions::Format::Email::Optional::Example1] " \
               "Input `email` does not match `email` format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:email)
-              .valid_with(attributes)
-              .type(String)
-              .optional
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:email)
-              .instance_of(NilClass)
           )
         end
       end
@@ -86,6 +86,28 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example1, type: :
                     internals: %i[],
                     outputs: %i[email]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:email)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:email)
+              .instance_of(NilClass)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -111,28 +133,6 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Optional::Example1, type: :
               "[Usual::DynamicOptions::Format::Email::Optional::Example1] " \
               "Input `email` does not match `email` format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:email)
-              .valid_with(attributes)
-              .type(String)
-              .optional
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:email)
-              .instance_of(NilClass)
           )
         end
       end

@@ -15,17 +15,6 @@ RSpec.describe Usual::Datory::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[id]
 
-    describe "and the data required for work is also valid" do
-      it_behaves_like "success result class"
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:id, id)
-        )
-      end
-    end
-
     describe "validations" do
       describe "inputs" do
         it do
@@ -45,6 +34,17 @@ RSpec.describe Usual::Datory::Example1, type: :service do
               .instance_of(String)
           )
         end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:id, id)
+        )
       end
     end
   end
@@ -63,17 +63,6 @@ RSpec.describe Usual::Datory::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[id]
 
-    describe "and the data required for work is also valid" do
-      it_behaves_like "success result class"
-
-      it do
-        expect(perform).to(
-          be_success_service
-            .with_output(:id, id)
-        )
-      end
-    end
-
     describe "validations" do
       describe "inputs" do
         it do
@@ -93,6 +82,17 @@ RSpec.describe Usual::Datory::Example1, type: :service do
               .instance_of(String)
           )
         end
+      end
+    end
+
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:id, id)
+        )
       end
     end
   end

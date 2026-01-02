@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
                     internals: %i[],
                     outputs: %i[started_at]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_at)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(Time)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -42,28 +64,6 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
               "[Usual::DynamicOptions::Format::Time::Basic::Example1] " \
               "Input `started_at` does not match `time` format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:started_at)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:started_at)
-              .instance_of(Time)
           )
         end
       end
@@ -86,6 +86,28 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
                     internals: %i[],
                     outputs: %i[started_at]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_at)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(Time)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -111,28 +133,6 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
               "[Usual::DynamicOptions::Format::Time::Basic::Example1] " \
               "Input `started_at` does not match `time` format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:started_at)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:started_at)
-              .instance_of(Time)
           )
         end
       end

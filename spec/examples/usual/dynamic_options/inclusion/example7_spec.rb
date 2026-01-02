@@ -17,6 +17,29 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example7, type: :service do
                     internals: %i[event_name],
                     outputs: %i[event_name]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:event_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+              .inclusion(%w[created rejected approved])
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event_name)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -70,6 +93,23 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example7, type: :service do
         end
       end
     end
+  end
+
+  describe ".call" do
+    subject(:perform) { described_class.call(**attributes) }
+
+    let(:attributes) do
+      {
+        event_name:
+      }
+    end
+
+    let(:event_name) { "approved" }
+
+    it_behaves_like "check class info",
+                    inputs: %i[event_name],
+                    internals: %i[event_name],
+                    outputs: %i[event_name]
 
     describe "validations" do
       describe "inputs" do
@@ -93,23 +133,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example7, type: :service do
         end
       end
     end
-  end
-
-  describe ".call" do
-    subject(:perform) { described_class.call(**attributes) }
-
-    let(:attributes) do
-      {
-        event_name:
-      }
-    end
-
-    let(:event_name) { "approved" }
-
-    it_behaves_like "check class info",
-                    inputs: %i[event_name],
-                    internals: %i[event_name],
-                    outputs: %i[event_name]
 
     describe "because the value of `event_name` is wrong" do
       let(:event_name) { "sent" }
@@ -149,29 +172,6 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example7, type: :service do
             "The `rejected` event cannot be used now"
           )
         )
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:event_name)
-              .valid_with(attributes)
-              .type(String)
-              .required
-              .inclusion(%w[created rejected approved])
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:event_name)
-              .instance_of(String)
-          )
-        end
       end
     end
   end

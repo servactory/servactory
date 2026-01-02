@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example1, type: :s
                     internals: %i[],
                     outputs: %i[service_id]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_id)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:service_id)
+              .instance_of(NilClass)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -42,28 +64,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example1, type: :s
               "[Usual::DynamicOptions::Format::Uuid::Optional::Example1] " \
               "Input `service_id` does not match `uuid` format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:service_id)
-              .valid_with(attributes)
-              .type(String)
-              .optional
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:service_id)
-              .instance_of(NilClass)
           )
         end
       end
@@ -86,6 +86,28 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example1, type: :s
                     internals: %i[],
                     outputs: %i[service_id]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_id)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:service_id)
+              .instance_of(NilClass)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -111,28 +133,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example1, type: :s
               "[Usual::DynamicOptions::Format::Uuid::Optional::Example1] " \
               "Input `service_id` does not match `uuid` format"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:service_id)
-              .valid_with(attributes)
-              .type(String)
-              .optional
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:service_id)
-              .instance_of(NilClass)
           )
         end
       end

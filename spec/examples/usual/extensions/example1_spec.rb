@@ -17,6 +17,19 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:user)
+              .valid_with(attributes)
+              .type(Usual::Extensions::Example1::User)
+              .required
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -37,19 +50,6 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
               ApplicationService::Exceptions::Input,
               "User is not active"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:user)
-              .valid_with(attributes)
-              .type(Usual::Extensions::Example1::User)
-              .required
           )
         end
       end
@@ -72,6 +72,19 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:user)
+              .valid_with(attributes)
+              .type(Usual::Extensions::Example1::User)
+              .required
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -92,19 +105,6 @@ RSpec.describe Usual::Extensions::Example1, type: :service do
               ApplicationService::Exceptions::Input,
               "User is not active"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:user)
-              .valid_with(attributes)
-              .type(Usual::Extensions::Example1::User)
-              .required
           )
         end
       end

@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example1, 
                     internals: %i[],
                     outputs: %i[email]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:email)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:email)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -41,28 +63,6 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example1, 
               ApplicationService::Exceptions::Input,
               "Value `noreply at servactory.com` does not match the format of `email` in `email`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:email)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:email)
-              .instance_of(String)
           )
         end
       end
@@ -85,6 +85,28 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example1, 
                     internals: %i[],
                     outputs: %i[email]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:email)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:email)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -109,28 +131,6 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example1, 
               ApplicationService::Exceptions::Input,
               "Value `noreply at servactory.com` does not match the format of `email` in `email`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:email)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:email)
-              .instance_of(String)
           )
         end
       end

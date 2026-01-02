@@ -17,6 +17,28 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
                     internals: %i[],
                     outputs: %i[started_at]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_at)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -38,28 +60,6 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
               ApplicationService::Exceptions::Output,
               "Value `2023-04-14 26:70` does not match the format of `datetime` in `started_at`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:started_at)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:started_at)
-              .instance_of(String)
           )
         end
       end
@@ -82,6 +82,28 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
                     internals: %i[],
                     outputs: %i[started_at]
 
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_at)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(String)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -103,28 +125,6 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
               ApplicationService::Exceptions::Output,
               "Value `2023-04-14 26:70` does not match the format of `datetime` in `started_at`"
             )
-          )
-        end
-      end
-    end
-
-    describe "validations" do
-      describe "inputs" do
-        it do
-          expect { perform }.to(
-            have_input(:started_at)
-              .valid_with(attributes)
-              .type(String)
-              .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:started_at)
-              .instance_of(String)
           )
         end
       end
