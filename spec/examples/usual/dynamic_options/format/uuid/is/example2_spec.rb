@@ -29,7 +29,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Is::Example2, type: :service
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do
@@ -90,7 +89,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Is::Example2, type: :service
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do

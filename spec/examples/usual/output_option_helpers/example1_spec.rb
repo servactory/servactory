@@ -55,7 +55,6 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do
@@ -195,7 +194,6 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do

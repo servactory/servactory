@@ -70,7 +70,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
             )
         )
       end
-
     end
   end
 
@@ -143,7 +142,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example10, type: :service do
             )
         )
       end
-
     end
   end
 end

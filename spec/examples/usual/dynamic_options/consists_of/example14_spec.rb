@@ -59,7 +59,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do
@@ -180,7 +179,6 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do

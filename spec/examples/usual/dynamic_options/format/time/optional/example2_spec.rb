@@ -29,7 +29,6 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example2, type: :s
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do
@@ -90,7 +89,6 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example2, type: :s
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do

@@ -29,7 +29,6 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do
@@ -89,7 +88,6 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do

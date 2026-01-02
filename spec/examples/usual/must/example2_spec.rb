@@ -21,7 +21,6 @@ RSpec.describe Usual::Must::Example2, type: :service do
             )
         )
       end
-
     end
   end
 
@@ -45,7 +44,6 @@ RSpec.describe Usual::Must::Example2, type: :service do
             )
         )
       end
-
     end
   end
 end
