@@ -57,6 +57,15 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Basic::Example1, type: :serv
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:service_id)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -116,6 +125,15 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Basic::Example1, type: :serv
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:service_id)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

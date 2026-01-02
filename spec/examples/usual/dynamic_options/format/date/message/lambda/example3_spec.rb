@@ -53,6 +53,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Lambda::Example3, t
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_on)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -108,6 +117,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Message::Lambda::Example3, t
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_on)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

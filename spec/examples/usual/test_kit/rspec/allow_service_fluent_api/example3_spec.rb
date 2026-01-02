@@ -16,6 +16,16 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
                     inputs: %i[user_id],
                     internals: %i[],
                     outputs: %i[greeting]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:greeting)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       before do
@@ -64,6 +74,17 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
     end
 
     let(:user_id) { 42 }
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:greeting)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       before do

@@ -41,6 +41,15 @@ RSpec.describe Wrong::DynamicOptions::Format::WrongType::Example4, type: :servic
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -84,6 +93,15 @@ RSpec.describe Wrong::DynamicOptions::Format::WrongType::Example4, type: :servic
               .type(Integer)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

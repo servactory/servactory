@@ -56,6 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:password)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -114,6 +123,15 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Static::Example
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:password)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

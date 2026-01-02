@@ -53,6 +53,15 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_at)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -108,6 +117,15 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Message::Lambda::Example
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_at)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

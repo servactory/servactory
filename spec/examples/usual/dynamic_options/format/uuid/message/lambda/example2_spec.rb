@@ -56,6 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Lambda::Example2, t
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:service_id)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -114,6 +123,15 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Lambda::Example2, t
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:service_id)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

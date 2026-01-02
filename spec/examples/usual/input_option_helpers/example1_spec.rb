@@ -132,6 +132,15 @@ RSpec.describe Usual::InputOptionHelpers::Example1, type: :service do
               .must(:be_6_characters)
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:first_invoice_number)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -266,6 +275,15 @@ RSpec.describe Usual::InputOptionHelpers::Example1, type: :service do
               .consists_of(String)
               .must(:be_6_characters)
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:first_invoice_number)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

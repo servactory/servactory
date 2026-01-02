@@ -57,6 +57,15 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Optional::Example2, type
               .optional
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:password)
+                .instance_of(NilClass)
+            )
+          end
+        end
       end
     end
   end
@@ -116,6 +125,15 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Optional::Example2, type
               .type(String)
               .optional
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:password)
+                .instance_of(NilClass)
+            )
+          end
         end
       end
     end

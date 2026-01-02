@@ -54,6 +54,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Properties::Validator::Exam
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -110,6 +119,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Properties::Validator::Exam
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

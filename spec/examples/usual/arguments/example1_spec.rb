@@ -51,6 +51,15 @@ RSpec.describe Usual::Arguments::Example1, type: :service do
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:invoice_number)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -104,6 +113,15 @@ RSpec.describe Usual::Arguments::Example1, type: :service do
               .types(String, Integer)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:invoice_number)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

@@ -20,6 +20,23 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
                     inputs: %i[product_id quantity customer_id],
                     internals: %i[],
                     outputs: %i[order_total has_discount]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:order_total)
+              .instance_of(Integer)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:has_discount)
+              .instance_of(FalseClass)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with exact input matching" do
@@ -103,6 +120,24 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
     let(:product_id) { "PROD-001" }
     let(:quantity) { 5 }
     let(:customer_id) { "CUST-123" }
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:order_total)
+              .instance_of(Integer)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:has_discount)
+              .instance_of(FalseClass)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with any_inputs matcher" do

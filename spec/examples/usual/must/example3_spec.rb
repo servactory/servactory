@@ -8,6 +8,23 @@ RSpec.describe Usual::Must::Example3, type: :service do
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[invoice_numbers first_invoice_number]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:invoice_numbers)
+              .instance_of(Array)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_invoice_number)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
@@ -31,6 +48,23 @@ RSpec.describe Usual::Must::Example3, type: :service do
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[invoice_numbers first_invoice_number]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:invoice_numbers)
+              .instance_of(Array)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:first_invoice_number)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"

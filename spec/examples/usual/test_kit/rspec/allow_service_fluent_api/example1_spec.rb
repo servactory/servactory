@@ -16,6 +16,23 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
                     inputs: %i[amount],
                     internals: %i[],
                     outputs: %i[payment_status payment_transaction_id]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:payment_status)
+              .instance_of(Symbol)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:payment_transaction_id)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       before do
@@ -68,6 +85,24 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
     end
 
     let(:amount) { 100 }
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:payment_status)
+              .instance_of(Symbol)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:payment_transaction_id)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       before do

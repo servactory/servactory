@@ -56,6 +56,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Basic::Example1, type: :serv
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_on)
+                .instance_of(Date)
+            )
+          end
+        end
       end
     end
   end
@@ -114,6 +123,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Basic::Example1, type: :serv
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_on)
+                .instance_of(Date)
+            )
+          end
         end
       end
     end

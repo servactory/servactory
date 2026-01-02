@@ -16,6 +16,30 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
                     inputs: %i[user_id],
                     internals: %i[],
                     outputs: %i[display_name contact_email account_status]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:display_name)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:contact_email)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:account_status)
+              .instance_of(Symbol)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with succeeds() providing all outputs at once" do
@@ -109,6 +133,31 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
     end
 
     let(:user_id) { 99 }
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:display_name)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:contact_email)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:account_status)
+              .instance_of(Symbol)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with inputs after succeeds" do

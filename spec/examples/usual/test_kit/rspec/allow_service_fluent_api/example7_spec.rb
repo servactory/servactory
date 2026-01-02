@@ -10,6 +10,23 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[health_check_time system_status]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:health_check_time)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:system_status)
+              .instance_of(Symbol)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with no_inputs matcher" do
@@ -59,6 +76,24 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
     subject(:perform) { described_class.call }
 
     let(:mock_timestamp) { Time.new(2024, 1, 15, 14, 30, 0) }
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:health_check_time)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:system_status)
+              .instance_of(Symbol)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with no_inputs matcher" do

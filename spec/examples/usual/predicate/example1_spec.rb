@@ -81,6 +81,50 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:is_enabled)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_really_enabled)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_text_present)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_prepared_text_present)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_number_present)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_prepared_number_present)
+                .instance_of(TrueClass)
+            )
+          end
+        end
       end
 
       it do
@@ -182,6 +226,50 @@ RSpec.describe Usual::Predicate::Example1, type: :service do
               .types(TrueClass, FalseClass)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:is_enabled)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_really_enabled)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_text_present)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_prepared_text_present)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_number_present)
+                .instance_of(TrueClass)
+            )
+          end
+
+          it do
+            expect(perform).to(
+              have_output(:is_prepared_number_present)
+                .instance_of(TrueClass)
+            )
+          end
         end
       end
 

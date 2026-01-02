@@ -41,6 +41,15 @@ RSpec.describe Wrong::DynamicOptions::Inclusion::Example6, type: :service do
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:event_type)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -84,6 +93,15 @@ RSpec.describe Wrong::DynamicOptions::Inclusion::Example6, type: :service do
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:event_type)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

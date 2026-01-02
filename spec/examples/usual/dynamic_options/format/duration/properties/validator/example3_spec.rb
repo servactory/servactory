@@ -54,6 +54,15 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Properties::Validator::E
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:song_duration)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -110,6 +119,15 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Properties::Validator::E
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:song_duration)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

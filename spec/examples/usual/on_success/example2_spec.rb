@@ -8,6 +8,23 @@ RSpec.describe Usual::OnSuccess::Example2, type: :service do
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[number_1 number_2]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number_1)
+              .instance_of(Integer)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:number_2)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
@@ -51,6 +68,23 @@ RSpec.describe Usual::OnSuccess::Example2, type: :service do
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[number_1 number_2]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number_1)
+              .instance_of(Integer)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:number_2)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"

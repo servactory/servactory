@@ -16,6 +16,16 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example9, type: :se
                     inputs: %i[order_id],
                     internals: %i[],
                     outputs: %i[order_summary]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:order_summary)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with valid outputs (automatic validation passes)" do
@@ -88,6 +98,17 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example9, type: :se
     end
 
     let(:order_id) { "ORD-67890" }
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:order_summary)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with valid outputs" do

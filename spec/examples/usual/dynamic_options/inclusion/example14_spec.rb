@@ -56,6 +56,15 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example14, type: :service do
               .inclusion(1..5)
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:level)
+                .instance_of(Integer)
+            )
+          end
+        end
       end
     end
   end
@@ -114,6 +123,15 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example14, type: :service do
               .required
               .inclusion(1..5)
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:level)
+                .instance_of(Integer)
+            )
+          end
         end
       end
     end

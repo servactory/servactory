@@ -102,6 +102,15 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
             have_input(:number).valid_with(attributes).type(Float).required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:number)
+                .instance_of(Float)
+            )
+          end
+        end
       end
     end
   end
@@ -204,6 +213,15 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
           expect { perform }.to(
             have_input(:number).valid_with(attributes).type(Float).required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:number)
+                .instance_of(Float)
+            )
+          end
         end
       end
     end

@@ -57,6 +57,15 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_at)
+                .instance_of(Time)
+            )
+          end
+        end
       end
     end
   end
@@ -116,6 +125,15 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Basic::Example1, type: :serv
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_at)
+                .instance_of(Time)
+            )
+          end
         end
       end
     end

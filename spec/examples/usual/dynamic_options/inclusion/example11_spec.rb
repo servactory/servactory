@@ -95,6 +95,15 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
               )
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:entity_class)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -192,6 +201,15 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example11, type: :service do
                 ]
               )
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:entity_class)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

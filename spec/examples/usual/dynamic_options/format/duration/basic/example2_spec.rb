@@ -57,6 +57,15 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example2, type: :
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:song_duration)
+                .instance_of(ActiveSupport::Duration)
+            )
+          end
+        end
       end
     end
   end
@@ -116,6 +125,15 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example2, type: :
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:song_duration)
+                .instance_of(ActiveSupport::Duration)
+            )
+          end
         end
       end
     end

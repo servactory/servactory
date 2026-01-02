@@ -98,6 +98,15 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example12, type: :service do
               .inclusion(%w[created rejected approved])
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:event)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -198,6 +207,15 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example12, type: :service do
               .default("created")
               .inclusion(%w[created rejected approved])
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:event)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

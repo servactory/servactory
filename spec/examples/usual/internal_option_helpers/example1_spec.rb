@@ -35,6 +35,15 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:first_invoice_number)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
 
@@ -168,6 +177,15 @@ RSpec.describe Usual::InternalOptionHelpers::Example1, type: :service do
               .consists_of(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:first_invoice_number)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

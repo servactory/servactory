@@ -54,6 +54,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example3, type: :servic
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -110,6 +119,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Is::Example3, type: :servic
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

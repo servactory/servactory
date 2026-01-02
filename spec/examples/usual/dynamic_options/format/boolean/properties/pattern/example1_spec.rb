@@ -57,6 +57,15 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Properties::Pattern::Exam
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:boolean)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -116,6 +125,15 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Properties::Pattern::Exam
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:boolean)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

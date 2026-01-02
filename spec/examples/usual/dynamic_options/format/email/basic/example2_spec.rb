@@ -57,6 +57,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example2, type: :ser
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -116,6 +125,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example2, type: :ser
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

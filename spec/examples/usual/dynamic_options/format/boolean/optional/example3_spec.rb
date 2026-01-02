@@ -57,6 +57,15 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example3, type:
               .optional
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:boolean)
+                .instance_of(NilClass)
+            )
+          end
+        end
       end
     end
   end
@@ -116,6 +125,15 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example3, type:
               .type(String)
               .optional
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:boolean)
+                .instance_of(NilClass)
+            )
+          end
         end
       end
     end

@@ -469,6 +469,15 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:data)
+                .instance_of(Integer)
+            )
+          end
+        end
       end
     end
   end
@@ -940,6 +949,15 @@ RSpec.describe Usual::DynamicOptions::MinMax::Example1, type: :service do
               .types(Integer, String, Array, Hash)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:data)
+                .instance_of(Integer)
+            )
+          end
         end
       end
     end

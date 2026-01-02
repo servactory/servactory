@@ -57,6 +57,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_on)
+                .instance_of(Date)
+            )
+          end
+        end
       end
     end
   end
@@ -116,6 +125,15 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Pattern::Example
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:started_on)
+                .instance_of(Date)
+            )
+          end
         end
       end
     end

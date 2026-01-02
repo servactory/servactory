@@ -16,6 +16,23 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
                     inputs: %i[order_id],
                     internals: %i[],
                     outputs: %i[tracking_status error_message]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:tracking_status)
+              .instance_of(Symbol)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:error_message)
+              .instance_of(NilClass)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       before do
@@ -76,6 +93,24 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example4, type: :se
     end
 
     let(:order_id) { "ORD-12345" }
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:tracking_status)
+              .instance_of(Symbol)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:error_message)
+              .instance_of(NilClass)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       before do

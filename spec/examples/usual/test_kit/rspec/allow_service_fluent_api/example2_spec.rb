@@ -16,6 +16,23 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
                     inputs: %i[max_attempts],
                     internals: %i[],
                     outputs: %i[final_status total_attempts]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:final_status)
+              .instance_of(Symbol)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:total_attempts)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "when child succeeds on first attempt" do
@@ -102,6 +119,24 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
     end
 
     let(:max_attempts) { 3 }
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:final_status)
+              .instance_of(Symbol)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:total_attempts)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "when child succeeds on first attempt" do

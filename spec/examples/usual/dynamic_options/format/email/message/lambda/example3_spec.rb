@@ -53,6 +53,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example3, 
               .required
           )
         end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
+        end
       end
     end
   end
@@ -108,6 +117,15 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Message::Lambda::Example3, 
               .type(String)
               .required
           )
+        end
+
+        describe "outputs" do
+          it do
+            expect(perform).to(
+              have_output(:email)
+                .instance_of(String)
+            )
+          end
         end
       end
     end

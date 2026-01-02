@@ -18,6 +18,16 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4, type: :se
                     inputs: %i[amount currency],
                     internals: %i[],
                     outputs: %i[display_value]
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:display_value)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with: parameter for argument matching" do
@@ -69,6 +79,17 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4, type: :se
 
     let(:amount) { 500 }
     let(:currency) { "EUR" }
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:display_value)
+              .instance_of(String)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       describe "with exact with: matching" do
