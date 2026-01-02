@@ -17,18 +17,16 @@ RSpec.describe Wrong::DynamicOptions::Target::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the option configuration is invalid" do
-        describe "because the `in` option is nil" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Wrong::DynamicOptions::Target::Example1] " \
-                "Input `service_class` has missing value in `target` option"
-              )
+    describe "but the option configuration is invalid" do
+      describe "because the `in` option is nil" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Wrong::DynamicOptions::Target::Example1] " \
+              "Input `service_class` has missing value in `target` option"
             )
-          end
+          )
         end
       end
     end
@@ -55,18 +53,16 @@ RSpec.describe Wrong::DynamicOptions::Target::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the option configuration is invalid" do
-        describe "because the `in` option is nil" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Wrong::DynamicOptions::Target::Example1] " \
-                "Input `service_class` has missing value in `target` option"
-              )
+    describe "but the option configuration is invalid" do
+      describe "because the `in` option is nil" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Wrong::DynamicOptions::Target::Example1] " \
+              "Input `service_class` has missing value in `target` option"
             )
-          end
+          )
         end
       end
     end

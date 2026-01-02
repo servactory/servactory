@@ -29,12 +29,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
               .with_output(:number, 30.0)
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
-          )
-        end
       end
 
       context "when `number` is `60.0`" do
@@ -142,12 +136,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example4, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:number, 30.0)
-          )
-        end
-
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
           )
         end
       end

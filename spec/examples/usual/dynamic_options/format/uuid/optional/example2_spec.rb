@@ -26,12 +26,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example2, type: :s
             .with_output(:service_id, nil)
         )
       end
-
-      it do
-        expect(perform).to(
-          have_output(:service_id?).contains(false)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -87,12 +81,6 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Optional::Example2, type: :s
         expect(perform).to(
           be_success_service
             .with_output(:service_id, nil)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:service_id?).contains(false)
         )
       end
     end

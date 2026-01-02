@@ -17,18 +17,16 @@ RSpec.describe Wrong::DynamicOptions::Format::WrongType::Example1, type: :servic
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        describe "because the value type is not a String for format validation" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Wrong::DynamicOptions::Format::WrongType::Example1] " \
-                "Input `email` must be a String for `email` format validation"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the value type is not a String for format validation" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Wrong::DynamicOptions::Format::WrongType::Example1] " \
+              "Input `email` must be a String for `email` format validation"
             )
-          end
+          )
         end
       end
     end
@@ -55,18 +53,16 @@ RSpec.describe Wrong::DynamicOptions::Format::WrongType::Example1, type: :servic
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        describe "because the value type is not a String for format validation" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Input,
-                "[Wrong::DynamicOptions::Format::WrongType::Example1] " \
-                "Input `email` must be a String for `email` format validation"
-              )
+    describe "but the data required for work is invalid" do
+      describe "because the value type is not a String for format validation" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Input,
+              "[Wrong::DynamicOptions::Format::WrongType::Example1] " \
+              "Input `email` must be a String for `email` format validation"
             )
-          end
+          )
         end
       end
     end

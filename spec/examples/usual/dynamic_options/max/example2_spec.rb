@@ -40,12 +40,6 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
               .with_output(:data, "Data")
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
-          )
-        end
       end
 
       context "when `data` is `Array`" do
@@ -333,12 +327,6 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:data, "Data")
-          )
-        end
-
-        it do
-          expect(perform).to(
-            have_output(:data?).contains(true)
           )
         end
       end

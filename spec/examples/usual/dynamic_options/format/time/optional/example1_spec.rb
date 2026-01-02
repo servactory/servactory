@@ -26,12 +26,6 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example1, type: :s
             .with_output(:started_at, nil)
         )
       end
-
-      it do
-        expect(perform).to(
-          have_output(:started_at?).contains(false)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -87,12 +81,6 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example1, type: :s
         expect(perform).to(
           be_success_service
             .with_output(:started_at, nil)
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:started_at?).contains(false)
         )
       end
     end

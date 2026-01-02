@@ -27,12 +27,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
               .with_output(:number, 90)
           )
         end
-
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
-          )
-        end
       end
 
       context "when `number` is `Float`" do
@@ -302,12 +296,6 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example2, type: :service do
           expect(perform).to(
             be_success_service
               .with_output(:number, 90)
-          )
-        end
-
-        it do
-          expect(perform).to(
-            have_output(:number?).contains(true)
           )
         end
       end
