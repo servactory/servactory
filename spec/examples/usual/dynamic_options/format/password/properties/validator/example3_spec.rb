@@ -20,11 +20,11 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Validator::E
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.password?).to be(true)
-        expect(result.password).to eq("my-best-password")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:password, "my-best-password")
+        )
       end
     end
 
@@ -77,11 +77,11 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Properties::Validator::E
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.password?).to be(true)
-        expect(result.password).to eq("my-best-password")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:password, "my-best-password")
+        )
       end
     end
 

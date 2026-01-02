@@ -20,11 +20,11 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Properties::Validator::Examp
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.service_id?).to be(true)
-        expect(result.service_id).to eq("my-best-uuid")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:service_id, "my-best-uuid")
+        )
       end
     end
 
@@ -77,11 +77,11 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Properties::Validator::Examp
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.service_id?).to be(true)
-        expect(result.service_id).to eq("my-best-uuid")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:service_id, "my-best-uuid")
+        )
       end
     end
 

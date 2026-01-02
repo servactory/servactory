@@ -20,11 +20,11 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example3, type: :ser
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.email?).to be(true)
-        expect(result.email).to eq("noreply@servactory.com")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:email, "noreply@servactory.com")
+        )
       end
     end
 
@@ -77,11 +77,11 @@ RSpec.describe Usual::DynamicOptions::Format::Email::Basic::Example3, type: :ser
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns the expected value", :aggregate_failures do
-        result = perform
-
-        expect(result.email?).to be(true)
-        expect(result.email).to eq("noreply@servactory.com")
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:email, "noreply@servactory.com")
+        )
       end
     end
 
