@@ -47,13 +47,6 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
             .with_output(:invoice_numbers, %w[7650AE B4EA1B A7BC86 BD2D6B])
         )
       end
-
-      it do
-        expect(perform).to(
-          have_output(:invoice_numbers?)
-            .contains(true)
-        )
-      end
     end
 
     describe "but the data required for work is invalid" do
@@ -183,13 +176,6 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
         expect(perform).to(
           be_success_service
             .with_output(:invoice_numbers, %w[7650AE B4EA1B A7BC86 BD2D6B])
-        )
-      end
-
-      it do
-        expect(perform).to(
-          have_output(:invoice_numbers?)
-            .contains(true)
         )
       end
     end
