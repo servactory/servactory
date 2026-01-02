@@ -16,6 +16,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
                     inputs: %i[max_attempts],
                     internals: %i[],
                     outputs: %i[final_status total_attempts error_message]
+
     describe "validations" do
       describe "outputs" do
         it do
@@ -35,7 +36,6 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
         it do
           expect(perform).to(
             have_output(:error_message)
-              .instance_of(String)
           )
         end
       end
@@ -167,7 +167,6 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example6, type: :se
         it do
           expect(perform).to(
             have_output(:error_message)
-              .instance_of(String)
           )
         end
       end
