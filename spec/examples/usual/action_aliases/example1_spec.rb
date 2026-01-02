@@ -9,6 +9,17 @@ RSpec.describe Usual::ActionAliases::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[number]
 
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
+
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
@@ -28,6 +39,17 @@ RSpec.describe Usual::ActionAliases::Example1, type: :service do
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[number]
+
+    describe "validations" do
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
+        end
+      end
+    end
 
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
