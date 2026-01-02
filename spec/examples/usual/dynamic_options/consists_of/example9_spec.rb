@@ -56,14 +56,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
         expect(perform).to(
           be_success_service
             .with_outputs(
-              letters: %w[],
+              letters: [%w[A B], ["C", "D", %w[E F], nil, ""]],
               letters?: true,
               desired_letter: "E",
               desired_letter?: true
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do
@@ -140,14 +139,13 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example9, type: :service do
         expect(perform).to(
           be_success_service
             .with_outputs(
-              letters: %w[],
+              letters: [%w[A B], ["C", "D", %w[E F], nil, ""]],
               letters?: true,
               desired_letter: "E",
               desired_letter?: true
             )
         )
       end
-
     end
 
     describe "but the data required for work is invalid" do
