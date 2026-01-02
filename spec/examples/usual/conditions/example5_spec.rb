@@ -28,14 +28,14 @@ RSpec.describe Usual::Conditions::Example5, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:invoice_number)
-            .instance_of(String)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:invoice_number)
+              .instance_of(String)
+          )
+        end
       end
 
       it do
@@ -102,14 +102,14 @@ RSpec.describe Usual::Conditions::Example5, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:invoice_number)
-            .instance_of(String)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:invoice_number)
+              .instance_of(String)
+          )
+        end
       end
 
       it do

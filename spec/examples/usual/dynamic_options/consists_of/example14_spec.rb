@@ -36,14 +36,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:first_id)
-            .instance_of(String)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:first_id)
+              .instance_of(String)
+          )
+        end
       end
     end
 
@@ -156,14 +156,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example14, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:first_id)
-            .instance_of(String)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:first_id)
+              .instance_of(String)
+          )
+        end
       end
     end
 

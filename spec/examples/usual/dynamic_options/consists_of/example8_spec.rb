@@ -31,14 +31,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:letters)
-            .instance_of(Array)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:letters)
+              .instance_of(Array)
+          )
+        end
       end
 
       it do
@@ -146,14 +146,14 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example8, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:letters)
-            .instance_of(Array)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:letters)
+              .instance_of(Array)
+          )
+        end
       end
 
       it do

@@ -39,14 +39,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:event_name)
-            .contains("approved")
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event_name)
+              .contains("approved")
+          )
+        end
       end
     end
 
@@ -141,14 +141,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example9, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:event_name)
-            .contains("approved")
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event_name)
+              .contains("approved")
+          )
+        end
       end
     end
 

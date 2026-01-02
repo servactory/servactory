@@ -29,14 +29,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example3, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:event)
-            .instance_of(Usual::DynamicOptions::Inclusion::Example3::Event)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example3::Event)
+          )
+        end
       end
     end
 
@@ -112,14 +112,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example3, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:event)
-            .instance_of(Usual::DynamicOptions::Inclusion::Example3::Event)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example3::Event)
+          )
+        end
       end
     end
 

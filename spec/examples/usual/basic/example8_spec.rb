@@ -39,14 +39,14 @@ RSpec.describe Usual::Basic::Example8, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:user)
-            .instance_of(Usual::Basic::Example8::User)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:user)
+              .instance_of(Usual::Basic::Example8::User)
+          )
+        end
       end
     end
 
@@ -136,14 +136,14 @@ RSpec.describe Usual::Basic::Example8, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:user)
-            .instance_of(Usual::Basic::Example8::User)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:user)
+              .instance_of(Usual::Basic::Example8::User)
+          )
+        end
       end
     end
 

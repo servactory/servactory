@@ -61,14 +61,14 @@ RSpec.describe Usual::Basic::Example14, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:first_name)
-            .instance_of(String)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:first_name)
+              .instance_of(String)
+          )
+        end
       end
 
       it do
@@ -170,14 +170,14 @@ RSpec.describe Usual::Basic::Example14, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:first_name)
-            .instance_of(String)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:first_name)
+              .instance_of(String)
+          )
+        end
       end
 
       it do

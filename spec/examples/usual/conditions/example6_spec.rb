@@ -30,14 +30,14 @@ RSpec.describe Usual::Conditions::Example6, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:number)
-            .instance_of(Integer)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
+        end
       end
     end
 
@@ -114,14 +114,14 @@ RSpec.describe Usual::Conditions::Example6, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:number)
-            .instance_of(Integer)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
+        end
       end
     end
 

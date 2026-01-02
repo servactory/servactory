@@ -104,14 +104,14 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:payload)
-            .instance_of(Hash)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:payload)
+              .instance_of(Hash)
+          )
+        end
       end
 
       it do
@@ -290,14 +290,14 @@ RSpec.describe Usual::DynamicOptions::Schema::Example1, type: :service do
           )
         end
       end
-    end
 
-    describe "outputs" do
-      it do
-        expect(perform).to(
-          have_output(:payload)
-            .instance_of(Hash)
-        )
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:payload)
+              .instance_of(Hash)
+          )
+        end
       end
 
       it do
