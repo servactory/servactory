@@ -14,7 +14,7 @@ module Wrong
 
             def publish(event_name, payload)
               self.published_events ||= []
-              self.published_events << { name: event_name, payload: payload }
+              self.published_events << { name: event_name, payload: }
             end
           end
         end

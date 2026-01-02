@@ -46,7 +46,7 @@ RSpec.describe Usual::Extensions::ApiAction::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with user data" do
+      it "returns success with user data", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.user_data).to eq({ id: 1, name: "User from /users/42" })
         expect(http_client.request_count).to eq(1)
@@ -68,7 +68,7 @@ RSpec.describe Usual::Extensions::ApiAction::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with user data" do
+      it "returns success with user data", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.user_data).to eq({ id: 1, name: "User from /users/42" })
       end

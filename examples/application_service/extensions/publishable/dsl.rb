@@ -18,9 +18,9 @@ module ApplicationService
 
           def publishes(event_name, with: nil, event_bus: nil)
             publish_configurations << {
-              event_name: event_name,
+              event_name:,
               payload_method: with,
-              event_bus: event_bus
+              event_bus:
             }
           end
         end

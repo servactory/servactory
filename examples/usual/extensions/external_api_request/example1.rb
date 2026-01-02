@@ -25,7 +25,7 @@ module Usual
             self.class.request_count ||= 0
             self.class.request_count += 1
 
-            LikeAnApiResponse.new(id: id, name: "User #{id}")
+            LikeAnApiResponse.new(id:, name: "User #{id}")
           end
         end
 

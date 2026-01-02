@@ -24,7 +24,7 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(incoming_arguments: {}, **)
+          def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/MethodLength
             idempotency_key_input = self.class.send(:idempotency_key_input)
             @_idempotency_was_cached = false
 
@@ -47,7 +47,7 @@ module ApplicationService
             _apply_or_store_idempotency_result
           end
 
-          def _apply_or_store_idempotency_result
+          def _apply_or_store_idempotency_result # rubocop:disable Metrics/MethodLength
             idempotency_key_input = self.class.send(:idempotency_key_input)
 
             return if idempotency_key_input.nil?

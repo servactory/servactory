@@ -46,11 +46,14 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success and publishes event" do
+      it "returns success and publishes event", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.user_name).to eq("User 123")
         expect(event_bus.published_events).to contain_exactly(
-          { name: :user_created, payload: { user_id: 123, user_name: "User 123" } }
+          {
+            name: :user_created,
+            payload: { user_id: 123, user_name: "User 123" }
+          }
         )
       end
     end
@@ -70,7 +73,7 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success and publishes event" do
+      it "returns success and publishes event", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.user_name).to eq("User 123")
         expect(event_bus.published_events.size).to eq(1)

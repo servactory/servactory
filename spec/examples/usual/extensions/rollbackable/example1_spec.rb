@@ -46,7 +46,7 @@ RSpec.describe Usual::Extensions::Rollbackable::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with total without calling rollback" do
+      it "returns success with total without calling rollback", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.total).to eq(150)
         expect(rollback_tracker.rollback_called).to be(false)
@@ -68,7 +68,7 @@ RSpec.describe Usual::Extensions::Rollbackable::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success without calling rollback" do
+      it "returns success without calling rollback", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.total).to eq(150)
         expect(rollback_tracker.rollback_called).to be(false)

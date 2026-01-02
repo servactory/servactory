@@ -40,7 +40,7 @@ RSpec.describe Usual::Extensions::PostCondition::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with calculated total" do
+      it "returns success with calculated total", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.total).to eq(200)
       end
@@ -61,7 +61,7 @@ RSpec.describe Usual::Extensions::PostCondition::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with calculated total" do
+      it "returns success with calculated total", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.total).to eq(200)
       end

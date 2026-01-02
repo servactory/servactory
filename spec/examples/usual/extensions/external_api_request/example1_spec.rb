@@ -46,7 +46,7 @@ RSpec.describe Usual::Extensions::ExternalApiRequest::Example1, type: :service d
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with API response" do
+      it "returns success with API response", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.api_response.id).to eq(99)
         expect(perform.api_response.name).to eq("User 99")
@@ -69,7 +69,7 @@ RSpec.describe Usual::Extensions::ExternalApiRequest::Example1, type: :service d
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with API response" do
+      it "returns success with API response", :aggregate_failures do
         expect(perform).to be_success_service
         expect(perform.api_response.id).to eq(99)
         expect(perform.api_response.name).to eq("User 99")

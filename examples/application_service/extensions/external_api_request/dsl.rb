@@ -16,8 +16,8 @@ module ApplicationService
 
           def external_api_request!(response_type:, error_class:)
             self.external_api_request_config = {
-              response_type: response_type,
-              error_class: error_class
+              response_type:,
+              error_class:
             }
 
             output :api_response, type: response_type

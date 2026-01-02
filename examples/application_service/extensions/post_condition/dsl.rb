@@ -18,9 +18,9 @@ module ApplicationService
 
           def post_condition!(name, message: nil, &block)
             post_conditions << {
-              name: name,
-              message: message,
-              block: block
+              name:,
+              message:,
+              block:
             }
           end
         end
@@ -44,7 +44,7 @@ module ApplicationService
 
               fail!(
                 :post_condition_failed,
-                message: message
+                message:
               )
             end
           end
