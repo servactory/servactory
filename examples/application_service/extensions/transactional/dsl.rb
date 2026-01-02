@@ -25,19 +25,18 @@ module ApplicationService
           private
 
           def call!(**)
-            _wrap_in_transaction { super }
-          end
+            transactional_enabled = self.class.send(:transactional_enabled)
 
-          def _wrap_in_transaction(&block)
-            return yield unless self.class.send(:transactional_enabled)
+            unless transactional_enabled
+              super
+              return
+            end
 
-            transaction_class = self.class.send(:transactional_class) || default_transaction_class
+            transaction_class = self.class.send(:transactional_class)
 
-            transaction_class.transaction(&block)
-          end
+            fail!(message: "Transaction class not configured") if transaction_class.nil?
 
-          def default_transaction_class
-            fail!(message: "Transaction class not configured")
+            transaction_class.transaction { super }
           end
         end
       end

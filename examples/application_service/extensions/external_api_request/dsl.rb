@@ -32,19 +32,15 @@ module ApplicationService
           def call!(**)
             super
           rescue StandardError => e
-            _handle_external_api_error(exception: e)
-          end
-
-          def _handle_external_api_error(exception:)
             config = self.class.send(:external_api_request_config)
 
-            raise exception if config.nil?
+            raise e if config.nil?
 
             error_class = config[:error_class]
 
-            raise exception unless exception.is_a?(error_class)
+            raise e unless e.is_a?(error_class)
 
-            fail!(:external_api_error, message: exception.message, meta: { original_exception: exception })
+            fail!(:external_api_error, message: e.message, meta: { original_exception: e })
           end
 
           def perform_api_request!

@@ -31,10 +31,6 @@ module ApplicationService
           def call!(**)
             super
 
-            _verify_post_conditions
-          end
-
-          def _verify_post_conditions
             self.class.send(:post_conditions).each do |condition|
               result = instance_exec(outputs, &condition[:block])
 

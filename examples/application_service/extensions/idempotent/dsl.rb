@@ -24,48 +24,42 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/MethodLength
+          def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
             idempotency_key_input = self.class.send(:idempotency_key_input)
-            @_idempotency_was_cached = false
+            idempotency_was_cached = false
+            cached_outputs = nil
 
             if idempotency_key_input.present?
-              store = self.class.send(:idempotency_store_class) || default_idempotency_store
+              store = self.class.send(:idempotency_store_class)
+
+              fail!(:idempotency_error, message: "Idempotency store not configured") if store.nil?
+
               key = incoming_arguments[idempotency_key_input]
 
               if key.present?
                 cached_result = store.get(key)
 
                 if cached_result.present?
-                  @_idempotency_was_cached = true
-                  @_idempotency_cached_outputs = cached_result
+                  idempotency_was_cached = true
+                  cached_outputs = cached_result
                 end
               end
             end
 
             super
 
-            _apply_or_store_idempotency_result
-          end
-
-          def _apply_or_store_idempotency_result # rubocop:disable Metrics/MethodLength
-            idempotency_key_input = self.class.send(:idempotency_key_input)
-
             return if idempotency_key_input.nil?
 
-            if @_idempotency_was_cached
-              @_idempotency_cached_outputs.each do |output_name, output_value|
+            if idempotency_was_cached
+              cached_outputs.each do |output_name, output_value|
                 outputs.send(:"#{output_name}=", output_value)
               end
             else
-              store = self.class.send(:idempotency_store_class) || default_idempotency_store
+              store = self.class.send(:idempotency_store_class)
               key = inputs.send(idempotency_key_input)
 
               store.set(key, outputs.except)
             end
-          end
-
-          def default_idempotency_store
-            fail!(:idempotency_error, message: "Idempotency store not configured")
           end
         end
       end

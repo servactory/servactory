@@ -31,23 +31,17 @@ module ApplicationService
           def call!(**)
             super
 
-            _publish_events
-          end
-
-          def _publish_events
             self.class.send(:publish_configurations).each do |config|
               event_name = config[:event_name]
               payload_method = config[:payload_method]
-              event_bus = config[:event_bus] || default_event_bus
+              event_bus = config[:event_bus]
+
+              fail!(message: "Event bus not configured") if event_bus.nil?
 
               payload = payload_method.present? ? send(payload_method) : {}
 
               event_bus.publish(event_name, payload)
             end
-          end
-
-          def default_event_bus
-            fail!(message: "Event bus not configured")
           end
         end
       end

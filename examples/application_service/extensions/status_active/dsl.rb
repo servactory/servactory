@@ -25,10 +25,6 @@ module ApplicationService
           def call!(**)
             super
 
-            _check_status_active
-          end
-
-          def _check_status_active
             status_active_model_name = self.class.send(:status_active_model_name)
 
             return if status_active_model_name.nil?

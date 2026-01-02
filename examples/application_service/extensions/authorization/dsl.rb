@@ -25,10 +25,6 @@ module ApplicationService
           def call!(**)
             super
 
-            _perform_authorization
-          end
-
-          def _perform_authorization
             authorization_method_name = self.class.send(:authorization_method_name)
 
             return if authorization_method_name.nil?

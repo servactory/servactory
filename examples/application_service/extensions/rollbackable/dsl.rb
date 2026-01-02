@@ -24,18 +24,12 @@ module ApplicationService
 
           def call!(**)
             super
-          rescue StandardError => e
-            _perform_rollback(exception: e)
-
-            raise
-          end
-
-          def _perform_rollback(exception:) # rubocop:disable Lint/UnusedMethodArgument
+          rescue StandardError
             rollback_method_name = self.class.send(:rollback_method_name)
 
-            return if rollback_method_name.blank?
+            send(rollback_method_name) if rollback_method_name.present?
 
-            send(rollback_method_name)
+            raise
           end
         end
       end
