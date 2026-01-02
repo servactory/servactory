@@ -22,7 +22,7 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(incoming_arguments: {}, **)
+          def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/MethodLength
             status_active_model_name = self.class.send(:status_active_model_name)
 
             if status_active_model_name.present?

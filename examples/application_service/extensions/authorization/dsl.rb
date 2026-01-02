@@ -22,7 +22,7 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(incoming_arguments: {}, **)
+          def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/MethodLength
             authorization_method_name = self.class.send(:authorization_method_name)
 
             if authorization_method_name.present?
