@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "extensions/status_active/dsl"
 require_relative "extensions/authorization/dsl"
+require_relative "extensions/status_active/dsl"
 require_relative "extensions/post_condition/dsl"
 require_relative "extensions/transactional/dsl"
 require_relative "extensions/rollbackable/dsl"
