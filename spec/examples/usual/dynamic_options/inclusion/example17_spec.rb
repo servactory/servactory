@@ -97,14 +97,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
               .inclusion(1..)
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:positive_number)
-                .instance_of(Integer)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:positive_number)
+              .instance_of(Integer)
+          )
         end
       end
     end
@@ -165,14 +165,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
               .inclusion(1..)
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:positive_number)
-                .instance_of(Integer)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:positive_number)
+              .instance_of(Integer)
+          )
         end
       end
     end

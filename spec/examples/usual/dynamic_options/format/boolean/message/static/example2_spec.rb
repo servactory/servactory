@@ -56,14 +56,14 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example2
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:boolean)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:boolean)
+              .instance_of(String)
+          )
         end
       end
     end
@@ -124,14 +124,14 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Message::Static::Example2
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:boolean)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:boolean)
+              .instance_of(String)
+          )
         end
       end
     end

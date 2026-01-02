@@ -28,14 +28,14 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:balance_with_bonus)
-              .instance_of(Usual::Prepare::Example1::Money)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:balance_with_bonus)
+            .instance_of(Usual::Prepare::Example1::Money)
+        )
       end
     end
 
@@ -87,14 +87,14 @@ RSpec.describe Usual::Prepare::Example1, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:balance_with_bonus)
-              .instance_of(Usual::Prepare::Example1::Money)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:balance_with_bonus)
+            .instance_of(Usual::Prepare::Example1::Money)
+        )
       end
     end
 

@@ -57,14 +57,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example1, type: :
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:song_duration)
-                .instance_of(ActiveSupport::Duration)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(ActiveSupport::Duration)
+          )
         end
       end
     end
@@ -126,14 +126,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Basic::Example1, type: :
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:song_duration)
-                .instance_of(ActiveSupport::Duration)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(ActiveSupport::Duration)
+          )
         end
       end
     end

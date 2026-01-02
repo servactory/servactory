@@ -274,14 +274,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:data)
-                .instance_of(Integer)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:data)
+              .instance_of(Integer)
+          )
         end
       end
     end
@@ -560,14 +560,14 @@ RSpec.describe Usual::DynamicOptions::Max::Example2, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:data)
-                .instance_of(Integer)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:data)
+              .instance_of(Integer)
+          )
         end
       end
     end

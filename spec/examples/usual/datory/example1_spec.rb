@@ -36,14 +36,14 @@ RSpec.describe Usual::Datory::Example1, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:id)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:id)
+              .instance_of(String)
+          )
         end
       end
     end
@@ -84,14 +84,14 @@ RSpec.describe Usual::Datory::Example1, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:id)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:id)
+              .instance_of(String)
+          )
         end
       end
     end

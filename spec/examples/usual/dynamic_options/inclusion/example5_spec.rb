@@ -98,14 +98,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
               .inclusion(%w[created rejected approved])
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:event)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example5::Event)
+          )
         end
       end
     end
@@ -208,14 +208,14 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example5, type: :service do
               .inclusion(%w[created rejected approved])
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:event)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:event)
+              .instance_of(Usual::DynamicOptions::Inclusion::Example5::Event)
+          )
         end
       end
     end

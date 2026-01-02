@@ -87,21 +87,21 @@ RSpec.describe Usual::DynamicOptions::Schema::Example8, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:payload)
-              .instance_of(NilClass)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:payload)
+            .instance_of(NilClass)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name)
-              .instance_of(NilClass)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name)
+            .instance_of(NilClass)
+        )
       end
     end
 
@@ -228,21 +228,21 @@ RSpec.describe Usual::DynamicOptions::Schema::Example8, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:payload)
-              .instance_of(NilClass)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:payload)
+            .instance_of(NilClass)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name)
-              .instance_of(NilClass)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name)
+            .instance_of(NilClass)
+        )
       end
     end
 

@@ -28,21 +28,21 @@ RSpec.describe Usual::Conditions::Example5, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:invoice_number)
-              .instance_of(String)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:invoice_number)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:invoice_number_tmp)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:invoice_number_tmp)
+            .instance_of(String)
+        )
       end
     end
 
@@ -102,21 +102,21 @@ RSpec.describe Usual::Conditions::Example5, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:invoice_number)
-              .instance_of(String)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:invoice_number)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:invoice_number_tmp)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:invoice_number_tmp)
+            .instance_of(String)
+        )
       end
     end
 

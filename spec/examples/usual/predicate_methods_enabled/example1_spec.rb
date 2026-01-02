@@ -59,14 +59,14 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:full_name)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:full_name)
+              .instance_of(String)
+          )
         end
       end
 
@@ -148,14 +148,14 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:full_name)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:full_name)
+              .instance_of(String)
+          )
         end
       end
 

@@ -56,14 +56,14 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:password)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:password)
+              .instance_of(String)
+          )
         end
       end
     end
@@ -124,14 +124,14 @@ RSpec.describe Usual::DynamicOptions::Format::Password::Message::Lambda::Example
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:password)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:password)
+              .instance_of(String)
+          )
         end
       end
     end

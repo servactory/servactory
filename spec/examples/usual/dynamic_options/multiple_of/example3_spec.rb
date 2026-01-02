@@ -250,14 +250,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
             have_input(:number).valid_with(attributes).types(Integer, Float, Rational, BigDecimal).required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:number)
-                .instance_of(Integer)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
         end
       end
     end
@@ -512,14 +512,14 @@ RSpec.describe Usual::DynamicOptions::MultipleOf::Example3, type: :service do
             have_input(:number).valid_with(attributes).types(Integer, Float, Rational, BigDecimal).required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:number)
-                .instance_of(Integer)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:number)
+              .instance_of(Integer)
+          )
         end
       end
     end

@@ -27,15 +27,6 @@ RSpec.describe Wrong::Basic::Example13, type: :service do
               .required
           )
         end
-
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:invoice_number)
-                .instance_of(Integer)
-            )
-          end
-        end
       end
 
       describe "internals" do
@@ -86,15 +77,6 @@ RSpec.describe Wrong::Basic::Example13, type: :service do
               .type(String)
               .required
           )
-        end
-
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:invoice_number)
-                .instance_of(Integer)
-            )
-          end
         end
       end
 

@@ -57,14 +57,14 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Is::Example2, type: :ser
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_at)
-                .instance_of(Time)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(DateTime)
+          )
         end
       end
     end
@@ -126,14 +126,14 @@ RSpec.describe Usual::DynamicOptions::Format::DateTime::Is::Example2, type: :ser
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_at)
-                .instance_of(Time)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(DateTime)
+          )
         end
       end
     end

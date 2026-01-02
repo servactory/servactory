@@ -53,14 +53,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:song_duration)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(String)
+          )
         end
       end
     end
@@ -118,14 +118,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Message::Lambda::Example
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:song_duration)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(String)
+          )
         end
       end
     end

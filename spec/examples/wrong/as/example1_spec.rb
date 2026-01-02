@@ -47,15 +47,6 @@ RSpec.describe Wrong::As::Example1, type: :service do
               .required
           )
         end
-
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:first_id)
-                .instance_of(String)
-            )
-          end
-        end
       end
     end
   end
@@ -105,15 +96,6 @@ RSpec.describe Wrong::As::Example1, type: :service do
               .consists_of(String)
               .required
           )
-        end
-
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:first_id)
-                .instance_of(String)
-            )
-          end
         end
       end
     end

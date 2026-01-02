@@ -56,28 +56,28 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:output_1)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:output_1)
+              .instance_of(String)
+          )
+        end
 
-          it do
-            expect(perform).to(
-              have_output(:output_2)
-                .instance_of(String)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:output_2)
+              .instance_of(String)
+          )
+        end
 
-          it do
-            expect(perform).to(
-              have_output(:output_3)
-                .instance_of(String)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:output_3)
+              .instance_of(String)
+          )
         end
       end
 
@@ -156,28 +156,28 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:output_1)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:output_1)
+              .instance_of(String)
+          )
+        end
 
-          it do
-            expect(perform).to(
-              have_output(:output_2)
-                .instance_of(String)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:output_2)
+              .instance_of(String)
+          )
+        end
 
-          it do
-            expect(perform).to(
-              have_output(:output_3)
-                .instance_of(String)
-            )
-          end
+        it do
+          expect(perform).to(
+            have_output(:output_3)
+              .instance_of(String)
+          )
         end
       end
 

@@ -57,14 +57,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Optional::Example1, type
               .optional
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:song_duration)
-                .instance_of(NilClass)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(NilClass)
+          )
         end
       end
     end
@@ -126,14 +126,14 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Optional::Example1, type
               .optional
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:song_duration)
-                .instance_of(NilClass)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(NilClass)
+          )
         end
       end
     end

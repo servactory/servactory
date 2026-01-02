@@ -54,14 +54,14 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example3, type: :s
               .optional
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_at)
-                .instance_of(NilClass)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(NilClass)
+          )
         end
       end
     end
@@ -120,14 +120,14 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Optional::Example3, type: :s
               .optional
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_at)
-                .instance_of(NilClass)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(NilClass)
+          )
         end
       end
     end

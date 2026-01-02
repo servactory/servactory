@@ -28,14 +28,14 @@ RSpec.describe Usual::DynamicOptions::Target::Example9, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:service_class)
-              .instance_of(Class)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:service_class)
+            .instance_of(Class)
+        )
       end
     end
 
@@ -96,14 +96,14 @@ RSpec.describe Usual::DynamicOptions::Target::Example9, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:service_class)
-              .instance_of(Class)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:service_class)
+            .instance_of(Class)
+        )
       end
     end
 

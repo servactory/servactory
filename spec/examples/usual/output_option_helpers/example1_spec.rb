@@ -35,14 +35,14 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:invoice_numbers)
-                .instance_of(Array)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:invoice_numbers)
+              .instance_of(Array)
+          )
         end
       end
     end
@@ -183,14 +183,14 @@ RSpec.describe Usual::OutputOptionHelpers::Example1, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:invoice_numbers)
-                .instance_of(Array)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:invoice_numbers)
+              .instance_of(Array)
+          )
         end
       end
     end

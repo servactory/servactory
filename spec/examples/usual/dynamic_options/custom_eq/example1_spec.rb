@@ -25,15 +25,15 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
           end.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required
         }
       end
+    end
 
-      describe "outputs" do
-        context "when `data` is `Integer`" do
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:data, 2)
-            )
-          end
+    describe "outputs" do
+      context "when `data` is `Integer`" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, 2)
+          )
         end
 
         context "when `data` is `String`" do
@@ -175,15 +175,15 @@ RSpec.describe Usual::DynamicOptions::CustomEq::Example1, type: :service do
           end.to have_input(:data).valid_with(attributes).types(Integer, String, Array, Hash).required
         }
       end
+    end
 
-      describe "outputs" do
-        context "when `data` is `Integer`" do
-          it do
-            expect(perform).to(
-              be_success_service
-                .with_output(:data, 2)
-            )
-          end
+    describe "outputs" do
+      context "when `data` is `Integer`" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:data, 2)
+          )
         end
 
         context "when `data` is `String`" do

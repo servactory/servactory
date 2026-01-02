@@ -56,14 +56,14 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Lambda::Example1, t
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_at)
-                .instance_of(Time)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(Time)
+          )
         end
       end
     end
@@ -124,14 +124,14 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Message::Lambda::Example1, t
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_at)
-                .instance_of(Time)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(Time)
+          )
         end
       end
     end

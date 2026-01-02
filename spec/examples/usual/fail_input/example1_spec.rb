@@ -28,14 +28,14 @@ RSpec.describe Usual::FailInput::Example1, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:invoice_number)
-              .instance_of(String)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:invoice_number)
+            .instance_of(String)
+        )
       end
     end
 
@@ -102,14 +102,14 @@ RSpec.describe Usual::FailInput::Example1, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:invoice_number)
-              .instance_of(String)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:invoice_number)
+            .instance_of(String)
+        )
       end
     end
 

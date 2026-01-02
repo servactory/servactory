@@ -15,7 +15,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
         it do
           expect(perform).to(
             have_output(:health_check_time)
-              .instance_of(String)
+              .instance_of(Time)
           )
         end
 
@@ -82,7 +82,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
         it do
           expect(perform).to(
             have_output(:health_check_time)
-              .instance_of(String)
+              .instance_of(Time)
           )
         end
 

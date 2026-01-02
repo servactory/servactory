@@ -35,14 +35,14 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:api_response)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:api_response)
+              .instance_of(Hash)
+          )
         end
       end
 
@@ -118,14 +118,14 @@ RSpec.describe Usual::Inheritance::Example2, type: :service do
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:api_response)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:api_response)
+              .instance_of(Hash)
+          )
         end
       end
 

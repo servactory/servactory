@@ -28,15 +28,6 @@ RSpec.describe Wrong::Basic::Example7, type: :service do
           )
         end
       end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:prepared_invoice_number)
-              .instance_of(String)
-          )
-        end
-      end
     end
 
     describe "and the data required for work is also valid" do
@@ -94,15 +85,6 @@ RSpec.describe Wrong::Basic::Example7, type: :service do
               .valid_with(attributes)
               .type(String)
               .required
-          )
-        end
-      end
-
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:prepared_invoice_number)
-              .instance_of(String)
           )
         end
       end

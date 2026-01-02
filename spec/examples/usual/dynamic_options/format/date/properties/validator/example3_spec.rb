@@ -54,14 +54,14 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Validator::Examp
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_on)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_on)
+              .instance_of(String)
+          )
         end
       end
     end
@@ -120,14 +120,14 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Properties::Validator::Examp
               .required
           )
         end
+      end
 
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_on)
-                .instance_of(String)
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_on)
+              .instance_of(String)
+          )
         end
       end
     end

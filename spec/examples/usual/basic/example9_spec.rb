@@ -54,77 +54,77 @@ RSpec.describe Usual::Basic::Example9, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:full_name_1)
-              .instance_of(String)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:full_name_1)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_2)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_2)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_3)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_3)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_4)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_4)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_5)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_5)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_6)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_6)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_7)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_7)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_8)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_8)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_9)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_9)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_10)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_10)
+            .instance_of(String)
+        )
       end
     end
 
@@ -226,77 +226,77 @@ RSpec.describe Usual::Basic::Example9, type: :service do
           )
         end
       end
+    end
 
-      describe "outputs" do
-        it do
-          expect(perform).to(
-            have_output(:full_name_1)
-              .instance_of(String)
-          )
-        end
+    describe "outputs" do
+      it do
+        expect(perform).to(
+          have_output(:full_name_1)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_2)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_2)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_3)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_3)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_4)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_4)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_5)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_5)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_6)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_6)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_7)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_7)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_8)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_8)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_9)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_9)
+            .instance_of(String)
+        )
+      end
 
-        it do
-          expect(perform).to(
-            have_output(:full_name_10)
-              .instance_of(String)
-          )
-        end
+      it do
+        expect(perform).to(
+          have_output(:full_name_10)
+            .instance_of(String)
+        )
       end
     end
 

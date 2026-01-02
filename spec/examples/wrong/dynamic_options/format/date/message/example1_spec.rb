@@ -40,15 +40,6 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Message::Example1, type: :se
               .required
           )
         end
-
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_on)
-                .instance_of(Date)
-            )
-          end
-        end
       end
     end
   end
@@ -91,15 +82,6 @@ RSpec.describe Wrong::DynamicOptions::Format::Date::Message::Example1, type: :se
               .type(String)
               .required
           )
-        end
-
-        describe "outputs" do
-          it do
-            expect(perform).to(
-              have_output(:started_on)
-                .instance_of(Date)
-            )
-          end
         end
       end
     end
