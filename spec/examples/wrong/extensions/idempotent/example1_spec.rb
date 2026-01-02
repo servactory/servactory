@@ -23,7 +23,7 @@ RSpec.describe Wrong::Extensions::Idempotent::Example1, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[request_id amount],
                     internals: %i[],
-                    outputs: %i[result]
+                    outputs: %i[value]
 
     describe "but the data required for work is invalid" do
       describe "because operation fails during processing" do
@@ -33,6 +33,7 @@ RSpec.describe Wrong::Extensions::Idempotent::Example1, type: :service do
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:processing_failed)
               expect(exception.message).to eq("Failed to process amount")
+              expect(exception.meta).to be_nil
             end
           )
           expect(idempotency_store.execution_count).to eq(1)
@@ -62,7 +63,8 @@ RSpec.describe Wrong::Extensions::Idempotent::Example1, type: :service do
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :processing_failed,
-            message: "Failed to process amount"
+            message: "Failed to process amount",
+            meta: nil
           )
         end
       end

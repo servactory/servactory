@@ -31,7 +31,7 @@ module Usual
         input :request_id, type: String
         input :amount, type: Integer
 
-        output :result, type: Integer
+        output :value, type: Integer
 
         idempotent! by: :request_id, store: LikeAnIdempotencyStore
 
@@ -42,7 +42,7 @@ module Usual
         def process_amount
           LikeAnIdempotencyStore.increment_execution!
 
-          outputs.result = inputs.amount * 5
+          outputs.value = inputs.amount * 5
         end
       end
     end

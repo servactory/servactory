@@ -30,7 +30,7 @@ module Usual
 
         input :value, type: Integer
 
-        output :result, type: Integer
+        output :total, type: Integer
 
         transactional! transaction_class: LikeAnActiveRecordTransaction
 
@@ -39,7 +39,7 @@ module Usual
         private
 
         def process_value
-          outputs.result = inputs.value * 10
+          outputs.total = inputs.value * 10
         end
       end
     end

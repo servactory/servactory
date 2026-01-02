@@ -21,7 +21,7 @@ RSpec.describe Wrong::Extensions::Rollbackable::Example1, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[value],
                     internals: %i[],
-                    outputs: %i[result]
+                    outputs: %i[total]
 
     describe "but the data required for work is invalid" do
       describe "because operation fails and rollback is triggered" do
@@ -31,6 +31,7 @@ RSpec.describe Wrong::Extensions::Rollbackable::Example1, type: :service do
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:operation_failed)
               expect(exception.message).to eq("Something went wrong")
+              expect(exception.meta).to be_nil
             end
           )
           expect(rollback_tracker.rollback_called).to be(true)
@@ -58,7 +59,8 @@ RSpec.describe Wrong::Extensions::Rollbackable::Example1, type: :service do
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :operation_failed,
-            message: "Something went wrong"
+            message: "Something went wrong",
+            meta: nil
           )
           expect(rollback_tracker.rollback_called).to be(true)
         end

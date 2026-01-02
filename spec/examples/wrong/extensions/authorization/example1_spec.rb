@@ -25,6 +25,7 @@ RSpec.describe Wrong::Extensions::Authorization::Example1, type: :service do
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:unauthorized)
               expect(exception.message).to eq("Not authorized to perform this action")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -51,7 +52,8 @@ RSpec.describe Wrong::Extensions::Authorization::Example1, type: :service do
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :unauthorized,
-            message: "Not authorized to perform this action"
+            message: "Not authorized to perform this action",
+            meta: nil
           )
         end
       end

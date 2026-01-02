@@ -31,6 +31,7 @@ RSpec.describe Wrong::Extensions::ApiAction::Example1, type: :service do
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:api_error)
               expect(exception.message).to eq("API request failed for /users/42")
+              expect(exception.meta).to be_nil
             end
           )
           expect(http_client.request_count).to eq(1)
@@ -58,7 +59,8 @@ RSpec.describe Wrong::Extensions::ApiAction::Example1, type: :service do
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :api_error,
-            message: "API request failed for /users/42"
+            message: "API request failed for /users/42",
+            meta: nil
           )
           expect(http_client.request_count).to eq(1)
         end

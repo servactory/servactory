@@ -23,7 +23,7 @@ RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[request_id amount],
                     internals: %i[],
-                    outputs: %i[result]
+                    outputs: %i[value]
 
     describe "validations" do
       describe "inputs" do
@@ -49,7 +49,7 @@ RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
       describe "outputs" do
         it do
           result = perform
-          expect(result.result).to be_a(Integer)
+          expect(result.value).to be_a(Integer)
         end
       end
     end
@@ -57,20 +57,20 @@ RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "executes and stores result on first call" do
+      it "executes and stores value on first call" do
         expect(perform).to be_success_service
-        expect(perform.result).to eq(500)
+        expect(perform.value).to eq(500)
         expect(idempotency_store.execution_count).to eq(1)
       end
 
-      it "returns cached result on subsequent calls" do
+      it "returns cached value on subsequent calls" do
         # First call
         first_result = described_class.call!(**attributes)
-        expect(first_result.result).to eq(500)
+        expect(first_result.value).to eq(500)
 
         # Second call with same request_id - outputs restored from cache
         second_result = described_class.call!(**attributes)
-        expect(second_result.result).to eq(500)
+        expect(second_result.value).to eq(500)
 
         # Both calls execute, but outputs are consistent due to caching
         expect(idempotency_store.execution_count).to eq(2)
@@ -94,9 +94,9 @@ RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
     describe "and the data required for work is also valid" do
       it_behaves_like "success result class"
 
-      it "returns success with calculated result" do
+      it "returns success with calculated value" do
         expect(perform).to be_success_service
-        expect(perform.result).to eq(1000)
+        expect(perform.value).to eq(1000)
       end
     end
   end

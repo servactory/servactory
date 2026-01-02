@@ -25,6 +25,7 @@ RSpec.describe Wrong::Extensions::PostCondition::Example1, type: :service do
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:post_condition_failed)
               expect(exception.message).to eq("Total must be positive")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -51,7 +52,8 @@ RSpec.describe Wrong::Extensions::PostCondition::Example1, type: :service do
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :post_condition_failed,
-            message: "Total must be positive"
+            message: "Total must be positive",
+            meta: nil
           )
         end
       end

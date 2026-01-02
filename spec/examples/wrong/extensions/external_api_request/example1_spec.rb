@@ -31,6 +31,7 @@ RSpec.describe Wrong::Extensions::ExternalApiRequest::Example1, type: :service d
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:external_api_error)
               expect(exception.message).to eq("Connection failed for user 99")
+              expect(exception.meta).to match(original_exception: be_a(described_class::LikeAFaradayError))
             end
           )
           expect(api_client.request_count).to eq(1)
@@ -56,10 +57,9 @@ RSpec.describe Wrong::Extensions::ExternalApiRequest::Example1, type: :service d
           result = perform
 
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
-          expect(result.error).to an_object_having_attributes(
-            type: :external_api_error,
-            message: "Connection failed for user 99"
-          )
+          expect(result.error.type).to eq(:external_api_error)
+          expect(result.error.message).to eq("Connection failed for user 99")
+          expect(result.error.meta).to match(original_exception: be_a(described_class::LikeAFaradayError))
           expect(api_client.request_count).to eq(1)
         end
       end

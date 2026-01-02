@@ -31,6 +31,7 @@ RSpec.describe Wrong::Extensions::Publishable::Example1, type: :service do
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:user_creation_failed)
               expect(exception.message).to eq("Failed to create user")
+              expect(exception.meta).to be_nil
             end
           )
           expect(event_bus.published_events).to be_empty
@@ -58,7 +59,8 @@ RSpec.describe Wrong::Extensions::Publishable::Example1, type: :service do
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :user_creation_failed,
-            message: "Failed to create user"
+            message: "Failed to create user",
+            meta: nil
           )
           expect(event_bus.published_events).to be_empty
         end

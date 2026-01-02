@@ -28,7 +28,7 @@ module Wrong
 
         input :value, type: Integer
 
-        output :result, type: Integer
+        output :total, type: Integer
 
         transactional! transaction_class: LikeAnActiveRecordTransaction
 
@@ -38,7 +38,7 @@ module Wrong
         private
 
         def process_value
-          outputs.result = inputs.value * 2
+          outputs.total = inputs.value * 2
         end
 
         def fail_operation

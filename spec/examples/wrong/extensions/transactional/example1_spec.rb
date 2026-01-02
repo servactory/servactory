@@ -21,7 +21,7 @@ RSpec.describe Wrong::Extensions::Transactional::Example1, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[value],
                     internals: %i[],
-                    outputs: %i[result]
+                    outputs: %i[total]
 
     describe "but the data required for work is invalid" do
       describe "because operation fails and transaction is rolled back" do
@@ -31,6 +31,7 @@ RSpec.describe Wrong::Extensions::Transactional::Example1, type: :service do
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:transaction_failed)
               expect(exception.message).to eq("Operation failed, rolling back")
+              expect(exception.meta).to be_nil
             end
           )
           expect(transaction_class.transaction_started).to be(true)
@@ -60,7 +61,8 @@ RSpec.describe Wrong::Extensions::Transactional::Example1, type: :service do
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :transaction_failed,
-            message: "Operation failed, rolling back"
+            message: "Operation failed, rolling back",
+            meta: nil
           )
           expect(transaction_class.transaction_rolled_back).to be(true)
         end

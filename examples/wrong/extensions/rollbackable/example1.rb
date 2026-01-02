@@ -20,7 +20,7 @@ module Wrong
 
         input :value, type: Integer
 
-        output :result, type: Integer
+        output :total, type: Integer
 
         on_rollback :cleanup_resources
 
@@ -30,7 +30,7 @@ module Wrong
         private
 
         def process_value
-          outputs.result = inputs.value + 100
+          outputs.total = inputs.value + 100
         end
 
         def fail_operation
