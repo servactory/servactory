@@ -74,7 +74,7 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(**)
+          def call!(**) # rubocop:disable Metrics/MethodLength
             super
 
             conditions = self.class.stroma.settings[:actions][:post_condition][:conditions] || []

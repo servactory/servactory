@@ -50,8 +50,8 @@ RSpec.describe Servactory::Stroma::Settings::Collection do
     end
 
     it "returns count of registry keys" do
-      settings[:actions][:ext1][:key] = :value
-      settings[:inputs][:ext2][:key] = :value
+      settings[:actions][:ext1][:key] = :value # rubocop:disable Naming/VariableNumber
+      settings[:inputs][:ext2][:key] = :value # rubocop:disable Naming/VariableNumber
       expect(settings.size).to eq(2)
     end
   end
@@ -124,7 +124,7 @@ RSpec.describe Servactory::Stroma::Settings::Collection do
   end
 
   describe "hierarchical access pattern" do
-    it "supports the expected usage pattern" do
+    it "supports the expected usage pattern", :aggregate_failures do
       # Set settings
       settings[:actions][:authorization][:method_name] = :check_permission
       settings[:actions][:authorization][:required] = true

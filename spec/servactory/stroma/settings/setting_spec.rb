@@ -98,7 +98,7 @@ RSpec.describe Servactory::Stroma::Settings::Setting do
     end
 
     it "yields block for non-existent key" do
-      result = setting.fetch(:unknown) { :from_block }
+      result = setting.fetch(:unknown, :from_block)
       expect(result).to eq(:from_block)
     end
 
