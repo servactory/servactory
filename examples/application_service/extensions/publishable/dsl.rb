@@ -3,6 +3,54 @@
 module ApplicationService
   module Extensions
     module Publishable
+      # Publishes events after successful service execution.
+      #
+      # ## Purpose
+      #
+      # Enables services to publish events to an event bus after success.
+      # Supports multiple events with custom payloads.
+      # Uses isolated extension configuration to store publish settings.
+      #
+      # ## Usage
+      #
+      # ```ruby
+      # class CreateOrderService < ApplicationService::Base
+      #   publishes :order_created, with: :order_payload, event_bus: EventBus
+      #   publishes :notification_sent, event_bus: EventBus
+      #
+      #   input :order_data, type: Hash
+      #
+      #   private
+      #
+      #   def order_payload
+      #     { order_id: outputs.order.id }
+      #   end
+      # end
+      # ```
+      #
+      # ## Configuration Isolation
+      #
+      # This extension uses isolated config namespace to prevent collisions:
+      #
+      # ```ruby
+      # extension_config(:actions, :publishable)[:configurations] ||= []
+      # extension_config(:actions, :publishable)[:configurations] << {
+      #   event_name: :order_created,
+      #   payload_method: :order_payload,
+      #   event_bus: EventBus
+      # }
+      # ```
+      #
+      # ## Shared Access (if needed)
+      #
+      # Extensions can coordinate by reading other configs:
+      #
+      # ```ruby
+      # # transactional_config = extension_config(:actions, :transactional)
+      # # if transactional_config[:enabled]
+      # #   # publish after transaction commits
+      # # end
+      # ```
       module DSL
         def self.included(base)
           base.extend(ClassMethods)
@@ -12,12 +60,9 @@ module ApplicationService
         module ClassMethods
           private
 
-          def publish_configurations
-            @publish_configurations ||= []
-          end
-
           def publishes(event_name, with: nil, event_bus: nil)
-            publish_configurations << {
+            extension_config(:actions, :publishable)[:configurations] ||= []
+            extension_config(:actions, :publishable)[:configurations] << {
               event_name:,
               payload_method: with,
               event_bus:
@@ -31,7 +76,9 @@ module ApplicationService
           def call!(**)
             super
 
-            self.class.send(:publish_configurations).each do |config|
+            configurations = self.class.extension_config(:actions, :publishable)[:configurations] || []
+
+            configurations.each do |config|
               event_name = config[:event_name]
               payload_method = config[:payload_method]
               event_bus = config[:event_bus]

@@ -53,6 +53,21 @@ module Servactory
           @stroma ||= Configuration.new
         end
 
+        # Access extension configuration by registry key and extension name.
+        #
+        # @param registry_key [Symbol] Registry key (e.g., :actions, :inputs)
+        # @param extension_name [Symbol] Extension identifier (e.g., :authorization)
+        # @return [ExtensionConfig] Configuration container for the extension
+        #
+        # @example Setting configuration
+        #   extension_config(:actions, :authorization)[:method_name] = :authorize
+        #
+        # @example Reading configuration
+        #   method_name = extension_config(:actions, :authorization)[:method_name]
+        def extension_config(registry_key, extension_name)
+          stroma.extension_configs[registry_key][extension_name]
+        end
+
         private
 
         def extensions(&block)
