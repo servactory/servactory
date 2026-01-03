@@ -47,7 +47,7 @@ module Servactory
         # @param extension [Module] Extension module to include
         # @raise [Exceptions::InvalidHookType] If type is invalid
         def initialize(type:, target_key:, extension:)
-          unless VALID_HOOK_TYPES.include?(type)
+          if VALID_HOOK_TYPES.exclude?(type)
             raise Exceptions::InvalidHookType,
                   "Invalid hook type: #{type.inspect}. Valid types: #{VALID_HOOK_TYPES.map(&:inspect).join(', ')}"
           end
