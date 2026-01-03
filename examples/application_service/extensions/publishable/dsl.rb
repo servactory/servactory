@@ -3,6 +3,58 @@
 module ApplicationService
   module Extensions
     module Publishable
+      # Publishes events after successful service execution.
+      #
+      # ## Purpose
+      #
+      # Enables services to publish events to an event bus after success.
+      # Supports multiple events with custom payloads.
+      # Uses Stroma settings to store publish configuration.
+      #
+      # ## Usage
+      #
+      # ```ruby
+      # class CreateOrderService < ApplicationService::Base
+      #   publishes :order_created, with: :order_payload, event_bus: EventBus
+      #   publishes :notification_sent, event_bus: EventBus
+      #
+      #   input :order_data, type: Hash
+      #
+      #   private
+      #
+      #   def order_payload
+      #     { order_id: outputs.order.id }
+      #   end
+      # end
+      # ```
+      #
+      # ## Settings Access
+      #
+      # This extension uses the Stroma settings hierarchy:
+      #
+      # ```ruby
+      # # ClassMethods:
+      # stroma.settings[:actions][:publishable][:configurations] ||= []
+      # stroma.settings[:actions][:publishable][:configurations] << {
+      #   event_name: :order_created,
+      #   payload_method: :order_payload,
+      #   event_bus: EventBus
+      # }
+      #
+      # # InstanceMethods:
+      # self.class.stroma.settings[:actions][:publishable][:configurations]
+      # ```
+      #
+      # ## Cross-Extension Coordination
+      #
+      # Extensions can read other extensions' settings:
+      #
+      # ```ruby
+      # # transactional_settings = stroma.settings[:actions][:transactional]
+      # # if transactional_settings[:enabled]
+      # #   # publish after transaction commits
+      # # end
+      # ```
       module DSL
         def self.included(base)
           base.extend(ClassMethods)
@@ -12,12 +64,9 @@ module ApplicationService
         module ClassMethods
           private
 
-          def publish_configurations
-            @publish_configurations ||= []
-          end
-
           def publishes(event_name, with: nil, event_bus: nil)
-            publish_configurations << {
+            stroma.settings[:actions][:publishable][:configurations] ||= []
+            stroma.settings[:actions][:publishable][:configurations] << {
               event_name:,
               payload_method: with,
               event_bus:
@@ -31,7 +80,9 @@ module ApplicationService
           def call!(**)
             super
 
-            self.class.send(:publish_configurations).each do |config|
+            configurations = self.class.stroma.settings[:actions][:publishable][:configurations] || []
+
+            configurations.each do |config|
               event_name = config[:event_name]
               payload_method = config[:payload_method]
               event_bus = config[:event_bus]

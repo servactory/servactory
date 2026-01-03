@@ -3,6 +3,44 @@
 module ApplicationService
   module Extensions
     module Transactional
+      # Wraps service execution in a database transaction.
+      #
+      # ## Purpose
+      #
+      # Ensures service actions run within a database transaction.
+      # Uses Stroma settings to store transaction configuration.
+      #
+      # ## Usage
+      #
+      # ```ruby
+      # class MyService < ApplicationService::Base
+      #   transactional! transaction_class: ActiveRecord::Base
+      # end
+      # ```
+      #
+      # ## Settings Access
+      #
+      # This extension uses the Stroma settings hierarchy:
+      #
+      # ```ruby
+      # # ClassMethods:
+      # stroma.settings[:actions][:transactional][:enabled] = true
+      # stroma.settings[:actions][:transactional][:class] = ActiveRecord::Base
+      #
+      # # InstanceMethods:
+      # self.class.stroma.settings[:actions][:transactional][:enabled]
+      # ```
+      #
+      # ## Cross-Extension Coordination
+      #
+      # Extensions can read other extensions' settings:
+      #
+      # ```ruby
+      # # rollback_settings = stroma.settings[:actions][:rollbackable]
+      # # if rollback_settings[:method_name].present?
+      # #   # coordinate with rollbackable extension
+      # # end
+      # ```
       module DSL
         def self.included(base)
           base.extend(ClassMethods)
@@ -12,12 +50,9 @@ module ApplicationService
         module ClassMethods
           private
 
-          attr_accessor :transactional_enabled,
-                        :transactional_class
-
           def transactional!(transaction_class: nil)
-            self.transactional_enabled = true
-            self.transactional_class = transaction_class
+            stroma.settings[:actions][:transactional][:enabled] = true
+            stroma.settings[:actions][:transactional][:class] = transaction_class
           end
         end
 
@@ -25,14 +60,15 @@ module ApplicationService
           private
 
           def call!(**)
-            transactional_enabled = self.class.send(:transactional_enabled)
+            settings = self.class.stroma.settings[:actions][:transactional]
+            enabled = settings[:enabled]
 
-            unless transactional_enabled
+            unless enabled
               super
               return
             end
 
-            transaction_class = self.class.send(:transactional_class)
+            transaction_class = settings[:class]
 
             fail!(message: "Transaction class not configured") if transaction_class.nil?
 

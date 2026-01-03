@@ -1,0 +1,29 @@
+module Servactory
+  module Stroma
+    module Settings
+      class RegistrySettings
+        extend Forwardable
+
+        @storage: Hash[Symbol, Setting]
+
+        def initialize: (?Hash[Symbol, Setting] storage) -> void
+
+        def initialize_dup: (RegistrySettings original) -> void
+
+        def []: (Symbol | String extension_name) -> Setting
+
+        def each: () { (Symbol, Setting) -> void } -> Hash[Symbol, Setting]
+
+        def map: [T] () { (Symbol, Setting) -> T } -> Array[T]
+
+        def keys: () -> Array[Symbol]
+
+        def size: () -> Integer
+
+        def empty?: () -> bool
+
+        def to_h: () -> Hash[Symbol, Hash[Symbol, untyped]]
+      end
+    end
+  end
+end

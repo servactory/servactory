@@ -26,7 +26,7 @@ module Servactory
     # ## Integration
     #
     # Used by Servactory::Stroma::DSL to include all registered modules in service classes.
-    # Used by Servactory::Stroma::HooksFactory to validate hook target keys.
+    # Used by Servactory::Stroma::Hooks::Factory to validate hook target keys.
     #
     # ## Thread Safety
     #
