@@ -8,7 +8,7 @@ module Servactory
 
         def inherited: (Class child) -> void
 
-        def stroma: () -> Configuration
+        def stroma: () -> State
 
         private
 

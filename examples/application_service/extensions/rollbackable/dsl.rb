@@ -8,7 +8,7 @@ module ApplicationService
       # ## Purpose
       #
       # Executes a rollback method when service raises an exception.
-      # Uses isolated extension configuration to store rollback settings.
+      # Uses Stroma settings to store rollback configuration.
       #
       # ## Usage
       #
@@ -24,21 +24,25 @@ module ApplicationService
       # end
       # ```
       #
-      # ## Configuration Isolation
+      # ## Settings Access
       #
-      # This extension uses isolated config namespace to prevent collisions:
+      # This extension uses the Stroma settings hierarchy:
       #
       # ```ruby
-      # extension_config(:actions, :rollbackable)[:method_name] = :cleanup
+      # # ClassMethods:
+      # stroma.settings[:actions][:rollbackable][:method_name] = :cleanup
+      #
+      # # InstanceMethods:
+      # self.class.stroma.settings[:actions][:rollbackable][:method_name]
       # ```
       #
-      # ## Shared Access (if needed)
+      # ## Cross-Extension Coordination
       #
-      # Extensions can coordinate by reading other configs:
+      # Extensions can read other extensions' settings:
       #
       # ```ruby
-      # # transactional_config = extension_config(:actions, :transactional)
-      # # if transactional_config[:enabled]
+      # # transactional_settings = stroma.settings[:actions][:transactional]
+      # # if transactional_settings[:enabled]
       # #   # coordinate with transactional extension
       # # end
       # ```
@@ -52,7 +56,7 @@ module ApplicationService
           private
 
           def on_rollback(method_name)
-            extension_config(:actions, :rollbackable)[:method_name] = method_name
+            stroma.settings[:actions][:rollbackable][:method_name] = method_name
           end
         end
 
@@ -64,7 +68,7 @@ module ApplicationService
           rescue StandardError => e
             raise e if e.is_a?(Servactory::Exceptions::Success)
 
-            method_name = self.class.extension_config(:actions, :rollbackable)[:method_name]
+            method_name = self.class.stroma.settings[:actions][:rollbackable][:method_name]
 
             send(method_name) if method_name.present?
 

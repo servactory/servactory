@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Servactory::Stroma::Hook do
+RSpec.describe Servactory::Stroma::Hooks::Hook do
   let(:test_module) { Module.new }
 
   describe ".new" do

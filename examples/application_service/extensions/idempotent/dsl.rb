@@ -8,7 +8,7 @@ module ApplicationService
       # ## Purpose
       #
       # Ensures service operations are idempotent by caching results.
-      # Uses isolated extension configuration to store idempotency settings.
+      # Uses Stroma settings to store idempotency configuration.
       #
       # ## Usage
       #
@@ -18,22 +18,26 @@ module ApplicationService
       # end
       # ```
       #
-      # ## Configuration Isolation
+      # ## Settings Access
       #
-      # This extension uses isolated config namespace to prevent collisions:
+      # This extension uses the Stroma settings hierarchy:
       #
       # ```ruby
-      # extension_config(:actions, :idempotent)[:key_input] = :request_id
-      # extension_config(:actions, :idempotent)[:store] = MyIdempotencyStore
+      # # ClassMethods:
+      # stroma.settings[:actions][:idempotent][:key_input] = :request_id
+      # stroma.settings[:actions][:idempotent][:store] = MyIdempotencyStore
+      #
+      # # InstanceMethods:
+      # self.class.stroma.settings[:actions][:idempotent][:key_input]
       # ```
       #
-      # ## Shared Access (if needed)
+      # ## Cross-Extension Coordination
       #
-      # Extensions can coordinate by reading other configs:
+      # Extensions can read other extensions' settings:
       #
       # ```ruby
-      # # transactional_config = extension_config(:actions, :transactional)
-      # # if transactional_config[:enabled]
+      # # transactional_settings = stroma.settings[:actions][:transactional]
+      # # if transactional_settings[:enabled]
       # #   # coordinate with transactional extension
       # # end
       # ```
@@ -47,8 +51,8 @@ module ApplicationService
           private
 
           def idempotent!(by:, store: nil)
-            extension_config(:actions, :idempotent)[:key_input] = by
-            extension_config(:actions, :idempotent)[:store] = store
+            stroma.settings[:actions][:idempotent][:key_input] = by
+            stroma.settings[:actions][:idempotent][:store] = store
           end
         end
 
@@ -56,13 +60,13 @@ module ApplicationService
           private
 
           def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-            config = self.class.extension_config(:actions, :idempotent)
-            key_input = config[:key_input]
+            settings = self.class.stroma.settings[:actions][:idempotent]
+            key_input = settings[:key_input]
             idempotency_was_cached = false
             cached_outputs = nil
 
             if key_input.present?
-              store = config[:store]
+              store = settings[:store]
 
               fail!(:idempotency_error, message: "Idempotency store not configured") if store.nil?
 
@@ -87,7 +91,7 @@ module ApplicationService
                 outputs.send(:"#{output_name}=", output_value)
               end
             else
-              store = config[:store]
+              store = settings[:store]
               key = inputs.send(key_input)
 
               store.set(key, outputs.except)

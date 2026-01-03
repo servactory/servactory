@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe Servactory::Stroma::Applier do
-  let(:hooks) { Servactory::Stroma::Hooks.new }
+RSpec.describe Servactory::Stroma::Hooks::Applier do
+  let(:hooks) { Servactory::Stroma::Hooks::Collection.new }
   let(:target_class) { Class.new }
   let(:applier) { described_class.new(target_class, hooks) }
 

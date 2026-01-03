@@ -9,7 +9,7 @@ module ApplicationService
       #
       # Provides consistent handling for services that call external APIs.
       # Catches API-specific errors and converts them to service failures.
-      # Uses isolated extension configuration to store API settings.
+      # Uses Stroma settings to store API configuration.
       #
       # ## Usage
       #
@@ -31,22 +31,26 @@ module ApplicationService
       # end
       # ```
       #
-      # ## Configuration Isolation
+      # ## Settings Access
       #
-      # This extension uses isolated config namespace to prevent collisions:
+      # This extension uses the Stroma settings hierarchy:
       #
       # ```ruby
-      # extension_config(:actions, :external_api_request)[:response_type] = UserData
-      # extension_config(:actions, :external_api_request)[:error_class] = ApiError
+      # # ClassMethods:
+      # stroma.settings[:actions][:external_api_request][:response_type] = UserData
+      # stroma.settings[:actions][:external_api_request][:error_class] = ApiError
+      #
+      # # InstanceMethods:
+      # self.class.stroma.settings[:actions][:external_api_request][:error_class]
       # ```
       #
-      # ## Shared Access (if needed)
+      # ## Cross-Extension Coordination
       #
-      # Extensions can coordinate by reading other configs:
+      # Extensions can read other extensions' settings:
       #
       # ```ruby
-      # # retry_config = extension_config(:actions, :retryable)
-      # # if retry_config[:enabled]
+      # # retry_settings = stroma.settings[:actions][:retryable]
+      # # if retry_settings[:enabled]
       # #   # coordinate with retryable extension
       # # end
       # ```
@@ -60,8 +64,8 @@ module ApplicationService
           private
 
           def external_api_request!(response_type:, error_class:)
-            extension_config(:actions, :external_api_request)[:response_type] = response_type
-            extension_config(:actions, :external_api_request)[:error_class] = error_class
+            stroma.settings[:actions][:external_api_request][:response_type] = response_type
+            stroma.settings[:actions][:external_api_request][:error_class] = error_class
 
             output :api_response, type: response_type
 
@@ -75,8 +79,8 @@ module ApplicationService
           def call!(**)
             super
           rescue StandardError => e
-            config = self.class.extension_config(:actions, :external_api_request)
-            error_class = config[:error_class]
+            settings = self.class.stroma.settings[:actions][:external_api_request]
+            error_class = settings[:error_class]
 
             raise e if error_class.nil?
             raise e unless e.is_a?(error_class)

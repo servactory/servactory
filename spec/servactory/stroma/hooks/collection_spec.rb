@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Servactory::Stroma::Hooks do
+RSpec.describe Servactory::Stroma::Hooks::Collection do
   let(:hooks) { described_class.new }
   let(:first_module) { Module.new }
   let(:second_module) { Module.new }
@@ -107,7 +107,7 @@ RSpec.describe Servactory::Stroma::Hooks do
     end
 
     it "yields Hook objects" do
-      expect(hooks.map(&:itself)).to all(be_a(Servactory::Stroma::Hook))
+      expect(hooks.map(&:itself)).to all(be_a(Servactory::Stroma::Hooks::Hook))
     end
   end
 end

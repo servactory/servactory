@@ -9,7 +9,7 @@ module ApplicationService
       #
       # Ensures that certain conditions are met after the service runs.
       # Useful for business rule validation on outputs.
-      # Uses isolated extension configuration to store condition settings.
+      # Uses Stroma settings to store condition configuration.
       #
       # ## Usage
       #
@@ -25,26 +25,30 @@ module ApplicationService
       # end
       # ```
       #
-      # ## Configuration Isolation
+      # ## Settings Access
       #
-      # This extension uses isolated config namespace to prevent collisions:
+      # This extension uses the Stroma settings hierarchy:
       #
       # ```ruby
-      # extension_config(:actions, :post_condition)[:conditions] ||= []
-      # extension_config(:actions, :post_condition)[:conditions] << {
+      # # ClassMethods:
+      # stroma.settings[:actions][:post_condition][:conditions] ||= []
+      # stroma.settings[:actions][:post_condition][:conditions] << {
       #   name: :payment_recorded,
       #   message: "Payment must be saved",
       #   block: -> (outputs) { outputs.payment.persisted? }
       # }
+      #
+      # # InstanceMethods:
+      # self.class.stroma.settings[:actions][:post_condition][:conditions]
       # ```
       #
-      # ## Shared Access (if needed)
+      # ## Cross-Extension Coordination
       #
-      # Extensions can coordinate by reading other configs:
+      # Extensions can read other extensions' settings:
       #
       # ```ruby
-      # # transactional_config = extension_config(:actions, :transactional)
-      # # if transactional_config[:enabled]
+      # # transactional_settings = stroma.settings[:actions][:transactional]
+      # # if transactional_settings[:enabled]
       # #   # conditions run inside transaction
       # # end
       # ```
@@ -58,8 +62,8 @@ module ApplicationService
           private
 
           def post_condition!(name, message: nil, &block)
-            extension_config(:actions, :post_condition)[:conditions] ||= []
-            extension_config(:actions, :post_condition)[:conditions] << {
+            stroma.settings[:actions][:post_condition][:conditions] ||= []
+            stroma.settings[:actions][:post_condition][:conditions] << {
               name:,
               message:,
               block:
@@ -73,7 +77,7 @@ module ApplicationService
           def call!(**)
             super
 
-            conditions = self.class.extension_config(:actions, :post_condition)[:conditions] || []
+            conditions = self.class.stroma.settings[:actions][:post_condition][:conditions] || []
 
             conditions.each do |condition|
               result = instance_exec(outputs, &condition[:block])

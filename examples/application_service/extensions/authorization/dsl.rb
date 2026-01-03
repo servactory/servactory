@@ -8,7 +8,7 @@ module ApplicationService
       # ## Purpose
       #
       # Validates that the current user has permission to execute the service.
-      # Uses isolated extension configuration to store authorization settings.
+      # Uses Stroma settings to store authorization configuration.
       #
       # ## Usage
       #
@@ -24,21 +24,25 @@ module ApplicationService
       # end
       # ```
       #
-      # ## Configuration Isolation
+      # ## Settings Access
       #
-      # This extension uses isolated config namespace to prevent collisions:
+      # This extension uses the Stroma settings hierarchy:
       #
       # ```ruby
-      # extension_config(:actions, :authorization)[:method_name] = :authorize
+      # # ClassMethods:
+      # stroma.settings[:actions][:authorization][:method_name] = :authorize
+      #
+      # # InstanceMethods:
+      # self.class.stroma.settings[:actions][:authorization][:method_name]
       # ```
       #
-      # ## Shared Access (if needed)
+      # ## Cross-Extension Coordination
       #
-      # Extensions can coordinate by reading other configs:
+      # Extensions can read other extensions' settings:
       #
       # ```ruby
-      # # transactional_config = extension_config(:actions, :transactional)
-      # # if transactional_config[:enabled]
+      # # transactional_settings = stroma.settings[:actions][:transactional]
+      # # if transactional_settings[:enabled]
       # #   # coordinate with transactional extension
       # # end
       # ```
@@ -52,7 +56,7 @@ module ApplicationService
           private
 
           def authorize_with(method_name)
-            extension_config(:actions, :authorization)[:method_name] = method_name
+            stroma.settings[:actions][:authorization][:method_name] = method_name
           end
         end
 
@@ -60,7 +64,7 @@ module ApplicationService
           private
 
           def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/MethodLength
-            method_name = self.class.extension_config(:actions, :authorization)[:method_name]
+            method_name = self.class.stroma.settings[:actions][:authorization][:method_name]
 
             if method_name.present?
               authorized = send(method_name, incoming_arguments)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe Servactory::Stroma::HooksFactory do
-  let(:hooks) { Servactory::Stroma::Hooks.new }
+RSpec.describe Servactory::Stroma::Hooks::Factory do
+  let(:hooks) { Servactory::Stroma::Hooks::Collection.new }
   let(:factory) { described_class.new(hooks) }
   let(:first_module) { Module.new }
   let(:second_module) { Module.new }

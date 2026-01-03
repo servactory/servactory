@@ -8,7 +8,7 @@ module ApplicationService
       # ## Purpose
       #
       # Ensures that a specified model is active before proceeding.
-      # Uses isolated extension configuration to store model settings.
+      # Uses Stroma settings to store model configuration.
       #
       # ## Usage
       #
@@ -20,21 +20,25 @@ module ApplicationService
       # end
       # ```
       #
-      # ## Configuration Isolation
+      # ## Settings Access
       #
-      # This extension uses isolated config namespace to prevent collisions:
+      # This extension uses the Stroma settings hierarchy:
       #
       # ```ruby
-      # extension_config(:actions, :status_active)[:model_name] = :user
+      # # ClassMethods:
+      # stroma.settings[:actions][:status_active][:model_name] = :user
+      #
+      # # InstanceMethods:
+      # self.class.stroma.settings[:actions][:status_active][:model_name]
       # ```
       #
-      # ## Shared Access (if needed)
+      # ## Cross-Extension Coordination
       #
-      # Extensions can coordinate by reading other configs:
+      # Extensions can read other extensions' settings:
       #
       # ```ruby
-      # # auth_config = extension_config(:actions, :authorization)
-      # # if auth_config[:method_name].present?
+      # # auth_settings = stroma.settings[:actions][:authorization]
+      # # if auth_settings[:method_name].present?
       # #   # coordinate with authorization extension
       # # end
       # ```
@@ -48,7 +52,7 @@ module ApplicationService
           private
 
           def status_active!(model_name)
-            extension_config(:actions, :status_active)[:model_name] = model_name
+            stroma.settings[:actions][:status_active][:model_name] = model_name
           end
         end
 
@@ -56,7 +60,7 @@ module ApplicationService
           private
 
           def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/MethodLength
-            model_name = self.class.extension_config(:actions, :status_active)[:model_name]
+            model_name = self.class.stroma.settings[:actions][:status_active][:model_name]
 
             if model_name.present?
               model = incoming_arguments[model_name]
