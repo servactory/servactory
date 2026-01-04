@@ -1,15 +1,47 @@
 # frozen_string_literal: true
 
 begin
+  require "fileutils"
+  require "tempfile"
   require "rails/generators"
-  require "rails/generators/testing/behavior"
+
+  # Rails 8+ uses "behavior", Rails 7 and earlier use "behaviour"
+  begin
+    require "rails/generators/testing/behavior"
+    GENERATOR_TESTING_BEHAVIOR = Rails::Generators::Testing::Behavior
+  rescue LoadError
+    require "rails/generators/testing/behaviour"
+    GENERATOR_TESTING_BEHAVIOR = Rails::Generators::Testing::Behaviour
+  end
+
   require "rails/generators/testing/assertions"
 
   module GeneratorHelpers
     extend ActiveSupport::Concern
 
+    # Rails generator assertions use Minitest's assert method
+    def assert(condition, message = nil)
+      expect(condition).to be_truthy, message
+    end
+
+    def assert_equal(expected, actual, message = nil)
+      expect(actual).to eq(expected), message
+    end
+
+    def assert_match(pattern, string, message = nil)
+      expect(string).to match(pattern), message
+    end
+
+    class_methods do
+      # Set the generator class to test
+      def tests(klass)
+        define_method(:generator_class) { klass }
+      end
+    end
+
     included do
-      include Rails::Generators::Testing::Behavior
+      include FileUtils
+      include GENERATOR_TESTING_BEHAVIOR
       include Rails::Generators::Testing::Assertions
 
       destination File.expand_path("../../tmp/generators", __dir__)
@@ -21,6 +53,13 @@ begin
 
     def file_content(path)
       File.read(File.join(destination_root, path))
+    end
+
+    private
+
+    # Default generator class (can be overridden with `tests` class method)
+    def generator_class
+      raise NotImplementedError, "Define generator class using `tests MyGenerator`"
     end
   end
 rescue LoadError

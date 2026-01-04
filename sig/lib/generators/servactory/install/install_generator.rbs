@@ -16,6 +16,8 @@ module Servactory
       def service_path: (String filename) -> String
 
       def minimal?: () -> bool
+
+      def locales: () -> Array[String]
     end
   end
 end

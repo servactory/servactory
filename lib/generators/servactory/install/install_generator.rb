@@ -39,7 +39,7 @@ module Servactory
       def copy_locales
         return if options[:locales].blank?
 
-        options[:locales].each do |locale|
+        locales.each do |locale|
           locale_file = "servactory.#{locale}.yml"
           source_file = "locales/#{locale_file}"
 
@@ -71,6 +71,11 @@ module Servactory
 
       def minimal?
         options[:minimal]
+      end
+
+      def locales
+        # Handle both "--locales=en,ru" (single string) and "--locales en ru" (array)
+        options[:locales].flat_map { |locale| locale.split(",") }
       end
     end
   end
