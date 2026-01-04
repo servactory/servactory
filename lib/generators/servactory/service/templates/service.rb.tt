@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+
+class <%= class_name %> < <%= base_class %>
+<% input_declarations.each do |declaration| -%>
+  <%= declaration %>
+<% end -%>
+<% if internal_declarations.any? -%>
+
+<% internal_declarations.each do |declaration| -%>
+  <%= declaration %>
+<% end -%>
+<% end -%>
+<% if output_declarations.any? -%>
+
+<% output_declarations.each do |declaration| -%>
+  <%= declaration %>
+<% end -%>
+<% end -%>
+<% unless skip_make? -%>
+
+  make :call
+<% end -%>
+
+  private
+<% unless skip_make? -%>
+
+  def call
+    # Write your code here
+<% output_declarations.each_with_index do |_, index| -%>
+<% attr = output_attributes[index] -%>
+    outputs.<%= attr %> = :done
+<% end -%>
+  end
+<% end -%>
+end

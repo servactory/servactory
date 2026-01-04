@@ -1,32 +1,37 @@
 # frozen_string_literal: true
 
-module ApplicationService
+module <%= namespace %>
   class Base
     include Servactory::DSL
+<% unless skip_comments? -%>
 
     # More information: https://servactory.com/guide/extensions
     # include Servactory::DSL.with_extensions(
-    #   ApplicationService::Extensions::YourExtension::DSL
+    #   <%= namespace %>::Extensions::YourExtension::DSL
     # )
+<% end -%>
 
     fail_on! ActiveRecord::RecordInvalid
+<% unless skip_comments? -%>
 
     # More information: https://servactory.com/guide/configuration
+<% end -%>
     configuration do
-      input_exception_class ApplicationService::Exceptions::Input
-      internal_exception_class ApplicationService::Exceptions::Internal
-      output_exception_class ApplicationService::Exceptions::Output
+      input_exception_class <%= namespace %>::Exceptions::Input
+      internal_exception_class <%= namespace %>::Exceptions::Internal
+      output_exception_class <%= namespace %>::Exceptions::Output
 
-      failure_class ApplicationService::Exceptions::Failure
+      failure_class <%= namespace %>::Exceptions::Failure
 
-      result_class ApplicationService::Result
+      result_class <%= namespace %>::Result
+<% unless skip_comments? -%>
 
       # input_option_helpers(
       #   [
       #     Servactory::ToolKit::DynamicOptions::Format.use,
       #     Servactory::ToolKit::DynamicOptions::Min.use,
       #     Servactory::ToolKit::DynamicOptions::Max.use,
-      #     ApplicationService::DynamicOptions::CustomEq.use
+      #     <%= namespace %>::DynamicOptions::CustomEq.use
       #   ]
       # )
 
@@ -35,7 +40,7 @@ module ApplicationService
       #     Servactory::ToolKit::DynamicOptions::Format.use,
       #     Servactory::ToolKit::DynamicOptions::Min.use,
       #     Servactory::ToolKit::DynamicOptions::Max.use,
-      #     ApplicationService::DynamicOptions::CustomEq.use
+      #     <%= namespace %>::DynamicOptions::CustomEq.use
       #   ]
       # )
 
@@ -44,7 +49,7 @@ module ApplicationService
       #     Servactory::ToolKit::DynamicOptions::Format.use,
       #     Servactory::ToolKit::DynamicOptions::Min.use,
       #     Servactory::ToolKit::DynamicOptions::Max.use,
-      #     ApplicationService::DynamicOptions::CustomEq.use
+      #     <%= namespace %>::DynamicOptions::CustomEq.use
       #   ]
       # )
 
@@ -67,6 +72,7 @@ module ApplicationService
       # i18n_root_key :servactory
 
       # predicate_methods_enabled false
+<% end -%>
     end
   end
 end

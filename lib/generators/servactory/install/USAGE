@@ -1,0 +1,23 @@
+Description:
+    Installs Servactory base service configuration into your Rails application.
+
+Usage:
+    rails generate servactory:install [options]
+
+Options:
+    --locales=LOCALES        Locales to install (e.g., --locales=en ru)
+    --skip-comments          Skip configuration comments in generated files
+    --namespace=NAMESPACE    Base namespace for services (default: ApplicationService)
+
+Examples:
+    rails generate servactory:install
+        Creates app/services/application_service/ with base.rb, exceptions.rb, result.rb
+
+    rails generate servactory:install --locales=en ru
+        Also copies English and Russian locale files to config/locales/
+
+    rails generate servactory:install --namespace=MyApp::Services
+        Creates app/services/my_app/services/ with all files
+
+    rails generate servactory:install --skip-comments
+        Creates files without configuration comments
