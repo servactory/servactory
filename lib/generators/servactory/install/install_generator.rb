@@ -53,8 +53,20 @@ module Servactory
 
       private
 
+      def namespace
+        options[:namespace]
+      end
+
+      def namespace_path
+        namespace.underscore
+      end
+
       def base_path
         options[:path]
+      end
+
+      def service_path(filename)
+        "#{base_path}/#{namespace_path}/#{filename}"
       end
 
       def locales
@@ -64,18 +76,6 @@ module Servactory
 
       def minimal?
         options[:minimal]
-      end
-
-      def namespace
-        options[:namespace]
-      end
-
-      def namespace_path
-        namespace.underscore
-      end
-
-      def service_path(filename)
-        "#{base_path}/#{namespace_path}/#{filename}"
       end
     end
   end

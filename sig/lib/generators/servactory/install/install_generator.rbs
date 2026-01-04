@@ -7,17 +7,17 @@ module Servactory
 
       private
 
-      def base_path: () -> String
-
-      def locales: () -> Array[String]
-
-      def minimal?: () -> bool
-
       def namespace: () -> String
 
       def namespace_path: () -> String
 
+      def base_path: () -> String
+
       def service_path: (String filename) -> String
+
+      def locales: () -> Array[String]
+
+      def minimal?: () -> bool
     end
   end
 end
