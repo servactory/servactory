@@ -4,10 +4,8 @@ require_relative "../base"
 
 module Servactory
   module Generators
-    class RspecGenerator < Servactory::Generators::NamedBase
+    class RspecGenerator < Rails::Generators::NamedBase
       source_root File.expand_path("templates", __dir__)
-
-      argument :attributes, type: :array, default: [], banner: "input:type"
 
       class_option :skip_validations,
                    type: :boolean,
@@ -43,11 +41,54 @@ module Servactory
         options[:call_method]
       end
 
-      def example_value_for(type)
+      def service_class
+        @service_class ||= class_name.constantize
+      rescue NameError
+        nil
+      end
+
+      def service_info
+        @service_info ||= service_class&.info
+      end
+
+      def service_exists?
+        service_class.present? && service_info.present?
+      end
+
+      def inputs_from_info
+        return [] unless service_info
+
+        service_info.inputs.map do |name, data|
+          types = data[:types] || []
+          {
+            name: name,
+            types: types,
+            type_string: format_types(types),
+            required: data[:required] != false,
+            default: data[:default],
+            example: example_value_for_types(types)
+          }
+        end
+      end
+
+      def format_types(types)
+        return "String" if types.empty?
+
+        if types.size == 1
+          types.first.to_s
+        else
+          "[#{types.map(&:to_s).join(', ')}]"
+        end
+      end
+
+      def example_value_for_types(types)
+        return '"Some value"' if types.empty?
+
+        type = types.first.to_s
         case type
         when "Integer" then "1"
         when "Float" then "1.0"
-        when "TrueClass", "Boolean" then "true"
+        when "TrueClass" then "true"
         when "FalseClass" then "false"
         when "Array" then "[]"
         when "Hash" then "{}"
@@ -55,18 +96,9 @@ module Servactory
         when "Date" then "Date.current"
         when "DateTime" then "DateTime.current"
         when "Time" then "Time.current"
+        when "NilClass" then "nil"
         else
           '"Some value"'
-        end
-      end
-
-      def inputs_with_examples
-        parsed_inputs.map do |input|
-          {
-            name: input[:name],
-            type: input[:type],
-            example: example_value_for(input[:type])
-          }
         end
       end
     end

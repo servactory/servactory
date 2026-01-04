@@ -7,20 +7,20 @@ module Servactory
     class InstallGenerator < Servactory::Generators::Base
       source_root File.expand_path("templates", __dir__)
 
+      class_option :namespace,
+                   type: :string,
+                   default: "ApplicationService",
+                   desc: "Base namespace for services"
+
       class_option :locales,
                    type: :array,
                    default: [],
-                   desc: "Locales to install (e.g., --locales=en ru)"
+                   desc: "Locales to install (e.g., --locales=en,ru)"
 
       class_option :skip_comments,
                    type: :boolean,
                    default: false,
                    desc: "Skip configuration comments"
-
-      class_option :namespace,
-                   type: :string,
-                   default: "ApplicationService",
-                   desc: "Base namespace for services"
 
       def create_application_service
         template "application_service/base.rb.tt", service_path("base.rb")

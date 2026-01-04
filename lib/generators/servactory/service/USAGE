@@ -11,9 +11,6 @@ Arguments:
 Options:
     --base-class=CLASS    Base class for the service (default: ApplicationService::Base)
     --skip-output         Skip default output declaration
-    --skip-make           Skip default make method
-    --internal=ATTRS      Internal attributes (e.g., --internal=cache data)
-    --output=ATTRS        Output attributes (e.g., --output=result status)
 
 Examples:
     rails generate servactory:service Users::Create
@@ -22,11 +19,11 @@ Examples:
     rails generate servactory:service Users::Create email:String name:String
         Creates service with typed email and name inputs
 
-    rails generate servactory:service ProcessOrder order_id:Integer --output=receipt status
-        Creates service with order_id input and receipt, status outputs
+    rails generate servactory:service ProcessOrder order_id:Integer
+        Creates service with order_id input and default result output
 
-    rails generate servactory:service SendEmail recipient:String --skip-make
-        Creates service without default make method
+    rails generate servactory:service CacheData key:String --skip-output
+        Creates service without default output declaration
 
-    rails generate servactory:service CacheData key:String --internal=cached_value
-        Creates service with cached_value internal attribute
+    rails generate servactory:service Analytics::Track user:User event:Hash
+        Creates service with custom model and hash inputs

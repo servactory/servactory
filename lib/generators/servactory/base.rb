@@ -60,10 +60,6 @@ module Servactory
 
         TYPE_MAPPING[type_string.downcase] || type_string
       end
-
-      def ruby_type_hint(type_string)
-        normalize_type(type_string)
-      end
     end
   end
 end

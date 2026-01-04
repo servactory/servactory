@@ -8,34 +8,43 @@ RSpec.describe <%= class_name %>, type: :service do
   describe ".<%= call_method %>" do
     subject(:perform) { described_class.<%= call_method %>(**attributes) }
 
+<% if service_exists? && inputs_from_info.any? -%>
     let(:attributes) do
       {
-<% inputs_with_examples.each_with_index do |input, index| -%>
-        <%= input[:name] %>: <%= input[:name] %><%= index < inputs_with_examples.size - 1 ? ',' : '' %>
+<% inputs_from_info.each_with_index do |input, index| -%>
+        <%= input[:name] %>: <%= input[:name] %><%= index < inputs_from_info.size - 1 ? ',' : '' %>
 <% end -%>
       }
     end
 
-<% inputs_with_examples.each do |input| -%>
+<% inputs_from_info.each do |input| -%>
     let(:<%= input[:name] %>) { <%= input[:example] %> }
 <% end -%>
+<% else -%>
+    let(:attributes) do
+      {
+        # TODO: Add input attributes
+      }
+    end
+<% end -%>
 <% unless skip_validations? -%>
+<% if service_exists? && inputs_from_info.any? -%>
 
     describe "validations" do
       describe "inputs" do
-<% inputs_with_examples.each do |input| -%>
+<% inputs_from_info.each do |input| -%>
         it do
           expect { perform }.to(
             have_input(:<%= input[:name] %>)
               .valid_with(attributes)
-              .type(<%= input[:type] %>)
-              .required
+              .type(<%= input[:type_string] %>)<%= input[:required] ? "\n              .required" : "" %>
           )
         end
 
 <% end -%>
       end
     end
+<% end -%>
 <% end -%>
 
     describe "and the data required for work is also valid" do

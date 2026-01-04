@@ -93,8 +93,8 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
       end
     end
 
-    context "with --locales=en ru" do
-      before { run_generator %w[--locales=en --locales=ru] }
+    context "with multiple locales" do
+      before { run_generator %w[--locales=en,ru] }
 
       it "copies both locale files", :aggregate_failures do
         assert_file "config/locales/servactory.en.yml"

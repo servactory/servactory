@@ -23,8 +23,8 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
 
         content = file_content("app/services/process_order.rb")
         expect(content).to include("class ProcessOrder < ApplicationService::Base")
-        expect(content).to include("make :call")
-        expect(content).to include("output :result, type: Symbol")
+        expect(content).to include("make :assign_data")
+        expect(content).to include("output :result, type: String")
       end
     end
 
@@ -57,6 +57,15 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
         expect(content).to include("input :recipient, type: String")
       end
     end
+
+    context "with custom model type" do
+      before { run_generator %w[ProcessOrder user:User] }
+
+      it "preserves custom type", :aggregate_failures do
+        content = file_content("app/services/process_order.rb")
+        expect(content).to include("input :user, type: User")
+      end
+    end
   end
 
   describe "#create_service with --base-class option" do
@@ -74,38 +83,7 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
     it "does not include output declaration", :aggregate_failures do
       content = file_content("app/services/process_order.rb")
       expect(content).not_to include("output :result")
-    end
-  end
-
-  describe "#create_service with --skip-make option" do
-    before { run_generator %w[ProcessOrder --skip-make] }
-
-    it "does not include make declaration and call method", :aggregate_failures do
-      content = file_content("app/services/process_order.rb")
-      expect(content).not_to include("make :call")
-      expect(content).not_to include("def call")
-    end
-  end
-
-  describe "#create_service with --internal option" do
-    before { run_generator %w[ProcessOrder --internal=cache_key temp_data] }
-
-    it "includes internal declarations", :aggregate_failures do
-      content = file_content("app/services/process_order.rb")
-      expect(content).to include("internal :cache_key, type: String")
-      expect(content).to include("internal :temp_data, type: String")
-    end
-  end
-
-  describe "#create_service with --output option" do
-    before { run_generator %w[ProcessOrder --output=receipt status] }
-
-    it "includes custom output declarations", :aggregate_failures do
-      content = file_content("app/services/process_order.rb")
-      expect(content).to include("output :receipt, type: Symbol")
-      expect(content).to include("output :status, type: Symbol")
-      expect(content).to include("outputs.receipt = :done")
-      expect(content).to include("outputs.status = :done")
+      expect(content).not_to include('outputs.result = "done"')
     end
   end
 end

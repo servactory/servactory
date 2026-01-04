@@ -4,32 +4,19 @@ class <%= class_name %> < <%= base_class %>
 <% input_declarations.each do |declaration| -%>
   <%= declaration %>
 <% end -%>
-<% if internal_declarations.any? -%>
+<% unless skip_output? -%>
 
-<% internal_declarations.each do |declaration| -%>
-  <%= declaration %>
+  output :result, type: String
 <% end -%>
-<% end -%>
-<% if output_declarations.any? -%>
 
-<% output_declarations.each do |declaration| -%>
-  <%= declaration %>
-<% end -%>
-<% end -%>
-<% unless skip_make? -%>
-
-  make :call
-<% end -%>
+  make :assign_data
 
   private
-<% unless skip_make? -%>
 
-  def call
-    # Write your code here
-<% output_declarations.each_with_index do |_, index| -%>
-<% attr = output_attributes[index] -%>
-    outputs.<%= attr %> = :done
+  def assign_data
+    # TODO: Implement service logic
+<% unless skip_output? -%>
+    outputs.result = "done"
 <% end -%>
   end
-<% end -%>
 end

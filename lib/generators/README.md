@@ -7,9 +7,9 @@ rails generate servactory:install [options]
 ```
 
 **Options:**
-- `--locales` — Locales to install (e.g., `--locales=en ru`)
-- `--skip-comments` — Skip configuration comments
 - `--namespace` — Base namespace (default: `ApplicationService`)
+- `--locales` — Locales to install (e.g., `--locales=en,ru`)
+- `--skip-comments` — Skip configuration comments
 
 ## Service
 
@@ -24,19 +24,17 @@ rails generate servactory:service NAME [inputs] [options]
 **Options:**
 - `--base-class` — Base class for service (default: `ApplicationService::Base`)
 - `--skip-output` — Skip default output declaration
-- `--skip-make` — Skip default make method
-- `--internal` — Internal attributes (e.g., `--internal=cache data`)
-- `--output` — Output attributes (e.g., `--output=result status`)
 
 ## RSpec
 
 ```bash
-rails generate servactory:rspec NAME [inputs] [options]
+rails generate servactory:rspec NAME [options]
 ```
 
+Generates RSpec spec for an existing service using `.info` API.
+
 **Arguments:**
-- `NAME` — Service name (e.g., `Users::Create`, `ProcessOrder`)
-- `inputs` — Input attributes with optional types (e.g., `email:String count:Integer`)
+- `NAME` — Existing service name (e.g., `Users::Create`)
 
 **Options:**
 - `--skip-validations` — Skip validation examples

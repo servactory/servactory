@@ -1,12 +1,12 @@
 Description:
-    Generates an RSpec spec file for a Servactory service.
+    Generates an RSpec spec file for an existing Servactory service.
+    Automatically reads service inputs from the service's .info API.
 
 Usage:
-    rails generate servactory:rspec NAME [inputs] [options]
+    rails generate servactory:rspec NAME [options]
 
 Arguments:
-    NAME           The name of the service (e.g., Users::Create, ProcessOrder)
-    inputs         Input attributes with optional types (e.g., email:String count:Integer)
+    NAME           The name of an existing service (e.g., Users::Create, ProcessOrder)
 
 Options:
     --skip-validations   Skip validation examples
@@ -15,10 +15,7 @@ Options:
 
 Examples:
     rails generate servactory:rspec Users::Create
-        Creates spec/services/users/create_spec.rb with default structure
-
-    rails generate servactory:rspec Users::Create email:String name:String
-        Creates spec with typed email and name inputs and example values
+        Creates spec/services/users/create_spec.rb with inputs from Users::Create.info
 
     rails generate servactory:rspec ProcessOrder --call-method=call
         Creates spec using .call instead of .call!
@@ -28,3 +25,7 @@ Examples:
 
     rails generate servactory:rspec CacheData --skip-pending
         Creates spec without pending placeholder
+
+Note:
+    The generator uses the service's .info API to read input definitions.
+    If the service class cannot be loaded, a basic spec template is generated.

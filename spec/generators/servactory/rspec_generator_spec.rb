@@ -27,8 +27,14 @@ RSpec.describe "Servactory::Generators::RspecGenerator", skip: !RSPEC_GENERATOR_
         content = file_content("spec/services/process_order_spec.rb")
         expect(content).to include("RSpec.describe ProcessOrder, type: :service do")
         expect(content).to include('pending "add some examples to (or delete) #{__FILE__}"')
-        expect(content).to include("describe \".call!\" do")
+        expect(content).to include('describe ".call!" do')
         expect(content).to include("subject(:perform) { described_class.call!(**attributes) }")
+      end
+
+      it "creates spec with placeholder for attributes when service not loaded", :aggregate_failures do
+        content = file_content("spec/services/process_order_spec.rb")
+        expect(content).to include("let(:attributes) do")
+        expect(content).to include("# TODO: Add input attributes")
       end
     end
 
@@ -42,38 +48,14 @@ RSpec.describe "Servactory::Generators::RspecGenerator", skip: !RSPEC_GENERATOR_
         expect(content).to include("RSpec.describe Users::Create, type: :service do")
       end
     end
-
-    context "with typed inputs" do
-      before { run_generator %w[Users::Create email:String count:Integer] }
-
-      it "creates spec with typed inputs and example values", :aggregate_failures do
-        content = file_content("spec/services/users/create_spec.rb")
-        expect(content).to include("let(:email) { \"Some value\" }")
-        expect(content).to include("let(:count) { 1 }")
-        expect(content).to include("have_input(:email)")
-        expect(content).to include(".type(String)")
-        expect(content).to include("have_input(:count)")
-        expect(content).to include(".type(Integer)")
-      end
-    end
-
-    context "with boolean input" do
-      before { run_generator %w[ToggleFeature active:Boolean] }
-
-      it "uses boolean example value", :aggregate_failures do
-        content = file_content("spec/services/toggle_feature_spec.rb")
-        expect(content).to include("let(:active) { true }")
-      end
-    end
   end
 
   describe "#create_spec_file with --skip-validations option" do
-    before { run_generator %w[ProcessOrder email:String --skip-validations] }
+    before { run_generator %w[ProcessOrder --skip-validations] }
 
     it "creates spec without validation examples", :aggregate_failures do
       content = file_content("spec/services/process_order_spec.rb")
       expect(content).not_to include('describe "validations"')
-      expect(content).not_to include("have_input(:email)")
     end
   end
 
