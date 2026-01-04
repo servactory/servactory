@@ -3,7 +3,7 @@
 module <%= namespace %>
   class Base
     include Servactory::DSL
-<% unless skip_comments? -%>
+<% unless minimal? -%>
 
     # More information: https://servactory.com/guide/extensions
     # include Servactory::DSL.with_extensions(
@@ -12,7 +12,7 @@ module <%= namespace %>
 <% end -%>
 
     fail_on! ActiveRecord::RecordInvalid
-<% unless skip_comments? -%>
+<% unless minimal? -%>
 
     # More information: https://servactory.com/guide/configuration
 <% end -%>
@@ -24,7 +24,7 @@ module <%= namespace %>
       failure_class <%= namespace %>::Exceptions::Failure
 
       result_class <%= namespace %>::Result
-<% unless skip_comments? -%>
+<% unless minimal? -%>
 
       # input_option_helpers(
       #   [

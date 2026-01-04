@@ -17,10 +17,10 @@ module Servactory
                    default: [],
                    desc: "Locales to install (e.g., --locales=en,ru)"
 
-      class_option :skip_comments,
+      class_option :minimal,
                    type: :boolean,
                    default: false,
-                   desc: "Skip configuration comments"
+                   desc: "Generate minimal setup without configuration examples"
 
       def create_application_service
         template "application_service/base.rb.tt", service_path("base.rb")
@@ -60,8 +60,8 @@ module Servactory
         "app/services/#{namespace_path}/#{filename}"
       end
 
-      def skip_comments?
-        options[:skip_comments]
+      def minimal?
+        options[:minimal]
       end
     end
   end

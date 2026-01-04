@@ -71,6 +71,32 @@ module Servactory
         end
       end
 
+      def internals_from_info
+        return [] unless service_info
+
+        service_info.internals.map do |name, data|
+          types = data[:types] || []
+          {
+            name:,
+            types:,
+            type_string: format_types(types)
+          }
+        end
+      end
+
+      def outputs_from_info
+        return [] unless service_info
+
+        service_info.outputs.map do |name, data|
+          types = data[:types] || []
+          {
+            name:,
+            types:,
+            type_string: format_types(types)
+          }
+        end
+      end
+
       def format_types(types)
         return "String" if types.empty?
 

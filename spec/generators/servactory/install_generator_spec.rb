@@ -64,10 +64,10 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
     end
   end
 
-  describe "#create_application_service with --skip-comments option" do
-    before { run_generator %w[--skip-comments] }
+  describe "#create_application_service with --minimal option" do
+    before { run_generator %w[--minimal] }
 
-    it "creates base.rb without comments", :aggregate_failures do
+    it "creates base.rb without configuration examples", :aggregate_failures do
       content = file_content("app/services/application_service/base.rb")
       expect(content).not_to include("More information:")
       expect(content).not_to include("# input_option_helpers")

@@ -24,7 +24,7 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
         content = file_content("app/services/process_order.rb")
         expect(content).to include("class ProcessOrder < ApplicationService::Base")
         expect(content).to include("make :assign_data")
-        expect(content).to include("output :result, type: String")
+        expect(content).to include("output :data, type: String")
       end
     end
 
@@ -82,8 +82,8 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
 
     it "does not include output declaration", :aggregate_failures do
       content = file_content("app/services/process_order.rb")
-      expect(content).not_to include("output :result")
-      expect(content).not_to include('outputs.result = "done"')
+      expect(content).not_to include("output :data")
+      expect(content).not_to include('outputs.data = "done"')
     end
   end
 end

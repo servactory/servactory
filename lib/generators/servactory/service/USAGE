@@ -20,7 +20,7 @@ Examples:
         Creates service with typed email and name inputs
 
     rails generate servactory:service ProcessOrder order_id:Integer
-        Creates service with order_id input and default result output
+        Creates service with order_id input and default data output
 
     rails generate servactory:service CacheData key:String --skip-output
         Creates service without default output declaration

@@ -28,9 +28,10 @@ RSpec.describe <%= class_name %>, type: :service do
     end
 <% end -%>
 <% unless skip_validations? -%>
-<% if service_exists? && inputs_from_info.any? -%>
+<% if service_exists? && (inputs_from_info.any? || internals_from_info.any? || outputs_from_info.any?) -%>
 
     describe "validations" do
+<% if inputs_from_info.any? -%>
       describe "inputs" do
 <% inputs_from_info.each do |input| -%>
         it do
@@ -43,6 +44,35 @@ RSpec.describe <%= class_name %>, type: :service do
 
 <% end -%>
       end
+<% end -%>
+<% if internals_from_info.any? -%>
+
+      describe "internals" do
+<% internals_from_info.each do |internal| -%>
+        it do
+          expect { perform }.to(
+            have_internal(:<%= internal[:name] %>)
+              .type(<%= internal[:type_string] %>)
+          )
+        end
+
+<% end -%>
+      end
+<% end -%>
+<% if outputs_from_info.any? -%>
+
+      describe "outputs" do
+<% outputs_from_info.each do |output| -%>
+        it do
+          expect(perform).to(
+            have_output(:<%= output[:name] %>)
+              .instance_of(<%= output[:type_string] %>)
+          )
+        end
+
+<% end -%>
+      end
+<% end -%>
     end
 <% end -%>
 <% end -%>

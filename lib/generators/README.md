@@ -9,7 +9,7 @@ rails generate servactory:install [options]
 **Options:**
 - `--namespace` — Base namespace (default: `ApplicationService`)
 - `--locales` — Locales to install (e.g., `--locales=en,ru`)
-- `--skip-comments` — Skip configuration comments
+- `--minimal` — Generate minimal setup without configuration examples
 
 ## Service
 

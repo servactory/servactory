@@ -6,7 +6,7 @@ class <%= class_name %> < <%= base_class %>
 <% end -%>
 <% unless skip_output? -%>
 
-  output :result, type: String
+  output :data, type: String
 <% end -%>
 
   make :assign_data
@@ -16,7 +16,7 @@ class <%= class_name %> < <%= base_class %>
   def assign_data
     # TODO: Implement service logic
 <% unless skip_output? -%>
-    outputs.result = "done"
+    outputs.data = "done"
 <% end -%>
   end
 end
