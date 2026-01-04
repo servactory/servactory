@@ -4,7 +4,7 @@ require_relative "../base"
 
 module Servactory
   module Generators
-    class RspecGenerator < Rails::Generators::NamedBase
+    class RspecGenerator < Rails::Generators::NamedBase # rubocop:disable Metrics/ClassLength
       source_root File.expand_path("templates", __dir__)
 
       class_option :skip_validations,
