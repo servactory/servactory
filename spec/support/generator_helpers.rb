@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+require "fileutils"
+require "tempfile"
+
 begin
-  require "fileutils"
-  require "tempfile"
   require "rails/generators"
 
   # Rails 8+ uses "behavior", Rails 7 and earlier use "behaviour"
