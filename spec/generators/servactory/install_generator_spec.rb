@@ -15,68 +15,94 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
   tests Servactory::Generators::InstallGenerator if INSTALL_GENERATOR_AVAILABLE
 
   describe "#create_application_service" do
-    before { run_generator }
+    context "with default options" do
+      before { run_generator }
 
-    it "creates base.rb", :aggregate_failures do
-      assert_file "app/services/application_service/base.rb"
+      it "creates base.rb", :aggregate_failures do
+        assert_file "app/services/application_service/base.rb"
 
-      content = file_content("app/services/application_service/base.rb")
-      expect(content).to include("module ApplicationService")
-      expect(content).to include("class Base < Servactory::Base")
-      expect(content).to include("success_class ApplicationService::Exceptions::Success")
+        content = file_content("app/services/application_service/base.rb")
+        expect(content).to include("module ApplicationService")
+        expect(content).to include("class Base < Servactory::Base")
+        expect(content).to include("success_class ApplicationService::Exceptions::Success")
+      end
+
+      it "creates exceptions.rb", :aggregate_failures do
+        assert_file "app/services/application_service/exceptions.rb"
+
+        content = file_content("app/services/application_service/exceptions.rb")
+        expect(content).to include("module ApplicationService")
+        expect(content).to include("module Exceptions")
+        expect(content).to include("class Success < Servactory::Exceptions::Success")
+      end
+
+      it "creates result.rb", :aggregate_failures do
+        assert_file "app/services/application_service/result.rb"
+
+        content = file_content("app/services/application_service/result.rb")
+        expect(content).to include("module ApplicationService")
+        expect(content).to include("class Result")
+      end
+
+      it "creates .keep files for empty directories", :aggregate_failures do
+        assert_file "app/services/application_service/dynamic_options/.keep"
+        assert_file "app/services/application_service/extensions/.keep"
+      end
     end
 
-    it "creates exceptions.rb", :aggregate_failures do
-      assert_file "app/services/application_service/exceptions.rb"
+    context "with --namespace option" do
+      before { run_generator %w[--namespace=MyApp::Services] }
 
-      content = file_content("app/services/application_service/exceptions.rb")
-      expect(content).to include("module ApplicationService")
-      expect(content).to include("module Exceptions")
-      expect(content).to include("class Success < Servactory::Exceptions::Success")
+      it "uses custom namespace path", :aggregate_failures do
+        assert_file "app/services/my_app/services/base.rb"
+        assert_file "app/services/my_app/services/exceptions.rb"
+        assert_file "app/services/my_app/services/result.rb"
+      end
+
+      it "uses custom namespace in content", :aggregate_failures do
+        content = file_content("app/services/my_app/services/base.rb")
+        expect(content).to include("module MyApp::Services")
+        expect(content).to include("MyApp::Services::Exceptions::Input")
+      end
     end
 
-    it "creates result.rb", :aggregate_failures do
-      assert_file "app/services/application_service/result.rb"
+    context "with --path option" do
+      before { run_generator %w[--path=lib/my_gem/services] }
 
-      content = file_content("app/services/application_service/result.rb")
-      expect(content).to include("module ApplicationService")
-      expect(content).to include("class Result")
+      it "creates files in custom path", :aggregate_failures do
+        assert_file "lib/my_gem/services/application_service/base.rb"
+        assert_file "lib/my_gem/services/application_service/exceptions.rb"
+        assert_file "lib/my_gem/services/application_service/result.rb"
+        assert_file "lib/my_gem/services/application_service/dynamic_options/.keep"
+        assert_file "lib/my_gem/services/application_service/extensions/.keep"
+
+        assert_no_file "app/services/application_service/base.rb"
+      end
     end
 
-    it "creates .keep files for empty directories", :aggregate_failures do
-      assert_file "app/services/application_service/dynamic_options/.keep"
-      assert_file "app/services/application_service/extensions/.keep"
-    end
-  end
+    context "with --path and --namespace options" do
+      before { run_generator %w[--path=lib/my_gem/services --namespace=MyApp::Services] }
 
-  describe "#create_application_service with --namespace option" do
-    before { run_generator %w[--namespace=MyApp::Services] }
-
-    it "uses custom namespace path", :aggregate_failures do
-      assert_file "app/services/my_app/services/base.rb"
-      assert_file "app/services/my_app/services/exceptions.rb"
-      assert_file "app/services/my_app/services/result.rb"
+      it "creates files in custom path with custom namespace", :aggregate_failures do
+        assert_file "lib/my_gem/services/my_app/services/base.rb"
+        assert_file "lib/my_gem/services/my_app/services/exceptions.rb"
+        assert_file "lib/my_gem/services/my_app/services/result.rb"
+      end
     end
 
-    it "uses custom namespace in content", :aggregate_failures do
-      content = file_content("app/services/my_app/services/base.rb")
-      expect(content).to include("module MyApp::Services")
-      expect(content).to include("MyApp::Services::Exceptions::Input")
-    end
-  end
+    context "with --minimal option" do
+      before { run_generator %w[--minimal] }
 
-  describe "#create_application_service with --minimal option" do
-    before { run_generator %w[--minimal] }
-
-    it "creates base.rb without configuration examples", :aggregate_failures do
-      content = file_content("app/services/application_service/base.rb")
-      expect(content).not_to include("More information:")
-      expect(content).not_to include("# input_option_helpers")
+      it "creates base.rb without configuration examples", :aggregate_failures do
+        content = file_content("app/services/application_service/base.rb")
+        expect(content).not_to include("More information:")
+        expect(content).not_to include("# input_option_helpers")
+      end
     end
   end
 
   describe "#copy_locales" do
-    context "without --locales option" do
+    context "with default options" do
       before { run_generator }
 
       it "does not copy any locale files", :aggregate_failures do
@@ -94,37 +120,13 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
       end
     end
 
-    context "with multiple locales" do
+    context "with --locales=en,ru" do
       before { run_generator %w[--locales=en,ru] }
 
       it "copies both locale files", :aggregate_failures do
         assert_file "config/locales/servactory.en.yml"
         assert_file "config/locales/servactory.ru.yml"
       end
-    end
-  end
-
-  describe "#create_application_service with --path option" do
-    before { run_generator %w[--path=lib/my_gem/services] }
-
-    it "creates files in custom path", :aggregate_failures do
-      assert_file "lib/my_gem/services/application_service/base.rb"
-      assert_file "lib/my_gem/services/application_service/exceptions.rb"
-      assert_file "lib/my_gem/services/application_service/result.rb"
-      assert_file "lib/my_gem/services/application_service/dynamic_options/.keep"
-      assert_file "lib/my_gem/services/application_service/extensions/.keep"
-
-      assert_no_file "app/services/application_service/base.rb"
-    end
-  end
-
-  describe "#create_application_service with --path and --namespace options" do
-    before { run_generator %w[--path=lib/my_gem/services --namespace=MyApp::Services] }
-
-    it "creates files in custom path with custom namespace", :aggregate_failures do
-      assert_file "lib/my_gem/services/my_app/services/base.rb"
-      assert_file "lib/my_gem/services/my_app/services/exceptions.rb"
-      assert_file "lib/my_gem/services/my_app/services/result.rb"
     end
   end
 end

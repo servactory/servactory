@@ -48,52 +48,52 @@ RSpec.describe "Servactory::Generators::RspecGenerator", skip: !RSPEC_GENERATOR_
         expect(content).to include("RSpec.describe Users::Create, type: :service do")
       end
     end
-  end
 
-  describe "#create_spec_file with --skip-validations option" do
-    before { run_generator %w[ProcessOrder --skip-validations] }
+    context "with --call-method=call option" do
+      before { run_generator %w[ProcessOrder --call-method=call] }
 
-    it "creates spec without validation examples", :aggregate_failures do
-      content = file_content("spec/services/process_order_spec.rb")
-      expect(content).not_to include('describe "validations"')
+      it "uses .call instead of .call!", :aggregate_failures do
+        content = file_content("spec/services/process_order_spec.rb")
+        expect(content).to include('describe ".call" do')
+        expect(content).to include("subject(:perform) { described_class.call(**attributes) }")
+        expect(content).not_to include(".call!")
+      end
     end
-  end
 
-  describe "#create_spec_file with --skip-pending option" do
-    before { run_generator %w[ProcessOrder --skip-pending] }
+    context "with --path option" do
+      before { run_generator %w[ProcessOrder --path=spec/lib/my_gem/services] }
 
-    it "creates spec without pending placeholder", :aggregate_failures do
-      content = file_content("spec/services/process_order_spec.rb")
-      expect(content).not_to include("pending")
+      it "creates spec file in custom path", :aggregate_failures do
+        assert_file "spec/lib/my_gem/services/process_order_spec.rb"
+        assert_no_file "spec/services/process_order_spec.rb"
+      end
     end
-  end
 
-  describe "#create_spec_file with --call-method=call option" do
-    before { run_generator %w[ProcessOrder --call-method=call] }
+    context "with --path option and namespaced name" do
+      before { run_generator %w[Users::Create --path=spec/lib/my_gem/services] }
 
-    it "uses .call instead of .call!", :aggregate_failures do
-      content = file_content("spec/services/process_order_spec.rb")
-      expect(content).to include('describe ".call" do')
-      expect(content).to include("subject(:perform) { described_class.call(**attributes) }")
-      expect(content).not_to include(".call!")
+      it "creates spec file in custom path with namespace", :aggregate_failures do
+        assert_file "spec/lib/my_gem/services/users/create_spec.rb"
+        assert_no_file "spec/services/users/create_spec.rb"
+      end
     end
-  end
 
-  describe "#create_spec_file with --path option" do
-    before { run_generator %w[ProcessOrder --path=spec/lib/my_gem/services] }
+    context "with --skip-validations option" do
+      before { run_generator %w[ProcessOrder --skip-validations] }
 
-    it "creates spec file in custom path", :aggregate_failures do
-      assert_file "spec/lib/my_gem/services/process_order_spec.rb"
-      assert_no_file "spec/services/process_order_spec.rb"
+      it "creates spec without validation examples", :aggregate_failures do
+        content = file_content("spec/services/process_order_spec.rb")
+        expect(content).not_to include('describe "validations"')
+      end
     end
-  end
 
-  describe "#create_spec_file with --path option and namespaced name" do
-    before { run_generator %w[Users::Create --path=spec/lib/my_gem/services] }
+    context "with --skip-pending option" do
+      before { run_generator %w[ProcessOrder --skip-pending] }
 
-    it "creates spec file in custom path with namespace", :aggregate_failures do
-      assert_file "spec/lib/my_gem/services/users/create_spec.rb"
-      assert_no_file "spec/services/users/create_spec.rb"
+      it "creates spec without pending placeholder", :aggregate_failures do
+        content = file_content("spec/services/process_order_spec.rb")
+        expect(content).not_to include("pending")
+      end
     end
   end
 end
