@@ -37,7 +37,7 @@ module Servactory
       end
 
       def copy_locales
-        return if options[:locales].blank?
+        return if locales.blank?
 
         locales.each do |locale|
           locale_file = "servactory.#{locale}.yml"
@@ -53,6 +53,19 @@ module Servactory
 
       private
 
+      def base_path
+        options[:path]
+      end
+
+      def locales
+        # Handle both "--locales=en,ru" (single string) and "--locales en ru" (array)
+        options[:locales].flat_map { |locale| locale.split(",") }
+      end
+
+      def minimal?
+        options[:minimal]
+      end
+
       def namespace
         options[:namespace]
       end
@@ -61,21 +74,8 @@ module Servactory
         namespace.underscore
       end
 
-      def base_path
-        options[:path]
-      end
-
       def service_path(filename)
         "#{base_path}/#{namespace_path}/#{filename}"
-      end
-
-      def minimal?
-        options[:minimal]
-      end
-
-      def locales
-        # Handle both "--locales=en,ru" (single string) and "--locales en ru" (array)
-        options[:locales].flat_map { |locale| locale.split(",") }
       end
     end
   end
