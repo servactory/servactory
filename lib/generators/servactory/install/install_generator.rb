@@ -12,6 +12,11 @@ module Servactory
                    default: "ApplicationService",
                    desc: "Base namespace for services"
 
+      class_option :path,
+                   type: :string,
+                   default: "app/services",
+                   desc: "Path to install service files"
+
       class_option :locales,
                    type: :array,
                    default: [],
@@ -21,11 +26,6 @@ module Servactory
                    type: :boolean,
                    default: false,
                    desc: "Generate minimal setup without configuration examples"
-
-      class_option :path,
-                   type: :string,
-                   default: "app/services",
-                   desc: "Path to install service files"
 
       def create_application_service
         template "application_service/base.rb.tt", service_path("base.rb")
@@ -61,8 +61,12 @@ module Servactory
         namespace.underscore
       end
 
+      def base_path
+        options[:path]
+      end
+
       def service_path(filename)
-        "#{options[:path]}/#{namespace_path}/#{filename}"
+        "#{base_path}/#{namespace_path}/#{filename}"
       end
 
       def minimal?

@@ -7,6 +7,11 @@ module Servactory
     class RspecGenerator < Rails::Generators::NamedBase # rubocop:disable Metrics/ClassLength
       source_root File.expand_path("templates", __dir__)
 
+      class_option :path,
+                   type: :string,
+                   default: "spec/services",
+                   desc: "Path to generate spec files"
+
       class_option :skip_validations,
                    type: :boolean,
                    default: false,
@@ -22,11 +27,6 @@ module Servactory
                    default: "call!",
                    enum: %w[call call!],
                    desc: "Primary call method (call or call!)"
-
-      class_option :path,
-                   type: :string,
-                   default: "spec/services",
-                   desc: "Path to generate spec files"
 
       def create_spec_file
         template "service_spec.rb.tt", "#{specs_path}/#{file_path}_spec.rb"

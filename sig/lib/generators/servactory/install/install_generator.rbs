@@ -11,6 +11,8 @@ module Servactory
 
       def namespace_path: () -> String
 
+      def base_path: () -> String
+
       def service_path: (String filename) -> String
 
       def minimal?: () -> bool

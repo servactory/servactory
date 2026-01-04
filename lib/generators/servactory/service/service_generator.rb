@@ -14,15 +14,15 @@ module Servactory
                    default: "ApplicationService::Base",
                    desc: "Base class for the service"
 
-      class_option :skip_output,
-                   type: :boolean,
-                   default: false,
-                   desc: "Skip default output declaration"
-
       class_option :path,
                    type: :string,
                    default: "app/services",
                    desc: "Path to generate service files"
+
+      class_option :skip_output,
+                   type: :boolean,
+                   default: false,
+                   desc: "Skip default output declaration"
 
       def create_service
         template "service.rb.tt", "#{services_path}/#{file_path}.rb"
