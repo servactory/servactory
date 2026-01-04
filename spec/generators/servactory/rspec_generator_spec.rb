@@ -78,4 +78,22 @@ RSpec.describe "Servactory::Generators::RspecGenerator", skip: !RSPEC_GENERATOR_
       expect(content).not_to include(".call!")
     end
   end
+
+  describe "#create_spec_file with --path option" do
+    before { run_generator %w[ProcessOrder --path=spec/lib/my_gem/services] }
+
+    it "creates spec file in custom path", :aggregate_failures do
+      assert_file "spec/lib/my_gem/services/process_order_spec.rb"
+      assert_no_file "spec/services/process_order_spec.rb"
+    end
+  end
+
+  describe "#create_spec_file with --path option and namespaced name" do
+    before { run_generator %w[Users::Create --path=spec/lib/my_gem/services] }
+
+    it "creates spec file in custom path with namespace", :aggregate_failures do
+      assert_file "spec/lib/my_gem/services/users/create_spec.rb"
+      assert_no_file "spec/services/users/create_spec.rb"
+    end
+  end
 end

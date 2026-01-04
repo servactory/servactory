@@ -23,11 +23,20 @@ module Servactory
                    enum: %w[call call!],
                    desc: "Primary call method (call or call!)"
 
+      class_option :path,
+                   type: :string,
+                   default: "spec/services",
+                   desc: "Path to generate spec files"
+
       def create_spec_file
-        template "service_spec.rb.tt", "spec/services/#{file_path}_spec.rb"
+        template "service_spec.rb.tt", "#{specs_path}/#{file_path}_spec.rb"
       end
 
       private
+
+      def specs_path
+        options[:path]
+      end
 
       def skip_validations?
         options[:skip_validations]

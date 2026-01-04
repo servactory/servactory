@@ -22,6 +22,11 @@ module Servactory
                    default: false,
                    desc: "Generate minimal setup without configuration examples"
 
+      class_option :path,
+                   type: :string,
+                   default: "app/services",
+                   desc: "Path to install service files"
+
       def create_application_service
         template "application_service/base.rb.tt", service_path("base.rb")
         template "application_service/exceptions.rb.tt", service_path("exceptions.rb")
@@ -57,7 +62,7 @@ module Servactory
       end
 
       def service_path(filename)
-        "app/services/#{namespace_path}/#{filename}"
+        "#{options[:path]}/#{namespace_path}/#{filename}"
       end
 
       def minimal?

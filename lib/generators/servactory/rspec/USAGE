@@ -12,10 +12,14 @@ Options:
     --skip-validations   Skip validation examples
     --skip-pending       Skip pending placeholder
     --call-method=METHOD Primary call method: call or call! (default: call!)
+    --path=PATH          Path to generate spec files (default: spec/services)
 
 Examples:
     rails generate servactory:rspec Users::Create
         Creates spec/services/users/create_spec.rb with inputs from Users::Create.info
+
+    rails generate servactory:rspec Users::Create --path=spec/lib/my_gem/services
+        Creates spec/lib/my_gem/services/users/create_spec.rb for gem/library use
 
     rails generate servactory:rspec ProcessOrder --call-method=call
         Creates spec using .call instead of .call!

@@ -1,0 +1,19 @@
+module Servactory
+  module Generators
+    class InstallGenerator < Servactory::Generators::Base
+      def create_application_service: () -> void
+
+      def copy_locales: () -> void
+
+      private
+
+      def namespace: () -> String
+
+      def namespace_path: () -> String
+
+      def service_path: (String filename) -> String
+
+      def minimal?: () -> bool
+    end
+  end
+end

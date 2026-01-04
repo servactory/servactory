@@ -1,0 +1,33 @@
+module Servactory
+  module Generators
+    class Base < Rails::Generators::Base
+      @gem_root: String
+      @gem_locales_path: String
+
+      def self.gem_root: () -> String
+
+      def self.gem_locales_path: () -> String
+
+      private
+
+      def gem_root: () -> String
+
+      def gem_locales_path: () -> String
+    end
+
+    class NamedBase < Rails::Generators::NamedBase
+      TYPE_MAPPING: Hash[String, String]
+
+      @input_names: Array[String]
+      @parsed_inputs: Array[Hash[Symbol, untyped]]
+
+      private
+
+      def input_names: () -> Array[String]
+
+      def parsed_inputs: () -> Array[Hash[Symbol, untyped]]
+
+      def normalize_type: (String? type_string) -> String
+    end
+  end
+end

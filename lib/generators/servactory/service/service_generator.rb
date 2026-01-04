@@ -19,11 +19,20 @@ module Servactory
                    default: false,
                    desc: "Skip default output declaration"
 
+      class_option :path,
+                   type: :string,
+                   default: "app/services",
+                   desc: "Path to generate service files"
+
       def create_service
-        template "service.rb.tt", "app/services/#{file_path}.rb"
+        template "service.rb.tt", "#{services_path}/#{file_path}.rb"
       end
 
       private
+
+      def services_path
+        options[:path]
+      end
 
       def base_class
         options[:base_class]

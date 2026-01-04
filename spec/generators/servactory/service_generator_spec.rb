@@ -86,4 +86,25 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
       expect(content).not_to include('outputs.data = "done"')
     end
   end
+
+  describe "#create_service with --path option" do
+    before { run_generator %w[ProcessOrder --path=lib/my_gem/services] }
+
+    it "creates service file in custom path", :aggregate_failures do
+      assert_file "lib/my_gem/services/process_order.rb"
+      assert_no_file "app/services/process_order.rb"
+
+      content = file_content("lib/my_gem/services/process_order.rb")
+      expect(content).to include("class ProcessOrder < ApplicationService::Base")
+    end
+  end
+
+  describe "#create_service with --path option and namespaced name" do
+    before { run_generator %w[Users::Create --path=lib/my_gem/services] }
+
+    it "creates service file in custom path with namespace", :aggregate_failures do
+      assert_file "lib/my_gem/services/users/create.rb"
+      assert_no_file "app/services/users/create.rb"
+    end
+  end
 end

@@ -8,10 +8,14 @@ Options:
     --namespace=NAMESPACE    Base namespace for services (default: ApplicationService)
     --locales=LOCALES        Locales to install (e.g., --locales=en,ru)
     --minimal                Generate minimal setup without configuration examples
+    --path=PATH              Path to install service files (default: app/services)
 
 Examples:
     rails generate servactory:install
         Creates app/services/application_service/ with base.rb, exceptions.rb, result.rb
+
+    rails generate servactory:install --path=lib/my_gem/services
+        Creates lib/my_gem/services/application_service/ for gem/library use
 
     rails generate servactory:install --namespace=MyApp::Services
         Creates app/services/my_app/services/ with all files

@@ -103,4 +103,28 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
       end
     end
   end
+
+  describe "#create_application_service with --path option" do
+    before { run_generator %w[--path=lib/my_gem/services] }
+
+    it "creates files in custom path", :aggregate_failures do
+      assert_file "lib/my_gem/services/application_service/base.rb"
+      assert_file "lib/my_gem/services/application_service/exceptions.rb"
+      assert_file "lib/my_gem/services/application_service/result.rb"
+      assert_file "lib/my_gem/services/application_service/dynamic_options/.keep"
+      assert_file "lib/my_gem/services/application_service/extensions/.keep"
+
+      assert_no_file "app/services/application_service/base.rb"
+    end
+  end
+
+  describe "#create_application_service with --path and --namespace options" do
+    before { run_generator %w[--path=lib/my_gem/services --namespace=MyApp::Services] }
+
+    it "creates files in custom path with custom namespace", :aggregate_failures do
+      assert_file "lib/my_gem/services/my_app/services/base.rb"
+      assert_file "lib/my_gem/services/my_app/services/exceptions.rb"
+      assert_file "lib/my_gem/services/my_app/services/result.rb"
+    end
+  end
 end
