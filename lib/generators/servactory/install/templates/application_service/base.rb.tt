@@ -1,18 +1,22 @@
 # frozen_string_literal: true
 
 module <%= namespace %>
-  class Base
-    include Servactory::DSL
+  class Base < Servactory::Base
 <% unless minimal? -%>
 
     # More information: https://servactory.com/guide/extensions
-    # include Servactory::DSL.with_extensions(
-    #   <%= namespace %>::Extensions::YourExtension::DSL
-    # )
+    # extensions do
+    #   before :actions, <%= namespace %>::Extensions::Authorization::DSL
+    #   after :actions, <%= namespace %>::Extensions::Publishable::DSL
+    # end
 <% end -%>
 
     fail_on! ActiveRecord::RecordInvalid
 <% unless minimal? -%>
+    # fail_on!(
+    #   CustomException,
+    #   with: ->(exception:) { ... }
+    # )
 
     # More information: https://servactory.com/guide/configuration
 <% end -%>
@@ -21,6 +25,7 @@ module <%= namespace %>
       internal_exception_class <%= namespace %>::Exceptions::Internal
       output_exception_class <%= namespace %>::Exceptions::Output
 
+      success_class <%= namespace %>::Exceptions::Success
       failure_class <%= namespace %>::Exceptions::Failure
 
       result_class <%= namespace %>::Result
@@ -31,6 +36,8 @@ module <%= namespace %>
       #     Servactory::ToolKit::DynamicOptions::Format.use,
       #     Servactory::ToolKit::DynamicOptions::Min.use,
       #     Servactory::ToolKit::DynamicOptions::Max.use,
+      #     Servactory::ToolKit::DynamicOptions::MultipleOf.use,
+      #     Servactory::ToolKit::DynamicOptions::Target.use,
       #     <%= namespace %>::DynamicOptions::CustomEq.use
       #   ]
       # )
@@ -40,6 +47,8 @@ module <%= namespace %>
       #     Servactory::ToolKit::DynamicOptions::Format.use,
       #     Servactory::ToolKit::DynamicOptions::Min.use,
       #     Servactory::ToolKit::DynamicOptions::Max.use,
+      #     Servactory::ToolKit::DynamicOptions::MultipleOf.use,
+      #     Servactory::ToolKit::DynamicOptions::Target.use,
       #     <%= namespace %>::DynamicOptions::CustomEq.use
       #   ]
       # )
@@ -49,6 +58,8 @@ module <%= namespace %>
       #     Servactory::ToolKit::DynamicOptions::Format.use,
       #     Servactory::ToolKit::DynamicOptions::Min.use,
       #     Servactory::ToolKit::DynamicOptions::Max.use,
+      #     Servactory::ToolKit::DynamicOptions::MultipleOf.use,
+      #     Servactory::ToolKit::DynamicOptions::Target.use,
       #     <%= namespace %>::DynamicOptions::CustomEq.use
       #   ]
       # )
