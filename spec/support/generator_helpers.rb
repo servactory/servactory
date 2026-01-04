@@ -14,13 +14,9 @@ begin
 
       destination File.expand_path("../../tmp/generators", __dir__)
 
-      before do
-        prepare_destination
-      end
+      before { prepare_destination }
 
-      after do
-        FileUtils.rm_rf(destination_root)
-      end
+      after { FileUtils.rm_rf(destination_root) }
     end
 
     def file_content(path)
