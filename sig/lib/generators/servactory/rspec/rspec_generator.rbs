@@ -8,13 +8,13 @@ module Servactory
 
       private
 
+      def call_method: () -> String
+
       def specs_path: () -> String
 
       def skip_validations?: () -> bool
 
       def skip_pending?: () -> bool
-
-      def call_method: () -> String
 
       def service_class: () -> untyped
 

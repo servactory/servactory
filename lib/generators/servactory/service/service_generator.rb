@@ -30,12 +30,12 @@ module Servactory
 
       private
 
-      def services_path
-        options[:path]
-      end
-
       def base_class
         options[:base_class]
+      end
+
+      def services_path
+        options[:path]
       end
 
       def skip_output?

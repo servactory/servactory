@@ -7,6 +7,12 @@ module Servactory
     class RspecGenerator < Rails::Generators::NamedBase # rubocop:disable Metrics/ClassLength
       source_root File.expand_path("templates", __dir__)
 
+      class_option :call_method,
+                   type: :string,
+                   default: "call!",
+                   enum: %w[call call!],
+                   desc: "Primary call method (call or call!)"
+
       class_option :path,
                    type: :string,
                    default: "spec/services",
@@ -22,17 +28,15 @@ module Servactory
                    default: false,
                    desc: "Skip pending placeholder"
 
-      class_option :call_method,
-                   type: :string,
-                   default: "call!",
-                   enum: %w[call call!],
-                   desc: "Primary call method (call or call!)"
-
       def create_spec_file
         template "service_spec.rb.tt", "#{specs_path}/#{file_path}_spec.rb"
       end
 
       private
+
+      def call_method
+        options[:call_method]
+      end
 
       def specs_path
         options[:path]
@@ -44,10 +48,6 @@ module Servactory
 
       def skip_pending?
         options[:skip_pending]
-      end
-
-      def call_method
-        options[:call_method]
       end
 
       def service_class
