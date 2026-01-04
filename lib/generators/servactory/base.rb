@@ -51,7 +51,7 @@ module Servactory
           name = attr.name
           type = normalize_type(attr.type&.to_s)
 
-          { name: name, type: type }
+          { name:, type: }
         end
       end
 

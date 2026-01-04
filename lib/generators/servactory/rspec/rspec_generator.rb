@@ -55,14 +55,14 @@ module Servactory
         service_class.present? && service_info.present?
       end
 
-      def inputs_from_info
+      def inputs_from_info # rubocop:disable Metrics/MethodLength
         return [] unless service_info
 
         service_info.inputs.map do |name, data|
           types = data[:types] || []
           {
-            name: name,
-            types: types,
+            name:,
+            types:,
             type_string: format_types(types),
             required: data[:required] != false,
             default: data[:default],
@@ -81,7 +81,7 @@ module Servactory
         end
       end
 
-      def example_value_for_types(types)
+      def example_value_for_types(types) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
         return '"Some value"' if types.empty?
 
         type = types.first.to_s
