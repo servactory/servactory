@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "shared_examples"
 
 INSTALL_GENERATOR_AVAILABLE = begin
   require "generators/servactory/install/install_generator"

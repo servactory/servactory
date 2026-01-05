@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "shared_examples"
 
 SERVICE_GENERATOR_AVAILABLE = begin
   require "generators/servactory/service/service_generator"
@@ -161,7 +160,8 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
         end
 
         it "rejects names with spaces" do
-          expect { run_generator ["ProcessOrder", "my name:string"] }.to raise_error(ArgumentError, /Invalid input name/)
+          expect { run_generator ["ProcessOrder", "my name:string"] }
+            .to raise_error(ArgumentError, /Invalid input name/)
         end
 
         it "rejects names starting with uppercase" do

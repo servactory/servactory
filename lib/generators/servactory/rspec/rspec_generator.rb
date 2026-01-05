@@ -44,13 +44,9 @@ module Servactory
         path = services_path
 
         # Handle Rails engine paths first
-        if path.match?(%r{^engines/[^/]+/app/})
-          return path.sub(%r{/app/}, "/spec/")
-        end
+        return path.sub(%r{/app/}, "/spec/") if path.match?(%r{^engines/[^/]+/app/})
 
-        if path.match?(%r{^engines/[^/]+/lib/})
-          return path.sub(%r{/lib/}, "/spec/")
-        end
+        return path.sub(%r{/lib/}, "/spec/") if path.match?(%r{^engines/[^/]+/lib/})
 
         # Standard app/ and lib/ paths
         path

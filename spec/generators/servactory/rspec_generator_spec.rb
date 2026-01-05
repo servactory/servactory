@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "shared_examples"
 
 RSPEC_GENERATOR_AVAILABLE = begin
   require "generators/servactory/rspec/rspec_generator"
