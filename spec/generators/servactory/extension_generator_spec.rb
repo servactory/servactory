@@ -68,7 +68,8 @@ RSpec.describe "Servactory::Generators::ExtensionGenerator" do
         it "creates extension file in correct directory", :aggregate_failures do
           assert_file "app/services/application_service/extensions/admin/users/permissions/audit_trail/dsl.rb"
 
-          content = file_content("app/services/application_service/extensions/admin/users/permissions/audit_trail/dsl.rb")
+          content =
+            file_content("app/services/application_service/extensions/admin/users/permissions/audit_trail/dsl.rb")
           expect(content).to include("module Admin::Users::Permissions::AuditTrail")
           expect(content).to include("stroma.settings[:actions][:admin_users_permissions_audit_trail]")
         end
