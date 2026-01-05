@@ -101,6 +101,54 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
           expect(content).to include("input :subject, type: String")
         end
       end
+
+      context "with collection types" do
+        before { run_generator %w[ProcessData items:array options:hash] }
+
+        it "normalizes collection types to Ruby classes", :aggregate_failures do
+          content = file_content("app/services/process_data.rb")
+          expect(content).to include("input :items, type: Array")
+          expect(content).to include("input :options, type: Hash")
+        end
+      end
+
+      context "with symbol type" do
+        before { run_generator %w[ProcessOrder status:symbol] }
+
+        it "normalizes symbol to Symbol class", :aggregate_failures do
+          content = file_content("app/services/process_order.rb")
+          expect(content).to include("input :status, type: Symbol")
+        end
+      end
+
+      context "with temporal types" do
+        before { run_generator %w[ScheduleEvent event_date:date start_time:time scheduled_at:datetime] }
+
+        it "normalizes temporal types to Ruby classes", :aggregate_failures do
+          content = file_content("app/services/schedule_event.rb")
+          expect(content).to include("input :event_date, type: Date")
+          expect(content).to include("input :start_time, type: Time")
+          expect(content).to include("input :scheduled_at, type: DateTime")
+        end
+      end
+
+      context "with nil type" do
+        before { run_generator %w[ProcessOrder value:nil] }
+
+        it "normalizes nil to NilClass", :aggregate_failures do
+          content = file_content("app/services/process_order.rb")
+          expect(content).to include("input :value, type: NilClass")
+        end
+      end
+
+      context "with decimal type" do
+        before { run_generator %w[ProcessOrder amount:decimal] }
+
+        it "normalizes decimal to BigDecimal", :aggregate_failures do
+          content = file_content("app/services/process_order.rb")
+          expect(content).to include("input :amount, type: BigDecimal")
+        end
+      end
     end
 
     describe "generator options" do
@@ -191,26 +239,6 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
           content = file_content("app/services/process_order.rb")
           expect(content).to include("input :email, type: String")
           expect(content).not_to include("input : email")
-        end
-      end
-    end
-
-    describe "additional type mappings" do
-      context "with nil type" do
-        before { run_generator %w[ProcessOrder value:nil] }
-
-        it "normalizes nil to NilClass", :aggregate_failures do
-          content = file_content("app/services/process_order.rb")
-          expect(content).to include("input :value, type: NilClass")
-        end
-      end
-
-      context "with decimal type" do
-        before { run_generator %w[ProcessOrder amount:decimal] }
-
-        it "normalizes decimal to BigDecimal", :aggregate_failures do
-          content = file_content("app/services/process_order.rb")
-          expect(content).to include("input :amount, type: BigDecimal")
         end
       end
     end
