@@ -1,0 +1,27 @@
+module Servactory
+  module Generators
+    class InstallGenerator < Servactory::Generators::Base
+      VALID_NAMESPACE_REGEX: Regexp
+
+      def create_application_service: () -> void
+
+      def copy_locales: () -> void
+
+      private
+
+      def validate_namespace!: () -> void
+
+      def namespace: () -> String
+
+      def namespace_path: () -> String
+
+      def base_path: () -> String
+
+      def service_path: (String filename) -> String
+
+      def locales: () -> Array[String]
+
+      def minimal?: () -> bool
+    end
+  end
+end

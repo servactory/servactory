@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ApplicationService
+module <%= namespace %>
   module Exceptions
     class Input < Servactory::Exceptions::Input; end
     class Output < Servactory::Exceptions::Output; end

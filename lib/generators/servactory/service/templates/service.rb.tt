@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+class <%= class_name %> < <%= base_class_name %>
+<% input_declarations.each do |declaration| -%>
+  <%= declaration %>
+<% end -%>
+<% unless skip_output? -%>
+
+  output :data, type: String
+<% end -%>
+
+  make :assign_data
+
+  private
+
+  def assign_data
+    # TODO: Implement service logic
+<% unless skip_output? -%>
+    outputs.data = "done"
+<% end -%>
+  end
+end

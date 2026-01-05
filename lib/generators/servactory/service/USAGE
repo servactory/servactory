@@ -1,0 +1,51 @@
+Description:
+    Generates a new Servactory service class.
+
+Usage:
+    rails generate servactory:service NAME [inputs] [options]
+
+Arguments:
+    NAME           The name of the service (e.g., Users::Create, ProcessOrder)
+    inputs         Input attributes with optional types (e.g., email:string, user:User)
+
+Options:
+    --base-class=CLASS    Base class for the service (default: ApplicationService::Base)
+    --skip-output         Skip default output declaration
+    --path=PATH           Path to generate service files (default: app/services)
+
+Type Formats:
+    Lowercase types are normalized to Ruby classes:
+        string → String, integer → Integer, boolean → [TrueClass, FalseClass]
+
+    Capitalized Ruby class names are preserved as-is:
+        String, Integer, Hash, Array
+
+    Custom types (models, enums, Structs) are preserved:
+        User, Admin::Role, Billing::PaymentStatus
+
+    Untyped inputs default to String.
+
+Examples:
+    rails generate servactory:service Users::Create
+        Creates app/services/users/create.rb with default structure
+
+    rails generate servactory:service Users::Create --path=lib/my_gem/services
+        Creates lib/my_gem/services/users/create.rb for gem/library use
+
+    rails generate servactory:service Users::Create email:string name:string
+        Creates service with typed inputs (lowercase types normalized to Ruby classes)
+
+    rails generate servactory:service Users::Create email:String name:String
+        Creates service with typed inputs (capitalized Ruby class names)
+
+    rails generate servactory:service ProcessOrder user:User event:Event
+        Creates service with custom model/class type inputs
+
+    rails generate servactory:service ProcessOrder role:Admin::Users::Role
+        Creates service with nested namespace type
+
+    rails generate servactory:service SendEmail recipient
+        Creates service with untyped input (defaults to String)
+
+    rails generate servactory:service CacheData key:String --skip-output
+        Creates service without default output declaration

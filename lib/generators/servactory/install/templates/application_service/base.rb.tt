@@ -1,32 +1,41 @@
 # frozen_string_literal: true
 
-module ApplicationService
-  class Base
-    include Servactory::DSL
+module <%= namespace %>
+  class Base < Servactory::Base
+<% unless minimal? -%>
 
     # More information: https://servactory.com/guide/extensions
-    # include Servactory::DSL.with_extensions(
-    #   ApplicationService::Extensions::YourExtension::DSL
+    # extensions do
+    #   before :actions, <%= namespace %>::Extensions::Authorization::DSL
+    #   after :actions, <%= namespace %>::Extensions::Publishable::DSL
+    # end
+
+    # fail_on! ActiveRecord::RecordInvalid
+    # fail_on!(
+    #   CustomException,
+    #   with: ->(exception:) { ... }
     # )
 
-    fail_on! ActiveRecord::RecordInvalid
-
     # More information: https://servactory.com/guide/configuration
+<% end -%>
     configuration do
-      input_exception_class ApplicationService::Exceptions::Input
-      internal_exception_class ApplicationService::Exceptions::Internal
-      output_exception_class ApplicationService::Exceptions::Output
+      input_exception_class <%= namespace %>::Exceptions::Input
+      internal_exception_class <%= namespace %>::Exceptions::Internal
+      output_exception_class <%= namespace %>::Exceptions::Output
 
-      failure_class ApplicationService::Exceptions::Failure
+      failure_class <%= namespace %>::Exceptions::Failure
 
-      result_class ApplicationService::Result
+      result_class <%= namespace %>::Result
+<% unless minimal? -%>
 
       # input_option_helpers(
       #   [
       #     Servactory::ToolKit::DynamicOptions::Format.use,
       #     Servactory::ToolKit::DynamicOptions::Min.use,
       #     Servactory::ToolKit::DynamicOptions::Max.use,
-      #     ApplicationService::DynamicOptions::CustomEq.use
+      #     Servactory::ToolKit::DynamicOptions::MultipleOf.use,
+      #     Servactory::ToolKit::DynamicOptions::Target.use,
+      #     <%= namespace %>::DynamicOptions::CustomEq.use
       #   ]
       # )
 
@@ -35,7 +44,9 @@ module ApplicationService
       #     Servactory::ToolKit::DynamicOptions::Format.use,
       #     Servactory::ToolKit::DynamicOptions::Min.use,
       #     Servactory::ToolKit::DynamicOptions::Max.use,
-      #     ApplicationService::DynamicOptions::CustomEq.use
+      #     Servactory::ToolKit::DynamicOptions::MultipleOf.use,
+      #     Servactory::ToolKit::DynamicOptions::Target.use,
+      #     <%= namespace %>::DynamicOptions::CustomEq.use
       #   ]
       # )
 
@@ -44,13 +55,13 @@ module ApplicationService
       #     Servactory::ToolKit::DynamicOptions::Format.use,
       #     Servactory::ToolKit::DynamicOptions::Min.use,
       #     Servactory::ToolKit::DynamicOptions::Max.use,
-      #     ApplicationService::DynamicOptions::CustomEq.use
+      #     Servactory::ToolKit::DynamicOptions::MultipleOf.use,
+      #     Servactory::ToolKit::DynamicOptions::Target.use,
+      #     <%= namespace %>::DynamicOptions::CustomEq.use
       #   ]
       # )
 
       # collection_mode_class_names [ActiveRecord::Relation]
-
-      # hash_mode_class_names [CustomHash]
 
       # action_shortcuts(
       #   %i[assign build create save],
@@ -64,9 +75,8 @@ module ApplicationService
 
       # action_aliases %i[do_it!]
 
-      # i18n_root_key :servactory
-
       # predicate_methods_enabled false
+<% end -%>
     end
   end
 end
