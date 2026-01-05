@@ -1,0 +1,134 @@
+it:
+  servactory:
+    common:
+      undefined_method:
+        missing_name: "[%{service_class_name}] %{error_text}"
+    methods:
+      call:
+        not_used: "[%{service_class_name}] Niente da eseguire. Usa `make` o crea un metodo `call`."
+      cannot_be_overwritten: "[%{service_class_name}] I seguenti metodi non possono essere sovrascritti: %{list_of_methods}"
+    inputs:
+      undefined:
+        for_fetch: "[%{service_class_name}] Attributo di input non definito `%{input_name}`"
+        for_assign: "[%{service_class_name}] Attributo di input non definito `%{input_name}`"
+      validations:
+        must:
+          default_error: "[%{service_class_name}] L'input `%{input_name}` deve \"%{code}\""
+          syntax_error: "[%{service_class_name}] Errore di sintassi in `%{code}` dell'input `%{input_name}`: %{exception_message}"
+          dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] Elemento richiesto mancante nella collezione di input `%{input_name}`"
+              wrong_type: "[%{service_class_name}] Tipo di collezione di input errato `%{input_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Tipo di elemento errato nella collezione di input `%{input_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+            format:
+              default: "[%{service_class_name}] L'input `%{input_name}` non corrisponde al formato `%{format_name}`"
+              wrong_pattern: "[%{service_class_name}] L'input `%{input_name}` non corrisponde al formato `%{format_name}`"
+              wrong_type: "[%{service_class_name}] L'input `%{input_name}` deve essere una stringa per la validazione del formato `%{format_name}`"
+              unknown: "[%{service_class_name}] Formato sconosciuto `%{format_name}` specificato per l'input `%{input_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Valore errato in `%{input_name}`, deve essere uno di `%{input_inclusion}`, ricevuto `%{value}`"
+              invalid_option: "[%{service_class_name}] L'input `%{input_name}` ha valore mancante nell'opzione `%{option_name}`"
+            min:
+              default: "[%{service_class_name}] L'input `%{input_name}` ha ricevuto il valore `%{value}`, che è inferiore a `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] L'input `%{input_name}` ha ricevuto il valore `%{value}`, che è superiore a `%{option_value}`"
+            multiple_of:
+              default: "[%{service_class_name}] L'input `%{input_name}` ha il valore `%{value}`, che non è un multiplo di `%{option_value}`"
+              blank: "[%{service_class_name}] L'input `%{input_name}` ha un valore non valido `%{option_value}` nell'opzione `%{option_name}`"
+              divided_by_0: "[%{service_class_name}] L'input `%{input_name}` ha un valore non valido `%{option_value}` nell'opzione `%{option_name}`"
+            schema:
+              wrong_type: "[%{service_class_name}] Tipo errato dell'input `%{input_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Tipo errato nell'hash di input `%{input_name}`, per `%{key_name}` previsto `%{expected_type}`, ricevuto `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Valore errato nell'hash di input `%{input_name}`, per `%{key_name}` valore previsto di tipo `%{expected_type}`, ricevuto `%{given_type}`"
+            target:
+              default: "[%{service_class_name}] L'input `%{input_name}` ha obiettivo errato, deve essere `%{expected_target}`, ricevuto `%{value}`"
+              invalid_option: "[%{service_class_name}] L'input `%{input_name}` ha valore mancante nell'opzione `%{option_name}`"
+        required:
+          default_error:
+            default: "[%{service_class_name}] L'input richiesto `%{input_name}` è mancante"
+        type:
+          default_error:
+            default: "[%{service_class_name}] Tipo errato dell'input `%{input_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+      tools:
+        find_unnecessary:
+          error: "[%{service_class_name}] Attributi inattesi: `%{unnecessary_attributes}`"
+        rules:
+          error: "[%{service_class_name}] Conflitto nelle opzioni dell'input `%{input_name}`: `%{conflict_code}`"
+    internals:
+      undefined:
+        for_fetch: "[%{service_class_name}] Attributo interno non definito `%{internal_name}`"
+        for_assign: "[%{service_class_name}] Attributo interno non definito `%{internal_name}`"
+      validations:
+        must:
+          default_error: "[%{service_class_name}] L'attributo interno `%{internal_name}` deve \"%{code}\""
+          syntax_error: "[%{service_class_name}] Errore di sintassi in `%{code}` dell'attributo interno `%{internal_name}`: %{exception_message}"
+          dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] Elemento richiesto mancante nella collezione dell'attributo interno `%{internal_name}`"
+              wrong_type: "[%{service_class_name}] Tipo di collezione errato dell'attributo interno `%{internal_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Tipo di elemento errato nella collezione dell'attributo interno `%{internal_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+            format:
+              default: "[%{service_class_name}] L'attributo interno `%{internal_name}` non corrisponde al formato `%{format_name}`"
+              wrong_pattern: "[%{service_class_name}] L'attributo interno `%{internal_name}` non corrisponde al formato `%{format_name}`"
+              wrong_type: "[%{service_class_name}] L'attributo interno `%{internal_name}` deve essere una stringa per la validazione del formato `%{format_name}`"
+              unknown: "[%{service_class_name}] Formato sconosciuto `%{format_name}` specificato per l'attributo interno `%{internal_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Valore errato in `%{internal_name}`, deve essere uno di `%{internal_inclusion}`, ricevuto `%{value}`"
+              invalid_option: "[%{service_class_name}] L'attributo interno `%{internal_name}` ha valore mancante nell'opzione `%{option_name}`"
+            min:
+              default: "[%{service_class_name}] L'attributo interno `%{internal_name}` ha ricevuto il valore `%{value}`, che è inferiore a `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] L'attributo interno `%{internal_name}` ha ricevuto il valore `%{value}`, che è superiore a `%{option_value}`"
+            multiple_of:
+              default: "[%{service_class_name}] L'attributo interno `%{internal_name}` ha il valore `%{value}`, che non è un multiplo di `%{option_value}`"
+              blank: "[%{service_class_name}] L'attributo interno `%{internal_name}` ha un valore non valido `%{option_value}` nell'opzione `%{option_name}`"
+              divided_by_0: "[%{service_class_name}] L'attributo interno `%{internal_name}` ha un valore non valido `%{option_value}` nell'opzione `%{option_name}`"
+            schema:
+              wrong_type: "[%{service_class_name}] Tipo errato dell'attributo interno `%{internal_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Tipo errato nell'hash dell'attributo interno `%{internal_name}`, per `%{key_name}` previsto `%{expected_type}`, ricevuto `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Valore errato nell'hash dell'attributo interno `%{internal_name}`, per `%{key_name}` valore previsto di tipo `%{expected_type}`, ricevuto `%{given_type}`"
+            target:
+              default: "[%{service_class_name}] L'attributo interno `%{internal_name}` ha obiettivo errato, deve essere `%{expected_target}`, ricevuto `%{value}`"
+              invalid_option: "[%{service_class_name}] L'attributo interno `%{internal_name}` ha valore mancante nell'opzione `%{option_name}`"
+        type:
+          default_error:
+            default: "[%{service_class_name}] Tipo errato dell'attributo interno `%{internal_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+    outputs:
+      undefined:
+        for_fetch: "[%{service_class_name}] Attributo di output non definito `%{output_name}`"
+        for_assign: "[%{service_class_name}] Attributo di output non definito `%{output_name}`"
+      validations:
+        must:
+          default_error: "[%{service_class_name}] L'attributo di output `%{output_name}` deve \"%{code}\""
+          syntax_error: "[%{service_class_name}] Errore di sintassi in `%{code}` dell'attributo di output `%{output_name}`: %{exception_message}"
+          dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] Elemento richiesto mancante nella collezione dell'attributo di output `%{output_name}`"
+              wrong_type: "[%{service_class_name}] Tipo di collezione errato dell'attributo di output `%{output_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Tipo di elemento errato nella collezione dell'attributo di output `%{output_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+            format:
+              default: "[%{service_class_name}] L'attributo di output `%{output_name}` non corrisponde al formato `%{format_name}`"
+              wrong_pattern: "[%{service_class_name}] L'attributo di output `%{output_name}` non corrisponde al formato `%{format_name}`"
+              wrong_type: "[%{service_class_name}] L'attributo di output `%{output_name}` deve essere una stringa per la validazione del formato `%{format_name}`"
+              unknown: "[%{service_class_name}] Formato sconosciuto `%{format_name}` specificato per l'attributo di output `%{output_name}`"
+            inclusion:
+              default: "[%{service_class_name}] Valore errato in `%{output_name}`, deve essere uno di `%{output_inclusion}`, ricevuto `%{value}`"
+              invalid_option: "[%{service_class_name}] L'attributo di output `%{output_name}` ha valore mancante nell'opzione `%{option_name}`"
+            min:
+              default: "[%{service_class_name}] L'attributo di output `%{output_name}` ha ricevuto il valore `%{value}`, che è inferiore a `%{option_value}`"
+            max:
+              default: "[%{service_class_name}] L'attributo di output `%{output_name}` ha ricevuto il valore `%{value}`, che è superiore a `%{option_value}`"
+            multiple_of:
+              default: "[%{service_class_name}] L'attributo di output `%{output_name}` ha il valore `%{value}`, che non è un multiplo di `%{option_value}`"
+              blank: "[%{service_class_name}] L'attributo di output `%{output_name}` ha un valore non valido `%{option_value}` nell'opzione `%{option_name}`"
+              divided_by_0: "[%{service_class_name}] L'attributo di output `%{output_name}` ha un valore non valido `%{option_value}` nell'opzione `%{option_name}`"
+            schema:
+              wrong_type: "[%{service_class_name}] Tipo errato dell'attributo di output `%{output_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
+              wrong_element_type: "[%{service_class_name}] Tipo errato nell'hash dell'attributo di output `%{output_name}`, per `%{key_name}` previsto `%{expected_type}`, ricevuto `%{given_type}`"
+              wrong_element_value: "[%{service_class_name}] Valore errato nell'hash dell'attributo di output `%{output_name}`, per `%{key_name}` valore previsto di tipo `%{expected_type}`, ricevuto `%{given_type}`"
+            target:
+              default: "[%{service_class_name}] L'attributo di output `%{output_name}` ha obiettivo errato, deve essere `%{expected_target}`, ricevuto `%{value}`"
+              invalid_option: "[%{service_class_name}] L'attributo di output `%{output_name}` ha valore mancante nell'opzione `%{option_name}`"
+        type:
+          default_error:
+            default: "[%{service_class_name}] Tipo errato dell'attributo di output `%{output_name}`, previsto `%{expected_type}`, ricevuto `%{given_type}`"
