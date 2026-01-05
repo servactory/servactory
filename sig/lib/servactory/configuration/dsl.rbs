@@ -4,12 +4,9 @@ module Servactory
       def self.included: (untyped base) -> untyped
 
       module ClassMethods
-        @config: Setup
         @configuration_factory: Factory
 
         def inherited: (untyped child) -> void
-
-        def config: -> Setup
 
         private
 

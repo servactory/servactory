@@ -1,0 +1,55 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Result
+          class BeFailureServiceMatcher
+            include ::RSpec::Matchers::Composable
+
+            @expected_failure_class: Class?
+            @expected_type: Symbol?
+            @expected_message: String?
+            @expected_meta: untyped
+            @type_defined: bool
+            @message_defined: bool
+            @meta_defined: bool
+            @result: Servactory::Result?
+
+            def initialize: () -> void
+
+            def supports_block_expectations?: () -> bool
+
+            def matches?: (Servactory::Result result) -> bool
+
+            def description: () -> String
+
+            def failure_message: () -> String
+
+            def failure_message_when_negated: () -> String
+
+            # Chain methods
+            def with: (Class failure_class) -> self
+
+            def type: (Symbol expected_type) -> self
+
+            def message: (String expected_message) -> self
+
+            def meta: (untyped expected_meta) -> self
+
+            private
+
+            attr_reader result: Servactory::Result?
+
+            attr_reader expected_failure_class: Class?
+
+            attr_reader expected_type: Symbol?
+
+            attr_reader expected_message: String?
+
+            attr_reader expected_meta: untyped
+          end
+        end
+      end
+    end
+  end
+end

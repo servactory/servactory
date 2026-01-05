@@ -1,0 +1,42 @@
+module RSpec
+  module Matchers
+    module Composable
+    end
+
+    def self.alias_matcher: (Symbol alias_name, Symbol original_name) -> void
+                           | (Symbol alias_name, Symbol original_name) { (String) -> String } -> void
+    def self.define: (Symbol name) { () -> void } -> void
+
+    module BuiltIn
+      class BaseMatcher
+        def matches?: (untyped actual) -> bool
+        def failure_message: () -> String
+        def failure_message_when_negated: () -> String
+        def description: () -> String
+        def diffable?: () -> bool
+        def expected: () -> untyped
+        def actual: () -> untyped
+      end
+
+      class Match < BaseMatcher
+        def initialize: (untyped expected) -> void
+      end
+    end
+  end
+
+  module Expectations
+    class PositiveExpectationHandler
+    end
+
+    class NegativeExpectationHandler
+    end
+
+    module ExpectationHelper
+      def self.with_matcher: [T] (
+        Class handler,
+        ::RSpec::Matchers::BuiltIn::BaseMatcher matcher,
+        untyped message
+      ) { (::RSpec::Matchers::BuiltIn::BaseMatcher) -> T } -> T
+    end
+  end
+end

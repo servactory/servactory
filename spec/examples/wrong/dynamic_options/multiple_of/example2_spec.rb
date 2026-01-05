@@ -17,24 +17,17 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example2, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Input,
-              "[Wrong::DynamicOptions::MultipleOf::Example2] " \
-              "Input `number` has an invalid value `0` in option `multiple_of`"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Input,
+            "[Wrong::DynamicOptions::MultipleOf::Example2] " \
+            "Input `number` has an invalid value `0` in option `multiple_of`"
           )
-        end
+        )
       end
     end
-
-    # NOTE: Will not work due to division by 0.
-    # context "when the input arguments are invalid" do
-    #   it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
-    # end
   end
 
   describe ".call" do
@@ -53,23 +46,16 @@ RSpec.describe Wrong::DynamicOptions::MultipleOf::Example2, type: :service do
                     internals: %i[],
                     outputs: %i[]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Input,
-              "[Wrong::DynamicOptions::MultipleOf::Example2] " \
-              "Input `number` has an invalid value `0` in option `multiple_of`"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Input,
+            "[Wrong::DynamicOptions::MultipleOf::Example2] " \
+            "Input `number` has an invalid value `0` in option `multiple_of`"
           )
-        end
+        )
       end
     end
-
-    # NOTE: Will not work due to division by 0.
-    # context "when the input arguments are invalid" do
-    #   it { expect { perform }.to have_input(:number).valid_with(attributes).type(Integer).required }
-    # end
   end
 end

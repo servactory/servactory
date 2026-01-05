@@ -1,0 +1,29 @@
+module Servactory
+  module Configuration
+    module Configurable
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        def self.extended: (untyped base) -> untyped
+
+        @config: Config
+
+        attr_reader config: Config
+
+        private
+
+        def build_default_config: -> Config
+
+        def default_collection_mode_class_names: -> Set[Class]
+
+        def default_hash_mode_class_names: -> Set[Class]
+
+        def default_input_option_helpers: (Config config) -> Set[untyped]
+
+        def default_internal_option_helpers: (Config config) -> Set[untyped]
+
+        def default_output_option_helpers: (Config config) -> Set[untyped]
+      end
+    end
+  end
+end

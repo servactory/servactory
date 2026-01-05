@@ -17,24 +17,50 @@ RSpec.describe Usual::Arguments::Example1, type: :service do
                     internals: %i[invoice_number],
                     outputs: %i[invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        context "when `invoice_number` is `String`" do
-          it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:invoice_number)
+              .valid_with(attributes)
+              .types(String, Integer)
+              .required
+          )
         end
+      end
 
-        context "when `invoice_number` is `Integer`" do
-          let(:invoice_number) { 123 }
-
-          it { expect(perform).to have_output(:invoice_number).contains(123) }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:invoice_number)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).types(String, Integer).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      context "when `invoice_number` is `String`" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:invoice_number, "AA-7650AE")
+          )
+        end
+      end
+
+      context "when `invoice_number` is `Integer`" do
+        let(:invoice_number) { 123 }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:invoice_number, 123)
+          )
+        end
+      end
     end
   end
 
@@ -54,24 +80,50 @@ RSpec.describe Usual::Arguments::Example1, type: :service do
                     internals: %i[invoice_number],
                     outputs: %i[invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        context "when `invoice_number` is `String`" do
-          it { expect(perform).to have_output(:invoice_number).contains("AA-7650AE") }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:invoice_number)
+              .valid_with(attributes)
+              .types(String, Integer)
+              .required
+          )
         end
+      end
 
-        context "when `invoice_number` is `Integer`" do
-          let(:invoice_number) { 123 }
-
-          it { expect(perform).to have_output(:invoice_number).contains(123) }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:invoice_number)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).types(String, Integer).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      context "when `invoice_number` is `String`" do
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:invoice_number, "AA-7650AE")
+          )
+        end
+      end
+
+      context "when `invoice_number` is `Integer`" do
+        let(:invoice_number) { 123 }
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:invoice_number, 123)
+          )
+        end
+      end
     end
   end
 end

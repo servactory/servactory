@@ -1,0 +1,39 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Result
+          class BeSuccessServiceMatcher
+            include ::RSpec::Matchers::Composable
+
+            @expected_outputs: Hash[Symbol, untyped]
+            @result: Servactory::Result?
+
+            def initialize: () -> void
+
+            def supports_block_expectations?: () -> bool
+
+            def matches?: (Servactory::Result result) -> bool
+
+            def description: () -> String
+
+            def failure_message: () -> String
+
+            def failure_message_when_negated: () -> String
+
+            # Chain methods
+            def with_output: (Symbol key, untyped value) -> self
+
+            def with_outputs: (Hash[Symbol, untyped] attributes) -> self
+
+            private
+
+            attr_reader result: Servactory::Result?
+
+            attr_reader expected_outputs: Hash[Symbol, untyped]
+          end
+        end
+      end
+    end
+  end
+end

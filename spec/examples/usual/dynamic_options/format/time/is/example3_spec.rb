@@ -17,35 +17,53 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Is::Example3, type: :service
                     internals: %i[],
                     outputs: %i[started_at]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.started_at?).to be(true)
-          expect(result.started_at).to eq("2023-04-14 8:58")
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_at)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
         end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `time`" do
-          let(:started_at) { "2023-04-14 26:70" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Time::Is::Example3] " \
-                "Output attribute `started_at` does not match `time` format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_at).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:started_at, "2023-04-14 8:58")
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `time`" do
+        let(:started_at) { "2023-04-14 26:70" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Usual::DynamicOptions::Format::Time::Is::Example3] " \
+              "Output attribute `started_at` does not match `time` format"
+            )
+          )
+        end
+      end
     end
   end
 
@@ -65,35 +83,53 @@ RSpec.describe Usual::DynamicOptions::Format::Time::Is::Example3, type: :service
                     internals: %i[],
                     outputs: %i[started_at]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.started_at?).to be(true)
-          expect(result.started_at).to eq("2023-04-14 8:58")
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_at)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
         end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `time`" do
-          let(:started_at) { "2023-04-14 26:70" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Time::Is::Example3] " \
-                "Output attribute `started_at` does not match `time` format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_at)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_at).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:started_at, "2023-04-14 8:58")
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `time`" do
+        let(:started_at) { "2023-04-14 26:70" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Usual::DynamicOptions::Format::Time::Is::Example3] " \
+              "Output attribute `started_at` does not match `time` format"
+            )
+          )
+        end
+      end
     end
   end
 end

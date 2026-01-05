@@ -8,7 +8,7 @@ module Servactory
 
         def initialize(context)
           @class_name = context.class.name
-          @i18n_root_key = context.class.config.i18n_root_key
+          @i18n_root_key = context.config.i18n_root_key
         end
 
         def translate(key, **options)
@@ -42,11 +42,11 @@ module Servactory
       end
 
       def success!
-        raise self.class.config.success_class.new(context: self)
+        raise config.success_class.new(context: self)
       end
 
       def fail_input!(input_name, message:, meta: nil)
-        raise self.class.config.input_exception_class.new(
+        raise config.input_exception_class.new(
           context: self,
           input_name:,
           message:,
@@ -55,7 +55,7 @@ module Servactory
       end
 
       def fail_internal!(internal_name, message:, meta: nil)
-        raise self.class.config.internal_exception_class.new(
+        raise config.internal_exception_class.new(
           context: self,
           internal_name:,
           message:,
@@ -64,7 +64,7 @@ module Servactory
       end
 
       def fail_output!(output_name, message:, meta: nil)
-        raise self.class.config.output_exception_class.new(
+        raise config.output_exception_class.new(
           context: self,
           output_name:,
           message:,
@@ -73,11 +73,15 @@ module Servactory
       end
 
       def fail!(type = :base, message:, meta: nil)
-        raise self.class.config.failure_class.new(type:, message:, meta:)
+        raise config.failure_class.new(type:, message:, meta:)
       end
 
       def fail_result!(service_result)
         fail!(service_result.error.type, message: service_result.error.message, meta: service_result.error.meta)
+      end
+
+      def config
+        self.class.config
       end
 
       private
@@ -114,7 +118,7 @@ module Servactory
       end
 
       def call
-        raise self.class.config.failure_class.new(
+        raise config.failure_class.new(
           type: :base,
           message: servactory_service_info.translate(
             "methods.call.not_used"

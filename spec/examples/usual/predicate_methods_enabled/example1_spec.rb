@@ -21,35 +21,72 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[full_name]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
-
-        it "returns expected error", :aggregate_failures do
-          expect { perform.full_name? }.to raise_error do |exception|
-            expect(exception).to be_a(ApplicationService::Exceptions::Failure)
-            expect(exception.type).to eq(:base)
-            expect(exception.message).to(
-              match(
-                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
-                  /\[Usual::PredicateMethodsEnabled::Example1\] undefined method 'full_name\?' for #<ApplicationService::Result/
-                else
-                  /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/
-                end
-              )
-            )
-            expect(exception.meta).to match(original_exception: be_a(NoMethodError))
-          end
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:first_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
         end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:full_name)
+              .instance_of(String)
+          )
+        end
+      end
+
+      it do
+        expect { perform }.to(
+          have_input(:middle_name)
+            .valid_with(attributes)
+            .type(String)
+            .optional
+        )
+      end
+
+      it do
+        expect { perform }.to(
+          have_input(:last_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:full_name, "John Fitzgerald Kennedy")
+        )
+      end
+
+      it "returns expected error", :aggregate_failures do
+        expect { perform.full_name? }.to raise_error do |exception|
+          expect(exception).to be_a(ApplicationService::Exceptions::Failure)
+          expect(exception.type).to eq(:base)
+          expect(exception.message).to(
+            match(
+              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method 'full_name\?' for #<ApplicationService::Result/
+              else
+                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/
+              end
+            )
+          )
+          expect(exception.meta).to match(original_exception: be_a(NoMethodError))
+        end
+      end
     end
   end
 
@@ -73,35 +110,72 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[full_name]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
-
-        it { expect(perform).to have_output(:full_name).contains("John Fitzgerald Kennedy") }
-
-        it "returns expected error", :aggregate_failures do
-          expect { perform.full_name? }.to raise_error do |exception|
-            expect(exception).to be_a(ApplicationService::Exceptions::Failure)
-            expect(exception.type).to eq(:base)
-            expect(exception.message).to(
-              match(
-                if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
-                  /\[Usual::PredicateMethodsEnabled::Example1\] undefined method 'full_name\?' for #<ApplicationService::Result/
-                else
-                  /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/
-                end
-              )
-            )
-            expect(exception.meta).to match(original_exception: be_a(NoMethodError))
-          end
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:first_name)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
         end
+      end
+
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:full_name)
+              .instance_of(String)
+          )
+        end
+      end
+
+      it do
+        expect { perform }.to(
+          have_input(:middle_name)
+            .valid_with(attributes)
+            .type(String)
+            .optional
+        )
+      end
+
+      it do
+        expect { perform }.to(
+          have_input(:last_name)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:first_name).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:middle_name).valid_with(attributes).type(String).optional }
-      it { expect { perform }.to have_input(:last_name).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:full_name, "John Fitzgerald Kennedy")
+        )
+      end
+
+      it "returns expected error", :aggregate_failures do
+        expect { perform.full_name? }.to raise_error do |exception|
+          expect(exception).to be_a(ApplicationService::Exceptions::Failure)
+          expect(exception.type).to eq(:base)
+          expect(exception.message).to(
+            match(
+              if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
+                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method 'full_name\?' for #<ApplicationService::Result/
+              else
+                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/
+              end
+            )
+          )
+          expect(exception.meta).to match(original_exception: be_a(NoMethodError))
+        end
+      end
     end
   end
 end

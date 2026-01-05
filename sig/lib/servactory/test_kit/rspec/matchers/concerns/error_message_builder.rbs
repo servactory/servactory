@@ -1,0 +1,17 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Concerns
+          module ErrorMessageBuilder
+            def build_diff_message: (expected: untyped, actual: untyped, ?prefix: String) -> String
+
+            def format_value: (untyped value) -> String
+
+            def build_list_message: (Array[untyped] items, ?prefix: String) -> String
+          end
+        end
+      end
+    end
+  end
+end

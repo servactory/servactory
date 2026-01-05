@@ -1,0 +1,24 @@
+module Servactory
+  module Configuration
+    class Config
+      attr_accessor input_exception_class: Class
+      attr_accessor internal_exception_class: Class
+      attr_accessor output_exception_class: Class
+      attr_accessor failure_class: Class
+      attr_accessor success_class: Class
+      attr_accessor result_class: Class
+      attr_accessor action_shortcuts: Actions::Shortcuts::Collection
+      attr_accessor action_aliases: Actions::Aliases::Collection
+      attr_accessor input_option_helpers: OptionHelpers::OptionHelpersCollection
+      attr_accessor internal_option_helpers: OptionHelpers::OptionHelpersCollection
+      attr_accessor output_option_helpers: OptionHelpers::OptionHelpersCollection
+      attr_accessor collection_mode_class_names: CollectionMode::ClassNamesCollection
+      attr_accessor hash_mode_class_names: HashMode::ClassNamesCollection
+      attr_accessor action_rescue_handlers: Actions::RescueHandlers::Collection
+      attr_accessor i18n_root_key: String
+      attr_accessor predicate_methods_enabled: bool
+
+      def initialize_dup: (Config original) -> void
+    end
+  end
+end

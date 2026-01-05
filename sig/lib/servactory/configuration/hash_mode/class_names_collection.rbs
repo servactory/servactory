@@ -7,6 +7,8 @@ module Servactory
         @collection: Set[Class]
 
         def initialize: (Set[Class] collection) -> void
+
+        def initialize_dup: (ClassNamesCollection original) -> void
       end
     end
   end

@@ -17,35 +17,53 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Is::Example3, type: :ser
                     internals: %i[],
                     outputs: %i[song_duration]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.song_duration?).to be(true)
-          expect(result.song_duration).to eq("P7D")
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:song_duration)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
         end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `duration`" do
-          let(:song_duration) { "7D" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Duration::Is::Example3] Output attribute `song_duration` " \
-                "does not match `duration` format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:song_duration).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:song_duration, "P7D")
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `duration`" do
+        let(:song_duration) { "7D" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Usual::DynamicOptions::Format::Duration::Is::Example3] Output attribute `song_duration` " \
+              "does not match `duration` format"
+            )
+          )
+        end
+      end
     end
   end
 
@@ -65,35 +83,53 @@ RSpec.describe Usual::DynamicOptions::Format::Duration::Is::Example3, type: :ser
                     internals: %i[],
                     outputs: %i[song_duration]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it "returns the expected value", :aggregate_failures do
-          result = perform
-
-          expect(result.song_duration?).to be(true)
-          expect(result.song_duration).to eq("P7D")
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:song_duration)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
         end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `duration`" do
-          let(:song_duration) { "7D" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Duration::Is::Example3] Output attribute `song_duration` " \
-                "does not match `duration` format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:song_duration)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:song_duration).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:song_duration, "P7D")
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `duration`" do
+        let(:song_duration) { "7D" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Usual::DynamicOptions::Format::Duration::Is::Example3] Output attribute `song_duration` " \
+              "does not match `duration` format"
+            )
+          )
+        end
+      end
     end
   end
 end

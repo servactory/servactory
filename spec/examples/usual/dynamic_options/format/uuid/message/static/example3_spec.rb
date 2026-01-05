@@ -17,30 +17,55 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example3, t
                     internals: %i[],
                     outputs: %i[service_id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:service_id?).contains(true) }
-        it { expect(perform).to have_output(:service_id).contains("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_id)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `uuid`" do
-          let(:service_id) { "my-best-uuid" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "Invalid date format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:service_id)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:service_id).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              service_id: "018f0e5d-a7bd-7764-8b88-cdf2b2d22543",
+              service_id?: true
+            )
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `uuid`" do
+        let(:service_id) { "my-best-uuid" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "Invalid date format"
+            )
+          )
+        end
+      end
     end
   end
 
@@ -60,30 +85,55 @@ RSpec.describe Usual::DynamicOptions::Format::Uuid::Message::Static::Example3, t
                     internals: %i[],
                     outputs: %i[service_id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:service_id?).contains(true) }
-        it { expect(perform).to have_output(:service_id).contains("018f0e5d-a7bd-7764-8b88-cdf2b2d22543") }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_id)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `uuid`" do
-          let(:service_id) { "my-best-uuid" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "Invalid date format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:service_id)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:service_id).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              service_id: "018f0e5d-a7bd-7764-8b88-cdf2b2d22543",
+              service_id?: true
+            )
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `uuid`" do
+        let(:service_id) { "my-best-uuid" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "Invalid date format"
+            )
+          )
+        end
+      end
     end
   end
 end
