@@ -108,6 +108,10 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
       it "does not copy any locale files", :aggregate_failures do
         assert_no_file "config/locales/servactory.en.yml"
         assert_no_file "config/locales/servactory.ru.yml"
+        assert_no_file "config/locales/servactory.de.yml"
+        assert_no_file "config/locales/servactory.fr.yml"
+        assert_no_file "config/locales/servactory.es.yml"
+        assert_no_file "config/locales/servactory.it.yml"
       end
     end
 
@@ -117,63 +121,75 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
       it "copies only English locale file", :aggregate_failures do
         assert_file "config/locales/servactory.en.yml"
         assert_no_file "config/locales/servactory.ru.yml"
+        assert_no_file "config/locales/servactory.de.yml"
+        assert_no_file "config/locales/servactory.fr.yml"
+        assert_no_file "config/locales/servactory.es.yml"
+        assert_no_file "config/locales/servactory.it.yml"
       end
     end
 
     context "with --locales=en,ru" do
       before { run_generator %w[--locales=en,ru] }
 
-      it "copies both locale files", :aggregate_failures do
+      it "copies only English and Russian locale files", :aggregate_failures do
         assert_file "config/locales/servactory.en.yml"
         assert_file "config/locales/servactory.ru.yml"
+        assert_no_file "config/locales/servactory.de.yml"
+        assert_no_file "config/locales/servactory.fr.yml"
+        assert_no_file "config/locales/servactory.es.yml"
+        assert_no_file "config/locales/servactory.it.yml"
       end
     end
 
     context "with --locales=de" do
       before { run_generator %w[--locales=de] }
 
-      it "copies German locale file", :aggregate_failures do
+      it "copies only German locale file", :aggregate_failures do
         assert_file "config/locales/servactory.de.yml"
-
-        content = file_content("config/locales/servactory.de.yml")
-        expect(content).to include("de:")
-        expect(content).to include("servactory:")
+        assert_no_file "config/locales/servactory.en.yml"
+        assert_no_file "config/locales/servactory.ru.yml"
+        assert_no_file "config/locales/servactory.fr.yml"
+        assert_no_file "config/locales/servactory.es.yml"
+        assert_no_file "config/locales/servactory.it.yml"
       end
     end
 
     context "with --locales=fr" do
       before { run_generator %w[--locales=fr] }
 
-      it "copies French locale file", :aggregate_failures do
+      it "copies only French locale file", :aggregate_failures do
         assert_file "config/locales/servactory.fr.yml"
-
-        content = file_content("config/locales/servactory.fr.yml")
-        expect(content).to include("fr:")
-        expect(content).to include("servactory:")
+        assert_no_file "config/locales/servactory.en.yml"
+        assert_no_file "config/locales/servactory.ru.yml"
+        assert_no_file "config/locales/servactory.de.yml"
+        assert_no_file "config/locales/servactory.es.yml"
+        assert_no_file "config/locales/servactory.it.yml"
       end
     end
 
     context "with --locales=es" do
       before { run_generator %w[--locales=es] }
 
-      it "copies Spanish locale file", :aggregate_failures do
+      it "copies only Spanish locale file", :aggregate_failures do
         assert_file "config/locales/servactory.es.yml"
-
-        content = file_content("config/locales/servactory.es.yml")
-        expect(content).to include("es:")
-        expect(content).to include("servactory:")
+        assert_no_file "config/locales/servactory.en.yml"
+        assert_no_file "config/locales/servactory.ru.yml"
+        assert_no_file "config/locales/servactory.de.yml"
+        assert_no_file "config/locales/servactory.fr.yml"
+        assert_no_file "config/locales/servactory.it.yml"
       end
     end
 
     context "with --locales=it" do
       before { run_generator %w[--locales=it] }
 
-      it "copies Italian locale file", :aggregate_failures do
+      it "copies only Italian locale file", :aggregate_failures do
         assert_file "config/locales/servactory.it.yml"
-
-        content = file_content("config/locales/servactory.it.yml")
-        expect(content).to include("it:")
-        expect(content).to include("servactory:")
+        assert_no_file "config/locales/servactory.en.yml"
+        assert_no_file "config/locales/servactory.ru.yml"
+        assert_no_file "config/locales/servactory.de.yml"
+        assert_no_file "config/locales/servactory.fr.yml"
+        assert_no_file "config/locales/servactory.es.yml"
       end
     end
 
