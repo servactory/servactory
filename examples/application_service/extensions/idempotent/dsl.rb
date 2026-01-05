@@ -102,8 +102,8 @@ module ApplicationService
 
             super
 
-            # Cache the result after execution
-            store.set(inputs.send(key_input), outputs.except) if key.present?
+            # Cache the result after execution using the raw key (consistent with read)
+            store.set(key, outputs.except) if key.present?
           end
         end
       end
