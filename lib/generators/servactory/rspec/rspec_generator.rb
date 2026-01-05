@@ -66,9 +66,8 @@ module Servactory
         case type_string
         when "Integer" then "1"
         when "Float" then "1.0"
-        when "TrueClass" then "true"
+        when "TrueClass", "[TrueClass, FalseClass]" then "true"
         when "FalseClass" then "false"
-        when "[TrueClass, FalseClass]" then "true"
         when "Array" then "[]"
         when "Hash" then "{}"
         when "Symbol" then ":example"
