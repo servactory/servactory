@@ -20,7 +20,7 @@ rails generate servactory:service NAME [inputs] [options]
 
 **Arguments:**
 - `NAME` — Service name (e.g., `Users::Create`, `ProcessOrder`)
-- `inputs` — Input attributes with optional types (e.g., `email:String count:Integer`)
+- `inputs` — Input attributes with optional types (e.g., `email:string name:String user:User`)
 
 **Options:**
 - `--base-class` — Base class for service (default: `ApplicationService::Base`)
@@ -30,16 +30,16 @@ rails generate servactory:service NAME [inputs] [options]
 ## RSpec
 
 ```bash
-rails generate servactory:rspec NAME [options]
+rails generate servactory:rspec NAME [inputs] [options]
 ```
 
-Generates RSpec spec for an existing service using `.info` API.
+Generates RSpec spec for a Servactory service.
 
 **Arguments:**
-- `NAME` — Existing service name (e.g., `Users::Create`)
+- `NAME` — Service name (e.g., `Users::Create`)
+- `inputs` — Input attributes with optional types (e.g., `email:string name:String`)
 
 **Options:**
 - `--call-method` — Primary call method: `call` or `call!` (default: `call!`)
-- `--path` — Path to generate spec files (default: `spec/services`)
-- `--skip-validations` — Skip validation examples
+- `--path` — Path to service files (default: `app/services`). Spec path is auto-derived: `app/X` → `spec/X`, `lib/X` → `spec/X`
 - `--skip-pending` — Skip pending placeholder
