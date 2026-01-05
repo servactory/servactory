@@ -5,9 +5,11 @@ module Servactory
 
       private
 
-      def base_class: () -> String
+      def service_file_path: () -> String
 
       def services_path: () -> String
+
+      def base_class_name: () -> String
 
       def skip_output?: () -> bool
 

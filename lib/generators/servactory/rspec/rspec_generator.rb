@@ -29,17 +29,21 @@ module Servactory
                    desc: "Skip pending placeholder"
 
       def create_spec_file
-        template "service_spec.rb.tt", "#{specs_path}/#{file_path}_spec.rb"
+        template "service_spec.rb.tt", spec_file_path
       end
 
       private
 
-      def call_method
-        options[:call_method]
+      def spec_file_path
+        "#{specs_path}/#{file_path}_spec.rb"
       end
 
       def specs_path
         options[:path]
+      end
+
+      def call_method
+        options[:call_method]
       end
 
       def skip_validations?
@@ -67,14 +71,14 @@ module Servactory
       def inputs_from_info # rubocop:disable Metrics/MethodLength
         return [] unless service_info
 
-        service_info.inputs.map do |name, data|
-          types = data[:types] || []
+        service_info.inputs.map do |name, options|
+          types = options[:types] || []
           {
             name:,
             types:,
             type_string: format_types(types),
-            required: data[:required] != false,
-            default: data[:default],
+            required: options[:required] != false,
+            default: options[:default],
             example: example_value_for_types(types)
           }
         end
@@ -83,8 +87,8 @@ module Servactory
       def internals_from_info
         return [] unless service_info
 
-        service_info.internals.map do |name, data|
-          types = data[:types] || []
+        service_info.internals.map do |name, options|
+          types = options[:types] || []
           {
             name:,
             types:,
@@ -96,8 +100,8 @@ module Servactory
       def outputs_from_info
         return [] unless service_info
 
-        service_info.outputs.map do |name, data|
-          types = data[:types] || []
+        service_info.outputs.map do |name, options|
+          types = options[:types] || []
           {
             name:,
             types:,

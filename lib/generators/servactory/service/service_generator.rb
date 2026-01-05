@@ -25,17 +25,21 @@ module Servactory
                    desc: "Skip default output declaration"
 
       def create_service
-        template "service.rb.tt", "#{services_path}/#{file_path}.rb"
+        template "service.rb.tt", service_file_path
       end
 
       private
 
-      def base_class
-        options[:base_class]
+      def service_file_path
+        "#{services_path}/#{file_path}.rb"
       end
 
       def services_path
         options[:path]
+      end
+
+      def base_class_name
+        options[:base_class]
       end
 
       def skip_output?

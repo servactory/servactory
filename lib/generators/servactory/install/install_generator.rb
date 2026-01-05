@@ -41,10 +41,10 @@ module Servactory
 
         locales.each do |locale|
           locale_file = "servactory.#{locale}.yml"
-          source_file = "locales/#{locale_file}"
+          source_path = File.join(gem_locales_path, "#{locale}.yml")
 
-          if File.exist?(File.join(self.class.source_root, source_file))
-            copy_file source_file, "config/locales/#{locale_file}"
+          if File.exist?(source_path)
+            copy_file source_path, "config/locales/#{locale_file}"
           else
             say "Locale file not found: #{locale_file}", :yellow
           end

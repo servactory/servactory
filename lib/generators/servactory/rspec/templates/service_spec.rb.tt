@@ -38,7 +38,8 @@ RSpec.describe <%= class_name %>, type: :service do
           expect { perform }.to(
             have_input(:<%= input[:name] %>)
               .valid_with(attributes)
-              .type(<%= input[:type_string] %>)<%= input[:required] ? "\n              .required" : "" %>
+              .type(<%= input[:type_string] %>)
+              .<%= input[:required] ? "required" : "optional" %>
           )
         end
 

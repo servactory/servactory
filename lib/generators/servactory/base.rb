@@ -30,8 +30,8 @@ module Servactory
         "string" => "String",
         "integer" => "Integer",
         "float" => "Float",
-        "boolean" => "TrueClass",
-        "bool" => "TrueClass",
+        "boolean" => "[TrueClass, FalseClass]",
+        "bool" => "[TrueClass, FalseClass]",
         "array" => "Array",
         "hash" => "Hash",
         "symbol" => "Symbol",
@@ -47,9 +47,9 @@ module Servactory
       end
 
       def parsed_inputs
-        @parsed_inputs ||= attributes.map do |attr|
-          name = attr.name
-          type = normalize_type(attr.type&.to_s)
+        @parsed_inputs ||= attributes.map do |attribute|
+          name = attribute.name
+          type = normalize_type(attribute.type&.to_s)
 
           { name:, type: }
         end

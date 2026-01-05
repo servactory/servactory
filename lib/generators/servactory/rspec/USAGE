@@ -31,5 +31,6 @@ Examples:
         Creates spec without pending placeholder
 
 Note:
-    The generator uses the service's .info API to read input definitions.
-    If the service class cannot be loaded, a basic spec template is generated.
+    The generator uses the service's .info API to read input, internal, and output
+    attribute definitions. If the service class cannot be loaded, a basic spec
+    template is generated.

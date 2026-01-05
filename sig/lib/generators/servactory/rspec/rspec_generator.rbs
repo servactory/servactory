@@ -8,9 +8,11 @@ module Servactory
 
       private
 
-      def call_method: () -> String
+      def spec_file_path: () -> String
 
       def specs_path: () -> String
+
+      def call_method: () -> String
 
       def skip_validations?: () -> bool
 

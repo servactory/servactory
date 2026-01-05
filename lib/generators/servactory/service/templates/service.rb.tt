@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class <%= class_name %> < <%= base_class %>
+class <%= class_name %> < <%= base_class_name %>
 <% input_declarations.each do |declaration| -%>
   <%= declaration %>
 <% end -%>
