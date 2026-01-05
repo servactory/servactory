@@ -1,0 +1,23 @@
+module Servactory
+  module Generators
+    class RspecGenerator < Servactory::Generators::NamedBase
+      def create_spec_file: () -> void
+
+      private
+
+      def spec_file_path: () -> String
+
+      def specs_path: () -> String
+
+      def services_path: () -> String
+
+      def call_method: () -> String
+
+      def skip_pending?: () -> bool
+
+      def inputs_with_examples: () -> Array[Hash[Symbol, untyped]]
+
+      def example_value_for_type: (String type_string) -> String
+    end
+  end
+end

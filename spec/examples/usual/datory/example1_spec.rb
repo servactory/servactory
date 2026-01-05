@@ -15,16 +15,37 @@ RSpec.describe Usual::Datory::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:id)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
 
-        it { expect(perform).to have_output(:id).contains(id) }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:id)
+              .instance_of(String)
+          )
+        end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:id).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:id, id)
+        )
+      end
     end
   end
 
@@ -42,16 +63,37 @@ RSpec.describe Usual::Datory::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[id]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:id)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
 
-        it { expect(perform).to have_output(:id).contains(id) }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:id)
+              .instance_of(String)
+          )
+        end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:id).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:id, id)
+        )
+      end
     end
   end
 end

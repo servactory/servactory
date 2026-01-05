@@ -1,0 +1,21 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Submatchers
+          module Input
+            class OptionalSubmatcher < Base::Submatcher
+              def description: () -> String
+
+              private
+
+              def passes?: () -> bool
+
+              def build_failure_message: () -> String
+            end
+          end
+        end
+      end
+    end
+  end
+end

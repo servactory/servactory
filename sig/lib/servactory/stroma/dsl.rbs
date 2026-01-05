@@ -1,0 +1,19 @@
+module Servactory
+  module Stroma
+    module DSL
+      def self.included: (Class base) -> void
+
+      module ClassMethods
+        def self.extended: (Class base) -> void
+
+        def inherited: (Class child) -> void
+
+        def stroma: () -> State
+
+        private
+
+        def extensions: () { () -> void } -> void
+      end
+    end
+  end
+end

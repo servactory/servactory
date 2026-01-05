@@ -1,0 +1,14 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        module ArgumentMatchers
+          def including: (Hash[Symbol, untyped] hash) -> untyped
+          def excluding: (Hash[Symbol, untyped] hash) -> untyped
+          def any_inputs: () -> untyped
+          def no_inputs: () -> untyped
+        end
+      end
+    end
+  end
+end

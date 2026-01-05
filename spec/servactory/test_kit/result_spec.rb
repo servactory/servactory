@@ -63,6 +63,7 @@ RSpec.describe Servactory::TestKit::Result do
       expect(result).to be_failure
       expect(result.error).to be_a(Servactory::Exceptions::Failure)
       expect(result.error.message).to eq("Test error message")
+      expect(result.error.meta).to be_nil
     end
   end
 end

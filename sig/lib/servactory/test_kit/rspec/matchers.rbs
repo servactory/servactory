@@ -1,0 +1,17 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        def have_service_input: (Symbol input_name) -> HaveServiceInputMatcher
+
+        def have_service_internal: (Symbol internal_name) -> HaveServiceInternalMatcher
+
+        def have_service_output: (Symbol output_name) -> HaveServiceOutputMatcher
+
+        def be_success_service: () -> Result::BeSuccessServiceMatcher
+
+        def be_failure_service: () -> Result::BeFailureServiceMatcher
+      end
+    end
+  end
+end

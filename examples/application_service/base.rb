@@ -1,12 +1,34 @@
 # frozen_string_literal: true
 
+require_relative "extensions/authorization/dsl"
 require_relative "extensions/status_active/dsl"
+require_relative "extensions/post_condition/dsl"
+require_relative "extensions/transactional/dsl"
+require_relative "extensions/rollbackable/dsl"
+require_relative "extensions/publishable/dsl"
+require_relative "extensions/idempotent/dsl"
+require_relative "extensions/api_action/dsl"
+require_relative "extensions/external_api_request/dsl"
 
 module ApplicationService
-  class Base # rubocop:disable Metrics/ClassLength
-    include Servactory::DSL.with_extensions(
-      ApplicationService::Extensions::StatusActive::DSL
-    )
+  class Base < Servactory::Base # rubocop:disable Metrics/ClassLength
+    extensions do
+      # before :actions hooks
+      before :actions, ApplicationService::Extensions::Authorization::DSL
+      before :actions, ApplicationService::Extensions::StatusActive::DSL
+      before :actions, ApplicationService::Extensions::Transactional::DSL
+      before :actions, ApplicationService::Extensions::Rollbackable::DSL
+      before :actions, ApplicationService::Extensions::ExternalApiRequest::DSL
+
+      # after :actions hooks
+      # Idempotent must be AFTER actions to skip stage execution on cache hit
+      after :actions, ApplicationService::Extensions::Idempotent::DSL
+      after :actions, ApplicationService::Extensions::Publishable::DSL
+      after :actions, ApplicationService::Extensions::PostCondition::DSL
+
+      # ClassMethods only (no hook needed, just include)
+      before :actions, ApplicationService::Extensions::ApiAction::DSL
+    end
 
     FailOnLikeAnActiveRecordException = Class.new(ArgumentError)
 

@@ -1,0 +1,85 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Base
+          class AttributeMatcher
+            include SubmatcherRegistry
+            include ::RSpec::Matchers::Composable
+
+            self.@attribute_type: Symbol?
+
+            @submatchers: Array[Submatcher]
+            @option_types: Array[Class]?
+            @last_submatcher: Submatcher?
+            @subject: untyped
+            @attribute_data: Hash[Symbol, untyped]?
+            @attribute_type_plural: Symbol?
+            @i18n_root_key: String?
+            @failing_submatchers: Array[Submatcher]?
+
+            def self.attribute_type: () -> Symbol
+
+            def self.for_attribute_type: (Symbol type) -> void
+
+            attr_reader described_class: Class
+
+            attr_reader attribute_name: Symbol
+
+            attr_reader option_types: Array[Class]?
+
+            def initialize: (Class described_class, Symbol attribute_name) -> void
+
+            def supports_block_expectations?: () -> bool
+
+            def matches?: (untyped subject) -> bool
+
+            def description: () -> String
+
+            def failure_message: () -> String
+
+            def failure_message_when_negated: () -> String
+
+            private
+
+            attr_reader submatchers: Array[Submatcher]
+
+            attr_reader subject: untyped
+
+            attr_reader last_submatcher: Submatcher?
+
+            def attribute_type: () -> Symbol
+
+            def attribute_type_plural: () -> Symbol
+
+            def attribute_data: () -> Hash[Symbol, untyped]
+
+            def i18n_root_key: () -> String
+
+            def expectation: () -> String
+
+            def failing_submatchers: () -> Array[Submatcher]
+
+            def missing_options: () -> String
+
+            def add_submatcher: (Submatcher submatcher) -> void
+
+            def remove_submatcher: (Class matcher_class) -> void
+
+            def build_chain_methods_from_registry: () -> void
+
+            def define_chain_method_for: (SubmatcherRegistry::SubmatcherDefinition definition) -> void
+
+            def extract_options_hash: (Array[untyped] args, SubmatcherRegistry::SubmatcherDefinition definition) -> Hash[Symbol, untyped]
+
+            def handle_mutually_exclusive: (SubmatcherRegistry::SubmatcherDefinition definition) -> void
+
+            def build_submatcher: (SubmatcherRegistry::SubmatcherDefinition definition, Array[untyped] args, Hash[Symbol, untyped] options) -> Submatcher
+
+            def resolve_submatcher_class: (String class_name) -> untyped
+          end
+        end
+      end
+    end
+  end
+end

@@ -21,20 +21,83 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[output_1 output_2 output_3]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:input_1)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
 
-        it { expect(perform).to have_output(:output_1).contains("First") }
-        it { expect(perform).to have_output(:output_2).contains("Second") }
-        it { expect(perform).to have_output(:output_3).contains("Third") }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:output_1)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:output_2)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:output_3)
+              .instance_of(String)
+          )
+        end
+      end
+
+      it do
+        expect { perform }.to(
+          have_input(:input_2)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+
+      it do
+        expect { perform }.to(
+          have_input(:input_3)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:input_1).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:input_2).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:input_3).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:output_1, "First")
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:output_2, "Second")
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:output_3, "Third")
+        )
+      end
     end
   end
 
@@ -58,20 +121,83 @@ RSpec.describe Usual::Inheritance::Example1, type: :service do
                     internals: %i[],
                     outputs: %i[output_1 output_2 output_3]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:input_1)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
 
-        it { expect(perform).to have_output(:output_1).contains("First") }
-        it { expect(perform).to have_output(:output_2).contains("Second") }
-        it { expect(perform).to have_output(:output_3).contains("Third") }
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:output_1)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:output_2)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:output_3)
+              .instance_of(String)
+          )
+        end
+      end
+
+      it do
+        expect { perform }.to(
+          have_input(:input_2)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
+      end
+
+      it do
+        expect { perform }.to(
+          have_input(:input_3)
+            .valid_with(attributes)
+            .type(String)
+            .required
+        )
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:input_1).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:input_2).valid_with(attributes).type(String).required }
-      it { expect { perform }.to have_input(:input_3).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:output_1, "First")
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:output_2, "Second")
+        )
+      end
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:output_3, "Third")
+        )
+      end
     end
   end
 end

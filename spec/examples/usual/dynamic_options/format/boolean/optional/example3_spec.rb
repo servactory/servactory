@@ -17,31 +17,56 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example3, type:
                     internals: %i[],
                     outputs: %i[boolean]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:boolean?).contains(false) }
-        it { expect(perform).to have_output(:boolean).contains(nil) }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:boolean)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `boolean`" do
-          let(:boolean) { "off" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Boolean::Optional::Example3] " \
-                "Output attribute `boolean` does not match `boolean` format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:boolean)
+              .instance_of(NilClass)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:boolean).valid_with(attributes).type(String).optional }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              boolean: nil,
+              boolean?: false
+            )
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `boolean`" do
+        let(:boolean) { "off" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Usual::DynamicOptions::Format::Boolean::Optional::Example3] " \
+              "Output attribute `boolean` does not match `boolean` format"
+            )
+          )
+        end
+      end
     end
   end
 
@@ -61,31 +86,56 @@ RSpec.describe Usual::DynamicOptions::Format::Boolean::Optional::Example3, type:
                     internals: %i[],
                     outputs: %i[boolean]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:boolean?).contains(false) }
-        it { expect(perform).to have_output(:boolean).contains(nil) }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:boolean)
+              .valid_with(attributes)
+              .type(String)
+              .optional
+          )
+        end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `boolean`" do
-          let(:boolean) { "off" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Usual::DynamicOptions::Format::Boolean::Optional::Example3] " \
-                "Output attribute `boolean` does not match `boolean` format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:boolean)
+              .instance_of(NilClass)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:boolean).valid_with(attributes).type(String).optional }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              boolean: nil,
+              boolean?: false
+            )
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `boolean`" do
+        let(:boolean) { "off" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Usual::DynamicOptions::Format::Boolean::Optional::Example3] " \
+              "Output attribute `boolean` does not match `boolean` format"
+            )
+          )
+        end
+      end
     end
   end
 end

@@ -1,0 +1,21 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        module Concerns
+          module ServiceClassValidation
+            include ErrorMessages
+
+            class InvalidServiceClassError < ArgumentError
+            end
+
+            private
+
+            def validate_service_class!: (untyped service_class) -> void
+            def valid_service_class?: (untyped service_class) -> bool
+          end
+        end
+      end
+    end
+  end
+end

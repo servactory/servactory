@@ -17,25 +17,35 @@ RSpec.describe Usual::As::Example1, type: :service do
                     internals: %i[],
                     outputs: [:formatted_email]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:email_address)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.formatted_email).to eq("No Reply <noreply@servactory.com>")
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:formatted_email)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
       it do
-        expect { perform }.to(
-          have_input(:email_address)
-            .valid_with(attributes)
-            .type(String)
-            .required
+        expect(perform).to(
+          be_success_service
+            .with_output(:formatted_email, "No Reply <noreply@servactory.com>")
         )
       end
     end
@@ -57,24 +67,37 @@ RSpec.describe Usual::As::Example1, type: :service do
                     internals: %i[],
                     outputs: [:formatted_email]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it_behaves_like "success result class"
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:email_address)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
+      end
 
-        it "returns the expected values", :aggregate_failures do
-          result = perform
-
-          expect(result.formatted_email).to eq("No Reply <noreply@servactory.com>")
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:formatted_email)
+              .instance_of(String)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it {
-        expect do
-          perform
-        end.to have_input(:email_address).valid_with(attributes).type(String).required
-      }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_output(:formatted_email, "No Reply <noreply@servactory.com>")
+        )
+      end
     end
   end
 end

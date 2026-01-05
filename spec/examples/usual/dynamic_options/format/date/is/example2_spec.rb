@@ -17,31 +17,56 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example2, type: :service
                     internals: %i[started_on],
                     outputs: %i[started_on]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_on?).contains(true) }
-        it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_on)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023-14-14" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Usual::DynamicOptions::Format::Date::Is::Example2] Internal attribute `started_on` " \
-                "does not match `date` format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_on)
+              .instance_of(Date)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_on).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              started_on: Date.parse(started_on),
+              started_on?: true
+            )
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `date`" do
+        let(:started_on) { "2023-14-14" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Usual::DynamicOptions::Format::Date::Is::Example2] Internal attribute `started_on` " \
+              "does not match `date` format"
+            )
+          )
+        end
+      end
     end
   end
 
@@ -61,31 +86,56 @@ RSpec.describe Usual::DynamicOptions::Format::Date::Is::Example2, type: :service
                     internals: %i[started_on],
                     outputs: %i[started_on]
 
-    context "when the input arguments are valid" do
-      describe "and the data required for work is also valid" do
-        it { expect(perform).to have_output(:started_on?).contains(true) }
-        it { expect(perform).to have_output(:started_on).contains(Date.parse(started_on)) }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:started_on)
+              .valid_with(attributes)
+              .type(String)
+              .required
+          )
+        end
       end
 
-      describe "but the data required for work is invalid" do
-        describe "because the format is not suitable for `date`" do
-          let(:started_on) { "2023-14-14" }
-
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Internal,
-                "[Usual::DynamicOptions::Format::Date::Is::Example2] Internal attribute `started_on` " \
-                "does not match `date` format"
-              )
-            )
-          end
+      describe "outputs" do
+        it do
+          expect(perform).to(
+            have_output(:started_on)
+              .instance_of(Date)
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:started_on).valid_with(attributes).type(String).required }
+    describe "and the data required for work is also valid" do
+      it_behaves_like "success result class"
+
+      it do
+        expect(perform).to(
+          be_success_service
+            .with_outputs(
+              started_on: Date.parse(started_on),
+              started_on?: true
+            )
+        )
+      end
+    end
+
+    describe "but the data required for work is invalid" do
+      describe "because the format is not suitable for `date`" do
+        let(:started_on) { "2023-14-14" }
+
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Internal,
+              "[Usual::DynamicOptions::Format::Date::Is::Example2] Internal attribute `started_on` " \
+              "does not match `date` format"
+            )
+          )
+        end
+      end
     end
   end
 end

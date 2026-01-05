@@ -6,8 +6,14 @@ module Servactory
 
         private
 
-        def normalize_inclusion_values: ((Array[untyped] | untyped) option_value) -> Array[untyped]
+        def normalize_inclusion_values: ((Range[untyped] | Array[untyped] | untyped) option_value) -> (Range[untyped] | Array[untyped])
+
+        def value_in_inclusion?: ((Range[untyped] | Array[untyped]) inclusion_values, untyped value) -> bool
+
+        def element_matches?: ((Range[untyped] | untyped) element, untyped value) -> bool
+
+        def range_covers?: (Range[untyped] range, untyped value) -> bool
       end
     end
   end
-end 
+end

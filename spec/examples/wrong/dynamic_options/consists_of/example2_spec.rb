@@ -9,17 +9,15 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example2, type: :service do
                     internals: %i[ids],
                     outputs: %i[ids]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Output,
-              "[Wrong::DynamicOptions::ConsistsOf::Example2] Wrong type of output attribute `ids`, " \
-              "expected `Set`, got `Array`"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Output,
+            "[Wrong::DynamicOptions::ConsistsOf::Example2] Wrong type of output attribute `ids`, " \
+            "expected `Set`, got `Array`"
           )
-        end
+        )
       end
     end
   end
@@ -32,17 +30,15 @@ RSpec.describe Wrong::DynamicOptions::ConsistsOf::Example2, type: :service do
                     internals: %i[ids],
                     outputs: %i[ids]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
-          expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Output,
-              "[Wrong::DynamicOptions::ConsistsOf::Example2] Wrong type of output attribute `ids`, " \
-              "expected `Set`, got `Array`"
-            )
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Output,
+            "[Wrong::DynamicOptions::ConsistsOf::Example2] Wrong type of output attribute `ids`, " \
+            "expected `Set`, got `Array`"
           )
-        end
+        )
       end
     end
   end

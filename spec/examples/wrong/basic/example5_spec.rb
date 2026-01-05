@@ -17,22 +17,29 @@ RSpec.describe Wrong::Basic::Example5, type: :service do
                     internals: %i[],
                     outputs: %i[invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
+    describe "validations" do
+      describe "inputs" do
+        it do
           expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Output,
-              "[Wrong::Basic::Example5] Wrong type of output attribute `invoice_number`, " \
-              "expected `Integer`, got `String`"
-            )
+            have_input(:invoice_number)
+              .valid_with(attributes)
+              .type(String)
+              .required
           )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Basic::Example5] Wrong type of output attribute `invoice_number`, " \
+            "expected `Integer`, got `String`"
+          )
+        )
+      end
     end
   end
 
@@ -52,22 +59,29 @@ RSpec.describe Wrong::Basic::Example5, type: :service do
                     internals: %i[],
                     outputs: %i[invoice_number]
 
-    context "when the input arguments are valid" do
-      describe "but the data required for work is invalid" do
-        it "returns expected error" do
+    describe "validations" do
+      describe "inputs" do
+        it do
           expect { perform }.to(
-            raise_error(
-              ApplicationService::Exceptions::Output,
-              "[Wrong::Basic::Example5] Wrong type of output attribute `invoice_number`, " \
-              "expected `Integer`, got `String`"
-            )
+            have_input(:invoice_number)
+              .valid_with(attributes)
+              .type(String)
+              .required
           )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:invoice_number).valid_with(attributes).type(String).required }
+    describe "but the data required for work is invalid" do
+      it "returns expected error" do
+        expect { perform }.to(
+          raise_error(
+            ApplicationService::Exceptions::Output,
+            "[Wrong::Basic::Example5] Wrong type of output attribute `invoice_number`, " \
+            "expected `Integer`, got `String`"
+          )
+        )
+      end
     end
   end
 end

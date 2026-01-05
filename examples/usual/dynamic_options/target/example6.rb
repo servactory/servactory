@@ -11,10 +11,10 @@ module Usual
               type: Class,
               target: {
                 in: [MyFirstService, MySecondService],
-                message: lambda { |input:, value:, option_value:, **|
+                message: lambda do |input:, value:, option_value:, **|
                   "Input `#{input.name}`: `#{value}` is not allowed. " \
                     "Allowed: #{Array(option_value).map(&:name).join(', ')}"
-                }
+                end
               }
 
         output :result, type: String

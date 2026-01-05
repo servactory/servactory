@@ -1,310 +1,151 @@
 # frozen_string_literal: true
 
+# RSpec matchers for testing Servactory service definitions and results.
+#
+# ## Purpose
+#
+# This module provides custom RSpec matchers for validating:
+# - Service attribute definitions (inputs, internals, outputs)
+# - Service execution results (success/failure)
+#
+# ## Usage
+#
+# Include matchers in RSpec configuration:
+#
+# ```ruby
+# RSpec.configure do |config|
+#   config.include Servactory::TestKit::Rspec::Matchers, type: :service
+# end
+# ```
+#
+# Then use in specs:
+#
+# ```ruby
+# RSpec.describe MyService, type: :service do
+#   it { is_expected.to have_service_input(:user_id).type(Integer).required }
+#   it { is_expected.to have_service_output(:result).type(String) }
+#
+#   it "succeeds with valid input" do
+#     result = described_class.call(user_id: 123)
+#     expect(result).to be_success_service.with_output(:data, "value")
+#   end
+# end
+# ```
+#
+# ## Available Matchers
+#
+# - `have_service_input` / `have_input` - validates input attribute definitions
+# - `have_service_internal` / `have_internal` - validates internal attribute definitions
+# - `have_service_output` / `have_output` - validates output values on results
+# - `be_success_service` - validates successful service result
+# - `be_failure_service` - validates failed service result
+
+# Concerns (must be loaded first, as they are used in Base classes)
+require_relative "matchers/concerns/attribute_data_access"
+require_relative "matchers/concerns/error_message_builder"
+require_relative "matchers/concerns/value_comparison"
+
+# Base classes (loaded after concerns)
+require_relative "matchers/base/submatcher_context"
+require_relative "matchers/base/submatcher"
+require_relative "matchers/base/submatcher_registry"
+require_relative "matchers/base/attribute_matcher"
+
+# Shared submatchers
+require_relative "matchers/submatchers/shared/types_submatcher"
+require_relative "matchers/submatchers/shared/consists_of_submatcher"
+require_relative "matchers/submatchers/shared/schema_submatcher"
+require_relative "matchers/submatchers/shared/inclusion_submatcher"
+require_relative "matchers/submatchers/shared/must_submatcher"
+require_relative "matchers/submatchers/shared/message_submatcher"
+require_relative "matchers/submatchers/shared/target_submatcher"
+
+# Input submatchers
+require_relative "matchers/submatchers/input/required_submatcher"
+require_relative "matchers/submatchers/input/optional_submatcher"
+require_relative "matchers/submatchers/input/default_submatcher"
+require_relative "matchers/submatchers/input/valid_with_submatcher"
+
+# Main matchers
 require_relative "matchers/have_service_input_matcher"
 require_relative "matchers/have_service_internal_matcher"
+require_relative "matchers/have_service_output_matcher"
+
+# Result matchers
+require_relative "matchers/result/be_success_service_matcher"
+require_relative "matchers/result/be_failure_service_matcher"
 
 module Servactory
   module TestKit
     module Rspec
-      module Matchers # rubocop:disable Metrics/ModuleLength
+      # RSpec matchers for Servactory service testing.
+      module Matchers
+        # Creates a matcher for validating service input attribute definitions.
+        #
+        # @param input_name [Symbol] The name of the input to validate
+        # @return [HaveServiceInputMatcher] Matcher with fluent chain methods
+        #
+        # @example
+        #   expect(MyService).to have_service_input(:user_id)
+        #     .type(Integer)
+        #     .required
         def have_service_input(input_name) # rubocop:disable Naming/PredicatePrefix
           HaveServiceInputMatcher.new(described_class, input_name)
         end
 
-        RSpec::Matchers.alias_matcher :have_input, :have_service_input
-
+        # Creates a matcher for validating service internal attribute definitions.
+        #
+        # @param internal_name [Symbol] The name of the internal to validate
+        # @return [HaveServiceInternalMatcher] Matcher with fluent chain methods
+        #
+        # @example
+        #   expect(MyService).to have_service_internal(:processed_data)
+        #     .type(Hash)
         def have_service_internal(internal_name) # rubocop:disable Naming/PredicatePrefix
           HaveServiceInternalMatcher.new(described_class, internal_name)
         end
 
-        RSpec::Matchers.alias_matcher :have_internal, :have_service_internal
-
-        ########################################################################
-        ########################################################################
-        ########################################################################
-
-        RSpec::Matchers.define :have_service_output do |output_name| # rubocop:disable Metrics/BlockLength
-          description { "service output" }
-
-          match do |actual|
-            match_for(actual, output_name)
-          end
-
-          chain :instance_of do |class_or_name|
-            @instance_of = Servactory::Utils.constantize_class(class_or_name)
-          end
-
-          chain :nested do |*values|
-            @nested = values
-          end
-
-          chain :contains do |value|
-            @value = value
-          end
-
-          failure_message do |actual|
-            match_for(actual, output_name)
-          end
-
-          # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          def match_for(actual, output_name)
-            given_value = actual.public_send(output_name)
-
-            if defined?(@instance_of)
-              expect(given_value).to(
-                RSpec::Matchers::BuiltIn::BeAnInstanceOf.new(@instance_of)
-              )
-            end
-
-            if defined?(@nested) && @nested.present?
-              @nested.each do |method_name|
-                next unless given_value.respond_to?(method_name)
-
-                given_value = given_value.public_send(method_name)
-              end
-            end
-
-            return true if !defined?(@value) && @value.nil?
-
-            expect(given_value).to(
-              case @value
-              when Array
-                RSpec::Matchers::BuiltIn::ContainExactly.new(@value)
-              when Hash
-                RSpec::Matchers::BuiltIn::Match.new(@value)
-              when TrueClass, FalseClass
-                RSpec::Matchers::BuiltIn::Equal.new(@value)
-              when NilClass
-                RSpec::Matchers::BuiltIn::BeNil.new(@value)
-              else
-                RSpec::Matchers::BuiltIn::Eq.new(@value)
-              end
-            )
-          end
-        end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
-        RSpec::Matchers.alias_matcher :have_output, :have_service_output
-
-        RSpec::Matchers.define :be_success_service do # rubocop:disable Metrics/BlockLength
-          description { "service success" }
-
-          def expected_data
-            @expected_data ||= {}
-          end
-
-          match do |actual|
-            matched = actual.is_a?(Servactory::Result)
-            matched &&= actual.success?
-            matched &&= !actual.failure?
-
-            if defined?(expected_data)
-              matched &&= expected_data.all? do |key, value|
-                if actual.respond_to?(key)
-                  actual.public_send(key) == value
-                else
-                  false
-                end
-              end
-            end
-
-            matched
-          end
-
-          chain :with_output do |key, value|
-            expected_data[key] = value
-          end
-
-          chain :with_outputs do |attributes|
-            attributes.each do |key, value|
-              expected_data[key] = value
-            end
-          end
-
-          failure_message do |actual| # rubocop:disable Metrics/BlockLength
-            unless actual.is_a?(Servactory::Result)
-              break <<~MESSAGE
-                Incorrect service result:
-
-                  expected Servactory::Result
-                       got #{actual.class.name}
-              MESSAGE
-            end
-
-            if actual.failure?
-              break <<~MESSAGE
-                Incorrect service result:
-
-                  expected success
-                       got failure
-              MESSAGE
-            end
-
-            if defined?(expected_data)
-              message = expected_data.each do |key, value|
-                unless actual.respond_to?(key)
-                  break <<~MESSAGE
-                    Non-existent value key in result:
-
-                    expected #{actual.inspect}
-                         got #{key}
-                  MESSAGE
-                end
-
-                received_value = actual.public_send(key)
-                next if actual.public_send(key) == value
-
-                break <<~MESSAGE
-                  Incorrect result value for #{key}:
-
-                    expected #{value.inspect}
-                         got #{received_value.inspect}
-                MESSAGE
-              end
-            end
-
-            break message if message.present?
-
-            <<~MESSAGE
-              Unexpected case when using `be_success_service`.
-
-              Please try to build an example based on the documentation.
-              Or report your problem to us:
-
-                https://github.com/servactory/servactory/issues
-            MESSAGE
-          end
+        # Creates a matcher for validating service result output values.
+        #
+        # @param output_name [Symbol] The name of the output to validate
+        # @return [HaveServiceOutputMatcher] Matcher with fluent chain methods
+        #
+        # @example
+        #   expect(result).to have_service_output(:user)
+        #     .instance_of(User)
+        #     .contains(name: "John")
+        def have_service_output(output_name) # rubocop:disable Naming/PredicatePrefix
+          HaveServiceOutputMatcher.new(output_name)
         end
 
-        RSpec::Matchers.define :be_failure_service do # rubocop:disable Metrics/BlockLength
-          description { "service failure" }
+        # Creates a matcher for validating successful service results.
+        #
+        # @return [Result::BeSuccessServiceMatcher] Matcher with output chain methods
+        #
+        # @example
+        #   expect(result).to be_success_service
+        #     .with_output(:data, "value")
+        def be_success_service
+          Result::BeSuccessServiceMatcher.new
+        end
 
-          match do |actual|
-            expected_failure_class =
-              defined?(@expected_failure_class) ? @expected_failure_class : Servactory::Exceptions::Failure
-
-            expected_type = defined?(@expected_type) ? @expected_type : :base
-            expected_message = defined?(@expected_message) ? @expected_message : nil
-            expected_meta = defined?(@expected_meta) ? @expected_meta : nil
-
-            matched = actual.is_a?(Servactory::Result)
-            matched &&= !actual.success?
-            matched &&= actual.failure?
-            matched &&= actual.error.is_a?(Servactory::Exceptions::Failure)
-            matched &&= actual.error.is_a?(expected_failure_class)
-            matched &&= actual.error.type == expected_type
-            matched &&= actual.error.message == expected_message if defined?(@expected_message)
-            matched &&= actual.error.meta == expected_meta if defined?(@expected_meta)
-            matched
-          end
-
-          chain :with do |expected_failure_class|
-            @expected_failure_class = expected_failure_class
-          end
-
-          chain :type do |expected_type|
-            @expected_type = expected_type
-          end
-
-          chain :message do |expected_message|
-            @expected_message = expected_message
-          end
-
-          chain :meta do |expected_meta|
-            @expected_meta = expected_meta
-          end
-
-          failure_message do |actual| # rubocop:disable Metrics/BlockLength
-            unless actual.is_a?(Servactory::Result)
-              break <<~MESSAGE
-                Incorrect service result:
-
-                  expected Servactory::Result
-                       got #{actual.class.name}
-              MESSAGE
-            end
-
-            if actual.success?
-              break <<~MESSAGE
-                Incorrect service result:
-
-                  expected failure
-                       got success
-              MESSAGE
-            end
-
-            unless actual.error.is_a?(Servactory::Exceptions::Failure)
-              break <<~MESSAGE
-                Incorrect error object:
-
-                  expected Servactory::Exceptions::Failure
-                       got #{actual.error.class.name}
-              MESSAGE
-            end
-
-            if defined?(@expected_failure_class)
-              unless actual.error.is_a?(@expected_failure_class)
-                break <<~MESSAGE
-                  Incorrect instance error:
-
-                    expected #{@expected_failure_class}
-                         got #{actual.error.class.name}
-                MESSAGE
-              end
-            else
-              unless actual.error.is_a?(Servactory::Exceptions::Failure)
-                break <<~MESSAGE
-                  Incorrect error object:
-
-                    expected Servactory::Exceptions::Failure
-                         got #{actual.error.class.name}
-                MESSAGE
-              end
-            end
-
-            if defined?(@expected_type) && actual.error.type != @expected_type
-              break <<~MESSAGE
-                Incorrect error type:
-
-                  expected #{actual.error.type.inspect}
-                       got #{@expected_type.inspect}
-              MESSAGE
-            end
-
-            if defined?(@expected_message) && actual.error.message != @expected_message
-              break <<~MESSAGE
-                Incorrect error message:
-
-                  expected #{actual.error.message.inspect}
-                       got #{@expected_message.inspect}
-              MESSAGE
-            end
-
-            if defined?(@expected_meta) && actual.error.meta != @expected_meta
-              break <<~MESSAGE
-                Incorrect error meta:
-
-                  expected #{actual.error.meta.inspect}
-                       got #{@expected_meta.inspect}
-              MESSAGE
-            end
-
-            <<~MESSAGE
-              Unexpected case when using `be_failure_service`.
-
-              Exception:  #{actual.error.inspect}
-              Type:       #{actual.error.type.inspect}
-              Message:    #{actual.error.message.inspect}
-              Meta:       #{actual.error.meta.inspect}
-
-              Please try to build an example based on the documentation.
-              Or report your problem to us:
-
-                https://github.com/servactory/servactory/issues
-            MESSAGE
-          end
+        # Creates a matcher for validating failed service results.
+        #
+        # @return [Result::BeFailureServiceMatcher] Matcher with error chain methods
+        #
+        # @example
+        #   expect(result).to be_failure_service
+        #     .type(:validation_error)
+        #     .message("Invalid input")
+        def be_failure_service
+          Result::BeFailureServiceMatcher.new
         end
       end
     end
   end
 end
+
+# Register shorter aliases for convenience.
+RSpec::Matchers.alias_matcher :have_input, :have_service_input
+RSpec::Matchers.alias_matcher :have_internal, :have_service_internal
+RSpec::Matchers.alias_matcher :have_output, :have_service_output

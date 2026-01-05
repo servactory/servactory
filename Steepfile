@@ -2,6 +2,7 @@
 
 target :lib do
   signature "sig"
+  signature "sig/external"
 
   check "lib"
 

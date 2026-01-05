@@ -12,7 +12,7 @@ module Servactory
         def inherited(child)
           super
 
-          child.instance_variable_set(:@config, config.dup_for_inheritance)
+          child.instance_variable_set(:@config, config.dup)
         end
 
         private

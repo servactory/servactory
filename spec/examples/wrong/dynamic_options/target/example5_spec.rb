@@ -17,24 +17,31 @@ RSpec.describe Wrong::DynamicOptions::Target::Example5, type: :service do
                     internals: %i[],
                     outputs: %i[target_class]
 
-    context "when the input arguments are valid" do
-      describe "but the option configuration is invalid" do
-        describe "because the `in` option is nil" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Wrong::DynamicOptions::Target::Example5] " \
-                "Output attribute `target_class` has missing value in `target` option"
-              )
+    describe "but the option configuration is invalid" do
+      describe "because the `in` option is nil" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Wrong::DynamicOptions::Target::Example5] " \
+              "Output attribute `target_class` has missing value in `target` option"
             )
-          end
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:service_class).valid_with(attributes).type(Class).required }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_class)
+              .valid_with(attributes)
+              .type(Class)
+              .required
+          )
+        end
+      end
     end
   end
 
@@ -54,24 +61,31 @@ RSpec.describe Wrong::DynamicOptions::Target::Example5, type: :service do
                     internals: %i[],
                     outputs: %i[target_class]
 
-    context "when the input arguments are valid" do
-      describe "but the option configuration is invalid" do
-        describe "because the `in` option is nil" do
-          it "returns expected error" do
-            expect { perform }.to(
-              raise_error(
-                ApplicationService::Exceptions::Output,
-                "[Wrong::DynamicOptions::Target::Example5] " \
-                "Output attribute `target_class` has missing value in `target` option"
-              )
+    describe "but the option configuration is invalid" do
+      describe "because the `in` option is nil" do
+        it "returns expected error" do
+          expect { perform }.to(
+            raise_error(
+              ApplicationService::Exceptions::Output,
+              "[Wrong::DynamicOptions::Target::Example5] " \
+              "Output attribute `target_class` has missing value in `target` option"
             )
-          end
+          )
         end
       end
     end
 
-    context "when the input arguments are invalid" do
-      it { expect { perform }.to have_input(:service_class).valid_with(attributes).type(Class).required }
+    describe "validations" do
+      describe "inputs" do
+        it do
+          expect { perform }.to(
+            have_input(:service_class)
+              .valid_with(attributes)
+              .type(Class)
+              .required
+          )
+        end
+      end
     end
   end
 end
