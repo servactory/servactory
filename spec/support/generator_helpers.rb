@@ -34,7 +34,7 @@ begin
     end
 
     class_methods do
-      # Set the generator class to test
+      # Generator class under test
       def tests(generator)
         define_method(:generator_class) { generator }
       end
