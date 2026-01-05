@@ -61,11 +61,12 @@ module ApplicationService
 
           # With `after :actions` hook, this method runs BEFORE Actions::Workspace.
           # Returning without calling super skips stage execution entirely.
+          # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           def call!(
-            incoming_arguments: {},
             collection_of_inputs:,
             collection_of_internals:,
             collection_of_outputs:,
+            incoming_arguments: {},
             **
           )
             settings = self.class.stroma.settings[:actions][:idempotent]
@@ -97,6 +98,7 @@ module ApplicationService
                 return
               end
             end
+            # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
             super
 
