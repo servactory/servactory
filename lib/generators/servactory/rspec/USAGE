@@ -1,36 +1,46 @@
 Description:
-    Generates an RSpec spec file for an existing Servactory service.
-    Automatically reads service inputs from the service's .info API.
+    Generates an RSpec spec file for a Servactory service.
 
 Usage:
-    rails generate servactory:rspec NAME [options]
+    rails generate servactory:rspec NAME [inputs] [options]
 
 Arguments:
-    NAME           The name of an existing service (e.g., Users::Create, ProcessOrder)
+    NAME           The name of the service (e.g., Users::Create, ProcessOrder)
+    inputs         Input attributes with optional types (e.g., email:string, user:User)
 
 Options:
-    --skip-validations   Skip validation examples
     --skip-pending       Skip pending placeholder
     --call-method=METHOD Primary call method: call or call! (default: call!)
-    --path=PATH          Path to generate spec files (default: spec/services)
+    --path=PATH          Path to service files (default: app/services)
+                         Spec path is auto-derived: app/X -> spec/X, lib/X -> spec/X
+
+Type Formats:
+    Lowercase types are normalized to Ruby classes:
+        string -> String, integer -> Integer, boolean -> [TrueClass, FalseClass]
+
+    Capitalized Ruby class names are preserved as-is:
+        String, Integer, Hash, Array
+
+    Custom types (models, enums, Structs) are preserved:
+        User, Admin::Role, Billing::PaymentStatus
+
+    Untyped inputs default to String.
 
 Examples:
-    rails generate servactory:rspec Users::Create
-        Creates spec/services/users/create_spec.rb with inputs from Users::Create.info
+    rails generate servactory:rspec Users::Create email:string name:string
+        Creates spec/services/users/create_spec.rb with typed inputs
 
-    rails generate servactory:rspec Users::Create --path=spec/lib/my_gem/services
-        Creates spec/lib/my_gem/services/users/create_spec.rb for gem/library use
+    rails generate servactory:rspec Users::Create email:String name:String
+        Creates spec/services/users/create_spec.rb with Ruby class types
+
+    rails generate servactory:rspec ProcessOrder user:User event:Event
+        Creates spec with custom model/class type inputs
+
+    rails generate servactory:rspec Users::Create --path=lib/my_gem/services
+        Creates spec/my_gem/services/users/create_spec.rb for gem/library use
 
     rails generate servactory:rspec ProcessOrder --call-method=call
         Creates spec using .call instead of .call!
 
-    rails generate servactory:rspec SendEmail --skip-validations
-        Creates spec without validation examples
-
     rails generate servactory:rspec CacheData --skip-pending
         Creates spec without pending placeholder
-
-Note:
-    The generator uses the service's .info API to read input, internal, and output
-    attribute definitions. If the service class cannot be loaded, a basic spec
-    template is generated.

@@ -1,9 +1,6 @@
 module Servactory
   module Generators
-    class RspecGenerator < Rails::Generators::NamedBase
-      @service_class: untyped
-      @service_info: untyped
-
+    class RspecGenerator < Servactory::Generators::NamedBase
       def create_spec_file: () -> void
 
       private
@@ -12,27 +9,15 @@ module Servactory
 
       def specs_path: () -> String
 
-      def call_method: () -> String
+      def services_path: () -> String
 
-      def skip_validations?: () -> bool
+      def call_method: () -> String
 
       def skip_pending?: () -> bool
 
-      def service_class: () -> untyped
+      def inputs_with_examples: () -> Array[Hash[Symbol, untyped]]
 
-      def service_info: () -> untyped
-
-      def service_exists?: () -> bool
-
-      def inputs_from_info: () -> Array[Hash[Symbol, untyped]]
-
-      def internals_from_info: () -> Array[Hash[Symbol, untyped]]
-
-      def outputs_from_info: () -> Array[Hash[Symbol, untyped]]
-
-      def format_types: (Array[untyped] types) -> String
-
-      def example_value_for_types: (Array[untyped] types) -> String
+      def example_value_for_type: (String type_string) -> String
     end
   end
 end

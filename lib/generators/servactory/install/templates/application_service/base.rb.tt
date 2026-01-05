@@ -23,7 +23,6 @@ module <%= namespace %>
       internal_exception_class <%= namespace %>::Exceptions::Internal
       output_exception_class <%= namespace %>::Exceptions::Output
 
-      success_class <%= namespace %>::Exceptions::Success
       failure_class <%= namespace %>::Exceptions::Failure
 
       result_class <%= namespace %>::Result

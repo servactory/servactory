@@ -4,8 +4,10 @@ require_relative "../base"
 
 module Servactory
   module Generators
-    class RspecGenerator < Rails::Generators::NamedBase # rubocop:disable Metrics/ClassLength
+    class RspecGenerator < Servactory::Generators::NamedBase
       source_root File.expand_path("templates", __dir__)
+
+      argument :inputs, type: :array, default: [], banner: "name:type"
 
       class_option :call_method,
                    type: :string,
@@ -15,13 +17,8 @@ module Servactory
 
       class_option :path,
                    type: :string,
-                   default: "spec/services",
-                   desc: "Path to generate spec files"
-
-      class_option :skip_validations,
-                   type: :boolean,
-                   default: false,
-                   desc: "Skip validation examples"
+                   default: "app/services",
+                   desc: "Path to service files (specs auto-generated to spec/...)"
 
       class_option :skip_pending,
                    type: :boolean,
@@ -39,6 +36,15 @@ module Servactory
       end
 
       def specs_path
+        # Convert services path to specs path:
+        # app/services → spec/services
+        # lib/foo → spec/foo
+        services_path
+          .sub(%r{^app/}, "spec/")
+          .sub(%r{^lib/}, "spec/")
+      end
+
+      def services_path
         options[:path]
       end
 
@@ -46,89 +52,23 @@ module Servactory
         options[:call_method]
       end
 
-      def skip_validations?
-        options[:skip_validations]
-      end
-
       def skip_pending?
         options[:skip_pending]
       end
 
-      def service_class
-        @service_class ||= class_name.constantize
-      rescue NameError
-        nil
-      end
-
-      def service_info
-        @service_info ||= service_class&.info
-      end
-
-      def service_exists?
-        service_class.present? && service_info.present?
-      end
-
-      def inputs_from_info # rubocop:disable Metrics/MethodLength
-        return [] unless service_info
-
-        service_info.inputs.map do |name, options|
-          types = options[:types] || []
-          {
-            name:,
-            types:,
-            type_string: format_types(types),
-            required: options[:required] != false,
-            default: options[:default],
-            example: example_value_for_types(types)
-          }
+      def inputs_with_examples
+        parsed_inputs.map do |input|
+          input.merge(example: example_value_for_type(input[:type]))
         end
       end
 
-      def internals_from_info
-        return [] unless service_info
-
-        service_info.internals.map do |name, options|
-          types = options[:types] || []
-          {
-            name:,
-            types:,
-            type_string: format_types(types)
-          }
-        end
-      end
-
-      def outputs_from_info
-        return [] unless service_info
-
-        service_info.outputs.map do |name, options|
-          types = options[:types] || []
-          {
-            name:,
-            types:,
-            type_string: format_types(types)
-          }
-        end
-      end
-
-      def format_types(types)
-        return "String" if types.empty?
-
-        if types.size == 1
-          types.first.to_s
-        else
-          "[#{types.map(&:to_s).join(', ')}]"
-        end
-      end
-
-      def example_value_for_types(types) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
-        return '"Some value"' if types.empty?
-
-        type = types.first.to_s
-        case type
+      def example_value_for_type(type_string) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+        case type_string
         when "Integer" then "1"
         when "Float" then "1.0"
         when "TrueClass" then "true"
         when "FalseClass" then "false"
+        when "[TrueClass, FalseClass]" then "true"
         when "Array" then "[]"
         when "Hash" then "{}"
         when "Symbol" then ":example"

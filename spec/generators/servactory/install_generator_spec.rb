@@ -24,7 +24,7 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
         content = file_content("app/services/application_service/base.rb")
         expect(content).to include("module ApplicationService")
         expect(content).to include("class Base < Servactory::Base")
-        expect(content).to include("success_class ApplicationService::Exceptions::Success")
+        expect(content).to include("failure_class ApplicationService::Exceptions::Failure")
       end
 
       it "creates exceptions.rb", :aggregate_failures do
@@ -33,7 +33,7 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
         content = file_content("app/services/application_service/exceptions.rb")
         expect(content).to include("module ApplicationService")
         expect(content).to include("module Exceptions")
-        expect(content).to include("class Success < Servactory::Exceptions::Success")
+        expect(content).to include("class Failure < Servactory::Exceptions::Failure")
       end
 
       it "creates result.rb", :aggregate_failures do

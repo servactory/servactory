@@ -31,7 +31,7 @@ RSpec.describe "Servactory::Generators::RspecGenerator", skip: !RSPEC_GENERATOR_
         expect(content).to include("subject(:perform) { described_class.call!(**attributes) }")
       end
 
-      it "creates spec with placeholder for attributes when service not loaded", :aggregate_failures do
+      it "creates spec with placeholder for attributes when no inputs provided", :aggregate_failures do
         content = file_content("spec/services/process_order_spec.rb")
         expect(content).to include("let(:attributes) do")
         expect(content).to include("# TODO: Add input attributes")
@@ -49,6 +49,47 @@ RSpec.describe "Servactory::Generators::RspecGenerator", skip: !RSPEC_GENERATOR_
       end
     end
 
+    context "with input arguments" do
+      before { run_generator %w[Users::Create email:string name:string] }
+
+      it "creates spec with input attributes", :aggregate_failures do
+        content = file_content("spec/services/users/create_spec.rb")
+        expect(content).to include("let(:attributes) do")
+        expect(content).to include("email: email,")
+        expect(content).to include("name: name")
+        expect(content).to include('let(:email) { "Some value" }')
+        expect(content).to include('let(:name) { "Some value" }')
+      end
+
+      it "creates spec with validation examples", :aggregate_failures do
+        content = file_content("spec/services/users/create_spec.rb")
+        expect(content).to include('describe "validations"')
+        expect(content).to include('describe "inputs"')
+        expect(content).to include("have_input(:email)")
+        expect(content).to include("have_input(:name)")
+        expect(content).to include(".type(String)")
+        expect(content).to include(".required")
+      end
+    end
+
+    context "with typed input arguments" do
+      before { run_generator %w[ProcessOrder user_id:integer amount:float confirmed:boolean] }
+
+      it "generates correct example values for each type", :aggregate_failures do
+        content = file_content("spec/services/process_order_spec.rb")
+        expect(content).to include("let(:user_id) { 1 }")
+        expect(content).to include("let(:amount) { 1.0 }")
+        expect(content).to include("let(:confirmed) { true }")
+      end
+
+      it "generates correct type assertions", :aggregate_failures do
+        content = file_content("spec/services/process_order_spec.rb")
+        expect(content).to include(".type(Integer)")
+        expect(content).to include(".type(Float)")
+        expect(content).to include(".type([TrueClass, FalseClass])")
+      end
+    end
+
     context "with --call-method=call option" do
       before { run_generator %w[ProcessOrder --call-method=call] }
 
@@ -60,30 +101,32 @@ RSpec.describe "Servactory::Generators::RspecGenerator", skip: !RSPEC_GENERATOR_
       end
     end
 
-    context "with --path option" do
-      before { run_generator %w[ProcessOrder --path=spec/lib/my_gem/services] }
+    context "with --path option for app/ path" do
+      before { run_generator %w[ProcessOrder --path=app/domain/services] }
 
-      it "creates spec file in custom path", :aggregate_failures do
-        assert_file "spec/lib/my_gem/services/process_order_spec.rb"
+      it "converts app/ to spec/ for spec path", :aggregate_failures do
+        assert_file "spec/domain/services/process_order_spec.rb"
         assert_no_file "spec/services/process_order_spec.rb"
+        assert_no_file "app/domain/services/process_order_spec.rb"
+      end
+    end
+
+    context "with --path option for lib/ path" do
+      before { run_generator %w[ProcessOrder --path=lib/my_gem/services] }
+
+      it "converts lib/ to spec/ for spec path", :aggregate_failures do
+        assert_file "spec/my_gem/services/process_order_spec.rb"
+        assert_no_file "spec/lib/my_gem/services/process_order_spec.rb"
+        assert_no_file "lib/my_gem/services/process_order_spec.rb"
       end
     end
 
     context "with --path option and namespaced name" do
-      before { run_generator %w[Users::Create --path=spec/lib/my_gem/services] }
+      before { run_generator %w[Users::Create --path=lib/my_gem/services] }
 
       it "creates spec file in custom path with namespace", :aggregate_failures do
-        assert_file "spec/lib/my_gem/services/users/create_spec.rb"
+        assert_file "spec/my_gem/services/users/create_spec.rb"
         assert_no_file "spec/services/users/create_spec.rb"
-      end
-    end
-
-    context "with --skip-validations option" do
-      before { run_generator %w[ProcessOrder --skip-validations] }
-
-      it "creates spec without validation examples", :aggregate_failures do
-        content = file_content("spec/services/process_order_spec.rb")
-        expect(content).not_to include('describe "validations"')
       end
     end
 
