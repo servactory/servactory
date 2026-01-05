@@ -128,6 +128,64 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
         assert_file "config/locales/servactory.ru.yml"
       end
     end
+
+    context "with --locales=de" do
+      before { run_generator %w[--locales=de] }
+
+      it "copies German locale file", :aggregate_failures do
+        assert_file "config/locales/servactory.de.yml"
+
+        content = file_content("config/locales/servactory.de.yml")
+        expect(content).to include("de:")
+        expect(content).to include("servactory:")
+      end
+    end
+
+    context "with --locales=fr" do
+      before { run_generator %w[--locales=fr] }
+
+      it "copies French locale file", :aggregate_failures do
+        assert_file "config/locales/servactory.fr.yml"
+
+        content = file_content("config/locales/servactory.fr.yml")
+        expect(content).to include("fr:")
+        expect(content).to include("servactory:")
+      end
+    end
+
+    context "with --locales=es" do
+      before { run_generator %w[--locales=es] }
+
+      it "copies Spanish locale file", :aggregate_failures do
+        assert_file "config/locales/servactory.es.yml"
+
+        content = file_content("config/locales/servactory.es.yml")
+        expect(content).to include("es:")
+        expect(content).to include("servactory:")
+      end
+    end
+
+    context "with --locales=it" do
+      before { run_generator %w[--locales=it] }
+
+      it "copies Italian locale file", :aggregate_failures do
+        assert_file "config/locales/servactory.it.yml"
+
+        content = file_content("config/locales/servactory.it.yml")
+        expect(content).to include("it:")
+        expect(content).to include("servactory:")
+      end
+    end
+
+    context "with all locales" do
+      before { run_generator %w[--locales=en,ru,de,fr,es,it] }
+
+      it "copies all locale files", :aggregate_failures do
+        %w[en ru de fr es it].each do |locale|
+          assert_file "config/locales/servactory.#{locale}.yml"
+        end
+      end
+    end
   end
 
   describe "namespace validation" do
