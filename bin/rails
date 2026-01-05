@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+# Runs bundle exec with specified Rails version gemfile
+# Usage:
+#   bin/rails rspec                      # Uses Rails 8.1 (default)
+#   bin/rails rspec spec/generators      # With arguments
+#   bin/rails -v 7.0 rspec               # Uses Rails 7.0
+#   bin/rails --version=5.1 rubocop      # Uses Rails 5.1
+
+set -e
+
+RAILS_VERSION="8.1"
+
+# Parse optional Rails version argument
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -v)
+      RAILS_VERSION="$2"
+      shift 2
+      ;;
+    --version=*)
+      RAILS_VERSION="${1#*=}"
+      shift
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+if [[ $# -eq 0 ]]; then
+  echo "Usage: bin/rails [-v VERSION|--version=VERSION] COMMAND [ARGS...]"
+  echo ""
+  echo "Examples:"
+  echo "  bin/rails rspec"
+  echo "  bin/rails rspec spec/generators"
+  echo "  bin/rails -v 7.0 rspec"
+  echo "  bin/rails --version=5.1 rubocop"
+  echo ""
+  echo "Available Rails versions:"
+  ls -1 gemfiles/*.gemfile 2>/dev/null | sed 's/.*rails_\(.*\)\.gemfile/  \1/' | sort -V
+  exit 1
+fi
+
+GEMFILE="gemfiles/rails_${RAILS_VERSION}.gemfile"
+
+if [[ ! -f "$GEMFILE" ]]; then
+  echo "Error: Gemfile not found: $GEMFILE"
+  echo ""
+  echo "Available Rails versions:"
+  ls -1 gemfiles/*.gemfile 2>/dev/null | sed 's/.*rails_\(.*\)\.gemfile/  \1/' | sort -V
+  exit 1
+fi
+
+echo "Running with Rails ${RAILS_VERSION}..."
+BUNDLE_GEMFILE="$GEMFILE" bundle exec "$@"
