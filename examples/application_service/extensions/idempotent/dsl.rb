@@ -59,43 +59,49 @@ module ApplicationService
         module InstanceMethods
           private
 
-          def call!(incoming_arguments: {}, **) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # With `after :actions` hook, this method runs BEFORE Actions::Workspace.
+          # Returning without calling super skips stage execution entirely.
+          def call!(
+            incoming_arguments: {},
+            collection_of_inputs:,
+            collection_of_internals:,
+            collection_of_outputs:,
+            **
+          )
             settings = self.class.stroma.settings[:actions][:idempotent]
             key_input = settings[:key_input]
-            idempotency_was_cached = false
-            cached_outputs = nil
 
-            if key_input.present?
-              store = settings[:store]
+            return super if key_input.blank?
 
-              fail!(:idempotency_error, message: "Idempotency store not configured") if store.nil?
+            store = settings[:store]
 
-              key = incoming_arguments[key_input]
+            fail!(:idempotency_error, message: "Idempotency store not configured") if store.nil?
 
-              if key.present?
-                cached_result = store.get(key)
+            key = incoming_arguments[key_input]
 
-                if cached_result.present?
-                  idempotency_was_cached = true
-                  cached_outputs = cached_result
+            if key.present?
+              cached_result = store.get(key)
+
+              if cached_result.present?
+                # Initialize collections manually (normally done by Context::Workspace)
+                @collection_of_inputs = collection_of_inputs
+                @collection_of_internals = collection_of_internals
+                @collection_of_outputs = collection_of_outputs
+
+                # Populate outputs from cache
+                cached_result.each do |output_name, output_value|
+                  outputs.send(:"#{output_name}=", output_value)
                 end
+
+                # Return without calling super - skips stage execution!
+                return
               end
             end
 
             super
 
-            return if key_input.nil?
-
-            if idempotency_was_cached
-              cached_outputs.each do |output_name, output_value|
-                outputs.send(:"#{output_name}=", output_value)
-              end
-            else
-              store = settings[:store]
-              key = inputs.send(key_input)
-
-              store.set(key, outputs.except)
-            end
+            # Cache the result after execution
+            store.set(inputs.send(key_input), outputs.except) if key.present?
           end
         end
       end

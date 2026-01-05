@@ -75,9 +75,9 @@ module Servactory
 
         # Converts to a plain Hash.
         #
-        # @return [Hash] Copy of internal data
+        # @return [Hash] Deep copy of internal data
         def to_h
-          @data.dup
+          deep_dup(@data)
         end
 
         # Fetches a value with optional default.
