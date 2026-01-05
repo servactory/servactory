@@ -71,17 +71,17 @@ RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
         expect(idempotency_store.execution_count).to eq(1)
       end
 
-      it "returns cached value on subsequent calls", :aggregate_failures do
-        # First call
+      it "returns cached value on subsequent calls without re-executing", :aggregate_failures do
+        # First call - executes and caches result
         first_result = described_class.call!(**attributes)
         expect(first_result.value).to eq(500)
 
-        # Second call with same request_id - outputs restored from cache
+        # Second call with same request_id - returns from cache, skips execution
         second_result = described_class.call!(**attributes)
         expect(second_result.value).to eq(500)
 
-        # Both calls execute, but outputs are consistent due to caching
-        expect(idempotency_store.execution_count).to eq(2)
+        # Only first call executes - second returns early from cache (true idempotency)
+        expect(idempotency_store.execution_count).to eq(1)
       end
     end
   end

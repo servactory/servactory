@@ -37,6 +37,7 @@ module Servactory
       # - RegistryNotFinalized - Raised when accessing registry before finalization
       # - KeyAlreadyRegistered - Raised when registering a duplicate key
       # - UnknownHookTarget - Raised when using an invalid hook target key
+      # - InvalidHookType - Raised when using an invalid hook type (:before/:after)
       class Base < StandardError
       end
     end

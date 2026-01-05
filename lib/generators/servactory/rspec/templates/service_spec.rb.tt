@@ -1,0 +1,58 @@
+# frozen_string_literal: true
+
+RSpec.describe <%= class_name %>, type: :service do
+<% unless skip_pending? -%>
+  pending "add some examples to (or delete) #{__FILE__}"
+
+<% end -%>
+  describe ".<%= call_method %>" do
+    subject(:perform) { described_class.<%= call_method %>(**attributes) }
+
+<% if inputs_with_examples.any? -%>
+    let(:attributes) do
+      {
+<% inputs_with_examples.each_with_index do |input, index| -%>
+        <%= input[:name] %>: <%= input[:name] %><%= index < inputs_with_examples.size - 1 ? ',' : '' %>
+<% end -%>
+      }
+    end
+
+<% inputs_with_examples.each do |input| -%>
+    let(:<%= input[:name] %>) { <%= input[:example] %> }
+<% end -%>
+<% else -%>
+    let(:attributes) do
+      {
+        # TODO: Add input attributes
+      }
+    end
+<% end -%>
+<% if inputs_with_examples.any? -%>
+
+    describe "validations" do
+      describe "inputs" do
+<% inputs_with_examples.each do |input| -%>
+        it do
+          expect { perform }.to(
+            have_input(:<%= input[:name] %>)
+              .valid_with(attributes)
+              .type(<%= input[:type] %>)
+              .required
+          )
+        end
+
+<% end -%>
+      end
+    end
+<% end -%>
+
+    describe "and the data required for work is also valid" do
+      it { expect(perform).to be_success_service }
+    end
+
+    describe "but the data required for work is invalid" do
+      # Provide a reason why the data is invalid and then use this:
+      # it { expect(perform).to be_failure_service }
+    end
+  end
+end

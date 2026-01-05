@@ -22,8 +22,8 @@ RSpec.describe Servactory::Stroma::DSL do
       end
     end
 
-    it "creates a stroma configuration" do
-      expect(base_class.stroma).to be_a(Servactory::Stroma::Configuration)
+    it "creates a stroma state" do
+      expect(base_class.stroma).to be_a(Servactory::Stroma::State)
     end
   end
 
@@ -58,9 +58,9 @@ RSpec.describe Servactory::Stroma::DSL do
       expect(child_class.extension_method).to eq(:extension_result)
     end
 
-    it "copies stroma configuration to child", :aggregate_failures do
+    it "copies stroma state to child", :aggregate_failures do
       expect(child_class.stroma).not_to eq(base_class.stroma)
-      expect(child_class.stroma).to be_a(Servactory::Stroma::Configuration)
+      expect(child_class.stroma).to be_a(Servactory::Stroma::State)
     end
 
     it "hooks are inherited" do

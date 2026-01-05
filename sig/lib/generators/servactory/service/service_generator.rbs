@@ -1,0 +1,19 @@
+module Servactory
+  module Generators
+    class ServiceGenerator < Servactory::Generators::NamedBase
+      def create_service: () -> void
+
+      private
+
+      def service_file_path: () -> String
+
+      def services_path: () -> String
+
+      def base_class_name: () -> String
+
+      def skip_output?: () -> bool
+
+      def input_declarations: () -> Array[String]
+    end
+  end
+end

@@ -8,14 +8,14 @@ module Servactory
       # ## Purpose
       #
       # Ensures that only valid hook types (:before, :after) are used
-      # when creating Servactory::Stroma::Hook objects. Provides fail-fast
+      # when creating Servactory::Stroma::Hooks::Hook objects. Provides fail-fast
       # behavior during class definition rather than silent failures at runtime.
       #
       # ## Usage
       #
       # ```ruby
       # # This will raise InvalidHookType:
-      # Servactory::Stroma::Hook.new(
+      # Servactory::Stroma::Hooks::Hook.new(
       #   type: :invalid,
       #   target_key: :actions,
       #   extension: MyModule
