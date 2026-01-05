@@ -7,7 +7,7 @@ module Servactory
     class ServiceGenerator < Servactory::Generators::NamedBase
       source_root File.expand_path("templates", __dir__)
 
-      argument :attributes, type: :array, default: [], banner: "input:type"
+      argument :inputs, type: :array, default: [], banner: "name:type"
 
       class_option :base_class,
                    type: :string,

@@ -43,13 +43,14 @@ module Servactory
       private
 
       def input_names
-        @input_names ||= attributes_names
+        @input_names ||= parsed_inputs.map { |input| input[:name] }
       end
 
       def parsed_inputs
-        @parsed_inputs ||= attributes.map do |attribute|
-          name = attribute.name
-          type = normalize_type(attribute.type&.to_s)
+        @parsed_inputs ||= inputs.map do |input_argument|
+          parts = input_argument.to_s.split(":", 2)
+          name = parts[0]
+          type = normalize_type(parts[1])
 
           { name:, type: }
         end

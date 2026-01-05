@@ -23,6 +23,8 @@ module Servactory
 
       private
 
+      def inputs: () -> Array[String]
+
       def input_names: () -> Array[String]
 
       def parsed_inputs: () -> Array[Hash[Symbol, untyped]]
