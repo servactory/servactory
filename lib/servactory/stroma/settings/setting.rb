@@ -96,7 +96,7 @@ module Servactory
 
         private
 
-        # Recursively duplicates nested structures.
+        # Recursively duplicates nested Hash and Array structures.
         #
         # @param obj [Object] The object to duplicate
         # @return [Object] Deep copy of the object
