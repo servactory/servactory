@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require "generators/servactory/rspec/rspec_generator"
 
-RSPEC_GENERATOR_AVAILABLE = begin
-  require "generators/servactory/rspec/rspec_generator"
-  true
-rescue LoadError
-  false
-end
-
-RSpec.describe "Servactory::Generators::RspecGenerator", skip: !RSPEC_GENERATOR_AVAILABLE do
+RSpec.describe "Servactory::Generators::RspecGenerator" do
   include GeneratorHelpers
 
-  tests Servactory::Generators::RspecGenerator if RSPEC_GENERATOR_AVAILABLE
+  tests Servactory::Generators::RspecGenerator
 
   describe "#create_spec_file" do
     describe "file creation" do

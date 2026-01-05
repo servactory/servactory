@@ -1,0 +1,62 @@
+# frozen_string_literal: true
+
+module <%= base_namespace %>
+  module Extensions
+    module <%= class_name %>
+      module DSL
+        # Hook called when this module is included in a service base class.
+        # Sets up both class-level DSL methods and instance-level runtime behavior.
+        def self.included(base)
+          base.extend(ClassMethods)
+          base.include(InstanceMethods)
+        end
+
+        # Class-level DSL methods - called at service class definition time.
+        # Use these to configure extension behavior for the service class.
+        module ClassMethods
+          private
+
+          # Example DSL method that stores configuration in stroma settings.
+          # Usage in service: <%= extension_key %>!(my_setting: "value")
+          def <%= extension_key %>!(my_setting: nil)
+            stroma.settings[:actions][:<%= extension_key %>][:my_setting] = my_setting
+          end
+        end
+
+        # Instance-level methods - called at service runtime.
+        # Override call! to add behavior before, after, or around service execution.
+        module InstanceMethods
+          private
+
+          # Override call! to customize service execution flow.
+          #
+          # Common patterns:
+          #   Before: validate/check conditions, then call super
+          #   After:  call super, then process outputs
+          #   Around: wrap super in context (e.g., transaction { super })
+          #   Error:  call super with rescue block for error handling
+          #
+          # Available parameters for call!:
+          #   def call!(**) - basic, most common
+          #   def call!(incoming_arguments: {}, **) - access raw arguments before input processing
+          #   def call!(collection_of_inputs:, collection_of_internals:, collection_of_outputs:, **) - full access
+          def call!(**)
+            # Access class-level configuration stored in stroma settings
+            my_setting = self.class.stroma.settings[:actions][:<%= extension_key %>][:my_setting]
+
+            # Example: Before pattern - validate before execution
+            # if my_setting.present?
+            #   fail!(:my_error, message: "Error message") unless some_condition
+            # end
+
+            # Always call super to continue the execution chain
+            super
+
+            # Example: After pattern - process outputs after execution
+            # process_result(outputs) if my_setting.present?
+          end
+        end
+      end
+    end
+  end
+end

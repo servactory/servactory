@@ -1,0 +1,54 @@
+Description:
+    Generates a new Servactory extension module.
+
+Usage:
+    rails generate servactory:extension NAME [options]
+
+Arguments:
+    NAME           The name of the extension (e.g., MyExtension, Admin::AuditTrail)
+
+Options:
+    --path=PATH           Path to generate extension files (default: app/services/application_service/extensions)
+    --namespace=NAMESPACE Base namespace for the extension module (default: ApplicationService)
+
+Generated Structure:
+    The extension follows the standard Servactory extension pattern with:
+        - self.included(base) hook for module setup
+        - ClassMethods module for DSL methods (called at class definition time)
+        - InstanceMethods module for runtime behavior (call! override)
+        - stroma.settings integration for configuration storage
+
+Examples:
+    rails generate servactory:extension MyExtension
+        Creates app/services/application_service/extensions/my_extension/dsl.rb
+        Module: ApplicationService::Extensions::MyExtension::DSL
+
+    rails generate servactory:extension Admin::AuditTrail
+        Creates app/services/application_service/extensions/admin/audit_trail/dsl.rb
+        Module: ApplicationService::Extensions::Admin::AuditTrail::DSL
+
+    rails generate servactory:extension MyExtension --path=lib/my_gem/extensions
+        Creates lib/my_gem/extensions/my_extension/dsl.rb
+
+    rails generate servactory:extension MyExtension --namespace=MyApp::Services
+        Creates extension with MyApp::Services::Extensions::MyExtension::DSL namespace
+
+Usage in Service:
+    After generation, include the extension in your service base class:
+
+        # app/services/application_service/base.rb
+        module ApplicationService
+          class Base < Servactory::Base
+            extensions do
+              before :actions, ApplicationService::Extensions::MyExtension::DSL
+            end
+          end
+        end
+
+    Then use the DSL method in your services:
+
+        class MyService < ApplicationService::Base
+          my_extension!(my_setting: "value")
+
+          # ...
+        end
