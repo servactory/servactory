@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "shared_examples"
 
 RSPEC_GENERATOR_AVAILABLE = begin
   require "generators/servactory/rspec/rspec_generator"
@@ -136,6 +137,77 @@ RSpec.describe "Servactory::Generators::RspecGenerator", skip: !RSPEC_GENERATOR_
       it "creates spec without pending placeholder", :aggregate_failures do
         content = file_content("spec/services/process_order_spec.rb")
         expect(content).not_to include("pending")
+      end
+    end
+
+    describe "path conversion" do
+      context "with Rails engine app/ path" do
+        before { run_generator %w[ProcessOrder --path=engines/core/app/services] }
+
+        it "converts engines/*/app/ to engines/*/spec/", :aggregate_failures do
+          assert_file "engines/core/spec/services/process_order_spec.rb"
+          assert_no_file "spec/engines/core/app/services/process_order_spec.rb"
+          assert_no_file "engines/core/app/services/process_order_spec.rb"
+        end
+      end
+
+      context "with Rails engine lib/ path" do
+        before { run_generator %w[ProcessOrder --path=engines/admin/lib/services] }
+
+        it "converts engines/*/lib/ to engines/*/spec/", :aggregate_failures do
+          assert_file "engines/admin/spec/services/process_order_spec.rb"
+          assert_no_file "spec/engines/admin/lib/services/process_order_spec.rb"
+        end
+      end
+
+      context "with namespaced service in engine" do
+        before { run_generator %w[Users::Create --path=engines/core/app/services] }
+
+        it "creates spec file in engine spec path with namespace", :aggregate_failures do
+          assert_file "engines/core/spec/services/users/create_spec.rb"
+        end
+      end
+    end
+
+    describe "additional type example values" do
+      context "with nil type" do
+        before { run_generator %w[ProcessOrder value:nil] }
+
+        it "generates nil example value", :aggregate_failures do
+          content = file_content("spec/services/process_order_spec.rb")
+          expect(content).to include("let(:value) { nil }")
+          expect(content).to include(".type(NilClass)")
+        end
+      end
+
+      context "with decimal type" do
+        before { run_generator %w[ProcessOrder amount:decimal] }
+
+        it "generates BigDecimal example value", :aggregate_failures do
+          content = file_content("spec/services/process_order_spec.rb")
+          expect(content).to include('let(:amount) { BigDecimal("1.0") }')
+          expect(content).to include(".type(BigDecimal)")
+        end
+      end
+    end
+
+    describe "generated code validity" do
+      context "with simple spec" do
+        before { run_generator %w[ProcessOrder] }
+
+        it_behaves_like "generates valid Ruby syntax", "spec/services/process_order_spec.rb"
+      end
+
+      context "with complex inputs" do
+        before { run_generator %w[ProcessOrder email:string count:integer flag:boolean] }
+
+        it_behaves_like "generates valid Ruby syntax", "spec/services/process_order_spec.rb"
+      end
+
+      context "with namespaced service" do
+        before { run_generator %w[Admin::Users::ProcessOrder] }
+
+        it_behaves_like "generates valid Ruby syntax", "spec/services/admin/users/process_order_spec.rb"
       end
     end
   end

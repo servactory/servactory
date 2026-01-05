@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "shared_examples"
 
 SERVICE_GENERATOR_AVAILABLE = begin
   require "generators/servactory/service/service_generator"
@@ -15,7 +16,7 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
   tests Servactory::Generators::ServiceGenerator if SERVICE_GENERATOR_AVAILABLE
 
   describe "#create_service" do
-    describe "service file creation" do
+    describe "file creation" do
       context "with simple name" do
         before { run_generator %w[ProcessOrder] }
 
@@ -142,6 +143,95 @@ RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERA
           expect(content).not_to include("output :data")
           expect(content).not_to include('outputs.data = "done"')
         end
+      end
+    end
+
+    describe "input name validation" do
+      context "with invalid input names" do
+        it "rejects empty input names" do
+          expect { run_generator %w[ProcessOrder :string] }.to raise_error(ArgumentError, /Invalid input name/)
+        end
+
+        it "rejects names starting with numbers" do
+          expect { run_generator %w[ProcessOrder 123name:string] }.to raise_error(ArgumentError, /Invalid input name/)
+        end
+
+        it "rejects names with special characters" do
+          expect { run_generator %w[ProcessOrder my-name:string] }.to raise_error(ArgumentError, /Invalid input name/)
+        end
+
+        it "rejects names with spaces" do
+          expect { run_generator ["ProcessOrder", "my name:string"] }.to raise_error(ArgumentError, /Invalid input name/)
+        end
+
+        it "rejects names starting with uppercase" do
+          expect { run_generator %w[ProcessOrder MyName:string] }.to raise_error(ArgumentError, /Invalid input name/)
+        end
+      end
+
+      context "with valid input names" do
+        it "accepts names starting with underscore" do
+          expect { run_generator %w[ProcessOrder _private:string] }.not_to raise_error
+          assert_file "app/services/process_order.rb"
+        end
+
+        it "accepts snake_case names" do
+          expect { run_generator %w[ProcessOrder user_email:string] }.not_to raise_error
+        end
+
+        it "accepts names with numbers (not at start)" do
+          expect { run_generator %w[ProcessOrder field2:string] }.not_to raise_error
+        end
+      end
+
+      context "with whitespace in input names" do
+        before { run_generator ["ProcessOrder", " email :string"] }
+
+        it "strips whitespace from input names", :aggregate_failures do
+          content = file_content("app/services/process_order.rb")
+          expect(content).to include("input :email, type: String")
+          expect(content).not_to include("input : email")
+        end
+      end
+    end
+
+    describe "additional type mappings" do
+      context "with nil type" do
+        before { run_generator %w[ProcessOrder value:nil] }
+
+        it "normalizes nil to NilClass", :aggregate_failures do
+          content = file_content("app/services/process_order.rb")
+          expect(content).to include("input :value, type: NilClass")
+        end
+      end
+
+      context "with decimal type" do
+        before { run_generator %w[ProcessOrder amount:decimal] }
+
+        it "normalizes decimal to BigDecimal", :aggregate_failures do
+          content = file_content("app/services/process_order.rb")
+          expect(content).to include("input :amount, type: BigDecimal")
+        end
+      end
+    end
+
+    describe "generated code validity" do
+      context "with simple service" do
+        before { run_generator %w[ProcessOrder] }
+
+        it_behaves_like "generates valid Ruby syntax", "app/services/process_order.rb"
+      end
+
+      context "with complex inputs" do
+        before { run_generator %w[ProcessOrder email:string count:integer flag:boolean] }
+
+        it_behaves_like "generates valid Ruby syntax", "app/services/process_order.rb"
+      end
+
+      context "with namespaced service" do
+        before { run_generator %w[Admin::Users::ProcessOrder] }
+
+        it_behaves_like "generates valid Ruby syntax", "app/services/admin/users/process_order.rb"
       end
     end
   end

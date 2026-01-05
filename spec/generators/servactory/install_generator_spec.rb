@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "spec_helper"
+require_relative "shared_examples"
 
 INSTALL_GENERATOR_AVAILABLE = begin
   require "generators/servactory/install/install_generator"
@@ -127,6 +128,71 @@ RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERA
         assert_file "config/locales/servactory.en.yml"
         assert_file "config/locales/servactory.ru.yml"
       end
+    end
+  end
+
+  describe "namespace validation" do
+    context "with invalid namespace names" do
+      it "rejects namespace starting with lowercase" do
+        expect { run_generator %w[--namespace=myApp] }.to raise_error(ArgumentError, /Invalid namespace/)
+      end
+
+      it "rejects namespace starting with number" do
+        expect { run_generator %w[--namespace=123Service] }.to raise_error(ArgumentError, /Invalid namespace/)
+      end
+
+      it "rejects namespace with spaces" do
+        expect { run_generator ["--namespace=My App"] }.to raise_error(ArgumentError, /Invalid namespace/)
+      end
+
+      it "rejects namespace with special characters" do
+        expect { run_generator %w[--namespace=My-Service] }.to raise_error(ArgumentError, /Invalid namespace/)
+      end
+
+      it "rejects empty namespace" do
+        expect { run_generator %w[--namespace=] }.to raise_error(ArgumentError, /Invalid namespace/)
+      end
+    end
+
+    context "with valid namespace names" do
+      it "accepts simple namespace" do
+        expect { run_generator %w[--namespace=MyService] }.not_to raise_error
+        assert_file "app/services/my_service/base.rb"
+      end
+
+      it "accepts nested namespace" do
+        expect { run_generator %w[--namespace=MyApp::Services] }.not_to raise_error
+        assert_file "app/services/my_app/services/base.rb"
+      end
+
+      it "accepts deeply nested namespace" do
+        expect { run_generator %w[--namespace=MyCompany::MyApp::Core::Services] }.not_to raise_error
+        assert_file "app/services/my_company/my_app/core/services/base.rb"
+      end
+    end
+  end
+
+  describe "generated code validity" do
+    context "with default options" do
+      before { run_generator }
+
+      it_behaves_like "generates valid Ruby syntax", "app/services/application_service/base.rb"
+      it_behaves_like "generates valid Ruby syntax", "app/services/application_service/exceptions.rb"
+      it_behaves_like "generates valid Ruby syntax", "app/services/application_service/result.rb"
+    end
+
+    context "with custom namespace" do
+      before { run_generator %w[--namespace=MyApp::Services] }
+
+      it_behaves_like "generates valid Ruby syntax", "app/services/my_app/services/base.rb"
+      it_behaves_like "generates valid Ruby syntax", "app/services/my_app/services/exceptions.rb"
+      it_behaves_like "generates valid Ruby syntax", "app/services/my_app/services/result.rb"
+    end
+
+    context "with minimal option" do
+      before { run_generator %w[--minimal] }
+
+      it_behaves_like "generates valid Ruby syntax", "app/services/application_service/base.rb"
     end
   end
 end

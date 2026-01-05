@@ -7,6 +7,8 @@ module Servactory
     class InstallGenerator < Servactory::Generators::Base
       source_root File.expand_path("templates", __dir__)
 
+      VALID_NAMESPACE_REGEX = /\A[A-Z][a-zA-Z0-9_]*(::[A-Z][a-zA-Z0-9_]*)*\z/
+
       class_option :namespace,
                    type: :string,
                    default: "ApplicationService",
@@ -28,6 +30,8 @@ module Servactory
                    desc: "Generate minimal setup without configuration examples"
 
       def create_application_service
+        validate_namespace!
+
         template "application_service/base.rb.tt", service_path("base.rb")
         template "application_service/exceptions.rb.tt", service_path("exceptions.rb")
         template "application_service/result.rb.tt", service_path("result.rb")
@@ -46,12 +50,20 @@ module Servactory
           if File.exist?(source_path)
             copy_file source_path, "config/locales/#{locale_file}"
           else
-            say "Locale file not found: #{locale_file}", :yellow
+            say "Locale file not found: #{locale} (expected at #{source_path})", :yellow
           end
         end
       end
 
       private
+
+      def validate_namespace!
+        return if namespace.match?(VALID_NAMESPACE_REGEX)
+
+        raise ArgumentError, "Invalid namespace '#{namespace}'. " \
+                             "Namespace must be a valid Ruby constant name " \
+                             "(e.g., 'ApplicationService', 'MyApp::Services')."
+      end
 
       def namespace
         options[:namespace]

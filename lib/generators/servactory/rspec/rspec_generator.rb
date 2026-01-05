@@ -39,7 +39,21 @@ module Servactory
         # Convert services path to specs path:
         # app/services → spec/services
         # lib/foo → spec/foo
-        services_path
+        # engines/core/app/services → engines/core/spec/services
+        # engines/admin/lib/services → engines/admin/spec/services
+        path = services_path
+
+        # Handle Rails engine paths first
+        if path.match?(%r{^engines/[^/]+/app/})
+          return path.sub(%r{/app/}, "/spec/")
+        end
+
+        if path.match?(%r{^engines/[^/]+/lib/})
+          return path.sub(%r{/lib/}, "/spec/")
+        end
+
+        # Standard app/ and lib/ paths
+        path
           .sub(%r{^app/}, "spec/")
           .sub(%r{^lib/}, "spec/")
       end
@@ -75,6 +89,7 @@ module Servactory
         when "DateTime" then "DateTime.current"
         when "Time" then "Time.current"
         when "NilClass" then "nil"
+        when "BigDecimal" then 'BigDecimal("1.0")'
         else
           '"Some value"'
         end

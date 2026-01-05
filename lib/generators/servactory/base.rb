@@ -26,6 +26,8 @@ module Servactory
     end
 
     class NamedBase < Rails::Generators::NamedBase
+      VALID_INPUT_NAME_REGEX = /\A[a-z_][a-zA-Z0-9_]*\z/
+
       TYPE_MAPPING = {
         "string" => "String",
         "integer" => "Integer",
@@ -37,7 +39,11 @@ module Servactory
         "symbol" => "Symbol",
         "date" => "Date",
         "datetime" => "DateTime",
-        "time" => "Time"
+        "time" => "Time",
+        "nil" => "NilClass",
+        "nilclass" => "NilClass",
+        "decimal" => "BigDecimal",
+        "bigdecimal" => "BigDecimal"
       }.freeze
 
       private
@@ -49,11 +55,21 @@ module Servactory
       def parsed_inputs
         @parsed_inputs ||= inputs.map do |input_argument|
           parts = input_argument.to_s.split(":", 2)
-          name = parts[0]
+          name = parts[0].strip
           type = normalize_type(parts[1])
+
+          validate_input_name!(name)
 
           { name:, type: }
         end
+      end
+
+      def validate_input_name!(name)
+        return if name.match?(VALID_INPUT_NAME_REGEX)
+
+        raise ArgumentError, "Invalid input name '#{name}'. " \
+                             "Input names must start with a lowercase letter or underscore, " \
+                             "followed by letters, numbers, or underscores."
       end
 
       def normalize_type(type_string)
