@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require "generators/servactory/service/service_generator"
 
-SERVICE_GENERATOR_AVAILABLE = begin
-  require "generators/servactory/service/service_generator"
-  true
-rescue LoadError
-  false
-end
-
-RSpec.describe "Servactory::Generators::ServiceGenerator", skip: !SERVICE_GENERATOR_AVAILABLE do
+RSpec.describe "Servactory::Generators::ServiceGenerator" do
   include GeneratorHelpers
 
-  tests Servactory::Generators::ServiceGenerator if SERVICE_GENERATOR_AVAILABLE
+  tests Servactory::Generators::ServiceGenerator
 
   describe "#create_service" do
     describe "file creation" do

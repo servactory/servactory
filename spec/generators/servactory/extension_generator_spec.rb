@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require "generators/servactory/extension/extension_generator"
 
-EXTENSION_GENERATOR_AVAILABLE = begin
-  require "generators/servactory/extension/extension_generator"
-  true
-rescue LoadError
-  false
-end
-
-RSpec.describe "Servactory::Generators::ExtensionGenerator", skip: !EXTENSION_GENERATOR_AVAILABLE do
+RSpec.describe "Servactory::Generators::ExtensionGenerator" do
   include GeneratorHelpers
 
-  tests Servactory::Generators::ExtensionGenerator if EXTENSION_GENERATOR_AVAILABLE
+  tests Servactory::Generators::ExtensionGenerator
 
   describe "#create_extension" do
     describe "file creation" do

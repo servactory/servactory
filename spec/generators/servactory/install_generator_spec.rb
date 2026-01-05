@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require "generators/servactory/install/install_generator"
 
-INSTALL_GENERATOR_AVAILABLE = begin
-  require "generators/servactory/install/install_generator"
-  true
-rescue LoadError
-  false
-end
-
-RSpec.describe "Servactory::Generators::InstallGenerator", skip: !INSTALL_GENERATOR_AVAILABLE do
+RSpec.describe "Servactory::Generators::InstallGenerator" do
   include GeneratorHelpers
 
-  tests Servactory::Generators::InstallGenerator if INSTALL_GENERATOR_AVAILABLE
+  tests Servactory::Generators::InstallGenerator
 
   describe "#create_application_service" do
     context "with default options" do
