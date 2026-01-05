@@ -1,0 +1,14 @@
+module Servactory
+  module Stroma
+    module Hooks
+      class Applier
+        @target_class: Class
+        @hooks: Collection
+
+        def initialize: (Class target_class, Collection hooks) -> void
+
+        def apply!: () -> void
+      end
+    end
+  end
+end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
+RSpec.describe Usual::Extensions::Idempotent::Example2, type: :service do
   let(:idempotency_store) { described_class::LikeAnIdempotencyStore }
 
   before do
@@ -82,6 +82,27 @@ RSpec.describe Usual::Extensions::Idempotent::Example1, type: :service do
 
         # Only first call executes - second returns early from cache (true idempotency)
         expect(idempotency_store.execution_count).to eq(1)
+      end
+
+      it "uses raw key for caching (before prepare transformation)", :aggregate_failures do
+        # This test verifies that the cache key is the RAW input value,
+        # not the transformed (prepared) value.
+        # The input has prepare: ->(value) { value.to_s.upcase }
+
+        # First call with lowercase request_id
+        first_result = described_class.call!(request_id: "abc123", amount: 100)
+        expect(first_result.value).to eq(500)
+        expect(idempotency_store.execution_count).to eq(1)
+
+        # Second call with SAME raw key - should hit cache
+        second_result = described_class.call!(request_id: "abc123", amount: 100)
+        expect(second_result.value).to eq(500)
+        expect(idempotency_store.execution_count).to eq(1)
+
+        # Third call with different raw key - should NOT hit cache
+        third_result = described_class.call!(request_id: "def456", amount: 200)
+        expect(third_result.value).to eq(1000)
+        expect(idempotency_store.execution_count).to eq(2)
       end
     end
   end

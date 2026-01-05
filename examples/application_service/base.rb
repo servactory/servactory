@@ -16,12 +16,13 @@ module ApplicationService
       # before :actions hooks
       before :actions, ApplicationService::Extensions::Authorization::DSL
       before :actions, ApplicationService::Extensions::StatusActive::DSL
-      before :actions, ApplicationService::Extensions::Idempotent::DSL
       before :actions, ApplicationService::Extensions::Transactional::DSL
       before :actions, ApplicationService::Extensions::Rollbackable::DSL
       before :actions, ApplicationService::Extensions::ExternalApiRequest::DSL
 
       # after :actions hooks
+      # Idempotent must be AFTER actions to skip stage execution on cache hit
+      after :actions, ApplicationService::Extensions::Idempotent::DSL
       after :actions, ApplicationService::Extensions::Publishable::DSL
       after :actions, ApplicationService::Extensions::PostCondition::DSL
 
