@@ -41,9 +41,9 @@ module Servactory
 
           instance_eval(&block)
 
-          @current_stage = nil
+          collection_of_stages << @current_stage unless @current_stage.actions.empty?
 
-          nil
+          @current_stage = nil
         end
 
         def wrap_in(wrapper)
@@ -75,15 +75,15 @@ module Servactory
         def make(name, position: nil, **options)
           position = position.presence || next_position
 
-          current_stage = @current_stage.presence || Stages::Stage.new(position:)
-
-          current_stage.actions << Action.new(
-            name,
-            position:,
-            **options
-          )
-
-          collection_of_stages << current_stage
+          if @current_stage.present?
+            # Inside stage block - just add action, stage will be added at block end
+            @current_stage.actions << Action.new(name, position:, **options)
+          else
+            # Outside stage block - create new stage and add to collection
+            new_stage = Stages::Stage.new(position:)
+            new_stage.actions << Action.new(name, position:, **options)
+            collection_of_stages << new_stage
+          end
         end
 
         def method_missing(name, *args, &block)

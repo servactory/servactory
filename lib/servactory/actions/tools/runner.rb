@@ -28,14 +28,14 @@ module Servactory
         end
 
         def call_stage(stage)
-          return if unnecessary_for_stage?(stage)
+          return if should_skip?(stage)
 
-          wrapper = stage.wrapper
-          rollback = stage.rollback
           actions = stage.actions.sorted_by_position
 
-          if wrapper.is_a?(Proc)
-            call_wrapper_with_actions(wrapper, rollback, actions)
+          if stage.wrapper.is_a?(Proc)
+            call_wrapper_with_actions(stage.wrapper, stage.rollback, actions)
+          elsif stage.rollback.present?
+            call_actions_with_rollback(stage.rollback, actions)
           else
             call_actions(actions)
           end
@@ -56,9 +56,15 @@ module Servactory
           end
         end
 
+        def call_actions_with_rollback(rollback, actions)
+          call_actions(actions)
+        rescue StandardError => e
+          @context.send(rollback, e)
+        end
+
         def call_actions(actions)
           actions.each do |action|
-            next if unnecessary_for_make?(action)
+            next if should_skip?(action)
 
             call_action(action)
           end
@@ -70,29 +76,22 @@ module Servactory
           rescue_with_handler(e) || raise
         end
 
-        def unnecessary_for_stage?(stage)
-          condition = stage.condition
-          is_condition_opposite = stage.is_condition_opposite
+        def should_skip?(entity)
+          condition_result = condition_met?(entity.condition)
 
-          result = checks_passed_for?(condition)
-
-          is_condition_opposite ? !result : result
+          # only_if (is_condition_opposite = false): skip if condition is NOT met
+          # only_unless (is_condition_opposite = true): skip if condition IS met
+          entity.is_condition_opposite ? condition_result : !condition_result
         end
 
-        def unnecessary_for_make?(make_action)
-          condition = make_action.condition
-          is_condition_opposite = make_action.is_condition_opposite
+        def condition_met?(condition)
+          return true if condition.nil?
 
-          result = checks_passed_for?(condition)
-
-          is_condition_opposite ? !result : result
-        end
-
-        def checks_passed_for?(condition)
-          return false if condition.nil?
-          return !Servactory::Utils.true?(condition) unless condition.is_a?(Proc)
-
-          !condition.call(context: @context)
+          if condition.is_a?(Proc)
+            condition.call(context: @context)
+          else
+            Servactory::Utils.true?(condition)
+          end
         end
 
         def rescue_with_handler(exception) # rubocop:disable Metrics/MethodLength
