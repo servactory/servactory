@@ -33,7 +33,7 @@ module Usual
         outputs.number = 7
       end
 
-      def method_for_rollback(_e)
+      def method_for_rollback(_e) # rubocop:disable Naming/MethodParameterName
         outputs.number = 9
       end
     end
