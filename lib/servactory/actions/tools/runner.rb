@@ -33,7 +33,7 @@ module Servactory
 
         # Creates a new runner instance.
         #
-        # @param context [Object] The service context with inputs/outputs
+        # @param context [Object] The service context with inputs/internals/outputs
         # @param collection_of_stages [Stages::Collection] Collection of stages to execute
         def initialize(context, collection_of_stages)
           @context = context
