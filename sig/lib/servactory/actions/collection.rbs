@@ -7,7 +7,19 @@ module Servactory
 
       def initialize: (?Set[Action] collection) -> void
 
-      def sorted_by_position: -> Collection
+      def <<: (Action action) -> Set[Action]
+
+      def each: () { (Action) -> void } -> Set[Action]
+
+      def to_h: () -> Hash[untyped, untyped]
+
+      def sort_by: () { (Action) -> Integer } -> Array[Action]
+
+      def size: () -> Integer
+
+      def empty?: () -> bool
+
+      def sorted_by_position: () -> Collection
     end
   end
 end
