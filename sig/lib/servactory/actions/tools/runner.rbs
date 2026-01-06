@@ -19,15 +19,15 @@ module Servactory
 
         def call_wrapper_with_actions: (Proc wrapper, Symbol? rollback, Collection actions) -> void
 
+        def call_actions_with_rollback: (Symbol rollback, Collection actions) -> void
+
         def call_actions: (Collection actions) -> void
 
         def call_action: (Action action) -> void
 
-        def unnecessary_for_stage?: (Stages::Stage stage) -> bool
+        def should_skip?: ((Stages::Stage | Action) entity) -> bool
 
-        def unnecessary_for_make?: (Action action) -> bool
-
-        def prepare_condition_for: ((Proc | bool)? condition) -> bool
+        def condition_met?: ((Proc | bool)? condition) -> bool
 
         def rescue_with_handler: (Exception exception) -> Exception?
       end
