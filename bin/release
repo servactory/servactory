@@ -3,8 +3,8 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-VERSION=$(ruby -r./lib/treaty/version -e "puts Treaty::VERSION::STRING")
-GEM_NAME="treaty"
+VERSION=$(ruby -r./lib/servactory/version -e "puts Servactory::VERSION::STRING")
+GEM_NAME="servactory"
 GEM_FILE="gems/${GEM_NAME}-${VERSION}.gem"
 
 mkdir -p gems
