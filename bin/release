@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+
+cd "$(dirname "$0")/.."
+
+VERSION=$(ruby -r./lib/treaty/version -e "puts Treaty::VERSION::STRING")
+GEM_NAME="treaty"
+GEM_FILE="gems/${GEM_NAME}-${VERSION}.gem"
+
+mkdir -p gems
+
+echo "Building ${GEM_NAME} v${VERSION}..."
+gem build ${GEM_NAME}.gemspec -o "$GEM_FILE"
+
+read -p "Enter OTP: " OTP
+gem push "$GEM_FILE" --otp="$OTP"
+
+echo "Released ${GEM_NAME} v${VERSION}"
