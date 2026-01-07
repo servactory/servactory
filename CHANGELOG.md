@@ -1,5 +1,9 @@
 # Changelog
 
+## [v2.16.1](https://github.com/servactory/servactory/tree/v2.16.1) (2025-10-14)
+
+[Full Changelog](https://github.com/servactory/servactory/compare/v2.16.0...v2.16.1)
+
 ## [v2.16.0](https://github.com/servactory/servactory/tree/v2.16.0) (2025-08-23)
 
 [Full Changelog](https://github.com/servactory/servactory/compare/v2.16.0.rc3...v2.16.0)
