@@ -38,22 +38,18 @@ module Servactory
       #
       # ```ruby
       # class ProcessOrderService < ApplicationService::Base
-      #   input :service_class, type: Class, target: { in: [UserService, AdminService] }
-      #   input :handler_class, type: Class, target: { in: [CreateHandler, UpdateHandler] }
-      #   input :strategy_class, type: Class, target: { in: [FastStrategy, SafeStrategy] }
+      #   input :service_class, type: Class, target: UserService
+      #   input :handler_class, type: Class, target: [CreateHandler, UpdateHandler]
       # end
       # ```
       #
       # ## Simple Mode
       #
-      # Specify target classes directly:
+      # Specify target class directly or as an array:
       #
       # ```ruby
-      # class ProcessOrderService < ApplicationService::Base
-      #   input :service_class, type: Class, target: UserService
-      #   input :handler_class, type: Class, target: [CreateHandler, UpdateHandler]
-      #   input :strategy_class, type: Class, target: [FastStrategy, SafeStrategy]
-      # end
+      # input :service_class, type: Class, target: UserService
+      # input :handler_class, type: Class, target: [CreateHandler, UpdateHandler]
       # ```
       #
       # ## Advanced Mode
@@ -64,19 +60,19 @@ module Servactory
       # With static message:
       #
       # ```ruby
-      # input :service_class, type: Class, target: {
-      #   in: [UserService, AdminService],
-      #   message: "Input `service_class` must be one of: UserService, AdminService"
+      # input :handler_class, type: Class, target: {
+      #   in: [CreateHandler, UpdateHandler],
+      #   message: "Input `handler_class` must be one of: CreateHandler, UpdateHandler"
       # }
       # ```
       #
       # With dynamic lambda message:
       #
       # ```ruby
-      # input :service_class, type: Class, target: {
-      #   in: [UserService, AdminService],
+      # input :handler_class, type: Class, target: {
+      #   in: [CreateHandler, UpdateHandler],
       #   message: lambda do |input:, value:, option_value:, **|
-      #     "Input `#{input.name}` received `#{value}`, expected one of: #{Array(option_value).map(&:name).join(', ')}"
+      #     "Input `#{input.name}` received `#{value}`, expected: #{Array(option_value).map(&:name).join(', ')}"
       #   end
       # }
       # ```
