@@ -3,15 +3,15 @@
 module Servactory
   module ToolKit
     module DynamicOptions
-      # Validates that attribute value matches one of the target values.
+      # Validates that Class-typed attribute value matches one of the target classes.
       #
       # ## Purpose
       #
-      # Target provides exact value matching validation for attributes.
-      # It ensures that the value is one of the specified target values,
-      # supporting both single values and arrays of acceptable values.
-      # This is useful for enum-like validations where only specific
-      # values are allowed.
+      # Target provides class matching validation for Class-typed attributes.
+      # It ensures that the passed class is one of the specified target classes,
+      # supporting both single class and arrays of acceptable classes.
+      # This is useful for validating service classes, strategy patterns,
+      # or any scenario where specific classes are expected.
       #
       # ## Usage
       #
@@ -38,21 +38,21 @@ module Servactory
       #
       # ```ruby
       # class ProcessOrderService < ApplicationService::Base
-      #   input :status, type: Symbol, target: { in: [:pending, :processing, :complete] }
-      #   input :priority, type: Integer, target: { in: [1, 2, 3] }
-      #   input :model_class, type: Class, target: { in: [User, Admin] }
+      #   input :service_class, type: Class, target: { in: [UserService, AdminService] }
+      #   input :handler_class, type: Class, target: { in: [CreateHandler, UpdateHandler] }
+      #   input :strategy_class, type: Class, target: { in: [FastStrategy, SafeStrategy] }
       # end
       # ```
       #
       # ## Simple Mode
       #
-      # Specify target values directly:
+      # Specify target classes directly:
       #
       # ```ruby
       # class ProcessOrderService < ApplicationService::Base
-      #   input :status, type: Symbol, target: :pending
-      #   input :priority, type: Integer, target: [1, 2, 3]
-      #   input :model_class, type: Class, target: [User, Admin]
+      #   input :service_class, type: Class, target: UserService
+      #   input :handler_class, type: Class, target: [CreateHandler, UpdateHandler]
+      #   input :strategy_class, type: Class, target: [FastStrategy, SafeStrategy]
       # end
       # ```
       #
@@ -64,19 +64,19 @@ module Servactory
       # With static message:
       #
       # ```ruby
-      # input :status, type: Symbol, target: {
-      #   in: [:pending, :processing, :complete],
-      #   message: "Input `status` must be one of: pending, processing, complete"
+      # input :service_class, type: Class, target: {
+      #   in: [UserService, AdminService],
+      #   message: "Input `service_class` must be one of: UserService, AdminService"
       # }
       # ```
       #
       # With dynamic lambda message:
       #
       # ```ruby
-      # input :status, type: Symbol, target: {
-      #   in: [:pending, :processing, :complete],
+      # input :service_class, type: Class, target: {
+      #   in: [UserService, AdminService],
       #   message: lambda do |input:, value:, option_value:, **|
-      #     "Input `#{input.name}` has invalid value `#{value}`, expected: #{option_value.inspect}"
+      #     "Input `#{input.name}` received `#{value}`, expected one of: #{Array(option_value).map(&:name).join(', ')}"
       #   end
       # }
       # ```
@@ -88,8 +88,8 @@ module Servactory
       #
       # ## Validation Rules
       #
-      # - Value must exactly match one of the target values
-      # - Supports single value or array of values
+      # - Class must exactly match one of the target classes
+      # - Supports single class or array of classes
       # - Optional inputs with nil value validate against default
       #
       # ## Important Notes
