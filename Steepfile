@@ -3,6 +3,7 @@
 target :lib do
   signature "sig"
   signature "sig/external"
+  # signature "sig/external/stroma"
 
   check "lib"
 

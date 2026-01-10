@@ -7,6 +7,7 @@ PATH
       bigdecimal (>= 3.1)
       i18n (>= 1.14)
       mutex_m (>= 0.3)
+      stroma (>= 0.2.0)
       zeitwerk (>= 2.6)
 
 GEM
@@ -232,6 +233,9 @@ GEM
       terminal-table (>= 2, < 5)
       uri (>= 0.12.0)
     stringio (3.2.0)
+    stroma (0.2.0)
+      activesupport (>= 5.1)
+      zeitwerk (>= 2.6)
     strscan (3.1.6)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
