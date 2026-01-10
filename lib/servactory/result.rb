@@ -28,7 +28,7 @@ module Servactory
   # Results support fluent callback chains:
   #
   # ```ruby
-  # MyService.call(params)
+  # MyService.call(arguments)
   #   .on_success { |outputs:| redirect_to(outputs[:user]) }
   #   .on_failure(:validation) { |exception:| render_errors(exception) }
   #   .on_failure { |exception:| log_error(exception) }
