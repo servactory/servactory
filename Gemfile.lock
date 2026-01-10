@@ -3,10 +3,7 @@ PATH
   specs:
     servactory (3.0.0.rc1)
       activesupport (>= 5.1)
-      base64 (>= 0.2)
-      bigdecimal (>= 3.1)
       i18n (>= 1.14)
-      mutex_m (>= 0.3)
       stroma (>= 0.3)
       zeitwerk (>= 2.6)
 
