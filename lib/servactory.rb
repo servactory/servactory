@@ -2,6 +2,8 @@
 
 require "zeitwerk"
 
+require "stroma"
+
 require "active_support/all"
 
 require "uri"
