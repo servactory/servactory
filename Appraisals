@@ -7,13 +7,9 @@ appraise "rails-5.1" do
   gem "activesupport", "~> 5.1.0"
   gem "railties", "~> 5.1.0"
 
-  # warning: base64 was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
+  # These gems were loaded from the standard library, but are not part of the default gems starting from Ruby 3.4.0.
   gem "base64", ">= 0.2"
-
-  # warning: bigdecimal was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
   gem "bigdecimal", ">= 3.1"
-
-  # warning: mutex_m was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
   gem "mutex_m", ">= 0.3"
 end
 
@@ -21,13 +17,9 @@ appraise "rails-5.2" do
   gem "activesupport", "~> 5.2.0"
   gem "railties", "~> 5.2.0"
 
-  # warning: base64 was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
+  # These gems were loaded from the standard library, but are not part of the default gems starting from Ruby 3.4.0.
   gem "base64", ">= 0.2"
-
-  # warning: bigdecimal was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
   gem "bigdecimal", ">= 3.1"
-
-  # warning: mutex_m was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
   gem "mutex_m", ">= 0.3"
 end
 
@@ -36,13 +28,9 @@ appraise "rails-6.0" do
   gem "railties", "~> 6.0.0"
   gem "concurrent-ruby", "1.3.4"
 
-  # warning: base64 was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
+  # These gems were loaded from the standard library, but are not part of the default gems starting from Ruby 3.4.0.
   gem "base64", ">= 0.2"
-
-  # warning: bigdecimal was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
   gem "bigdecimal", ">= 3.1"
-
-  # warning: mutex_m was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
   gem "mutex_m", ">= 0.3"
 end
 
@@ -51,13 +39,9 @@ appraise "rails-6.1" do
   gem "railties", "~> 6.1.0"
   gem "concurrent-ruby", "1.3.4"
 
-  # warning: base64 was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
+  # These gems were loaded from the standard library, but are not part of the default gems starting from Ruby 3.4.0.
   gem "base64", ">= 0.2"
-
-  # warning: bigdecimal was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
   gem "bigdecimal", ">= 3.1"
-
-  # warning: mutex_m was loaded from the standard library, but is not part of the default gems starting from Ruby 3.4.0.
   gem "mutex_m", ">= 0.3"
 end
 
