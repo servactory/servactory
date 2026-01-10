@@ -6,6 +6,8 @@ module Servactory
 
         @collection: Set[Option]
         @validation_classes: Array[Class]
+        @options_for_checks: Hash[Symbol, untyped]
+        @options_index: Hash[Symbol, Option]
 
         def initialize: () -> void
 
@@ -17,6 +19,7 @@ module Servactory
 
         private
 
+        def options_index: () -> Hash[Symbol, Option]
         def extract_normalized_body_from: (option: untyped) -> untyped
         def resolve_conflicts_from: (option: untyped) -> Array[untyped]
       end

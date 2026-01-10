@@ -6,7 +6,14 @@ module Servactory
       class OptionsCollection
         extend Forwardable
 
-        def_delegators :@collection, :<<, :filter, :each, :map, :flat_map, :find, :empty?, :size
+        def_delegators :@collection,
+                       :<<,
+                       :filter,
+                       :each, :each_with_object,
+                       :map, :flat_map,
+                       :find,
+                       :size,
+                       :empty?
 
         def initialize
           @collection = Set.new
@@ -24,7 +31,7 @@ module Servactory
         end
 
         def options_for_checks
-          filter(&:need_for_checks?).to_h do |option|
+          @options_for_checks ||= filter(&:need_for_checks?).to_h do |option|
             [option.name, extract_normalized_body_from(option:)]
           end
         end
@@ -36,10 +43,16 @@ module Servactory
         end
 
         def find_by(name:)
-          find { |option| option.name == name }
+          options_index[name]
         end
 
         private
+
+        def options_index
+          @options_index ||= each_with_object({}) do |option, index|
+            index[option.name] = option
+          end
+        end
 
         def extract_normalized_body_from(option:)
           body = option.body
