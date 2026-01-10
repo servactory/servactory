@@ -4,14 +4,26 @@ module Servactory
 
     @context: instance?
     @exception: Exception?
+    @success: bool
     @outputs: Outputs
 
     class Outputs
+      @outputs: Hash[Symbol, untyped]
+      @predicate_methods_enabled: bool
+
       def initialize: (outputs: Hash[Symbol, untyped], predicate_methods_enabled: bool) -> void
 
       def inspect: () -> String
 
+      def method_missing: (Symbol name, *untyped args) -> untyped
+
+      def respond_to_missing?: (Symbol name, ?bool include_private) -> bool
+
       private
+
+      def output_names: () -> Array[Symbol]
+
+      def predicate_names: () -> Array[Symbol]
 
       def draw_result: () -> String
     end
@@ -20,27 +32,33 @@ module Servactory
 
     def self.failure_for: (context: instance, exception: Exception) -> self
 
-    def initialize: (context: instance, ?exception: Exception?) -> void
+    def initialize: (context: instance, ?exception: Exception?, ?success: bool) -> void
+
+    def success?: () -> bool
+
+    def failure?: (?Symbol type) -> bool
+
+    def error: () -> Exception?
 
     def to_h: () -> Hash[Symbol, untyped]
 
     def inspect: () -> String
 
-    def on_success: () -> self
+    def on_success: () ?{ (outputs: Outputs) -> void } -> self
 
-    def on_failure: (Symbol type) -> self
+    def on_failure: (?Symbol type) ?{ (outputs: Outputs, exception: Exception?) -> void } -> self
 
-    def respond_to_missing?: (Symbol name, *untyped) -> void
+    def method_missing: (Symbol name, *untyped args) ?{ () -> untyped } -> untyped
+
+    def respond_to_missing?: (Symbol name, ?bool include_private) -> bool
 
     private
-
-    def as_success: () -> self
-
-    def as_failure: () -> self
 
     def draw_result: () -> String
 
     def outputs: () -> Outputs
+
+    def build_outputs_hash: () -> Hash[Symbol, untyped]
 
     def rescue_no_method_error_with: (exception: Exception) -> Exception
   end
