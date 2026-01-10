@@ -92,7 +92,9 @@ module Servactory
       def method_missing(name, *args)
         if name.to_s.end_with?("?")
           base_name = name.to_s.chomp("?").to_sym
-          return Servactory::Utils.query_attribute(@outputs[base_name]) if @predicate_methods_enabled && @outputs.key?(base_name)
+          if @predicate_methods_enabled && @outputs.key?(base_name)
+            return Servactory::Utils.query_attribute(@outputs[base_name])
+          end
         elsif @outputs.key?(name)
           return @outputs[name]
         end
