@@ -22,7 +22,7 @@ RSpec.describe Wrong::Basic::Example10, type: :service do
                 if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
                   /\[Wrong::Basic::Example10\] undefined method 'fake_value' for an instance of ApplicationService::Result/
                 else
-                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for an instance of ApplicationService::Result/
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result/
                 end
               )
             )
@@ -54,7 +54,7 @@ RSpec.describe Wrong::Basic::Example10, type: :service do
                 if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
                   /\[Wrong::Basic::Example10\] undefined method 'fake_value' for an instance of ApplicationService::Result/
                 else
-                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for an instance of ApplicationService::Result/
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result/
                 end
               )
             )
