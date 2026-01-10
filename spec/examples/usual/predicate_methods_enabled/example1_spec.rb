@@ -80,7 +80,7 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
               if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
                 /\[Usual::PredicateMethodsEnabled::Example1\] undefined method 'full_name\?' for an instance of ApplicationService::Result/
               else
-                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/
+                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for an instance of ApplicationService::Result/
               end
             )
           )
@@ -169,7 +169,7 @@ RSpec.describe Usual::PredicateMethodsEnabled::Example1, type: :service do
               if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
                 /\[Usual::PredicateMethodsEnabled::Example1\] undefined method 'full_name\?' for an instance of ApplicationService::Result/
               else
-                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for #<ApplicationService::Result/
+                /\[Usual::PredicateMethodsEnabled::Example1\] undefined method `full_name\?' for an instance of ApplicationService::Result/
               end
             )
           )
