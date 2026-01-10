@@ -20,9 +20,11 @@ RSpec.describe Wrong::Basic::Example10, type: :service do
             expect(exception.message).to(
               match(
                 if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
-                  /\[Wrong::Basic::Example10\] undefined method 'fake_value' for #<ApplicationService::Result(.*)>/
+                  /\[Wrong::Basic::Example10\] undefined method 'fake_value' for an instance of ApplicationService::Result/
+                elsif Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for an instance of ApplicationService::Result/
                 else
-                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result(.*)>/
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result/
                 end
               )
             )
@@ -52,9 +54,11 @@ RSpec.describe Wrong::Basic::Example10, type: :service do
             expect(exception.message).to(
               match(
                 if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4.0")
-                  /\[Wrong::Basic::Example10\] undefined method 'fake_value' for #<ApplicationService::Result(.*)>/
+                  /\[Wrong::Basic::Example10\] undefined method 'fake_value' for an instance of ApplicationService::Result/
+                elsif Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for an instance of ApplicationService::Result/
                 else
-                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result(.*)>/
+                  /\[Wrong::Basic::Example10\] undefined method `fake_value' for #<ApplicationService::Result/
                 end
               )
             )
