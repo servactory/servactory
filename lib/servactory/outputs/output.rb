@@ -12,24 +12,29 @@ module Servactory
           @name = output.name
           @types = output.types
           @options = output.options
-
-          define_identity_methods(output)
+          @attribute = output
         end
 
-        private
+        def system_name
+          @attribute.system_name
+        end
 
-        def define_identity_methods(output)
-          methods_map = {
-            system_name: -> { output.system_name },
-            i18n_name: -> { output.i18n_name },
-            input?: -> { false },
-            internal?: -> { false },
-            output?: -> { true }
-          }
+        def i18n_name
+          @attribute.i18n_name
+        end
 
-          methods_map.each do |method_name, implementation|
-            define_singleton_method(method_name, &implementation)
-          end
+        # The methods below are required to support the internal work.
+
+        def input?
+          false
+        end
+
+        def internal?
+          false
+        end
+
+        def output?
+          true
         end
       end
 

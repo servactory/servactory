@@ -8,11 +8,23 @@ module Servactory
         attr_reader default: untyped
         attr_reader options: Hash[Symbol, untyped]
 
+        @attribute: Input
+
         def initialize: (Input input) -> void
 
-        private
+        def system_name: () -> Symbol
 
-        def define_identity_methods: (Input input) -> void
+        def i18n_name: () -> String
+
+        def optional?: () -> bool
+
+        def required?: () -> bool
+
+        def input?: () -> true
+
+        def internal?: () -> false
+
+        def output?: () -> false
       end
 
       @option_helpers: Configuration::OptionHelpers::OptionHelpersCollection

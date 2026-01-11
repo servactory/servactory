@@ -6,11 +6,19 @@ module Servactory
         attr_reader types: Array[untyped]
         attr_reader options: Hash[Symbol, untyped]
 
-        def initialize: (internal: Internal) -> void
+        @attribute: Internal
 
-        private
+        def initialize: (Internal internal) -> void
 
-        def define_identity_methods: (internal: Internal) -> void
+        def system_name: () -> Symbol
+
+        def i18n_name: () -> String
+
+        def input?: () -> false
+
+        def internal?: () -> true
+
+        def output?: () -> false
       end
 
       @option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
