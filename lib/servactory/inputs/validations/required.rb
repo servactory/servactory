@@ -24,9 +24,9 @@ module Servactory
       #
       # ## Architecture
       #
-      # - Zero allocations on success path (returns nil)
-      # - Returns error message String on failure
-      # - Uses ErrorBuilder concern for message processing
+      # - Checks value presence using Utils.value_present?
+      # - Delegates message processing to ErrorBuilder concern
+      # - Returns nil on success, error message String on failure
       class Required
         extend Servactory::Maintenance::Attributes::Validations::Concerns::ErrorBuilder
 

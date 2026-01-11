@@ -39,10 +39,10 @@ module Servactory
         #
         # ## Architecture
         #
-        # - Zero allocations on success path (returns nil)
-        # - Early return on first validation failure
-        # - Catches syntax errors in check lambdas and formats them
-        # - Uses ErrorBuilder concern for message processing
+        # - Iterates through conditions and stops on first failure (early return)
+        # - Catches exceptions in check lambdas and formats them as syntax errors
+        # - Delegates message processing to ErrorBuilder concern
+        # - Returns nil on success, error message String on failure
         class Must
           extend Concerns::ErrorBuilder
 

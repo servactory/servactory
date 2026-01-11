@@ -29,10 +29,10 @@ module Servactory
         #
         # ## Architecture
         #
-        # - Zero allocations on success path (returns nil)
-        # - Delegates actual type checking to Types.validate
-        # - Handles default value substitution for optional inputs
-        # - Uses ErrorBuilder concern for message processing
+        # - Delegates type checking logic to Types.validate
+        # - Substitutes default values for blank optional inputs before validation
+        # - Delegates message processing to ErrorBuilder concern
+        # - Returns nil on success, error message String on failure
         class Type
           extend Concerns::ErrorBuilder
 
