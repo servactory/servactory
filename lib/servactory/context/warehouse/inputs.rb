@@ -3,24 +3,24 @@
 module Servactory
   module Context
     module Warehouse
-      # Storage view for service input values.
+      # View for accessing service input values.
       #
       # ## Purpose
       #
       # Inputs provides access to service input data with dynamic method access,
-      # predicate support, and error handling. It references a shared storage
-      # hash instead of creating its own.
+      # predicate support, and error handling. It references Crate data
+      # instead of creating its own.
       #
       # ## Important Notes
       #
-      # - References Storage#inputs hash directly
+      # - References Crate#inputs hash directly
       # - Provides method_missing for dynamic access
       # - Handles predicate methods (name?)
       class Inputs < Base
-        # Creates inputs view with shared storage reference.
+        # Creates inputs view referencing Crate data.
         #
         # @param context [Object] Service context for error handling
-        # @param arguments [Hash] Reference to Storage#inputs
+        # @param arguments [Hash] Reference to Crate#inputs
         # @return [Inputs] New inputs view
         def initialize(context, arguments)
           @context = context

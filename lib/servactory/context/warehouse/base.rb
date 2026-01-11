@@ -12,12 +12,12 @@ module Servactory
       #
       # ## Important Notes
       #
-      # - Accepts hash reference from Storage, not a copy
+      # - Accepts hash reference from Crate, not a copy
       # - Subclasses can override methods for specialized behavior
       class Base
         # Creates base view with storage hash reference.
         #
-        # @param arguments [Hash] Reference to Storage hash
+        # @param arguments [Hash] Reference to Crate data
         # @return [Base] New base view
         def initialize(arguments = {})
           @arguments = arguments

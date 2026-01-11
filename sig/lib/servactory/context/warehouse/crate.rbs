@@ -1,7 +1,7 @@
 module Servactory
   module Context
     module Warehouse
-      class Storage
+      class Crate
         @inputs: Hash[Symbol, untyped]
         @internals: Hash[Symbol, untyped]
         @outputs: Hash[Symbol, untyped]

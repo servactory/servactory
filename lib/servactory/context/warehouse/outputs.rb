@@ -3,7 +3,7 @@
 module Servactory
   module Context
     module Warehouse
-      # Storage view for service output values.
+      # View for accessing service output values.
       #
       # ## Purpose
       #
@@ -13,7 +13,7 @@ module Servactory
       #
       # ## Important Notes
       #
-      # - References Storage#outputs hash directly
+      # - References Crate#outputs hash directly
       # - Delegates each_pair for Result building
       # - Inherits fetch/assign from Base
       class Outputs < Base

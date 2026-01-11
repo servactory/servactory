@@ -3,7 +3,7 @@ module Servactory
     module Warehouse
       class Setup
         @context: untyped
-        @storage: Storage
+        @crate: Crate
         @inputs: Inputs?
         @internals: Internals?
         @outputs: Outputs?

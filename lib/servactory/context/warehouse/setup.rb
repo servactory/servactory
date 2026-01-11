@@ -3,27 +3,27 @@
 module Servactory
   module Context
     module Warehouse
-      # Orchestrator for service context data storage.
+      # Orchestrator for service context data.
       #
       # ## Purpose
       #
-      # Setup manages a unified Storage instance and provides the public
+      # Setup manages a unified Crate instance and provides the public
       # interface for accessing inputs, internals, and outputs. It creates
       # view objects lazily on first access.
       #
       # ## Important Notes
       #
-      # - Creates single Storage instance instead of three separate warehouses
-      # - View objects (Inputs, Internals, Outputs) reference shared storage
+      # - Creates single Crate instance instead of three separate warehouses
+      # - View objects (Inputs, Internals, Outputs) reference Crate data
       # - Lazy initialization of view objects
       class Setup
-        # Creates setup with unified storage.
+        # Creates setup with unified crate.
         #
         # @param context [Object] Service context
         # @return [Setup] New setup instance
         def initialize(context)
           @context = context
-          @storage = Storage.new
+          @crate = Crate.new
         end
 
         # Merges input arguments into storage.
@@ -80,21 +80,21 @@ module Servactory
         #
         # @return [Inputs] Inputs view
         def inputs
-          @inputs ||= Inputs.new(@context, @storage.inputs)
+          @inputs ||= Inputs.new(@context, @crate.inputs)
         end
 
         # Returns internals view object.
         #
         # @return [Internals] Internals view
         def internals
-          @internals ||= Internals.new(@storage.internals)
+          @internals ||= Internals.new(@crate.internals)
         end
 
         # Returns outputs view object.
         #
         # @return [Outputs] Outputs view
         def outputs
-          @outputs ||= Outputs.new(@storage.outputs)
+          @outputs ||= Outputs.new(@crate.outputs)
         end
       end
     end

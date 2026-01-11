@@ -3,16 +3,16 @@
 module Servactory
   module Context
     module Warehouse
-      # Storage view for service internal values.
+      # View for accessing service internal values.
       #
       # ## Purpose
       #
       # Internals provides simple key-value storage for intermediate
-      # service state. It references a shared storage hash.
+      # service state. It references Crate data.
       #
       # ## Important Notes
       #
-      # - References Storage#internals hash directly
+      # - References Crate#internals hash directly
       # - Inherits fetch/assign from Base
       class Internals < Base; end
     end

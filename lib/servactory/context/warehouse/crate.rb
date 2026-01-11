@@ -3,22 +3,22 @@
 module Servactory
   module Context
     module Warehouse
-      # Unified storage container for service context data.
+      # Unified crate for service context data.
       #
       # ## Purpose
       #
-      # Storage provides a single object that holds all three data sections
+      # Crate provides a single object that holds all three data sections
       # (inputs, internals, outputs) in separate hashes. This reduces object
       # allocations compared to creating separate warehouse instances.
       #
       # ## Usage
       #
-      # Storage is used internally by Setup class:
+      # Crate is used internally by Setup class:
       #
       # ```ruby
-      # storage = Storage.new
-      # storage.inputs[:name] = "value"
-      # storage.outputs[:result] = data
+      # crate = Crate.new
+      # crate.inputs[:name] = "value"
+      # crate.outputs[:result] = result
       # ```
       #
       # ## Important Notes
@@ -26,14 +26,14 @@ module Servactory
       # - This is an internal implementation class
       # - Single instance replaces three separate Base instances
       # - Hashes are exposed directly for performance
-      class Storage
+      class Crate
         attr_reader :inputs,
                     :internals,
                     :outputs
 
-        # Creates new storage with empty data sections.
+        # Creates new crate with empty sections.
         #
-        # @return [Storage] New storage instance
+        # @return [Crate] New crate instance
         def initialize
           @inputs = {}
           @internals = {}
