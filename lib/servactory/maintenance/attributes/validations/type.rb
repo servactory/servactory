@@ -5,6 +5,8 @@ module Servactory
     module Attributes
       module Validations
         class Type
+          extend Concerns::ErrorBuilder
+
           # Validates attribute type without instance allocation.
           #
           # Optimized for the common case (validation success) with zero allocations.
@@ -62,16 +64,12 @@ module Servactory
           end
           private_class_method :compute_prepared_value
 
-          # Builds Errors from validation error data.
+          # Builds Errors from validation error data using ErrorBuilder.
           #
-          # @param error_data [Hash] Error data from Types.validate_type
+          # @param error_data [Hash] Error data from Types.validate
           # @return [Errors] Errors collection with processed message
           def self.build_errors_from(error_data)
-            errors = Errors.new
-            message = error_data[:message]
-            message = message.call(**error_data) if message.is_a?(Proc)
-            errors << message
-            errors
+            build_errors(error_data[:message], **error_data)
           end
           private_class_method :build_errors_from
         end

@@ -2,27 +2,49 @@ module Servactory
   module Maintenance
     module Attributes
       module Validations
-        class Must < Base
-          @check_options: untyped
-          @context: instance
-          @attribute: Inputs::Input
-          @value: untyped
+        class Must
+          extend Concerns::ErrorBuilder
 
-          def self.check: (context: instance, attribute: Inputs::Input, value: untyped, check_key: Symbol, check_options: untyped) -> void
+          def self.check: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            check_key: Symbol,
+            check_options: Hash[Symbol, untyped]
+          ) -> Errors?
 
-          def self.should_be_checked_for?: (Inputs::Input attribute, Symbol check_key) -> bool
-
-          def initialize: (context: instance, attribute: Inputs::Input, value: untyped, check_options: untyped) -> void
-
-          def check: () -> void
+          def self.should_be_checked_for?: (
+            (Inputs::Input | Internals::Internal | Outputs::Output) attribute,
+            Symbol check_key
+          ) -> bool
 
           private
 
-          def call_or_fetch_message_from: (Symbol code, untyped options) -> (Array[untyped]? | Errors)
+          def self.validate_condition: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            code: Symbol,
+            options: Hash[Symbol, untyped]
+          ) -> String?
 
-          def add_error_with: ((String | Proc) message, Symbol code, Symbol? reason) -> void
+          def self.build_error_message: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            code: Symbol,
+            reason: Symbol?,
+            meta: Hash[Symbol, untyped]?,
+            message: (String | Proc)?
+          ) -> String
 
-          def add_syntax_error_with: ((String | Proc) message, Symbol code, exception_message: String) -> void
+          def self.build_syntax_error_message: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            code: Symbol,
+            exception_message: String
+          ) -> String
         end
       end
     end

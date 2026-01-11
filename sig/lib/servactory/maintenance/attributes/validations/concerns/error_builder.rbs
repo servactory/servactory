@@ -1,0 +1,15 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      module Validations
+        module Concerns
+          module ErrorBuilder
+            def process_message: ((String | Proc) message, **untyped attributes) -> String
+
+            def build_errors: ((String | Proc) message, **untyped attributes) -> Errors
+          end
+        end
+      end
+    end
+  end
+end

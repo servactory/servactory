@@ -3,6 +3,8 @@ module Servactory
     module Attributes
       module Validations
         class Type
+          extend Concerns::ErrorBuilder
+
           def self.check: (
             context: untyped,
             attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
