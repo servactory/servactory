@@ -1,7 +1,14 @@
 module Servactory
   module Context
     module Warehouse
-      class Internals < Base
+      class Internals
+        @arguments: Hash[Symbol, untyped]
+
+        def initialize: (Hash[Symbol, untyped] storage_internals) -> void
+
+        def fetch: (Symbol name, untyped? default_value) -> untyped
+
+        def assign: (Symbol key, untyped value) -> untyped
       end
     end
   end

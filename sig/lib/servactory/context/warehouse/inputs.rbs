@@ -1,20 +1,25 @@
 module Servactory
   module Context
     module Warehouse
-      class Inputs < Base
+      class Inputs
         @context: untyped
+        @arguments: Hash[Symbol, untyped]
 
-        def initialize: (untyped context, ?::Hash[untyped, untyped] arguments) -> void
+        def initialize: (untyped context, Hash[Symbol, untyped] storage_inputs) -> void
 
-        def names: () -> untyped
+        def names: () -> Array[Symbol]
 
-        def merge!: (untyped arguments) -> untyped
+        def merge!: (Hash[Symbol, untyped] arguments) -> Hash[Symbol, untyped]
 
-        def method_missing: (Symbol name, *untyped _args) { () -> untyped } -> void
+        def fetch: (Symbol name, untyped? default_value) -> untyped
 
-        def respond_to_missing?: (Symbol name, *untyped) -> void
+        def method_missing: (Symbol name, *untyped _args) -> untyped
 
-        def raise_error_for: (untyped input_name) -> untyped
+        def respond_to_missing?: (Symbol name, *untyped) -> untyped
+
+        private
+
+        def raise_error_for: (Symbol input_name) -> bot
       end
     end
   end

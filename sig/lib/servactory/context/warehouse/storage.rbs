@@ -1,0 +1,17 @@
+module Servactory
+  module Context
+    module Warehouse
+      class Storage
+        @inputs: Hash[Symbol, untyped]
+        @internals: Hash[Symbol, untyped]
+        @outputs: Hash[Symbol, untyped]
+
+        def initialize: () -> void
+
+        def inputs: () -> Hash[Symbol, untyped]
+        def internals: () -> Hash[Symbol, untyped]
+        def outputs: () -> Hash[Symbol, untyped]
+      end
+    end
+  end
+end
