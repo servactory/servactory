@@ -10,12 +10,6 @@ module Servactory
       # Inputs provides access to service input data with dynamic method access,
       # predicate support, and error handling. It references Crate data
       # instead of creating its own.
-      #
-      # ## Important Notes
-      #
-      # - References Crate#inputs hash directly
-      # - Provides method_missing for dynamic access
-      # - Handles predicate methods (name?)
       class Inputs < Base
         # Creates inputs view referencing Crate data.
         #

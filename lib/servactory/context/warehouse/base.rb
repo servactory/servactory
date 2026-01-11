@@ -9,11 +9,6 @@ module Servactory
       #
       # Provides common fetch and assign operations for all warehouse
       # view classes (Inputs, Internals, Outputs).
-      #
-      # ## Important Notes
-      #
-      # - Accepts hash reference from Crate, not a copy
-      # - Subclasses can override methods for specialized behavior
       class Base
         # Creates base view with storage hash reference.
         #

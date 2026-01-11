@@ -9,11 +9,6 @@ module Servactory
       #
       # Internals provides simple key-value storage for intermediate
       # service state. It references Crate data.
-      #
-      # ## Important Notes
-      #
-      # - References Crate#internals hash directly
-      # - Inherits fetch/assign from Base
       class Internals < Base; end
     end
   end
