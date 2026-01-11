@@ -4,7 +4,7 @@ module Servactory
       class Inputs < Base
         @context: untyped
 
-        def initialize: (untyped context, Hash[Symbol, untyped] storage_inputs) -> void
+        def initialize: (untyped context, Hash[Symbol, untyped] arguments) -> void
 
         def names: () -> Array[Symbol]
 

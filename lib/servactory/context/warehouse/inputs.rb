@@ -20,12 +20,12 @@ module Servactory
         # Creates inputs view with shared storage reference.
         #
         # @param context [Object] Service context for error handling
-        # @param storage_inputs [Hash] Reference to Storage#inputs
+        # @param arguments [Hash] Reference to Storage#inputs
         # @return [Inputs] New inputs view
-        def initialize(context, storage_inputs)
+        def initialize(context, arguments)
           @context = context
 
-          super(storage_inputs)
+          super(arguments)
         end
 
         # Returns array of input names.
