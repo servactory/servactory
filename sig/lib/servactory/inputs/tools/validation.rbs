@@ -14,17 +14,15 @@ module Servactory
 
         private
 
-        @errors: Maintenance::Attributes::Tools::CheckErrors
+        @first_error: String?
 
         def process_input: (Input input) -> void
 
         def process_option: (Symbol check_key, Hash[Symbol, untyped] check_options, input: Input) -> void
 
-        def process_validation_class: (validation_class: Class, input: Input, check_key: Symbol, check_options: Hash[Symbol, untyped]) -> instance
+        def process_validation_class: (validation_class: Class, input: Input, check_key: Symbol, check_options: Hash[Symbol, untyped]) -> String?
 
         def validation_classes_from: (Input input) -> Array[Class]
-
-        def errors: -> Maintenance::Attributes::Tools::CheckErrors
 
         def raise_errors: () -> void
       end

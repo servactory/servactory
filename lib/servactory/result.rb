@@ -6,8 +6,7 @@ module Servactory
   # ## Purpose
   #
   # Result provides a unified interface for handling service outcomes.
-  # Supports both success and failure states with output attribute access.
-  # Uses method_missing delegation for zero-allocation output access.
+  # Supports both success and failure states with dynamic output attribute access.
   #
   # ## Usage
   #
@@ -42,27 +41,11 @@ module Servactory
   # ```ruby
   # result.active?  # Equivalent to Utils.query_attribute(result.active)
   # ```
-  #
-  # ## Architecture
-  #
-  # - Factory methods `success_for`/`failure_for` create typed results
-  # - Uses @success flag instead of singleton methods for state
-  # - Delegates output access via method_missing to Outputs object
-  # - Outputs stores values in hash with method_missing access
   class Result
     # Internal container for service output values.
     #
-    # ## Purpose
-    #
-    # Outputs provides dynamic method access to output values from the
-    # service execution context warehouse. Uses method_missing for
-    # zero-allocation attribute access.
-    #
-    # ## Features
-    #
-    # - Stores outputs in hash for efficient access
-    # - Provides predicate methods when enabled
-    # - Supports introspection via output_names/predicate_names
+    # Provides dynamic method access to output values via method_missing.
+    # Stores outputs in hash and supports predicate methods when enabled.
     class Outputs
       # Creates an Outputs container with given output values.
       #

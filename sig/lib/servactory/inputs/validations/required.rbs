@@ -1,22 +1,26 @@
 module Servactory
   module Inputs
     module Validations
-      class Required < Base
-        @context: instance
-        @input: Input
-        @value: untyped
+      class Required
+        extend Maintenance::Attributes::Validations::Concerns::ErrorBuilder
 
-        def self.check: (context: instance, attribute: Input, value: untyped, check_key: Symbol, **untyped _) -> void
+        def self.check: (
+          context: untyped,
+          attribute: Input,
+          value: untyped,
+          check_key: Symbol,
+          **untyped
+        ) -> String?
 
         def self.should_be_checked_for?: (Input input, Symbol check_key) -> bool
 
-        def initialize: (context: instance, input: Input, value: untyped) -> void
-
-        def check: () -> void
-
         private
 
-        def add_error_with: (String? message) -> void
+        def self.build_error_message: (
+          context: untyped,
+          input: Input,
+          value: untyped
+        ) -> String
       end
     end
   end
