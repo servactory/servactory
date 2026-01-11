@@ -24,7 +24,7 @@ module Servactory
 
             check_options.each do |code, options|
               error_message = validate_condition(context:, attribute:, value:, code:, options:)
-              return error_message unless error_message.nil?
+              return error_message if error_message.present?
             end
 
             nil
