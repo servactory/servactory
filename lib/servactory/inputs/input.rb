@@ -16,27 +16,37 @@ module Servactory
           @types = input.types
           @default = input.default
           @options = input.options
-
-          define_identity_methods(input)
+          @attribute = input
         end
 
-        private
+        def system_name
+          @attribute.system_name
+        end
 
-        def define_identity_methods(input) # rubocop:disable Metrics/MethodLength
-          methods_map = {
-            system_name: -> { input.system_name },
-            i18n_name: -> { input.i18n_name },
-            optional?: -> { input.optional? },
-            required?: -> { input.required? },
-            # The methods below are required to support the internal work.
-            input?: -> { true },
-            internal?: -> { false },
-            output?: -> { false }
-          }
+        def i18n_name
+          @attribute.i18n_name
+        end
 
-          methods_map.each do |method_name, implementation|
-            define_singleton_method(method_name, &implementation)
-          end
+        def optional?
+          @attribute.optional?
+        end
+
+        def required?
+          @attribute.required?
+        end
+
+        # The methods below are required to support the internal work.
+
+        def input?
+          true
+        end
+
+        def internal?
+          false
+        end
+
+        def output?
+          false
         end
       end
 
