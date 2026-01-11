@@ -39,9 +39,9 @@ module Servactory
 
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
         def fetch_with(name:, &block)
-          is_predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+          predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
 
-          input_name = is_predicate ? name.to_s.chomp("?").to_sym : name
+          input_name = predicate ? name.to_s.chomp("?").to_sym : name
 
           input = @collection_of_inputs.find_by(name: input_name)
 
@@ -56,7 +56,7 @@ module Servactory
           input_prepare = input.prepare[:in]
           input_value = input_prepare.call(value: input_value) if input_prepare
 
-          is_predicate ? Servactory::Utils.query_attribute(input_value) : input_value
+          predicate ? Servactory::Utils.query_attribute(input_value) : input_value
         end
         # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
 

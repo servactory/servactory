@@ -54,16 +54,16 @@ module Servactory
         end
 
         def fetch_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
-          is_predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+          predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
 
-          output_name = is_predicate ? name.to_s.chomp("?").to_sym : name
+          output_name = predicate ? name.to_s.chomp("?").to_sym : name
           output = @collection_of_outputs.find_by(name: output_name)
 
           return yield if output.nil?
 
           output_value = @context.send(:servactory_service_warehouse).fetch_output(output.name)
 
-          is_predicate ? Servactory::Utils.query_attribute(output_value) : output_value
+          predicate ? Servactory::Utils.query_attribute(output_value) : output_value
         end
 
         def raise_error_for(type, name)
