@@ -17,7 +17,7 @@ module Servactory
         def validate!
           @collection_of_inputs.each do |input|
             process_input(input)
-            break if @first_error
+            break if @first_error.present?
           end
 
           raise_errors
@@ -28,7 +28,7 @@ module Servactory
         def process_input(input)
           input.options_for_checks.each do |check_key, check_options|
             process_option(check_key, check_options, input:)
-            break if @first_error
+            break if @first_error.present?
           end
         end
 
@@ -44,9 +44,9 @@ module Servactory
               check_options:
             )
 
-            next if error_message.nil?
+            next if error_message.blank?
 
-            @first_error ||= error_message
+            @first_error = error_message
             break
           end
         end

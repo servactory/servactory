@@ -27,7 +27,7 @@ module Servactory
           def process
             @attribute.options_for_checks.each do |check_key, check_options|
               process_option(check_key, check_options)
-              break if @first_error
+              break if @first_error.present?
             end
           end
 
@@ -41,9 +41,9 @@ module Servactory
                 check_options:
               )
 
-              next if error_message.nil?
+              next if error_message.blank?
 
-              @first_error ||= error_message
+              @first_error = error_message
               break
             end
           end
