@@ -32,7 +32,7 @@ module Servactory
           end
         end
 
-        def process_option(check_key, check_options, input:)
+        def process_option(check_key, check_options, input:) # rubocop:disable Metrics/MethodLength
           validation_classes = validation_classes_from(input)
           return if validation_classes.empty?
 

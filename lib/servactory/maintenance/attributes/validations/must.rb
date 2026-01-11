@@ -72,7 +72,7 @@ module Servactory
           # Calls the check lambda with error handling for syntax errors.
           #
           # @return [Array] [check_result, check_result_code, meta] or [:syntax_error, error_message, nil]
-          def self.call_check(context:, attribute:, value:, check:, code:) # rubocop:disable Metrics/MethodLength
+          def self.call_check(context:, attribute:, value:, check:, code:)
             check.call(value:, **Servactory::Utils.fetch_hash_with_desired_attribute(attribute))
           rescue StandardError => e
             # Return formatted syntax error message
