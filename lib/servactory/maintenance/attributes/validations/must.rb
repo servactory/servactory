@@ -7,31 +7,27 @@ module Servactory
         class Must
           extend Concerns::ErrorBuilder
 
-          # Validates must conditions without instance allocation on success.
+          # Validates must conditions without instance allocation.
           #
           # Optimized for the common case (validation success) with zero allocations.
-          # Only allocates Errors object when validation fails.
+          # Returns first error message on failure, nil on success.
+          # Stops on first validation failure (early return).
           #
           # @param context [Object] Service context
           # @param attribute [Inputs::Input, Internals::Internal, Outputs::Output] Attribute to validate
           # @param value [Object] Value to validate
           # @param check_key [Symbol] Validation check key
           # @param check_options [Hash] Must check options with conditions
-          # @return [Errors, nil] nil on success, Errors on failure
+          # @return [String, nil] nil on success, error message on failure
           def self.check(context:, attribute:, value:, check_key:, check_options:)
             return unless should_be_checked_for?(attribute, check_key)
 
-            errors = nil
-
             check_options.each do |code, options|
               error_message = validate_condition(context:, attribute:, value:, code:, options:)
-              next if error_message.nil?
-
-              errors ||= Errors.new
-              errors << error_message
+              return error_message unless error_message.nil?
             end
 
-            errors
+            nil
           end
 
           def self.should_be_checked_for?(attribute, check_key)

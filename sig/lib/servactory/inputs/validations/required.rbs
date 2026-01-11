@@ -10,17 +10,17 @@ module Servactory
           value: untyped,
           check_key: Symbol,
           **untyped
-        ) -> Maintenance::Attributes::Validations::Errors?
+        ) -> String?
 
         def self.should_be_checked_for?: (Input input, Symbol check_key) -> bool
 
         private
 
-        def self.build_error: (
+        def self.build_error_message: (
           context: untyped,
           input: Input,
           value: untyped
-        ) -> Maintenance::Attributes::Validations::Errors
+        ) -> String
       end
     end
   end

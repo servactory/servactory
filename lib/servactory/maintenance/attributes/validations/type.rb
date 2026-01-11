@@ -10,13 +10,13 @@ module Servactory
           # Validates attribute type without instance allocation.
           #
           # Optimized for the common case (validation success) with zero allocations.
-          # Only allocates Errors object on validation failure.
+          # Returns error message string on failure, nil on success.
           #
           # @param context [Object] Service context
           # @param attribute [Inputs::Input, Internals::Internal, Outputs::Output] Attribute to validate
           # @param value [Object] Value to validate
           # @param check_key [Symbol] Validation check key
-          # @return [Errors, nil] nil on success, Errors on failure
+          # @return [String, nil] nil on success, error message on failure
           def self.check(context:, attribute:, value:, check_key:, **)
             return unless should_be_checked_for?(attribute, value, check_key)
 
@@ -31,7 +31,7 @@ module Servactory
 
             return if error_data.nil?
 
-            build_errors_from(error_data)
+            build_error_message(error_data)
           end
 
           # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -64,14 +64,14 @@ module Servactory
           end
           private_class_method :compute_prepared_value
 
-          # Builds Errors from validation error data using ErrorBuilder.
+          # Builds error message from validation error data.
           #
           # @param error_data [Hash] Error data from Types.validate
-          # @return [Errors] Errors collection with processed message
-          def self.build_errors_from(error_data)
-            build_errors(error_data[:message], **error_data)
+          # @return [String] Processed error message
+          def self.build_error_message(error_data)
+            process_message(error_data[:message], **error_data)
           end
-          private_class_method :build_errors_from
+          private_class_method :build_error_message
         end
       end
     end

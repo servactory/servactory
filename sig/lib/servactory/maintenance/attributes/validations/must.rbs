@@ -11,7 +11,7 @@ module Servactory
             value: untyped,
             check_key: Symbol,
             check_options: Hash[Symbol, untyped]
-          ) -> Errors?
+          ) -> String?
 
           def self.should_be_checked_for?: (
             (Inputs::Input | Internals::Internal | Outputs::Output) attribute,
@@ -27,6 +27,14 @@ module Servactory
             code: Symbol,
             options: Hash[Symbol, untyped]
           ) -> String?
+
+          def self.call_check: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            check: Proc,
+            code: Symbol
+          ) -> Array[untyped]
 
           def self.build_error_message: (
             context: untyped,
