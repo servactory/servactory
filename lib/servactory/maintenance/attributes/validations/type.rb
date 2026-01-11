@@ -4,19 +4,45 @@ module Servactory
   module Maintenance
     module Attributes
       module Validations
+        # Validates that attribute values match their declared types.
+        #
+        # ## Purpose
+        #
+        # Type validator ensures attribute values conform to declared type
+        # constraints. It supports single types, union types (arrays), and
+        # custom type definitions. Works with inputs, internals, and outputs.
+        #
+        # ## Usage
+        #
+        # Type validation is automatic based on the `type` option:
+        #
+        # ```ruby
+        # class MyService < ApplicationService::Base
+        #   input :id, type: Integer
+        #   input :data, type: [Hash, Array]  # union type
+        #   input :status, type: String, required: false
+        #
+        #   internal :result, type: CustomType
+        #   output :response, type: Hash
+        # end
+        # ```
+        #
+        # ## Architecture
+        #
+        # - Zero allocations on success path (returns nil)
+        # - Delegates actual type checking to Types.validate
+        # - Handles default value substitution for optional inputs
+        # - Uses ErrorBuilder concern for message processing
         class Type
           extend Concerns::ErrorBuilder
 
-          # Validates attribute type without instance allocation.
+          # Validates that a value matches the declared attribute types.
           #
-          # Optimized for the common case (validation success) with zero allocations.
-          # Returns error message string on failure, nil on success.
-          #
-          # @param context [Object] Service context
+          # @param context [Object] Service context for error formatting
           # @param attribute [Inputs::Input, Internals::Internal, Outputs::Output] Attribute to validate
-          # @param value [Object] Value to validate
-          # @param check_key [Symbol] Validation check key
-          # @return [String, nil] nil on success, error message on failure
+          # @param value [Object] Value to check against declared types
+          # @param check_key [Symbol] Must be :types to trigger validation
+          # @return [String, nil] Error message on type mismatch, nil on success
           def self.check(context:, attribute:, value:, check_key:, **)
             return unless should_be_checked_for?(attribute, value, check_key)
 
@@ -34,6 +60,19 @@ module Servactory
             build_error_message(error_data)
           end
 
+          # Determines if type validation should run for given attribute.
+          #
+          # Type validation runs when:
+          # - check_key is :types AND one of:
+          #   - Input is required
+          #   - Input is optional with non-nil default
+          #   - Input is optional with non-nil value
+          #   - Attribute is internal or output (always validated)
+          #
+          # @param attribute [Inputs::Input, Internals::Internal, Outputs::Output] Attribute to check
+          # @param value [Object] Current value (for optional input check)
+          # @param check_key [Symbol] Current validation check key
+          # @return [Boolean] true if type validation should run
           # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def self.should_be_checked_for?(attribute, value, check_key)
             check_key == :types && (
@@ -49,6 +88,7 @@ module Servactory
             )
           end
           # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          private_class_method :should_be_checked_for?
 
           # Computes prepared value with default substitution for optional inputs.
           #

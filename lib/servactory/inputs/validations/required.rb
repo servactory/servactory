@@ -3,19 +3,40 @@
 module Servactory
   module Inputs
     module Validations
+      # Validates that required inputs have non-empty values.
+      #
+      # ## Purpose
+      #
+      # Required validator ensures that inputs marked as `required: true`
+      # have meaningful values. It checks for presence using `value_present?`
+      # which handles nil, empty strings, and blank values.
+      #
+      # ## Usage
+      #
+      # This validator is automatically applied to inputs with `required: true`:
+      #
+      # ```ruby
+      # class MyService < ApplicationService::Base
+      #   input :email, type: String, required: true
+      #   input :name, type: String, required: { message: "Name is mandatory" }
+      # end
+      # ```
+      #
+      # ## Architecture
+      #
+      # - Zero allocations on success path (returns nil)
+      # - Returns error message String on failure
+      # - Uses ErrorBuilder concern for message processing
       class Required
         extend Servactory::Maintenance::Attributes::Validations::Concerns::ErrorBuilder
 
-        # Validates that required input has a value without instance allocation.
+        # Validates that a required input has a present value.
         #
-        # Optimized for the common case (validation success) with zero allocations.
-        # Returns error message string on failure, nil on success.
-        #
-        # @param context [Object] Service context
+        # @param context [Object] Service context for error message formatting
         # @param attribute [Inputs::Input] Input attribute to validate
-        # @param value [Object] Value to validate
-        # @param check_key [Symbol] Validation check key
-        # @return [String, nil] nil on success, error message on failure
+        # @param value [Object] Value to check for presence
+        # @param check_key [Symbol] Must be :required to trigger validation
+        # @return [String, nil] Error message on failure, nil on success
         def self.check(context:, attribute:, value:, check_key:, **)
           return unless should_be_checked_for?(attribute, check_key)
           return if Servactory::Utils.value_present?(value)
@@ -23,9 +44,15 @@ module Servactory
           build_error_message(context:, input: attribute, value:)
         end
 
+        # Determines if validation should run for given input and check key.
+        #
+        # @param input [Inputs::Input] Input to check
+        # @param check_key [Symbol] Current validation check key
+        # @return [Boolean] true if this validator should run
         def self.should_be_checked_for?(input, check_key)
           check_key == :required && input.required?
         end
+        private_class_method :should_be_checked_for?
 
         # Builds error message from validation failure.
         #
