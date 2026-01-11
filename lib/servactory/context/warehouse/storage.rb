@@ -27,6 +27,10 @@ module Servactory
       # - Single instance replaces three separate Base instances
       # - Hashes are exposed directly for performance
       class Storage
+        attr_reader :inputs,
+                    :internals,
+                    :outputs
+
         # Creates new storage with empty data sections.
         #
         # @return [Storage] New storage instance
@@ -35,8 +39,6 @@ module Servactory
           @internals = {}
           @outputs = {}
         end
-
-        attr_reader :inputs, :internals, :outputs
       end
     end
   end

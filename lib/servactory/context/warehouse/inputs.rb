@@ -43,8 +43,6 @@ module Servactory
           @arguments.merge!(arguments)
         end
 
-        ##########################################################################
-
         # Delegates method calls to stored inputs.
         #
         # Supports predicate methods when enabled in config.
@@ -70,8 +68,6 @@ module Servactory
         def respond_to_missing?(name, *)
           @arguments.fetch(name) { raise_error_for(name) }
         end
-
-        ##########################################################################
 
         private
 
