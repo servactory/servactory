@@ -3,6 +3,13 @@
 module Servactory
   module Context
     module Warehouse
+      # View for accessing service output values.
+      #
+      # ## Purpose
+      #
+      # Outputs provides storage for service result values with iteration
+      # support via each_pair delegation. Used by Result class to build
+      # output hash.
       class Outputs < Base
         extend Forwardable
 

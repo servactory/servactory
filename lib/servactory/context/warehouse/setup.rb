@@ -3,69 +3,92 @@
 module Servactory
   module Context
     module Warehouse
+      # Orchestrator for service context data.
+      #
+      # ## Purpose
+      #
+      # Setup manages a unified Crate instance and provides the public
+      # interface for accessing inputs, internals, and outputs. It creates
+      # view objects lazily on first access.
       class Setup
+        # Creates setup with unified crate.
+        #
+        # @param context [Object] Service context
+        # @return [Setup] New setup instance
         def initialize(context)
           @context = context
+          @crate = Crate.new
         end
 
+        # Merges input arguments into storage.
+        #
+        # @param arguments [Hash] Input name-value pairs
+        # @return [Hash] Updated inputs hash
         def assign_inputs(arguments)
-          context_data[:inputs].merge!(arguments)
+          inputs.merge!(arguments)
         end
 
+        # Retrieves input value by name.
+        #
+        # @param name [Symbol] Input name
+        # @return [Object, nil] Input value or nil
         def fetch_input(name)
           inputs.fetch(name, nil)
         end
 
+        # Stores internal value by name.
+        #
+        # @param name [Symbol] Internal name
+        # @param value [Object] Value to store
+        # @return [Object] Stored value
         def assign_internal(name, value)
-          assign_attribute(:internals, name, value)
+          internals.assign(name, value)
         end
 
+        # Retrieves internal value by name.
+        #
+        # @param name [Symbol] Internal name
+        # @return [Object, nil] Internal value or nil
         def fetch_internal(name)
           internals.fetch(name, nil)
         end
 
+        # Stores output value by name.
+        #
+        # @param name [Symbol] Output name
+        # @param value [Object] Value to store
+        # @return [Object] Stored value
         def assign_output(name, value)
-          assign_attribute(:outputs, name, value)
+          outputs.assign(name, value)
         end
 
+        # Retrieves output value by name.
+        #
+        # @param name [Symbol] Output name
+        # @return [Object, nil] Output value or nil
         def fetch_output(name)
           outputs.fetch(name, nil)
         end
 
+        # Returns inputs view object.
+        #
+        # @return [Inputs] Inputs view
         def inputs
-          @inputs ||= context_data.fetch(:inputs)
+          @inputs ||= Inputs.new(@context, @crate.inputs)
         end
 
+        # Returns internals view object.
+        #
+        # @return [Internals] Internals view
         def internals
-          @internals ||= context_data.fetch(:internals)
+          @internals ||= Internals.new(@crate.internals)
         end
 
+        # Returns outputs view object.
+        #
+        # @return [Outputs] Outputs view
         def outputs
-          @outputs ||= context_data.fetch(:outputs)
-        end
-
-        private
-
-        def assign_attribute(section, name, value)
-          context_data[section].assign(name, value)
-        end
-
-        def context_data
-          @context_data ||= state.fetch(context_id)
-        end
-
-        def state
-          {
-            context_id => {
-              inputs: Servactory::Context::Warehouse::Inputs.new(@context),
-              internals: Servactory::Context::Warehouse::Internals.new,
-              outputs: Servactory::Context::Warehouse::Outputs.new
-            }
-          }
-        end
-
-        def context_id
-          @context_id ||= "context_#{@context.object_id}"
+          @outputs ||= Outputs.new(@crate.outputs)
         end
       end
     end

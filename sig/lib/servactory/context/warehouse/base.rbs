@@ -2,13 +2,11 @@ module Servactory
   module Context
     module Warehouse
       class Base
-        @arguments: untyped
+        @arguments: Hash[Symbol, untyped]
 
-        def initialize: (?::Hash[untyped, untyped] arguments) -> void
-
-        def fetch: (untyped name, untyped default_value) -> untyped
-
-        def assign: (untyped key, untyped value) -> untyped
+        def initialize: (?Hash[Symbol, untyped] arguments) -> void
+        def fetch: (Symbol name, untyped? default_value) -> untyped
+        def assign: (Symbol key, untyped value) -> untyped
       end
     end
   end

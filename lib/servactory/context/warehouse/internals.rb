@@ -3,8 +3,13 @@
 module Servactory
   module Context
     module Warehouse
-      class Internals < Base
-      end
+      # View for accessing service internal values.
+      #
+      # ## Purpose
+      #
+      # Internals provides simple key-value storage for intermediate
+      # service state. It references Crate data.
+      class Internals < Base; end
     end
   end
 end

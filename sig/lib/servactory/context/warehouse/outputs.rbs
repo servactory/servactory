@@ -3,6 +3,8 @@ module Servactory
     module Warehouse
       class Outputs < Base
         extend Forwardable
+
+        def each_pair: () { (Symbol, untyped) -> void } -> Hash[Symbol, untyped]
       end
     end
   end
