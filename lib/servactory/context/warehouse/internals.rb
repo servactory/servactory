@@ -13,32 +13,14 @@ module Servactory
       # ## Important Notes
       #
       # - References Storage#internals hash directly
-      # - Minimal interface: fetch and assign
-      class Internals
+      # - Inherits fetch/assign from Base
+      class Internals < Base
         # Creates internals view with shared storage reference.
         #
         # @param storage_internals [Hash] Reference to Storage#internals
         # @return [Internals] New internals view
         def initialize(storage_internals)
-          @arguments = storage_internals
-        end
-
-        # Retrieves value by name with default fallback.
-        #
-        # @param name [Symbol] Internal name
-        # @param default_value [Object] Value if not found
-        # @return [Object] Stored or default value
-        def fetch(name, default_value)
-          @arguments.fetch(name, default_value)
-        end
-
-        # Stores value by key.
-        #
-        # @param key [Symbol] Internal name
-        # @param value [Object] Value to store
-        # @return [Object] Stored value
-        def assign(key, value)
-          @arguments[key] = value
+          super(storage_internals)
         end
       end
     end

@@ -1,17 +1,14 @@
 module Servactory
   module Context
     module Warehouse
-      class Inputs
+      class Inputs < Base
         @context: untyped
-        @arguments: Hash[Symbol, untyped]
 
         def initialize: (untyped context, Hash[Symbol, untyped] storage_inputs) -> void
 
         def names: () -> Array[Symbol]
 
         def merge!: (Hash[Symbol, untyped] arguments) -> Hash[Symbol, untyped]
-
-        def fetch: (Symbol name, untyped? default_value) -> untyped
 
         def method_missing: (Symbol name, *untyped _args) -> untyped
 

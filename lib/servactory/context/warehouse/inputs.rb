@@ -16,7 +16,7 @@ module Servactory
       # - References Storage#inputs hash directly
       # - Provides method_missing for dynamic access
       # - Handles predicate methods (name?)
-      class Inputs
+      class Inputs < Base
         # Creates inputs view with shared storage reference.
         #
         # @param context [Object] Service context for error handling
@@ -24,7 +24,8 @@ module Servactory
         # @return [Inputs] New inputs view
         def initialize(context, storage_inputs)
           @context = context
-          @arguments = storage_inputs
+
+          super(storage_inputs)
         end
 
         # Returns array of input names.
@@ -40,15 +41,6 @@ module Servactory
         # @return [Hash] Updated arguments hash
         def merge!(arguments)
           @arguments.merge!(arguments)
-        end
-
-        # Retrieves value by name with default fallback.
-        #
-        # @param name [Symbol] Input name
-        # @param default_value [Object] Value if not found
-        # @return [Object] Stored or default value
-        def fetch(name, default_value)
-          @arguments.fetch(name, default_value)
         end
 
         ##########################################################################
