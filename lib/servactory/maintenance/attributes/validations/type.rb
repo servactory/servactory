@@ -21,8 +21,8 @@ module Servactory
             prepared_value = compute_prepared_value(attribute, value)
 
             error_data = Servactory::Maintenance::Validations::Types.validate(
-              context: context,
-              attribute: attribute,
+              context:,
+              attribute:,
               types: attribute.types,
               value: prepared_value
             )
