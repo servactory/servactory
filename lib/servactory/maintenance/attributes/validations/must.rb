@@ -5,6 +5,11 @@ module Servactory
     module Attributes
       module Validations
         class Must < Base
+          # TODO: [SRV-404] Consider rewriting to static methods approach like Type class
+          #       to reduce object allocations. Requires different strategy due to
+          #       error accumulation across multiple must validations.
+          #       See: lib/servactory/maintenance/attributes/validations/type.rb
+
           def self.check(context:, attribute:, value:, check_key:, check_options:)
             return unless should_be_checked_for?(attribute, check_key)
 

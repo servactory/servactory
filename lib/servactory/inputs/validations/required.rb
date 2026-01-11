@@ -4,6 +4,10 @@ module Servactory
   module Inputs
     module Validations
       class Required < Base
+        # TODO: [SRV-404] Consider rewriting to static methods approach like Type class
+        #       to reduce object allocations.
+        #       See: lib/servactory/maintenance/attributes/validations/type.rb
+
         def self.check(context:, attribute:, value:, check_key:, **)
           return unless should_be_checked_for?(attribute, check_key)
 
