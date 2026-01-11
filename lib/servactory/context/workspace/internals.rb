@@ -53,8 +53,10 @@ module Servactory
           @context.send(:servactory_service_warehouse).assign_internal(internal.name, value)
         end
 
-        def fetch_with(name:, &block) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Lint/UnusedMethodArgument
-          internal_name = @context.config.predicate_methods_enabled ? name.to_s.chomp("?").to_sym : name
+        def fetch_with(name:, &block) # rubocop:disable Metrics/MethodLength, Lint/UnusedMethodArgument
+          is_predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+
+          internal_name = is_predicate ? name.to_s.chomp("?").to_sym : name
           internal = @collection_of_internals.find_by(name: internal_name)
 
           return yield if internal.nil?
@@ -67,11 +69,7 @@ module Servactory
             value: internal_value
           )
 
-          if name.to_s.end_with?("?") && @context.config.predicate_methods_enabled
-            Servactory::Utils.query_attribute(internal_value)
-          else
-            internal_value
-          end
+          is_predicate ? Servactory::Utils.query_attribute(internal_value) : internal_value
         end
 
         def raise_error_for(type, name)
