@@ -21,12 +21,6 @@ module Servactory
       #   input :name, type: String, required: { message: "Name is mandatory" }
       # end
       # ```
-      #
-      # ## Architecture
-      #
-      # - Checks value presence using Utils.value_present?
-      # - Delegates message processing to ErrorBuilder concern
-      # - Returns nil on success, error message String on failure
       class Required
         extend Servactory::Maintenance::Attributes::Validations::Concerns::ErrorBuilder
 

@@ -26,13 +26,6 @@ module Servactory
         #   output :response, type: Hash
         # end
         # ```
-        #
-        # ## Architecture
-        #
-        # - Delegates type checking logic to Types.validate
-        # - Substitutes default values for blank optional inputs before validation
-        # - Delegates message processing to ErrorBuilder concern
-        # - Returns nil on success, error message String on failure
         class Type
           extend Concerns::ErrorBuilder
 

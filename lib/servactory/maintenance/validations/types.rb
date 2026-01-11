@@ -4,10 +4,9 @@ module Servactory
   module Maintenance
     module Validations
       class Types
-        # Validates value against expected types without instance allocation.
+        # Validates value against expected types.
         #
-        # Optimized for the common case (validation success) with zero allocations.
-        # Only allocates a Hash on validation failure.
+        # Returns nil on success, error data Hash on failure.
         #
         # @param context [Object] Service context for error info
         # @param attribute [Inputs::Input, Internals::Internal, Outputs::Output] Attribute being validated
