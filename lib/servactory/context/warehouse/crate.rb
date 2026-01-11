@@ -20,12 +20,6 @@ module Servactory
       # crate.inputs[:name] = "value"
       # crate.outputs[:result] = result
       # ```
-      #
-      # ## Important Notes
-      #
-      # - This is an internal implementation class
-      # - Single instance replaces three separate Base instances
-      # - Hashes are exposed directly for performance
       class Crate
         attr_reader :inputs,
                     :internals,

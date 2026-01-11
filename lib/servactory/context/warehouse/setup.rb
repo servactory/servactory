@@ -10,12 +10,6 @@ module Servactory
       # Setup manages a unified Crate instance and provides the public
       # interface for accessing inputs, internals, and outputs. It creates
       # view objects lazily on first access.
-      #
-      # ## Important Notes
-      #
-      # - Creates single Crate instance instead of three separate warehouses
-      # - View objects (Inputs, Internals, Outputs) reference Crate data
-      # - Lazy initialization of view objects
       class Setup
         # Creates setup with unified crate.
         #
