@@ -19,14 +19,6 @@ module Servactory
       class Outputs < Base
         extend Forwardable
 
-        # Creates outputs view with shared storage reference.
-        #
-        # @param storage_outputs [Hash] Reference to Storage#outputs
-        # @return [Outputs] New outputs view
-        def initialize(storage_outputs)
-          super(storage_outputs)
-        end
-
         def_delegators :@arguments, :each_pair
       end
     end

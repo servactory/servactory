@@ -2,7 +2,6 @@ module Servactory
   module Context
     module Warehouse
       class Internals < Base
-        def initialize: (Hash[Symbol, untyped] storage_internals) -> void
       end
     end
   end

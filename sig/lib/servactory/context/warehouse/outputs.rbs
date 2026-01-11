@@ -4,8 +4,6 @@ module Servactory
       class Outputs < Base
         extend Forwardable
 
-        def initialize: (Hash[Symbol, untyped] storage_outputs) -> void
-
         def each_pair: () { (Symbol, untyped) -> void } -> Hash[Symbol, untyped]
       end
     end
