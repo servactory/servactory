@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    servactory (3.0.0.rc4)
+    servactory (3.0.0.rc5)
       activesupport (>= 5.1)
       i18n (>= 1.14)
       stroma (>= 0.4)
