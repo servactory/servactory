@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "activesupport", ">= 5.1"
   spec.add_dependency "i18n", ">= 1.14"
-  spec.add_dependency "stroma", ">= 0.3"
+  spec.add_dependency "stroma", ">= 0.4"
   spec.add_dependency "zeitwerk", ">= 2.6"
 
   spec.add_development_dependency "appraisal", ">= 2.5"

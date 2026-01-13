@@ -4,7 +4,7 @@ PATH
     servactory (3.0.0.rc4)
       activesupport (>= 5.1)
       i18n (>= 1.14)
-      stroma (>= 0.3)
+      stroma (>= 0.4)
       zeitwerk (>= 2.6)
 
 GEM
@@ -44,7 +44,7 @@ GEM
       rake
       thor (>= 0.14.0)
     ast (2.4.3)
-    async (2.35.1)
+    async (2.35.2)
       console (~> 1.29)
       fiber-annotation
       io-event (~> 1.11)
@@ -109,7 +109,7 @@ GEM
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
-    prism (1.7.0)
+    prism (1.8.0)
     psych (5.3.1)
       date
       stringio
@@ -230,7 +230,7 @@ GEM
       terminal-table (>= 2, < 5)
       uri (>= 0.12.0)
     stringio (3.2.0)
-    stroma (0.3.0)
+    stroma (0.4.0)
       activesupport (>= 5.1)
       zeitwerk (>= 2.6)
     strscan (3.1.7)
@@ -264,4 +264,4 @@ DEPENDENCIES
   steep (>= 1.9)
 
 BUNDLED WITH
-   2.7.2
+  4.0.3

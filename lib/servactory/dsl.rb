@@ -2,6 +2,17 @@
 
 module Servactory
   module DSL
+    STROMA = Stroma::Matrix.define(:my_lib) do
+      register(:configuration, Configuration::DSL)
+      register(:info, Info::DSL)
+      register(:context, Context::DSL)
+      register(:inputs, Inputs::DSL)
+      register(:internals, Internals::DSL)
+      register(:outputs, Outputs::DSL)
+      register(:actions, Actions::DSL)
+    end
+    private_constant :STROMA
+
     module Extensions
       def self.registry
         @registry ||= []
@@ -16,17 +27,8 @@ module Servactory
       end
     end
 
-    ::Stroma::Registry.register(:configuration, Configuration::DSL)
-    ::Stroma::Registry.register(:info, Info::DSL)
-    ::Stroma::Registry.register(:context, Context::DSL)
-    ::Stroma::Registry.register(:inputs, Inputs::DSL)
-    ::Stroma::Registry.register(:internals, Internals::DSL)
-    ::Stroma::Registry.register(:outputs, Outputs::DSL)
-    ::Stroma::Registry.register(:actions, Actions::DSL)
-    ::Stroma::Registry.finalize!
-
     def self.included(base)
-      base.include(::Stroma::DSL)
+      base.include(STROMA.dsl)
 
       Extensions.registry.each { |extension| base.include(extension) }
     end
