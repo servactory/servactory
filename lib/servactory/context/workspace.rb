@@ -20,6 +20,10 @@ module Servactory
         end
       end
 
+      def initialize(incoming_arguments)
+        servactory_service_warehouse.assign_inputs(incoming_arguments)
+      end
+
       def inputs
         @inputs ||= Inputs.new(
           context: self,
@@ -91,14 +95,12 @@ module Servactory
                   :collection_of_outputs
 
       def _call!(
-        incoming_arguments:,
         collection_of_inputs:,
         collection_of_internals:,
         collection_of_outputs:,
         collection_of_stages:
       )
         call!(
-          incoming_arguments:,
           collection_of_inputs:,
           collection_of_internals:,
           collection_of_outputs:,
