@@ -61,7 +61,7 @@ module Servactory
 
           ########################################################################
 
-          def register_required_option(validation_class)
+          def register_required_option(validation_class) # rubocop:disable Metrics/MethodLength
             create_option(
               name: :required,
               validation_class:,

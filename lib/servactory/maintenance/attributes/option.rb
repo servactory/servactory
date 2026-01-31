@@ -72,6 +72,7 @@ module Servactory
 
         private
 
+        # rubocop:disable Metrics/MethodLength
         def construct_body(
           original_value:,
           options:,
@@ -80,9 +81,7 @@ module Servactory
           body_fallback:,
           detect_advanced_mode:
         )
-          if original_value.present?
-            return wrap_and_normalize(original_value)
-          end
+          return wrap_and_normalize(original_value) if original_value.present?
 
           raw_value = options.fetch(@name, body_fallback)
 
@@ -99,6 +98,7 @@ module Servactory
 
           apply_normalizer(result)
         end
+        # rubocop:enable Metrics/MethodLength
 
         def wrap_and_normalize(value)
           result = wrap_value(value)
