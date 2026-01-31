@@ -1,17 +1,7 @@
 module Servactory
   module Outputs
-    class Collection
-      extend Forwardable
-
+    class Collection < Servactory::Attributes::Collection
       @collection: Set[Output]
-
-      def initialize: (Set[Output] collection) -> void
-
-      def only: (Array[Symbol] names) -> Collection
-
-      def except: (Array[Symbol] names) -> Collection
-
-      def names: () -> Array[Symbol]
 
       def find_by: (name: Symbol) -> Output?
     end

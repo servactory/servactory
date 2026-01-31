@@ -2,29 +2,13 @@
 
 module Servactory
   module Inputs
-    class Collection
-      extend Forwardable
+    class Collection < Servactory::Attributes::Collection
+      def_delegators :@collection, :flat_map
 
-      def_delegators :@collection, :<<, :filter, :each, :map, :flat_map, :to_h, :merge, :find
+      private
 
-      def initialize(collection = Set.new)
-        @collection = collection
-      end
-
-      def only(*names)
-        Collection.new(filter { |input| names.include?(input.internal_name) })
-      end
-
-      def except(*names)
-        Collection.new(filter { |input| names.exclude?(input.internal_name) })
-      end
-
-      def names
-        map(&:name)
-      end
-
-      def find_by(name:)
-        find { |input| input.internal_name == name }
+      def lookup_name(item)
+        item.internal_name
       end
     end
   end
