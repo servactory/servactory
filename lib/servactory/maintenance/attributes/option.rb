@@ -13,7 +13,8 @@ module Servactory
                     :define_methods,
                     :define_conflicts,
                     :need_for_checks,
-                    :body
+                    :body,
+                    :body_key
 
         # rubocop:disable Metrics/MethodLength
         def initialize(
@@ -23,7 +24,7 @@ module Servactory
           need_for_checks:,
           body_fallback:,
           original_value: nil,
-          body_key: nil,
+          body_key: :is,
           body_value: true,
           define_methods: nil,
           define_conflicts: nil,
@@ -31,6 +32,7 @@ module Servactory
           **options
         )
           @name = name.to_sym
+          @body_key = body_key
           @validation_class = validation_class
           @define_methods = define_methods
           @define_conflicts = define_conflicts
@@ -48,6 +50,12 @@ module Servactory
           apply_dynamic_methods_to(attribute:)
         end
         # rubocop:enable Metrics/MethodLength
+
+        def value
+          return body unless body.is_a?(Hash)
+
+          body.fetch(@body_key, body)
+        end
 
         def need_for_checks?
           need_for_checks
