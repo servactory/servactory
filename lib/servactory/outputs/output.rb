@@ -23,6 +23,8 @@ module Servactory
           @attribute.i18n_name
         end
 
+        # The methods below are required to support the internal work.
+
         def input?
           @attribute.input?
         end

@@ -35,6 +35,8 @@ module Servactory
           @attribute.required?
         end
 
+        # The methods below are required to support the internal work.
+
         def input?
           @attribute.input?
         end
