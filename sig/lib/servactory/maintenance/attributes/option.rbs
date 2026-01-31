@@ -27,9 +27,9 @@ module Servactory
             **untyped options
           ) -> void
 
-        def need_for_checks?: () -> bool
-
         def value: () -> untyped
+
+        def need_for_checks?: () -> bool
 
         private
 

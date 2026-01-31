@@ -51,14 +51,14 @@ module Servactory
         end
         # rubocop:enable Metrics/MethodLength
 
-        def need_for_checks?
-          need_for_checks
-        end
-
         def value
           return body unless body.is_a?(Hash)
 
           body.fetch(@body_key, body)
+        end
+
+        def need_for_checks?
+          need_for_checks
         end
 
         private
