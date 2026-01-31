@@ -79,6 +79,7 @@ module Servactory
               validation_class:,
               original_value: Array(@options.fetch(:type)).uniq,
               need_for_checks: true,
+              body_key: :is,
               body_fallback: nil,
               with_advanced_mode: false
             )
@@ -95,6 +96,7 @@ module Servactory
                 )
               ],
               need_for_checks: true,
+              body_key: :is,
               body_fallback: nil,
               with_advanced_mode: false
             )

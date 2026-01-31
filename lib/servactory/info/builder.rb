@@ -148,7 +148,7 @@ module Servactory
         options.merge(
           actor:,
           types: attribute.types,
-          must: must&.body
+          must: must&.value
         )
       end
     end
