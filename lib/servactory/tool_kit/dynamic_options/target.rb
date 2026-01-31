@@ -15,24 +15,8 @@ module Servactory
       #
       # ## Usage
       #
-      # This option is **NOT included by default**. Register it for each
-      # attribute type where you want to use it:
-      #
-      # ```ruby
-      # configuration do
-      #   input_option_helpers([
-      #     Servactory::ToolKit::DynamicOptions::Target.use
-      #   ])
-      #
-      #   internal_option_helpers([
-      #     Servactory::ToolKit::DynamicOptions::Target.use
-      #   ])
-      #
-      #   output_option_helpers([
-      #     Servactory::ToolKit::DynamicOptions::Target.use
-      #   ])
-      # end
-      # ```
+      # This option is **included by default** for inputs, internals, and outputs.
+      # No registration required.
       #
       # Use in your service definition:
       #
