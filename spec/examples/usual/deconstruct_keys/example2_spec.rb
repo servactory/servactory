@@ -84,6 +84,13 @@ RSpec.describe Usual::DeconstructKeys::Example2, type: :service do
             meta: { field: :email }
           )
         end
+
+        it "returns only requested keys via Failure#deconstruct_keys([:type])" do
+          result = perform
+          error_keys = result.error.deconstruct_keys([:type])
+
+          expect(error_keys).to eq(type: :validation)
+        end
       end
     end
   end
