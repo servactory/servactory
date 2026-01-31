@@ -70,7 +70,7 @@ module Servactory
       # when predicate_methods_enabled is true.
       #
       # @param name [Symbol] Method name (output or predicate)
-      # @param args [Array] Method arguments (unused)
+      # @param args [Array] Method arguments
       # @return [Object] Output value or predicate result
       def method_missing(name, *args)
         if name.to_s.end_with?("?")
@@ -132,9 +132,6 @@ module Servactory
     private_constant :Outputs
 
     ############################################################################
-
-    STATE_PREDICATE_NAMES = %i[success? failure?].freeze
-    private_constant :STATE_PREDICATE_NAMES
 
     # Creates a success result for the given context.
     #
@@ -220,6 +217,40 @@ module Servactory
     #   result.to_h # => { user: #<User>, token: "abc123" }
     def to_h
       outputs.send(:output_names).to_h { |key| [key, outputs.public_send(key)] }.compact
+    end
+
+    # Pattern matching support for Ruby 3.2+.
+    #
+    # Returns hash of result state and output values for use with case/in.
+    # State keys (:success, :failure, :error) take priority over output names.
+    #
+    # @param keys [Array<Symbol>, nil] Keys to include, or nil for all
+    # @return [Hash<Symbol, Object>] Hash of state and outputs for pattern matching
+    #
+    # @example Basic matching
+    #   case result
+    #   in { success: true, user: }
+    #     redirect_to user
+    #   in { failure: true }
+    #     render :error
+    #   end
+    #
+    # @example Matching with error details
+    #   case result
+    #   in { failure: true, error: { type: :validation, message: } }
+    #     flash[:error] = message
+    #   end
+    def deconstruct_keys(keys)
+      available = { success: success?, failure: failure? }
+      available[:error] = error if failure?
+
+      outputs.send(:output_names).each do |name|
+        available[name] = outputs.public_send(name)
+      end
+
+      return available if keys.nil?
+
+      available.slice(*keys)
     end
 
     # Returns string representation for debugging.
