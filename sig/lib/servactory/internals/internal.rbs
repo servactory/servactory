@@ -14,14 +14,14 @@ module Servactory
 
         def i18n_name: () -> String
 
-        def input?: () -> false
+        def input?: () -> bool
 
-        def internal?: () -> true
+        def internal?: () -> bool
 
-        def output?: () -> false
+        def output?: () -> bool
       end
 
-      def internal?: () -> true
+      def internal?: () -> bool
 
       private
 

@@ -20,11 +20,11 @@ module Servactory
 
         def required?: () -> bool
 
-        def input?: () -> true
+        def input?: () -> bool
 
-        def internal?: () -> false
+        def internal?: () -> bool
 
-        def output?: () -> false
+        def output?: () -> bool
       end
 
       attr_reader internal_name: Symbol
@@ -41,7 +41,7 @@ module Servactory
 
       def with_conflicts?: () -> bool
 
-      def input?: () -> true
+      def input?: () -> bool
 
       private
 
