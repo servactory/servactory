@@ -69,19 +69,23 @@ module Servactory
               define_conflicts: required_define_conflicts,
               need_for_checks: true,
               body_key: :is,
-              body_fallback: true
+              body_fallback: true,
+              detect_advanced_mode: true,
+              return_value_on_access: false
             )
           end
 
-          def register_types_option(validation_class)
+          def register_types_option(validation_class) # rubocop:disable Metrics/MethodLength
             create_option(
               name: :types,
               validation_class:,
-              original_value: Array(@options.fetch(:type)).uniq,
+              original_value: extract_types_value,
               need_for_checks: true,
               body_key: :is,
               body_fallback: nil,
-              with_advanced_mode: false
+              detect_advanced_mode: true,
+              return_value_on_access: true,
+              normalizer: ->(v) { Array(v).uniq }
             )
           end
 
@@ -92,13 +96,14 @@ module Servactory
               define_methods: [
                 create_define_method(
                   name: :default_value_present?,
-                  content: ->(option:) { !option.nil? }
+                  content: ->(option:) { !option[:is].nil? }
                 )
               ],
               need_for_checks: true,
               body_key: :is,
               body_fallback: nil,
-              with_advanced_mode: false
+              detect_advanced_mode: false,
+              return_value_on_access: true
             )
           end
 
@@ -109,13 +114,14 @@ module Servactory
               define_methods: [
                 create_define_method(
                   name: :must_present?,
-                  content: ->(option:) { option.present? }
+                  content: ->(option:) { option[:rules].present? }
                 )
               ],
               need_for_checks: true,
-              body_key: :is,
+              body_key: :rules,
               body_fallback: nil,
-              with_advanced_mode: false
+              detect_advanced_mode: false,
+              return_value_on_access: true
             )
           end
 
@@ -131,8 +137,21 @@ module Servactory
               ],
               need_for_checks: false,
               body_key: :in,
-              body_fallback: false
+              body_fallback: false,
+              detect_advanced_mode: true,
+              return_value_on_access: false
             )
+          end
+
+          def extract_types_value
+            type_option = @options.fetch(:type, nil)
+            return nil if type_option.nil?
+
+            # Advanced Mode: type: { is: String, message: "..." }
+            return nil if type_option.is_a?(Hash) && type_option.key?(:is)
+
+            # Simple Mode: type: String or type: [String, Integer]
+            Array(type_option).uniq
           end
 
           ########################################################################

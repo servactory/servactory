@@ -14,9 +14,10 @@ module Servactory
                     :define_conflicts,
                     :need_for_checks,
                     :body,
-                    :body_key
+                    :body_key,
+                    :return_value_on_access
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable Metrics/MethodLength, Metrics/ParameterLists
         def initialize(
           name:,
           attribute:,
@@ -28,11 +29,15 @@ module Servactory
           body_value: true,
           define_methods: nil,
           define_conflicts: nil,
-          with_advanced_mode: true,
+          detect_advanced_mode: true,
+          return_value_on_access: false,
+          normalizer: nil,
           **options
         )
           @name = name.to_sym
           @body_key = body_key
+          @return_value_on_access = return_value_on_access
+          @normalizer = normalizer
           @validation_class = validation_class
           @define_methods = define_methods
           @define_conflicts = define_conflicts
@@ -44,17 +49,21 @@ module Servactory
             body_key:,
             body_value:,
             body_fallback:,
-            with_advanced_mode:
+            detect_advanced_mode:
           )
 
           apply_dynamic_methods_to(attribute:)
         end
-        # rubocop:enable Metrics/MethodLength
+        # rubocop:enable Metrics/MethodLength, Metrics/ParameterLists
 
         def value
           return body unless body.is_a?(Hash)
 
           body.fetch(@body_key, body)
+        end
+
+        def body_for_access
+          @return_value_on_access ? value : body
         end
 
         def need_for_checks?
@@ -69,37 +78,51 @@ module Servactory
           body_key:,
           body_value:,
           body_fallback:,
-          with_advanced_mode:
+          detect_advanced_mode:
         )
-          return original_value if original_value.present?
-          return options.fetch(@name, body_fallback) unless with_advanced_mode
+          if original_value.present?
+            return wrap_and_normalize(original_value)
+          end
 
-          use_advanced_mode(
-            options:,
-            body_key:,
-            body_value:,
-            body_fallback:
-          )
+          raw_value = options.fetch(@name, body_fallback)
+
+          result = if detect_advanced_mode
+                     use_advanced_mode(
+                       raw_value:,
+                       body_key:,
+                       body_value:,
+                       body_fallback:
+                     )
+                   else
+                     wrap_value(raw_value)
+                   end
+
+          apply_normalizer(result)
         end
 
-        def use_advanced_mode(options:, body_key:, body_value:, body_fallback:)
-          default_body = create_default_body(body_key:, body_fallback:)
-          body = extract_body_from_options(options:, default_body:)
+        def wrap_and_normalize(value)
+          result = wrap_value(value)
+          apply_normalizer(result)
+        end
 
+        def apply_normalizer(body)
+          return body unless @normalizer && body.is_a?(Hash)
+
+          body[@body_key] = @normalizer.call(body[@body_key])
+          body
+        end
+
+        def wrap_value(value)
+          DEFAULT_BODY.call(key: @body_key, body: value)
+        end
+
+        def use_advanced_mode(raw_value:, body_key:, body_value:, body_fallback:)
           construct_advanced_body(
-            body:,
+            body: raw_value,
             body_key:,
             body_value:,
             body_fallback:
           )
-        end
-
-        def create_default_body(body_key:, body_fallback:)
-          DEFAULT_BODY.call(key: body_key, body: body_fallback)
-        end
-
-        def extract_body_from_options(options:, default_body:)
-          options.fetch(@name, default_body)
         end
 
         def construct_advanced_body(body:, body_key:, body_value:, body_fallback:)

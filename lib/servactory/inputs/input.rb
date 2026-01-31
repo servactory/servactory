@@ -75,7 +75,7 @@ module Servactory
         option = @collection_of_options.find_by(name:)
         return super if option.nil?
 
-        option.body
+        option.body_for_access
       end
 
       def respond_to_missing?(name, *)

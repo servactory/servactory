@@ -11,6 +11,7 @@ module Servactory
         attr_reader need_for_checks: bool
         attr_reader body: untyped
         attr_reader body_key: Symbol
+        attr_reader return_value_on_access: bool
 
         def initialize: (
             name: Symbol,
@@ -23,15 +24,21 @@ module Servactory
             ?body_value: (bool | Class)?,
             ?define_methods: Array[DefineMethod]?,
             ?define_conflicts: Array[DefineConflict]?,
-            ?with_advanced_mode: bool,
+            ?detect_advanced_mode: bool,
+            ?return_value_on_access: bool,
+            ?normalizer: (^(untyped) -> untyped)?,
             **untyped options
           ) -> void
 
         def value: () -> untyped
 
+        def body_for_access: () -> untyped
+
         def need_for_checks?: () -> bool
 
         private
+
+        @normalizer: (^(untyped) -> untyped)?
 
         def construct_body: (
             original_value: untyped?,
@@ -39,25 +46,21 @@ module Servactory
             body_key: Symbol?,
             body_value: (bool | Class),
             body_fallback: (bool | Class | Hash[untyped, untyped]),
-            with_advanced_mode: bool
+            detect_advanced_mode: bool
           ) -> untyped
 
+        def wrap_and_normalize: (untyped value) -> untyped
+
+        def apply_normalizer: (untyped body) -> untyped
+
+        def wrap_value: (untyped value) -> Hash[Symbol, untyped]
+
         def use_advanced_mode: (
-            options: Hash[Symbol, untyped],
+            raw_value: untyped,
             body_key: Symbol?,
             body_value: (bool | Class),
             body_fallback: (bool | Class | Hash[untyped, untyped])
           ) -> Hash[Symbol, untyped]
-
-        def create_default_body: (
-            body_key: Symbol?,
-            body_fallback: (bool | Class | Hash[untyped, untyped])
-          ) -> Hash[Symbol, untyped]
-
-        def extract_body_from_options: (
-            options: Hash[Symbol, untyped],
-            default_body: Hash[Symbol, untyped]
-          ) -> untyped
 
         def construct_advanced_body: (
             body: untyped,

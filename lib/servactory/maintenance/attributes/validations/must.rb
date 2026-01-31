@@ -82,9 +82,10 @@ module Servactory
           # @param attribute [Inputs::Input, Internals::Internal, Outputs::Output] Attribute being validated
           # @param value [Object] Value to pass to check lambda
           # @param code [Symbol] Condition identifier (e.g., :be_adult)
-          # @param options [Hash] Condition options with :is (lambda) and :message
+          # @param options [Hash, Proc] Condition options with :is (lambda) and :message, or just a lambda
           # @return [String, nil] Error message on failure, nil on success
           def self.validate_condition(context:, attribute:, value:, code:, options:) # rubocop:disable Metrics/MethodLength
+            options = normalize_rule_options(options)
             check, message = options.values_at(:is, :message)
 
             check_result, check_result_code, meta = call_check(
@@ -110,6 +111,22 @@ module Servactory
             )
           end
           private_class_method :validate_condition
+
+          # Normalizes rule options to always have :is and :message keys.
+          #
+          # Supports Simple Mode where only a lambda is provided:
+          #   must: { be_adult: ->(value:) { value >= 18 } }
+          # Converts to Advanced Mode format:
+          #   must: { be_adult: { is: lambda, message: nil } }
+          #
+          # @param options [Hash, Proc] Either { is: lambda, message: ... } or just lambda
+          # @return [Hash] Normalized options with :is and :message keys
+          def self.normalize_rule_options(options)
+            return options if options.is_a?(Hash)
+
+            { is: options, message: nil }
+          end
+          private_class_method :normalize_rule_options
 
           # Executes the check lambda with exception handling.
           #
