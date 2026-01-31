@@ -219,7 +219,7 @@ module Servactory
       outputs.send(:output_names).to_h { |key| [key, outputs.public_send(key)] }.compact
     end
 
-    # Pattern matching support for Ruby 3.2+.
+    # Pattern matching support.
     #
     # Returns hash of result state and output values for use with case/in.
     # State keys (:success, :failure, :error) take priority over output names.
