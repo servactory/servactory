@@ -11,6 +11,8 @@ module Servactory
 
       def respond_to_missing?: (Symbol name, *untyped) -> void
 
+      def deconstruct_keys: (Array[Symbol]? keys) -> Hash[Symbol, untyped]
+
       private
 
       def normalize_method_name: (Symbol name) -> Symbol
