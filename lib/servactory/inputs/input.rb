@@ -36,15 +36,15 @@ module Servactory
         end
 
         def input?
-          true
+          @attribute.input?
         end
 
         def internal?
-          false
+          @attribute.internal?
         end
 
         def output?
-          false
+          @attribute.output?
         end
       end
 

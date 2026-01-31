@@ -24,15 +24,15 @@ module Servactory
         end
 
         def input?
-          false
+          @attribute.input?
         end
 
         def internal?
-          true
+          @attribute.internal?
         end
 
         def output?
-          false
+          @attribute.output?
         end
       end
 
