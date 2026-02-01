@@ -155,9 +155,9 @@ module Servactory
         # Creates an OptionHelper for registration with Servactory.
         #
         # @param name [Symbol] Internal validation name
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def must(name)
-          Servactory::Maintenance::Attributes::OptionHelper.new(
+          Servactory::Maintenance::Options::Helper.new(
             name: @option_name,
             equivalent: equivalent_with(name),
             meta: {

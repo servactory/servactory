@@ -2,7 +2,7 @@
 
 module Servactory
   module Inputs
-    class Input < Servactory::Attributes::Base
+    class Input < Servactory::Maintenance::Attributes::Base
       class Actor
         attr_reader :name,
                     :internal_name,

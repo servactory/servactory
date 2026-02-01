@@ -2,7 +2,7 @@
 
 module Servactory
   module Internals
-    class Internal < Servactory::Attributes::Base
+    class Internal < Servactory::Maintenance::Attributes::Base
       class Actor
         attr_reader :name,
                     :types,

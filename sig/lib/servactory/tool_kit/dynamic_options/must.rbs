@@ -15,7 +15,7 @@ module Servactory
 
         def initialize: (Symbol option_name, Symbol body_key) -> void
 
-        def must: (Symbol option_name) -> Maintenance::Attributes::OptionHelper
+        def must: (Symbol option_name) -> Maintenance::Options::Helper
 
         def equivalent_with: (Symbol name) -> Proc
 

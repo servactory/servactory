@@ -2,7 +2,7 @@
 
 module Servactory
   module Inputs
-    class Collection < Servactory::Attributes::Collection
+    class Collection < Servactory::Maintenance::Attributes::Collection
       def_delegators :@collection, :flat_map
 
       private

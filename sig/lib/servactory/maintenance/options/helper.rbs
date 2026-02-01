@@ -1,0 +1,17 @@
+module Servactory
+  module Maintenance
+    module Options
+      class Helper
+        attr_reader name: Symbol
+
+        attr_reader equivalent: (Proc | Hash[Symbol, untyped])
+
+        attr_reader meta: Hash[Symbol, untyped]
+
+        def initialize: (name: Symbol, equivalent: (Proc | Hash[Symbol, untyped]), meta: Hash[Symbol, untyped]) -> void
+
+        def dynamic_option?: -> bool
+      end
+    end
+  end
+end

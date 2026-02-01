@@ -2,7 +2,7 @@
 
 module Servactory
   module Internals
-    class Collection < Servactory::Attributes::Collection
+    class Collection < Servactory::Maintenance::Attributes::Collection
     end
   end
 end

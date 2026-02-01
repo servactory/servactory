@@ -1,0 +1,13 @@
+module Servactory
+  module Maintenance
+    module Validations
+      module Translator
+        module Must
+          def self?.default_message: () -> Proc
+
+          def self?.syntax_error_message: () -> Proc
+        end
+      end
+    end
+  end
+end

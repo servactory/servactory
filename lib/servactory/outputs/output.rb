@@ -2,7 +2,7 @@
 
 module Servactory
   module Outputs
-    class Output < Servactory::Attributes::Base
+    class Output < Servactory::Maintenance::Attributes::Base
       class Actor
         attr_reader :name,
                     :types,
