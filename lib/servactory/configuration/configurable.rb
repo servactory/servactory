@@ -63,7 +63,7 @@ module Servactory
 
         def default_input_option_helpers(config)
           Set[
-            Servactory::Maintenance::Options::Helper
+            Servactory::Maintenance::Attributes::OptionHelper
             .new(name: :optional, equivalent: { required: false }),
             Servactory::ToolKit::DynamicOptions::ConsistsOf
               .use(collection_mode_class_names: config.collection_mode_class_names),

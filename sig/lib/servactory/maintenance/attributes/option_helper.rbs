@@ -1,0 +1,9 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      # @deprecated Use Options::Helper instead
+      class OptionHelper < Options::Helper
+      end
+    end
+  end
+end

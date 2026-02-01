@@ -45,7 +45,7 @@ module ApplicationService
 
       input_option_helpers(
         [
-          Servactory::Maintenance::Options::Helper.new(
+          Servactory::Maintenance::Attributes::OptionHelper.new(
             name: :must_be_6_characters,
             equivalent: {
               must: {
@@ -75,7 +75,7 @@ module ApplicationService
 
       internal_option_helpers(
         [
-          Servactory::Maintenance::Options::Helper.new(
+          Servactory::Maintenance::Attributes::OptionHelper.new(
             name: :must_be_6_characters,
             equivalent: {
               must: {
@@ -105,7 +105,7 @@ module ApplicationService
 
       output_option_helpers(
         [
-          Servactory::Maintenance::Options::Helper.new(
+          Servactory::Maintenance::Attributes::OptionHelper.new(
             name: :must_be_6_characters,
             equivalent: {
               must: {
