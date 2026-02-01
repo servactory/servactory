@@ -2,7 +2,7 @@ module Servactory
   module Inputs
     module Validations
       class Required
-        extend Maintenance::Attributes::Validations::Concerns::ErrorBuilder
+        extend Maintenance::Validations::Concerns::ErrorBuilder
 
         def self.check: (
           context: untyped,

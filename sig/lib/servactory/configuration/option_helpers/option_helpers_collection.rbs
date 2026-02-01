@@ -4,15 +4,15 @@ module Servactory
       class OptionHelpersCollection
         extend Forwardable
 
-        @collection: Set[Maintenance::Attributes::OptionHelper]
+        @collection: Set[Maintenance::Options::Helper]
 
-        def initialize: (?Set[Maintenance::Attributes::OptionHelper] collection) -> void
+        def initialize: (?Set[Maintenance::Options::Helper] collection) -> void
 
         def initialize_dup: (OptionHelpersCollection original) -> void
 
         def dynamic_options: -> OptionHelpersCollection
 
-        def find_by: (name: Symbol) -> Maintenance::Attributes::OptionHelper?
+        def find_by: (name: Symbol) -> Maintenance::Options::Helper?
       end
     end
   end
