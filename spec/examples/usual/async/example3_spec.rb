@@ -165,7 +165,7 @@ RSpec.describe Usual::Async::Example3, type: :service do
     describe "async with mixed success and failure" do
       let(:inputs) do
         (1..8).map do |id|
-          { id: id, should_fail: id.odd? }
+          { id:, should_fail: id.odd? }
         end
       end
 
