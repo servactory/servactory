@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
     permissions:
-      # required for all workflows
+      contents: read
       security-events: write
 
     steps:

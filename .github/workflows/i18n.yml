@@ -15,6 +15,9 @@ on:
       - 'scripts/validate_locales.rb'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
   group: i18n-${{ github.ref }}
   cancel-in-progress: true
