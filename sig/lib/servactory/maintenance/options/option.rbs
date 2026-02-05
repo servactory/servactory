@@ -1,0 +1,100 @@
+module Servactory
+  module Maintenance
+    module Options
+      class Option
+        DEFAULT_BODY: Proc
+
+        attr_reader name: Symbol
+        attr_reader validation_class: Class?
+        attr_reader define_methods: Array[DefineMethod]?
+        attr_reader define_conflicts: Array[DefineConflict]?
+        attr_reader need_for_checks: bool
+        attr_reader body: untyped
+        attr_reader body_key: Symbol
+        attr_reader return_value_on_access: bool
+
+        def initialize: (
+            name: Symbol,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            validation_class: Class?,
+            need_for_checks: bool,
+            body_fallback: (bool | Class | Hash[untyped, untyped])?,
+            ?original_value: Array[Class]?,
+            ?body_key: Symbol,
+            ?body_value: (bool | Class)?,
+            ?define_methods: Array[DefineMethod]?,
+            ?define_conflicts: Array[DefineConflict]?,
+            ?detect_advanced_mode: bool,
+            ?return_value_on_access: bool,
+            ?normalizer: (^(untyped) -> untyped)?,
+            **untyped options
+          ) -> void
+
+        def value: () -> untyped
+
+        def body_for_access: () -> untyped
+
+        def need_for_checks?: () -> bool
+
+        private
+
+        @normalizer: (^(untyped) -> untyped)?
+
+        def construct_body: (
+            original_value: untyped?,
+            options: Hash[Symbol, untyped],
+            body_key: Symbol?,
+            body_value: (bool | Class),
+            body_fallback: (bool | Class | Hash[untyped, untyped]),
+            detect_advanced_mode: bool
+          ) -> untyped
+
+        def wrap_and_normalize: (untyped value) -> untyped
+
+        def apply_normalizer: (untyped body) -> untyped
+
+        def wrap_value: (untyped value) -> Hash[Symbol, untyped]
+
+        def use_advanced_mode: (
+            raw_value: untyped,
+            body_key: Symbol?,
+            body_value: (bool | Class),
+            body_fallback: (bool | Class | Hash[untyped, untyped])
+          ) -> Hash[Symbol, untyped]
+
+        def construct_advanced_body: (
+            body: untyped,
+            body_key: Symbol?,
+            body_value: (bool | Class),
+            body_fallback: (bool | Class | Hash[untyped, untyped])
+          ) -> Hash[Symbol, untyped]
+
+        def build_hash_body: (
+            body: Hash[Symbol, untyped],
+            body_key: Symbol?,
+            body_value: (bool | Class),
+            body_fallback: (bool | Class | Hash[untyped, untyped])
+          ) -> Hash[Symbol, untyped]
+
+        def extract_body_content: (
+            body: Hash[Symbol, untyped],
+            body_key: Symbol?,
+            body_value: (bool | Class),
+            body_fallback: (bool | Class | Hash[untyped, untyped]),
+            message: untyped?
+          ) -> untyped
+
+        def build_simple_body: (
+            body_key: Symbol?,
+            body: untyped
+          ) -> Hash[Symbol, untyped]
+
+        def apply_dynamic_methods_to: (
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output)
+          ) -> void
+
+        def generate_methods_code: () -> String?
+      end
+    end
+  end
+end

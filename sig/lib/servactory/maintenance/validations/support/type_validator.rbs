@@ -1,0 +1,26 @@
+module Servactory
+  module Maintenance
+    module Validations
+      module Support
+        class TypeValidator
+          type error_data = {
+            message: (String | Proc),
+            service: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            key_name: nil,
+            expected_type: String,
+            given_type: String
+          }
+
+          def self.validate: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            types: Array[Class],
+            value: untyped
+          ) -> error_data?
+        end
+      end
+    end
+  end
+end

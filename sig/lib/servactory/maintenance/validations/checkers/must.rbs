@@ -1,0 +1,64 @@
+module Servactory
+  module Maintenance
+    module Validations
+      module Checkers
+        class Must
+          extend Concerns::ErrorBuilder
+
+          def self.check: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            check_key: Symbol,
+            check_options: Hash[Symbol, untyped]
+          ) -> String?
+
+          def self.should_be_checked_for?: (
+            (Inputs::Input | Internals::Internal | Outputs::Output) attribute,
+            Symbol check_key
+          ) -> bool
+
+          private
+
+          def self.normalize_rule_options: (
+            (Hash[Symbol, untyped] | Proc) options
+          ) -> Hash[Symbol, untyped]
+
+          def self.validate_condition: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            code: Symbol,
+            options: Hash[Symbol, untyped]
+          ) -> String?
+
+          def self.call_check: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            check: Proc,
+            code: Symbol
+          ) -> Array[untyped]
+
+          def self.build_error_message: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            code: Symbol,
+            reason: Symbol?,
+            meta: Hash[Symbol, untyped]?,
+            message: (String | Proc)?
+          ) -> String
+
+          def self.build_syntax_error_message: (
+            context: untyped,
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            value: untyped,
+            code: Symbol,
+            exception_message: String
+          ) -> String
+        end
+      end
+    end
+  end
+end

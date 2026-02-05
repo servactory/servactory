@@ -1,16 +1,8 @@
 module Servactory
   module Maintenance
     module Attributes
-      class OptionHelper
-        attr_reader name: Symbol
-
-        attr_reader equivalent: (Proc | Hash[Symbol, untyped])
-
-        attr_reader meta: Hash[Symbol, untyped]
-
-        def initialize: (name: Symbol, equivalent: (Proc | Hash[Symbol, untyped]), meta: Hash[Symbol, untyped]) -> void
-
-        def dynamic_option?: -> bool
+      # @deprecated Use Options::Helper instead
+      class OptionHelper < Options::Helper
       end
     end
   end
