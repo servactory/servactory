@@ -1,0 +1,36 @@
+name: I18n
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'config/locales/**'
+      - 'scripts/validate_locales.rb'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'config/locales/**'
+      - 'scripts/validate_locales.rb'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: i18n-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  locales:
+    name: Locale Structure Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+      - name: Validate locale files
+        run: ruby scripts/validate_locales.rb

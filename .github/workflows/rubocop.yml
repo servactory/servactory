@@ -6,19 +6,23 @@ on:
       - main
       - v1-stable
   pull_request:
-    # The branches below must be a subset of the branches above
     branches:
       - main
       - v1-stable
+
+permissions:
+  contents: read
+  security-events: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   rubocop:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-    permissions:
-      # required for all workflows
-      security-events: write
 
     steps:
       - name: Checkout repository
