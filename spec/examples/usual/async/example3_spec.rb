@@ -40,6 +40,7 @@ RSpec.describe Usual::Async::Example3, type: :service do
               .valid_with(attributes)
               .type([TrueClass, FalseClass])
               .optional
+              .default(false)
           )
         end
       end
@@ -117,6 +118,7 @@ RSpec.describe Usual::Async::Example3, type: :service do
               .valid_with(attributes)
               .type([TrueClass, FalseClass])
               .optional
+              .default(false)
           )
         end
       end

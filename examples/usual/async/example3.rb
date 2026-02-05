@@ -4,7 +4,7 @@ module Usual
   module Async
     class Example3 < ApplicationService::Base
       input :id, type: Integer
-      input :should_fail, type: [TrueClass, FalseClass], default: false
+      input :should_fail, type: [TrueClass, FalseClass], required: false, default: false
 
       output :id, type: Integer
 
