@@ -4,7 +4,7 @@ module Wrong
   module Extensions
     module ExternalApiRequest
       class Example1 < ApplicationService::Base
-        LikeAFaradayError = Class.new(StandardError)
+        class LikeAFaradayError < StandardError; end
 
         LikeAnApiResponse = Struct.new(:id, :name, keyword_init: true)
 
