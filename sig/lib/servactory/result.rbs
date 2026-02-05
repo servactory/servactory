@@ -13,11 +13,9 @@ module Servactory
 
       def inspect: () -> String
 
-      def method_missing: (Symbol name, *untyped args) -> untyped
-
-      def respond_to_missing?: (Symbol name, ?bool include_private) -> bool
-
       private
+
+      def define_attribute_methods!: () -> void
 
       def output_names: () -> Array[Symbol]
 
@@ -60,6 +58,6 @@ module Servactory
 
     def build_outputs_hash: () -> Hash[Symbol, untyped]
 
-    def rescue_no_method_error_with: (exception: Exception) -> Exception
+    def rescue_no_method_error_with: (exception: Exception) -> bot
   end
 end
