@@ -68,7 +68,6 @@ module ApplicationService
           Servactory::ToolKit::DynamicOptions::Min.use,
           Servactory::ToolKit::DynamicOptions::Max.use,
           Servactory::ToolKit::DynamicOptions::MultipleOf.use,
-          Servactory::ToolKit::DynamicOptions::Target.use,
           ApplicationService::DynamicOptions::CustomEq.use
         ]
       )
@@ -98,7 +97,6 @@ module ApplicationService
           Servactory::ToolKit::DynamicOptions::Min.use(:minimum), # Examples of
           Servactory::ToolKit::DynamicOptions::Max.use(:maximum), # custom names
           Servactory::ToolKit::DynamicOptions::MultipleOf.use(:divisible_by),
-          Servactory::ToolKit::DynamicOptions::Target.use(:expect),
           ApplicationService::DynamicOptions::CustomEq.use(:best_custom_eq)
         ]
       )
@@ -135,7 +133,6 @@ module ApplicationService
           Servactory::ToolKit::DynamicOptions::Min.use,
           Servactory::ToolKit::DynamicOptions::Max.use,
           Servactory::ToolKit::DynamicOptions::MultipleOf.use,
-          Servactory::ToolKit::DynamicOptions::Target.use,
           ApplicationService::DynamicOptions::CustomEq.use
         ]
       )
