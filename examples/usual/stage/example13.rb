@@ -3,7 +3,7 @@
 module Usual
   module Stage
     class Example13Transaction
-      LikeAnActiveRecordException = Class.new(ArgumentError)
+      class LikeAnActiveRecordException < ArgumentError; end
 
       def self.transaction
         yield

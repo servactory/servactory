@@ -108,12 +108,9 @@ module Servactory
         # Extracts the normalized body value from an option.
         #
         # @param option [Option] the option to extract from
-        # @return [Object] the :is value if body is a Hash with :is key, otherwise the full body
+        # @return [Object] the body_key value if body is a Hash, otherwise the full body
         def extract_normalized_body_from(option:)
-          body = option.body
-          return body unless body.is_a?(Hash)
-
-          body.key?(:is) ? body.fetch(:is) : body
+          option.value
         end
 
         # Resolves conflict codes from an option's define_conflicts.

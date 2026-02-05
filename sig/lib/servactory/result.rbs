@@ -1,7 +1,5 @@
 module Servactory
   class Result
-    STATE_PREDICATE_NAMES: Array[Symbol]
-
     @context: instance?
     @exception: Exception?
     @success: bool
@@ -41,6 +39,8 @@ module Servactory
     def error: () -> Exception?
 
     def to_h: () -> Hash[Symbol, untyped]
+
+    def deconstruct_keys: (Array[Symbol]? keys) -> Hash[Symbol, untyped]
 
     def inspect: () -> String
 
