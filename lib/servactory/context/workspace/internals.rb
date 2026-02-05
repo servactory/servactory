@@ -38,14 +38,14 @@ module Servactory
 
         private
 
-        def define_attribute_methods!
+        def define_attribute_methods! # rubocop:disable Metrics/MethodLength
           @collection_of_internals.each do |internal|
             define_singleton_method(internal.name) do
               fetch_value(attribute: internal)
             end
 
             define_singleton_method(:"#{internal.name}=") do |value|
-              assign_value(attribute: internal, value: value)
+              assign_value(attribute: internal, value:)
             end
 
             next unless @context.config.predicate_methods_enabled
@@ -59,8 +59,8 @@ module Servactory
         def assign_value(attribute:, value:)
           Servactory::Maintenance::Validations::Performer.validate!(
             context: @context,
-            attribute: attribute,
-            value: value
+            attribute:,
+            value:
           )
 
           @context.send(:servactory_service_warehouse).assign_internal(attribute.name, value)
@@ -71,15 +71,15 @@ module Servactory
 
           Servactory::Maintenance::Validations::Performer.validate!(
             context: @context,
-            attribute: attribute,
-            value: value
+            attribute:,
+            value:
           )
 
           value
         end
 
         def fetch_predicate(attribute:)
-          Servactory::Utils.query_attribute(fetch_value(attribute: attribute))
+          Servactory::Utils.query_attribute(fetch_value(attribute:))
         end
 
         def raise_error_for(type, name)

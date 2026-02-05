@@ -60,13 +60,13 @@ module Servactory
           end
 
           prepare = attribute.prepare[:in]
-          value = prepare.call(value: value) if prepare
+          value = prepare.call(value:) if prepare
 
           value
         end
 
         def fetch_predicate(attribute:)
-          Servactory::Utils.query_attribute(fetch_value(attribute: attribute))
+          Servactory::Utils.query_attribute(fetch_value(attribute:))
         end
 
         def raise_error_for(type, name)

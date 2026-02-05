@@ -84,7 +84,7 @@ module Servactory
         def raise_error_for(input_name)
           message_text = @context.send(:servactory_service_info).translate(
             "inputs.undefined.for_fetch",
-            input_name: input_name
+            input_name:
           )
 
           @context.fail_input!(input_name, message: message_text)
