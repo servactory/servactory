@@ -7,6 +7,8 @@ module Servactory
         def initialize(context:, collection_of_internals:)
           @context = context
           @collection_of_internals = collection_of_internals
+
+          define_attribute_methods!
         end
 
         def only(*names)
@@ -21,55 +23,63 @@ module Servactory
             .to_h { |internal| [internal.name, send(internal.name)] }
         end
 
-        def method_missing(name, *args)
+        def method_missing(name, *_args)
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
-
-            assign_with(prepared_name:, value: args.pop) { raise_error_for(:assign, prepared_name) }
+            raise_error_for(:assign, prepared_name)
           else
-            fetch_with(name:) { raise_error_for(:fetch, name) }
+            raise_error_for(:fetch, name)
           end
         end
 
-        def respond_to_missing?(name, *)
-          @collection_of_internals.names.include?(name) || super
+        def respond_to_missing?(*)
+          false
         end
 
         private
 
-        def assign_with(prepared_name:, value:, &block) # rubocop:disable Lint/UnusedMethodArgument
-          return yield unless @collection_of_internals.names.include?(prepared_name)
+        def define_attribute_methods!
+          @collection_of_internals.each do |internal|
+            define_singleton_method(internal.name) do
+              fetch_value(attribute: internal)
+            end
 
-          internal = @collection_of_internals.find_by(name: prepared_name) # ::Servactory::Internals::Internal
+            define_singleton_method(:"#{internal.name}=") do |value|
+              assign_value(attribute: internal, value: value)
+            end
 
-          return yield if internal.nil?
+            next unless @context.config.predicate_methods_enabled
 
-          Servactory::Maintenance::Validations::Performer.validate!(
-            context: @context,
-            attribute: internal,
-            value:
-          )
-
-          @context.send(:servactory_service_warehouse).assign_internal(internal.name, value)
+            define_singleton_method(:"#{internal.name}?") do
+              fetch_predicate(attribute: internal)
+            end
+          end
         end
 
-        def fetch_with(name:, &block) # rubocop:disable Metrics/MethodLength, Lint/UnusedMethodArgument
-          predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+        def assign_value(attribute:, value:)
+          Servactory::Maintenance::Validations::Performer.validate!(
+            context: @context,
+            attribute: attribute,
+            value: value
+          )
 
-          internal_name = predicate ? name.to_s.chomp("?").to_sym : name
-          internal = @collection_of_internals.find_by(name: internal_name)
+          @context.send(:servactory_service_warehouse).assign_internal(attribute.name, value)
+        end
 
-          return yield if internal.nil?
-
-          internal_value = @context.send(:servactory_service_warehouse).fetch_internal(internal.name)
+        def fetch_value(attribute:)
+          value = @context.send(:servactory_service_warehouse).fetch_internal(attribute.name)
 
           Servactory::Maintenance::Validations::Performer.validate!(
             context: @context,
-            attribute: internal,
-            value: internal_value
+            attribute: attribute,
+            value: value
           )
 
-          predicate ? Servactory::Utils.query_attribute(internal_value) : internal_value
+          value
+        end
+
+        def fetch_predicate(attribute:)
+          Servactory::Utils.query_attribute(fetch_value(attribute: attribute))
         end
 
         def raise_error_for(type, name)
