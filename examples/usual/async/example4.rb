@@ -22,7 +22,7 @@ module Usual
       private
 
       def double_number
-        sleep 1
+        sleep(1)
 
         internals.doubled = inputs.number * 2
       end

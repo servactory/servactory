@@ -14,7 +14,7 @@ module Usual
       private
 
       def maybe_fail
-        sleep 1
+        sleep(1)
 
         return unless inputs.should_fail
 

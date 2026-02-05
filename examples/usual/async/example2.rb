@@ -16,13 +16,13 @@ module Usual
       private
 
       def build_full_name
-        sleep 1
+        sleep(1)
 
         internals.full_name = "#{inputs.first_name} #{inputs.last_name}"
       end
 
       def build_greeting
-        sleep 1
+        sleep(1)
 
         outputs.greeting = "Hello, #{internals.full_name}!"
       end
