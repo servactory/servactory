@@ -373,8 +373,7 @@ module Servactory
     # Wraps NoMethodError with contextual failure.
     #
     # Converts undefined method errors to Servactory failure exceptions
-    # with localized error messages. Normalizes error text to ensure
-    # consistent format across Ruby versions when singleton class exists.
+    # with localized error messages.
     #
     # @param exception [NoMethodError] Original exception
     # @raise [Exception] Wrapped failure exception with context
@@ -385,26 +384,12 @@ module Servactory
         type: :base,
         message: @context.send(:servactory_service_info).translate(
           "common.undefined_method.missing_name",
-          error_text: normalize_no_method_error_message(exception.message)
+          error_text: exception.message
         ),
         meta: {
           original_exception: exception
         }
       )
-    end
-
-    # Normalizes NoMethodError message format for Ruby >= 3.4.
-    #
-    # When singleton methods are defined on an object, Ruby 3.4 reverts
-    # NoMethodError format from "for an instance of X" to "for #<X:0x...>".
-    # This method normalizes the message to maintain consistent format.
-    #
-    # @param message [String] Raw NoMethodError message
-    # @return [String] Normalized message
-    def normalize_no_method_error_message(message)
-      return message unless RUBY_VERSION >= "3.4"
-
-      message.sub(/for #<([A-Za-z_][A-Za-z0-9_:]*)(:.+)?>/, 'for an instance of \1')
     end
   end
 end
