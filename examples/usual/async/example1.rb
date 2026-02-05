@@ -12,7 +12,7 @@ module Usual
       private
 
       def perform
-        sleep 3
+        sleep(3)
 
         outputs.id = inputs.id
       end
