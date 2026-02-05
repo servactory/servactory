@@ -60,7 +60,7 @@ module Servactory
 
     def build_outputs_hash: () -> Hash[Symbol, untyped]
 
-    def define_output_delegators!: (Outputs out) -> void
+    def define_output_delegators!: (Outputs outputs_container) -> void
 
     def rescue_no_method_error_with: (exception: Exception) -> bot
   end

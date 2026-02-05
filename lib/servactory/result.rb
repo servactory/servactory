@@ -329,7 +329,7 @@ module Servactory
     #
     # @return [Outputs] Outputs container with service values
     def outputs
-      @outputs ||= build_outputs.tap { |out| define_output_delegators!(out) }
+      @outputs ||= build_outputs.tap { |outputs_container| define_output_delegators!(outputs_container) }
     end
 
     # Builds Outputs container with predicate configuration.
@@ -357,13 +357,13 @@ module Servactory
     # Defines singleton delegator methods on this Result instance
     # for direct access to output values without method_missing.
     #
-    # @param out [Outputs] Outputs container to delegate to
-    def define_output_delegators!(out)
-      out.send(:output_names).each do |name|
+    # @param outputs_container [Outputs] Outputs container to delegate to
+    def define_output_delegators!(outputs_container)
+      outputs_container.send(:output_names).each do |name|
         define_singleton_method(name) { outputs.public_send(name) }
       end
 
-      out.send(:predicate_names).each do |name|
+      outputs_container.send(:predicate_names).each do |name|
         define_singleton_method(name) { outputs.public_send(name) }
       end
     end
