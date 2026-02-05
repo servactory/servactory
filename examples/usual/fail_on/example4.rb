@@ -3,8 +3,8 @@
 module Usual
   module FailOn
     class Example4 < ApplicationService::Base
-      MyException1 = Class.new(ArgumentError)
-      MyException2 = Class.new(ArgumentError)
+      class MyException1 < ArgumentError; end
+      class MyException2 < ArgumentError; end
 
       fail_on! MyException1, with: ->(exception:) { "#{exception.message} as 1" }
       fail_on! MyException2, with: ->(exception:) { "#{exception.message} as 2" }
