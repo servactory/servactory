@@ -25,7 +25,7 @@ end
 errors = []
 
 # Discover locale files dynamically
-locale_files = Dir.glob(File.join(LOCALES_DIR, "*.yml")).sort
+locale_files = Dir.glob(File.join(LOCALES_DIR, "*.yml"))
 locale_names = locale_files.map { |f| File.basename(f, ".yml") }
 
 if locale_files.empty?
@@ -91,30 +91,18 @@ locales.each do |name, keys|
     errors << "#{name}.yml: key '#{key}' has different interpolation variables " \
               "(expected #{expected.inspect}, got #{got.inspect})"
   end
-end
 
-# Value checks for all locales
-locales.each do |name, keys|
+  # Value checks for all locales
   keys.each do |key, value|
     next unless value.is_a?(String)
 
-    if value.strip.empty?
-      errors << "#{name}.yml: key '#{key}' has empty value"
-    end
+    errors << "#{name}.yml: key '#{key}' has empty value" if value.strip.empty?
 
-    if value.count("[") != value.count("]")
-      errors << "#{name}.yml: key '#{key}' has unbalanced brackets"
-    end
+    errors << "#{name}.yml: key '#{key}' has unbalanced brackets" if value.count("[") != value.count("]")
 
-    if value.count("`").odd?
-      errors << "#{name}.yml: key '#{key}' has odd number of backticks"
-    end
-  end
+    errors << "#{name}.yml: key '#{key}' has odd number of backticks" if value.count("`").odd?
 
-  keys.each do |key, value|
-    if value.nil?
-      errors << "#{name}.yml: key '#{key}' has nil value"
-    end
+    errors << "#{name}.yml: key '#{key}' has nil value" if value.nil?
   end
 end
 
@@ -124,7 +112,7 @@ if errors.any?
   exit 1
 else
   sorted = locale_names.sort
-  puts "✅ All locale files are valid (#{sorted.join(", ")})"
+  puts "✅ All locale files are valid (#{sorted.join(', ')})"
   puts "   Base locale: #{BASE_LOCALE}"
   puts "   Keys: #{base_keys.size}"
   exit 0
