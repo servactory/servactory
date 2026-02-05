@@ -10,6 +10,10 @@ on:
       - main
       - v1-stable
 
+permissions:
+  contents: read
+  security-events: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -19,9 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-    permissions:
-      contents: read
-      security-events: write
 
     steps:
       - name: Checkout repository
