@@ -7,23 +7,23 @@ module Servactory
 
         def initialize: (context: instance, collection_of_inputs: Inputs::Collection) -> void
 
-        def only: (Symbol input_names) -> Hash[Symbol, untyped]
+        def only: (*Symbol input_names) -> Hash[Symbol, untyped]
 
-        def except: (Symbol input_names) -> Hash[Symbol, untyped]
+        def except: (*Symbol input_names) -> Hash[Symbol, untyped]
 
-        def method_missing: (Symbol name, *untyped _args) { () -> untyped } -> void
+        def method_missing: (Symbol name, *untyped _args) -> void
 
-        def respond_to_missing?: (Symbol name, *untyped) -> void
+        def respond_to_missing?: (*untyped) -> bool
 
         private
 
-        def fetch_with: (name: Symbol) { () -> untyped } -> void
+        def define_attribute_methods!: () -> void
 
-        def prepare_hash_values_inside: (object: Hash[Symbol, untyped], schema: Hash[Symbol, untyped]) { () -> untyped } -> void
+        def fetch_value: (attribute: untyped) -> untyped
 
-        def fetch_hash_values_from: (value: untyped, schema_value: Hash[Symbol, untyped], attribute_required: bool) { () -> untyped } -> void
+        def fetch_predicate: (attribute: untyped) -> bool
 
-        def raise_error_for: (Symbol type, Symbol name) -> Exception
+        def raise_error_for: (Symbol type, Symbol name) -> bot
       end
     end
   end

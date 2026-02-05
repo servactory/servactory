@@ -10,11 +10,13 @@ module Servactory
 
         def merge!: (Hash[Symbol, untyped] arguments) -> Hash[Symbol, untyped]
 
-        def method_missing: (Symbol name, *untyped _args) -> untyped
+        def method_missing: (Symbol name, *untyped _args) -> bot
 
-        def respond_to_missing?: (Symbol name, *untyped) -> untyped
+        def respond_to_missing?: (*untyped) -> bool
 
         private
+
+        def define_methods_for!: (Hash[Symbol, untyped] arguments) -> void
 
         def raise_error_for: (Symbol input_name) -> bot
       end

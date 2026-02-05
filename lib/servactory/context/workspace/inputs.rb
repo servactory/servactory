@@ -7,6 +7,8 @@ module Servactory
         def initialize(context:, collection_of_inputs:)
           @context = context
           @collection_of_inputs = collection_of_inputs
+
+          define_attribute_methods!
         end
 
         def only(*names)
@@ -24,41 +26,48 @@ module Servactory
         def method_missing(name, *_args)
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
-
             raise_error_for(:assign, prepared_name)
           else
-            fetch_with(name:) { raise_error_for(:fetch, name) }
+            raise_error_for(:fetch, name)
           end
         end
 
-        def respond_to_missing?(name, *)
-          @collection_of_inputs.names.include?(name) || super
+        def respond_to_missing?(*)
+          false
         end
 
         private
 
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
-        def fetch_with(name:, &block)
-          predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+        def define_attribute_methods!
+          @collection_of_inputs.each do |input|
+            define_singleton_method(input.internal_name) do
+              fetch_value(attribute: input)
+            end
 
-          input_name = predicate ? name.to_s.chomp("?").to_sym : name
+            next unless @context.config.predicate_methods_enabled
 
-          input = @collection_of_inputs.find_by(name: input_name)
+            define_singleton_method(:"#{input.internal_name}?") do
+              fetch_predicate(attribute: input)
+            end
+          end
+        end
 
-          return yield if input.nil?
+        def fetch_value(attribute:)
+          value = @context.send(:servactory_service_warehouse).fetch_input(attribute.name)
 
-          input_value = @context.send(:servactory_service_warehouse).fetch_input(input.name)
-
-          if input.optional? && !input.default.nil? && !Servactory::Utils.value_present?(input_value)
-            input_value = input.default
+          if attribute.optional? && !attribute.default.nil? && !Servactory::Utils.value_present?(value)
+            value = attribute.default
           end
 
-          input_prepare = input.prepare[:in]
-          input_value = input_prepare.call(value: input_value) if input_prepare
+          prepare = attribute.prepare[:in]
+          value = prepare.call(value:) if prepare
 
-          predicate ? Servactory::Utils.query_attribute(input_value) : input_value
+          value
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
+
+        def fetch_predicate(attribute:)
+          Servactory::Utils.query_attribute(fetch_value(attribute:))
+        end
 
         def raise_error_for(type, name)
           message_text = @context.send(:servactory_service_info).translate(
