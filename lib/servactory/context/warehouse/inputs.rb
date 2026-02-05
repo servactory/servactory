@@ -29,41 +29,53 @@ module Servactory
           @arguments.keys
         end
 
-        # Merges new arguments into storage.
+        # Merges new arguments into storage and defines accessor methods.
         #
         # @param arguments [Hash] Input name-value pairs to merge
         # @return [Hash] Updated arguments hash
         def merge!(arguments)
           @arguments.merge!(arguments)
+          define_methods_for!(arguments)
         end
 
-        # Delegates method calls to stored inputs.
+        # Handles access to undefined inputs.
         #
         # Supports predicate methods when enabled in config.
         #
         # @param name [Symbol] Method name (input or predicate)
         # @param _args [Array] Method arguments (unused)
-        # @return [Object] Input value or predicate result
+        # @return [void] Always raises error
         def method_missing(name, *_args)
           predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
-
           input_name = predicate ? name.to_s.chomp("?").to_sym : name
-
-          input_value = @arguments.fetch(input_name) { raise_error_for(input_name) }
-
-          predicate ? Servactory::Utils.query_attribute(input_value) : input_value
+          raise_error_for(input_name)
         end
 
-        # Checks if method corresponds to stored input.
+        # Returns false since all valid methods are defined as singleton methods.
         #
-        # @param name [Symbol] Method name to check
-        # @param _include_private [Boolean] Include private methods in check
-        # @return [Boolean] True if input exists for this method
-        def respond_to_missing?(name, *)
-          @arguments.fetch(name) { raise_error_for(name) }
+        # @return [Boolean] Always false
+        def respond_to_missing?(*)
+          false
         end
 
         private
+
+        # Defines singleton accessor methods for given arguments.
+        #
+        # @param arguments [Hash] Input name-value pairs to define methods for
+        def define_methods_for!(arguments)
+          arguments.each_key do |name|
+            define_singleton_method(name) do
+              @arguments.fetch(name) { raise_error_for(name) }
+            end
+
+            next unless @context.config.predicate_methods_enabled
+
+            define_singleton_method(:"#{name}?") do
+              Servactory::Utils.query_attribute(@arguments.fetch(name) { raise_error_for(name) })
+            end
+          end
+        end
 
         # Raises error for undefined input.
         #
@@ -72,7 +84,7 @@ module Servactory
         def raise_error_for(input_name)
           message_text = @context.send(:servactory_service_info).translate(
             "inputs.undefined.for_fetch",
-            input_name:
+            input_name: input_name
           )
 
           @context.fail_input!(input_name, message: message_text)

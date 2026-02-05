@@ -276,9 +276,8 @@ module Servactory
 
     # Delegates method calls to outputs container.
     #
-    # After lazy initialization of outputs, singleton methods are defined
-    # on this Result instance, so this method_missing is only hit for
-    # truly undefined methods.
+    # Provides access to output attributes as if they were
+    # defined on the Result instance itself.
     #
     # @param name [Symbol] Method name (output attribute)
     # @param args [Array] Method arguments
