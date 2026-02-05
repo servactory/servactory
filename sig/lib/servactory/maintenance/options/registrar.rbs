@@ -1,0 +1,45 @@
+module Servactory
+  module Maintenance
+    module Options
+      class Registrar
+        RESERVED_OPTIONS: Array[Symbol]
+        DEFAULT_FEATURES: Hash[Symbol, bool]
+
+        @attribute: untyped
+        @options: Hash[Symbol, untyped]
+        @features: Hash[Symbol, bool]
+        @collection: Collection?
+
+        def self.register: (attribute: untyped, options: Hash[Symbol, untyped], features: Hash[Symbol, bool]) -> Registrar
+
+        def initialize: (attribute: untyped, options: Hash[Symbol, untyped], features: Hash[Symbol, bool]) -> void
+
+        def register: () -> self
+
+        def collection: () -> Collection
+
+        private
+
+        def register_feature: (Symbol feature_name, untyped validation_class) -> void
+
+        def register_required_option: (Inputs::Validations::Required validation_class) -> void
+
+        def register_types_option: (Validations::Checkers::Type validation_class) -> Collection
+
+        def register_default_option: (Validations::Checkers::Type validation_class) -> Collection
+
+        def register_must_option: (Validations::Checkers::Must validation_class) -> Collection
+
+        def register_prepare_option: (nil validation_class) -> Collection
+
+        def required_define_methods: () -> Array[DefineMethod]
+
+        def required_define_conflicts: () -> Array[DefineConflict]
+
+        def create_option: (name: Symbol, validation_class: untyped, **untyped) -> Collection
+
+        def create_define_method: (name: Symbol, content: ^(option: untyped) -> untyped) -> DefineMethod
+      end
+    end
+  end
+end

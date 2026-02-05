@@ -22,7 +22,7 @@ module Servactory
       # end
       # ```
       class Required
-        extend Servactory::Maintenance::Attributes::Validations::Concerns::ErrorBuilder
+        extend Servactory::Maintenance::Validations::Concerns::ErrorBuilder
 
         # Validates that a required input has a present value.
         #

@@ -1,0 +1,25 @@
+module Servactory
+  module Maintenance
+    module Attributes
+      class Collection
+        extend Forwardable
+
+        @collection: Set[untyped]
+
+        def initialize: (?Set[untyped] collection) -> void
+
+        def names: () -> Array[Symbol]
+
+        def only: (*Symbol names) -> Collection
+
+        def except: (*Symbol names) -> Collection
+
+        def find_by: (name: Symbol) -> untyped
+
+        private
+
+        def lookup_name: (untyped item) -> Symbol
+      end
+    end
+  end
+end

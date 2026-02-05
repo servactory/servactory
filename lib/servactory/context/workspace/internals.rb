@@ -44,7 +44,7 @@ module Servactory
 
           return yield if internal.nil?
 
-          Servactory::Maintenance::Attributes::Tools::Validation.validate!(
+          Servactory::Maintenance::Validations::Performer.validate!(
             context: @context,
             attribute: internal,
             value:
@@ -63,7 +63,7 @@ module Servactory
 
           internal_value = @context.send(:servactory_service_warehouse).fetch_internal(internal.name)
 
-          Servactory::Maintenance::Attributes::Tools::Validation.validate!(
+          Servactory::Maintenance::Validations::Performer.validate!(
             context: @context,
             attribute: internal,
             value: internal_value
