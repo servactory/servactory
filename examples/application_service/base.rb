@@ -30,7 +30,7 @@ module ApplicationService
       before :actions, ApplicationService::Extensions::ApiAction::DSL
     end
 
-    FailOnLikeAnActiveRecordException = Class.new(ArgumentError)
+    class FailOnLikeAnActiveRecordException < ArgumentError; end
 
     fail_on! FailOnLikeAnActiveRecordException
 

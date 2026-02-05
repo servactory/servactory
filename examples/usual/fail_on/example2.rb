@@ -3,7 +3,7 @@
 module Usual
   module FailOn
     class Example2 < ApplicationService::Base
-      LikeAnActiveRecordException = Class.new(ArgumentError)
+      class LikeAnActiveRecordException < ArgumentError; end
 
       fail_on!(LikeAnActiveRecordException) { |exception:| exception.message }
 
