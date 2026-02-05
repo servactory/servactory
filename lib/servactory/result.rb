@@ -41,7 +41,7 @@ module Servactory
   # ```ruby
   # result.active?  # Equivalent to Utils.query_attribute(result.active)
   # ```
-  class Result
+  class Result # rubocop:disable Metrics/ClassLength
     # Internal container for service output values.
     #
     # Provides dynamic method access to output values via define_singleton_method.
@@ -274,10 +274,11 @@ module Servactory
       self
     end
 
-    # Delegates method calls to outputs container.
+    # Fallback for method calls not covered by singleton delegators.
     #
-    # Provides access to output attributes as if they were
-    # defined on the Result instance itself.
+    # After lazy initialization of outputs, singleton delegator methods
+    # are defined on this Result instance. This method_missing handles
+    # only truly undefined methods.
     #
     # @param name [Symbol] Method name (output attribute)
     # @param args [Array] Method arguments
@@ -324,10 +325,18 @@ module Servactory
     end
 
     # Returns outputs container, lazily initialized.
+    # Also defines singleton delegator methods on this Result instance.
     #
     # @return [Outputs] Outputs container with service values
     def outputs
-      @outputs ||= Outputs.new(
+      @outputs ||= build_outputs.tap { |out| define_output_delegators!(out) }
+    end
+
+    # Builds Outputs container with predicate configuration.
+    #
+    # @return [Outputs] New outputs container
+    def build_outputs
+      Outputs.new(
         outputs: build_outputs_hash,
         predicate_methods_enabled:
           @context.is_a?(Servactory::TestKit::Result) || @context.config.predicate_methods_enabled
@@ -345,12 +354,27 @@ module Servactory
       hash
     end
 
+    # Defines singleton delegator methods on this Result instance
+    # for direct access to output values without method_missing.
+    #
+    # @param out [Outputs] Outputs container to delegate to
+    def define_output_delegators!(out)
+      out.send(:output_names).each do |name|
+        define_singleton_method(name) { outputs.public_send(name) }
+      end
+
+      out.send(:predicate_names).each do |name|
+        define_singleton_method(name) { outputs.public_send(name) }
+      end
+    end
+
     ########################################################################
 
     # Wraps NoMethodError with contextual failure.
     #
     # Converts undefined method errors to Servactory failure exceptions
-    # with localized error messages.
+    # with localized error messages. Normalizes error text to ensure
+    # consistent format across Ruby versions when singleton class exists.
     #
     # @param exception [NoMethodError] Original exception
     # @raise [Exception] Wrapped failure exception with context
@@ -361,12 +385,26 @@ module Servactory
         type: :base,
         message: @context.send(:servactory_service_info).translate(
           "common.undefined_method.missing_name",
-          error_text: exception.message
+          error_text: normalize_no_method_error_message(exception.message)
         ),
         meta: {
           original_exception: exception
         }
       )
+    end
+
+    # Normalizes NoMethodError message format for Ruby >= 3.4.
+    #
+    # When singleton methods are defined on an object, Ruby 3.4 reverts
+    # NoMethodError format from "for an instance of X" to "for #<X:0x...>".
+    # This method normalizes the message to maintain consistent format.
+    #
+    # @param message [String] Raw NoMethodError message
+    # @return [String] Normalized message
+    def normalize_no_method_error_message(message)
+      return message unless RUBY_VERSION >= "3.4"
+
+      message.sub(/for #<([A-Za-z_][A-Za-z0-9_:]*)(:.+)?>/, 'for an instance of \1')
     end
   end
 end

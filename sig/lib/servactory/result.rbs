@@ -56,8 +56,14 @@ module Servactory
 
     def outputs: () -> Outputs
 
+    def build_outputs: () -> Outputs
+
     def build_outputs_hash: () -> Hash[Symbol, untyped]
 
+    def define_output_delegators!: (Outputs out) -> void
+
     def rescue_no_method_error_with: (exception: Exception) -> bot
+
+    def normalize_no_method_error_message: (String message) -> String
   end
 end
