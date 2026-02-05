@@ -44,7 +44,7 @@ module Servactory
   class Result
     # Internal container for service output values.
     #
-    # Provides dynamic method access to output values via method_missing.
+    # Provides dynamic method access to output values via define_singleton_method.
     # Stores outputs in hash and supports predicate methods when enabled.
     class Outputs
       # Creates an Outputs container with given output values.
@@ -55,6 +55,8 @@ module Servactory
       def initialize(outputs:, predicate_methods_enabled:)
         @outputs = outputs
         @predicate_methods_enabled = predicate_methods_enabled
+
+        define_attribute_methods!
       end
 
       # Returns string representation for debugging.
@@ -64,44 +66,19 @@ module Servactory
         "#<#{self.class.name} #{draw_result}>"
       end
 
-      # Delegates method calls to stored outputs.
-      #
-      # Supports both regular output access and predicate methods
-      # when predicate_methods_enabled is true.
-      #
-      # @param name [Symbol] Method name (output or predicate)
-      # @param args [Array] Method arguments
-      # @return [Object] Output value or predicate result
-      def method_missing(name, *args)
-        if name.to_s.end_with?("?")
-          base_name = name.to_s.chomp("?").to_sym
-          if @predicate_methods_enabled && @outputs.key?(base_name)
-            return Servactory::Utils.query_attribute(@outputs[base_name])
-          end
-        elsif @outputs.key?(name)
-          return @outputs[name]
-        end
-
-        super
-      end
-
-      # Checks if method corresponds to stored output.
-      #
-      # @param name [Symbol] Method name to check
-      # @param include_private [Boolean] Include private methods in check
-      # @return [Boolean] True if output exists for this method
-      def respond_to_missing?(name, include_private = false)
-        if name.to_s.end_with?("?")
-          base_name = name.to_s.chomp("?").to_sym
-          return true if @predicate_methods_enabled && @outputs.key?(base_name)
-        elsif @outputs.key?(name)
-          return true
-        end
-
-        super
-      end
-
       private
+
+      def define_attribute_methods!
+        @outputs.each_key do |name|
+          define_singleton_method(name) { @outputs[name] }
+
+          next unless @predicate_methods_enabled
+
+          define_singleton_method(:"#{name}?") do
+            Servactory::Utils.query_attribute(@outputs[name])
+          end
+        end
+      end
 
       # Returns array of output attribute names.
       #
@@ -299,8 +276,9 @@ module Servactory
 
     # Delegates method calls to outputs container.
     #
-    # Provides access to output attributes as if they were
-    # defined on the Result instance itself.
+    # After lazy initialization of outputs, singleton methods are defined
+    # on this Result instance, so this method_missing is only hit for
+    # truly undefined methods.
     #
     # @param name [Symbol] Method name (output attribute)
     # @param args [Array] Method arguments
