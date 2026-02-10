@@ -44,7 +44,7 @@ module Servactory
   class Result # rubocop:disable Metrics/ClassLength
     # Internal container for service output values.
     #
-    # Provides dynamic method access to output values via define_singleton_method.
+    # Provides dynamic method access to output values.
     # Stores outputs in hash and supports predicate methods when enabled.
     class Outputs
       # Creates an Outputs container with given output values.
@@ -280,16 +280,16 @@ module Servactory
       self
     end
 
-    # Fallback for method calls not covered by singleton delegators.
+    # Delegates method calls to the outputs container.
     #
-    # After lazy initialization of outputs, singleton delegator methods
-    # are defined on this Result instance. This method_missing handles
-    # only truly undefined methods.
+    # On first access, triggers lazy initialization of outputs and
+    # installs singleton delegator methods for subsequent direct access.
     #
     # @param name [Symbol] Method name (output attribute)
     # @param args [Array] Method arguments
     # @param block [Proc] Optional block
-    # @return [Object] Output value
+    # @return [Object] Output value when name matches an output attribute
+    # @raise [NoMethodError] When method is truly undefined and no context present
     def method_missing(name, *args, &block)
       return outputs.public_send(name, *args, &block) if outputs.respond_to?(name)
 
@@ -331,7 +331,9 @@ module Servactory
     end
 
     # Returns outputs container, lazily initialized.
-    # Also defines singleton delegator methods on this Result instance.
+    #
+    # On first access, also defines singleton delegator methods on this
+    # Result instance for subsequent direct access.
     #
     # @return [Outputs] Outputs container with service values
     def outputs
@@ -364,6 +366,7 @@ module Servactory
     # for direct access to output values without method_missing.
     #
     # @param outputs_container [Outputs] Outputs container to delegate to
+    # @return [void]
     def define_output_delegators!(outputs_container)
       outputs_container.send(:output_names).each do |name|
         define_singleton_method(name) { outputs.public_send(name) }

@@ -32,19 +32,19 @@ module Servactory
         # Merges new arguments into storage and defines accessor methods.
         #
         # @param arguments [Hash] Input name-value pairs to merge
-        # @return [Hash] Updated arguments hash
+        # @return [void]
         def merge!(arguments)
           @arguments.merge!(arguments)
           define_methods_for!(arguments)
         end
 
-        # Handles access to undefined inputs.
+        # Raises error for any method call not pre-defined as a singleton accessor.
         #
         # Supports predicate methods when enabled in config.
         #
         # @param name [Symbol] Method name (input or predicate)
         # @param _args [Array] Method arguments (unused)
-        # @return [void] Always raises error
+        # @raise [Exception] Failure exception for undefined input
         def method_missing(name, *_args)
           predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
           input_name = predicate ? name.to_s.chomp("?").to_sym : name
@@ -63,6 +63,7 @@ module Servactory
         # Defines singleton accessor methods for given arguments.
         #
         # @param arguments [Hash] Input name-value pairs to define methods for
+        # @return [void]
         def define_methods_for!(arguments)
           arguments.each_key do |name|
             define_singleton_method(name) do
