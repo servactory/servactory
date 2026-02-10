@@ -68,6 +68,12 @@ module Servactory
 
       private
 
+      # Defines singleton accessor methods for output values on this instance.
+      #
+      # Creates getter methods for each output key and, when predicate methods
+      # are enabled, predicate methods (e.g., user?) for boolean queries.
+      #
+      # @return [void]
       def define_attribute_methods!
         @outputs.each_key do |name|
           define_singleton_method(name) { @outputs[name] }
