@@ -41,10 +41,10 @@ module Servactory
   # ```ruby
   # result.active?  # Equivalent to Utils.query_attribute(result.active)
   # ```
-  class Result
+  class Result # rubocop:disable Metrics/ClassLength
     # Internal container for service output values.
     #
-    # Provides dynamic method access to output values via method_missing.
+    # Provides dynamic method access to output values.
     # Stores outputs in hash and supports predicate methods when enabled.
     class Outputs
       # Creates an Outputs container with given output values.
@@ -55,6 +55,8 @@ module Servactory
       def initialize(outputs:, predicate_methods_enabled:)
         @outputs = outputs
         @predicate_methods_enabled = predicate_methods_enabled
+
+        define_attribute_methods!
       end
 
       # Returns string representation for debugging.
@@ -64,44 +66,25 @@ module Servactory
         "#<#{self.class.name} #{draw_result}>"
       end
 
-      # Delegates method calls to stored outputs.
-      #
-      # Supports both regular output access and predicate methods
-      # when predicate_methods_enabled is true.
-      #
-      # @param name [Symbol] Method name (output or predicate)
-      # @param args [Array] Method arguments
-      # @return [Object] Output value or predicate result
-      def method_missing(name, *args)
-        if name.to_s.end_with?("?")
-          base_name = name.to_s.chomp("?").to_sym
-          if @predicate_methods_enabled && @outputs.key?(base_name)
-            return Servactory::Utils.query_attribute(@outputs[base_name])
-          end
-        elsif @outputs.key?(name)
-          return @outputs[name]
-        end
-
-        super
-      end
-
-      # Checks if method corresponds to stored output.
-      #
-      # @param name [Symbol] Method name to check
-      # @param include_private [Boolean] Include private methods in check
-      # @return [Boolean] True if output exists for this method
-      def respond_to_missing?(name, include_private = false)
-        if name.to_s.end_with?("?")
-          base_name = name.to_s.chomp("?").to_sym
-          return true if @predicate_methods_enabled && @outputs.key?(base_name)
-        elsif @outputs.key?(name)
-          return true
-        end
-
-        super
-      end
-
       private
+
+      # Defines singleton accessor methods for output values on this instance.
+      #
+      # Creates getter methods for each output key and, when predicate methods
+      # are enabled, predicate methods (e.g., user?) for boolean queries.
+      #
+      # @return [void]
+      def define_attribute_methods!
+        @outputs.each_key do |name|
+          define_singleton_method(name) { @outputs[name] }
+
+          next unless @predicate_methods_enabled
+
+          define_singleton_method(:"#{name}?") do
+            Servactory::Utils.query_attribute(@outputs[name])
+          end
+        end
+      end
 
       # Returns array of output attribute names.
       #
@@ -297,15 +280,16 @@ module Servactory
       self
     end
 
-    # Delegates method calls to outputs container.
+    # Delegates method calls to the outputs container.
     #
-    # Provides access to output attributes as if they were
-    # defined on the Result instance itself.
+    # On first access, triggers lazy initialization of outputs and
+    # installs singleton delegator methods for subsequent direct access.
     #
     # @param name [Symbol] Method name (output attribute)
     # @param args [Array] Method arguments
     # @param block [Proc] Optional block
-    # @return [Object] Output value
+    # @return [Object] Output value when name matches an output attribute
+    # @raise [NoMethodError] When method is truly undefined and no context present
     def method_missing(name, *args, &block)
       return outputs.public_send(name, *args, &block) if outputs.respond_to?(name)
 
@@ -348,9 +332,19 @@ module Servactory
 
     # Returns outputs container, lazily initialized.
     #
+    # On first access, also defines singleton delegator methods on this
+    # Result instance for subsequent direct access.
+    #
     # @return [Outputs] Outputs container with service values
     def outputs
-      @outputs ||= Outputs.new(
+      @outputs ||= build_outputs.tap { |outputs_container| define_output_delegators!(outputs_container) }
+    end
+
+    # Builds Outputs container with predicate configuration.
+    #
+    # @return [Outputs] New outputs container
+    def build_outputs
+      Outputs.new(
         outputs: build_outputs_hash,
         predicate_methods_enabled:
           @context.is_a?(Servactory::TestKit::Result) || @context.config.predicate_methods_enabled
@@ -366,6 +360,21 @@ module Servactory
         hash[key] = value
       end
       hash
+    end
+
+    # Defines singleton delegator methods on this Result instance
+    # for direct access to output values without method_missing.
+    #
+    # @param outputs_container [Outputs] Outputs container to delegate to
+    # @return [void]
+    def define_output_delegators!(outputs_container)
+      outputs_container.send(:output_names).each do |name|
+        define_singleton_method(name) { outputs.public_send(name) }
+      end
+
+      outputs_container.send(:predicate_names).each do |name|
+        define_singleton_method(name) { outputs.public_send(name) }
+      end
     end
 
     ########################################################################

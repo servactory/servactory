@@ -7,19 +7,25 @@ module Servactory
 
         def initialize: (context: instance, collection_of_internals: Internals::Collection) -> void
 
-        def only: (Symbol internal_names) -> Hash[Symbol, untyped]
+        def only: (*Symbol internal_names) -> Hash[Symbol, untyped]
 
-        def except: (Symbol internal_names) -> Hash[Symbol, untyped]
+        def except: (*Symbol internal_names) -> Hash[Symbol, untyped]
 
-        def method_missing: (Symbol name, *untyped args) { () -> untyped } -> void
+        def method_missing: (Symbol name, *untyped _args) -> void
 
-        def respond_to_missing?: (Symbol name, *untyped) -> void
+        def respond_to_missing?: (*untyped) -> bool
 
         private
 
-        def assign_with: (prepared_name: Symbol, value: untyped?) { () -> untyped } -> void
+        def define_attribute_methods!: () -> void
 
-        def fetch_with: (name: Symbol) { () -> untyped } -> void
+        def assign_value: (attribute: untyped, value: untyped) -> void
+
+        def fetch_value: (attribute: untyped) -> untyped
+
+        def fetch_predicate: (attribute: untyped) -> bool
+
+        def raise_error_for: (Symbol type, Symbol name) -> bot
       end
     end
   end
