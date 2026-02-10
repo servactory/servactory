@@ -277,7 +277,7 @@ module Servactory
             return true
           end
 
-          value = object.fetch(schema_key, nil)
+          value = object[schema_key]
           prepared_value = prepare_value_from(schema_value:, value:, required: attribute_required)
 
           [
@@ -297,7 +297,7 @@ module Servactory
           required || (
             !required && !fetch_default_from(schema_value).nil?
           ) || (
-            !required && !object.fetch(schema_key, nil).nil?
+            !required && !object[schema_key].nil?
           )
         end
 
@@ -320,7 +320,7 @@ module Servactory
         # @param value [Hash] Schema definition
         # @return [Object, nil] Default value or nil
         def fetch_default_from(value)
-          value.fetch(:default, nil)
+          value[:default]
         end
 
         ########################################################################
@@ -352,14 +352,14 @@ module Servactory
               )
             else
               # Apply scalar defaults.
-              default_value = schema_value.fetch(:default, nil)
+              default_value = schema_value[:default]
 
               if !required && !default_value.nil? && !Servactory::Utils.value_present?(object_value)
                 object[schema_key] = default_value
               end
 
               # Execute prepare callback if defined.
-              unless (input_prepare = schema_value.fetch(:prepare, nil)).nil?
+              unless (input_prepare = schema_value[:prepare]).nil?
                 object[schema_key] = input_prepare.call(value: object[schema_key])
               end
 

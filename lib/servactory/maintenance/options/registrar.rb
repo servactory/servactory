@@ -143,7 +143,7 @@ module Servactory
         end
 
         def extract_types_value
-          type_option = @options.fetch(:type, nil)
+          type_option = @options[:type]
           return nil if type_option.nil?
 
           # Advanced Mode: type: { is: String, message: "..." }
