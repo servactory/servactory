@@ -138,7 +138,7 @@ module Servactory
       end
 
       def extract_message_from_value(value:)
-        value.is_a?(Hash) ? value.fetch(:message, nil) : nil
+        value.is_a?(Hash) ? value[:message] : nil
       end
 
       def enrich_options_with_common_fields(attribute:, options:)
