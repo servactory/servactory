@@ -44,11 +44,19 @@ module Servactory
         end
 
         def system_name
-          self.class.name.demodulize.downcase.to_sym
+          @system_name ||= self.class.name.demodulize.downcase.to_sym
         end
 
         def i18n_name
-          system_name.to_s.pluralize
+          @i18n_name ||= system_name.to_s.pluralize
+        end
+
+        def actor
+          @actor ||= self.class::Actor.new(self)
+        end
+
+        def desired_attribute_hash
+          @desired_attribute_hash ||= { system_name => actor }.freeze
         end
 
         def input?

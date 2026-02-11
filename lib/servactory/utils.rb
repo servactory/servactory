@@ -13,11 +13,7 @@ module Servactory
     end
 
     def fetch_hash_with_desired_attribute(attribute)
-      return { input: attribute.class::Actor.new(attribute) } if really_input?(attribute)
-      return { internal: attribute.class::Actor.new(attribute) } if really_internal?(attribute)
-      return { output: attribute.class::Actor.new(attribute) } if really_output?(attribute)
-
-      raise ArgumentError, "Failed to define attribute"
+      attribute.desired_attribute_hash
     end
 
     def define_attribute_with(input: nil, internal: nil, output: nil)
