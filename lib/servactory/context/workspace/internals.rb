@@ -7,6 +7,7 @@ module Servactory
         def initialize(context:, collection_of_internals:)
           @context = context
           @collection_of_internals = collection_of_internals
+          @validated_attributes = Set.new
 
           define_attribute_methods!
         end
@@ -57,6 +58,8 @@ module Servactory
         end
 
         def assign_value(attribute:, value:)
+          @validated_attributes.delete(attribute.name)
+
           Servactory::Maintenance::Validations::Performer.validate!(
             context: @context,
             attribute:,
@@ -64,16 +67,20 @@ module Servactory
           )
 
           @context.send(:servactory_service_warehouse).assign_internal(attribute.name, value)
+
+          @validated_attributes << attribute.name
         end
 
         def fetch_value(attribute:)
           value = @context.send(:servactory_service_warehouse).fetch_internal(attribute.name)
 
-          Servactory::Maintenance::Validations::Performer.validate!(
-            context: @context,
-            attribute:,
-            value:
-          )
+          if @validated_attributes.exclude?(attribute.name)
+            Servactory::Maintenance::Validations::Performer.validate!(
+              context: @context,
+              attribute:,
+              value:
+            )
+          end
 
           value
         end

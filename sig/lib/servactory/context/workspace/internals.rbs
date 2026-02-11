@@ -4,6 +4,7 @@ module Servactory
       class Internals
         @context: instance
         @collection_of_internals: Internals::Collection
+        @validated_attributes: Set[Symbol]
 
         def initialize: (context: instance, collection_of_internals: Internals::Collection) -> void
 
