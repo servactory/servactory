@@ -4,8 +4,6 @@ module Servactory
 
     def self?.adapt: ((::Hash[untyped, untyped] | Datory::Base) data) -> Hash[Symbol, untyped]
 
-    def self?.fetch_hash_with_desired_attribute: ((Inputs::Input | Internals::Internal | Outputs::Output) attribute) -> Hash[Symbol, untyped]
-
     def self?.define_attribute_with: (input: Inputs::Input?, internal: Internals::Internal?, output: Outputs::Output?) -> (Inputs::Input | Internals::Internal | Outputs::Output | Exception)
 
     def self?.really_input?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
