@@ -32,7 +32,12 @@ module Servactory
       class OptionHelpersCollection
         extend Forwardable
 
-        def_delegators :@collection, :<<, :filter, :each, :each_with_object, :map, :find, :merge
+        def_delegators :@collection,
+                       :<<,
+                       :filter,
+                       :each_with_object,
+                       :map,
+                       :merge
 
         # Initializes the collection with an optional pre-built Set.
         #

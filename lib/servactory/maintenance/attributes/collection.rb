@@ -36,7 +36,12 @@ module Servactory
       class Collection
         extend Forwardable
 
-        def_delegators :@collection, :<<, :filter, :each, :each_with_object, :map, :to_h, :merge, :find
+        def_delegators :@collection,
+                       :<<,
+                       :filter,
+                       :each, :each_with_object,
+                       :map, :to_h,
+                       :merge
 
         # Initializes the collection with an optional pre-built Set.
         #
