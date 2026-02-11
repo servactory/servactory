@@ -3,6 +3,10 @@ module Servactory
     module Attributes
       class Base
         @option_helpers: Configuration::OptionHelpers::OptionHelpersCollection
+        @system_name: Symbol
+        @i18n_name: String
+        @actor: (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)
+        @desired_attribute_hash: Hash[Symbol, (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)]
 
         attr_reader name: Symbol
         attr_reader collection_of_options: Options::Collection
@@ -26,6 +30,10 @@ module Servactory
         def system_name: () -> Symbol
 
         def i18n_name: () -> String
+
+        def actor: () -> (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)
+
+        def desired_attribute_hash: () -> Hash[Symbol, (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)]
 
         def input?: () -> bool
 
