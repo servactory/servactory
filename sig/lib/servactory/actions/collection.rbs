@@ -4,6 +4,7 @@ module Servactory
       extend Forwardable
 
       @collection: Set[Action]
+      @sorted: Collection?
 
       def initialize: (?Set[Action] collection) -> void
 
