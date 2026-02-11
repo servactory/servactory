@@ -7,8 +7,8 @@ module Servactory
 
       private
 
-      def lookup_name(item)
-        item.internal_name
+      def lookup_name(attribute)
+        attribute.internal_name
       end
     end
   end

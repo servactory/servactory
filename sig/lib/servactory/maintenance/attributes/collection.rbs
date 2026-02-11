@@ -5,6 +5,7 @@ module Servactory
         extend Forwardable
 
         @collection: Set[untyped]
+        @attributes_index: Hash[Symbol, untyped]
 
         def initialize: (?Set[untyped] collection) -> void
 
@@ -18,7 +19,9 @@ module Servactory
 
         private
 
-        def lookup_name: (untyped item) -> Symbol
+        def attributes_index: () -> Hash[Symbol, untyped]
+
+        def lookup_name: (untyped attribute) -> Symbol
       end
     end
   end

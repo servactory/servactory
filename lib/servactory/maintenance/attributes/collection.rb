@@ -6,7 +6,7 @@ module Servactory
       class Collection
         extend Forwardable
 
-        def_delegators :@collection, :<<, :filter, :each, :map, :to_h, :merge, :find
+        def_delegators :@collection, :<<, :filter, :each, :each_with_object, :map, :to_h, :merge, :find
 
         def initialize(collection = Set.new)
           @collection = collection
@@ -17,21 +17,27 @@ module Servactory
         end
 
         def only(*names)
-          self.class.new(filter { |item| names.include?(lookup_name(item)) })
+          self.class.new(filter { |attribute| names.include?(lookup_name(attribute)) })
         end
 
         def except(*names)
-          self.class.new(filter { |item| names.exclude?(lookup_name(item)) })
+          self.class.new(filter { |attribute| names.exclude?(lookup_name(attribute)) })
         end
 
         def find_by(name:)
-          find { |item| lookup_name(item) == name }
+          attributes_index[name]
         end
 
         private
 
-        def lookup_name(item)
-          item.name
+        def attributes_index
+          @attributes_index ||= each_with_object({}) do |attribute, index|
+            index[lookup_name(attribute)] = attribute
+          end
+        end
+
+        def lookup_name(attribute)
+          attribute.name
         end
       end
     end
