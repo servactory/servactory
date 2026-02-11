@@ -5,7 +5,7 @@ module Servactory
         extend Forwardable
 
         @collection: Set[Stage]
-        @sorted: Collection?
+        @sorted_by_position: Collection?
 
         def initialize: (?Set[Stage] collection) -> void
 

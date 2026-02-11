@@ -67,7 +67,7 @@ module Servactory
       #   sorted = actions.sorted_by_position
       #   sorted.each { |action| puts action.position }
       def sorted_by_position
-        @sorted ||= Collection.new(sort_by(&:position))
+        @sorted_by_position ||= Collection.new(sort_by(&:position))
       end
     end
   end
