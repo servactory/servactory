@@ -10,13 +10,11 @@ module Servactory
           first_error = process(context:, attribute:, value:)
           return if first_error.nil?
 
-          raise context.config
-                       .public_send(:"#{attribute.system_name}_exception_class")
-                       .new(
-                         context:,
-                         message: first_error,
-                         **{ :"#{attribute.system_name}_name" => attribute.name }
-                       )
+          context.public_send(
+            :"fail_#{attribute.system_name}!",
+            attribute.name,
+            message: first_error
+          )
         end
 
         private
