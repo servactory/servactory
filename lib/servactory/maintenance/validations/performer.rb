@@ -19,7 +19,7 @@ module Servactory
 
         private
 
-        def process(context:, attribute:, value:)
+        def process(context:, attribute:, value:) # rubocop:disable Metrics/MethodLength
           attribute.options_for_checks.each do |check_key, check_options|
             error = process_option(
               context:,
@@ -34,7 +34,7 @@ module Servactory
           nil
         end
 
-        def process_option(context:, attribute:, value:, check_key:, check_options:)
+        def process_option(context:, attribute:, value:, check_key:, check_options:) # rubocop:disable Metrics/MethodLength
           validation_classes = attribute.collection_of_options.validation_classes
           return if validation_classes.empty?
 

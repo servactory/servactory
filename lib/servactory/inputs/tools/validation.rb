@@ -6,7 +6,7 @@ module Servactory
       module Validation
         extend self
 
-        def validate!(context, collection_of_inputs)
+        def validate!(context, collection_of_inputs) # rubocop:disable Metrics/MethodLength
           first_error = nil
           failed_input = nil
 
