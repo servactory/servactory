@@ -31,7 +31,7 @@ module Servactory
         # @param value [Object] Value to check for presence
         # @param check_key [Symbol] Must be :required to trigger validation
         # @return [String, nil] Error message on failure, nil on success
-        def self.check(context:, attribute:, value:, check_key:, **)
+        def self.check(context:, attribute:, value:, check_key:, check_options: nil) # rubocop:disable Lint/UnusedMethodArgument
           return unless should_be_checked_for?(attribute, check_key)
           return if Servactory::Utils.value_present?(value)
 

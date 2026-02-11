@@ -36,7 +36,7 @@ module Servactory
           # @param value [Object] Value to check against declared types
           # @param check_key [Symbol] Must be :types to trigger validation
           # @return [String, nil] Error message on type mismatch, nil on success
-          def self.check(context:, attribute:, value:, check_key:, **)
+          def self.check(context:, attribute:, value:, check_key:, check_options: nil) # rubocop:disable Lint/UnusedMethodArgument
             return unless should_be_checked_for?(attribute, value, check_key)
 
             prepared_value = compute_prepared_value(attribute, value)
