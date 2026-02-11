@@ -142,11 +142,10 @@ module Servactory
       end
 
       def enrich_options_with_common_fields(attribute:, options:)
-        actor = attribute.actor
         must = attribute.collection_of_options.find_by(name: :must)
 
         options.merge(
-          actor:,
+          actor: attribute.actor,
           types: attribute.types,
           must: must&.value
         )

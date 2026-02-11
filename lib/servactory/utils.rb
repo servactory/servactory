@@ -12,10 +12,6 @@ module Servactory
       data.symbolize_keys
     end
 
-    def fetch_hash_with_desired_attribute(attribute)
-      attribute.desired_attribute_hash
-    end
-
     def define_attribute_with(input: nil, internal: nil, output: nil)
       return input if really_input?(input)
       return internal if really_internal?(internal)
