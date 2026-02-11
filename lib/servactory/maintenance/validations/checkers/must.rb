@@ -141,7 +141,7 @@ module Servactory
           # @return [Array] On success: [result, reason_code, meta_hash]
           # @return [Array] On exception: [:syntax_error, error_message_string, nil]
           def self.call_check(context:, attribute:, value:, check:, code:)
-            check.call(value:, **attribute.desired_attribute_hash)
+            check.call(value:, **attribute.typed_actor_kwargs)
           rescue StandardError => e
             # Return formatted syntax error message
             syntax_error_message = build_syntax_error_message(
@@ -176,7 +176,7 @@ module Servactory
             process_message(
               message,
               service: context.send(:servactory_service_info),
-              **attribute.desired_attribute_hash,
+              **attribute.typed_actor_kwargs,
               value:,
               code:,
               reason:,
@@ -202,7 +202,7 @@ module Servactory
             process_message(
               message,
               service: context.send(:servactory_service_info),
-              **attribute.desired_attribute_hash,
+              **attribute.typed_actor_kwargs,
               value:,
               code:,
               exception_message:

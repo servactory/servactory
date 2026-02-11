@@ -55,8 +55,8 @@ module Servactory
           @actor ||= self.class::Actor.new(self)
         end
 
-        def desired_attribute_hash
-          @desired_attribute_hash ||= { system_name => actor }.freeze
+        def typed_actor_kwargs
+          @typed_actor_kwargs ||= { system_name => actor }.freeze
         end
 
         def input?
