@@ -8,15 +8,19 @@ module Servactory
 
         def validate!(context, collection_of_inputs)
           first_error = nil
+          failed_input = nil
 
           collection_of_inputs.each do |input|
             first_error = process_input(context, input)
-            break if first_error.present?
+            if first_error.present?
+              failed_input = input
+              break
+            end
           end
 
           return if first_error.nil?
 
-          context.fail_input!(nil, message: first_error)
+          context.fail_input!(failed_input.name, message: first_error)
         end
 
         private
@@ -26,6 +30,7 @@ module Servactory
             error = process_option(context, input, check_key, check_options)
             return error if error.present?
           end
+
           nil
         end
 
@@ -43,6 +48,7 @@ module Servactory
             )
             return error_message if error_message.present?
           end
+
           nil
         end
       end

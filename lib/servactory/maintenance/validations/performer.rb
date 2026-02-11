@@ -12,7 +12,11 @@ module Servactory
 
           raise context.config
                        .public_send(:"#{attribute.system_name}_exception_class")
-                       .new(context:, message: first_error)
+                       .new(
+                         context:,
+                         message: first_error,
+                         **{ :"#{attribute.system_name}_name" => attribute.name }
+                       )
         end
 
         private
@@ -20,11 +24,15 @@ module Servactory
         def process(context:, attribute:, value:)
           attribute.options_for_checks.each do |check_key, check_options|
             error = process_option(
-              context:, attribute:, value:,
-              check_key:, check_options:
+              context:,
+              attribute:,
+              value:,
+              check_key:,
+              check_options:
             )
             return error if error.present?
           end
+
           nil
         end
 
@@ -34,11 +42,15 @@ module Servactory
 
           validation_classes.each do |validation_class|
             error_message = validation_class.check(
-              context:, attribute:, value:,
-              check_key:, check_options:
+              context:,
+              attribute:,
+              value:,
+              check_key:,
+              check_options:
             )
             return error_message if error_message.present?
           end
+
           nil
         end
       end
