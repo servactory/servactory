@@ -28,7 +28,7 @@ module Servactory
           nil
         end
 
-        def process_option(context:, attribute:, value:, check_key:, check_options:) # rubocop:disable Metrics/MethodLength
+        def process_option(context:, attribute:, value:, check_key:, check_options:)
           validation_classes = attribute.collection_of_options.validation_classes
           return if validation_classes.empty?
 
