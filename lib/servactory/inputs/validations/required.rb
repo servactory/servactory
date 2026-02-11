@@ -30,6 +30,7 @@ module Servactory
         # @param attribute [Inputs::Input] Input attribute to validate
         # @param value [Object] Value to check for presence
         # @param check_key [Symbol] Must be :required to trigger validation
+        # @param check_options [Hash, nil] Unused, accepted for uniform checker interface
         # @return [String, nil] Error message on failure, nil on success
         def self.check(context:, attribute:, value:, check_key:, check_options: nil) # rubocop:disable Lint/UnusedMethodArgument
           return unless should_be_checked_for?(attribute, check_key)

@@ -2,15 +2,13 @@ module Servactory
   module Inputs
     module Tools
       module Validation
-        def self.validate!: (instance context, Collection collection_of_inputs) -> void
+        def self?.validate!: (instance context, Collection collection_of_inputs) -> void
 
         private
 
-        def self.process_input: (instance context, Input input) -> String?
+        def self?.process_input: (instance context, Input input) -> String?
 
-        def self.process_option: (instance context, Input input, Symbol check_key, Hash[Symbol, untyped] check_options) -> String?
-
-        def self.validation_classes_from: (Input input) -> Array[Class]
+        def self?.process_option: (instance context, Input input, Symbol check_key, Hash[Symbol, untyped] check_options) -> String?
       end
     end
   end
