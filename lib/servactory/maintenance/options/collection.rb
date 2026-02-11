@@ -38,9 +38,8 @@ module Servactory
         def_delegators :@collection,
                        :<<,
                        :filter,
-                       :each, :each_with_object,
+                       :each_with_object,
                        :map, :flat_map,
-                       :find,
                        :size,
                        :empty?
 

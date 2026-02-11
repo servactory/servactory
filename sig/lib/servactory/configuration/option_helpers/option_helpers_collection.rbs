@@ -5,6 +5,7 @@ module Servactory
         extend Forwardable
 
         @collection: Set[Maintenance::Options::Helper]
+        @helpers_index: Hash[Symbol, Maintenance::Options::Helper]
 
         def initialize: (?Set[Maintenance::Options::Helper] collection) -> void
 
@@ -13,6 +14,10 @@ module Servactory
         def dynamic_options: -> OptionHelpersCollection
 
         def find_by: (name: Symbol) -> Maintenance::Options::Helper?
+
+        private
+
+        def helpers_index: () -> Hash[Symbol, Maintenance::Options::Helper]
       end
     end
   end
