@@ -41,7 +41,7 @@ module Servactory
   # ```ruby
   # result.active?  # Equivalent to Utils.query_attribute(result.active)
   # ```
-  class Result # rubocop:disable Metrics/ClassLength
+  class Result
     # Internal container for service output values.
     #
     # Provides dynamic method access to output values.

@@ -91,7 +91,7 @@ module Servactory
         end
 
         def resolve_internal(name)
-          return true if @collection_of_internals.find_by(name: name)
+          return true if @collection_of_internals.find_by(name:)
 
           name.to_s.end_with?("?") &&
             @context.config.predicate_methods_enabled &&

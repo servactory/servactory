@@ -37,8 +37,7 @@ module Servactory
 
         private
 
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
-        def fetch_with(name:, &block)
+        def fetch_with(name:, &_block)
           predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
 
           input_name = predicate ? name.to_s.chomp("?").to_sym : name
@@ -51,7 +50,6 @@ module Servactory
 
           predicate ? Servactory::Utils.query_attribute(value) : value
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Lint/UnusedMethodArgument
 
         def fetch_value(attribute:)
           value = @context.send(:servactory_service_warehouse).fetch_input(attribute.name)
@@ -71,7 +69,7 @@ module Servactory
         end
 
         def resolve_input(name)
-          return true if @collection_of_inputs.find_by(name: name)
+          return true if @collection_of_inputs.find_by(name:)
 
           name.to_s.end_with?("?") &&
             @context.config.predicate_methods_enabled &&

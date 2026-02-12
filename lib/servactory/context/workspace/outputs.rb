@@ -65,7 +65,7 @@ module Servactory
         end
 
         def resolve_output(name)
-          return true if @collection_of_outputs.find_by(name: name)
+          return true if @collection_of_outputs.find_by(name:)
 
           name.to_s.end_with?("?") &&
             @context.config.predicate_methods_enabled &&
