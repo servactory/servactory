@@ -29,54 +29,41 @@ module Servactory
           @arguments.keys
         end
 
-        # Merges new arguments into storage and defines accessor methods.
+        # Merges new arguments into storage.
         #
         # @param arguments [Hash] Input name-value pairs to merge
-        # @return [void]
+        # @return [Hash] Updated arguments hash
         def merge!(arguments)
           @arguments.merge!(arguments)
-          define_methods_for!(arguments)
         end
 
-        # Raises error for any method call not pre-defined as a singleton accessor.
+        # Delegates method calls to stored inputs.
         #
         # Supports predicate methods when enabled in config.
         #
         # @param name [Symbol] Method name (input or predicate)
         # @param _args [Array] Method arguments (unused)
-        # @raise [Exception] Failure exception for undefined input
+        # @return [Object] Input value or predicate result
         def method_missing(name, *_args)
           predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+
           input_name = predicate ? name.to_s.chomp("?").to_sym : name
-          raise_error_for(input_name)
+
+          input_value = @arguments.fetch(input_name) { raise_error_for(input_name) }
+
+          predicate ? Servactory::Utils.query_attribute(input_value) : input_value
         end
 
-        # Returns false since all valid methods are defined as singleton methods.
+        # Checks if method corresponds to stored input.
         #
-        # @return [Boolean] Always false
-        def respond_to_missing?(*)
-          false
+        # @param name [Symbol] Method name to check
+        # @return [Boolean] True if input exists for this method
+        def respond_to_missing?(name, *)
+          input_name = name.to_s.chomp("?").to_sym
+          @arguments.key?(input_name) || @arguments.key?(name) || super
         end
 
         private
-
-        # Defines singleton accessor methods for given arguments.
-        #
-        # @param arguments [Hash] Input name-value pairs to define methods for
-        # @return [void]
-        def define_methods_for!(arguments)
-          arguments.each_key do |name|
-            define_singleton_method(name) do
-              @arguments.fetch(name) { raise_error_for(name) }
-            end
-
-            next unless @context.config.predicate_methods_enabled
-
-            define_singleton_method(:"#{name}?") do
-              Servactory::Utils.query_attribute(@arguments.fetch(name) { raise_error_for(name) })
-            end
-          end
-        end
 
         # Raises error for undefined input.
         #
