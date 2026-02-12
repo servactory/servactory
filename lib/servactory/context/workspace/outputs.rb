@@ -37,7 +37,7 @@ module Servactory
 
         private
 
-        def assign_with(prepared_name:, value:, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def assign_with(prepared_name:, value:, &_block)
           output = @collection_of_outputs.find_by(name: prepared_name)
 
           return yield if output.nil?
@@ -51,7 +51,7 @@ module Servactory
           @context.send(:servactory_service_warehouse).assign_output(output.name, value)
         end
 
-        def fetch_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def fetch_with(name:, &_block)
           predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
 
           output_name = predicate ? name.to_s.chomp("?").to_sym : name

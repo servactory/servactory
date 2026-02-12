@@ -64,10 +64,6 @@ module Servactory
           value
         end
 
-        def fetch_predicate(attribute:)
-          Servactory::Utils.query_attribute(fetch_value(attribute:))
-        end
-
         def resolve_input(name)
           return true if @collection_of_inputs.find_by(name:)
 

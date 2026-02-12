@@ -41,7 +41,7 @@ module Servactory
           @validated_attributes ||= Set.new
         end
 
-        def assign_with(prepared_name:, value:, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def assign_with(prepared_name:, value:, &_block)
           internal = @collection_of_internals.find_by(name: prepared_name)
 
           return yield if internal.nil?
@@ -59,7 +59,7 @@ module Servactory
           validated_attributes << internal.name
         end
 
-        def fetch_with(name:, &block) # rubocop:disable Lint/UnusedMethodArgument
+        def fetch_with(name:, &_block)
           predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
 
           internal_name = predicate ? name.to_s.chomp("?").to_sym : name
@@ -84,10 +84,6 @@ module Servactory
           end
 
           value
-        end
-
-        def fetch_predicate(attribute:)
-          Servactory::Utils.query_attribute(fetch_value(attribute:))
         end
 
         def resolve_internal(name)

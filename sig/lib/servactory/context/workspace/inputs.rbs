@@ -21,8 +21,6 @@ module Servactory
 
         def fetch_value: (attribute: untyped) -> untyped
 
-        def fetch_predicate: (attribute: untyped) -> bool
-
         def resolve_input: (Symbol name) -> bool
 
         def raise_error_for: (Symbol type, Symbol name) -> bot
