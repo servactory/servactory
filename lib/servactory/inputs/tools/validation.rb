@@ -7,11 +7,12 @@ module Servactory
         extend self
 
         def validate!(context, collection_of_inputs) # rubocop:disable Metrics/MethodLength
+          warehouse = context.send(:servactory_service_warehouse)
           first_error = nil
           failed_input = nil
 
           collection_of_inputs.each do |input|
-            first_error = process_input(context, input)
+            first_error = process_input(context, warehouse, input)
             if first_error.present?
               failed_input = input
               break
@@ -25,16 +26,18 @@ module Servactory
 
         private
 
-        def process_input(context, input)
+        def process_input(context, warehouse, input)
+          value = warehouse.fetch_input(input.name)
+
           input.options_for_checks.each do |check_key, check_options|
-            error = process_option(context, input, check_key, check_options)
+            error = process_option(context, input, value, check_key, check_options)
             return error if error.present?
           end
 
           nil
         end
 
-        def process_option(context, input, check_key, check_options) # rubocop:disable Metrics/MethodLength
+        def process_option(context, input, value, check_key, check_options) # rubocop:disable Metrics/MethodLength
           validation_classes = input.collection_of_options.validation_classes
           return if validation_classes.empty?
 
@@ -42,7 +45,7 @@ module Servactory
             error_message = validation_class.check(
               context:,
               attribute: input,
-              value: context.send(:servactory_service_warehouse).fetch_input(input.name),
+              value:,
               check_key:,
               check_options:
             )
