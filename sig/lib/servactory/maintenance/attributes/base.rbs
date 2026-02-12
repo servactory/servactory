@@ -6,7 +6,7 @@ module Servactory
         @system_name: Symbol
         @i18n_name: String
         @actor: (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)
-        @desired_attribute_hash: Hash[Symbol, (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)]
+        @typed_actor_kwargs: Hash[Symbol, (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)]
 
         attr_reader name: Symbol
         attr_reader collection_of_options: Options::Collection
@@ -33,7 +33,7 @@ module Servactory
 
         def actor: () -> (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)
 
-        def desired_attribute_hash: () -> Hash[Symbol, (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)]
+        def typed_actor_kwargs: () -> Hash[Symbol, (Inputs::Input::Actor | Internals::Internal::Actor | Outputs::Output::Actor)]
 
         def input?: () -> bool
 
