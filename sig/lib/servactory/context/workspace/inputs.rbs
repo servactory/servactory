@@ -13,15 +13,15 @@ module Servactory
 
         def method_missing: (Symbol name, *untyped _args) -> void
 
-        def respond_to_missing?: (*untyped) -> bool
+        def respond_to_missing?: (Symbol name, *untyped) -> bool
 
         private
 
-        def define_attribute_methods!: () -> void
+        def fetch_with: (name: Symbol) { () -> untyped } -> untyped
 
         def fetch_value: (attribute: untyped) -> untyped
 
-        def fetch_predicate: (attribute: untyped) -> bool
+        def resolve_input: (Symbol name) -> bool
 
         def raise_error_for: (Symbol type, Symbol name) -> bot
       end

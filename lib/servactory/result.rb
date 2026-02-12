@@ -41,7 +41,7 @@ module Servactory
   # ```ruby
   # result.active?  # Equivalent to Utils.query_attribute(result.active)
   # ```
-  class Result # rubocop:disable Metrics/ClassLength
+  class Result
     # Internal container for service output values.
     #
     # Provides dynamic method access to output values.
@@ -55,8 +55,6 @@ module Servactory
       def initialize(outputs:, predicate_methods_enabled:)
         @outputs = outputs
         @predicate_methods_enabled = predicate_methods_enabled
-
-        define_attribute_methods!
       end
 
       # Returns string representation for debugging.
@@ -66,25 +64,33 @@ module Servactory
         "#<#{self.class.name} #{draw_result}>"
       end
 
-      private
-
-      # Defines singleton accessor methods for output values on this instance.
-      #
-      # Creates getter methods for each output key and, when predicate methods
-      # are enabled, predicate methods (e.g., user?) for boolean queries.
-      #
-      # @return [void]
-      def define_attribute_methods!
-        @outputs.each_key do |name|
-          define_singleton_method(name) { @outputs[name] }
-
-          next unless @predicate_methods_enabled
-
-          define_singleton_method(:"#{name}?") do
-            Servactory::Utils.query_attribute(@outputs[name])
+      # Delegates method calls to stored outputs.
+      def method_missing(name, *args)
+        if name.to_s.end_with?("?")
+          base_name = name.to_s.chomp("?").to_sym
+          if @predicate_methods_enabled && @outputs.key?(base_name)
+            return Servactory::Utils.query_attribute(@outputs[base_name])
           end
+        elsif @outputs.key?(name)
+          return @outputs[name]
         end
+
+        super
       end
+
+      # Checks if method corresponds to stored output.
+      def respond_to_missing?(name, include_private = false)
+        if name.to_s.end_with?("?")
+          base_name = name.to_s.chomp("?").to_sym
+          return true if @predicate_methods_enabled && @outputs.key?(base_name)
+        elsif @outputs.key?(name)
+          return true
+        end
+
+        super
+      end
+
+      private
 
       # Returns array of output attribute names.
       #
@@ -282,9 +288,6 @@ module Servactory
 
     # Delegates method calls to the outputs container.
     #
-    # On first access, triggers lazy initialization of outputs and
-    # installs singleton delegator methods for subsequent direct access.
-    #
     # @param name [Symbol] Method name (output attribute)
     # @param args [Array] Method arguments
     # @param block [Proc] Optional block
@@ -332,12 +335,9 @@ module Servactory
 
     # Returns outputs container, lazily initialized.
     #
-    # On first access, also defines singleton delegator methods on this
-    # Result instance for subsequent direct access.
-    #
     # @return [Outputs] Outputs container with service values
     def outputs
-      @outputs ||= build_outputs.tap { |outputs_container| define_output_delegators!(outputs_container) }
+      @outputs ||= build_outputs
     end
 
     # Builds Outputs container with predicate configuration.
@@ -360,21 +360,6 @@ module Servactory
         hash[key] = value
       end
       hash
-    end
-
-    # Defines singleton delegator methods on this Result instance
-    # for direct access to output values without method_missing.
-    #
-    # @param outputs_container [Outputs] Outputs container to delegate to
-    # @return [void]
-    def define_output_delegators!(outputs_container)
-      outputs_container.send(:output_names).each do |name|
-        define_singleton_method(name) { outputs.public_send(name) }
-      end
-
-      outputs_container.send(:predicate_names).each do |name|
-        define_singleton_method(name) { outputs.public_send(name) }
-      end
     end
 
     ########################################################################

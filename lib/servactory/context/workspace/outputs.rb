@@ -7,8 +7,6 @@ module Servactory
         def initialize(context:, collection_of_outputs:)
           @context = context
           @collection_of_outputs = collection_of_outputs
-
-          define_attribute_methods!
         end
 
         def only(*names)
@@ -23,55 +21,55 @@ module Servactory
             .to_h { |output| [output.name, send(output.name)] }
         end
 
-        def method_missing(name, *_args)
+        def method_missing(name, *args)
           if name.to_s.end_with?("=")
             prepared_name = name.to_s.delete("=").to_sym
-            raise_error_for(:assign, prepared_name)
+
+            assign_with(prepared_name:, value: args.pop) { raise_error_for(:assign, prepared_name) }
           else
-            raise_error_for(:fetch, name)
+            fetch_with(name:) { raise_error_for(:fetch, name) }
           end
         end
 
-        def respond_to_missing?(*)
-          false
+        def respond_to_missing?(name, *)
+          resolve_output(name) || super
         end
 
         private
 
-        def define_attribute_methods! # rubocop:disable Metrics/MethodLength
-          @collection_of_outputs.each do |output|
-            define_singleton_method(output.name) do
-              fetch_value(attribute: output)
-            end
+        def assign_with(prepared_name:, value:, &_block)
+          output = @collection_of_outputs.find_by(name: prepared_name)
 
-            define_singleton_method(:"#{output.name}=") do |value|
-              assign_value(attribute: output, value:)
-            end
+          return yield if output.nil?
 
-            next unless @context.config.predicate_methods_enabled
-
-            define_singleton_method(:"#{output.name}?") do
-              fetch_predicate(attribute: output)
-            end
-          end
-        end
-
-        def assign_value(attribute:, value:)
           Servactory::Maintenance::Validations::Performer.validate!(
             context: @context,
-            attribute:,
+            attribute: output,
             value:
           )
 
-          @context.send(:servactory_service_warehouse).assign_output(attribute.name, value)
+          @context.send(:servactory_service_warehouse).assign_output(output.name, value)
         end
 
-        def fetch_value(attribute:)
-          @context.send(:servactory_service_warehouse).fetch_output(attribute.name)
+        def fetch_with(name:, &_block)
+          predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+
+          output_name = predicate ? name.to_s.chomp("?").to_sym : name
+          output = @collection_of_outputs.find_by(name: output_name)
+
+          return yield if output.nil?
+
+          output_value = @context.send(:servactory_service_warehouse).fetch_output(output.name)
+
+          predicate ? Servactory::Utils.query_attribute(output_value) : output_value
         end
 
-        def fetch_predicate(attribute:)
-          Servactory::Utils.query_attribute(fetch_value(attribute:))
+        def resolve_output(name)
+          return true if @collection_of_outputs.find_by(name:)
+
+          @context.config.predicate_methods_enabled &&
+            name.to_s.end_with?("?") &&
+            @collection_of_outputs.find_by(name: name.to_s.chomp("?").to_sym)
         end
 
         def raise_error_for(type, name)
