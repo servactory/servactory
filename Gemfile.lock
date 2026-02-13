@@ -4,7 +4,7 @@ PATH
     servactory (3.1.0.rc2)
       activesupport (>= 5.1)
       i18n (>= 1.14)
-      stroma (>= 0.4)
+      stroma (>= 0.4, < 1.0)
       zeitwerk (>= 2.6)
 
 GEM
