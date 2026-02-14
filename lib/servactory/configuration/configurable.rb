@@ -68,7 +68,8 @@ module Servactory
             Servactory::ToolKit::DynamicOptions::ConsistsOf
               .use(collection_mode_class_names: config.collection_mode_class_names),
             Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
-            Servactory::ToolKit::DynamicOptions::Inclusion.use
+            Servactory::ToolKit::DynamicOptions::Inclusion.use,
+            Servactory::ToolKit::DynamicOptions::Target.use
           ]
         end
 
@@ -77,7 +78,8 @@ module Servactory
             Servactory::ToolKit::DynamicOptions::ConsistsOf
             .use(collection_mode_class_names: config.collection_mode_class_names),
             Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
-            Servactory::ToolKit::DynamicOptions::Inclusion.use
+            Servactory::ToolKit::DynamicOptions::Inclusion.use,
+            Servactory::ToolKit::DynamicOptions::Target.use
           ]
         end
 
@@ -86,7 +88,8 @@ module Servactory
             Servactory::ToolKit::DynamicOptions::ConsistsOf
             .use(collection_mode_class_names: config.collection_mode_class_names),
             Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
-            Servactory::ToolKit::DynamicOptions::Inclusion.use
+            Servactory::ToolKit::DynamicOptions::Inclusion.use,
+            Servactory::ToolKit::DynamicOptions::Target.use
           ]
         end
       end

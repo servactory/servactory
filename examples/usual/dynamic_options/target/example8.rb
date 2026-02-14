@@ -10,7 +10,7 @@ module Usual
 
         internal :service_class,
                  type: Class,
-                 expect: {
+                 target: {
                    in: [MyFirstService, MySecondService],
                    message: "Internal custom error"
                  }
