@@ -4,7 +4,7 @@ PATH
     servactory (3.0.1)
       activesupport (>= 5.1)
       i18n (>= 1.14)
-      stroma (>= 0.4, < 1.0)
+      stroma (>= 0.5, < 1.0)
       zeitwerk (>= 2.6)
 
 GEM
@@ -232,8 +232,7 @@ GEM
       terminal-table (>= 2, < 5)
       uri (>= 0.12.0)
     stringio (3.2.0)
-    stroma (0.4.0)
-      activesupport (>= 5.1)
+    stroma (0.5.0)
       zeitwerk (>= 2.6)
     strscan (3.1.7)
     terminal-table (4.0.0)
