@@ -8,7 +8,7 @@ module Wrong
 
         input :service_class, type: Class
 
-        internal :target_class, type: Class, expect: { in: nil }
+        internal :target_class, type: Class, target: { in: nil }
 
         make :assign_target_class
 
