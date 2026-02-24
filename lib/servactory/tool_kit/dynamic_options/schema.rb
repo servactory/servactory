@@ -127,7 +127,8 @@ module Servactory
         # Creates a Schema validator instance.
         #
         # @param option_name [Symbol] The option name (default: :schema)
-        # @param default_hash_mode_class_names [Servactory::Configuration::HashMode::ClassNamesCollection] Valid Hash-like types
+        # @param default_hash_mode_class_names [Servactory::Configuration::HashMode::ClassNamesCollection]
+        #   Valid Hash-like types
         # @return [Servactory::Maintenance::Attributes::OptionHelper]
         def self.use(option_name = :schema, default_hash_mode_class_names:)
           instance = new(option_name, :is, false)
@@ -137,7 +138,8 @@ module Servactory
 
         # Assigns the list of valid Hash-compatible class names.
         #
-        # @param default_hash_mode_class_names [Servactory::Configuration::HashMode::ClassNamesCollection] Hash-like types to accept
+        # @param default_hash_mode_class_names [Servactory::Configuration::HashMode::ClassNamesCollection]
+        #   Hash-like types to accept
         # @return [void]
         def assign(default_hash_mode_class_names)
           @default_hash_mode_class_names = default_hash_mode_class_names
