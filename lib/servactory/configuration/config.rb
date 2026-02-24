@@ -30,6 +30,22 @@ module Servactory
         @collection_mode_class_names = original.collection_mode_class_names.dup
         @hash_mode_class_names = original.hash_mode_class_names.dup
         @action_rescue_handlers = original.action_rescue_handlers.dup
+
+        rebind_dynamic_option_helpers!
+      end
+
+      private
+
+      def rebind_dynamic_option_helpers!
+        new_consists_of = Servactory::ToolKit::DynamicOptions::ConsistsOf
+                          .use(collection_mode_class_names: @collection_mode_class_names)
+        new_schema = Servactory::ToolKit::DynamicOptions::Schema
+                     .use(default_hash_mode_class_names: @hash_mode_class_names)
+
+        [@input_option_helpers, @internal_option_helpers, @output_option_helpers].each do |helpers|
+          helpers.replace(name: :consists_of, with: new_consists_of)
+          helpers.replace(name: :schema, with: new_schema)
+        end
       end
     end
   end

@@ -88,7 +88,7 @@ module Servactory
         # Creates a ConsistsOf validator instance.
         #
         # @param option_name [Symbol] The option name (default: :consists_of)
-        # @param collection_mode_class_names [Array<Class>] Valid collection types
+        # @param collection_mode_class_names [Servactory::Configuration::CollectionMode::ClassNamesCollection] Valid collection types
         # @return [Servactory::Maintenance::Attributes::OptionHelper]
         def self.use(option_name = :consists_of, collection_mode_class_names:)
           instance = new(option_name, :type, false)
@@ -98,7 +98,7 @@ module Servactory
 
         # Assigns the list of valid collection class names.
         #
-        # @param collection_mode_class_names [Array<Class>] Collection types to accept
+        # @param collection_mode_class_names [Servactory::Configuration::CollectionMode::ClassNamesCollection] Collection types to accept
         # @return [void]
         def assign(collection_mode_class_names)
           @collection_mode_class_names = collection_mode_class_names

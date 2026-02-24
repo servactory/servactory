@@ -72,6 +72,17 @@ module Servactory
           helpers_index[name]
         end
 
+        def replace(name:, with:)
+          # TODO: Set#delete is O(n) — consider replacing @collection with a Hash-keyed
+          #   structure for O(1) delete+add if replace frequency grows.
+          old = helpers_index[name]
+          return unless old
+
+          @collection.delete(old)
+          @collection.add(with)
+          @helpers_index = nil
+        end
+
         private
 
         # Builds and caches a hash index for O(1) helper lookups.

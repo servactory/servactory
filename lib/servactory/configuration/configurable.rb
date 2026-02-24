@@ -67,7 +67,7 @@ module Servactory
             .new(name: :optional, equivalent: { required: false }),
             Servactory::ToolKit::DynamicOptions::ConsistsOf
               .use(collection_mode_class_names: config.collection_mode_class_names),
-            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names: config.hash_mode_class_names),
             Servactory::ToolKit::DynamicOptions::Inclusion.use
           ]
         end
@@ -76,7 +76,7 @@ module Servactory
           Set[
             Servactory::ToolKit::DynamicOptions::ConsistsOf
             .use(collection_mode_class_names: config.collection_mode_class_names),
-            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names: config.hash_mode_class_names),
             Servactory::ToolKit::DynamicOptions::Inclusion.use
           ]
         end
@@ -85,7 +85,7 @@ module Servactory
           Set[
             Servactory::ToolKit::DynamicOptions::ConsistsOf
             .use(collection_mode_class_names: config.collection_mode_class_names),
-            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names: config.hash_mode_class_names),
             Servactory::ToolKit::DynamicOptions::Inclusion.use
           ]
         end
