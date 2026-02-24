@@ -53,7 +53,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example21, type: :service do
         expect(perform).to(
           be_success_service
             .with_outputs(
-              items: items,
+              items:,
               items?: true
             )
         )
@@ -175,7 +175,7 @@ RSpec.describe Usual::DynamicOptions::ConsistsOf::Example21, type: :service do
         expect(perform).to(
           be_success_service
             .with_outputs(
-              items: items,
+              items:,
               items?: true
             )
         )
