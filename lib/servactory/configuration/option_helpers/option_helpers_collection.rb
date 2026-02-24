@@ -24,6 +24,15 @@ module Servactory
         def find_by(name:)
           find { |helper| helper.name == name }
         end
+
+        def replace(name:, with:)
+          # TODO: Add index-based lookup in version 3.1.
+          old = find { |helper| helper.name == name }
+          return unless old
+
+          @collection.delete(old)
+          @collection.add(with)
+        end
       end
     end
   end
