@@ -72,6 +72,11 @@ module Servactory
           helpers_index[name]
         end
 
+        # Replaces a helper by name with a new one, invalidating the index cache.
+        #
+        # @param name [Symbol] the helper name to replace
+        # @param with [Maintenance::Attributes::OptionHelper] the replacement helper
+        # @return [void]
         def replace(name:, with:)
           old = helpers_index[name]
           return unless old
