@@ -78,7 +78,7 @@ module Servactory
         # @param with [Maintenance::Attributes::OptionHelper] the replacement helper
         # @return [void]
         def replace(name:, with:)
-          old = helpers_index[name]
+          old = find_by(name:)
           return unless old
 
           @collection.delete(old)
