@@ -73,8 +73,6 @@ module Servactory
         end
 
         def replace(name:, with:)
-          # TODO: Set#delete is O(n) — consider replacing @collection with a Hash-keyed
-          #   structure for O(1) delete+add if replace frequency grows.
           old = helpers_index[name]
           return unless old
 
