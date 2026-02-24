@@ -13,6 +13,8 @@ module Servactory
         def dynamic_options: -> OptionHelpersCollection
 
         def find_by: (name: Symbol) -> Maintenance::Attributes::OptionHelper?
+
+        def replace: (name: Symbol, with: Maintenance::Attributes::OptionHelper) -> void
       end
     end
   end

@@ -9,6 +9,12 @@ module Servactory
         def initialize: (Set[Class] collection) -> void
 
         def initialize_dup: (ClassNamesCollection original) -> void
+
+        def merge: (Array[Class] | Set[Class]) -> self
+
+        def include?: (untyped) -> bool
+
+        def intersect?: (Set[untyped]) -> bool
       end
     end
   end
