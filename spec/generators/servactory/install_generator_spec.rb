@@ -105,6 +105,7 @@ RSpec.describe "Servactory::Generators::InstallGenerator" do
         assert_no_file "config/locales/servactory.fr.yml"
         assert_no_file "config/locales/servactory.es.yml"
         assert_no_file "config/locales/servactory.it.yml"
+        assert_no_file "config/locales/servactory.ja.yml"
       end
     end
 
@@ -118,6 +119,7 @@ RSpec.describe "Servactory::Generators::InstallGenerator" do
         assert_no_file "config/locales/servactory.fr.yml"
         assert_no_file "config/locales/servactory.es.yml"
         assert_no_file "config/locales/servactory.it.yml"
+        assert_no_file "config/locales/servactory.ja.yml"
       end
     end
 
@@ -131,6 +133,7 @@ RSpec.describe "Servactory::Generators::InstallGenerator" do
         assert_no_file "config/locales/servactory.fr.yml"
         assert_no_file "config/locales/servactory.es.yml"
         assert_no_file "config/locales/servactory.it.yml"
+        assert_no_file "config/locales/servactory.ja.yml"
       end
     end
 
@@ -144,6 +147,7 @@ RSpec.describe "Servactory::Generators::InstallGenerator" do
         assert_no_file "config/locales/servactory.fr.yml"
         assert_no_file "config/locales/servactory.es.yml"
         assert_no_file "config/locales/servactory.it.yml"
+        assert_no_file "config/locales/servactory.ja.yml"
       end
     end
 
@@ -157,6 +161,7 @@ RSpec.describe "Servactory::Generators::InstallGenerator" do
         assert_no_file "config/locales/servactory.de.yml"
         assert_no_file "config/locales/servactory.es.yml"
         assert_no_file "config/locales/servactory.it.yml"
+        assert_no_file "config/locales/servactory.ja.yml"
       end
     end
 
@@ -170,6 +175,7 @@ RSpec.describe "Servactory::Generators::InstallGenerator" do
         assert_no_file "config/locales/servactory.de.yml"
         assert_no_file "config/locales/servactory.fr.yml"
         assert_no_file "config/locales/servactory.it.yml"
+        assert_no_file "config/locales/servactory.ja.yml"
       end
     end
 
@@ -183,14 +189,29 @@ RSpec.describe "Servactory::Generators::InstallGenerator" do
         assert_no_file "config/locales/servactory.de.yml"
         assert_no_file "config/locales/servactory.fr.yml"
         assert_no_file "config/locales/servactory.es.yml"
+        assert_no_file "config/locales/servactory.ja.yml"
+      end
+    end
+
+    context "with --locales=ja" do
+      before { run_generator %w[--locales=ja] }
+
+      it "copies only Japanese locale file", :aggregate_failures do
+        assert_file "config/locales/servactory.ja.yml"
+        assert_no_file "config/locales/servactory.en.yml"
+        assert_no_file "config/locales/servactory.ru.yml"
+        assert_no_file "config/locales/servactory.de.yml"
+        assert_no_file "config/locales/servactory.fr.yml"
+        assert_no_file "config/locales/servactory.es.yml"
+        assert_no_file "config/locales/servactory.it.yml"
       end
     end
 
     context "with all locales" do
-      before { run_generator %w[--locales=en,ru,de,fr,es,it] }
+      before { run_generator %w[--locales=en,ru,de,fr,es,it,ja] }
 
       it "copies all locale files", :aggregate_failures do
-        %w[en ru de fr es it].each do |locale|
+        %w[en ru de fr es it ja].each do |locale|
           assert_file "config/locales/servactory.#{locale}.yml"
         end
       end
