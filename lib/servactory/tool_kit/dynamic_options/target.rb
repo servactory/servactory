@@ -37,8 +37,8 @@ module Servactory
       # Use in your service definition:
       #
       # ```ruby
-      # class ProcessOrderService < ApplicationService::Base
-      #   input :service_class, type: Class, target: UserService
+      # class Orders::Process < ApplicationService::Base
+      #   input :service_class, type: Class, target: Payments::Charge
       #   input :handler_class, type: Class, target: [CreateHandler, UpdateHandler]
       # end
       # ```
@@ -48,7 +48,7 @@ module Servactory
       # Specify target class directly or as an array:
       #
       # ```ruby
-      # input :service_class, type: Class, target: UserService
+      # input :service_class, type: Class, target: Payments::Charge
       # input :handler_class, type: Class, target: [CreateHandler, UpdateHandler]
       # ```
       #

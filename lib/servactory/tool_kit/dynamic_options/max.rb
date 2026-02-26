@@ -35,7 +35,7 @@ module Servactory
       # Use in your service definition:
       #
       # ```ruby
-      # class ProcessDataService < ApplicationService::Base
+      # class Data::Process < ApplicationService::Base
       #   input :count, type: Integer, max: 100
       #   input :name, type: String, max: 255
       #   input :items, type: Array, max: 50
@@ -47,7 +47,7 @@ module Servactory
       # Specify maximum value directly:
       #
       # ```ruby
-      # class ProcessDataService < ApplicationService::Base
+      # class Data::Process < ApplicationService::Base
       #   input :count, type: Integer, max: 100
       #   input :name, type: String, max: 255
       #   input :items, type: Array, max: 50

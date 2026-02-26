@@ -35,7 +35,7 @@ module Servactory
       # Use in your service definition:
       #
       # ```ruby
-      # class ProcessDataService < ApplicationService::Base
+      # class Data::Process < ApplicationService::Base
       #   input :age, type: Integer, min: 18
       #   input :password, type: String, min: 8
       #   input :tags, type: Array, min: 1
@@ -47,7 +47,7 @@ module Servactory
       # Specify minimum value directly:
       #
       # ```ruby
-      # class ProcessDataService < ApplicationService::Base
+      # class Data::Process < ApplicationService::Base
       #   input :age, type: Integer, min: 18
       #   input :password, type: String, min: 8
       #   input :tags, type: Array, min: 1
