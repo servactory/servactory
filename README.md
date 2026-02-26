@@ -52,7 +52,7 @@ gem "servactory"
 ### Define service
 
 ```ruby
-class UserService::Authenticate < Servactory::Base
+class Users::Authenticate < Servactory::Base
   input :email, type: String
   input :password, type: String
 
@@ -77,7 +77,7 @@ end
 ```ruby
 class SessionsController < ApplicationController
   def create
-    service = UserService::Authenticate.call(**session_params)
+    service = Users::Authenticate.call(**session_params)
 
     if service.success?
       session[:current_user_id] = service.user.id
