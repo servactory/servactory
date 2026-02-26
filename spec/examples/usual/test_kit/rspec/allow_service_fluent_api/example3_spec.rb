@@ -10,7 +10,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
       }
     end
 
-    let(:user_id) { 42 }
+    let(:user_id) { 47 }
 
     it_behaves_like "check class info",
                     inputs: %i[user_id],
@@ -48,7 +48,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
       describe "because child service fails with call!" do
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example3Child)
-            .fails(type: :user_not_found, message: "User with ID 42 not found")
+            .fails(type: :user_not_found, message: "User with ID 47 not found")
         end
 
         it "raises expected error", :aggregate_failures do
@@ -56,7 +56,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:user_not_found)
-              expect(exception.message).to eq("User with ID 42 not found")
+              expect(exception.message).to eq("User with ID 47 not found")
               expect(exception.meta).to be_nil
             end
           )
@@ -74,7 +74,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
       }
     end
 
-    let(:user_id) { 42 }
+    let(:user_id) { 47 }
 
     it_behaves_like "check class info",
                     inputs: %i[user_id],
@@ -112,7 +112,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
       describe "because child service fails with call!" do
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example3Child)
-            .fails(type: :user_not_found, message: "User with ID 42 not found")
+            .fails(type: :user_not_found, message: "User with ID 47 not found")
         end
 
         it "returns expected error", :aggregate_failures do
@@ -121,7 +121,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
           expect(result.error).to an_object_having_attributes(
             type: :user_not_found,
-            message: "User with ID 42 not found",
+            message: "User with ID 47 not found",
             meta: nil
           )
         end
