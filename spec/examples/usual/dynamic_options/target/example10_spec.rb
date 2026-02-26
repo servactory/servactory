@@ -10,7 +10,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example10, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -40,26 +40,26 @@ RSpec.describe Usual::DynamicOptions::Target::Example10, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      context "when using MyFirstService" do
+      context "when using TargetA" do
         it_behaves_like "success result class"
 
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:service_class, described_class::MyFirstService)
+              .with_output(:service_class, described_class::TargetA)
           )
         end
       end
 
-      context "when using MySecondService" do
-        let(:service_class) { described_class::MySecondService }
+      context "when using TargetB" do
+        let(:service_class) { described_class::TargetB }
 
         it_behaves_like "success result class"
 
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:service_class, described_class::MySecondService)
+              .with_output(:service_class, described_class::TargetB)
           )
         end
       end
@@ -90,7 +90,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example10, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -120,26 +120,26 @@ RSpec.describe Usual::DynamicOptions::Target::Example10, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      context "when using MyFirstService" do
+      context "when using TargetA" do
         it_behaves_like "success result class"
 
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:service_class, described_class::MyFirstService)
+              .with_output(:service_class, described_class::TargetA)
           )
         end
       end
 
-      context "when using MySecondService" do
-        let(:service_class) { described_class::MySecondService }
+      context "when using TargetB" do
+        let(:service_class) { described_class::TargetB }
 
         it_behaves_like "success result class"
 
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:service_class, described_class::MySecondService)
+              .with_output(:service_class, described_class::TargetB)
           )
         end
       end

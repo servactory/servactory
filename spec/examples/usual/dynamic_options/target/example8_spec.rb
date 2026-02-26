@@ -5,7 +5,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[],
@@ -19,7 +19,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
             have_internal(:service_class)
               .type(Class)
               .target(
-                [described_class::MyFirstService, described_class::MySecondService],
+                [described_class::TargetA, described_class::TargetB],
                 name: :expect
               )
           )
@@ -51,7 +51,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
   describe ".call" do
     subject(:perform) { described_class.call }
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[],
@@ -65,7 +65,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
             have_internal(:service_class)
               .type(Class)
               .target(
-                [described_class::MyFirstService, described_class::MySecondService],
+                [described_class::TargetA, described_class::TargetB],
                 name: :expect
               )
           )
