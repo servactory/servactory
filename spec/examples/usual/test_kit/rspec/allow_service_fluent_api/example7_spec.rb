@@ -10,6 +10,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example7, type: :se
                     inputs: %i[],
                     internals: %i[],
                     outputs: %i[health_check_time system_status]
+
     describe "validations" do
       describe "outputs" do
         it do

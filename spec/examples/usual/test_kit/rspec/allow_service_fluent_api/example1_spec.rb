@@ -16,6 +16,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example1, type: :se
                     inputs: %i[amount],
                     internals: %i[],
                     outputs: %i[payment_status payment_transaction_id]
+
     describe "validations" do
       describe "outputs" do
         it do
