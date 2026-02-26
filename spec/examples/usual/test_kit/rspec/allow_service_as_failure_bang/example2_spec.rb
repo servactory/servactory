@@ -34,6 +34,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:user_not_found)
               expect(exception.message).to eq("User with ID 42 not found")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -57,6 +58,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:access_denied)
               expect(exception.message).to eq("Access denied")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -76,8 +78,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
         it "raises expected error", :aggregate_failures do
           expect { perform }.to(
             raise_error do |exception|
+              expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:specific_user_error)
               expect(exception.message).to eq("Specific user 42 error")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -112,11 +116,15 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
           end
         end
 
-        it "returns failure result", :aggregate_failures do
+        it "returns expected error", :aggregate_failures do
           result = perform
 
-          expect(result).to be_failure_service.type(:not_found)
-          expect(result.error.message).to eq("User 99 not found")
+          expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
+          expect(result.error).to an_object_having_attributes(
+            type: :not_found,
+            message: "User 99 not found",
+            meta: nil
+          )
         end
       end
     end

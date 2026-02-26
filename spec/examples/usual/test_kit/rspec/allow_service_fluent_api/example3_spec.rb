@@ -115,13 +115,15 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example3, type: :se
             .fails(type: :user_not_found, message: "User with ID 42 not found")
         end
 
-        it "returns failure result with error", :aggregate_failures do
-          # When parent is called with .call (not .call!), exceptions
-          # from child are caught and returned as failure result
+        it "returns expected error", :aggregate_failures do
           result = perform
 
-          expect(result).to be_failure_service.type(:user_not_found)
           expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
+          expect(result.error).to an_object_having_attributes(
+            type: :user_not_found,
+            message: "User with ID 42 not found",
+            meta: nil
+          )
         end
       end
     end
