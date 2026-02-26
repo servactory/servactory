@@ -14,7 +14,7 @@ module ApplicationService
       # ## Usage
       #
       # ```ruby
-      # class ProcessPaymentService < ApplicationService::Base
+      # class Payments::Process < ApplicationService::Base
       #   post_condition! :payment_recorded, message: "Payment must be saved" do |outputs|
       #     outputs.payment.persisted?
       #   end

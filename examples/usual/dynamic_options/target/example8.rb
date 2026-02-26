@@ -5,13 +5,13 @@ module Usual
   module DynamicOptions
     module Target
       class Example8 < ApplicationService::Base
-        class MyFirstService; end # rubocop:disable Lint/EmptyClass
-        class MySecondService; end # rubocop:disable Lint/EmptyClass
+        class TargetA; end # rubocop:disable Lint/EmptyClass
+        class TargetB; end # rubocop:disable Lint/EmptyClass
 
         internal :service_class,
                  type: Class,
                  expect: {
-                   in: [MyFirstService, MySecondService],
+                   in: [TargetA, TargetB],
                    message: "Internal custom error"
                  }
 
@@ -23,7 +23,7 @@ module Usual
         private
 
         def assign_internal
-          internals.service_class = MyFirstService
+          internals.service_class = TargetA
         end
 
         def assign_result

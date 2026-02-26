@@ -10,7 +10,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example4, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -25,7 +25,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example4, type: :service do
               .valid_with(attributes)
               .type(Class)
               .required
-              .target([described_class::MyFirstService])
+              .target([described_class::TargetA])
           )
         end
       end
@@ -46,7 +46,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example4, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:result, "Usual::DynamicOptions::Target::Example4::MyFirstService")
+            .with_output(:result, "Usual::DynamicOptions::Target::Example4::TargetA")
         )
       end
     end
@@ -76,7 +76,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example4, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -91,7 +91,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example4, type: :service do
               .valid_with(attributes)
               .type(Class)
               .required
-              .target([described_class::MyFirstService])
+              .target([described_class::TargetA])
           )
         end
       end
@@ -112,7 +112,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example4, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:result, "Usual::DynamicOptions::Target::Example4::MyFirstService")
+            .with_output(:result, "Usual::DynamicOptions::Target::Example4::TargetA")
         )
       end
     end

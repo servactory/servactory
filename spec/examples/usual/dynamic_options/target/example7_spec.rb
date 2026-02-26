@@ -10,7 +10,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example7, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -35,7 +35,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example7, type: :service do
             have_internal(:service_class)
               .type(Class)
               .target(
-                described_class::MyFirstService,
+                described_class::TargetA,
                 name: :expect
               )
           )
@@ -73,7 +73,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example7, type: :service do
               ApplicationService::Exceptions::Internal,
               "[Usual::DynamicOptions::Target::Example7] " \
               "Internal attribute `service_class` has wrong target, " \
-              "must be `Usual::DynamicOptions::Target::Example7::MyFirstService`, " \
+              "must be `Usual::DynamicOptions::Target::Example7::TargetA`, " \
               "got `String`"
             )
           )
@@ -91,7 +91,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example7, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -116,7 +116,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example7, type: :service do
             have_internal(:service_class)
               .type(Class)
               .target(
-                described_class::MyFirstService,
+                described_class::TargetA,
                 name: :expect
               )
           )
@@ -154,7 +154,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example7, type: :service do
               ApplicationService::Exceptions::Internal,
               "[Usual::DynamicOptions::Target::Example7] " \
               "Internal attribute `service_class` has wrong target, " \
-              "must be `Usual::DynamicOptions::Target::Example7::MyFirstService`, " \
+              "must be `Usual::DynamicOptions::Target::Example7::TargetA`, " \
               "got `String`"
             )
           )

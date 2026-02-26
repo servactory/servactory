@@ -10,7 +10,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example2, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -25,7 +25,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example2, type: :service do
               .valid_with(attributes)
               .type(Class)
               .required
-              .target([described_class::MyFirstService, described_class::MySecondService])
+              .target([described_class::TargetA, described_class::TargetB])
           )
         end
       end
@@ -52,7 +52,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example2, type: :service do
     end
 
     describe "and the data required for work is also valid (second class)" do
-      let(:service_class) { described_class::MySecondService }
+      let(:service_class) { described_class::TargetB }
 
       it_behaves_like "success result class"
 
@@ -74,8 +74,8 @@ RSpec.describe Usual::DynamicOptions::Target::Example2, type: :service do
               ApplicationService::Exceptions::Input,
               "[Usual::DynamicOptions::Target::Example2] " \
               "Input `service_class` has wrong target, " \
-              "must be `[Usual::DynamicOptions::Target::Example2::MyFirstService, " \
-              "Usual::DynamicOptions::Target::Example2::MySecondService]`, " \
+              "must be `[Usual::DynamicOptions::Target::Example2::TargetA, " \
+              "Usual::DynamicOptions::Target::Example2::TargetB]`, " \
               "got `String`"
             )
           )
@@ -93,7 +93,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example2, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -108,7 +108,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example2, type: :service do
               .valid_with(attributes)
               .type(Class)
               .required
-              .target([described_class::MyFirstService, described_class::MySecondService])
+              .target([described_class::TargetA, described_class::TargetB])
           )
         end
       end
@@ -135,7 +135,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example2, type: :service do
     end
 
     describe "and the data required for work is also valid (second class)" do
-      let(:service_class) { described_class::MySecondService }
+      let(:service_class) { described_class::TargetB }
 
       it_behaves_like "success result class"
 
@@ -157,8 +157,8 @@ RSpec.describe Usual::DynamicOptions::Target::Example2, type: :service do
               ApplicationService::Exceptions::Input,
               "[Usual::DynamicOptions::Target::Example2] " \
               "Input `service_class` has wrong target, " \
-              "must be `[Usual::DynamicOptions::Target::Example2::MyFirstService, " \
-              "Usual::DynamicOptions::Target::Example2::MySecondService]`, " \
+              "must be `[Usual::DynamicOptions::Target::Example2::TargetA, " \
+              "Usual::DynamicOptions::Target::Example2::TargetB]`, " \
               "got `String`"
             )
           )

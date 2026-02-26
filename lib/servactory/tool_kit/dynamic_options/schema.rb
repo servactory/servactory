@@ -29,7 +29,7 @@ module Servactory
       # Define schema in your service:
       #
       # ```ruby
-      # class CreateUserService < ApplicationService::Base
+      # class Users::Create < ApplicationService::Base
       #   input :user_data,
       #         type: Hash,
       #         schema: {
@@ -49,7 +49,7 @@ module Servactory
       # Specify schema definition directly:
       #
       # ```ruby
-      # class CreateUserService < ApplicationService::Base
+      # class Users::Create < ApplicationService::Base
       #   input :user_data,
       #         type: Hash,
       #         schema: {

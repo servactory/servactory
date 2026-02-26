@@ -31,7 +31,7 @@ module Servactory
       # Specify type directly as the option value:
       #
       # ```ruby
-      # class ProcessUsersService < ApplicationService::Base
+      # class Users::Process < ApplicationService::Base
       #   input :user_ids, type: Array, consists_of: Integer
       #   input :tags, type: Array, consists_of: [String, Symbol]
       #   input :scores, type: Array, consists_of: Float

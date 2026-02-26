@@ -72,7 +72,7 @@ module Servactory
       # Specify format directly as the option value:
       #
       # ```ruby
-      # class ValidateUserService < ApplicationService::Base
+      # class Users::Validate < ApplicationService::Base
       #   input :uuid, type: String, format: :uuid
       #   input :email, type: String, format: :email
       #   input :password, type: String, format: :password

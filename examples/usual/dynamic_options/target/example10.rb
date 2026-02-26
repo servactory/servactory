@@ -4,8 +4,8 @@ module Usual
   module DynamicOptions
     module Target
       class Example10 < ApplicationService::Base
-        class MyFirstService; end # rubocop:disable Lint/EmptyClass
-        class MySecondService; end # rubocop:disable Lint/EmptyClass
+        class TargetA; end # rubocop:disable Lint/EmptyClass
+        class TargetB; end # rubocop:disable Lint/EmptyClass
 
         # NOTE: Option `target` is not specifically used here.
         input :service_class, type: Class
@@ -13,7 +13,7 @@ module Usual
         output :service_class,
                type: Class,
                target: {
-                 in: [MyFirstService, MySecondService],
+                 in: [TargetA, TargetB],
                  message: "Output custom error"
                }
 

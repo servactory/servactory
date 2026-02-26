@@ -35,7 +35,7 @@ module Servactory
       # Use in your service definition:
       #
       # ```ruby
-      # class ProcessOrderService < ApplicationService::Base
+      # class Orders::Process < ApplicationService::Base
       #   input :quantity, type: Integer, multiple_of: 5
       #   input :price, type: Float, multiple_of: 0.25
       #   input :batch_size, type: Integer, multiple_of: 100
@@ -47,7 +47,7 @@ module Servactory
       # Specify divisor directly:
       #
       # ```ruby
-      # class ProcessOrderService < ApplicationService::Base
+      # class Orders::Process < ApplicationService::Base
       #   input :quantity, type: Integer, multiple_of: 5
       #   input :price, type: Float, multiple_of: 0.25
       #   input :batch_size, type: Integer, multiple_of: 100

@@ -4,13 +4,13 @@ module Usual
   module DynamicOptions
     module Target
       class Example6 < ApplicationService::Base
-        class MyFirstService; end # rubocop:disable Lint/EmptyClass
-        class MySecondService; end # rubocop:disable Lint/EmptyClass
+        class TargetA; end # rubocop:disable Lint/EmptyClass
+        class TargetB; end # rubocop:disable Lint/EmptyClass
 
         input :service_class,
               type: Class,
               target: {
-                in: [MyFirstService, MySecondService],
+                in: [TargetA, TargetB],
                 message: lambda do |input:, value:, option_value:, **|
                   "Input `#{input.name}`: `#{value}` is not allowed. " \
                     "Allowed: #{Array(option_value).map(&:name).join(', ')}"

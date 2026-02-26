@@ -10,7 +10,7 @@ RSpec.describe Wrong::DynamicOptions::Target::Example1, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -41,7 +41,7 @@ RSpec.describe Wrong::DynamicOptions::Target::Example1, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
