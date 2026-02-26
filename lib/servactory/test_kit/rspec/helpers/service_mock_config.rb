@@ -38,7 +38,8 @@ module Servactory
                         :method_type,
                         :outputs,
                         :exception,
-                        :argument_matcher
+                        :argument_matcher,
+                        :wrap_block
 
           # Creates a new mock configuration.
           #
@@ -51,6 +52,7 @@ module Servactory
             @outputs = {}
             @exception = nil
             @argument_matcher = nil
+            @wrap_block = nil
           end
 
           # Checks if this is a success mock.
@@ -65,6 +67,20 @@ module Servactory
           # @return [Boolean] True if result_type is :failure
           def failure?
             result_type == :failure
+          end
+
+          # Checks if this is a call_original mock.
+          #
+          # @return [Boolean] True if result_type is :call_original
+          def call_original?
+            result_type == :call_original
+          end
+
+          # Checks if this is a wrap_original mock.
+          #
+          # @return [Boolean] True if result_type is :wrap_original
+          def wrap_original?
+            result_type == :wrap_original
           end
 
           # Checks if this mocks the .call! method.
@@ -120,6 +136,7 @@ module Servactory
             copy.outputs = outputs.dup
             copy.exception = exception
             copy.argument_matcher = argument_matcher
+            copy.wrap_block = wrap_block
             copy
           end
         end

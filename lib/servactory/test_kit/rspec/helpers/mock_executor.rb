@@ -170,7 +170,11 @@ module Servactory
           # @param config [ServiceMockConfig] Configuration with result/exception
           # @return [void]
           def apply_return_behavior(message_expectation, config)
-            if config.failure? && config.bang_method?
+            if config.call_original?
+              message_expectation.and_call_original
+            elsif config.wrap_original?
+              message_expectation.and_wrap_original(&config.wrap_block)
+            elsif config.failure? && config.bang_method?
               message_expectation.and_raise(config.exception)
             else
               message_expectation.and_return(config.build_result)

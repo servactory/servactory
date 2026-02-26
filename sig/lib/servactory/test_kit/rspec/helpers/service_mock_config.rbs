@@ -9,6 +9,7 @@ module Servactory
           @outputs: Hash[Symbol, untyped]
           @exception: Exception?
           @argument_matcher: untyped
+          @wrap_block: Proc?
 
           attr_accessor service_class: Class
           attr_accessor result_type: Symbol?
@@ -16,11 +17,14 @@ module Servactory
           attr_accessor outputs: Hash[Symbol, untyped]
           attr_accessor exception: Exception?
           attr_accessor argument_matcher: untyped
+          attr_accessor wrap_block: Proc?
 
           def initialize: (service_class: Class) -> void
 
           def success?: () -> bool
           def failure?: () -> bool
+          def call_original?: () -> bool
+          def wrap_original?: () -> bool
           def bang_method?: () -> bool
           def result_type_defined?: () -> bool
 
