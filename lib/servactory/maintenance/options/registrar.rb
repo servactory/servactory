@@ -98,7 +98,7 @@ module Servactory
                 content: ->(option:) { !option[:is].nil? }
               )
             ],
-            need_for_checks: true,
+            need_for_checks: false,
             body_key: :is,
             body_fallback: nil,
             detect_advanced_mode: false,

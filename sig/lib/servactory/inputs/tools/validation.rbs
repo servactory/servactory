@@ -8,7 +8,7 @@ module Servactory
 
         def self?.process_input: (instance context, Context::Warehouse::Setup warehouse, Input input) -> String?
 
-        def self?.process_option: (instance context, Input input, untyped value, Symbol check_key, Hash[Symbol, untyped] check_options) -> String?
+        def self?.process_option: (instance context, Input input, untyped value, Symbol check_key, untyped check_options, Class validation_class) -> String?
       end
     end
   end
