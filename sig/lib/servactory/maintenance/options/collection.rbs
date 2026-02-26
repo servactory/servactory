@@ -14,14 +14,13 @@ module Servactory
         def names: () -> Array[Symbol]
         def validation_classes: () -> Array[Class]
         def options_for_checks: () -> Hash[Symbol, untyped]
-        def defined_conflict_code: () -> untyped
+        def defined_conflict_code: () -> Symbol?
         def find_by: (name: Symbol) -> Option?
 
         private
 
         def options_index: () -> Hash[Symbol, Option]
         def extract_normalized_body_from: (option: Option) -> untyped
-        def resolve_conflicts_from: (option: Option) -> Array[untyped]
       end
     end
   end

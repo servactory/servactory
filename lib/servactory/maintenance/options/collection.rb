@@ -38,8 +38,8 @@ module Servactory
         def_delegators :@collection,
                        :<<,
                        :filter,
-                       :each_with_object,
-                       :map, :flat_map,
+                       :each, :each_with_object,
+                       :map,
                        :size,
                        :empty?
 
@@ -78,11 +78,18 @@ module Servactory
 
         # Returns the first conflict code found among options.
         #
-        # @return [Object, nil] conflict code or nil if no conflicts
+        # @return [Symbol, nil] conflict code or nil if no conflicts
         def defined_conflict_code
-          flat_map { |option| resolve_conflicts_from(option:) }
-            .reject(&:blank?)
-            .first
+          each do |option|
+            next unless option.define_conflicts
+
+            option.define_conflicts.each do |conflict|
+              code = conflict.content.call
+              return code if code.present?
+            end
+          end
+
+          nil
         end
 
         # Finds an option by its name using indexed lookup.
@@ -112,15 +119,6 @@ module Servactory
           option.value
         end
 
-        # Resolves conflict codes from an option's define_conflicts.
-        #
-        # @param option [Option] the option to check for conflicts
-        # @return [Array<Object>] array of conflict codes (may contain nils/blanks)
-        def resolve_conflicts_from(option:)
-          return [] unless option.define_conflicts
-
-          option.define_conflicts.map { |conflict| conflict.content.call }
-        end
       end
     end
   end
