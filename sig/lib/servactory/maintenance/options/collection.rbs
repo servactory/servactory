@@ -7,6 +7,7 @@ module Servactory
         @collection: Set[Option]
         @validation_classes: Array[Class]
         @options_for_checks: Hash[Symbol, untyped]
+        @validations_for_checks: Array[[Symbol, untyped, Class]]
         @options_index: Hash[Symbol, Option]
 
         def initialize: () -> void
@@ -14,6 +15,7 @@ module Servactory
         def names: () -> Array[Symbol]
         def validation_classes: () -> Array[Class]
         def options_for_checks: () -> Hash[Symbol, untyped]
+        def validations_for_checks: () -> Array[[Symbol, untyped, Class]]
         def defined_conflict_code: () -> Symbol?
         def find_by: (name: Symbol) -> Option?
 

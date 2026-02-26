@@ -29,30 +29,22 @@ module Servactory
         def process_input(context, warehouse, input)
           value = warehouse.fetch_input(input.name)
 
-          input.options_for_checks.each do |check_key, check_options|
-            error = process_option(context, input, value, check_key, check_options)
+          input.collection_of_options.validations_for_checks.each do |check_key, check_options, validation_class|
+            error = process_option(context, input, value, check_key, check_options, validation_class)
             return error if error.present?
           end
 
           nil
         end
 
-        def process_option(context, input, value, check_key, check_options) # rubocop:disable Metrics/MethodLength
-          validation_classes = input.collection_of_options.validation_classes
-          return if validation_classes.empty?
-
-          validation_classes.each do |validation_class|
-            error_message = validation_class.check(
-              context:,
-              attribute: input,
-              value:,
-              check_key:,
-              check_options:
-            )
-            return error_message if error_message.present?
-          end
-
-          nil
+        def process_option(context, input, value, check_key, check_options, validation_class)
+          validation_class.check(
+            context:,
+            attribute: input,
+            value:,
+            check_key:,
+            check_options:
+          )
         end
       end
     end

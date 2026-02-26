@@ -76,6 +76,19 @@ module Servactory
           end
         end
 
+        # Returns options that need validation checks as an array of tuples.
+        # Each tuple contains [check_key, check_options, validation_class],
+        # enabling direct dispatch without nested iteration.
+        #
+        # @return [Array<Array(Symbol, Object, Class)>] tuples for direct validation dispatch
+        def validations_for_checks
+          @validations_for_checks ||= filter(&:need_for_checks?).filter_map do |option|
+            next if option.validation_class.nil?
+
+            [option.name, extract_normalized_body_from(option:), option.validation_class]
+          end
+        end
+
         # Returns the first conflict code found among options.
         #
         # @return [Symbol, nil] conflict code or nil if no conflicts
