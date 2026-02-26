@@ -129,7 +129,7 @@ module Servactory
           # Creates a deep copy of this config.
           #
           # @return [ServiceMockConfig] New config with copied values
-          def dup
+          def dup # rubocop:disable Metrics/AbcSize
             copy = self.class.new(service_class:)
             copy.result_type = result_type
             copy.method_type = method_type

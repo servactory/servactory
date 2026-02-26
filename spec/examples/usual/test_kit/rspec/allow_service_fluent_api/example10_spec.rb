@@ -104,13 +104,13 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example10, type: :s
       describe "when using and_wrap_original with input matching" do
         before do
           allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example10Child)
-            .and_wrap_original { |original, **inputs|
+            .and_wrap_original do |original, **inputs|
               result = original.call(**inputs)
               Servactory::TestKit::Result.as_success(
                 service_class: Usual::TestKit::Rspec::AllowServiceFluentApi::Example10Child,
                 result: "wrapped:#{result.result}"
               )
-            }
+            end
             .with(data: "test")
         end
 

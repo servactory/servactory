@@ -118,7 +118,6 @@ module Servactory
         def extract_normalized_body_from(option:)
           option.value
         end
-
       end
     end
   end

@@ -37,7 +37,7 @@ module Servactory
         # - ServiceMockConfig - provides configuration for each stub
         # - ServiceMockBuilder - creates executor with configs
         # - RSpec Context - provides allow/receive/etc. methods
-        class MockExecutor
+        class MockExecutor # rubocop:disable Metrics/ClassLength
           include Concerns::ErrorMessages
 
           # Creates a new mock executor.

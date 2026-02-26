@@ -77,6 +77,15 @@ module Servactory
           include Concerns::ServiceClassValidation
           include Concerns::ErrorMessages
 
+          RESULT_TYPE_TO_METHOD = {
+            success: :succeeds,
+            failure: :fails,
+            call_original: :and_call_original,
+            wrap_original: :and_wrap_original
+          }.freeze
+
+          private_constant :RESULT_TYPE_TO_METHOD
+
           # @return [Class] The Servactory service class being mocked
           attr_reader :service_class
 
@@ -333,13 +342,6 @@ module Servactory
           # @param new_type [Symbol] :succeeds, :fails, :and_call_original, or :and_wrap_original
           # @raise [ArgumentError] if trying to switch result type
           # @return [void]
-          RESULT_TYPE_TO_METHOD = {
-            success: :succeeds,
-            failure: :fails,
-            call_original: :and_call_original,
-            wrap_original: :and_wrap_original
-          }.freeze
-
           def validate_result_type_not_switched!(new_type)
             return unless @config.result_type_defined?
 
