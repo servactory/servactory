@@ -20,6 +20,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example5, type: :se
                     inputs: %i[product_id quantity customer_id],
                     internals: %i[],
                     outputs: %i[order_total has_discount]
+
     describe "validations" do
       describe "outputs" do
         it do

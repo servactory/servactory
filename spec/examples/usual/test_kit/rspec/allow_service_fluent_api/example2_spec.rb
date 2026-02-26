@@ -16,6 +16,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example2, type: :se
                     inputs: %i[max_attempts],
                     internals: %i[],
                     outputs: %i[final_status total_attempts]
+
     describe "validations" do
       describe "outputs" do
         it do

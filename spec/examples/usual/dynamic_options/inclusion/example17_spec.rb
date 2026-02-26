@@ -10,7 +10,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
       }
     end
 
-    let(:positive_number) { 42 }
+    let(:positive_number) { 47 }
 
     it_behaves_like "check class info",
                     inputs: %i[positive_number],
@@ -46,7 +46,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:positive_number, 42)
+            .with_output(:positive_number, 47)
         )
       end
     end
@@ -119,7 +119,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
       }
     end
 
-    let(:positive_number) { 42 }
+    let(:positive_number) { 47 }
 
     it_behaves_like "check class info",
                     inputs: %i[positive_number],
@@ -155,7 +155,7 @@ RSpec.describe Usual::DynamicOptions::Inclusion::Example17, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:positive_number, 42)
+            .with_output(:positive_number, 47)
         )
       end
     end

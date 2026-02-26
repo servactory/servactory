@@ -10,7 +10,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
       }
     end
 
-    let(:user_id) { 42 }
+    let(:user_id) { 47 }
 
     it_behaves_like "check class info",
                     inputs: %i[user_id],
@@ -23,7 +23,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
           allow_service_as_failure!(Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2Child) do
             ApplicationService::Exceptions::Failure.new(
               type: :user_not_found,
-              message: "User with ID 42 not found"
+              message: "User with ID 47 not found"
             )
           end
         end
@@ -33,7 +33,8 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
             raise_error do |exception|
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:user_not_found)
-              expect(exception.message).to eq("User with ID 42 not found")
+              expect(exception.message).to eq("User with ID 47 not found")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -57,6 +58,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
               expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:access_denied)
               expect(exception.message).to eq("Access denied")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -65,10 +67,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
       describe "with with: parameter for argument matching" do
         before do
           allow_service_as_failure!(Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2Child,
-                                    with: { user_id: 42 }) do
+                                    with: { user_id: 47 }) do
             ApplicationService::Exceptions::Failure.new(
               type: :specific_user_error,
-              message: "Specific user 42 error"
+              message: "Specific user 47 error"
             )
           end
         end
@@ -76,8 +78,10 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
         it "raises expected error", :aggregate_failures do
           expect { perform }.to(
             raise_error do |exception|
+              expect(exception).to be_a(ApplicationService::Exceptions::Failure)
               expect(exception.type).to eq(:specific_user_error)
-              expect(exception.message).to eq("Specific user 42 error")
+              expect(exception.message).to eq("Specific user 47 error")
+              expect(exception.meta).to be_nil
             end
           )
         end
@@ -112,11 +116,15 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsFailureBang::Example2, type:
           end
         end
 
-        it "returns failure result", :aggregate_failures do
+        it "returns expected error", :aggregate_failures do
           result = perform
 
-          expect(result).to be_failure_service.type(:not_found)
-          expect(result.error.message).to eq("User 99 not found")
+          expect(result.error).to be_a(ApplicationService::Exceptions::Failure)
+          expect(result.error).to an_object_having_attributes(
+            type: :not_found,
+            message: "User 99 not found",
+            meta: nil
+          )
         end
       end
     end

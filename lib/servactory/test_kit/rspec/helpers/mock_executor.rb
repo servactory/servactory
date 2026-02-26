@@ -37,7 +37,7 @@ module Servactory
         # - ServiceMockConfig - provides configuration for each stub
         # - ServiceMockBuilder - creates executor with configs
         # - RSpec Context - provides allow/receive/etc. methods
-        class MockExecutor
+        class MockExecutor # rubocop:disable Metrics/ClassLength
           include Concerns::ErrorMessages
 
           # Creates a new mock executor.
@@ -170,7 +170,11 @@ module Servactory
           # @param config [ServiceMockConfig] Configuration with result/exception
           # @return [void]
           def apply_return_behavior(message_expectation, config)
-            if config.failure? && config.bang_method?
+            if config.call_original?
+              message_expectation.and_call_original
+            elsif config.wrap_original?
+              message_expectation.and_wrap_original(&config.wrap_block)
+            elsif config.failure? && config.bang_method?
               message_expectation.and_raise(config.exception)
             else
               message_expectation.and_return(config.build_result)

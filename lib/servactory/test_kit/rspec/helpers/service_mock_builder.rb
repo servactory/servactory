@@ -77,6 +77,15 @@ module Servactory
           include Concerns::ServiceClassValidation
           include Concerns::ErrorMessages
 
+          RESULT_TYPE_TO_METHOD = {
+            success: :succeeds,
+            failure: :fails,
+            call_original: :and_call_original,
+            wrap_original: :and_wrap_original
+          }.freeze
+
+          private_constant :RESULT_TYPE_TO_METHOD
+
           # @return [Class] The Servactory service class being mocked
           attr_reader :service_class
 
@@ -189,6 +198,51 @@ module Servactory
           end
 
           # ============================================================
+          # RSpec Pass-Through API
+          # ============================================================
+
+          # Delegates to the original unmodified method.
+          # Useful for spy pattern or selective mocking.
+          #
+          # @return [ServiceMockBuilder] self for method chaining
+          #
+          # @example Pass-through (spy)
+          #   allow_service(S).and_call_original
+          #
+          # @example Selective mocking with input matching
+          #   allow_service(S).with(id: 1).and_call_original
+          def and_call_original
+            validate_not_in_sequential_mode!(:and_call_original)
+            validate_result_type_not_switched!(:and_call_original)
+
+            @config.result_type = :call_original
+            execute_or_re_execute_mock
+            self
+          end
+
+          # Wraps the original method with custom logic.
+          # Block receives the original method and call arguments.
+          #
+          # @yield [original, **inputs] Block wrapping the original
+          # @return [ServiceMockBuilder] self for method chaining
+          #
+          # @example Modify result
+          #   allow_service(S).and_wrap_original do |original, **inputs|
+          #     result = original.call(**inputs)
+          #     # custom logic
+          #     result
+          #   end
+          def and_wrap_original(&block)
+            validate_not_in_sequential_mode!(:and_wrap_original)
+            validate_result_type_not_switched!(:and_wrap_original)
+
+            @config.result_type = :wrap_original
+            @config.wrap_block = block
+            execute_or_re_execute_mock
+            self
+          end
+
+          # ============================================================
           # Sequential Call API
           # ============================================================
 
@@ -208,6 +262,7 @@ module Servactory
           # @raise [ArgumentError] if called without first calling succeeds/fails
           # @raise [OutputValidator::ValidationError] if outputs don't match service definition
           def then_succeeds(outputs_hash = {})
+            validate_not_passthrough!(:then_succeeds)
             validate_result_type_defined!(:then_succeeds)
 
             validate_outputs!(outputs_hash)
@@ -237,6 +292,7 @@ module Servactory
           #
           # @raise [ArgumentError] if called without first calling succeeds/fails
           def then_fails(exception_class = nil, type: :base, message:, meta: nil) # rubocop:disable Style/KeywordParametersOrder
+            validate_not_passthrough!(:then_fails)
             validate_result_type_defined!(:then_fails)
 
             finalize_current_to_sequence
@@ -281,22 +337,36 @@ module Servactory
 
           # Validates that result type is not being switched.
           #
-          # Prevents accidental switching between succeeds() and fails().
+          # Prevents accidental switching between different result types.
           #
-          # @param new_type [Symbol] :succeeds or :fails
+          # @param new_type [Symbol] :succeeds, :fails, :and_call_original, or :and_wrap_original
           # @raise [ArgumentError] if trying to switch result type
           # @return [void]
-          def validate_result_type_not_switched!(new_type) # rubocop:disable Metrics/CyclomaticComplexity
+          def validate_result_type_not_switched!(new_type)
             return unless @config.result_type_defined?
 
-            current_type = @config.success? ? :succeeds : :fails
-            return if (new_type == :succeeds && current_type == :succeeds) ||
-                      (new_type == :fails && current_type == :fails)
+            current_type = RESULT_TYPE_TO_METHOD[@config.result_type]
+            return if new_type == current_type
 
             raise ArgumentError,
                   "Cannot call #{new_type}() after #{current_type}() was already called. " \
-                  "#{new_type == :succeeds ? 'succeeds()' : 'fails()'} replaces the result type, " \
-                  "which is likely a mistake. Create a new mock if you need different behavior."
+                  "This replaces the result type, which is likely a mistake. " \
+                  "Create a new mock if you need different behavior."
+          end
+
+          # Validates that pass-through methods are not mixed with sequential responses.
+          #
+          # @param method_name [Symbol] The method being called
+          # @raise [ArgumentError] if current config is a pass-through type
+          # @return [void]
+          def validate_not_passthrough!(method_name)
+            return unless @config.call_original? || @config.wrap_original?
+
+            passthrough = @config.call_original? ? :and_call_original : :and_wrap_original
+
+            raise ArgumentError,
+                  "Cannot call #{method_name}() after #{passthrough}(). " \
+                  "Pass-through methods are not compatible with sequential responses."
           end
 
           # Validates outputs against service definition.
