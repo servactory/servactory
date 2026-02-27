@@ -7,12 +7,23 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[],
                     internals: %i[],
-                    outputs: %i[user_name token]
+                    outputs: %i[full_name token]
 
     describe "validations" do
       describe "outputs" do
-        it { expect(perform).to(have_output(:user_name).instance_of(String)) }
-        it { expect(perform).to(have_output(:token).instance_of(NilClass)) }
+        it do
+          expect(perform).to(
+            have_output(:full_name)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:token)
+              .instance_of(NilClass)
+          )
+        end
       end
     end
 
@@ -22,22 +33,19 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_outputs(user_name: "John", token: nil)
+            .with_outputs(full_name: "John", token: nil)
         )
       end
 
       describe "to_h and deconstruct_keys consistency" do
         it "includes nil-valued output in to_h" do
-          result = perform
-
-          expect(result.to_h).to eq(user_name: "John", token: nil)
+          expect(perform.to_h).to eq(full_name: "John", token: nil)
         end
 
         it "includes nil-valued output in deconstruct_keys(nil)", :aggregate_failures do
-          result = perform
-          keys = result.deconstruct_keys(nil)
+          keys = perform.deconstruct_keys(nil)
 
-          expect(keys).to include(:user_name, :token)
+          expect(keys).to include(:full_name, :token)
           expect(keys[:token]).to be_nil
         end
 
@@ -54,11 +62,9 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
 
       describe "pattern matching" do
         it "matches nil token via case/in", :aggregate_failures do
-          result = perform
-
-          matched = case result
-                    in { success: true, user_name:, token: nil }
-                      { name: user_name, token_present: false }
+          matched = case perform
+                    in { success: true, full_name:, token: nil }
+                      { name: full_name, token_present: false }
                     else
                       nil
                     end
@@ -67,9 +73,7 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
         end
 
         it "captures nil token in pattern variable", :aggregate_failures do
-          result = perform
-
-          matched = case result
+          matched = case perform
                     in { success: true, token: }
                       token
                     else
@@ -88,12 +92,23 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[],
                     internals: %i[],
-                    outputs: %i[user_name token]
+                    outputs: %i[full_name token]
 
     describe "validations" do
       describe "outputs" do
-        it { expect(perform).to(have_output(:user_name).instance_of(String)) }
-        it { expect(perform).to(have_output(:token).instance_of(NilClass)) }
+        it do
+          expect(perform).to(
+            have_output(:full_name)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:token)
+              .instance_of(NilClass)
+          )
+        end
       end
     end
 
@@ -103,15 +118,13 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_outputs(user_name: "John", token: nil)
+            .with_outputs(full_name: "John", token: nil)
         )
       end
 
       describe "to_h and deconstruct_keys consistency" do
         it "includes nil-valued output in to_h" do
-          result = perform
-
-          expect(result.to_h).to eq(user_name: "John", token: nil)
+          expect(perform.to_h).to eq(full_name: "John", token: nil)
         end
 
         it "returns consistent output keys between to_h and deconstruct_keys" do
@@ -127,11 +140,9 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
 
       describe "pattern matching" do
         it "matches nil token via case/in", :aggregate_failures do
-          result = perform
-
-          matched = case result
-                    in { success: true, user_name:, token: nil }
-                      { name: user_name, token_present: false }
+          matched = case perform
+                    in { success: true, full_name:, token: nil }
+                      { name: full_name, token_present: false }
                     else
                       nil
                     end

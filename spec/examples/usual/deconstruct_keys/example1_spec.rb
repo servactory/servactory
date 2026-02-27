@@ -7,12 +7,23 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[],
                     internals: %i[],
-                    outputs: %i[user_name user_age]
+                    outputs: %i[full_name age]
 
     describe "validations" do
       describe "outputs" do
-        it { expect(perform).to(have_output(:user_name).instance_of(String)) }
-        it { expect(perform).to(have_output(:user_age).instance_of(Integer)) }
+        it do
+          expect(perform).to(
+            have_output(:full_name)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:age)
+              .instance_of(Integer)
+          )
+        end
       end
     end
 
@@ -22,34 +33,30 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_outputs(user_name: "John", user_age: 25)
+            .with_outputs(full_name: "John", age: 25)
         )
       end
 
       describe "pattern matching" do
         it "returns all keys via deconstruct_keys(nil)", :aggregate_failures do
-          result = perform
-          keys = result.deconstruct_keys(nil)
+          keys = perform.deconstruct_keys(nil)
 
-          expect(keys).to include(:success, :failure, :user_name, :user_age)
+          expect(keys).to include(:success, :failure, :full_name, :age)
           expect(keys[:success]).to be(true)
           expect(keys[:failure]).to be(false)
           expect(keys).not_to have_key(:error)
         end
 
-        it "returns only requested keys via deconstruct_keys([:success, :user_name])" do
-          result = perform
-          keys = result.deconstruct_keys(%i[success user_name])
+        it "returns only requested keys via deconstruct_keys([:success, :full_name])" do
+          keys = perform.deconstruct_keys(%i[success full_name])
 
-          expect(keys).to eq(success: true, user_name: "John")
+          expect(keys).to eq(success: true, full_name: "John")
         end
 
         it "supports case/in pattern matching", :aggregate_failures do
-          result = perform
-
-          matched = case result
-                    in { success: true, user_name:, user_age: }
-                      { name: user_name, age: user_age }
+          matched = case perform
+                    in { success: true, full_name:, age: }
+                      { name: full_name, age: age }
                     else
                       nil
                     end
@@ -66,12 +73,23 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[],
                     internals: %i[],
-                    outputs: %i[user_name user_age]
+                    outputs: %i[full_name age]
 
     describe "validations" do
       describe "outputs" do
-        it { expect(perform).to(have_output(:user_name).instance_of(String)) }
-        it { expect(perform).to(have_output(:user_age).instance_of(Integer)) }
+        it do
+          expect(perform).to(
+            have_output(:full_name)
+              .instance_of(String)
+          )
+        end
+
+        it do
+          expect(perform).to(
+            have_output(:age)
+              .instance_of(Integer)
+          )
+        end
       end
     end
 
@@ -81,27 +99,24 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_outputs(user_name: "John", user_age: 25)
+            .with_outputs(full_name: "John", age: 25)
         )
       end
 
       describe "pattern matching" do
         it "returns all keys via deconstruct_keys(nil)", :aggregate_failures do
-          result = perform
-          keys = result.deconstruct_keys(nil)
+          keys = perform.deconstruct_keys(nil)
 
-          expect(keys).to include(:success, :failure, :user_name, :user_age)
+          expect(keys).to include(:success, :failure, :full_name, :age)
           expect(keys[:success]).to be(true)
           expect(keys[:failure]).to be(false)
           expect(keys).not_to have_key(:error)
         end
 
         it "supports case/in pattern matching", :aggregate_failures do
-          result = perform
-
-          matched = case result
-                    in { success: true, user_name:, user_age: }
-                      { name: user_name, age: user_age }
+          matched = case perform
+                    in { success: true, full_name:, age: }
+                      { name: full_name, age: age }
                     else
                       nil
                     end

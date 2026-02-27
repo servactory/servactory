@@ -3,16 +3,16 @@
 module Usual
   module DeconstructKeys
     class Example1 < ApplicationService::Base
-      output :user_name, type: String
-      output :user_age, type: Integer
+      output :full_name, type: String
+      output :age, type: Integer
 
       make :assign_outputs
 
       private
 
       def assign_outputs
-        outputs.user_name = "John"
-        outputs.user_age = 25
+        outputs.full_name = "John"
+        outputs.age = 25
       end
     end
   end
