@@ -11,7 +11,7 @@ module Usual
       private
 
       def assign_outputs
-        outputs.full_name = "John"
+        outputs.full_name = "John Doe"
         outputs.token = nil
       end
     end

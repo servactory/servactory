@@ -33,13 +33,13 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_outputs(full_name: "John", token: nil)
+            .with_outputs(full_name: "John Doe", token: nil)
         )
       end
 
       describe "to_h and deconstruct_keys consistency" do
         it "includes nil-valued output in to_h" do
-          expect(perform.to_h).to eq(full_name: "John", token: nil)
+          expect(perform.to_h).to eq(full_name: "John Doe", token: nil)
         end
 
         it "includes nil-valued output in deconstruct_keys(nil)", :aggregate_failures do
@@ -69,7 +69,7 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
                       nil
                     end
 
-          expect(matched).to eq(name: "John", token_present: false)
+          expect(matched).to eq(name: "John Doe", token_present: false)
         end
 
         it "captures nil token in pattern variable", :aggregate_failures do
@@ -118,13 +118,13 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_outputs(full_name: "John", token: nil)
+            .with_outputs(full_name: "John Doe", token: nil)
         )
       end
 
       describe "to_h and deconstruct_keys consistency" do
         it "includes nil-valued output in to_h" do
-          expect(perform.to_h).to eq(full_name: "John", token: nil)
+          expect(perform.to_h).to eq(full_name: "John Doe", token: nil)
         end
 
         it "returns consistent output keys between to_h and deconstruct_keys" do
@@ -147,7 +147,7 @@ RSpec.describe Usual::DeconstructKeys::Example3, type: :service do
                       nil
                     end
 
-          expect(matched).to eq(name: "John", token_present: false)
+          expect(matched).to eq(name: "John Doe", token_present: false)
         end
       end
     end

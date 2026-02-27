@@ -33,7 +33,7 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_outputs(full_name: "John", age: 25)
+            .with_outputs(full_name: "John Doe", age: 25)
         )
       end
 
@@ -50,7 +50,7 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
         it "returns only requested keys via deconstruct_keys([:success, :full_name])" do
           keys = perform.deconstruct_keys(%i[success full_name])
 
-          expect(keys).to eq(success: true, full_name: "John")
+          expect(keys).to eq(success: true, full_name: "John Doe")
         end
 
         it "supports case/in pattern matching", :aggregate_failures do
@@ -61,7 +61,7 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
                       nil
                     end
 
-          expect(matched).to eq(name: "John", age: 25)
+          expect(matched).to eq(name: "John Doe", age: 25)
         end
       end
     end
@@ -99,7 +99,7 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_outputs(full_name: "John", age: 25)
+            .with_outputs(full_name: "John Doe", age: 25)
         )
       end
 
@@ -121,7 +121,7 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
                       nil
                     end
 
-          expect(matched).to eq(name: "John", age: 25)
+          expect(matched).to eq(name: "John Doe", age: 25)
         end
       end
     end
