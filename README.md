@@ -96,6 +96,11 @@ class SessionsController < ApplicationController
 end
 ```
 
+## 🧩 Ecosystem
+
+- [**Stroma**](https://github.com/servactory/stroma) — A foundation for building modular, extensible DSLs in Ruby
+- [**OpenTelemetry Instrumentation**](https://github.com/servactory/opentelemetry-instrumentation-servactory) — Automatic tracing of service calls and actions with span attributes and failure detection
+
 ## 🤝 Contributing
 
 We love contributions! Check out our [Contributing Guide](https://servactory.com/CONTRIBUTING) to get started.
