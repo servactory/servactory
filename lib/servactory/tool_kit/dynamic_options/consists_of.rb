@@ -162,7 +162,7 @@ module Servactory
         # @param option [WorkOption] Type configuration
         # @return [Boolean, Array] true if valid, or [false, reason]
         def validate_for!(attribute:, values:, option:)
-          consists_of_types = Array(option.value).uniq
+          consists_of_types = Array(option.value)
 
           # Check presence requirements.
           return [false, :required] if fails_presence_validation?(attribute:, values:, consists_of_types:)
