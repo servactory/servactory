@@ -56,7 +56,7 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
         it "supports case/in pattern matching", :aggregate_failures do
           matched = case perform
                     in { success: true, full_name:, age: }
-                      { name: full_name, age: age }
+                      { name: full_name, age: }
                     else
                       nil
                     end
@@ -116,7 +116,7 @@ RSpec.describe Usual::DeconstructKeys::Example1, type: :service do
         it "supports case/in pattern matching", :aggregate_failures do
           matched = case perform
                     in { success: true, full_name:, age: }
-                      { name: full_name, age: age }
+                      { name: full_name, age: }
                     else
                       nil
                     end
