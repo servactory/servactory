@@ -21,7 +21,7 @@ RSpec.describe Wrong::Extensions::Publishable::Example1, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[user_id],
                     internals: %i[],
-                    outputs: %i[user_name]
+                    outputs: %i[full_name]
 
     describe "but the data required for work is invalid" do
       describe "because operation fails before event is published" do

@@ -8,7 +8,7 @@ module Usual
         class Example3Child < ApplicationService::Base
           input :user_id, type: Integer
 
-          output :user_name, type: String
+          output :full_name, type: String
           output :user_email, type: String
 
           make :fetch_user
@@ -16,7 +16,7 @@ module Usual
           private
 
           def fetch_user
-            outputs.user_name = "User #{inputs.user_id}"
+            outputs.full_name = "User #{inputs.user_id}"
             outputs.user_email = "user#{inputs.user_id}@example.com"
           end
         end
@@ -34,7 +34,7 @@ module Usual
           def build_greeting
             result = Example3Child.call!(user_id: inputs.user_id)
 
-            outputs.greeting = "Hello, #{result.user_name}!"
+            outputs.greeting = "Hello, #{result.full_name}!"
           end
         end
       end
