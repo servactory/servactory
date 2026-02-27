@@ -205,7 +205,10 @@ module Servactory
     # @example
     #   result.to_h # => { user: #<User>, token: "abc123" }
     def to_h
-      outputs.send(:output_names).to_h { |key| [key, outputs.public_send(key)] }.compact
+      outputs.send(:output_names).each_with_object({}) do |key, hash|
+        value = outputs.public_send(key)
+        hash[key] = value unless value.nil?
+      end
     end
 
     # Pattern matching support.

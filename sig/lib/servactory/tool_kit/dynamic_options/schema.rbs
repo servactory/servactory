@@ -22,7 +22,7 @@ module Servactory
 
         def fetch_default_from: (untyped value) -> untyped
 
-        def prepare_object_with!: (object: untyped, schema: Hash[Symbol, untyped]) -> Array[untyped]
+        def prepare_object_with!: (object: untyped, schema: Hash[Symbol, untyped]) -> void
       end
     end
   end

@@ -231,16 +231,18 @@ module Servactory
           end
 
           # Validate each schema field.
-          errors = schema.map do |schema_key, schema_value|
+          schema.each do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
 
             if attribute_type == Hash
               # Recursively validate nested Hash.
-              validate_for!(
+              result = validate_for!(
                 object: object.fetch(schema_key, {}),
                 schema: schema_value.except(*RESERVED_OPTIONS),
                 root_schema_key: schema_key
               )
+
+              return result unless result == true
             else
               is_success, given_type = validate_with(
                 object:,
@@ -252,12 +254,11 @@ module Servactory
 
               next if is_success
 
-              [false, :wrong_element_type, { key_name: schema_key, expected_type: attribute_type, given_type: }]
+              return [false, :wrong_element_type, { key_name: schema_key, expected_type: attribute_type, given_type: }]
             end
           end
 
-          # Return first error or true.
-          errors.compact.first || true
+          true
         end
 
         # Validates a single field against its type specification.
@@ -283,7 +284,7 @@ module Servactory
           prepared_value = prepare_value_from(schema_value:, value:, required: attribute_required)
 
           [
-            Array(attribute_type).uniq.any? { |type| prepared_value.is_a?(type) },
+            Array(attribute_type).any? { |type| prepared_value.is_a?(type) },
             prepared_value.class.name
           ]
         end
@@ -334,7 +335,7 @@ module Servactory
         # @return [void]
         # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def prepare_object_with!(object:, schema:)
-          schema.map do |schema_key, schema_value|
+          schema.each do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
             required = schema_value.fetch(:required, true)
             object_value = object[schema_key]
