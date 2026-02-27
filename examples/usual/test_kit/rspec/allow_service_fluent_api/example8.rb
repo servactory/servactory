@@ -9,7 +9,7 @@ module Usual
           input :user_id, type: Integer
 
           output :full_name, type: String
-          output :user_email, type: String
+          output :email, type: String
           output :is_active, type: [TrueClass, FalseClass]
 
           make :fetch_user
@@ -18,7 +18,7 @@ module Usual
 
           def fetch_user
             outputs.full_name = "User #{inputs.user_id}"
-            outputs.user_email = "user#{inputs.user_id}@example.com"
+            outputs.email = "user#{inputs.user_id}@example.com"
             outputs.is_active = true
           end
         end
@@ -39,7 +39,7 @@ module Usual
             result = Example8Child.call!(user_id: inputs.user_id)
 
             outputs.display_name = result.full_name
-            outputs.contact_email = result.user_email
+            outputs.contact_email = result.email
             outputs.account_status = result.is_active ? :active : :inactive
           end
         end

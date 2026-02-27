@@ -47,7 +47,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
             .with(user_id: 47)
-            .succeeds(full_name: "John Doe", user_email: "john@example.com", is_active: true)
+            .succeeds(full_name: "John Doe", email: "john@example.com", is_active: true)
         end
 
         it_behaves_like "success result class"
@@ -78,7 +78,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
             .with(user_id: 47)
-            .succeeds(full_name: "Jane Smith", user_email: "jane@example.com", is_active: false)
+            .succeeds(full_name: "Jane Smith", email: "jane@example.com", is_active: false)
         end
 
         it_behaves_like "success result class"
@@ -108,7 +108,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
       describe "with succeeds before inputs" do
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
-            .succeeds(full_name: "Updated Name", user_email: "updated@example.com", is_active: true)
+            .succeeds(full_name: "Updated Name", email: "updated@example.com", is_active: true)
             .with(user_id: 47)
         end
 
@@ -169,7 +169,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example8, type: :se
       describe "with inputs after succeeds" do
         before do
           allow_service!(Usual::TestKit::Rspec::AllowServiceFluentApi::Example8Child)
-            .succeeds(is_active: true, user_email: "order@example.com", full_name: "Order Test")
+            .succeeds(email: "order@example.com", full_name: "Order Test", is_active: true)
             .with(user_id: 99)
         end
 

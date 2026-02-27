@@ -9,7 +9,7 @@ module Usual
           input :user_id, type: Integer
 
           output :full_name, type: String
-          output :user_email, type: String
+          output :email, type: String
 
           make :fetch_user
 
@@ -17,7 +17,7 @@ module Usual
 
           def fetch_user
             outputs.full_name = "User #{inputs.user_id}"
-            outputs.user_email = "user#{inputs.user_id}@example.com"
+            outputs.email = "user#{inputs.user_id}@example.com"
           end
         end
 
