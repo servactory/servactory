@@ -8,8 +8,8 @@ module Usual
         class Example8Child < ApplicationService::Base
           input :user_id, type: Integer
 
-          output :user_name, type: String
-          output :user_email, type: String
+          output :full_name, type: String
+          output :email, type: String
           output :is_active, type: [TrueClass, FalseClass]
 
           make :fetch_user
@@ -17,8 +17,8 @@ module Usual
           private
 
           def fetch_user
-            outputs.user_name = "User #{inputs.user_id}"
-            outputs.user_email = "user#{inputs.user_id}@example.com"
+            outputs.full_name = "User #{inputs.user_id}"
+            outputs.email = "user#{inputs.user_id}@example.com"
             outputs.is_active = true
           end
         end
@@ -38,8 +38,8 @@ module Usual
           def load_user_info
             result = Example8Child.call!(user_id: inputs.user_id)
 
-            outputs.display_name = result.user_name
-            outputs.contact_email = result.user_email
+            outputs.display_name = result.full_name
+            outputs.contact_email = result.email
             outputs.account_status = result.is_active ? :active : :inactive
           end
         end

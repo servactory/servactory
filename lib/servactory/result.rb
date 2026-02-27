@@ -41,7 +41,7 @@ module Servactory
   # ```ruby
   # result.active?  # Equivalent to Utils.query_attribute(result.active)
   # ```
-  class Result
+  class Result # rubocop:disable Metrics/ClassLength
     # Internal container for service output values.
     #
     # Provides dynamic method access to output values.
@@ -198,16 +198,16 @@ module Servactory
 
     # Converts outputs to hash.
     #
+    # Returns all declared outputs with their values, including nil.
     # Excludes predicate methods from the result hash.
     #
     # @return [Hash<Symbol, Object>] Output name-value pairs
     #
     # @example
-    #   result.to_h # => { user: #<User>, token: "abc123" }
+    #   result.to_h # => { user: #<User>, token: nil }
     def to_h
       outputs.send(:output_names).each_with_object({}) do |key, hash|
-        value = outputs.public_send(key)
-        hash[key] = value unless value.nil?
+        hash[key] = outputs.public_send(key)
       end
     end
 

@@ -2,9 +2,9 @@
 
 module Usual
   module DeconstructKeys
-    class Example1 < ApplicationService::Base
+    class Example3 < ApplicationService::Base
       output :full_name, type: String
-      output :age, type: Integer
+      output :token, type: [String, NilClass]
 
       make :assign_outputs
 
@@ -12,7 +12,7 @@ module Usual
 
       def assign_outputs
         outputs.full_name = "John Doe"
-        outputs.age = 25
+        outputs.token = nil
       end
     end
   end

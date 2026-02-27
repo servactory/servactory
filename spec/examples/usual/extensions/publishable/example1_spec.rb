@@ -21,7 +21,7 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
     it_behaves_like "check class info",
                     inputs: %i[user_id],
                     internals: %i[],
-                    outputs: %i[user_name]
+                    outputs: %i[full_name]
 
     describe "validations" do
       describe "inputs" do
@@ -38,7 +38,7 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
       describe "outputs" do
         it do
           expect(perform).to(
-            have_output(:user_name)
+            have_output(:full_name)
               .instance_of(String)
           )
         end
@@ -51,7 +51,7 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:user_name, "User 123")
+            .with_output(:full_name, "User 123")
         )
       end
 
@@ -60,7 +60,7 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
         expect(event_bus.published_events).to contain_exactly(
           {
             name: :user_created,
-            payload: { user_id: 123, user_name: "User 123" }
+            payload: { user_id: 123, full_name: "User 123" }
           }
         )
       end
@@ -93,7 +93,7 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
       describe "outputs" do
         it do
           expect(perform).to(
-            have_output(:user_name)
+            have_output(:full_name)
               .instance_of(String)
           )
         end
@@ -106,7 +106,7 @@ RSpec.describe Usual::Extensions::Publishable::Example1, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:user_name, "User 123")
+            .with_output(:full_name, "User 123")
         )
       end
 

@@ -52,8 +52,7 @@ RSpec.describe Usual::DeconstructKeys::Example2, type: :service do
 
       describe "pattern matching" do
         it "includes :error key for failures via deconstruct_keys(nil)", :aggregate_failures do
-          result = perform
-          keys = result.deconstruct_keys(nil)
+          keys = perform.deconstruct_keys(nil)
 
           expect(keys).to have_key(:error)
           expect(keys[:error]).to be_a(ApplicationService::Exceptions::Failure)
@@ -62,9 +61,7 @@ RSpec.describe Usual::DeconstructKeys::Example2, type: :service do
         end
 
         it "supports nested error pattern matching", :aggregate_failures do
-          result = perform
-
-          matched = case result
+          matched = case perform
                     in { failure: true, error: { type: :validation, message:, meta: } }
                       { msg: message, data: meta }
                     else
@@ -75,8 +72,7 @@ RSpec.describe Usual::DeconstructKeys::Example2, type: :service do
         end
 
         it "supports Failure#deconstruct_keys for error object" do
-          result = perform
-          error_keys = result.error.deconstruct_keys(nil)
+          error_keys = perform.error.deconstruct_keys(nil)
 
           expect(error_keys).to eq(
             type: :validation,
@@ -86,8 +82,7 @@ RSpec.describe Usual::DeconstructKeys::Example2, type: :service do
         end
 
         it "returns only requested keys via Failure#deconstruct_keys([:type])" do
-          result = perform
-          error_keys = result.error.deconstruct_keys([:type])
+          error_keys = perform.error.deconstruct_keys([:type])
 
           expect(error_keys).to eq(type: :validation)
         end
