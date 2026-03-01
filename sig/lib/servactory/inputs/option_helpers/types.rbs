@@ -1,0 +1,55 @@
+module Servactory
+  module Inputs
+    module OptionHelpers
+      module Types
+        def self?.mandatory: (Symbol name, (Class | Array[Class]) type) -> Maintenance::Attributes::OptionHelper
+
+        def self?.not_mandatory: (Symbol name, Class type) -> Maintenance::Attributes::OptionHelper
+
+        def self?.all: () -> Set[Maintenance::Attributes::OptionHelper]
+
+        def self?.symbol: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.symbol?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.string: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.string?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.numeric: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.numeric?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.integer: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.integer?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.float: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.float?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.boolean: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.array: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.array?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.set: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.set?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.hash: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.hash?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.date: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.date?: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.time: () -> Maintenance::Attributes::OptionHelper
+
+        def self?.time?: () -> Maintenance::Attributes::OptionHelper
+      end
+    end
+  end
+end
