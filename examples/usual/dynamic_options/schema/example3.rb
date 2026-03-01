@@ -38,7 +38,7 @@ module Usual
                  type: ::Hash,
                  schema: PAYLOAD_SCHEMA
 
-        output :full_name, type: String
+        outputs { full_name type: String }
 
         make :assign_internal
 

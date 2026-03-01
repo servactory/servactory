@@ -3,11 +3,13 @@
 module Usual
   module Basic
     class Example1 < ApplicationService::Base
-      input :first_name, type: String
-      input :middle_name, type: String, required: false
-      input :last_name, type: String
+      inputs do
+        first_name type: String
+        middle_name type: String, required: false
+        last_name type: String
+      end
 
-      output :full_name, type: String
+      outputs { full_name type: String }
 
       make :assign_full_name
 

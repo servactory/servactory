@@ -17,6 +17,7 @@ module Servactory
 
         private
 
+        # DEPRECATED: This method will be removed in a future release.
         def input(name, *helpers, **options)
           collection_of_inputs << Input.new(
             name,
@@ -24,6 +25,12 @@ module Servactory
             option_helpers: config.input_option_helpers,
             **options
           )
+        end
+
+        def inputs(&block)
+          @inputs_factory ||= Factory.new(config, collection_of_inputs)
+
+          @inputs_factory.instance_eval(&block)
         end
 
         def collection_of_inputs
