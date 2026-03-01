@@ -1,15 +1,29 @@
 module Servactory
   module Context
     module Callable
-      def call!: (?::Hash[untyped, untyped] arguments) -> singleton(Result)
+      module Arguments
+        self.@collection: Hash[Symbol | String, untyped]
 
-      def call: (?::Hash[untyped, untyped] arguments) -> singleton(Result)
+        def self.collection: () -> Hash[Symbol | String, untyped]
+
+        def self.add: (Symbol | String name, untyped value) -> Hash[Symbol | String, untyped]
+
+        def self.merge: (Hash[Symbol | String, untyped] incoming_arguments) -> Hash[Symbol | String, untyped]
+
+        def self.clear: () -> Hash[Symbol | String, untyped]
+      end
+
+      def call!: (?Hash[Symbol | String, untyped] arguments) -> singleton(Result)
+
+      def call: (?Hash[Symbol | String, untyped] arguments) -> singleton(Result)
+
+      def method_missing: (Symbol name, *untyped args) -> self
+
+      def respond_to_missing?: (Symbol name, *untyped) -> bool
 
       private
 
-      def prepare_result_class: () -> Class
-
-      def _call!: (instance context, (::Hash[untyped, untyped] | Datory::Base) incoming_arguments) -> void
+      def _call!: (instance context) -> void
     end
   end
 end
