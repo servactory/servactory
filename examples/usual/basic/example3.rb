@@ -7,7 +7,7 @@ module Usual
       input :middle_name, type: String, required: false, default: "<unknown>"
       input :last_name, type: String
 
-      output :full_name, type: String
+      outputs { full_name type: String }
 
       make :assign_full_name
 
