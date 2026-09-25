@@ -97,6 +97,42 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example11, type: :s
           )
         end
       end
+
+      describe "when using and_wrap_original with no_inputs matcher" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example11Child)
+            .with(no_inputs)
+            .and_wrap_original do |original, **inputs|
+              original.call(**inputs, limit: 5)
+            end
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:entries_count, 5)
+          )
+        end
+      end
+
+      describe "when using and_call_original with no_inputs matcher" do
+        before do
+          allow_service(Usual::TestKit::Rspec::AllowServiceFluentApi::Example11Child)
+            .with(no_inputs)
+            .and_call_original
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:entries_count, 3)
+          )
+        end
+      end
     end
 
     describe "but the data required for work is invalid" do
