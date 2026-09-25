@@ -62,6 +62,24 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example18, type: :s
           )
         end
       end
+
+      describe "when using and_wrap_original with named keywords" do
+        before do
+          allow_service(child_service_class)
+            .and_wrap_original do |original, query:, **inputs|
+              original.call(**inputs, query:, limit: query.length)
+            end
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:matches_count, 4)
+          )
+        end
+      end
     end
 
     describe "but the data required for work is invalid" do
@@ -259,6 +277,103 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example18, type: :s
       end
 
       it_behaves_like "matches inputs with normalized keys", :call
+    end
+  end
+
+  describe "block arguments of and_wrap_original" do
+    let(:received_arguments) { [] }
+    let(:indifferent_inputs) { ActiveSupport::HashWithIndifferentAccess.new(query: "ruby") }
+
+    shared_examples "passes inputs with String keys" do |method_name|
+      context "when the block takes keywords" do
+        before do
+          builder.and_wrap_original do |original, **inputs|
+            received_arguments << inputs
+            original.call(**inputs)
+          end
+        end
+
+        it "passes String keys of a positional Hash as Symbol keywords" do
+          child_service_class.public_send(method_name, { "query" => "ruby", "limit" => 1 })
+
+          expect(received_arguments).to eq([{ query: "ruby", limit: 1 }])
+        end
+
+        it "passes String keys given as keywords as Symbol keywords" do
+          child_service_class.public_send(method_name, **{ "query" => "ruby" })
+
+          expect(received_arguments).to eq([{ query: "ruby" }])
+        end
+
+        it "passes HashWithIndifferentAccess as Symbol keywords" do
+          child_service_class.public_send(method_name, indifferent_inputs)
+
+          expect(received_arguments).to eq([{ query: "ruby" }])
+        end
+
+        it "delegates HashWithIndifferentAccess to the original" do
+          expect(child_service_class.public_send(method_name, indifferent_inputs)).to(
+            be_success_service
+              .with_output(:matches, %w[ruby-0 ruby-1 ruby-2])
+          )
+        end
+      end
+
+      context "when the block is a lambda with a named keyword" do
+        before do
+          wrap_block = lambda do |original, query:, **inputs|
+            received_arguments << query
+            original.call(**inputs, query:)
+          end
+
+          builder.and_wrap_original(&wrap_block)
+        end
+
+        it "passes the keyword from String keys of a positional Hash" do
+          child_service_class.public_send(method_name, { "query" => "ruby" })
+
+          expect(received_arguments).to eq(["ruby"])
+        end
+
+        it "passes the keyword from HashWithIndifferentAccess" do
+          child_service_class.public_send(method_name, indifferent_inputs)
+
+          expect(received_arguments).to eq(["ruby"])
+        end
+      end
+
+      context "when the block takes positional arguments" do
+        before do
+          builder.and_wrap_original do |original, *arguments|
+            received_arguments << arguments
+            original.call(*arguments)
+          end
+        end
+
+        it "passes String keys of a positional Hash as given" do
+          child_service_class.public_send(method_name, { "query" => "ruby" })
+
+          expect(received_arguments).to eq([[{ "query" => "ruby" }]])
+        end
+
+        it "passes HashWithIndifferentAccess as given" do
+          child_service_class.public_send(method_name, indifferent_inputs)
+
+          expect(received_arguments.first.first).to be(indifferent_inputs)
+        end
+      end
+    end
+
+    context "when mocking call" do
+      let(:builder) { allow_service(child_service_class) }
+
+      it_behaves_like "passes inputs with String keys", :call
+    end
+
+    context "when mocking call!" do
+      let(:builder) { allow_service!(child_service_class) }
+
+      it_behaves_like "passes inputs with String keys", :call!
     end
   end
 end

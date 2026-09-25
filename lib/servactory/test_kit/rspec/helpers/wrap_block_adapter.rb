@@ -8,11 +8,13 @@ module Servactory
         #
         # ## Purpose
         #
-        # Services accept inputs as keywords or as a positional Hash. A block
-        # accepting keywords receives the inputs as keywords in both cases.
-        # Any other block receives the arguments as given, the way RSpec's
-        # `and_wrap_original` passes them, so a call with an empty positional
-        # Hash passes `{}` to it.
+        # Services accept inputs as keywords, as a positional Hash or as
+        # a Datory object. A block accepting keywords receives the inputs as
+        # keywords in each case, converted with Servactory::Utils.adapt the way
+        # the service converts them, so String keys and HashWithIndifferentAccess
+        # arrive as Symbol keys. Any other block receives the arguments as given,
+        # the way RSpec's `and_wrap_original` passes them, so a call with an
+        # empty positional Hash passes `{}` to it.
         #
         # The adaptation is chosen once from the block parameters.
         #
@@ -54,11 +56,11 @@ module Servactory
             # Adapts a block to receive service inputs as keywords.
             #
             # @param wrap_block [Proc] Block accepting keywords
-            # @return [Proc] Callable passing a positional Hash to the block as keywords
+            # @return [Proc] Callable passing the inputs of a call to the block as Symbol keywords
             def with_keyword_inputs(wrap_block)
               lambda do |original, *arguments, &block|
-                if arguments.one? && arguments.first.is_a?(Hash)
-                  wrap_block.call(original, **arguments.first, &block)
+                if arguments.one? && Servactory::Utils.adaptable?(arguments.first)
+                  wrap_block.call(original, **Servactory::Utils.adapt(arguments.first), &block)
                 else
                   wrap_block.call(original, *arguments, &block)
                 end

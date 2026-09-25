@@ -70,6 +70,24 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example21, type: :s
           expect(child_service_class).to have_received(:call).with(an_instance_of(child_service_class::Event))
         end
       end
+
+      describe "when using and_wrap_original with named keywords" do
+        before do
+          allow_service(child_service_class)
+            .and_wrap_original do |original, title:, **inputs|
+              original.call(**inputs, title: title.upcase)
+            end
+        end
+
+        it_behaves_like "success result class"
+
+        it do
+          expect(perform).to(
+            be_success_service
+              .with_output(:summary, "RELEASE (0b9c4c2e-6a1d-4f7e-9b3a-2f1d5c8e7a64)")
+          )
+        end
+      end
     end
 
     describe "but the data required for work is invalid" do
@@ -240,6 +258,25 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example21, type: :s
       end
 
       it_behaves_like "matches a Datory object", :call!
+    end
+
+    context "when using and_wrap_original with keywords" do
+      let(:received_inputs) { [] }
+
+      before do
+        allow_service(child_service_class).and_wrap_original do |original, **inputs|
+          received_inputs << inputs
+          original.call(**inputs)
+        end
+      end
+
+      it_behaves_like "matches a Datory object", :call
+
+      it "passes the attributes of the Datory object as keywords" do
+        child_service_class.call(event)
+
+        expect(received_inputs).to eq([{ id: "0b9c4c2e-6a1d-4f7e-9b3a-2f1d5c8e7a64", title: "Release" }])
+      end
     end
 
     context "when using and_wrap_original with positional arguments for call!" do

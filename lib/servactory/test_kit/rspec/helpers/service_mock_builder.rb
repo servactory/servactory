@@ -243,7 +243,8 @@ module Servactory
 
           # Wraps the original method with custom logic.
           # Block receives the original method and the service inputs as keywords,
-          # whether the service was called with keywords or with a positional Hash.
+          # whether the service was called with keywords, a positional Hash or
+          # a Datory object. Input names are symbolized the way the service does it.
           # A block without keyword parameters receives the call arguments as given,
           # e.g. `{}` for `.call({})`.
           #

@@ -12,6 +12,16 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::WrapBlockAdapter do
       it "returns the block itself" do
         expect(delegate).to be(wrap_block)
       end
+
+      it "passes String keys as given" do
+        expect(delegate.call(original, { "user_id" => 1 })).to eq([{ "user_id" => 1 }])
+      end
+
+      it "passes HashWithIndifferentAccess as given" do
+        inputs = ActiveSupport::HashWithIndifferentAccess.new(user_id: 1)
+
+        expect(delegate.call(original, inputs).first).to be(inputs)
+      end
     end
 
     context "when the block declares no keywords" do
@@ -40,6 +50,22 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::WrapBlockAdapter do
       it "passes other arguments positionally" do
         expect(delegate.call(original, :first, :second)).to eq([%i[first second], {}])
       end
+
+      it "passes String keys as Symbol keywords" do
+        expect(delegate.call(original, { "user_id" => 1 })).to eq([[], { user_id: 1 }])
+      end
+
+      it "passes HashWithIndifferentAccess as Symbol keywords" do
+        inputs = ActiveSupport::HashWithIndifferentAccess.new(user_id: 1)
+
+        expect(delegate.call(original, inputs)).to eq([[], { user_id: 1 }])
+      end
+
+      it "passes a Datory object as Symbol keywords" do
+        event = Usual::Datory::Example1::Event.deserialize(id: "0b9c4c2e-6a1d-4f7e-9b3a-2f1d5c8e7a64")
+
+        expect(delegate.call(original, event)).to eq([[], { id: "0b9c4c2e-6a1d-4f7e-9b3a-2f1d5c8e7a64" }])
+      end
     end
 
     context "when the block takes keywords and a block" do
@@ -55,6 +81,14 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::WrapBlockAdapter do
 
       it "passes a positional Hash as keywords" do
         expect(delegate.call(original, { user_id: 1 })).to eq(1)
+      end
+
+      it "passes the keyword from String keys" do
+        expect(delegate.call(original, { "user_id" => 1 })).to eq(1)
+      end
+
+      it "passes the keyword from HashWithIndifferentAccess" do
+        expect(delegate.call(original, ActiveSupport::HashWithIndifferentAccess.new(user_id: 1))).to eq(1)
       end
     end
 
