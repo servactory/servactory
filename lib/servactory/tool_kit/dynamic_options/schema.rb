@@ -187,7 +187,9 @@ module Servactory
           return true if option.value == false
 
           # Attribute type must be Hash-compatible.
-          return [false, :wrong_type] unless @default_hash_mode_class_names.intersect?(attribute.types)
+          unless @default_hash_mode_class_names.intersect?(attribute.types)
+            return [false, :wrong_type, wrong_type_meta_for(attribute:)]
+          end
 
           # Skip validation for blank optional values.
           if value.blank? && ((attribute.input? && attribute.optional?) || attribute.internal? || attribute.output?)
@@ -207,6 +209,19 @@ module Servactory
           prepare_object_with!(object: value, schema:) if is_success
 
           [is_success, reason, meta]
+        end
+
+        # Builds failure metadata for an attribute whose type is not Hash-compatible.
+        #
+        # @param attribute [Object] The attribute being validated
+        # @return [Hash] Metadata with the Hash-compatible types as expected
+        #   and the declared attribute types as given
+        def wrong_type_meta_for(attribute:)
+          {
+            key_name: nil,
+            expected_type: @default_hash_mode_class_names.to_a.join(", "),
+            given_type: attribute.types.join(", ")
+          }
         end
 
         # Recursively validates object against schema definition.

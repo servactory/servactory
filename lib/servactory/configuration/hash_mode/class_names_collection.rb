@@ -9,7 +9,8 @@ module Servactory
         def_delegators :@collection,
                        :merge,
                        :include?,
-                       :intersect?
+                       :intersect?,
+                       :to_a
 
         def initialize(collection)
           @collection = collection
