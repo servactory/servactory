@@ -73,6 +73,18 @@ module Servactory
         # a new stub, which takes precedence over the earlier one for the calls
         # it matches.
         #
+        # A mock without `.with()` (default mock) accepts any arguments on the
+        # RSpec level, so it handles every later call of the stubbed method,
+        # including calls that mocks configured before it would match. Calls
+        # with inputs the service would not accept are rejected instead of
+        # deferred to those earlier mocks. Mocks with `.with()` configured after
+        # a default mock take precedence for the calls they match:
+        #
+        # ```ruby
+        # allow_service(MyService).succeeds(user: default_user)
+        # allow_service(MyService).with(user_id: 123).succeeds(user: user)
+        # ```
+        #
         # ## Features
         #
         # - **Fluent API** - chainable methods for readable test setup
@@ -197,6 +209,8 @@ module Servactory
           #
           # Without `.with()`, a call matches when all required inputs are present
           # and no unknown inputs are passed; optional inputs may be omitted.
+          # Such a mock handles every later call of the stubbed method and rejects
+          # invalid inputs instead of deferring to mocks configured before it.
           #
           # @param inputs_hash_or_matcher [Hash, Object] Service inputs to match or RSpec matcher
           # @return [ServiceMockBuilder] self for method chaining

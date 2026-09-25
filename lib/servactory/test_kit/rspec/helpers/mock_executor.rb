@@ -38,6 +38,11 @@ module Servactory
         # - **Without `.with()`** - RSpec accepts any arguments, and ServiceInputsGuard
         #   verifies them against the service inputs before the stub responds
         #
+        # RSpec responds with the most recently registered stub that matches a call.
+        # A stub without `.with()` matches every call, so it handles every later
+        # call of the stubbed method, and ServiceInputsGuard rejects invalid inputs
+        # instead of deferring to stubs registered before it.
+        #
         # ## Execution Strategies
         #
         # - **Single Config** - uses `and_return` or `and_raise` directly

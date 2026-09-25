@@ -278,6 +278,48 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceFluentApi::Example18, type: :s
 
       it_behaves_like "matches inputs with normalized keys", :call
     end
+
+    context "when a mock without input matching follows a mock with it" do
+      before do
+        allow_service(child_service_class).with(hash_including(query: "ruby")).succeeds(matches: %w[matched])
+        allow_service(child_service_class).succeeds(matches: %w[default])
+      end
+
+      it "handles calls matching the earlier mock" do
+        expect(child_service_class.call(query: "ruby")).to(
+          be_success_service
+            .with_output(:matches, %w[default])
+        )
+      end
+
+      it "rejects invalid inputs instead of deferring to the earlier mock" do
+        expect { child_service_class.call(query: "ruby", page: 2) }.to raise_error(
+          RSpec::Mocks::MockExpectationError,
+          /received :call with unexpected arguments/
+        )
+      end
+    end
+
+    context "when a mock with input matching follows a mock without it" do
+      before do
+        allow_service(child_service_class).succeeds(matches: %w[default])
+        allow_service(child_service_class).with(query: "ruby").succeeds(matches: %w[matched])
+      end
+
+      it "handles calls matching the later mock with it" do
+        expect(child_service_class.call(query: "ruby")).to(
+          be_success_service
+            .with_output(:matches, %w[matched])
+        )
+      end
+
+      it "handles other calls with the earlier mock" do
+        expect(child_service_class.call(query: "rails")).to(
+          be_success_service
+            .with_output(:matches, %w[default])
+        )
+      end
+    end
   end
 
   describe "block arguments of and_wrap_original" do
