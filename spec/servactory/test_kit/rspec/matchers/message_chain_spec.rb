@@ -154,7 +154,7 @@ RSpec.describe "Message checks in attribute matcher chains" do # rubocop:disable
     it "raises ArgumentError when must names no rule" do
       expect { input_matcher(:number).must([]).message("Number must be even") }.to raise_error(
         ArgumentError,
-        /needs exactly one rule, got 0/
+        "`message` after `must` needs a rule name, e.g. `must(:rule).message(...)`."
       )
     end
 

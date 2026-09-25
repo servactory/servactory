@@ -98,6 +98,7 @@ module Servactory
               # Stores the message expected by `.message` chained right after `.must`.
               #
               # `.must(:rule).message(expected)` is the same as `.must(rule: expected)`.
+              # Each rule accepts one expected message.
               #
               # @param expected [String, Regexp, Symbol, Object] Expected message, `:default` or an RSpec matcher
               # @return [void]
@@ -168,6 +169,8 @@ module Servactory
               #
               # @return [String] Error message
               def several_rules_error_message
+                return "`message` after `must` needs a rule name, e.g. `must(:rule).message(...)`." if must_names.empty?
+
                 keyed = must_names.map { |name| "#{name}: ..." }.join(", ")
 
                 "`message` after `must` needs exactly one rule, got #{must_names.size}. " \
