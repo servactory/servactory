@@ -100,7 +100,7 @@ module Servactory
         # Creates a Target validator instance.
         #
         # @param option_name [Symbol] The option name (default: :target)
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :target)
           instance = new(option_name, :in)
           instance.must(:"be_#{option_name}")

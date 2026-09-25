@@ -6,7 +6,7 @@ module Servactory
 
         @default_hash_mode_class_names: Configuration::HashMode::ClassNamesCollection
 
-        def self.use: (?::Symbol option_name, default_hash_mode_class_names: Configuration::HashMode::ClassNamesCollection) -> untyped
+        def self.use: (?::Symbol option_name, default_hash_mode_class_names: Configuration::HashMode::ClassNamesCollection) -> Maintenance::Options::Helper
 
         def assign: (Configuration::HashMode::ClassNamesCollection default_hash_mode_class_names) -> Configuration::HashMode::ClassNamesCollection
 

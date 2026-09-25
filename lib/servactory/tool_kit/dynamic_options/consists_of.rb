@@ -90,7 +90,7 @@ module Servactory
         # @param option_name [Symbol] The option name (default: :consists_of)
         # @param collection_mode_class_names [Servactory::Configuration::CollectionMode::ClassNamesCollection]
         #   Valid collection types
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :consists_of, collection_mode_class_names:)
           instance = new(option_name, :type, false)
           instance.assign(collection_mode_class_names)

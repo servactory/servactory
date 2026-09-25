@@ -179,7 +179,7 @@ module Servactory
         #
         # @param option_name [Symbol] The option name (default: :format)
         # @param formats [Hash] Custom format definitions to merge with defaults
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :format, formats: {})
           instance = new(option_name)
           instance.assign(formats)

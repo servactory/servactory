@@ -129,7 +129,7 @@ module Servactory
         # @param option_name [Symbol] The option name (default: :schema)
         # @param default_hash_mode_class_names [Servactory::Configuration::HashMode::ClassNamesCollection]
         #   Valid Hash-like types
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :schema, default_hash_mode_class_names:)
           instance = new(option_name, :is, false)
           instance.assign(default_hash_mode_class_names)

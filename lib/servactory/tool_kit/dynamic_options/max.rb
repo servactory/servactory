@@ -97,7 +97,7 @@ module Servactory
         # Creates a Max validator instance.
         #
         # @param option_name [Symbol] The option name (default: :max)
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :max)
           new(option_name).must(:be_less_than_or_equal_to)
         end

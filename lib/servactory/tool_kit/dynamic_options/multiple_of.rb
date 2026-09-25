@@ -100,7 +100,7 @@ module Servactory
         # Creates a MultipleOf validator instance.
         #
         # @param option_name [Symbol] The option name (default: :multiple_of)
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :multiple_of)
           new(option_name).must(:be_multiple_of)
         end
