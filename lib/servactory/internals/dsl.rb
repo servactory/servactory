@@ -17,12 +17,18 @@ module Servactory
         private
 
         def internal(name, *helpers, **options)
-          collection_of_internals << Internal.new(
+          internal = Internal.new(
             name,
             *helpers,
             option_helpers: config.internal_option_helpers,
             **options
           )
+
+          if internal.types.empty?
+            raise ArgumentError, "[#{self.name}] Internal attribute `#{name}` must have the `type` option"
+          end
+
+          collection_of_internals << internal
         end
 
         def collection_of_internals
