@@ -3,8 +3,6 @@ module Servactory
     module Rspec
       module Helpers
         class MockExecutor
-          include Concerns::ErrorMessages
-
           @service_class: Class
           @configs: Array[ServiceMockConfig]
           @rspec_context: untyped
@@ -26,11 +24,6 @@ module Servactory
           def apply_return_behavior: (untyped message_expectation, ServiceMockConfig config) -> void
           def wrap_with_keyword_inputs: (Proc wrap_block) -> Proc
           def validate_configs!: () -> void
-          def validate_config!: (ServiceMockConfig config) -> void
-          def validate_failure_has_exception!: (ServiceMockConfig config) -> void
-          def validate_exception_type!: (ServiceMockConfig config) -> void
-          def valid_exception_type?: (ServiceMockConfig config) -> bool
-          def failure_class_for: (ServiceMockConfig config) -> Class
         end
       end
     end

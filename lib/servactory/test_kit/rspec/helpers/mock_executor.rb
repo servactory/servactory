@@ -43,10 +43,9 @@ module Servactory
         # Works with:
         # - ServiceMockConfig - provides configuration for each stub
         # - ServiceMockBuilder - creates executor with configs
+        # - ExceptionValidator - validates exceptions of the configs
         # - RSpec Context - provides allow/receive/etc. methods
         class MockExecutor
-          include Concerns::ErrorMessages
-
           # Creates a new mock executor.
           #
           # @param service_class [Class] The Servactory service class to stub
@@ -193,72 +192,7 @@ module Servactory
           # @return [void]
           # @raise [ArgumentError] If any config is invalid
           def validate_configs!
-            @configs.each { |config| validate_config!(config) }
-          end
-
-          # Validates a single configuration.
-          #
-          # @param config [ServiceMockConfig] The config to validate
-          # @return [void]
-          # @raise [ArgumentError] If config is invalid
-          def validate_config!(config)
-            validate_failure_has_exception!(config)
-            validate_exception_type!(config)
-          end
-
-          # Validates that failure configs have an exception.
-          #
-          # @param config [ServiceMockConfig] The config to validate
-          # @return [void]
-          # @raise [ArgumentError] If failure config is missing exception
-          def validate_failure_has_exception!(config)
-            return unless config.failure? && config.exception.nil?
-
-            raise ArgumentError, missing_exception_for_failure_message(config.service_class)
-          end
-
-          # Validates that exception is the correct type for the service.
-          #
-          # @param config [ServiceMockConfig] The config to validate
-          # @return [void]
-          # @raise [ArgumentError] If exception type is wrong
-          def validate_exception_type!(config)
-            return if config.exception.nil?
-            return if valid_exception_type?(config)
-
-            raise ArgumentError, invalid_exception_type_message(
-              service_class: config.service_class,
-              expected_class: failure_class_for(config),
-              actual_class: config.exception.class
-            )
-          end
-
-          # Checks if exception is the correct type.
-          #
-          # Uses different validation strategies based on method type:
-          # - For `.call` (non-bang): Relaxed validation - accepts any Servactory::Exceptions::Failure subclass
-          #   because the exception is wrapped in Result and never raised, so type doesn't matter.
-          # - For `.call!` (bang): Strict validation - requires the service's configured failure_class
-          #   because the exception IS raised and type matters for rescue clauses.
-          #
-          # @param config [ServiceMockConfig] The config to check
-          # @return [Boolean] True if exception is valid type
-          def valid_exception_type?(config)
-            if config.bang_method?
-              # Strict validation for call! - exception will be raised
-              config.exception.is_a?(failure_class_for(config))
-            else
-              # Relaxed validation for call - exception is only wrapped in Result
-              config.exception.is_a?(Servactory::Exceptions::Failure)
-            end
-          end
-
-          # Returns the expected failure class for a service.
-          #
-          # @param config [ServiceMockConfig] The config with service class
-          # @return [Class] The service's failure class
-          def failure_class_for(config)
-            config.service_class.config.failure_class
+            @configs.each { |config| ExceptionValidator.validate!(config) }
           end
         end
       end
