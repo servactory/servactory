@@ -4,6 +4,8 @@ module Servactory
 
     def self?.adapt: ((::Hash[untyped, untyped] | Datory::Base) data) -> Hash[Symbol, untyped]
 
+    def self?.adaptable?: (untyped data) -> bool
+
     def self?.define_attribute_with: (input: Inputs::Input?, internal: Internals::Internal?, output: Outputs::Output?) -> (Inputs::Input | Internals::Internal | Outputs::Output | Exception)
 
     def self?.really_input?: ((Inputs::Input | Internals::Internal | Outputs::Output)? attribute) -> bool
@@ -31,6 +33,8 @@ module Servactory
     def self?.constantize_class: (untyped class_or_name) -> Class?
 
     private
+
+    def self?.datory?: (untyped data) -> bool
 
     def self?.instance_variables_to_hash_from: (Datory::Base data) -> Hash[Symbol, untyped]
   end

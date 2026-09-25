@@ -113,6 +113,54 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::ServiceInputsMatcher do
     end
   end
 
+  context "when service is called with a Datory object" do
+    let(:event) { Usual::Datory::Example1::Event.deserialize(id: "0b9c4c2e-6a1d-4f7e-9b3a-2f1d5c8e7a64") }
+
+    describe "#args_match?" do
+      context "when the object has the required inputs" do
+        let(:service_class) do
+          Class.new(ApplicationService::Base) do
+            input :id, type: String
+            input :locale, type: String, required: false
+          end
+        end
+
+        it "matches the object" do
+          expect(matcher.args_match?(event)).to be(true)
+        end
+
+        it "rejects the object together with other arguments" do
+          expect(matcher.args_match?(event, { locale: "en" })).to be(false)
+        end
+      end
+
+      context "when the object misses a required input" do
+        let(:service_class) do
+          Class.new(ApplicationService::Base) do
+            input :id, type: String
+            input :user_id, type: Integer
+          end
+        end
+
+        it "rejects the object" do
+          expect(matcher.args_match?(event)).to be(false)
+        end
+      end
+
+      context "when the object has an unknown input" do
+        let(:service_class) do
+          Class.new(ApplicationService::Base) do
+            input :locale, type: String, required: false
+          end
+        end
+
+        it "rejects the object" do
+          expect(matcher.args_match?(event)).to be(false)
+        end
+      end
+    end
+  end
+
   context "when service has no inputs" do
     let(:service_class) { Class.new(ApplicationService::Base) }
 
