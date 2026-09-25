@@ -9,6 +9,8 @@ module Servactory
 
             def self.new: (message_expectation: untyped, inputs_guard: ServiceInputsGuard) -> instance
                         | (untyped message_expectation, ServiceInputsGuard inputs_guard) -> instance
+
+            def invoked?: () -> bool
           end
 
           CALL_ORIGINAL: Proc

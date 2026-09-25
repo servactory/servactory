@@ -14,6 +14,27 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::ServiceInputsGuard do
     stub_const("ServiceInputsGuardExample", service_class)
   end
 
+  describe "#invoked?" do
+    it "is false before a call is verified" do
+      expect(guard).not_to be_invoked
+    end
+
+    it "is true after a call is verified" do
+      guard.verify!([{ user_id: 1 }])
+
+      expect(guard).to be_invoked
+    end
+
+    it "is true after a call is rejected", :aggregate_failures do
+      guard.inputs_matcher = Servactory::TestKit::Rspec::Helpers::ServiceInputsMatcher.new(
+        service_class.info.inputs
+      )
+
+      expect { guard.verify!([]) }.to raise_error(RSpec::Mocks::MockExpectationError)
+      expect(guard).to be_invoked
+    end
+  end
+
   describe "#verify!" do
     context "without an inputs matcher" do
       it "accepts any arguments" do

@@ -6,10 +6,13 @@ module Servactory
           @service_class: Class
           @method_type: Symbol
           @inputs_matcher: ServiceInputsMatcher?
+          @invoked: bool
 
           attr_accessor inputs_matcher: ServiceInputsMatcher?
 
           def initialize: (service_class: Class, method_type: Symbol) -> void
+
+          def invoked?: () -> bool
 
           def verify!: (Array[untyped] arguments) -> void
 

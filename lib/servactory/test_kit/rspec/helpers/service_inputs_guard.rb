@@ -19,6 +19,10 @@ module Servactory
         # Verification is skipped while no inputs matcher is set, which is the
         # case for mocks constrained with `.with()`.
         #
+        # The stub calls the guard on every call it receives, so the guard also
+        # tells whether the stub has been invoked. RSpec does not allow modifying
+        # an invoked stub.
+        #
         # ## Usage
         #
         # Used internally by MockExecutor:
@@ -41,14 +45,24 @@ module Servactory
             @service_class = service_class
             @method_type = method_type
             @inputs_matcher = nil
+            @invoked = false
           end
 
-          # Verifies the arguments received by the mock.
+          # Checks whether the guarded stub has received a call.
+          #
+          # @return [Boolean] True if #verify! was called
+          def invoked?
+            @invoked
+          end
+
+          # Records the call and verifies the arguments received by the mock.
           #
           # @param arguments [Array<Object>] The arguments the service was called with
           # @return [void]
           # @raise [RSpec::Mocks::MockExpectationError] If the arguments do not match the inputs matcher
           def verify!(arguments)
+            @invoked = true
+
             return if @inputs_matcher.nil? || @inputs_matcher.args_match?(*arguments)
 
             raise RSpec::Mocks::MockExpectationError, unexpected_arguments_message(arguments)

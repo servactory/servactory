@@ -69,6 +69,10 @@ module Servactory
         #   .with(user_id: 123)
         # ```
         #
+        # Configuring the mock after the service has been called registers
+        # a new stub, which takes precedence over the earlier one for the calls
+        # it matches.
+        #
         # ## Features
         #
         # - **Fluent API** - chainable methods for readable test setup
@@ -484,18 +488,34 @@ module Servactory
 
           # Registers the mock, or reconfigures the already registered stub.
           #
+          # A stub that has already been invoked cannot be reconfigured,
+          # so a new stub is registered instead.
+          #
           # @return [void]
           def execute_mock
-            @stub = mock_executor.execute(@stub)
+            @stub = mock_executor.execute(reconfigurable_stub)
           end
 
           # Applies the current argument matcher to the registered stub.
+          #
+          # Registers a new stub if the registered one has already been invoked.
           #
           # @return [void]
           def update_mock_arguments
             return if @stub.nil?
 
-            mock_executor.update_arguments(@stub)
+            if @stub.invoked?
+              execute_mock
+            else
+              mock_executor.update_arguments(@stub)
+            end
+          end
+
+          # Returns the registered stub unless it has already been invoked.
+          #
+          # @return [MockExecutor::Stub, nil] Stub that can be reconfigured in place
+          def reconfigurable_stub
+            @stub unless @stub&.invoked?
           end
 
           # Builds an executor for the current configs.

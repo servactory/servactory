@@ -52,6 +52,7 @@ module Servactory
           def all_configs: () -> Array[ServiceMockConfig]
           def execute_mock: () -> void
           def update_mock_arguments: () -> void
+          def reconfigurable_stub: () -> MockExecutor::Stub?
           def mock_executor: () -> MockExecutor
         end
       end

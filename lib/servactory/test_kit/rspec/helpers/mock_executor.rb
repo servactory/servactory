@@ -12,7 +12,8 @@ module Servactory
         # stub setups using `allow(...).to receive(...)`. It handles single
         # and sequential call scenarios, applying appropriate return behaviors.
         # A stub returned by a previous execution can be passed back to be
-        # reconfigured in place instead of registering another stub.
+        # reconfigured in place instead of registering another stub, as long
+        # as it has not been invoked.
         #
         # ## Usage
         #
@@ -26,7 +27,7 @@ module Servactory
         # )
         # stub = executor.execute
         #
-        # # After configs change
+        # # After configs change, while the stub has not been invoked
         # executor.execute(stub)
         # executor.update_arguments(stub)
         # ```
@@ -59,7 +60,16 @@ module Servactory
           #   @return [RSpec::Mocks::MessageExpectation] The RSpec stub
           # @!attribute [r] inputs_guard
           #   @return [ServiceInputsGuard] The guard called by the stub implementation
-          Stub = Data.define(:message_expectation, :inputs_guard)
+          Stub = Data.define(:message_expectation, :inputs_guard) do
+            # Checks whether the stub has received a call.
+            #
+            # RSpec does not allow modifying an invoked stub.
+            #
+            # @return [Boolean] True if the stub has been invoked
+            def invoked?
+              inputs_guard.invoked?
+            end
+          end
 
           CALL_ORIGINAL = lambda do |original, *arguments, &block|
             original.call(*arguments, &block)
@@ -83,7 +93,7 @@ module Servactory
           # Validates all configs first, then applies the argument matcher and
           # the appropriate return behavior (single or sequential).
           #
-          # @param stub [Stub, nil] Stub to reconfigure
+          # @param stub [Stub, nil] Stub to reconfigure, which must not have been invoked
           # @return [Stub] The configured stub
           # @raise [ArgumentError] If any config is invalid
           def execute(stub = nil)
@@ -103,7 +113,7 @@ module Servactory
           # Replaces the argument matcher of a registered stub
           # and the inputs matcher of its guard.
           #
-          # @param stub [Stub] Stub to update
+          # @param stub [Stub] Stub to update, which must not have been invoked
           # @return [Stub] The updated stub
           def update_arguments(stub)
             stub.message_expectation.with(argument_matcher)
