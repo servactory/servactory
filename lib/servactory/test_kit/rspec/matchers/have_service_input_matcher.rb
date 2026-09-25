@@ -30,7 +30,8 @@ module Servactory
         # - `.consists_of(Class)` - for Array/Hash element types
         # - `.schema(Hash)` - expected schema definition
         # - `.inclusion(Array)` - expected inclusion values
-        # - `.must(Array)` - custom validation rules
+        # - `.must(Array)` / `.must(*names, **messages)` - custom validation rules,
+        #   optionally with the expected message of each rule
         # - `.target(value, name:)` - target validation
         # - `.message(String | Regexp | matcher | :default)` - expected error message (after other chain)
         class HaveServiceInputMatcher < Base::AttributeMatcher
@@ -69,7 +70,9 @@ module Servactory
 
           register_submatcher :must,
                               class_name: "Shared::MustSubmatcher",
-                              transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] }
+                              transform_args: (lambda do |args, _kwargs = {}|
+                                Submatchers::Shared::MustSubmatcher.arguments_from(args)
+                              end)
 
           register_submatcher :message,
                               class_name: "Shared::MessageSubmatcher",

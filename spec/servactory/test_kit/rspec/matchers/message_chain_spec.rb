@@ -74,6 +74,40 @@ RSpec.describe "Message checks in attribute matcher chains" do # rubocop:disable
     end
   end
 
+  describe "must rule messages" do
+    it "passes for bare names mixed with expected messages" do
+      matcher = input_matcher(:number).must(:be_positive, be_even: "Number must be even", be_small: /be_small\z/)
+
+      expect(matcher.matches?(nil)).to be(true)
+    end
+
+    it "accepts an Array of bare names with expected messages" do
+      matcher = input_matcher(:number).must(%i[be_positive be_small], be_even: "Number must be even")
+
+      expect(matcher.matches?(nil)).to be(true)
+    end
+
+    it "fails when an expected message does not match" do
+      matcher = input_matcher(:number).must(:be_positive, :be_small, be_even: "Number must be odd")
+
+      expect(matcher.matches?(nil)).to be(false)
+    end
+
+    it "checks the messages of an internal attribute" do
+      matcher = internal_matcher(:count).must(be_positive: "Internal attribute `count` must be negative")
+
+      expect(matcher.matches?(nil)).to be(false)
+    end
+
+    it "keeps the expected messages along with other messages in the chain" do
+      matcher = input_matcher(:number)
+                .must(:be_positive, :be_small, be_even: "Number must be odd")
+                .type(Integer).message(:default)
+
+      expect(matcher.matches?(nil)).to be(false)
+    end
+  end
+
   describe "a message of a replaced option" do
     it "is removed with the option" do
       matcher = input_matcher(:status)

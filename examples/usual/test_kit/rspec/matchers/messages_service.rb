@@ -19,6 +19,20 @@ module Usual
                 type: Symbol,
                 inclusion: %i[primary secondary]
 
+          input :number,
+                type: Integer,
+                must: {
+                  be_even: {
+                    is: ->(value:, **) { value.even? },
+                    message: "Number must be even"
+                  },
+                  be_positive: ->(value:, **) { value.positive? },
+                  be_small: {
+                    is: ->(value:, **) { value < 100 },
+                    message: ->(input:, code:, **) { "Input `#{input.name}` must #{code}" }
+                  }
+                }
+
           internal :state,
                    type: {
                      is: Symbol,
@@ -29,8 +43,18 @@ module Usual
                      message: "State must be new or done"
                    }
 
+          internal :count,
+                   type: Integer,
+                   must: {
+                     be_positive: {
+                       is: ->(value:, **) { value.positive? },
+                       message: ->(internal:, **) { "Internal attribute `#{internal.name}` must be positive" }
+                     }
+                   }
+
           def call
             internals.state = :new
+            internals.count = 1
           end
         end
       end

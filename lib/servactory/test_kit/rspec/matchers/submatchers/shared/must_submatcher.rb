@@ -13,33 +13,74 @@ module Servactory
             # Validates that an attribute has the expected custom validation rules
             # defined via the `must` option. Excludes dynamic options that are
             # tested separately (consists_of, schema, be_inclusion, be_target).
+            # Optionally validates the messages of the rules.
             #
             # ## Usage
             #
             # ```ruby
             # it { is_expected.to have_service_input(:email).must([:be_valid_email]) }
             # it { is_expected.to have_service_input(:age).must([:be_positive, :be_adult]) }
+            # it { is_expected.to have_service_input(:age).must(:be_positive, be_adult: "Must be an adult") }
+            # it { is_expected.to have_service_input(:age).must(be_positive: /positive/, be_adult: :default) }
             # ```
             #
             # ## Comparison
             #
             # Uses set difference to compare validation names - order doesn't matter.
+            # Bare names and the keys of expected messages together must name
+            # every rule of the attribute.
+            #
+            # ## Messages
+            #
+            # An expected message follows the rules of `.message`: a String is
+            # compared with the message exactly, a Regexp is matched against it,
+            # an RSpec matcher is applied to the message as defined, and
+            # `:default` checks that the rule defines no custom message.
+            #
+            # Without a custom message, the rule uses the default message of
+            # the library, which depends only on the service, the attribute and
+            # the rule name, so a String or Regexp is compared with it.
+            #
+            # A Proc message is called with the keyword arguments the library
+            # passes to it: `service:`, the attribute (`input:`, `internal:` or
+            # `output:`), `value:`, `code:`, `reason:` and `meta:`. Values known
+            # only while the service runs are `nil`. A Proc message that raises
+            # with them, for example because it does not accept all of them,
+            # does not match.
             class MustSubmatcher < Base::Submatcher
+              # Splits the arguments of the `must` chain method.
+              #
+              # A trailing Hash, which Ruby passes for keyword arguments,
+              # maps rule names to their expected messages.
+              #
+              # @param args [Array] The arguments of the chain method
+              # @return [Array(Array<Symbol>, Hash{Symbol => Object})] Rule names and expected messages
+              def self.arguments_from(args)
+                expectations, names = Array(args).flatten.partition { |argument| argument.is_a?(Hash) }
+
+                [names, expectations.reduce({}, :merge)]
+              end
+
               # Creates a new must submatcher.
               #
               # @param context [Base::SubmatcherContext] The submatcher context
               # @param must_names [Array<Symbol>] Expected validation rule names
+              # @param message_expectations [Hash{Symbol => Object}] Expected messages by rule name
               # @return [MustSubmatcher] New submatcher instance
-              def initialize(context, must_names)
+              # @raise [ArgumentError] If an expected message is of an unsupported kind
+              def initialize(context, must_names, message_expectations = {})
                 super(context)
-                @must_names = must_names
+                @must_names = (must_names + message_expectations.keys).uniq
+                @message_expectations = message_expectations.transform_values do |expected|
+                  Base::MessageExpectation.new(expected)
+                end
               end
 
               # Returns description for RSpec output.
               #
               # @return [String] Human-readable description with rule names
               def description
-                "must: #{must_names.join(', ')}"
+                "must: #{must_names.map { |name| rule_description(name) }.join(', ')}"
               end
 
               protected
@@ -48,9 +89,52 @@ module Servactory
               #
               # Filters out dynamic options that are tested by other submatchers.
               #
-              # @return [Boolean] True if must rules match (order-independent)
+              # @return [Boolean] True if must rules and their messages match (order-independent)
               def passes?
-                attribute_must = attribute_data[:must] || {}
+                @actual_must_names = actual_must_names
+                @message_mismatches = find_message_mismatches
+
+                names_match? && @message_mismatches.empty?
+              end
+
+              # Builds the failure message for must validation.
+              #
+              # @return [String] Failure message with expected vs actual rules and messages
+              def build_failure_message
+                messages = @message_mismatches.map do |name, mismatch|
+                  "should return expected message for must rule `#{name}`:\n\n#{mismatch.indent(2)}"
+                end
+
+                messages.unshift(names_failure_message) unless names_match?
+                messages.join("\n")
+              end
+
+              private
+
+              attr_reader :must_names, :message_expectations
+
+              # Describes a rule name with its expected message.
+              #
+              # @param name [Symbol] Rule name
+              # @return [String] Rule description
+              def rule_description(name)
+                expectation = message_expectations[name]
+                return name.to_s if expectation.nil?
+
+                "#{name} with message #{expectation.description}"
+              end
+
+              # Returns the attribute's must rules.
+              #
+              # @return [Hash{Symbol => Hash, Proc}] Rules by name
+              def attribute_must
+                attribute_data[:must] || {}
+              end
+
+              # Returns the names of the attribute's rules checked by this submatcher.
+              #
+              # @return [Array<Symbol>] Rule names
+              def actual_must_names
                 attribute_must_keys = attribute_must.keys.dup
 
                 # NOTE: Dynamic options that are also `must` but tested separately
@@ -59,16 +143,21 @@ module Servactory
                 attribute_must_keys.delete(:be_inclusion)
                 attribute_must_keys.delete(:be_target)
 
-                @actual_must_names = attribute_must_keys
-
-                attribute_must_keys.difference(must_names).empty? &&
-                  must_names.difference(attribute_must_keys).empty?
+                attribute_must_keys
               end
 
-              # Builds the failure message for must validation.
+              # Compares the expected rule names with the attribute's rule names.
+              #
+              # @return [Boolean] True if both name the same rules
+              def names_match?
+                @actual_must_names.difference(must_names).empty? &&
+                  must_names.difference(@actual_must_names).empty?
+              end
+
+              # Builds the failure message for mismatching rule names.
               #
               # @return [String] Failure message with expected vs actual rules
-              def build_failure_message
+              def names_failure_message
                 <<~MESSAGE
                   should #{must_names.join(', ')}
 
@@ -77,9 +166,54 @@ module Servactory
                 MESSAGE
               end
 
-              private
+              # Compares the messages of the attribute's rules with the expected messages.
+              #
+              # Rules missing from the attribute are reported by the name comparison.
+              #
+              # @return [Hash{Symbol => String}] Explanations of the mismatches by rule name
+              def find_message_mismatches
+                message_expectations.filter_map do |name, expectation|
+                  next unless attribute_must.key?(name)
 
-              attr_reader :must_names
+                  mismatch = expectation.mismatch_for(
+                    rule_message(attribute_must.fetch(name)),
+                    default_message: Servactory::Maintenance::Validations::Translator::Must.default_message
+                  ) { |message| call_message(message, code: name) }
+
+                  [name, mismatch] unless mismatch.nil?
+                end.to_h
+              end
+
+              # Returns the custom message of a rule.
+              #
+              # @param rule [Hash, Proc] The rule in advanced or simple mode
+              # @return [String, Proc, nil] The custom message
+              def rule_message(rule)
+                rule.is_a?(Hash) ? rule[:message] : nil
+              end
+
+              # Calls a Proc message with the keyword arguments the library passes to it.
+              #
+              # @param message [Proc] The rule's message or the default message
+              # @param code [Symbol] The rule name
+              # @return [Object] The message built by the Proc
+              def call_message(message, code:)
+                message.call(
+                  service: service_info,
+                  attribute_type => attribute_data.fetch(:actor),
+                  value: nil,
+                  code:,
+                  reason: nil,
+                  meta: nil
+                )
+              end
+
+              # Returns the service information passed to Proc messages.
+              #
+              # @return [Object] The service information
+              def service_info
+                @service_info ||= described_class.send(:new).send(:servactory_service_info)
+              end
             end
           end
         end
