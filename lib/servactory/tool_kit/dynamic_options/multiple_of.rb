@@ -96,10 +96,12 @@ module Servactory
       # - Integer, Rational and BigDecimal operands are checked exactly
       # - Float operands are accepted when the remainder is within an epsilon
       #   tolerance of zero or of the divisor, scaled by the absolute value
+      #   of the checked value
       # - Returns false for non-numeric values
       # - Provides specific error messages for blank and zero divisors
       class MultipleOf < Must
-        # Relative tolerance for Float remainders, scaled by the absolute value.
+        # Relative tolerance for Float remainders, scaled by the absolute
+        # value of the checked value.
         FLOAT_TOLERANCE = Float::EPSILON * 2
         private_constant :FLOAT_TOLERANCE
 
@@ -165,7 +167,8 @@ module Servactory
         # Exact for Integer, Rational and BigDecimal operands. When either
         # operand is a Float, the remainder of the absolute operands counts
         # as a multiple when it is within the tolerance of zero or of the
-        # divisor, with the tolerance scaled by the absolute value.
+        # divisor, with the tolerance scaled by the absolute value of the
+        # checked value.
         #
         # @param value [Numeric] Value to check
         # @param divisor [Numeric] Non-zero divisor
