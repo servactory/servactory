@@ -22,6 +22,25 @@ module Servactory
         # end
         # ```
         #
+        # ## Messages
+        #
+        # `.message` checks the message of the option chained right before it,
+        # `.required(message)` checks the required message, and `.must` takes
+        # the expected message of each rule by its name:
+        #
+        # ```ruby
+        # it { is_expected.to have_service_input(:status).inclusion(%w[active inactive]).message("Unknown status") }
+        # it { is_expected.to have_service_input(:status).type(String).message(:default) }
+        # it { is_expected.to have_service_input(:email).required(/is required/) }
+        # it { is_expected.to have_service_input(:age).must(:be_adult, be_positive: "Age must be positive") }
+        # it { is_expected.to have_service_input(:age).must(:be_positive).message(be_a(Proc)) }
+        # ```
+        #
+        # A String must equal the message, a Regexp must match it, an RSpec
+        # matcher is applied to the message as defined, and `:default` checks
+        # that no custom message is defined. See MessageSubmatcher and
+        # MustSubmatcher for the details.
+        #
         # ## Chain Methods
         #
         # - `.type(Class)` / `.types(Class, ...)` - expected type(s)

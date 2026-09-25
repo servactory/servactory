@@ -92,6 +92,12 @@ module Servactory
         #   expect(MyService).to have_service_input(:user_id)
         #     .type(Integer)
         #     .required
+        #
+        # @example With messages
+        #   expect(MyService).to have_service_input(:age)
+        #     .type(Integer).message("Age must be an Integer")
+        #     .required(/is required/)
+        #     .must(:be_adult, be_positive: :default)
         def have_service_input(input_name) # rubocop:disable Naming/PredicatePrefix
           HaveServiceInputMatcher.new(described_class, input_name)
         end
@@ -104,6 +110,11 @@ module Servactory
         # @example
         #   expect(MyService).to have_service_internal(:processed_data)
         #     .type(Hash)
+        #
+        # @example With messages
+        #   expect(MyService).to have_service_internal(:total)
+        #     .type(Integer).message(:default)
+        #     .must(:be_positive).message("Total must be positive")
         def have_service_internal(internal_name) # rubocop:disable Naming/PredicatePrefix
           HaveServiceInternalMatcher.new(described_class, internal_name)
         end

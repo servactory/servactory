@@ -19,6 +19,9 @@ module Servactory
         #   it { is_expected.to have_service_internal(:processed_data).type(Hash) }
         #   it { is_expected.to have_service_internal(:items).type(Array).consists_of(Item) }
         #   it { is_expected.to have_service_internal(:config).schema({ key: String }) }
+        #   it { is_expected.to have_service_internal(:items).type(Array).message(/must be an Array/) }
+        #   it { is_expected.to have_service_internal(:total).must(be_positive: "Total must be positive") }
+        #   it { is_expected.to have_service_internal(:total).must(:be_positive).message(:default) }
         # end
         # ```
         #
