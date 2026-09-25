@@ -37,11 +37,9 @@ module Servactory
         extend Forwardable
 
         def_delegators :@collection,
-                       :<<,
                        :filter,
                        :each, :each_with_object,
-                       :map, :to_h,
-                       :merge
+                       :map, :to_h
 
         # Initializes the collection with an optional pre-built Set.
         #
@@ -49,6 +47,36 @@ module Servactory
         # @return [Collection]
         def initialize(collection = Set.new)
           @collection = collection
+        end
+
+        # Duplicates the collection, resetting memoized caches.
+        #
+        # @param original [Collection] the collection being duplicated
+        # @return [void]
+        def initialize_dup(original)
+          super
+          @collection = original.instance_variable_get(:@collection).dup
+          @attributes_index = nil
+        end
+
+        # Adds an attribute to the collection, invalidating the index cache.
+        #
+        # @param attribute [Object] the attribute to add
+        # @return [Collection] self
+        def <<(attribute)
+          @collection << attribute
+          @attributes_index = nil
+          self
+        end
+
+        # Merges attributes from another collection, invalidating the index cache.
+        #
+        # @param other [Collection, Enumerable] attributes to merge
+        # @return [Collection] self
+        def merge(other)
+          @collection.merge(other)
+          @attributes_index = nil
+          self
         end
 
         # Returns names of all attributes in the collection.
