@@ -117,15 +117,15 @@ module Servactory
                 return default_type_error_message(expected_type:, given_type:) if message.blank?
                 return message unless message.is_a?(Proc)
 
-                call_type_message(message, value:, expected_type:, given_type:)
+                call_message(message, value:, expected_type:, given_type:)
               end
 
-              # Calls a Proc type message with the keyword arguments the library passes.
+              # Calls a Proc message with the keyword arguments the library passes.
               #
-              # @param message [Proc] The custom type message
-              # @param arguments [Hash] The value, expected type and given type
+              # @param message [Proc] The custom message
+              # @param arguments [Hash] The option-specific arguments, such as the value
               # @return [String] The message built by the Proc
-              def call_type_message(message, **arguments)
+              def call_message(message, **arguments)
                 message.call(
                   service: described_class.send(:new).send(:servactory_service_info),
                   input: attribute_data.fetch(:actor),
@@ -151,24 +151,40 @@ module Servactory
               # Checks that required validation fails when input is nil.
               #
               # @return [Boolean] True if required validation fails as expected
-              def failure_required_passes? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+              def failure_required_passes?
                 input_required = attribute_data.fetch(:required).fetch(:is)
                 return true unless input_required
 
                 prepared_attributes = attributes.dup
                 prepared_attributes[attribute_name] = nil
 
-                input_required_message = attribute_data.fetch(:required).fetch(:message)
+                expect_failure_with!(prepared_attributes, required_error_message)
+              end
 
-                if input_required_message.nil?
-                  input_required_message = I18n.t(
-                    "#{i18n_root_key}.inputs.validations.required.default_error.default",
-                    service_class_name: described_class.name,
-                    input_name: attribute_name
-                  )
-                end
+              # Builds the message expected for a missing required value.
+              #
+              # Uses the custom message from `required: { message: }` if provided,
+              # otherwise the default message.
+              #
+              # @return [String] Expected error message
+              def required_error_message
+                message = attribute_data.fetch(:required).fetch(:message)
 
-                expect_failure_with!(prepared_attributes, input_required_message)
+                return default_required_error_message if message.blank?
+                return message unless message.is_a?(Proc)
+
+                call_message(message, value: nil)
+              end
+
+              # Builds the default message for a missing required value.
+              #
+              # @return [String] Default error message
+              def default_required_error_message
+                I18n.t(
+                  "#{i18n_root_key}.inputs.validations.required.default_error.default",
+                  service_class_name: described_class.name,
+                  input_name: attribute_name
+                )
               end
 
               # Checks that optional input accepts nil without failure.
@@ -262,8 +278,7 @@ module Servactory
                 return true if expected_message == :skip_message_check # Just verify error was raised
                 return false if expected_message.blank?
 
-                message_to_compare = expected_message.is_a?(Proc) ? expected_message.call : expected_message
-                message_to_compare.to_s.casecmp(e.message.to_s).zero?
+                expected_message.to_s.casecmp(e.message.to_s).zero?
               rescue Servactory::Exceptions::Internal, Servactory::Exceptions::Output
                 true
               end

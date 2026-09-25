@@ -26,11 +26,15 @@ module Servactory
 
               def type_error_message_for: (untyped value) -> String
 
-              def call_type_message: (Proc message, **untyped arguments) -> String
+              def call_message: (Proc message, **untyped arguments) -> String
 
               def default_type_error_message: (expected_type: String, given_type: String) -> String
 
               def failure_required_passes?: () -> bool
+
+              def required_error_message: () -> String
+
+              def default_required_error_message: () -> String
 
               def failure_optional_passes?: () -> bool
 
