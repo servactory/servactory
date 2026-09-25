@@ -2,24 +2,26 @@ module Servactory
   module Configuration
     module OptionHelpers
       class OptionHelpersCollection
-        extend Forwardable
+        include Enumerable[Maintenance::Options::Helper]
 
-        @collection: Set[Maintenance::Options::Helper]
-        @helpers_index: Hash[Symbol, Maintenance::Options::Helper]
+        @helpers: Hash[Symbol, Maintenance::Options::Helper]
 
-        def initialize: (?Set[Maintenance::Options::Helper] collection) -> void
+        def initialize: (?Enumerable[Maintenance::Options::Helper] collection) -> void
 
         def initialize_dup: (OptionHelpersCollection original) -> void
+
+        def each: () { (Maintenance::Options::Helper) -> void } -> self
+                | () -> Enumerator[Maintenance::Options::Helper, self]
+
+        def <<: (Maintenance::Options::Helper helper) -> self
+
+        def merge: (Enumerable[Maintenance::Options::Helper] helpers) -> self
 
         def dynamic_options: -> OptionHelpersCollection
 
         def find_by: (name: Symbol) -> Maintenance::Options::Helper?
 
-        def replace: (name: Symbol, with: Maintenance::Attributes::OptionHelper) -> void
-
-        private
-
-        def helpers_index: () -> Hash[Symbol, Maintenance::Options::Helper]
+        def replace: (name: Symbol, with: Maintenance::Options::Helper) -> void
       end
     end
   end
