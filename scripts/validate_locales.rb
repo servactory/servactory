@@ -83,7 +83,6 @@ end
 
 # Validate each locale
 locales.each do |name, keys|
-  # Value checks for all locales
   errors.concat(value_errors(name, keys))
 
   next if name == BASE_LOCALE
