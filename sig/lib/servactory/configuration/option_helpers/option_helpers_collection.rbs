@@ -19,11 +19,21 @@ module Servactory
 
         def register: (Maintenance::Options::Helper helper) -> registration_status
 
+        def <<: (Maintenance::Options::Helper helper) -> self
+
+        def merge: (*Enumerable[Maintenance::Options::Helper] enums) -> self
+
         def dynamic_options: -> OptionHelpersCollection
 
         def find_by: (name: Symbol) -> Maintenance::Options::Helper?
 
         def replace: (name: Symbol, with: Maintenance::Options::Helper) -> void
+
+        private
+
+        def raise_error_about_reserved_name_with: (Symbol name) -> bot
+
+        def raise_error_about_duplicated_name_with: (Symbol name) -> bot
       end
     end
   end

@@ -32,10 +32,20 @@ module Servactory
       # ```ruby
       # collection = OptionHelpersCollection.new(builtin_helpers)
       # collection.register(helper)       # => :registered
+      # collection << other_helper        # => collection, or raises ArgumentError
+      # collection.merge([third_helper])  # => collection, or raises ArgumentError
       #
       # collection.find_by(name: :must)   # => helper instance
       # collection.dynamic_options        # => filtered OptionHelpersCollection
       # ```
+      #
+      # ## Enumeration
+      #
+      # The collection includes Enumerable and yields helpers in registration
+      # order. Enumerable methods return plain values rather than collections:
+      # `filter` and `map` return Arrays, `find` returns a helper or nil, and
+      # `each_with_object` returns the memo object. Use `dynamic_options`
+      # to get a filtered OptionHelpersCollection.
       #
       # ## Performance
       #
@@ -88,7 +98,8 @@ module Servactory
         # @param helper [Maintenance::Options::Helper] the helper to register
         # @return [Symbol] `:registered`, `:skipped` when this very helper is
         #   already registered, `:reserved` when the name belongs to a built-in helper,
-        #   or `:duplicated` when the name is already registered in this collection
+        #   or `:duplicated` when this collection already registered the name itself
+        #   since it was created or duplicated
         def register(helper)
           name = helper.name
 
@@ -105,6 +116,38 @@ module Servactory
           :registered
         end
 
+        # Registers a helper under its name, raising when the name is rejected.
+        #
+        # Follows `register`: re-adding this very helper is a no-op, and a helper
+        # registered before duplication may be replaced once.
+        #
+        # @param helper [Maintenance::Options::Helper] the helper to register
+        # @return [OptionHelpersCollection] self
+        # @raise [ArgumentError] when the name belongs to a built-in helper
+        #   or this collection already registered the name itself
+        def <<(helper)
+          case register(helper)
+          when :reserved
+            raise_error_about_reserved_name_with(helper.name)
+          when :duplicated
+            raise_error_about_duplicated_name_with(helper.name)
+          end
+
+          self
+        end
+
+        # Registers every helper of the given enumerables in order with `<<`.
+        #
+        # Helpers preceding a rejected one stay registered.
+        #
+        # @param enums [Array<Enumerable<Maintenance::Options::Helper>>] the helpers to register
+        # @return [OptionHelpersCollection] self
+        # @raise [ArgumentError] when `<<` rejects a helper
+        def merge(*enums)
+          enums.each { |helpers| helpers.each { |helper| self << helper } }
+          self
+        end
+
         # Returns a new collection containing only dynamic option helpers.
         #
         # @return [OptionHelpersCollection] filtered collection of dynamic helpers
@@ -114,7 +157,7 @@ module Servactory
           end
         end
 
-        # Finds a helper by its name using indexed lookup.
+        # Finds a helper by its name with a direct Hash lookup.
         #
         # @param name [Symbol] the helper name to find
         # @return [Maintenance::Options::Helper, nil] the found helper or nil
@@ -133,6 +176,28 @@ module Servactory
           return unless @builtin_names.include?(name)
 
           @helpers[name] = with
+        end
+
+        private
+
+        # Raises an error about a name that belongs to a built-in helper.
+        #
+        # @param name [Symbol] the rejected helper name
+        # @raise [ArgumentError] always
+        def raise_error_about_reserved_name_with(name)
+          raise ArgumentError,
+                "The `#{name}` option helper name is reserved by a built-in option helper. " \
+                "See configuration example here: https://servactory.com/guide/configuration"
+        end
+
+        # Raises an error about a name this collection already registered itself.
+        #
+        # @param name [Symbol] the rejected helper name
+        # @raise [ArgumentError] always
+        def raise_error_about_duplicated_name_with(name)
+          raise ArgumentError,
+                "The `#{name}` option helper is already registered in this collection. " \
+                "See configuration example here: https://servactory.com/guide/configuration"
         end
       end
     end
