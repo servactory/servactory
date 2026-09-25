@@ -5,6 +5,10 @@ module Servactory
         module Submatchers
           module Shared
             class MustSubmatcher < Base::Submatcher
+              include Concerns::OptionHelperRules
+
+              BUILT_IN_RULE_NAMES: Array[Symbol]
+
               @must_names: Array[Symbol]
               @message_expectations: Hash[Symbol, Base::MessageExpectation]
               @actual_must_names: Array[Symbol]
@@ -26,6 +30,8 @@ module Servactory
               def passes?: () -> bool
 
               def build_failure_message: () -> String
+
+              def ensure_message_checkable!: (Symbol name) -> void
 
               def rule_description: (Symbol name) -> String
 

@@ -108,6 +108,23 @@ RSpec.describe "Message checks in attribute matcher chains" do # rubocop:disable
     end
   end
 
+  describe "must rule messages of option helpers" do
+    let(:service_class) { Usual::TestKit::Rspec::Matchers::OptionHelperRulesService }
+
+    it "lists the rules by name" do
+      matcher = input_matcher(:email).must(:be_in_format, be_corporate: "Email must be corporate")
+
+      expect(matcher.matches?(nil)).to be(true)
+    end
+
+    it "raises ArgumentError for an expected message" do
+      expect { input_matcher(:email).must(:be_corporate, be_in_format: /format/) }.to raise_error(
+        ArgumentError,
+        /check the error message with `raise_error`/
+      )
+    end
+  end
+
   describe "a message of a replaced option" do
     it "is removed with the option" do
       matcher = input_matcher(:status)
