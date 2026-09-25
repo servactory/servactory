@@ -344,7 +344,32 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
           expect(submatcher.failure_message).to include(
             'could not build the Proc message to compare with "Input `status` got ACTIVE"'
           )
-          expect(submatcher.failure_message).to include("NoMethodError: undefined method 'upcase' for nil")
+          expect(submatcher.failure_message).to include("NoMethodError:")
+          expect(submatcher.failure_message).to match(/undefined method .upcase. for nil/)
+        end
+      end
+
+      context "when the Proc returns nil for a value known only at validation time" do
+        subject(:submatcher) do
+          build_submatcher(
+            "Input `status` is invalid",
+            attribute_name: :status,
+            attribute_data:,
+            option: [shared::InclusionSubmatcher, %i[active inactive]]
+          )
+        end
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:status).merge(
+            inclusion: {
+              in: %i[active inactive],
+              message: ->(value:, **) { { active: "Input `status` is invalid" }[value] }
+            }
+          )
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
         end
       end
 

@@ -127,7 +127,7 @@ module Servactory
                 @proc_message_error = e
                 false
               else
-                built_message.casecmp(custom_message).zero?
+                built_message.to_s.casecmp(custom_message).zero?
               end
 
               # Builds the failure message for a Proc message that raised an error.
@@ -140,7 +140,7 @@ module Servactory
                     could not build the Proc message to compare with #{custom_message.inspect}:
                       #{@proc_message_error.class}: #{@proc_message_error.message}
 
-                    The Proc receives nil for keywords known only while the service runs, such as `value:`.
+                    The Proc may receive nil for keywords known only while the service runs, such as `value:`.
                 MESSAGE
               end
 
