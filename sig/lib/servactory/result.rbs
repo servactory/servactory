@@ -5,6 +5,8 @@ module Servactory
     @success: bool
     @outputs: Outputs
 
+    STATE_KEYS: Array[Symbol]
+
     class Outputs
       @outputs: Hash[Symbol, untyped]
       @predicate_methods_enabled: bool

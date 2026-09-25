@@ -120,6 +120,10 @@ module Servactory
 
     private_constant :Outputs
 
+    # Result state keys exposed by {#deconstruct_keys}.
+    STATE_KEYS = %i[success failure error].freeze
+    private_constant :STATE_KEYS
+
     ############################################################################
 
     # Creates a success result for the given context.
@@ -216,7 +220,9 @@ module Servactory
     #
     # Returns hash of result state and output values for use with case/in.
     # Output keys match {#to_h}: only assigned outputs are present.
-    # State keys (:success, :failure, :error) take priority over output names.
+    # State keys (:success, :failure, :error) take priority over output names:
+    # outputs with these names are not included, and :error is present only
+    # for failures.
     #
     # @param keys [Array<Symbol>, nil] Keys to include, or nil for all
     # @return [Hash<Symbol, Object>] Hash of state and outputs for pattern matching
@@ -239,6 +245,8 @@ module Servactory
       available[:error] = error if failure?
 
       outputs.send(:output_names).each do |name|
+        next if STATE_KEYS.include?(name)
+
         available[name] = outputs.public_send(name)
       end
 
