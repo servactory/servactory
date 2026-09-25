@@ -350,7 +350,7 @@ module Servactory
       Outputs.new(
         outputs: build_outputs_hash,
         predicate_methods_enabled:
-          @context.is_a?(Servactory::TestKit::Result) || @context.config.predicate_methods_enabled
+          @context.is_a?(Servactory::TestKit::Result) || @context.class.config.predicate_methods_enabled
       )
     end
 
@@ -377,7 +377,7 @@ module Servactory
     def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
       raise exception if @context.blank? || @context.instance_of?(Servactory::TestKit::Result)
 
-      raise @context.config.failure_class.new(
+      raise @context.class.config.failure_class.new(
         type: :base,
         message: @context.send(:servactory_service_info).translate(
           "common.undefined_method.missing_name",

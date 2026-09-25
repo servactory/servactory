@@ -45,7 +45,7 @@ module Servactory
         # @param _args [Array] Method arguments (unused)
         # @return [Object] Input value or predicate result
         def method_missing(name, *_args)
-          predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+          predicate = @context.class.config.predicate_methods_enabled && name.end_with?("?")
 
           input_name = predicate ? name.to_s.chomp("?").to_sym : name
 
