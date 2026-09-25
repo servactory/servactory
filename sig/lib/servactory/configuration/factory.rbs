@@ -60,6 +60,8 @@ module Servactory
       def raise_error_about_wrong_predicate_methods_enabled_with: (Symbol config_name, untyped value) -> Exception
 
       def raise_error_about_reserved_option_helper_with: (Symbol config_name, Symbol option_helper_name) -> Exception
+
+      def raise_error_about_duplicated_option_helper_with: (Symbol config_name, Symbol option_helper_name) -> Exception
     end
   end
 end

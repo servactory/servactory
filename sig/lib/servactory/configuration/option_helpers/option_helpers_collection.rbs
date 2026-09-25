@@ -4,10 +4,11 @@ module Servactory
       class OptionHelpersCollection
         include Enumerable[Maintenance::Options::Helper]
 
-        type registration_status = :registered | :skipped | :reserved
+        type registration_status = :registered | :skipped | :reserved | :duplicated
 
         @helpers: Hash[Symbol, Maintenance::Options::Helper]
         @builtin_names: Set[Symbol]
+        @own_names: Set[Symbol]
 
         def initialize: (?Enumerable[Maintenance::Options::Helper] builtin_helpers) -> void
 

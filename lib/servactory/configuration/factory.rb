@@ -115,9 +115,12 @@ module Servactory
 
       def register_option_helpers_with(config_name, collection, option_helpers)
         option_helpers.each do |option_helper|
-          next unless collection.register(option_helper) == :reserved
-
-          raise_error_about_reserved_option_helper_with(config_name, option_helper.name)
+          case collection.register(option_helper)
+          when :reserved
+            raise_error_about_reserved_option_helper_with(config_name, option_helper.name)
+          when :duplicated
+            raise_error_about_duplicated_option_helper_with(config_name, option_helper.name)
+          end
         end
 
         collection
@@ -157,6 +160,13 @@ module Servactory
         raise ArgumentError,
               "Error in `#{config_name}` configuration. " \
               "The `#{option_helper_name}` option helper name is reserved by a built-in option helper. " \
+              "See configuration example here: https://servactory.com/guide/configuration"
+      end
+
+      def raise_error_about_duplicated_option_helper_with(config_name, option_helper_name)
+        raise ArgumentError,
+              "Error in `#{config_name}` configuration. " \
+              "The `#{option_helper_name}` option helper is already defined in this configuration. " \
               "See configuration example here: https://servactory.com/guide/configuration"
       end
     end

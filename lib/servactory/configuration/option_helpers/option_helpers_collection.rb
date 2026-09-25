@@ -18,6 +18,12 @@ module Servactory
       # reserved, and only `replace` may swap them (used to rebind built-in
       # dynamic options to the configuration of a subclass).
       #
+      # ## Inheritance
+      #
+      # A collection accepts one helper per name. A duplicate, made when
+      # a service class is inherited, may replace a helper registered before
+      # duplication in place without affecting the original.
+      #
       # ## Usage
       #
       # The collection is used internally by the configuration system
@@ -47,15 +53,19 @@ module Servactory
         def initialize(builtin_helpers = [])
           @helpers = builtin_helpers.to_h { |helper| [helper.name, helper] }
           @builtin_names = @helpers.keys.to_set.freeze
+          @own_names = Set.new
         end
 
         # Duplicates the collection so that registrations do not leak into the original.
+        #
+        # Helpers of the original may be replaced once in the duplicate.
         #
         # @param original [OptionHelpersCollection] the collection being duplicated
         # @return [void]
         def initialize_dup(original)
           super
           @helpers = original.instance_variable_get(:@helpers).dup
+          @own_names = Set.new
         end
 
         # Iterates over helpers in registration order.
@@ -71,18 +81,26 @@ module Servactory
 
         # Registers a helper under its name.
         #
-        # A helper with a new name is appended; a helper replacing a non-built-in
-        # one keeps its position. The collection is left unchanged unless the
-        # result is `:registered`.
+        # A helper with a new name is appended; a helper replacing one registered
+        # before duplication keeps its position. The helpers are left unchanged
+        # unless the result is `:registered`.
         #
         # @param helper [Maintenance::Options::Helper] the helper to register
         # @return [Symbol] `:registered`, `:skipped` when this very helper is
-        #   already registered, or `:reserved` when the name belongs to a built-in helper
+        #   already registered, `:reserved` when the name belongs to a built-in helper,
+        #   or `:duplicated` when the name is already registered in this collection
         def register(helper)
           name = helper.name
-          return :skipped if @helpers[name].equal?(helper)
-          return :reserved if @builtin_names.include?(name)
 
+          if @helpers[name].equal?(helper)
+            @own_names << name
+            return :skipped
+          end
+
+          return :reserved if @builtin_names.include?(name)
+          return :duplicated if @own_names.include?(name)
+
+          @own_names << name
           @helpers[name] = helper
           :registered
         end

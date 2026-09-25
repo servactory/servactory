@@ -94,6 +94,22 @@ RSpec.describe Servactory::Configuration::OptionHelpers::OptionHelpersCollection
         expect(collection.to_a).to eq([optional_helper, inclusion_helper])
       end
     end
+
+    context "when another helper with the name is already registered" do
+      let(:another_positive_helper) { build_helper(:positive) }
+
+      before { collection.register(positive_helper) }
+
+      it "returns :duplicated" do
+        expect(collection.register(another_positive_helper)).to eq(:duplicated)
+      end
+
+      it "keeps the first helper" do
+        collection.register(another_positive_helper)
+
+        expect(collection.find_by(name: :positive)).to be(positive_helper)
+      end
+    end
   end
 
   describe "#dynamic_options" do
@@ -153,6 +169,41 @@ RSpec.describe Servactory::Configuration::OptionHelpers::OptionHelpersCollection
 
     it "keeps built-in names reserved" do
       expect(collection.dup.register(build_helper(:optional))).to eq(:reserved)
+    end
+
+    context "when a helper was registered before duplication" do
+      subject(:copy) { collection.dup }
+
+      let(:another_positive_helper) { build_helper(:positive) }
+
+      before do
+        collection.register(positive_helper)
+        collection.register(build_helper(:negative))
+      end
+
+      it "replaces the helper in place", :aggregate_failures do
+        expect(copy.register(another_positive_helper)).to eq(:registered)
+        expect(copy.map(&:name)).to eq(%i[optional inclusion positive negative])
+        expect(copy.find_by(name: :positive)).to be(another_positive_helper)
+      end
+
+      it "keeps the helper in the original" do
+        copy.register(another_positive_helper)
+
+        expect(collection.find_by(name: :positive)).to be(positive_helper)
+      end
+
+      it "rejects a second replacement" do
+        copy.register(another_positive_helper)
+
+        expect(copy.register(build_helper(:positive))).to eq(:duplicated)
+      end
+
+      it "rejects a replacement after the very same helper is registered again" do
+        copy.register(positive_helper)
+
+        expect(copy.register(another_positive_helper)).to eq(:duplicated)
+      end
     end
   end
 end
