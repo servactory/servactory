@@ -65,6 +65,148 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Require
         expect(submatcher.matches?(nil)).to be(true)
       end
     end
+
+    context "with an expected message" do
+      subject(:submatcher) { described_class.new(required_context, expected_message) }
+
+      context "when the default message matches" do
+        let(:expected_message) do
+          "[Usual::TestKit::Rspec::Matchers::MinimalInputService] Required input `email` is missing"
+        end
+
+        it "returns true" do
+          expect(submatcher.matches?(nil)).to be(true)
+        end
+      end
+
+      context "when the default message does not match" do
+        let(:expected_message) { "Input `email` is missing" }
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "shows the expected and the actual message in the failure message", :aggregate_failures do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include('expected "Input `email` is missing"')
+          expect(submatcher.failure_message).to include(
+            'got "[Usual::TestKit::Rspec::Matchers::MinimalInputService] Required input `email` is missing"'
+          )
+        end
+      end
+    end
+
+    context "with a Proc message" do
+      subject(:submatcher) { described_class.new(proc_message_context, expected_message) }
+
+      let(:service_class) { Usual::Basic::Example17 }
+      let(:attribute_data) { service_class.info.inputs.fetch(:first_name) }
+      let(:expected_message) { "[Usual::Basic::Example17] Input `first_name` is required, got nil" }
+
+      let(:proc_message_context) do
+        Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
+          described_class: service_class,
+          attribute_type: :input,
+          attribute_name: :first_name,
+          attribute_data:,
+          i18n_root_key: "servactory"
+        )
+      end
+
+      it "passes the service, the input and a nil value" do
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      context "when the built message does not match" do
+        let(:expected_message) { "Input `first_name` is missing" }
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "shows the expected and the built message in the failure message", :aggregate_failures do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include('expected "Input `first_name` is missing"')
+          expect(submatcher.failure_message).to include(
+            'got "[Usual::Basic::Example17] Input `first_name` is required, got nil"'
+          )
+        end
+      end
+
+      context "when the Proc raises with a value known only at validation time" do
+        let(:expected_message) { "Input `first_name` got NIL" }
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:first_name).merge(
+            required: {
+              is: true,
+              message: ->(input:, value:, **) { "Input `#{input.name}` got #{value.upcase}" }
+            }
+          )
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "describes the error in the failure message", :aggregate_failures do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include(
+            'could not build the Proc message to compare with "Input `first_name` got NIL"'
+          )
+          expect(submatcher.failure_message).to include("NoMethodError:")
+        end
+      end
+
+      context "when the Proc does not accept the keywords the library passes" do
+        let(:expected_message) { "Input `first_name` is required" }
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:first_name).merge(
+            required: {
+              is: true,
+              message: ->(input:) { "Input `#{input.name}` is required" }
+            }
+          )
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "describes the error in the failure message" do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include("ArgumentError:")
+        end
+      end
+
+      context "when the Proc returns nil for a value known only at validation time" do
+        let(:expected_message) { "Input `first_name` is blank" }
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:first_name).merge(
+            required: {
+              is: true,
+              message: ->(value:, **) { { "" => "Input `first_name` is blank" }[value] }
+            }
+          )
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "shows the returned value in the failure message" do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include("got nil")
+        end
+      end
+    end
   end
 
   describe "#failure_message" do

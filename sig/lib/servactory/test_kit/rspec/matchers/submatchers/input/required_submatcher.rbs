@@ -6,6 +6,8 @@ module Servactory
           module Input
             class RequiredSubmatcher < Base::Submatcher
               @custom_message: String?
+              @actual_message: untyped
+              @message_error: StandardError?
 
               def initialize: (Base::SubmatcherContext context, ?String? custom_message) -> void
 
@@ -18,6 +20,16 @@ module Servactory
               def passes?: () -> bool
 
               def build_failure_message: () -> String
+
+              def required?: () -> bool
+
+              def message_equal?: () -> bool
+
+              def actual_message: () -> untyped
+
+              def not_required_failure_message: () -> String
+
+              def message_error_failure_message: () -> String
 
               def default_required_message: () -> String
             end

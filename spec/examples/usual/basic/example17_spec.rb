@@ -26,7 +26,7 @@ RSpec.describe Usual::Basic::Example17, type: :service do
             have_input(:first_name)
               .valid_with(attributes)
               .type(String)
-              .required
+              .required("[Usual::Basic::Example17] Input `first_name` is required, got nil")
           )
         end
 
@@ -102,7 +102,7 @@ RSpec.describe Usual::Basic::Example17, type: :service do
             have_input(:first_name)
               .valid_with(attributes)
               .type(String)
-              .required
+              .required("[Usual::Basic::Example17] Input `first_name` is required, got nil")
           )
         end
 
