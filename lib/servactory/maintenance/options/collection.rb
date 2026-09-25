@@ -36,7 +36,6 @@ module Servactory
         extend Forwardable
 
         def_delegators :@collection,
-                       :<<,
                        :filter,
                        :each, :each_with_object,
                        :map,
@@ -48,6 +47,26 @@ module Servactory
         # @return [Collection]
         def initialize
           @collection = Set.new
+        end
+
+        # Duplicates the collection, resetting memoized caches.
+        #
+        # @param original [Collection] the collection being duplicated
+        # @return [void]
+        def initialize_dup(original)
+          super
+          @collection = original.instance_variable_get(:@collection).dup
+          reset_memoized_caches
+        end
+
+        # Adds an option to the collection, invalidating memoized caches.
+        #
+        # @param option [Option] the option to add
+        # @return [Collection] self
+        def <<(option)
+          @collection << option
+          reset_memoized_caches
+          self
         end
 
         # Returns all option names in the collection.
@@ -114,6 +133,16 @@ module Servactory
         end
 
         private
+
+        # Resets memoized data derived from the collection contents.
+        #
+        # @return [void]
+        def reset_memoized_caches
+          @validation_classes = nil
+          @options_for_checks = nil
+          @validations_for_checks = nil
+          @options_index = nil
+        end
 
         # Builds and caches a hash index for O(1) option lookups.
         #
