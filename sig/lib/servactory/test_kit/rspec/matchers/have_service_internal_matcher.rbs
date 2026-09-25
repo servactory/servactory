@@ -16,9 +16,9 @@ module Servactory
 
           def target: (*untyped values, ?name: Symbol) -> self
 
-          def must: (*Symbol must_names) -> self
+          def must: (*(Symbol | Array[Symbol] | Hash[Symbol, untyped]) must_names) -> self
 
-          def message: ((String | Proc)? custom_message) -> self
+          def message: (untyped expected) -> self
         end
       end
     end

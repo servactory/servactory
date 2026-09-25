@@ -35,7 +35,7 @@ module Servactory
 
               def missing_option_explanation: () -> String
 
-              def call_message: (Proc message) -> String
+              def call_message: (Proc message) -> untyped
 
               def message_arguments: () -> Hash[Symbol, untyped]
 
