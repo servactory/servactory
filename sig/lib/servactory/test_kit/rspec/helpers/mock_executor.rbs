@@ -11,16 +11,17 @@ module Servactory
 
           def initialize: (service_class: Class, configs: Array[ServiceMockConfig], rspec_context: untyped) -> void
 
-          def execute: () -> void
+          def execute: (?untyped message_expectation) -> untyped
+
+          def update_arguments: (untyped message_expectation) -> untyped
 
           private
 
           def sequential?: () -> bool
-          def execute_single: () -> void
-          def execute_sequential: () -> void
+          def stub_or_update_arguments: (untyped message_expectation) -> untyped
+          def argument_matcher: () -> untyped
+          def apply_sequential_behavior: (untyped message_expectation) -> void
           def all_returns?: () -> bool
-          def execute_sequential_returns: (Symbol method_name, untyped arg_matcher) -> void
-          def execute_sequential_invoke: (Symbol method_name, untyped arg_matcher) -> void
           def build_callable: (ServiceMockConfig config) -> ^(*untyped) -> untyped
           def apply_return_behavior: (untyped message_expectation, ServiceMockConfig config) -> void
           def validate_configs!: () -> void

@@ -11,6 +11,8 @@ module Servactory
         # MockExecutor translates ServiceMockConfig objects into actual RSpec
         # stub setups using `allow(...).to receive(...)`. It handles single
         # and sequential call scenarios, applying appropriate return behaviors.
+        # A stub returned by a previous execution can be passed back to be
+        # reconfigured in place instead of registering another stub.
         #
         # ## Usage
         #
@@ -22,7 +24,11 @@ module Servactory
         #   configs: [config1, config2],
         #   rspec_context: self
         # )
-        # executor.execute
+        # message_expectation = executor.execute
+        #
+        # # After configs change
+        # executor.execute(message_expectation)
+        # executor.update_arguments(message_expectation)
         # ```
         #
         # ## Execution Strategies
@@ -37,7 +43,7 @@ module Servactory
         # - ServiceMockConfig - provides configuration for each stub
         # - ServiceMockBuilder - creates executor with configs
         # - RSpec Context - provides allow/receive/etc. methods
-        class MockExecutor # rubocop:disable Metrics/ClassLength
+        class MockExecutor
           include Concerns::ErrorMessages
 
           # Creates a new mock executor.
@@ -51,21 +57,34 @@ module Servactory
             @rspec_context = rspec_context
           end
 
-          # Executes the stub setup based on configurations.
+          # Registers the stub, or reconfigures the stub from a previous execution.
           #
-          # Validates all configs first, then applies appropriate stubbing
-          # strategy (single or sequential).
+          # Validates all configs first, then applies the argument matcher and
+          # the appropriate return behavior (single or sequential).
           #
-          # @return [void]
+          # @param message_expectation [RSpec::Mocks::MessageExpectation, nil] Stub to reconfigure
+          # @return [RSpec::Mocks::MessageExpectation] The configured stub
           # @raise [ArgumentError] If any config is invalid
-          def execute
+          def execute(message_expectation = nil)
             validate_configs!
 
+            message_expectation = stub_or_update_arguments(message_expectation)
+
             if sequential?
-              execute_sequential
+              apply_sequential_behavior(message_expectation)
             else
-              execute_single
+              apply_return_behavior(message_expectation, @configs.first)
             end
+
+            message_expectation
+          end
+
+          # Replaces the argument matcher of a registered stub.
+          #
+          # @param message_expectation [RSpec::Mocks::MessageExpectation] Stub to update
+          # @return [RSpec::Mocks::MessageExpectation] The updated stub
+          def update_arguments(message_expectation)
+            message_expectation.with(argument_matcher)
           end
 
           private
@@ -77,35 +96,37 @@ module Servactory
             @configs.size > 1
           end
 
-          # Executes a single-config stub.
+          # Registers a new stub or updates the arguments of an existing one.
           #
-          # @return [void]
-          def execute_single
-            config = @configs.first
-            method_name = config.method_type
-            arg_matcher = config.build_argument_matcher(@rspec_context)
+          # @param message_expectation [RSpec::Mocks::MessageExpectation, nil] Existing stub
+          # @return [RSpec::Mocks::MessageExpectation] The stub constrained by the argument matcher
+          def stub_or_update_arguments(message_expectation)
+            return update_arguments(message_expectation) unless message_expectation.nil?
 
-            message_expectation = @rspec_context.allow(@service_class).to(
-              @rspec_context.receive(method_name).with(arg_matcher)
+            @rspec_context.allow(@service_class).to(
+              @rspec_context.receive(@configs.first.method_type).with(argument_matcher)
             )
-
-            apply_return_behavior(message_expectation, config)
           end
 
-          # Executes a multi-config sequential stub.
+          # Builds the argument matcher shared by all configs.
           #
-          # Chooses between and_return (for simple returns) and and_invoke
-          # (when exceptions need to be raised).
-          #
-          # @return [void]
-          def execute_sequential
-            method_name = @configs.first.method_type
-            arg_matcher = @configs.first.build_argument_matcher(@rspec_context)
+          # @return [Object] RSpec argument matcher
+          def argument_matcher
+            @configs.first.build_argument_matcher(@rspec_context)
+          end
 
+          # Applies sequential return behavior to a message expectation.
+          #
+          # Uses and_return for simple returns and and_invoke when
+          # exceptions need to be raised.
+          #
+          # @param message_expectation [RSpec::Mocks::MessageExpectation] The stub to configure
+          # @return [void]
+          def apply_sequential_behavior(message_expectation)
             if all_returns?
-              execute_sequential_returns(method_name, arg_matcher)
+              message_expectation.and_return(*@configs.map(&:build_result))
             else
-              execute_sequential_invoke(method_name, arg_matcher)
+              message_expectation.and_invoke(*@configs.map { |config| build_callable(config) })
             end
           end
 
@@ -117,38 +138,6 @@ module Servactory
           # @return [Boolean] True if all configs are simple returns
           def all_returns?
             @configs.none? { |config| config.failure? && config.bang_method? }
-          end
-
-          # Executes sequential stub with and_return for all values.
-          #
-          # @param method_name [Symbol] The method being stubbed
-          # @param arg_matcher [Object] RSpec argument matcher
-          # @return [void]
-          def execute_sequential_returns(method_name, arg_matcher)
-            returns = @configs.map(&:build_result)
-
-            @rspec_context.allow(@service_class).to(
-              @rspec_context.receive(method_name)
-                .with(arg_matcher)
-                .and_return(*returns)
-            )
-          end
-
-          # Executes sequential stub with and_invoke for mixed behavior.
-          #
-          # Uses callables to handle both returns and raises.
-          #
-          # @param method_name [Symbol] The method being stubbed
-          # @param arg_matcher [Object] RSpec argument matcher
-          # @return [void]
-          def execute_sequential_invoke(method_name, arg_matcher)
-            callables = @configs.map { |config| build_callable(config) }
-
-            @rspec_context.allow(@service_class).to(
-              @rspec_context.receive(method_name)
-                .with(arg_matcher)
-                .and_invoke(*callables)
-            )
           end
 
           # Builds a callable lambda for and_invoke.

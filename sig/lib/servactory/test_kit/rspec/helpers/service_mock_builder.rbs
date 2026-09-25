@@ -10,7 +10,7 @@ module Servactory
           @rspec_context: untyped
           @config: ServiceMockConfig
           @sequential_configs: Array[ServiceMockConfig]
-          @executed: bool
+          @message_expectation: untyped
 
           attr_reader service_class: Class
           attr_reader config: ServiceMockConfig
@@ -45,11 +45,11 @@ module Servactory
           def default_failure_class: () -> Class
 
           # Mock Execution
-          def execute_or_re_execute_mock: () -> void
           def finalize_current_to_sequence: () -> void
+          def all_configs: () -> Array[ServiceMockConfig]
           def execute_mock: () -> void
-          def re_execute_mock: () -> void
-          def execute_sequential_mock: () -> void
+          def update_mock_arguments: () -> void
+          def mock_executor: () -> MockExecutor
         end
       end
     end

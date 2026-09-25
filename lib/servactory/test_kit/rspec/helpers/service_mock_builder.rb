@@ -105,7 +105,7 @@ module Servactory
             @config = ServiceMockConfig.new(service_class:)
             @config.method_type = method_type
             @sequential_configs = []
-            @executed = false
+            @message_expectation = nil
           end
 
           # ============================================================
@@ -136,7 +136,7 @@ module Servactory
             validate_outputs!(outputs_hash)
             @config.result_type = :success
             @config.outputs = outputs_hash
-            execute_or_re_execute_mock
+            execute_mock
             self
           end
 
@@ -166,7 +166,7 @@ module Servactory
 
             @config.result_type = :failure
             @config.exception = build_exception(exception_class, type:, message:, meta:)
-            execute_or_re_execute_mock
+            execute_mock
             self
           end
 
@@ -195,8 +195,8 @@ module Servactory
           # @raise [InputValidator::ValidationError] if inputs don't match service definition
           def with(inputs_hash_or_matcher)
             validate_inputs!(inputs_hash_or_matcher)
-            @config.argument_matcher = inputs_hash_or_matcher
-            re_execute_mock if @executed
+            all_configs.each { |config| config.argument_matcher = inputs_hash_or_matcher }
+            update_mock_arguments
             self
           end
 
@@ -219,7 +219,7 @@ module Servactory
             validate_result_type_not_switched!(:and_call_original)
 
             @config.result_type = :call_original
-            execute_or_re_execute_mock
+            execute_mock
             self
           end
 
@@ -241,7 +241,7 @@ module Servactory
 
             @config.result_type = :wrap_original
             @config.wrap_block = block
-            execute_or_re_execute_mock
+            execute_mock
             self
           end
 
@@ -274,7 +274,7 @@ module Servactory
             @config.result_type = :success
             @config.outputs = outputs_hash
             @config.method_type = @sequential_configs.last&.method_type || :call
-            execute_sequential_mock
+            execute_mock
             self
           end
 
@@ -303,7 +303,7 @@ module Servactory
             @config.result_type = :failure
             @config.exception = build_exception(exception_class, type:, message:, meta:)
             @config.method_type = @sequential_configs.last&.method_type || :call
-            execute_sequential_mock
+            execute_mock
             self
           end
 
@@ -427,17 +427,6 @@ module Servactory
           # Mock Execution
           # ============================================================
 
-          # Executes or re-executes mock depending on current state.
-          #
-          # @return [void]
-          def execute_or_re_execute_mock
-            if @executed
-              re_execute_mock
-            else
-              execute_mock
-            end
-          end
-
           # Saves current config to sequential list.
           #
           # @return [void]
@@ -445,48 +434,38 @@ module Servactory
             @sequential_configs << @config.dup
           end
 
-          # Executes the mock for the first time.
+          # Returns all configs in call order.
+          #
+          # @return [Array<ServiceMockConfig>] Sequential configs followed by the current config
+          def all_configs
+            @sequential_configs + [@config]
+          end
+
+          # Registers the mock, or reconfigures the already registered stub.
           #
           # @return [void]
           def execute_mock
-            return if @executed
-
-            @executed = true
-            MockExecutor.new(
-              service_class:,
-              configs: [@config],
-              rspec_context: @rspec_context
-            ).execute
+            @message_expectation = mock_executor.execute(@message_expectation)
           end
 
-          # Re-executes the mock after configuration changes.
+          # Applies the current argument matcher to the registered stub.
           #
           # @return [void]
-          def re_execute_mock
-            return unless @executed
+          def update_mock_arguments
+            return if @message_expectation.nil?
 
-            if @sequential_configs.any?
-              execute_sequential_mock
-            else
-              MockExecutor.new(
-                service_class:,
-                configs: [@config],
-                rspec_context: @rspec_context
-              ).execute
-            end
+            mock_executor.update_arguments(@message_expectation)
           end
 
-          # Executes the mock with all sequential configurations.
+          # Builds an executor for the current configs.
           #
-          # @return [void]
-          def execute_sequential_mock
-            all_configs = @sequential_configs + [@config]
-
+          # @return [MockExecutor] Executor for all configs
+          def mock_executor
             MockExecutor.new(
               service_class:,
               configs: all_configs,
               rspec_context: @rspec_context
-            ).execute
+            )
           end
         end
       end
