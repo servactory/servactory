@@ -92,9 +92,7 @@ module Servactory
         #
         # @return [Hash{Symbol => Maintenance::Options::Helper}] helper names mapped to Helper instances
         def helpers_index
-          @helpers_index ||= each_with_object({}) do |helper, index|
-            index[helper.name] = helper
-          end
+          @helpers_index ||= @collection.to_h { |helper| [helper.name, helper] }
         end
       end
     end

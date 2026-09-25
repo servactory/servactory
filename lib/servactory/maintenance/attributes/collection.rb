@@ -88,9 +88,7 @@ module Servactory
         #
         # @return [Hash{Symbol => Object}] attribute names mapped to attribute instances
         def attributes_index
-          @attributes_index ||= each_with_object({}) do |attribute, index|
-            index[lookup_name(attribute)] = attribute
-          end
+          @attributes_index ||= to_h { |attribute| [lookup_name(attribute), attribute] }
         end
 
         # Returns the name used for indexing and filtering a given attribute.

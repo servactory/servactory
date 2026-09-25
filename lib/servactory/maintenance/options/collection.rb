@@ -119,9 +119,7 @@ module Servactory
         #
         # @return [Hash{Symbol => Option}] option names mapped to Option instances
         def options_index
-          @options_index ||= each_with_object({}) do |option, index|
-            index[option.name] = option
-          end
+          @options_index ||= @collection.to_h { |option| [option.name, option] }
         end
 
         # Extracts the normalized body value from an option.
