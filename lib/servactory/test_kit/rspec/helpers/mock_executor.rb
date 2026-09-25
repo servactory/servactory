@@ -52,6 +52,7 @@ module Servactory
         # - ServiceMockBuilder - creates executor with configs
         # - ExceptionValidator - validates exceptions of the configs
         # - ServiceInputsGuard - verifies inputs of calls accepted with any arguments
+        # - WrapBlockAdapter - adapts wrap blocks to the arguments of service calls
         # - RSpec Context - provides allow/receive/etc. methods
         class MockExecutor
           # Registered RSpec stub and the guard verifying the inputs it receives.
@@ -226,7 +227,7 @@ module Servactory
           # @param config [ServiceMockConfig] Pass-through configuration
           # @return [Proc] Block for RSpec's and_wrap_original
           def build_pass_through(inputs_guard, config)
-            delegate = config.wrap_original? ? wrap_with_keyword_inputs(config.wrap_block) : CALL_ORIGINAL
+            delegate = config.wrap_original? ? WrapBlockAdapter.adapt(config.wrap_block) : CALL_ORIGINAL
 
             pass_through = lambda do |original, *arguments, &block|
               inputs_guard.verify!(arguments)
@@ -234,23 +235,6 @@ module Servactory
             end
 
             pass_through.ruby2_keywords
-          end
-
-          # Adapts a wrap block to receive service inputs as keywords.
-          #
-          # Services accept inputs as keywords or as a positional Hash,
-          # the wrap block receives them as keywords in both cases.
-          #
-          # @param wrap_block [Proc] Block given to and_wrap_original
-          # @return [Proc] Wrap block receiving the inputs as keywords
-          def wrap_with_keyword_inputs(wrap_block)
-            lambda do |original, *arguments, &block|
-              if arguments.one? && arguments.first.is_a?(Hash)
-                wrap_block.call(original, **arguments.first, &block)
-              else
-                wrap_block.call(original, *arguments, &block)
-              end
-            end
           end
 
           # Validates all configurations before executing.

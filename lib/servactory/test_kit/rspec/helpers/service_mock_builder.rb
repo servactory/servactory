@@ -244,6 +244,8 @@ module Servactory
           # Wraps the original method with custom logic.
           # Block receives the original method and the service inputs as keywords,
           # whether the service was called with keywords or with a positional Hash.
+          # A block without keyword parameters receives the call arguments as given,
+          # e.g. `{}` for `.call({})`.
           #
           # @yield [original, **inputs] Block wrapping the original
           # @yieldparam original [Method] The original `.call` or `.call!` method
@@ -261,6 +263,11 @@ module Servactory
           # @example Modify inputs
           #   allow_service(S).and_wrap_original do |original, **inputs|
           #     original.call(**inputs, locale: "en")
+          #   end
+          #
+          # @example Receive the call arguments as given
+          #   allow_service(S).and_wrap_original do |original, *arguments|
+          #     original.call(*arguments)
           #   end
           #
           # @raise [ArgumentError] if called without a block

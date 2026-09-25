@@ -36,7 +36,6 @@ module Servactory
           def build_callable: (ServiceMockConfig config) -> ^(*untyped) -> untyped
           def apply_return_behavior: (Stub stub, ServiceMockConfig config) -> void
           def build_pass_through: (ServiceInputsGuard inputs_guard, ServiceMockConfig config) -> Proc
-          def wrap_with_keyword_inputs: (Proc wrap_block) -> Proc
           def validate_configs!: () -> void
         end
       end

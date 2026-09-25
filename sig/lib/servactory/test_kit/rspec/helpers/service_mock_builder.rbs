@@ -26,7 +26,7 @@ module Servactory
 
           # RSpec Pass-Through API
           def and_call_original: () -> self
-          def and_wrap_original: () { (untyped original, **untyped inputs) -> untyped } -> self
+          def and_wrap_original: () { (untyped original, *untyped arguments, **untyped inputs) -> untyped } -> self
 
           # Sequential Call API
           def then_succeeds: (?Hash[Symbol, untyped] outputs_hash) -> self
