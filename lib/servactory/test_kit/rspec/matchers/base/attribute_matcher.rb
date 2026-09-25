@@ -48,6 +48,8 @@ module Servactory
           # - **Fluent API** - chain methods for readable test assertions
           # - **Dynamic Chain Methods** - generated from submatcher registry
           # - **Mutual Exclusivity** - conflicting options replace each other
+          # - **Attached Checks** - every `.message` checks the option chained
+          #   right before it and is removed when that option is replaced
           # - **Composable** - works with RSpec's compound matchers
           # - **Block Expectations** - supports `expect { }.to` syntax
           class AttributeMatcher # rubocop:disable Metrics/ClassLength
@@ -204,12 +206,39 @@ module Servactory
               submatchers << submatcher
             end
 
-            # Removes all submatchers of the specified class.
+            # Adds a submatcher that checks the option of the last submatcher.
+            #
+            # Attached submatchers are kept along with each other, so every one
+            # of them is checked, and they are removed with the submatcher they
+            # are attached to.
+            #
+            # @param submatcher [Submatcher] The submatcher to attach
+            # @return [void]
+            def attach_submatcher(submatcher)
+              submatchers << submatcher
+            end
+
+            # Adds a submatcher, or attaches it to the last submatcher if its definition requires one.
+            #
+            # @param submatcher [Submatcher] The submatcher to store
+            # @param definition [SubmatcherDefinition] The submatcher definition
+            # @return [void]
+            def store_submatcher(submatcher, definition)
+              return attach_submatcher(submatcher) if definition.requires_last_submatcher
+
+              add_submatcher(submatcher)
+            end
+
+            # Removes all submatchers of the specified class and the submatchers attached to them.
             #
             # @param matcher_class [Class] The submatcher class to remove
             # @return [void]
             def remove_submatcher(matcher_class)
-              submatchers.delete_if { |sm| sm.is_a?(matcher_class) }
+              removed = submatchers.grep(matcher_class)
+
+              submatchers.delete_if do |sm|
+                sm.is_a?(matcher_class) || removed.any? { |removed_sm| sm.attached_to?(removed_sm) }
+              end
             end
 
             private
@@ -232,7 +261,8 @@ module Servactory
             # 1. Extracts options hash if applicable
             # 2. Removes mutually exclusive submatchers
             # 3. Stores option_types if needed
-            # 4. Builds and adds the submatcher
+            # 4. Builds and adds the submatcher, or attaches it to the last
+            #    submatcher if it requires one
             #
             # @param definition [SubmatcherDefinition] The submatcher definition
             # @return [void]
@@ -247,8 +277,7 @@ module Servactory
 
                 @option_types = definition.transform_args.call(args, options) if definition.stores_option_types
 
-                submatcher = build_submatcher(definition, args, options)
-                add_submatcher(submatcher)
+                store_submatcher(build_submatcher(definition, args, options), definition)
                 self
               end
 

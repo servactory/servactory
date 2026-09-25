@@ -64,6 +64,10 @@ module Servactory
 
             def add_submatcher: (Submatcher submatcher) -> void
 
+            def attach_submatcher: (Submatcher submatcher) -> void
+
+            def store_submatcher: (Submatcher submatcher, SubmatcherRegistry::SubmatcherDefinition definition) -> void
+
             def remove_submatcher: (Class matcher_class) -> void
 
             def build_chain_methods_from_registry: () -> void

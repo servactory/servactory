@@ -92,6 +92,14 @@ module Servactory
               "expected not to #{description}"
             end
 
+            # Checks whether this submatcher checks the option of the given submatcher.
+            #
+            # @param submatcher [Submatcher] The submatcher that may precede this one in the chain
+            # @return [Boolean] True if this submatcher was chained right after the given one
+            def attached_to?(submatcher)
+              context.last_submatcher.equal?(submatcher)
+            end
+
             # Returns a human-readable description of what this submatcher validates.
             #
             # @abstract Subclasses must implement this method

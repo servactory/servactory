@@ -29,7 +29,19 @@ module Servactory
             # Requires `requires_last_submatcher: true` - must follow another
             # submatcher. Uses the previous submatcher's OPTION_NAME constant,
             # or its `option_name` for options with a configurable name such as
-            # `target`, to find the message field.
+            # `target`, to find the message field. Chaining it after a submatcher
+            # without such an option raises ArgumentError.
+            #
+            # Every `.message` in a chain is checked, each against the option
+            # chained right before it:
+            #
+            # ```ruby
+            # it do
+            #   is_expected.to have_service_input(:status)
+            #     .type(Symbol).message("Status must be a Symbol")
+            #     .inclusion(%i[active inactive]).message("Status must be active or inactive")
+            # end
+            # ```
             #
             # A String is compared with the message exactly, a Regexp is matched
             # against it, and an RSpec matcher is applied to the message as
@@ -52,8 +64,10 @@ module Servactory
               # @param context [Base::SubmatcherContext] The submatcher context
               # @param custom_message [String, Regexp, Object] Expected error message or an RSpec matcher
               # @return [MessageSubmatcher] New submatcher instance
+              # @raise [ArgumentError] If the previous submatcher checks no option with a message
               def initialize(context, custom_message)
                 super(context)
+                ensure_option_with_message!
                 @custom_message = custom_message
                 @expectation = Base::MessageExpectation.new(custom_message)
               end
@@ -89,6 +103,31 @@ module Servactory
               private
 
               attr_reader :custom_message, :expectation
+
+              # Ensures that the previous submatcher checks an option with a message.
+              #
+              # @return [void]
+              # @raise [ArgumentError] If there is no previous submatcher or its option has no message
+              def ensure_option_with_message!
+                last_submatcher = context.last_submatcher
+                return if last_submatcher.respond_to?(:option_name)
+                return if last_submatcher.is_a?(Base::Submatcher) && last_submatcher.class.const_defined?(:OPTION_NAME)
+
+                raise ArgumentError, option_with_message_error_message(last_submatcher)
+              end
+
+              # Builds the error message for a `message` chained without an option with a message.
+              #
+              # @param last_submatcher [Base::Submatcher, nil] The previous submatcher
+              # @return [String] Error message
+              def option_with_message_error_message(last_submatcher)
+                position = last_submatcher.nil? ? "first in the chain" : "after `#{last_submatcher.description}`"
+                required = last_submatcher.is_a?(Input::RequiredSubmatcher)
+                hint = required ? " To check the required message, pass it to `required`." : ""
+
+                "`message` checks the message of the option chained right before it: chain it after " \
+                  "`type`, `consists_of`, `schema`, `inclusion` or `target`, not #{position}.#{hint}"
+              end
 
               # Compares the option's message with the expected message.
               #
