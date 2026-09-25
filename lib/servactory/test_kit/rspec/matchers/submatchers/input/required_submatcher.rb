@@ -40,6 +40,8 @@ module Servactory
             # A Proc message that raises or does not return a String does not
             # match, and the failure message shows the error or the returned value.
             class RequiredSubmatcher < Base::Submatcher
+              include Concerns::RequiredMessage
+
               # Creates a new required submatcher.
               #
               # @param context [Base::SubmatcherContext] The submatcher context
@@ -102,21 +104,9 @@ module Servactory
               # @return [String, nil] Explanation of the mismatch, or nil if the messages match
               def find_message_mismatch
                 expectation.mismatch_for(
-                  attribute_data.fetch(:required).fetch(:message),
+                  required_custom_message,
                   default_message: default_required_message
-                ) { |message| call_message(message) }
-              end
-
-              # Calls a Proc message with the keyword arguments the library passes to it.
-              #
-              # @param message [Proc] The custom message
-              # @return [Object] The message built by the Proc
-              def call_message(message)
-                message.call(
-                  service: described_class.send(:new).send(:servactory_service_info),
-                  input: attribute_data.fetch(:actor),
-                  value: nil
-                )
+                ) { |message| call_required_message(message) }
               end
 
               # Builds the failure message for an optional input.
@@ -129,17 +119,6 @@ module Servactory
                     expected required: true
                          got required: false
                 MESSAGE
-              end
-
-              # Generates the default I18n message for required validation.
-              #
-              # @return [String] Localized default required message
-              def default_required_message
-                I18n.t(
-                  "#{i18n_root_key}.inputs.validations.required.default_error.default",
-                  service_class_name: described_class.name,
-                  input_name: attribute_name
-                )
               end
             end
           end

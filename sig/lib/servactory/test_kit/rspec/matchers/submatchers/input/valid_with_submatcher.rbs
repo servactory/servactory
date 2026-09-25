@@ -5,6 +5,8 @@ module Servactory
         module Submatchers
           module Input
             class ValidWithSubmatcher < Base::Submatcher
+              include Concerns::RequiredMessage
+
               @attributes: Hash[Symbol, untyped] | Datory::Base
               @failure_reason: String?
 
@@ -31,10 +33,6 @@ module Servactory
               def default_type_error_message: (expected_type: String, given_type: String) -> String
 
               def failure_required_passes?: () -> bool
-
-              def required_error_message: () -> String
-
-              def default_required_error_message: () -> String
 
               def failure_optional_passes?: () -> bool
 

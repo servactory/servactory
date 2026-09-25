@@ -35,6 +35,8 @@ module Servactory
             # 5. `failure_inclusion_passes?` - fails with value outside inclusion
             # 6. `failure_target_passes?` - fails with value outside target
             class ValidWithSubmatcher < Base::Submatcher # rubocop:disable Metrics/ClassLength
+              include Concerns::RequiredMessage
+
               # Creates a new valid_with submatcher.
               #
               # @param context [Base::SubmatcherContext] The submatcher context
@@ -158,33 +160,7 @@ module Servactory
                 prepared_attributes = attributes.dup
                 prepared_attributes[attribute_name] = nil
 
-                expect_failure_with!(prepared_attributes, required_error_message)
-              end
-
-              # Builds the message expected for a missing required value.
-              #
-              # Uses the custom message from `required: { message: }` if provided,
-              # otherwise the default message.
-              #
-              # @return [String] Expected error message
-              def required_error_message
-                message = attribute_data.fetch(:required).fetch(:message)
-
-                return default_required_error_message if message.blank?
-                return message unless message.is_a?(Proc)
-
-                call_message(message, value: nil)
-              end
-
-              # Builds the default message for a missing required value.
-              #
-              # @return [String] Default error message
-              def default_required_error_message
-                I18n.t(
-                  "#{i18n_root_key}.inputs.validations.required.default_error.default",
-                  service_class_name: described_class.name,
-                  input_name: attribute_name
-                )
+                expect_failure_with!(prepared_attributes, required_message)
               end
 
               # Checks that optional input accepts nil without failure.

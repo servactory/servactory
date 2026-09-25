@@ -5,6 +5,8 @@ module Servactory
         module Submatchers
           module Input
             class RequiredSubmatcher < Base::Submatcher
+              include Concerns::RequiredMessage
+
               @custom_message: untyped
               @expectation: Base::MessageExpectation?
               @message_mismatch: String?
@@ -27,11 +29,7 @@ module Servactory
 
               def find_message_mismatch: () -> String?
 
-              def call_message: (Proc message) -> untyped
-
               def not_required_failure_message: () -> String
-
-              def default_required_message: () -> String
             end
           end
         end
