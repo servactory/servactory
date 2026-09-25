@@ -24,7 +24,7 @@ module Servactory
 
           # RSpec Pass-Through API
           def and_call_original: () -> self
-          def and_wrap_original: () { (untyped, **untyped) -> untyped } -> self
+          def and_wrap_original: () { (untyped original, **untyped inputs) -> untyped } -> self
 
           # Sequential Call API
           def then_succeeds: (?Hash[Symbol, untyped] outputs_hash) -> self
@@ -37,6 +37,7 @@ module Servactory
           def validate_result_type_defined!: (Symbol method_name) -> void
           def validate_result_type_not_switched!: (Symbol new_type) -> void
           def validate_not_passthrough!: (Symbol method_name) -> void
+          def validate_block_given!: (Symbol method_name, Proc? block) -> void
           def validate_outputs!: (Hash[Symbol, untyped] outputs_hash) -> void
           def validate_inputs!: (untyped inputs_matcher) -> void
 

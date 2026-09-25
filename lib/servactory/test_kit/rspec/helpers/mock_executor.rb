@@ -162,11 +162,28 @@ module Servactory
             if config.call_original?
               message_expectation.and_call_original
             elsif config.wrap_original?
-              message_expectation.and_wrap_original(&config.wrap_block)
+              message_expectation.and_wrap_original(&wrap_with_keyword_inputs(config.wrap_block))
             elsif config.failure? && config.bang_method?
               message_expectation.and_raise(config.exception)
             else
               message_expectation.and_return(config.build_result)
+            end
+          end
+
+          # Adapts a wrap block to receive service inputs as keywords.
+          #
+          # Services accept inputs as keywords or as a positional Hash,
+          # the wrap block receives them as keywords in both cases.
+          #
+          # @param wrap_block [Proc] Block given to and_wrap_original
+          # @return [Proc] Block for RSpec's and_wrap_original
+          def wrap_with_keyword_inputs(wrap_block)
+            lambda do |original, *arguments, &block|
+              if arguments.one? && arguments.first.is_a?(Hash)
+                wrap_block.call(original, **arguments.first, &block)
+              else
+                wrap_block.call(original, *arguments, &block)
+              end
             end
           end
 

@@ -24,6 +24,7 @@ module Servactory
           def all_returns?: () -> bool
           def build_callable: (ServiceMockConfig config) -> ^(*untyped) -> untyped
           def apply_return_behavior: (untyped message_expectation, ServiceMockConfig config) -> void
+          def wrap_with_keyword_inputs: (Proc wrap_block) -> Proc
           def validate_configs!: () -> void
           def validate_config!: (ServiceMockConfig config) -> void
           def validate_failure_has_exception!: (ServiceMockConfig config) -> void

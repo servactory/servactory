@@ -224,9 +224,13 @@ module Servactory
           end
 
           # Wraps the original method with custom logic.
-          # Block receives the original method and call arguments.
+          # Block receives the original method and the service inputs as keywords,
+          # whether the service was called with keywords or with a positional Hash.
           #
           # @yield [original, **inputs] Block wrapping the original
+          # @yieldparam original [Method] The original `.call` or `.call!` method
+          # @yieldparam inputs [Hash{Symbol => Object}] Service inputs
+          # @yieldreturn [Object] Value returned to the service caller
           # @return [ServiceMockBuilder] self for method chaining
           #
           # @example Modify result
@@ -235,7 +239,15 @@ module Servactory
           #     # custom logic
           #     result
           #   end
+          #
+          # @example Modify inputs
+          #   allow_service(S).and_wrap_original do |original, **inputs|
+          #     original.call(**inputs, locale: "en")
+          #   end
+          #
+          # @raise [ArgumentError] if called without a block
           def and_wrap_original(&block)
+            validate_block_given!(:and_wrap_original, block)
             validate_not_in_sequential_mode!(:and_wrap_original)
             validate_result_type_not_switched!(:and_wrap_original)
 
@@ -370,6 +382,21 @@ module Servactory
             raise ArgumentError,
                   "Cannot call #{method_name}() after #{passthrough}(). " \
                   "Pass-through methods are not compatible with sequential responses."
+          end
+
+          # Validates that a block is given.
+          #
+          # @param method_name [Symbol] The method being called
+          # @param block [Proc, nil] The block given to the method
+          # @raise [ArgumentError] if block is missing
+          # @return [void]
+          def validate_block_given!(method_name, block)
+            return unless block.nil?
+
+            raise ArgumentError,
+                  "Cannot call #{method_name}() without a block. " \
+                  "Pass a block that receives the original method and the service inputs, " \
+                  "e.g. { |original, **inputs| original.call(**inputs) }."
           end
 
           # Validates outputs against service definition.
