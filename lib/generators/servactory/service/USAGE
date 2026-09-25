@@ -5,7 +5,7 @@ Usage:
     rails generate servactory:service NAME [inputs] [options]
 
 Arguments:
-    NAME           The name of the service (e.g., Users::Create, ProcessOrder)
+    NAME           The name of the service (e.g., Users::Create, Orders::Process)
     inputs         Input attributes with optional types (e.g., email:string, user:User)
 
 Options:
@@ -38,14 +38,14 @@ Examples:
     rails generate servactory:service Users::Create email:String name:String
         Creates service with typed inputs (capitalized Ruby class names)
 
-    rails generate servactory:service ProcessOrder user:User event:Event
+    rails generate servactory:service Orders::Process user:User event:Event
         Creates service with custom model/class type inputs
 
-    rails generate servactory:service ProcessOrder role:Admin::Users::Role
+    rails generate servactory:service Orders::Process role:Admin::Users::Role
         Creates service with nested namespace type
 
-    rails generate servactory:service SendEmail recipient
+    rails generate servactory:service Emails::Send recipient
         Creates service with untyped input (defaults to String)
 
-    rails generate servactory:service CacheData key:String --skip-output
+    rails generate servactory:service Caches::Write key:String --skip-output
         Creates service without default output declaration
