@@ -26,6 +26,10 @@ module Servactory
             # Requires `requires_last_submatcher: true` - must follow another
             # submatcher. Uses the previous submatcher's OPTION_NAME constant
             # to find the message field.
+            #
+            # A Proc message is called with the keyword arguments the library
+            # passes to it. Values known only while the service runs, such as
+            # `value:`, are `nil`.
             class MessageSubmatcher < Base::Submatcher
               # Option name in attribute data (unused - uses last submatcher's)
               OPTION_NAME = :message
@@ -95,7 +99,7 @@ module Servactory
                         .to(custom_message)
                       true
                     elsif @attribute_schema_message.is_a?(Proc)
-                      @attribute_schema_message.call.casecmp(custom_message).zero?
+                      call_message(@attribute_schema_message).casecmp(custom_message).zero?
                     else
                       @attribute_schema_message.casecmp(custom_message).zero?
                     end
@@ -105,6 +109,35 @@ module Servactory
                 rescue RSpec::Expectations::ExpectationNotMetError
                   false
                 end
+              end
+
+              # Calls a Proc message with the keyword arguments it accepts.
+              #
+              # Required keywords without a known value receive `nil`.
+              #
+              # @param message [Proc] The attribute's message
+              # @return [String] The message built by the Proc
+              def call_message(message)
+                arguments = message_arguments
+                parameters = message.parameters.group_by(&:first).transform_values { |list| list.map(&:last) }
+
+                keywords = parameters.fetch(:keyreq, []).to_h { |name| [name, arguments[name]] }
+                keywords.merge!(parameters.key?(:keyrest) ? arguments : arguments.slice(*parameters.fetch(:key, [])))
+
+                message.call(**keywords)
+              end
+
+              # Builds the keyword arguments the library passes to Proc messages.
+              #
+              # @return [Hash{Symbol => Object}] Message arguments
+              def message_arguments
+                {
+                  service: described_class.send(:new).send(:servactory_service_info),
+                  attribute_type => attribute_data.fetch(:actor),
+                  value: nil,
+                  option_name: context.last_submatcher.class::OPTION_NAME,
+                  option_value: @attribute_schema_is
+                }
               end
             end
           end

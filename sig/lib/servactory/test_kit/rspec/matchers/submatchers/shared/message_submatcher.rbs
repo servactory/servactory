@@ -29,6 +29,10 @@ module Servactory
               def build_failure_message: () -> String
 
               def schema_message_equal?: () -> bool
+
+              def call_message: (Proc message) -> String
+
+              def message_arguments: () -> Hash[Symbol, untyped]
             end
           end
         end

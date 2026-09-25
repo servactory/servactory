@@ -125,10 +125,92 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
       end
     end
 
-    # NOTE: Proc message testing is skipped because:
-    #       Procs with arguments (like ->(input:, value:)) require runtime context
-    #       that cannot be easily provided in unit tests. This behavior is covered
-    #       in integration tests where the full service context is available.
+    context "with a Proc message" do
+      let(:shared) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared }
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
+
+      def submatcher_context(**options)
+        Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(described_class: service_class, **options)
+      end
+
+      def build_submatcher(expected_message, attribute_name:, option:, attribute_type: :input, attribute_data: nil)
+        attribute_data ||= service_class.info.public_send(:"#{attribute_type}s").fetch(attribute_name)
+        context_options = { attribute_type:, attribute_name:, attribute_data: }
+        option_submatcher_class, option_argument = option
+        last_submatcher = option_submatcher_class.new(submatcher_context(**context_options), option_argument)
+
+        described_class.new(submatcher_context(**context_options, last_submatcher:), expected_message)
+      end
+
+      it "passes the actor, the option value and a nil value" do
+        submatcher = build_submatcher(
+          "Input `status` must be one of [:active, :inactive], got nil",
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "returns false when the built message does not match" do
+        submatcher = build_submatcher(
+          "Input `status` is wrong",
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "passes the service" do
+        submatcher = build_submatcher(
+          "[Usual::TestKit::Rspec::Matchers::ProcMessageService] Input `ids` must contain Integer values",
+          attribute_name: :ids,
+          option: [shared::ConsistsOfSubmatcher, [Integer]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes nil for a keyword known only at validation time" do
+        submatcher = build_submatcher(
+          "Input `config` is invalid",
+          attribute_name: :config,
+          option: [shared::SchemaSubmatcher, { key: { type: String } }]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes only the accepted keywords" do
+        attribute_data = service_class.info.inputs.fetch(:status).merge(
+          inclusion: {
+            in: %i[active inactive],
+            message: ->(input:, option_value:, reason: "none") { "#{input.name}: #{option_value} (#{reason})" }
+          }
+        )
+
+        submatcher = build_submatcher(
+          "status: [:active, :inactive] (none)",
+          attribute_name: :status,
+          attribute_data:,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes the internal actor" do
+        submatcher = build_submatcher(
+          "Internal attribute `tags` must contain String values",
+          attribute_type: :internal,
+          attribute_name: :tags,
+          option: [shared::ConsistsOfSubmatcher, [String]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+    end
   end
 
   describe "#failure_message" do
