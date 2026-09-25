@@ -341,10 +341,9 @@ module Servactory
 
             if attribute_type == Hash
               # Apply nested Hash defaults.
-              default_value = schema_value.fetch(:default, {})
-
-              if !required && !default_value.nil? && !Servactory::Utils.value_present?(object_value)
-                object[schema_key] = default_value
+              if !required && !Servactory::Utils.value_present?(object_value)
+                default_value = schema_value.key?(:default) ? schema_value[:default].deep_dup : {}
+                object[schema_key] = default_value unless default_value.nil?
               end
 
               # Recursively prepare nested objects.
