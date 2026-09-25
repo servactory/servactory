@@ -279,7 +279,7 @@ module Servactory
             return true
           end
 
-          value = object[schema_key]
+          value = object.fetch(schema_key, nil)
           prepared_value = prepare_value_from(schema_value:, value:, required: attribute_required)
 
           [
@@ -299,7 +299,7 @@ module Servactory
           required || (
             !required && !fetch_default_from(schema_value).nil?
           ) || (
-            !required && !object[schema_key].nil?
+            !required && !object.fetch(schema_key, nil).nil?
           )
         end
 
@@ -337,7 +337,7 @@ module Servactory
           schema.each do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
             required = schema_value.fetch(:required, true)
-            object_value = object[schema_key]
+            object_value = object.fetch(schema_key, nil)
 
             if attribute_type == Hash
               # Apply nested Hash defaults.
@@ -362,7 +362,7 @@ module Servactory
 
               # Execute prepare callback if defined.
               unless (input_prepare = schema_value[:prepare]).nil?
-                object[schema_key] = input_prepare.call(value: object[schema_key])
+                object[schema_key] = input_prepare.call(value: object.fetch(schema_key, nil))
               end
 
               object
