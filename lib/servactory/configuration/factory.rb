@@ -60,15 +60,15 @@ module Servactory
       end
 
       def input_option_helpers(input_option_helpers)
-        @config.input_option_helpers.merge(input_option_helpers)
+        register_option_helpers_with(:input_option_helpers, @config.input_option_helpers, input_option_helpers)
       end
 
       def internal_option_helpers(internal_option_helpers)
-        @config.internal_option_helpers.merge(internal_option_helpers)
+        register_option_helpers_with(:internal_option_helpers, @config.internal_option_helpers, internal_option_helpers)
       end
 
       def output_option_helpers(output_option_helpers)
-        @config.output_option_helpers.merge(output_option_helpers)
+        register_option_helpers_with(:output_option_helpers, @config.output_option_helpers, output_option_helpers)
       end
 
       def collection_mode_class_names(collection_mode_class_names)
@@ -113,6 +113,16 @@ module Servactory
         value.is_a?(TrueClass) || value.is_a?(FalseClass)
       end
 
+      def register_option_helpers_with(config_name, collection, option_helpers)
+        option_helpers.each do |option_helper|
+          next unless collection.register(option_helper) == :reserved
+
+          raise_error_about_reserved_option_helper_with(config_name, option_helper.name)
+        end
+
+        collection
+      end
+
       ##########################################################################
 
       def raise_error_about_wrong_exception_class_with(config_name, value)
@@ -140,6 +150,13 @@ module Servactory
         raise ArgumentError,
               "Error in `#{config_name}` configuration. " \
               "The `#{value.inspect}` value must be `TrueClass` or `FalseClass`. " \
+              "See configuration example here: https://servactory.com/guide/configuration"
+      end
+
+      def raise_error_about_reserved_option_helper_with(config_name, option_helper_name)
+        raise ArgumentError,
+              "Error in `#{config_name}` configuration. " \
+              "The `#{option_helper_name}` option helper name is reserved by a built-in option helper. " \
               "See configuration example here: https://servactory.com/guide/configuration"
       end
     end

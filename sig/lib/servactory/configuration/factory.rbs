@@ -19,11 +19,11 @@ module Servactory
 
       def hash_mode_class_names: (Array[Hash[Symbol, untyped]] hash_mode_class_names) -> HashMode::ClassNamesCollection
 
-      def input_option_helpers: (Array[Hash[Symbol, untyped]] input_option_helpers) -> OptionHelpers::OptionHelpersCollection
+      def input_option_helpers: (Array[Maintenance::Options::Helper] input_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def internal_option_helpers: (Array[Hash[Symbol, untyped]] internal_option_helpers) -> OptionHelpers::OptionHelpersCollection
+      def internal_option_helpers: (Array[Maintenance::Options::Helper] internal_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
-      def output_option_helpers: (Array[Hash[Symbol, untyped]] output_option_helpers) -> OptionHelpers::OptionHelpersCollection
+      def output_option_helpers: (Array[Maintenance::Options::Helper] output_option_helpers) -> OptionHelpers::OptionHelpersCollection
 
       def action_aliases: (Array[Symbol] action_aliases) -> Configuration::Actions::Aliases::Collection
 
@@ -45,6 +45,12 @@ module Servactory
 
       def boolean?: (bool value) -> bool
 
+      def register_option_helpers_with: (
+        Symbol config_name,
+        OptionHelpers::OptionHelpersCollection collection,
+        Array[Maintenance::Options::Helper] option_helpers
+      ) -> OptionHelpers::OptionHelpersCollection
+
       def raise_error_about_wrong_exception_class_with: (Symbol config_name, Class value) -> Exception
 
       def raise_error_about_wrong_result_class_with: (Symbol config_name, Class value) -> Exception
@@ -52,6 +58,8 @@ module Servactory
       def raise_error_about_wrong_i18n_root_key_with: (Symbol config_name, untyped value) -> Exception
 
       def raise_error_about_wrong_predicate_methods_enabled_with: (Symbol config_name, untyped value) -> Exception
+
+      def raise_error_about_reserved_option_helper_with: (Symbol config_name, Symbol option_helper_name) -> Exception
     end
   end
 end

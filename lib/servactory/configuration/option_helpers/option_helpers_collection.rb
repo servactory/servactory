@@ -12,14 +12,20 @@ module Servactory
       # It keeps helpers in an insertion-ordered Hash keyed by helper name,
       # so every name resolves to exactly one helper.
       #
+      # ## Built-in Helpers
+      #
+      # Helpers passed to the constructor are built-in: their names are
+      # reserved, and only `replace` may swap them (used to rebind built-in
+      # dynamic options to the configuration of a subclass).
+      #
       # ## Usage
       #
       # The collection is used internally by the configuration system
       # to manage registered option helpers:
       #
       # ```ruby
-      # collection = OptionHelpersCollection.new
-      # collection << helper
+      # collection = OptionHelpersCollection.new(builtin_helpers)
+      # collection.register(helper)       # => :registered
       #
       # collection.find_by(name: :must)   # => helper instance
       # collection.dynamic_options        # => filtered OptionHelpersCollection
@@ -34,12 +40,13 @@ module Servactory
       class OptionHelpersCollection
         include Enumerable
 
-        # Initializes the collection with optional initial helpers.
+        # Initializes the collection with built-in helpers.
         #
-        # @param collection [Enumerable<Maintenance::Options::Helper>] initial helpers
+        # @param builtin_helpers [Enumerable<Maintenance::Options::Helper>] helpers whose names are reserved
         # @return [OptionHelpersCollection]
-        def initialize(collection = [])
-          @helpers = collection.to_h { |helper| [helper.name, helper] }
+        def initialize(builtin_helpers = [])
+          @helpers = builtin_helpers.to_h { |helper| [helper.name, helper] }
+          @builtin_names = @helpers.keys.to_set.freeze
         end
 
         # Duplicates the collection so that registrations do not leak into the original.
@@ -62,29 +69,31 @@ module Servactory
           self
         end
 
-        # Registers a helper under its name, replacing a helper with the same name in place.
+        # Registers a helper under its name.
+        #
+        # A helper with a new name is appended; a helper replacing a non-built-in
+        # one keeps its position. The collection is left unchanged unless the
+        # result is `:registered`.
         #
         # @param helper [Maintenance::Options::Helper] the helper to register
-        # @return [OptionHelpersCollection] self
-        def <<(helper)
-          @helpers[helper.name] = helper
-          self
-        end
+        # @return [Symbol] `:registered`, `:skipped` when this very helper is
+        #   already registered, or `:reserved` when the name belongs to a built-in helper
+        def register(helper)
+          name = helper.name
+          return :skipped if @helpers[name].equal?(helper)
+          return :reserved if @builtin_names.include?(name)
 
-        # Registers each helper in order.
-        #
-        # @param helpers [Enumerable<Maintenance::Options::Helper>] helpers to register
-        # @return [OptionHelpersCollection] self
-        def merge(helpers)
-          helpers.each { |helper| self << helper }
-          self
+          @helpers[name] = helper
+          :registered
         end
 
         # Returns a new collection containing only dynamic option helpers.
         #
         # @return [OptionHelpersCollection] filtered collection of dynamic helpers
         def dynamic_options
-          OptionHelpersCollection.new(select(&:dynamic_option?))
+          each_with_object(OptionHelpersCollection.new) do |helper, collection|
+            collection.register(helper) if helper.dynamic_option?
+          end
         end
 
         # Finds a helper by its name using indexed lookup.
@@ -95,13 +104,15 @@ module Servactory
           @helpers[name]
         end
 
-        # Replaces a helper by name with a new one, keeping its position.
+        # Replaces a built-in helper by name with a new one, keeping its position.
         #
-        # @param name [Symbol] the helper name to replace
+        # Names that do not belong to a built-in helper are ignored.
+        #
+        # @param name [Symbol] the built-in helper name to replace
         # @param with [Maintenance::Options::Helper] the replacement helper
         # @return [void]
         def replace(name:, with:)
-          return unless @helpers.key?(name)
+          return unless @builtin_names.include?(name)
 
           @helpers[name] = with
         end
