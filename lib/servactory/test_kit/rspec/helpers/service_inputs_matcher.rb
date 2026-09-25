@@ -26,7 +26,9 @@ module Servactory
         # MyService.call({ user_id: 1, locale: "en" })
         # ```
         #
-        # Both keyword arguments and a positional Hash are matched.
+        # Both keyword arguments and a positional Hash are matched. Keys are
+        # symbolized the way the service does it, so String keys and
+        # HashWithIndifferentAccess are accepted as well.
         class ServiceInputsMatcher
           # Creates a matcher from service input definitions.
           #
@@ -40,13 +42,15 @@ module Servactory
 
           # Checks whether the call arguments contain acceptable service inputs.
           #
+          # Input names are compared after symbolizing the keys with Servactory::Utils.adapt.
+          #
           # @param arguments [Array<Object>] The arguments the service was called with
           # @return [Boolean] True if all required inputs are present and no unknown inputs are passed
           def args_match?(*arguments)
             return @required_input_names.empty? if arguments.empty?
             return false unless arguments.one? && arguments.first.is_a?(Hash)
 
-            inputs = arguments.first
+            inputs = Servactory::Utils.adapt(arguments.first)
 
             @required_input_names.all? { |input_name| inputs.key?(input_name) } &&
               inputs.each_key.all? { |input_name| @input_names.include?(input_name) }

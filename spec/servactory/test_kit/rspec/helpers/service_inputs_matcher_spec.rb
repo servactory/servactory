@@ -33,8 +33,26 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::ServiceInputsMatcher do
         expect(matcher.args_match?).to be(false)
       end
 
-      it "rejects string keys" do
-        expect(matcher.args_match?({ "user_id" => 1 })).to be(false)
+      it "matches String keys" do
+        expect(matcher.args_match?({ "user_id" => 1, "locale" => "en" })).to be(true)
+      end
+
+      it "matches HashWithIndifferentAccess" do
+        expect(matcher.args_match?(ActiveSupport::HashWithIndifferentAccess.new(user_id: 1))).to be(true)
+      end
+
+      it "rejects String keys without a required input" do
+        expect(matcher.args_match?({ "locale" => "en" })).to be(false)
+      end
+
+      it "rejects an unknown String key" do
+        expect(matcher.args_match?({ "user_id" => 1, "page" => 2 })).to be(false)
+      end
+
+      it "rejects HashWithIndifferentAccess with an unknown input" do
+        expect(
+          matcher.args_match?(ActiveSupport::HashWithIndifferentAccess.new(user_id: 1, page: 2))
+        ).to be(false)
       end
 
       it "rejects a non-Hash argument" do
