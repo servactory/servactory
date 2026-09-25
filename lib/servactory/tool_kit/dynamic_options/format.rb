@@ -232,7 +232,7 @@ module Servactory
         # @param internal [Object, nil] Internal attribute if applicable
         # @param output [Object, nil] Output attribute if applicable
         # @return [Boolean, Array] true if valid, or [false, reason]
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def common_condition_with(value:, option:, input: nil, internal: nil, output: nil)
           option_value = option.value&.to_sym
 
@@ -269,7 +269,6 @@ module Servactory
           # Run validator callback.
           option.properties.fetch(:validator, format_options.fetch(:validator)).call(value:)
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         ########################################################################
 

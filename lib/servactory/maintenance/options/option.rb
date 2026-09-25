@@ -17,7 +17,7 @@ module Servactory
                     :body_key,
                     :return_value_on_access
 
-        # rubocop:disable Metrics/MethodLength, Metrics/ParameterLists
+        # rubocop:disable-next Metrics/MethodLength, Metrics/ParameterLists
         def initialize(
           name:,
           attribute:,
@@ -54,7 +54,6 @@ module Servactory
 
           apply_dynamic_methods_to(attribute:)
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/ParameterLists
 
         def value
           return body unless body.is_a?(Hash)
@@ -72,7 +71,7 @@ module Servactory
 
         private
 
-        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable-next Metrics/MethodLength
         def construct_body(
           original_value:,
           options:,
@@ -98,7 +97,6 @@ module Servactory
 
           apply_normalizer(result)
         end
-        # rubocop:enable Metrics/MethodLength
 
         def wrap_and_normalize(value)
           result = wrap_value(value)

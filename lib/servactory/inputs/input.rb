@@ -52,7 +52,7 @@ module Servactory
 
       attr_reader :internal_name
 
-      # rubocop:disable Style/KeywordParametersOrder
+      # rubocop:disable-next Style/KeywordParametersOrder
       def initialize(
         name,
         *helpers,
@@ -64,7 +64,6 @@ module Servactory
 
         super(name, *helpers, option_helpers:, **options)
       end
-      # rubocop:enable Style/KeywordParametersOrder
 
       def conflict_code
         @collection_of_options.defined_conflict_code

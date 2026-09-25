@@ -67,7 +67,7 @@ module Servactory
           # @param value [Object] Current value (for optional input check)
           # @param check_key [Symbol] Current validation check key
           # @return [Boolean] true if type validation should run
-          # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # rubocop:disable-next Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def self.should_be_checked_for?(attribute, value, check_key)
             check_key == :types && (
               (
@@ -81,7 +81,6 @@ module Servactory
               ) || attribute.internal? || attribute.output?
             )
           end
-          # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           private_class_method :should_be_checked_for?
 
           # Computes prepared value with default substitution for optional inputs.

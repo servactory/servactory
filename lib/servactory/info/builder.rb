@@ -26,7 +26,7 @@ module Servactory
 
       private
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def build_all_attributes(inputs:, internals:, outputs:, stages:, config:)
         build_input_attributes_with(
           collection: inputs,
@@ -45,7 +45,6 @@ module Servactory
 
         build_action_stages_with(collection: stages)
       end
-      # rubocop:enable Metrics/MethodLength
 
       def build_input_attributes_with(collection:, dynamic_options:)
         @inputs = build_attributes_with(

@@ -221,7 +221,7 @@ module Servactory
         #
         # @param option [WorkOption] Parsed option data
         # @return [Proc] Lambda that generates error message
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def must_content_message_with(option)
           is_option_message_present = option.message.present?
           is_option_message_proc = option.message.is_a?(Proc) if is_option_message_present
@@ -274,7 +274,6 @@ module Servactory
             end
           end
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         ########################################################################
 

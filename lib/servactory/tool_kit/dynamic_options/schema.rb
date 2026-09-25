@@ -181,7 +181,7 @@ module Servactory
         # @param value [Object] Hash value to validate
         # @param option [WorkOption] Schema configuration
         # @return [Boolean, Array] true if valid, or [false, reason, meta]
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def common_condition_with(attribute:, value:, option:)
           # Schema disabled, skip validation.
           return true if option.value == false
@@ -208,7 +208,6 @@ module Servactory
 
           [is_success, reason, meta]
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         # Recursively validates object against schema definition.
         #
@@ -333,7 +332,7 @@ module Servactory
         # @param object [Hash] Object to modify
         # @param schema [Hash] Schema definition
         # @return [void]
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def prepare_object_with!(object:, schema:)
           schema.each do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
@@ -370,7 +369,6 @@ module Servactory
             end
           end
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         ########################################################################
         ########################################################################
