@@ -39,6 +39,7 @@ RSpec.describe Usual::Type::Example2, type: :service do
         it do
           expect { perform }.to(
             have_input(:number)
+              .valid_with(attributes)
               .types(Integer, Float, String)
               .message(be_a(Proc))
               .required
@@ -141,6 +142,7 @@ RSpec.describe Usual::Type::Example2, type: :service do
         it do
           expect { perform }.to(
             have_input(:number)
+              .valid_with(attributes)
               .types(Integer, Float, String)
               .message(be_a(Proc))
               .required

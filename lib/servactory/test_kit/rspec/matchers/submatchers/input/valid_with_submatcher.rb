@@ -93,21 +93,59 @@ module Servactory
               # Checks that service fails with wrong type.
               #
               # @return [Boolean] True if type validation fails as expected
-              def failure_type_passes? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-                option_types = attribute_data.fetch(:types)
+              def failure_type_passes?
+                wrong_value = Servactory::TestKit::FakeType.new
 
                 prepared_attributes = attributes.dup
-                prepared_attributes[attribute_name] = Servactory::TestKit::FakeType.new
+                prepared_attributes[attribute_name] = wrong_value
 
-                input_required_message = I18n.t(
+                expect_failure_with!(prepared_attributes, type_error_message_for(wrong_value))
+              end
+
+              # Builds the message expected for a value of wrong type.
+              #
+              # Uses the custom message from `type: { is:, message: }` if provided,
+              # otherwise the default message.
+              #
+              # @param value [Object] The value of wrong type
+              # @return [String] Expected error message
+              def type_error_message_for(value)
+                message = attribute_data.fetch(:type).fetch(:message)
+                expected_type = attribute_data.fetch(:types).join(", ")
+                given_type = value.class.name
+
+                return default_type_error_message(expected_type:, given_type:) if message.blank?
+                return message unless message.is_a?(Proc)
+
+                call_type_message(message, value:, expected_type:, given_type:)
+              end
+
+              # Calls a Proc type message with the keyword arguments the library passes.
+              #
+              # @param message [Proc] The custom type message
+              # @param arguments [Hash] The value, expected type and given type
+              # @return [String] The message built by the Proc
+              def call_type_message(message, **arguments)
+                message.call(
+                  service: described_class.send(:new).send(:servactory_service_info),
+                  input: attribute_data.fetch(:actor),
+                  **arguments
+                )
+              end
+
+              # Builds the default message for a value of wrong type.
+              #
+              # @param expected_type [String] Expected type names
+              # @param given_type [String] Name of the given value's class
+              # @return [String] Default error message
+              def default_type_error_message(expected_type:, given_type:)
+                I18n.t(
                   "#{i18n_root_key}.inputs.validations.type.default_error.default",
                   service_class_name: described_class.name,
                   input_name: attribute_name,
-                  expected_type: option_types.join(", "),
-                  given_type: Servactory::TestKit::FakeType.new.class.name
+                  expected_type:,
+                  given_type:
                 )
-
-                expect_failure_with!(prepared_attributes, input_required_message)
               end
 
               # Checks that required validation fails when input is nil.

@@ -45,6 +45,7 @@ RSpec.describe Usual::Type::Example1, type: :service do
         it do
           expect { perform }.to(
             have_input(:number)
+              .valid_with(attributes)
               .types(Integer, Float, String)
               .message("Input `number` must be an Integer, a Float or a String")
               .required
@@ -146,6 +147,7 @@ RSpec.describe Usual::Type::Example1, type: :service do
         it do
           expect { perform }.to(
             have_input(:number)
+              .valid_with(attributes)
               .types(Integer, Float, String)
               .message("Input `number` must be an Integer, a Float or a String")
               .required
