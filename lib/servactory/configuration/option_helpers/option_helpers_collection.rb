@@ -97,7 +97,8 @@ module Servactory
         #
         # @param helper [Maintenance::Options::Helper] the helper to register
         # @return [Symbol] `:registered`, `:skipped` when this very helper is
-        #   already registered, `:reserved` when the name belongs to a built-in helper,
+        #   already registered (the name then counts as registered by this collection
+        #   itself), `:reserved` when the name belongs to a built-in helper,
         #   or `:duplicated` when this collection already registered the name itself
         #   since it was created or duplicated
         def register(helper)
@@ -118,8 +119,11 @@ module Servactory
 
         # Registers a helper under its name, raising when the name is rejected.
         #
-        # Follows `register`: re-adding this very helper is a no-op, and a helper
-        # registered before duplication may be replaced once.
+        # Follows `register`: a helper registered before duplication may be
+        # replaced once. Re-adding this very helper leaves the helpers unchanged
+        # but still counts as this collection registering the name itself, so
+        # after re-adding an inherited helper a different helper with that name
+        # raises instead of replacing it.
         #
         # @param helper [Maintenance::Options::Helper] the helper to register
         # @return [OptionHelpersCollection] self
@@ -139,6 +143,12 @@ module Servactory
         # Registers every helper of the given enumerables in order with `<<`.
         #
         # Helpers preceding a rejected one stay registered.
+        #
+        # A built-in helper coming from another service's collection counts as
+        # a reserved name unless it is the very helper of this collection. Each
+        # service rebinds the built-in dynamic options (`consists_of`, `schema`)
+        # to its own configuration, so merging another service's whole
+        # collection raises.
         #
         # @param enums [Array<Enumerable<Maintenance::Options::Helper>>] the helpers to register
         # @return [OptionHelpersCollection] self
