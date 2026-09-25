@@ -26,6 +26,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example4, type: :service do
               .type(Class)
               .required
               .target([described_class::TargetA])
+              .message("Custom error")
           )
         end
       end
@@ -92,6 +93,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example4, type: :service do
               .type(Class)
               .required
               .target([described_class::TargetA])
+              .message("Custom error")
           )
         end
       end

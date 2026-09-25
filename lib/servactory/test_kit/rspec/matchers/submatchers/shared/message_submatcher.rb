@@ -25,8 +25,9 @@ module Servactory
             # ## Note
             #
             # Requires `requires_last_submatcher: true` - must follow another
-            # submatcher. Uses the previous submatcher's OPTION_NAME constant
-            # to find the message field.
+            # submatcher. Uses the previous submatcher's OPTION_NAME constant,
+            # or its `option_name` for options with a configurable name such as
+            # `target`, to find the message field.
             #
             # A Proc message is called with the keyword arguments the library
             # passes to it. Values known only while the service runs, such as
@@ -61,9 +62,8 @@ module Servactory
               #
               # @return [Boolean] True if messages match
               def passes?
-                last_submatcher = context.last_submatcher
-                attribute_schema = attribute_data.fetch(last_submatcher.class::OPTION_NAME)
-                @attribute_schema_is = attribute_schema.fetch(last_submatcher.class::OPTION_BODY_KEY)
+                attribute_schema = attribute_data.fetch(option_name)
+                @attribute_schema_is = attribute_schema.fetch(context.last_submatcher.class::OPTION_BODY_KEY)
                 @attribute_schema_message = attribute_schema.fetch(:message)
 
                 schema_message_equal?
@@ -179,10 +179,19 @@ module Servactory
               #
               # @return [Hash{Symbol => Object}] Option message arguments
               def option_message_arguments
-                option_name = context.last_submatcher.class::OPTION_NAME
                 return { expected_type: @attribute_schema_is.join(", ") } if option_name == :type
 
                 { option_name:, option_value: @attribute_schema_is }
+              end
+
+              # Returns the name of the option validated by the previous submatcher.
+              #
+              # @return [Symbol] Option name in attribute data
+              def option_name
+                last_submatcher = context.last_submatcher
+                return last_submatcher.option_name if last_submatcher.respond_to?(:option_name)
+
+                last_submatcher.class::OPTION_NAME
               end
             end
           end

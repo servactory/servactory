@@ -22,6 +22,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
                 [described_class::TargetA, described_class::TargetB],
                 name: :expect
               )
+              .message("Internal custom error")
           )
         end
       end
@@ -68,6 +69,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
                 [described_class::TargetA, described_class::TargetB],
                 name: :expect
               )
+              .message("Internal custom error")
           )
         end
       end

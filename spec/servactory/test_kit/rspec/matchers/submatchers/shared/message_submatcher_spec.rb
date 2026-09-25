@@ -48,8 +48,8 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
     def build_submatcher(expected_message, attribute_name:, option:, attribute_type: :input, attribute_data: nil)
       attribute_data ||= service_class.info.public_send(:"#{attribute_type}s").fetch(attribute_name)
       context_options = { attribute_type:, attribute_name:, attribute_data: }
-      option_submatcher_class, option_argument = option
-      last_submatcher = option_submatcher_class.new(submatcher_context(**context_options), option_argument)
+      option_submatcher_class, *option_arguments = option
+      last_submatcher = option_submatcher_class.new(submatcher_context(**context_options), *option_arguments)
 
       described_class.new(submatcher_context(**context_options, last_submatcher:), expected_message)
     end
@@ -171,6 +171,64 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
         )
 
         expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "with target submatcher" do
+      let(:service_class) { Usual::DynamicOptions::Target::Example4 }
+      let(:target_submatcher_class) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TargetSubmatcher }
+
+      it "returns true when the target message matches" do
+        submatcher = build_submatcher(
+          "Custom error",
+          attribute_name: :service_class,
+          option: [target_submatcher_class, :target, [service_class::TargetA]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "returns false when the target message does not match" do
+        submatcher = build_submatcher(
+          "Wrong message",
+          attribute_name: :service_class,
+          option: [target_submatcher_class, :target, [service_class::TargetA]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "passes the option name and value to a Proc message" do
+        attribute_data = service_class.info.inputs.fetch(:service_class).merge(
+          target: {
+            in: service_class::TargetA,
+            message: ->(option_name:, option_value:, **) { "#{option_name}: #{option_value.name}" }
+          }
+        )
+
+        submatcher = build_submatcher(
+          "target: Usual::DynamicOptions::Target::Example4::TargetA",
+          attribute_name: :service_class,
+          attribute_data:,
+          option: [target_submatcher_class, :target, [service_class::TargetA]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      context "when the target option has a custom name" do
+        let(:service_class) { Usual::DynamicOptions::Target::Example8 }
+
+        it "returns true when the target message matches" do
+          submatcher = build_submatcher(
+            "Internal custom error",
+            attribute_type: :internal,
+            attribute_name: :service_class,
+            option: [target_submatcher_class, :expect, [service_class::TargetA, service_class::TargetB]]
+          )
+
+          expect(submatcher.matches?(nil)).to be(true)
+        end
       end
     end
 

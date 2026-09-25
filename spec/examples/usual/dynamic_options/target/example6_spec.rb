@@ -26,6 +26,11 @@ RSpec.describe Usual::DynamicOptions::Target::Example6, type: :service do
               .type(Class)
               .required
               .target([described_class::TargetA, described_class::TargetB])
+              .message(
+                "Input `service_class`: `` is not allowed. " \
+                "Allowed: Usual::DynamicOptions::Target::Example6::TargetA, " \
+                "Usual::DynamicOptions::Target::Example6::TargetB"
+              )
           )
         end
       end
@@ -109,6 +114,11 @@ RSpec.describe Usual::DynamicOptions::Target::Example6, type: :service do
               .type(Class)
               .required
               .target([described_class::TargetA, described_class::TargetB])
+              .message(
+                "Input `service_class`: `` is not allowed. " \
+                "Allowed: Usual::DynamicOptions::Target::Example6::TargetA, " \
+                "Usual::DynamicOptions::Target::Example6::TargetB"
+              )
           )
         end
       end

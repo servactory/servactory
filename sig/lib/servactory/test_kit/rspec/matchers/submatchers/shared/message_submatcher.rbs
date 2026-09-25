@@ -40,6 +40,8 @@ module Servactory
               def message_arguments: () -> Hash[Symbol, untyped]
 
               def option_message_arguments: () -> Hash[Symbol, untyped]
+
+              def option_name: () -> Symbol
             end
           end
         end
