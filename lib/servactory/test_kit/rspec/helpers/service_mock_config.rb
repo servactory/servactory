@@ -113,17 +113,19 @@ module Servactory
 
           # Builds RSpec argument matcher from config.
           #
-          # If no matcher specified, builds one from service input names.
+          # If no matcher specified, builds one from service input definitions:
+          # required inputs must be present, optional inputs may be omitted,
+          # and unknown inputs are rejected.
           #
           # @param rspec_context [Object] The RSpec test context
           # @return [Object] RSpec argument matcher
           def build_argument_matcher(rspec_context)
             return argument_matcher if argument_matcher.present?
 
-            input_names = service_class.info.inputs.keys
-            return rspec_context.no_args if input_names.empty?
+            inputs = service_class.info.inputs
+            return rspec_context.no_args if inputs.empty?
 
-            input_names.to_h { |input_name| [input_name, rspec_context.anything] }
+            ServiceInputsMatcher.new(inputs)
           end
 
           # Creates a deep copy of this config.

@@ -177,6 +177,9 @@ module Servactory
           #
           # Inputs are automatically validated against service definition.
           #
+          # Without `.with()`, a call matches when all required inputs are present
+          # and no unknown inputs are passed; optional inputs may be omitted.
+          #
           # @param inputs_hash_or_matcher [Hash, Object] Service inputs to match or RSpec matcher
           # @return [ServiceMockBuilder] self for method chaining
           #

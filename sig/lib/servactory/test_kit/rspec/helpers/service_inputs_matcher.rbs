@@ -1,0 +1,20 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class ServiceInputsMatcher
+          @input_names: Array[Symbol]
+          @required_input_names: Array[Symbol]
+
+          def initialize: (Hash[Symbol, Hash[Symbol, untyped]] inputs) -> void
+
+          def ===: (untyped actual) -> bool
+
+          def description: () -> String
+
+          alias inspect description
+        end
+      end
+    end
+  end
+end
