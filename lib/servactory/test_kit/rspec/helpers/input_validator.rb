@@ -133,7 +133,9 @@ module Servactory
           # @raise [ValidationError] If service has required inputs
           # @return [void]
           def validate_service_has_no_required_inputs!
-            required_inputs = @service_class.info.inputs.reject { |_, v| v[:required] == false }.keys
+            required_inputs = @service_class.info.inputs.filter_map do |input_name, input|
+              input_name if input.fetch(:actor).required?
+            end
 
             return if required_inputs.empty?
 
