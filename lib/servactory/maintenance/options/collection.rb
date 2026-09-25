@@ -28,8 +28,7 @@ module Servactory
       # ## Performance
       #
       # The collection uses memoization for frequently accessed data:
-      # - `validation_classes` - cached list of unique validation classes
-      # - `options_for_checks` - cached hash for validation pipeline
+      # - `validations_for_checks` - cached tuples for validation pipeline
       # - `options_index` - cached hash for O(1) lookups by name
       #
       class Collection
@@ -76,25 +75,6 @@ module Servactory
           map(&:name)
         end
 
-        # Returns unique validation classes from all options.
-        #
-        # @return [Array<Class>] deduplicated list of validation classes
-        def validation_classes
-          @validation_classes ||=
-            filter { |option| option.validation_class.present? }
-            .map(&:validation_class)
-            .uniq
-        end
-
-        # Returns options that need validation checks as a hash.
-        #
-        # @return [Hash{Symbol => Object}] option names mapped to normalized bodies
-        def options_for_checks
-          @options_for_checks ||= filter(&:need_for_checks?).to_h do |option|
-            [option.name, extract_normalized_body_from(option:)]
-          end
-        end
-
         # Returns options that need validation checks as an array of tuples.
         # Each tuple contains [check_key, check_options, validation_class],
         # enabling direct dispatch without nested iteration.
@@ -138,8 +118,6 @@ module Servactory
         #
         # @return [void]
         def reset_memoized_caches
-          @validation_classes = nil
-          @options_for_checks = nil
           @validations_for_checks = nil
           @options_index = nil
         end

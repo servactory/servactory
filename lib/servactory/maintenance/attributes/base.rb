@@ -39,10 +39,6 @@ module Servactory
           @collection_of_options = options_registrar.collection
         end
 
-        def options_for_checks
-          @collection_of_options.options_for_checks
-        end
-
         def system_name
           @system_name ||= self.class.name.demodulize.downcase.to_sym
         end
