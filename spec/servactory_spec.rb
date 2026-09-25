@@ -39,4 +39,25 @@ RSpec.describe Servactory do
       expect(stdout).to eq("Hello, World!")
     end
   end
+
+  describe "eager loading without Rails" do
+    let(:script) do
+      <<~RUBY
+        require "servactory"
+
+        abort("Rails must not be loaded") if defined?(Rails)
+
+        Zeitwerk::Loader.eager_load_namespace(Servactory)
+
+        print defined?(Servactory::Engine).inspect
+      RUBY
+    end
+
+    it "eager loads constants without the engine", :aggregate_failures do
+      stdout, stderr, status = run_ruby(script)
+
+      expect(status).to be_success, stderr
+      expect(stdout).to eq("nil")
+    end
+  end
 end
