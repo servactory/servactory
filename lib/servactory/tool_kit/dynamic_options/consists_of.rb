@@ -217,8 +217,7 @@ module Servactory
             service_class_name: service.class_name,
             input_name: input.name,
             option_name:,
-            expected_type: Array(option_value).uniq.join(", "),
-            given_type: given_type_for(values: value, option_value:)
+            **type_names_for(attribute: input, values: value, option_value:, reason:)
           )
         end
 
@@ -240,8 +239,7 @@ module Servactory
             service_class_name: service.class_name,
             internal_name: internal.name,
             option_name:,
-            expected_type: Array(option_value).uniq.join(", "),
-            given_type: given_type_for(values: value, option_value:)
+            **type_names_for(attribute: internal, values: value, option_value:, reason:)
           )
         end
 
@@ -263,9 +261,32 @@ module Servactory
             service_class_name: service.class_name,
             output_name: output.name,
             option_name:,
-            expected_type: Array(option_value).uniq.join(", "),
-            given_type: given_type_for(values: value, option_value:)
+            **type_names_for(attribute: output, values: value, option_value:, reason:)
           )
+        end
+
+        # Builds the expected and given type names for a failure message.
+        #
+        # For `:wrong_type` the attribute itself is not of a collection type,
+        # so the configured collection types are expected and the declared
+        # attribute types are given. For other reasons the element types
+        # are compared.
+        #
+        # @param attribute [Object] The attribute being validated
+        # @param values [Object] Failed value
+        # @param option_value [Object] Expected element types
+        # @param reason [Symbol] Failure reason
+        # @return [Hash] Hash with :expected_type and :given_type keys
+        def type_names_for(attribute:, values:, option_value:, reason:)
+          if reason == :wrong_type
+            expected_type = @collection_mode_class_names.to_a.join(", ")
+            given_type = attribute.types.join(", ")
+          else
+            expected_type = Array(option_value).uniq.join(", ")
+            given_type = given_type_for(values:, option_value:)
+          end
+
+          { expected_type:, given_type: }
         end
 
         # Extracts type names of elements that don't match expected types.

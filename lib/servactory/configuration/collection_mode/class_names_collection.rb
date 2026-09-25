@@ -6,7 +6,7 @@ module Servactory
       class ClassNamesCollection
         extend Forwardable
 
-        def_delegators :@collection, :merge, :intersect?
+        def_delegators :@collection, :merge, :intersect?, :to_a
 
         def initialize(collection)
           @collection = collection

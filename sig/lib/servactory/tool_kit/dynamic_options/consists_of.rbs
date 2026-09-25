@@ -14,6 +14,8 @@ module Servactory
 
         def fails_presence_validation?: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), values: Array[untyped], consists_of_types: Array[Class]) -> bool
 
+        def type_names_for: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), values: untyped, option_value: untyped, reason: Symbol?) -> Hash[Symbol, String?]
+
         def given_type_for: (values: Array[untyped], option_value: untyped) -> String?
       end
     end
