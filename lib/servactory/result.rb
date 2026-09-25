@@ -198,10 +198,11 @@ module Servactory
 
     # Converts outputs to hash.
     #
-    # Returns all declared outputs with their values, including nil.
-    # Excludes predicate methods from the result hash.
+    # Returns only outputs that were assigned during the call, including
+    # outputs explicitly assigned nil. Declared outputs that were never
+    # assigned are absent. Excludes predicate methods from the result hash.
     #
-    # @return [Hash<Symbol, Object>] Output name-value pairs
+    # @return [Hash<Symbol, Object>] Assigned output name-value pairs
     #
     # @example
     #   result.to_h # => { user: #<User>, token: nil }
@@ -214,6 +215,7 @@ module Servactory
     # Pattern matching support.
     #
     # Returns hash of result state and output values for use with case/in.
+    # Output keys match {#to_h}: only assigned outputs are present.
     # State keys (:success, :failure, :error) take priority over output names.
     #
     # @param keys [Array<Symbol>, nil] Keys to include, or nil for all
