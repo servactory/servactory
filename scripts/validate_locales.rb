@@ -24,6 +24,8 @@ end
 
 def value_errors(name, keys)
   keys.each_with_object([]) do |(key, value), result|
+    result << "#{name}.yml: key '#{key}' has nil value" if value.nil?
+
     next unless value.is_a?(String)
 
     result << "#{name}.yml: key '#{key}' has empty value" if value.strip.empty?
@@ -31,8 +33,6 @@ def value_errors(name, keys)
     result << "#{name}.yml: key '#{key}' has unbalanced brackets" if value.count("[") != value.count("]")
 
     result << "#{name}.yml: key '#{key}' has odd number of backticks" if value.count("`").odd?
-
-    result << "#{name}.yml: key '#{key}' has nil value" if value.nil?
   end
 end
 
