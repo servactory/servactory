@@ -7,7 +7,6 @@ module Servactory
             class MustSubmatcher < Base::Submatcher
               @must_names: Array[Symbol]
               @actual_must_names: Array[Symbol]
-              @missing_must_names: Array[Symbol]
 
               def initialize: (Base::SubmatcherContext context, Array[Symbol] must_names) -> void
 

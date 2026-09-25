@@ -50,7 +50,7 @@ module Servactory
               #
               # @return [Boolean] True if must rules match (order-independent)
               def passes?
-                attribute_must = attribute_data.fetch(:must)
+                attribute_must = attribute_data[:must] || {}
                 attribute_must_keys = attribute_must.keys.dup
 
                 # NOTE: Dynamic options that are also `must` but tested separately
@@ -59,15 +59,22 @@ module Servactory
                 attribute_must_keys.delete(:be_inclusion)
                 attribute_must_keys.delete(:be_target)
 
+                @actual_must_names = attribute_must_keys
+
                 attribute_must_keys.difference(must_names).empty? &&
                   must_names.difference(attribute_must_keys).empty?
               end
 
               # Builds the failure message for must validation.
               #
-              # @return [String] Simple failure message with expected rules
+              # @return [String] Failure message with expected vs actual rules
               def build_failure_message
-                "should #{must_names.join(', ')}"
+                <<~MESSAGE
+                  should #{must_names.join(', ')}
+
+                    expected must rules: #{build_list_message(must_names)}
+                         got must rules: #{build_list_message(@actual_must_names)}
+                MESSAGE
               end
 
               private

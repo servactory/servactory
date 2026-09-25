@@ -47,6 +47,13 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
       it "returns false" do
         expect(submatcher.matches?(nil)).to be(false)
       end
+
+      it "shows the expected and the actual rules", :aggregate_failures do
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("expected must rules: be_even")
+        expect(submatcher.failure_message).to include("got must rules: be_positive")
+      end
     end
 
     context "when expected is superset of actual" do
@@ -54,6 +61,39 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::MustSu
 
       it "returns false" do
         expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "when attribute has no must rules" do
+      subject(:submatcher) { described_class.new(context_without_must, [:be_positive]) }
+
+      let(:context_without_must) do
+        Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
+          described_class: Usual::TestKit::Rspec::Matchers::MinimalInputService,
+          attribute_type: :input,
+          attribute_name: :name,
+          attribute_data: Usual::TestKit::Rspec::Matchers::MinimalInputService.info.inputs[:name],
+          i18n_root_key: "servactory"
+        )
+      end
+
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "shows that the attribute has no must rules", :aggregate_failures do
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("expected must rules: be_positive")
+        expect(submatcher.failure_message).to include("got must rules: (empty)")
+      end
+
+      it "fails the attribute matcher" do
+        matcher = Servactory::TestKit::Rspec::Matchers::HaveServiceInputMatcher
+                  .new(Usual::TestKit::Rspec::Matchers::MinimalInputService, :name)
+                  .must(:be_positive)
+
+        expect(matcher.matches?(nil)).to be(false)
       end
     end
 
