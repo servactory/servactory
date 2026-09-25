@@ -9,11 +9,13 @@ module Servactory
 
         def initialize: (?Set[Stage] collection) -> void
 
-        def <<: (Stage stage) -> Set[Stage]
+        def initialize_dup: (Collection original) -> void
+
+        def <<: (Stage stage) -> self
 
         def each: () { (Stage) -> void } -> Set[Stage]
 
-        def merge: (Set[Stage] | Collection) -> Set[Stage]
+        def merge: (Set[Stage] | Collection other) -> self
 
         def to_h: () -> Hash[untyped, untyped]
 
