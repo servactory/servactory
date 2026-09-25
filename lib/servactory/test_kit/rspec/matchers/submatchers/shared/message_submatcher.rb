@@ -23,6 +23,7 @@ module Servactory
             # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message(/Invalid/) }
             # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message(be_a(Proc)) }
             # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message(:default) }
+            # it { is_expected.to have_service_input(:age).must(:be_adult).message("Must be an adult") }
             # ```
             #
             # ## Note
@@ -32,6 +33,9 @@ module Servactory
             # or its `option_name` for options with a configurable name such as
             # `target`, to find the message field. Chaining it after a submatcher
             # without such an option raises ArgumentError.
+            #
+            # After `.must`, the must submatcher stores the expected message
+            # itself (see MustSubmatcher).
             #
             # Every `.message` in a chain is checked, each against the option
             # chained right before it:
@@ -132,7 +136,7 @@ module Servactory
                 hint = required ? " To check the required message, pass it to `required`." : ""
 
                 "`message` checks the message of the option chained right before it: chain it after " \
-                  "`type`, `consists_of`, `schema`, `inclusion` or `target`, not #{position}.#{hint}"
+                  "`type`, `consists_of`, `schema`, `inclusion`, `target` or `must`, not #{position}.#{hint}"
               end
 
               # Compares the option's message with the expected message.

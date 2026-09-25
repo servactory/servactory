@@ -74,6 +74,10 @@ module Servactory
 
             def define_chain_method_for: (SubmatcherRegistry::SubmatcherDefinition definition) -> void
 
+            def apply_chain_method: (SubmatcherRegistry::SubmatcherDefinition definition, Array[untyped] args) -> self
+
+            def expected_by_last_submatcher?: (SubmatcherRegistry::SubmatcherDefinition definition) -> bool
+
             def extract_options_hash: (Array[untyped] args, SubmatcherRegistry::SubmatcherDefinition definition) -> Hash[Symbol, untyped]
 
             def handle_mutually_exclusive: (SubmatcherRegistry::SubmatcherDefinition definition) -> void

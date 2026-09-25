@@ -31,7 +31,8 @@ module Servactory
         # - `.must(Array)` / `.must(*names, **messages)` - custom validation rules,
         #   optionally with the expected message of each rule
         # - `.target(value, name:)` - target validation
-        # - `.message(String | Regexp | matcher | :default)` - expected error message (after other chain)
+        # - `.message(String | Regexp | matcher | :default)` - expected error message (after other chain);
+        #   after `.must(:rule)` it is the expected message of that rule
         #
         # ## Architecture
         #

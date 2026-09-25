@@ -108,6 +108,64 @@ RSpec.describe "Message checks in attribute matcher chains" do # rubocop:disable
     end
   end
 
+  describe "a message after must" do
+    it "passes when the message of the rule matches" do
+      matcher = internal_matcher(:count).must(:be_positive).message("Internal attribute `count` must be positive")
+
+      expect(matcher.matches?(nil)).to be(true)
+    end
+
+    it "fails when the message of the rule does not match" do
+      matcher = internal_matcher(:count).must(:be_positive).message(/negative/)
+
+      expect(matcher.matches?(nil)).to be(false)
+    end
+
+    it "is the same as the keyed form" do
+      sugar = internal_matcher(:count).must(:be_positive).message(/positive/)
+      keyed = internal_matcher(:count).must(be_positive: /positive/)
+
+      expect(sugar.description).to eq(keyed.description)
+    end
+
+    it "is kept along with later messages of other options" do
+      matcher = internal_matcher(:count)
+                .must(:be_positive).message(/negative/)
+                .type(Integer).message(:default)
+
+      expect(matcher.matches?(nil)).to be(false)
+    end
+
+    it "is removed with a must replaced later in the chain" do
+      matcher = internal_matcher(:count).must(:be_positive).message(/negative/).must(:be_positive)
+
+      expect(matcher.matches?(nil)).to be(true)
+    end
+
+    it "raises ArgumentError when must names several rules" do
+      expect { input_matcher(:number).must(:be_even, :be_positive, :be_small).message("Number must be even") }
+        .to raise_error(
+          ArgumentError,
+          "`message` after `must` needs exactly one rule, got 3. Use the keyed form to expect a message " \
+          "for each rule, as in `must(be_even: ..., be_positive: ..., be_small: ...)`."
+        )
+    end
+
+    it "raises ArgumentError when must names no rule" do
+      expect { input_matcher(:number).must([]).message("Number must be even") }.to raise_error(
+        ArgumentError,
+        /needs exactly one rule, got 0/
+      )
+    end
+
+    it "raises ArgumentError when the rule already has an expected message" do
+      expect { internal_matcher(:count).must(be_positive: /positive/).message(:default) }.to raise_error(
+        ArgumentError,
+        "Rule `be_positive` already has an expected message"
+      )
+    end
+  end
+
   describe "must rule messages of option helpers" do
     let(:service_class) { Usual::TestKit::Rspec::Matchers::OptionHelperRulesService }
 
@@ -121,6 +179,13 @@ RSpec.describe "Message checks in attribute matcher chains" do # rubocop:disable
       expect { input_matcher(:email).must(:be_corporate, be_in_format: /format/) }.to raise_error(
         ArgumentError,
         /check the error message with `raise_error`/
+      )
+    end
+
+    it "raises ArgumentError for a message chained after must" do
+      expect { input_matcher(:title).must(:be_short).message(/too long/) }.to raise_error(
+        ArgumentError,
+        /The message of must rule `be_short` cannot be checked/
       )
     end
   end
@@ -148,7 +213,7 @@ RSpec.describe "Message checks in attribute matcher chains" do # rubocop:disable
     it "raises ArgumentError when it is first in the chain" do
       expect { input_matcher(:status).message("Status must be a Symbol") }.to raise_error(
         ArgumentError,
-        /chain it after `type`, `consists_of`, `schema`, `inclusion` or `target`, not first in the chain/
+        /chain it after `type`, `consists_of`, `schema`, `inclusion`, `target` or `must`, not first in the chain/
       )
     end
 

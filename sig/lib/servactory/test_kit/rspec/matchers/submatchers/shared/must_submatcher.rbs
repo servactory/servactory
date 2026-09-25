@@ -19,6 +19,8 @@ module Servactory
 
               def initialize: (Base::SubmatcherContext context, Array[Symbol] must_names, ?Hash[Symbol, untyped] message_expectations) -> void
 
+              def expect_message: (untyped expected) -> void
+
               def description: () -> String
 
               private
@@ -32,6 +34,8 @@ module Servactory
               def build_failure_message: () -> String
 
               def ensure_message_checkable!: (Symbol name) -> void
+
+              def several_rules_error_message: () -> String
 
               def rule_description: (Symbol name) -> String
 

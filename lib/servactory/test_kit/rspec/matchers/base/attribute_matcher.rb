@@ -49,7 +49,8 @@ module Servactory
           # - **Dynamic Chain Methods** - generated from submatcher registry
           # - **Mutual Exclusivity** - conflicting options replace each other
           # - **Attached Checks** - every `.message` checks the option chained
-          #   right before it and is removed when that option is replaced
+          #   right before it and is removed when that option is replaced;
+          #   after `.must` it becomes the expected message of the rule
           # - **Composable** - works with RSpec's compound matchers
           # - **Block Expectations** - supports `expect { }.to` syntax
           class AttributeMatcher # rubocop:disable Metrics/ClassLength
@@ -262,23 +263,14 @@ module Servactory
             # 2. Removes mutually exclusive submatchers
             # 3. Stores option_types if needed
             # 4. Builds and adds the submatcher, or attaches it to the last
-            #    submatcher if it requires one
+            #    submatcher if it requires one, unless the last submatcher
+            #    takes the arguments itself
             #
             # @param definition [SubmatcherDefinition] The submatcher definition
             # @return [void]
-            def define_chain_method_for(definition) # rubocop:disable Metrics/MethodLength
+            def define_chain_method_for(definition)
               define_singleton_method(definition.chain_method) do |*args|
-                # For methods that accept trailing options hash (like target(value, name: :option)),
-                # we need to extract it. We use a heuristic: if the method expects options AND
-                # the last arg is a Hash with Symbol keys that look like option keys.
-                options = extract_options_hash(args, definition)
-
-                handle_mutually_exclusive(definition)
-
-                @option_types = definition.transform_args.call(args, options) if definition.stores_option_types
-
-                store_submatcher(build_submatcher(definition, args, options), definition)
-                self
+                apply_chain_method(definition, args)
               end
 
               definition.chain_aliases.each do |alias_name|
@@ -286,6 +278,41 @@ module Servactory
                   public_send(definition.chain_method, *args)
                 end
               end
+            end
+
+            # Applies a call of a chain method.
+            #
+            # @param definition [SubmatcherDefinition] The submatcher definition
+            # @param args [Array] The method arguments
+            # @return [AttributeMatcher] self, for chaining
+            def apply_chain_method(definition, args)
+              # For methods that accept trailing options hash (like target(value, name: :option)),
+              # we need to extract it. We use a heuristic: if the method expects options AND
+              # the last arg is a Hash with Symbol keys that look like option keys.
+              options = extract_options_hash(args, definition)
+
+              if expected_by_last_submatcher?(definition)
+                last_submatcher.expect_message(*definition.transform_args.call(args, options))
+                return self
+              end
+
+              handle_mutually_exclusive(definition)
+
+              @option_types = definition.transform_args.call(args, options) if definition.stores_option_types
+
+              store_submatcher(build_submatcher(definition, args, options), definition)
+              self
+            end
+
+            # Checks whether the last submatcher stores the expected message itself.
+            #
+            # `.must(:rule).message(expected)` stores the expected message in the must
+            # submatcher instead of adding a message submatcher.
+            #
+            # @param definition [SubmatcherDefinition] The submatcher definition
+            # @return [Boolean] True if the last submatcher takes the expected message
+            def expected_by_last_submatcher?(definition)
+              definition.requires_last_submatcher && last_submatcher.respond_to?(:expect_message)
             end
 
             # Extracts trailing options hash from arguments if the definition accepts them.

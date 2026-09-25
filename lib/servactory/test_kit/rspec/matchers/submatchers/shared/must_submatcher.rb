@@ -22,6 +22,7 @@ module Servactory
             # it { is_expected.to have_service_input(:age).must([:be_positive, :be_adult]) }
             # it { is_expected.to have_service_input(:age).must(:be_positive, be_adult: "Must be an adult") }
             # it { is_expected.to have_service_input(:age).must(be_positive: /positive/, be_adult: :default) }
+            # it { is_expected.to have_service_input(:age).must(:be_adult).message("Must be an adult") }
             # ```
             #
             # ## Comparison
@@ -31,6 +32,10 @@ module Servactory
             # every rule of the attribute.
             #
             # ## Messages
+            #
+            # `.message` chained right after `.must` naming one rule is the same
+            # as the keyed form for that rule. After `.must` naming several
+            # rules, `.message` raises ArgumentError.
             #
             # An expected message follows the rules of `.message`: a String is
             # compared with the message exactly, a Regexp is matched against it,
@@ -90,6 +95,24 @@ module Servactory
                 message_expectations.each_key { |name| ensure_message_checkable!(name) }
               end
 
+              # Stores the message expected by `.message` chained right after `.must`.
+              #
+              # `.must(:rule).message(expected)` is the same as `.must(rule: expected)`.
+              #
+              # @param expected [String, Regexp, Symbol, Object] Expected message, `:default` or an RSpec matcher
+              # @return [void]
+              # @raise [ArgumentError] If `must` does not name exactly one rule, the rule already has
+              #   an expected message, or the message cannot be checked
+              def expect_message(expected)
+                raise ArgumentError, several_rules_error_message unless must_names.one?
+
+                name = must_names.first
+                raise ArgumentError, "Rule `#{name}` already has an expected message" if message_expectations.key?(name)
+
+                ensure_message_checkable!(name)
+                message_expectations[name] = Base::MessageExpectation.new(expected)
+              end
+
               # Returns description for RSpec output.
               #
               # @return [String] Human-readable description with rule names
@@ -139,6 +162,16 @@ module Servactory
                       "The message of must rule `#{name}` cannot be checked: an option helper generated the rule, " \
                       "and its message depends on the validated value. List the rule by name, as in " \
                       "`must(:#{name})`, and check the error message with `raise_error`."
+              end
+
+              # Builds the error message for `.message` after `.must` naming several rules.
+              #
+              # @return [String] Error message
+              def several_rules_error_message
+                keyed = must_names.map { |name| "#{name}: ..." }.join(", ")
+
+                "`message` after `must` needs exactly one rule, got #{must_names.size}. " \
+                  "Use the keyed form to expect a message for each rule, as in `must(#{keyed})`."
               end
 
               # Describes a rule name with its expected message.
