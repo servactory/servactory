@@ -51,7 +51,6 @@ module Servactory
               # @raise [ArgumentError] If the expected message is of another kind
               def initialize(context, custom_message = nil)
                 super(context)
-                @custom_message = custom_message
                 @expectation = Base::MessageExpectation.new(custom_message) unless custom_message.nil?
               end
 
@@ -86,7 +85,7 @@ module Servactory
 
               private
 
-              attr_reader :custom_message, :expectation
+              attr_reader :expectation
 
               # Checks if the input has `required: true`.
               #

@@ -80,7 +80,6 @@ module Servactory
               def initialize(context, custom_message)
                 super(context)
                 ensure_option_with_message!
-                @custom_message = custom_message
                 @expectation = Base::MessageExpectation.new(custom_message)
               end
 
@@ -112,7 +111,7 @@ module Servactory
 
               private
 
-              attr_reader :custom_message, :expectation
+              attr_reader :expectation
 
               # Ensures that the previous submatcher checks an option with a message.
               #

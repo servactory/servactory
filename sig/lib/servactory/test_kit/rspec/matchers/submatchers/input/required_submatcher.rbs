@@ -7,7 +7,6 @@ module Servactory
             class RequiredSubmatcher < Base::Submatcher
               include Concerns::RequiredMessage
 
-              @custom_message: untyped
               @expectation: Base::MessageExpectation?
               @message_mismatch: String?
 
@@ -16,8 +15,6 @@ module Servactory
               def description: () -> String
 
               private
-
-              attr_reader custom_message: untyped
 
               attr_reader expectation: Base::MessageExpectation?
 
