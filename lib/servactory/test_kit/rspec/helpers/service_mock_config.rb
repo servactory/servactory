@@ -9,9 +9,9 @@ module Servactory
         # ## Purpose
         #
         # Holds all configuration for mocking a single service call, including
-        # result type (success/failure), method type (call/call!), outputs,
-        # exceptions, and argument matchers. Used by ServiceMockBuilder and
-        # MockExecutor.
+        # result type (success/failure/pass-through), method type (call/call!),
+        # outputs, exceptions, argument matchers, and the wrap block.
+        # Used by ServiceMockBuilder and MockExecutor.
         #
         # ## Usage
         #
@@ -27,11 +27,12 @@ module Servactory
         # ## Attributes
         #
         # - `service_class` - The service class being mocked
-        # - `result_type` - :success or :failure
+        # - `result_type` - :success, :failure, :call_original, or :wrap_original
         # - `method_type` - :call or :call!
         # - `outputs` - Hash of output values
         # - `exception` - Exception for failure mocks
         # - `argument_matcher` - RSpec argument matcher or Hash
+        # - `wrap_block` - Block for :wrap_original mocks
         class ServiceMockConfig
           attr_accessor :service_class,
                         :result_type,

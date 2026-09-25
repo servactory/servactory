@@ -35,6 +35,18 @@ module Servactory
         #   .fails(CustomException, type: :base, message: "Error")
         # ```
         #
+        # Pass-through to the original service (spy pattern):
+        #
+        # ```ruby
+        # allow_service(MyService)
+        #   .and_call_original
+        #
+        # allow_service(MyService)
+        #   .and_wrap_original do |original, **inputs|
+        #     original.call(**inputs)
+        #   end
+        # ```
+        #
         # Sequential returns (first call succeeds, second fails):
         #
         # ```ruby
@@ -63,6 +75,8 @@ module Servactory
         # - **Success/Failure** - configure expected result type in one method
         # - **Exception Handling** - auto-creates exceptions with type, message, meta
         # - **Input Matching** - match specific service inputs with `.with()`
+        # - **Pass-Through** - delegate to the original service with `.and_call_original`
+        #   or `.and_wrap_original`
         # - **Sequential Responses** - different results for consecutive calls
         # - **Automatic Validation** - validates inputs and outputs against service definition
         #

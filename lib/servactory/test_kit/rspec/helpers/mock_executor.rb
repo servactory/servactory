@@ -34,6 +34,7 @@ module Servactory
         # ## Execution Strategies
         #
         # - **Single Config** - uses `and_return` or `and_raise` directly
+        # - **Pass-Through** - uses `and_call_original` or `and_wrap_original`
         # - **Sequential Returns** - uses `and_return(*values)` for multiple values
         # - **Sequential with Raises** - uses `and_invoke(*callables)` for mixed behavior
         #
@@ -153,7 +154,7 @@ module Servactory
             end
           end
 
-          # Applies return or raise behavior to a message expectation.
+          # Applies return, raise, or pass-through behavior to a message expectation.
           #
           # @param message_expectation [Object] RSpec message expectation
           # @param config [ServiceMockConfig] Configuration with result/exception

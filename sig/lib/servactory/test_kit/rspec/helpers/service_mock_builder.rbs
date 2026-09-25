@@ -6,6 +6,8 @@ module Servactory
           include Concerns::ServiceClassValidation
           include Concerns::ErrorMessages
 
+          RESULT_TYPE_TO_METHOD: Hash[Symbol, Symbol]
+
           @service_class: Class
           @rspec_context: untyped
           @config: ServiceMockConfig
