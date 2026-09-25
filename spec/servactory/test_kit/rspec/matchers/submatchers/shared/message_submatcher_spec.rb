@@ -38,6 +38,18 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
     it "includes 'message'" do
       expect(submatcher.description).to include("message")
     end
+
+    it "includes the expected message" do
+      expect(submatcher.description).to eq('message: "Config schema validation failed"')
+    end
+
+    context "when the expected message is a matcher" do
+      subject(:submatcher) { described_class.new(context, be_a(String)) }
+
+      it "includes the description of the matcher" do
+        expect(submatcher.description).to eq("message: be a kind of String")
+      end
+    end
   end
 
   describe "#matches?" do
@@ -412,11 +424,49 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
       before { submatcher.matches?(nil) }
 
       it "includes expected message" do
-        expect(submatcher.failure_message).to include("Wrong message")
+        expect(submatcher.failure_message).to include('expected "Wrong message"')
       end
 
       it "includes actual message" do
-        expect(submatcher.failure_message).to include("Config schema validation failed")
+        expect(submatcher.failure_message).to include('got "Config schema validation failed"')
+      end
+    end
+
+    context "when the message built by a Proc does not match" do
+      subject(:submatcher) do
+        described_class.new(
+          Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
+            described_class: service_class,
+            attribute_type: :input,
+            attribute_name: :ids,
+            attribute_data: service_class.info.inputs.fetch(:ids),
+            last_submatcher: consists_of_submatcher
+          ),
+          "Wrong message"
+        )
+      end
+
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
+
+      let(:consists_of_submatcher) do
+        Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::ConsistsOfSubmatcher.new(
+          Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
+            described_class: service_class,
+            attribute_type: :input,
+            attribute_name: :ids,
+            attribute_data: service_class.info.inputs.fetch(:ids)
+          ),
+          [Integer]
+        )
+      end
+
+      before { submatcher.matches?(nil) }
+
+      it "shows the expected message and the built message", :aggregate_failures do
+        expect(submatcher.failure_message).to include('expected "Wrong message"')
+        expect(submatcher.failure_message).to include(
+          'got "[Usual::TestKit::Rspec::Matchers::ProcMessageService] Input `ids` must contain Integer values"'
+        )
       end
     end
   end

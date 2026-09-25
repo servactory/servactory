@@ -53,7 +53,7 @@ module Servactory
               #
               # @return [String] Human-readable description with message
               def description
-                "message: #{@attribute_schema_message}"
+                "message: #{expected_message_description}"
               end
 
               protected
@@ -79,14 +79,23 @@ module Servactory
                 <<~MESSAGE
                   should return expected message in case of problem:
 
-                    expected #{@attribute_schema_message.inspect}
-                         got #{custom_message.inspect}
+                    expected #{expected_message_description}
+                         got #{(@built_message || @attribute_schema_message).inspect}
                 MESSAGE
               end
 
               private
 
               attr_reader :custom_message
+
+              # Describes the expected message for descriptions and failure messages.
+              #
+              # @return [String] The expected message or the description of the matcher
+              def expected_message_description
+                return custom_message.description if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
+
+                custom_message.inspect
+              end
 
               # Compares expected and actual messages with type-aware logic.
               #
@@ -122,12 +131,12 @@ module Servactory
               #
               # @return [Boolean] True if the built message matches
               def proc_message_equal?
-                built_message = call_message(@attribute_schema_message)
+                @built_message = call_message(@attribute_schema_message)
               rescue StandardError => e
                 @proc_message_error = e
                 false
               else
-                built_message.to_s.casecmp(custom_message).zero?
+                @built_message.to_s.casecmp(custom_message).zero?
               end
 
               # Builds the failure message for a Proc message that raised an error.

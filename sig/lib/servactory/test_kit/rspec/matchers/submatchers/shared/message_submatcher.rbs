@@ -16,6 +16,7 @@ module Servactory
               @attribute_schema_message: untyped
               @schema_message_equal: bool?
               @proc_message_error: StandardError?
+              @built_message: untyped
 
               def initialize: (Base::SubmatcherContext context, (String | Proc)? custom_message) -> void
 
@@ -24,6 +25,8 @@ module Servactory
               private
 
               attr_reader custom_message: (String | Proc)?
+
+              def expected_message_description: () -> String
 
               def passes?: () -> bool
 
