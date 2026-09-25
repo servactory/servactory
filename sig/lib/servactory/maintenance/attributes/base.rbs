@@ -25,6 +25,8 @@ module Servactory
 
         def register_options: (helpers: Array[untyped], options: Hash[Symbol, untyped]) -> void
 
+        def options_for_checks: () -> Hash[Symbol, untyped]
+
         def system_name: () -> Symbol
 
         def i18n_name: () -> String

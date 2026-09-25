@@ -13,6 +13,8 @@ module Servactory
         def initialize_dup: (Collection original) -> void
         def <<: (Option option) -> self
         def names: () -> Array[Symbol]
+        def validation_classes: () -> Array[Class]
+        def options_for_checks: () -> Hash[Symbol, untyped]
         def validations_for_checks: () -> Array[[Symbol, untyped, Class]]
         def defined_conflict_code: () -> Symbol?
         def find_by: (name: Symbol) -> Option?

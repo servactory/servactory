@@ -39,6 +39,11 @@ module Servactory
           @collection_of_options = options_registrar.collection
         end
 
+        # @deprecated Use collection_of_options.validations_for_checks instead.
+        def options_for_checks
+          @collection_of_options.options_for_checks
+        end
+
         def system_name
           @system_name ||= self.class.name.demodulize.downcase.to_sym
         end

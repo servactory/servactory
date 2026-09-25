@@ -75,6 +75,24 @@ module Servactory
           map(&:name)
         end
 
+        # @deprecated Use {#validations_for_checks} instead.
+        #
+        # @return [Array<Class>] deduplicated list of validation classes
+        def validation_classes
+          warn "[DEPRECATION] Servactory::Maintenance::Options::Collection#validation_classes is deprecated. " \
+               "Use #validations_for_checks instead."
+          validations_for_checks.map(&:last).uniq
+        end
+
+        # @deprecated Use {#validations_for_checks} instead.
+        #
+        # @return [Hash{Symbol => Object}] option names mapped to normalized bodies
+        def options_for_checks
+          warn "[DEPRECATION] Servactory::Maintenance::Options::Collection#options_for_checks is deprecated. " \
+               "Use #validations_for_checks instead."
+          validations_for_checks.to_h { |check_key, check_options, _| [check_key, check_options] }
+        end
+
         # Returns options that need validation checks as an array of tuples.
         # Each tuple contains [check_key, check_options, validation_class],
         # enabling direct dispatch without nested iteration.
