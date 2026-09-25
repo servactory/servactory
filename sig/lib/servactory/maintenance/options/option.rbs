@@ -19,7 +19,7 @@ module Servactory
             validation_class: Class?,
             need_for_checks: bool,
             body_fallback: (bool | Class | Hash[untyped, untyped])?,
-            ?original_value: Array[Class]?,
+            ?original_value: untyped,
             ?body_key: Symbol,
             ?body_value: (bool | Class)?,
             ?define_methods: Array[DefineMethod]?,
@@ -48,8 +48,6 @@ module Servactory
             body_fallback: (bool | Class | Hash[untyped, untyped]),
             detect_advanced_mode: bool
           ) -> untyped
-
-        def wrap_and_normalize: (untyped value) -> untyped
 
         def apply_normalizer: (untyped body) -> untyped
 

@@ -78,9 +78,10 @@ module Servactory
           create_option(
             name: :types,
             validation_class:,
-            original_value: extract_types_value,
+            original_value: @options[:type],
             need_for_checks: true,
             body_key: :is,
+            body_value: nil,
             body_fallback: nil,
             detect_advanced_mode: true,
             return_value_on_access: true,
@@ -140,17 +141,6 @@ module Servactory
             detect_advanced_mode: true,
             return_value_on_access: false
           )
-        end
-
-        def extract_types_value
-          type_option = @options[:type]
-          return nil if type_option.nil?
-
-          # Advanced Mode: type: { is: String, message: "..." }
-          return nil if type_option.is_a?(Hash) && type_option.key?(:is)
-
-          # Simple Mode: type: String or type: [String, Integer]
-          Array(type_option).uniq
         end
 
         ########################################################################
