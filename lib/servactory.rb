@@ -2,6 +2,8 @@
 
 require "zeitwerk"
 
+require "forwardable"
+
 require "stroma"
 
 require "active_support/all"
