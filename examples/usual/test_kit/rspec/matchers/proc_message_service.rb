@@ -32,6 +32,14 @@ module Usual
                   end
                 }
 
+          input :count,
+                type: {
+                  is: [Integer, Float],
+                  message: lambda do |input:, expected_type:, given_type:, **|
+                    "Input `#{input.name}` must be #{expected_type}#{", got #{given_type}" if given_type}"
+                  end
+                }
+
           internal :tags,
                    type: Array,
                    consists_of: {

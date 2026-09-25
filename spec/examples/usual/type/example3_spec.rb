@@ -57,6 +57,7 @@ RSpec.describe Usual::Type::Example3, type: :service do
           expect { perform }.to(
             have_input(:limit)
               .type(Integer)
+              .message("Input `limit` must be an Integer")
               .optional
               .default(10)
           )

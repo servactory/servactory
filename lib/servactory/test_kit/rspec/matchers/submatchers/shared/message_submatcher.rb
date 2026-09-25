@@ -17,6 +17,7 @@ module Servactory
             # ## Usage
             #
             # ```ruby
+            # it { is_expected.to have_service_input(:id).type(Integer).message("ID must be an Integer") }
             # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message("Invalid email") }
             # it { is_expected.to have_service_input(:data).schema({ key: String }).message("Invalid schema") }
             # ```
@@ -135,9 +136,21 @@ module Servactory
                   service: described_class.send(:new).send(:servactory_service_info),
                   attribute_type => attribute_data.fetch(:actor),
                   value: nil,
-                  option_name: context.last_submatcher.class::OPTION_NAME,
-                  option_value: @attribute_schema_is
+                  **option_message_arguments
                 }
+              end
+
+              # Builds the option-specific keyword arguments for Proc messages.
+              #
+              # The `type` option passes the expected types, other options
+              # pass their name and value.
+              #
+              # @return [Hash{Symbol => Object}] Option message arguments
+              def option_message_arguments
+                option_name = context.last_submatcher.class::OPTION_NAME
+                return { expected_type: @attribute_schema_is.join(", ") } if option_name == :type
+
+                { option_name:, option_value: @attribute_schema_is }
               end
             end
           end

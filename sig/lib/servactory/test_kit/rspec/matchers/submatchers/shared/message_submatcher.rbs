@@ -33,6 +33,8 @@ module Servactory
               def call_message: (Proc message) -> String
 
               def message_arguments: () -> Hash[Symbol, untyped]
+
+              def option_message_arguments: () -> Hash[Symbol, untyped]
             end
           end
         end

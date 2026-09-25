@@ -40,6 +40,7 @@ RSpec.describe Usual::Type::Example2, type: :service do
           expect { perform }.to(
             have_input(:number)
               .types(Integer, Float, String)
+              .message(be_a(Proc))
               .required
           )
         end
@@ -50,6 +51,7 @@ RSpec.describe Usual::Type::Example2, type: :service do
           expect { perform }.to(
             have_internal(:number)
               .types(Integer, Float)
+              .message(be_a(Proc))
           )
         end
       end
@@ -140,6 +142,7 @@ RSpec.describe Usual::Type::Example2, type: :service do
           expect { perform }.to(
             have_input(:number)
               .types(Integer, Float, String)
+              .message(be_a(Proc))
               .required
           )
         end
@@ -150,6 +153,7 @@ RSpec.describe Usual::Type::Example2, type: :service do
           expect { perform }.to(
             have_internal(:number)
               .types(Integer, Float)
+              .message(be_a(Proc))
           )
         end
       end

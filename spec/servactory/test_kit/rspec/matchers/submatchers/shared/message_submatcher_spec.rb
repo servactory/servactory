@@ -41,6 +41,19 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
   end
 
   describe "#matches?" do
+    def submatcher_context(**options)
+      Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(described_class: service_class, **options)
+    end
+
+    def build_submatcher(expected_message, attribute_name:, option:, attribute_type: :input, attribute_data: nil)
+      attribute_data ||= service_class.info.public_send(:"#{attribute_type}s").fetch(attribute_name)
+      context_options = { attribute_type:, attribute_name:, attribute_data: }
+      option_submatcher_class, option_argument = option
+      last_submatcher = option_submatcher_class.new(submatcher_context(**context_options), option_argument)
+
+      described_class.new(submatcher_context(**context_options, last_submatcher:), expected_message)
+    end
+
     context "when message matches exactly" do
       it "returns true" do
         expect(submatcher.matches?(nil)).to be(true)
@@ -125,22 +138,45 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
       end
     end
 
+    context "with types submatcher" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::CustomMessageService }
+      let(:types_submatcher_class) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesSubmatcher }
+
+      it "returns true when the input type message matches" do
+        submatcher = build_submatcher(
+          "Count must be an Integer",
+          attribute_name: :count,
+          option: [types_submatcher_class, [Integer]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "returns true when the internal type message matches" do
+        submatcher = build_submatcher(
+          "Total must be a number",
+          attribute_type: :internal,
+          attribute_name: :total,
+          option: [types_submatcher_class, [Integer, Float]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "returns false when the type message does not match" do
+        submatcher = build_submatcher(
+          "Wrong message",
+          attribute_name: :count,
+          option: [types_submatcher_class, [Integer]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
     context "with a Proc message" do
       let(:shared) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared }
       let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
-
-      def submatcher_context(**options)
-        Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(described_class: service_class, **options)
-      end
-
-      def build_submatcher(expected_message, attribute_name:, option:, attribute_type: :input, attribute_data: nil)
-        attribute_data ||= service_class.info.public_send(:"#{attribute_type}s").fetch(attribute_name)
-        context_options = { attribute_type:, attribute_name:, attribute_data: }
-        option_submatcher_class, option_argument = option
-        last_submatcher = option_submatcher_class.new(submatcher_context(**context_options), option_argument)
-
-        described_class.new(submatcher_context(**context_options, last_submatcher:), expected_message)
-      end
 
       it "passes the actor, the option value and a nil value" do
         submatcher = build_submatcher(
@@ -195,6 +231,16 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
           attribute_name: :status,
           attribute_data:,
           option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes the expected types for the type option" do
+        submatcher = build_submatcher(
+          "Input `count` must be Integer, Float",
+          attribute_name: :count,
+          option: [shared::TypesSubmatcher, [Integer, Float]]
         )
 
         expect(submatcher.matches?(nil)).to be(true)

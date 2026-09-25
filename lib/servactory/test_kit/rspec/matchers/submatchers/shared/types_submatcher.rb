@@ -19,6 +19,7 @@ module Servactory
             # it { is_expected.to have_service_input(:user_id).type(Integer) }
             # it { is_expected.to have_service_input(:data).types(String, Hash) }
             # it { is_expected.to have_service_internal(:result).type(Array) }
+            # it { is_expected.to have_service_input(:user_id).type(Integer).message("User ID must be an Integer") }
             # ```
             #
             # ## Comparison
@@ -26,6 +27,11 @@ module Servactory
             # Types are compared by name, sorted alphabetically. Order of types
             # in the definition doesn't matter - only the set of types must match.
             class TypesSubmatcher < Base::Submatcher
+              # Option name in attribute data
+              OPTION_NAME = :type
+              # Key for the types within the option
+              OPTION_BODY_KEY = :is
+
               # Creates a new types submatcher.
               #
               # @param context [Base::SubmatcherContext] The submatcher context

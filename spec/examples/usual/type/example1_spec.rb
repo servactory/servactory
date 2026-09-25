@@ -46,6 +46,7 @@ RSpec.describe Usual::Type::Example1, type: :service do
           expect { perform }.to(
             have_input(:number)
               .types(Integer, Float, String)
+              .message("Input `number` must be an Integer, a Float or a String")
               .required
           )
         end
@@ -56,6 +57,7 @@ RSpec.describe Usual::Type::Example1, type: :service do
           expect { perform }.to(
             have_internal(:number)
               .types(Integer, Float)
+              .message("Internal attribute `number` must be an Integer or a Float")
           )
         end
       end
@@ -145,6 +147,7 @@ RSpec.describe Usual::Type::Example1, type: :service do
           expect { perform }.to(
             have_input(:number)
               .types(Integer, Float, String)
+              .message("Input `number` must be an Integer, a Float or a String")
               .required
           )
         end
@@ -155,6 +158,7 @@ RSpec.describe Usual::Type::Example1, type: :service do
           expect { perform }.to(
             have_internal(:number)
               .types(Integer, Float)
+              .message("Internal attribute `number` must be an Integer or a Float")
           )
         end
       end
