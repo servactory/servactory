@@ -22,6 +22,7 @@ module Servactory
             # it { is_expected.to have_service_input(:data).schema({ key: String }).message("Invalid schema") }
             # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message(/Invalid/) }
             # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message(be_a(Proc)) }
+            # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message(:default) }
             # ```
             #
             # ## Note
@@ -53,6 +54,11 @@ module Servactory
             # A Proc message that raises with them or does not return a String
             # does not match, and the failure message shows the error or the
             # returned value.
+            #
+            # `:default` checks that the option defines no custom message.
+            # Without a custom message, a String or Regexp does not match:
+            # the default message of these options depends on values known
+            # only while the service runs. Check it with `raise_error` instead.
             class MessageSubmatcher < Base::Submatcher
               # Option name in attribute data (unused - uses last submatcher's)
               OPTION_NAME = :message
@@ -62,9 +68,11 @@ module Servactory
               # Creates a new message submatcher.
               #
               # @param context [Base::SubmatcherContext] The submatcher context
-              # @param custom_message [String, Regexp, Object] Expected error message or an RSpec matcher
+              # @param custom_message [String, Regexp, Symbol, Object] Expected error message, `:default`
+              #   or an RSpec matcher
               # @return [MessageSubmatcher] New submatcher instance
-              # @raise [ArgumentError] If the previous submatcher checks no option with a message
+              # @raise [ArgumentError] If the previous submatcher checks no option with a message,
+              #   or the expected message is of another kind
               def initialize(context, custom_message)
                 super(context)
                 ensure_option_with_message!
@@ -85,10 +93,8 @@ module Servactory
               #
               # @return [Boolean] True if messages match
               def passes?
-                attribute_schema = attribute_data.fetch(option_name)
-                @attribute_schema_is = attribute_schema.fetch(context.last_submatcher.class::OPTION_BODY_KEY)
-                @attribute_schema_message = attribute_schema.fetch(:message)
-                @mismatch = find_mismatch
+                attribute_schema = attribute_data[option_name]
+                @mismatch = attribute_schema.is_a?(Hash) ? find_mismatch(attribute_schema) : missing_option_explanation
 
                 @mismatch.nil?
               end
@@ -131,11 +137,23 @@ module Servactory
 
               # Compares the option's message with the expected message.
               #
+              # @param attribute_schema [Hash] The option in attribute data
               # @return [String, nil] Explanation of the mismatch, or nil if the messages match
-              def find_mismatch
-                return if custom_message.blank? || @attribute_schema_message.nil?
+              def find_mismatch(attribute_schema)
+                @attribute_schema_is = attribute_schema[context.last_submatcher.class::OPTION_BODY_KEY]
+                @attribute_schema_message = attribute_schema[:message]
 
                 expectation.mismatch_for(@attribute_schema_message) { |message| call_message(message) }
+              end
+
+              # Explains a mismatch for an attribute without the option.
+              #
+              # @return [String] Explanation of the mismatch
+              def missing_option_explanation
+                <<~MESSAGE
+                  expected #{expectation.description}
+                       got no `#{option_name}` option
+                MESSAGE
               end
 
               # Calls a Proc message with the keyword arguments it accepts.

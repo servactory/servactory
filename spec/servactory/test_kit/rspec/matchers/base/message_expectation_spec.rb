@@ -5,7 +5,25 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::MessageExpectation do
 
   let(:expected) { "Value is invalid" }
 
+  describe "#initialize" do
+    it "raises ArgumentError for nil" do
+      expect { described_class.new(nil) }.to raise_error(ArgumentError, /got nil\z/)
+    end
+
+    it "raises ArgumentError for another Symbol" do
+      expect { described_class.new(:custom) }.to raise_error(ArgumentError, /got :custom\z/)
+    end
+  end
+
   describe "#description" do
+    context "with :default" do
+      let(:expected) { :default }
+
+      it "describes the default message" do
+        expect(expectation.description).to eq("the default message")
+      end
+    end
+
     it "inspects a String" do
       expect(expectation.description).to eq('"Value is invalid"')
     end
@@ -68,6 +86,35 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::MessageExpectation do
 
       it "uses the default message when the message is blank" do
         expect(expectation.mismatch_for(nil, default_message: "Value is invalid")).to be_nil
+      end
+    end
+
+    context "without a custom message" do
+      it "explains that the default message is unknown" do
+        expect(expectation.mismatch_for(nil)).to include("got no custom message")
+      end
+
+      it "treats a blank message as no custom message" do
+        expect(expectation.mismatch_for("")).to include("got no custom message")
+      end
+
+      it "builds a Proc default message" do
+        expect(expectation.mismatch_for(nil, default_message: -> {}) { "Value is invalid" }).to be_nil
+      end
+    end
+
+    context "with :default" do
+      let(:expected) { :default }
+
+      it "returns nil without a custom message" do
+        expect(expectation.mismatch_for(nil, default_message: "Value is invalid")).to be_nil
+      end
+
+      it "explains a custom message" do
+        expect(expectation.mismatch_for("Value is invalid")).to eq(<<~MESSAGE)
+          expected the default message
+               got the custom message "Value is invalid"
+        MESSAGE
       end
     end
 

@@ -32,7 +32,7 @@ module Servactory
         # - `.inclusion(Array)` - expected inclusion values
         # - `.must(Array)` - custom validation rules
         # - `.target(value, name:)` - target validation
-        # - `.message(String | Regexp | matcher)` - expected error message (after other chain)
+        # - `.message(String | Regexp | matcher | :default)` - expected error message (after other chain)
         class HaveServiceInputMatcher < Base::AttributeMatcher
           for_attribute_type :input
 

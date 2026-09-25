@@ -153,18 +153,119 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
     end
 
     context "when expected message is nil" do
-      subject(:submatcher) { described_class.new(context, nil) }
+      it "raises ArgumentError" do
+        expect { described_class.new(context, nil) }.to raise_error(
+          ArgumentError,
+          "Expected message must be a String, a Regexp, an RSpec matcher or :default, got nil"
+        )
+      end
+    end
 
-      it "returns true (nil message skips validation)" do
-        expect(submatcher.matches?(nil)).to be(true)
+    context "when expected message is an Integer" do
+      it "raises ArgumentError" do
+        expect { described_class.new(context, 1) }.to raise_error(ArgumentError, /got 1\z/)
       end
     end
 
     context "when expected message is empty" do
       subject(:submatcher) { described_class.new(context, "") }
 
-      it "returns true (empty message skips validation)" do
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "when the default message is expected" do
+      subject(:submatcher) { described_class.new(context, :default) }
+
+      it "returns false for a custom message" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "shows the custom message in the failure message", :aggregate_failures do
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("expected the default message")
+        expect(submatcher.failure_message).to include('got the custom message "Config schema validation failed"')
+      end
+
+      it "describes the default message" do
+        expect(submatcher.description).to eq("message: the default message")
+      end
+    end
+
+    context "when the option has no custom message" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::MessagesService }
+      let(:shared) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared }
+
+      it "passes for the default message" do
+        submatcher = build_submatcher(
+          :default,
+          attribute_name: :kind,
+          option: [shared::InclusionSubmatcher, %i[primary secondary]]
+        )
+
         expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes for the default type message" do
+        submatcher = build_submatcher(:default, attribute_name: :kind, option: [shared::TypesSubmatcher, [Symbol]])
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "fails for a String" do
+        submatcher = build_submatcher(
+          "[Usual::TestKit::Rspec::Matchers::MessagesService] Wrong value in `kind`",
+          attribute_name: :kind,
+          option: [shared::InclusionSubmatcher, %i[primary secondary]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "fails for a Regexp" do
+        submatcher = build_submatcher(/kind/, attribute_name: :kind, option: [shared::TypesSubmatcher, [Symbol]])
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "explains that the default message depends on values known only while the service runs", :aggregate_failures do
+        submatcher = build_submatcher(/kind/, attribute_name: :kind, option: [shared::TypesSubmatcher, [Symbol]])
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("got no custom message")
+        expect(submatcher.failure_message).to include("depends on values known only while the service runs")
+        expect(submatcher.failure_message).to include("Use `message(:default)`")
+        expect(submatcher.failure_message).to include("`raise_error`")
+      end
+
+      it "applies an RSpec matcher to the missing message" do
+        submatcher = build_submatcher(
+          be_a(Proc),
+          attribute_name: :kind,
+          option: [shared::InclusionSubmatcher, %i[primary secondary]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "when the attribute has no such option" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::MessagesService }
+      let(:shared) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared }
+
+      it "returns false" do
+        submatcher = build_submatcher(:default, attribute_name: :kind, option: [shared::SchemaSubmatcher, {}])
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "shows the missing option in the failure message" do
+        submatcher = build_submatcher(:default, attribute_name: :kind, option: [shared::SchemaSubmatcher, {}])
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("got no `schema` option")
       end
     end
 

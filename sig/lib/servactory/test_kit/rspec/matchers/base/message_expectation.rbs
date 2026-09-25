@@ -4,6 +4,8 @@ module Servactory
       module Matchers
         module Base
           class MessageExpectation
+            DEFAULT: Symbol
+
             @expected: untyped
 
             attr_reader expected: untyped
@@ -12,9 +14,13 @@ module Servactory
 
             def description: () -> String
 
-            def mismatch_for: (untyped message, ?default_message: String?) ?{ (Proc message) -> untyped } -> String?
+            def mismatch_for: (untyped message, ?default_message: (String | Proc)?) ?{ (Proc message) -> untyped } -> String?
 
             private
+
+            def default?: () -> bool
+
+            def default_mismatch_for: (untyped message) -> String?
 
             def matcher?: () -> bool
 
@@ -25,6 +31,8 @@ module Servactory
             def text_matches?: (String text) -> bool
 
             def diff_explanation: (untyped actual) -> String
+
+            def runtime_default_explanation: () -> String
 
             def proc_error_explanation: (StandardError error) -> String
           end

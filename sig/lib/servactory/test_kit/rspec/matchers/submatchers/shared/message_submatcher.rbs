@@ -34,7 +34,9 @@ module Servactory
 
               def option_with_message_error_message: (Base::Submatcher? last_submatcher) -> String
 
-              def find_mismatch: () -> String?
+              def find_mismatch: (Hash[Symbol, untyped] attribute_schema) -> String?
+
+              def missing_option_explanation: () -> String
 
               def call_message: (Proc message) -> String
 

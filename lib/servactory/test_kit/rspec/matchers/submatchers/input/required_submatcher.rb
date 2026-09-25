@@ -19,6 +19,7 @@ module Servactory
             # it { is_expected.to have_service_input(:user_id).required }
             # it { is_expected.to have_service_input(:name).required("Name is mandatory") }
             # it { is_expected.to have_service_input(:name).required(/is mandatory/) }
+            # it { is_expected.to have_service_input(:name).required(:default) }
             # ```
             #
             # ## Validation
@@ -28,7 +29,11 @@ module Servactory
             #
             # The expected message follows the rules of `.message`: a String is
             # compared with the message exactly, a Regexp is matched against it,
-            # and an RSpec matcher is applied to the message as defined.
+            # an RSpec matcher is applied to the message as defined, and
+            # `:default` checks that the input defines no custom message.
+            # The default required message does not depend on the given value,
+            # so a String or Regexp is compared with it when there is no
+            # custom message.
             #
             # A Proc message is called with the keyword arguments the library
             # passes to it: `service:`, `input:` and `value:`, which is `nil`.
@@ -38,12 +43,14 @@ module Servactory
               # Creates a new required submatcher.
               #
               # @param context [Base::SubmatcherContext] The submatcher context
-              # @param custom_message [String, Regexp, Object, nil] Optional expected error message or an RSpec matcher
+              # @param custom_message [String, Regexp, Symbol, Object, nil] Optional expected error message,
+              #   `:default` or an RSpec matcher
               # @return [RequiredSubmatcher] New submatcher instance
+              # @raise [ArgumentError] If the expected message is of another kind
               def initialize(context, custom_message = nil)
                 super(context)
                 @custom_message = custom_message
-                @expectation = Base::MessageExpectation.new(custom_message)
+                @expectation = Base::MessageExpectation.new(custom_message) unless custom_message.nil?
               end
 
               # Returns description for RSpec output.
@@ -60,7 +67,7 @@ module Servactory
               # @return [Boolean] True if input is required with matching message
               def passes?
                 return false unless required?
-                return true unless custom_message.present?
+                return true if expectation.nil?
 
                 @message_mismatch = find_message_mismatch
                 @message_mismatch.nil?

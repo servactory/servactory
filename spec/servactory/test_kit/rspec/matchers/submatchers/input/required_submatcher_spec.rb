@@ -79,6 +79,30 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Require
         end
       end
 
+      context "when the default message is expected" do
+        let(:expected_message) { :default }
+
+        it "returns true for an input without a custom message" do
+          expect(submatcher.matches?(nil)).to be(true)
+        end
+      end
+
+      context "when the expected message is nil" do
+        let(:expected_message) { nil }
+
+        it "does not check the message" do
+          expect(submatcher.matches?(nil)).to be(true)
+        end
+      end
+
+      context "when the expected message is of another kind" do
+        let(:expected_message) { 1 }
+
+        it "raises ArgumentError" do
+          expect { submatcher }.to raise_error(ArgumentError, /must be a String, a Regexp, an RSpec matcher/)
+        end
+      end
+
       context "when the default message differs only in case" do
         let(:expected_message) do
           "[usual::testkit::rspec::matchers::minimalinputservice] required input `email` is missing"
@@ -149,6 +173,20 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Require
 
         it "returns true" do
           expect(submatcher.matches?(nil)).to be(true)
+        end
+      end
+
+      context "when the default message is expected" do
+        let(:expected_message) { :default }
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "shows the custom message in the failure message" do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include("got the custom message #<Proc:")
         end
       end
 

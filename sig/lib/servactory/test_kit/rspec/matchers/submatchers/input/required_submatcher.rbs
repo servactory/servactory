@@ -6,7 +6,7 @@ module Servactory
           module Input
             class RequiredSubmatcher < Base::Submatcher
               @custom_message: untyped
-              @expectation: Base::MessageExpectation
+              @expectation: Base::MessageExpectation?
               @message_mismatch: String?
 
               def initialize: (Base::SubmatcherContext context, ?untyped custom_message) -> void
@@ -17,7 +17,7 @@ module Servactory
 
               attr_reader custom_message: untyped
 
-              attr_reader expectation: Base::MessageExpectation
+              attr_reader expectation: Base::MessageExpectation?
 
               def passes?: () -> bool
 
