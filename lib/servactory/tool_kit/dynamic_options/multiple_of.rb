@@ -93,10 +93,16 @@ module Servactory
       # ## Important Notes
       #
       # - Divisor must be a non-zero Numeric
-      # - Uses epsilon comparison for floating point precision
+      # - Integer, Rational and BigDecimal operands are checked exactly
+      # - Float operands are accepted when the remainder is within a relative
+      #   epsilon tolerance of zero or of the divisor
       # - Returns false for non-numeric values
       # - Provides specific error messages for blank and zero divisors
       class MultipleOf < Must
+        # Relative tolerance for Float remainders, scaled by the larger operand.
+        FLOAT_TOLERANCE = Float::EPSILON * 2
+        private_constant :FLOAT_TOLERANCE
+
         # Creates a MultipleOf validator instance.
         #
         # @param option_name [Symbol] The option name (default: :multiple_of)
@@ -148,12 +154,29 @@ module Servactory
             return false unless option.value.is_a?(Numeric)
             return false if option.value.zero?
 
-            # Calculate remainder with epsilon tolerance for floats.
-            remainder = value % option.value
-            remainder.zero? || remainder.abs < Float::EPSILON * [value.abs, option.value.abs].max
+            multiple_of?(value, option.value)
           else
             false
           end
+        end
+
+        # Checks whether value is a multiple of divisor.
+        #
+        # Exact for Integer, Rational and BigDecimal operands. When either
+        # operand is a Float, a remainder within the relative tolerance of
+        # zero or of the divisor counts as a multiple.
+        #
+        # @param value [Numeric] Value to check
+        # @param divisor [Numeric] Non-zero divisor
+        # @return [Boolean] true if value is multiple of divisor
+        def multiple_of?(value, divisor)
+          remainder = (value % divisor).abs
+          return true if remainder.zero?
+          return false unless value.is_a?(Float) || divisor.is_a?(Float)
+          return false unless remainder.finite? && divisor.finite?
+
+          tolerance = FLOAT_TOLERANCE * [value.abs, divisor.abs].max
+          remainder <= tolerance || divisor.abs - remainder <= tolerance
         end
 
         ########################################################################
