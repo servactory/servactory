@@ -30,7 +30,8 @@ module Servactory
             #
             # A Proc message is called with the keyword arguments the library
             # passes to it. Values known only while the service runs, such as
-            # `value:`, are `nil`.
+            # `value:`, are `nil`. A Proc message that raises with them does
+            # not match, and the failure message shows the error.
             class MessageSubmatcher < Base::Submatcher
               # Option name in attribute data (unused - uses last submatcher's)
               OPTION_NAME = :message
@@ -73,6 +74,7 @@ module Servactory
               # @return [String] Failure message with expected vs actual message
               def build_failure_message
                 return "" if schema_message_equal?
+                return proc_message_error_failure_message unless @proc_message_error.nil?
 
                 <<~MESSAGE
                   should return expected message in case of problem:
@@ -91,7 +93,7 @@ module Servactory
               # Handles RSpec matchers, Procs, and plain strings.
               #
               # @return [Boolean] True if messages match
-              def schema_message_equal? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/PerceivedComplexity
+              def schema_message_equal? # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
                 @schema_message_equal ||= begin
                   if custom_message.present? && !@attribute_schema_message.nil?
                     if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
@@ -100,7 +102,7 @@ module Servactory
                         .to(custom_message)
                       true
                     elsif @attribute_schema_message.is_a?(Proc)
-                      call_message(@attribute_schema_message).casecmp(custom_message).zero?
+                      proc_message_equal?
                     else
                       @attribute_schema_message.casecmp(custom_message).zero?
                     end
@@ -110,6 +112,36 @@ module Servactory
                 rescue RSpec::Expectations::ExpectationNotMetError
                   false
                 end
+              end
+
+              # Compares the message built by the attribute's Proc with the expected message.
+              #
+              # A Proc raising an error, for example because it uses a value known
+              # only while the service runs, does not match. The error is kept
+              # for the failure message.
+              #
+              # @return [Boolean] True if the built message matches
+              def proc_message_equal?
+                built_message = call_message(@attribute_schema_message)
+              rescue StandardError => e
+                @proc_message_error = e
+                false
+              else
+                built_message.casecmp(custom_message).zero?
+              end
+
+              # Builds the failure message for a Proc message that raised an error.
+              #
+              # @return [String] Failure message with the expected message and the error
+              def proc_message_error_failure_message
+                <<~MESSAGE
+                  should return expected message in case of problem:
+
+                    could not build the Proc message to compare with #{custom_message.inspect}:
+                      #{@proc_message_error.class}: #{@proc_message_error.message}
+
+                    The Proc receives nil for keywords known only while the service runs, such as `value:`.
+                MESSAGE
               end
 
               # Calls a Proc message with the keyword arguments it accepts.

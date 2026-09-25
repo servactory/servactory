@@ -256,6 +256,69 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
 
         expect(submatcher.matches?(nil)).to be(true)
       end
+
+      context "when the Proc raises with a value known only at validation time" do
+        subject(:submatcher) do
+          build_submatcher(
+            "Input `status` got ACTIVE",
+            attribute_name: :status,
+            attribute_data:,
+            option: [shared::InclusionSubmatcher, %i[active inactive]]
+          )
+        end
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:status).merge(
+            inclusion: {
+              in: %i[active inactive],
+              message: ->(input:, value:, **) { "Input `#{input.name}` got #{value.upcase}" }
+            }
+          )
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "describes the error in the failure message", :aggregate_failures do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include(
+            'could not build the Proc message to compare with "Input `status` got ACTIVE"'
+          )
+          expect(submatcher.failure_message).to include("NoMethodError: undefined method 'upcase' for nil")
+        end
+      end
+
+      context "when the Proc raises ArgumentError" do
+        subject(:submatcher) do
+          build_submatcher(
+            "Input `status` is invalid",
+            attribute_name: :status,
+            attribute_data:,
+            option: [shared::InclusionSubmatcher, %i[active inactive]]
+          )
+        end
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:status).merge(
+            inclusion: {
+              in: %i[active inactive],
+              message: ->(input) { "Input `#{input.name}` is invalid" }
+            }
+          )
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "describes the error in the failure message" do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include("ArgumentError: wrong number of arguments")
+        end
+      end
     end
   end
 
