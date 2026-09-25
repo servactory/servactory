@@ -1,0 +1,35 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Base
+          class MessageExpectation
+            @expected: untyped
+
+            attr_reader expected: untyped
+
+            def initialize: (untyped expected) -> void
+
+            def description: () -> String
+
+            def mismatch_for: (untyped message, ?default_message: String?) ?{ (Proc message) -> untyped } -> String?
+
+            private
+
+            def matcher?: () -> bool
+
+            def matcher_mismatch_for: (untyped message) -> String?
+
+            def text_mismatch_for: (untyped message) ?{ (Proc message) -> untyped } -> String?
+
+            def text_matches?: (String text) -> bool
+
+            def diff_explanation: (untyped actual) -> String
+
+            def proc_error_explanation: (StandardError error) -> String
+          end
+        end
+      end
+    end
+  end
+end

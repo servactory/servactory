@@ -5,17 +5,19 @@ module Servactory
         module Submatchers
           module Input
             class RequiredSubmatcher < Base::Submatcher
-              @custom_message: String?
-              @actual_message: untyped
-              @message_error: StandardError?
+              @custom_message: untyped
+              @expectation: Base::MessageExpectation
+              @message_mismatch: String?
 
-              def initialize: (Base::SubmatcherContext context, ?String? custom_message) -> void
+              def initialize: (Base::SubmatcherContext context, ?untyped custom_message) -> void
 
               def description: () -> String
 
               private
 
-              attr_reader custom_message: String?
+              attr_reader custom_message: untyped
+
+              attr_reader expectation: Base::MessageExpectation
 
               def passes?: () -> bool
 
@@ -23,13 +25,11 @@ module Servactory
 
               def required?: () -> bool
 
-              def message_equal?: () -> bool
+              def find_message_mismatch: () -> String?
 
-              def actual_message: () -> untyped
+              def call_message: (Proc message) -> untyped
 
               def not_required_failure_message: () -> String
-
-              def message_error_failure_message: () -> String
 
               def default_required_message: () -> String
             end

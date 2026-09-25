@@ -46,6 +46,7 @@ require_relative "matchers/concerns/error_message_builder"
 require_relative "matchers/concerns/value_comparison"
 
 # Base classes (loaded after concerns)
+require_relative "matchers/base/message_expectation"
 require_relative "matchers/base/submatcher_context"
 require_relative "matchers/base/submatcher"
 require_relative "matchers/base/submatcher_registry"

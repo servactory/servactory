@@ -25,14 +25,14 @@ module Servactory
         # ## Chain Methods
         #
         # - `.type(Class)` / `.types(Class, ...)` - expected type(s)
-        # - `.required` / `.optional` - required status
+        # - `.required` / `.optional` - required status, `.required(message)` also checks the message
         # - `.default(value)` - expected default value
         # - `.consists_of(Class)` - for Array/Hash element types
         # - `.schema(Hash)` - expected schema definition
         # - `.inclusion(Array)` - expected inclusion values
         # - `.must(Array)` - custom validation rules
         # - `.target(value, name:)` - target validation
-        # - `.message(String)` - expected error message (after other chain)
+        # - `.message(String | Regexp | matcher)` - expected error message (after other chain)
         class HaveServiceInputMatcher < Base::AttributeMatcher
           for_attribute_type :input
 

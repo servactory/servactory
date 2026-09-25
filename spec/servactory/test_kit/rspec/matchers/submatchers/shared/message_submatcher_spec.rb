@@ -77,11 +77,65 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
       end
     end
 
-    context "when message matches case-insensitively" do
+    context "when message differs only in case" do
       subject(:submatcher) { described_class.new(context, "CONFIG SCHEMA VALIDATION FAILED") }
+
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "when message is a part of the actual message" do
+      subject(:submatcher) { described_class.new(context, "Config schema") }
+
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "when a Regexp matches the message" do
+      subject(:submatcher) { described_class.new(context, /schema validation/) }
 
       it "returns true" do
         expect(submatcher.matches?(nil)).to be(true)
+      end
+    end
+
+    context "when a Regexp does not match the message" do
+      subject(:submatcher) { described_class.new(context, /\Aschema/) }
+
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "shows the Regexp and the actual message in the failure message", :aggregate_failures do
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("expected /\\Aschema/")
+        expect(submatcher.failure_message).to include('got "Config schema validation failed"')
+      end
+    end
+
+    context "when an RSpec matcher matches the message" do
+      subject(:submatcher) { described_class.new(context, a_string_starting_with("Config")) }
+
+      it "returns true" do
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+    end
+
+    context "when an RSpec matcher does not match the message" do
+      subject(:submatcher) { described_class.new(context, be_a(Proc)) }
+
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "shows the matcher and the actual message in the failure message", :aggregate_failures do
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("expected be a kind of Proc")
+        expect(submatcher.failure_message).to include('got "Config schema validation failed"')
       end
     end
 
@@ -306,6 +360,36 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
         expect(submatcher.matches?(nil)).to be(true)
       end
 
+      it "matches a Regexp against the built message" do
+        submatcher = build_submatcher(
+          /must be one of \[:active, :inactive\]/,
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "compares the built message exactly" do
+        submatcher = build_submatcher(
+          "input `status` must be one of [:active, :inactive], got nil",
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "applies an RSpec matcher to the Proc" do
+        submatcher = build_submatcher(
+          be_a(Proc),
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
       it "passes the expected types for the type option" do
         submatcher = build_submatcher(
           "Input `count` must be Integer, Float",
@@ -381,6 +465,36 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
         end
 
         it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "shows the returned value in the failure message" do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include("got nil, which is not a String")
+        end
+      end
+
+      context "when the Proc returns a Symbol" do
+        subject(:submatcher) do
+          build_submatcher(
+            /invalid/,
+            attribute_name: :status,
+            attribute_data:,
+            option: [shared::InclusionSubmatcher, %i[active inactive]]
+          )
+        end
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:status).merge(
+            inclusion: {
+              in: %i[active inactive],
+              message: ->(**) { :invalid }
+            }
+          )
+        end
+
+        it "does not match a Regexp" do
           expect(submatcher.matches?(nil)).to be(false)
         end
       end

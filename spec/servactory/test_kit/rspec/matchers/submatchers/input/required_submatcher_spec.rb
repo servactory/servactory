@@ -79,6 +79,32 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Require
         end
       end
 
+      context "when the default message differs only in case" do
+        let(:expected_message) do
+          "[usual::testkit::rspec::matchers::minimalinputservice] required input `email` is missing"
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+      end
+
+      context "when a Regexp matches the default message" do
+        let(:expected_message) { /Required input `email`/ }
+
+        it "returns true" do
+          expect(submatcher.matches?(nil)).to be(true)
+        end
+      end
+
+      context "when a Regexp does not match the default message" do
+        let(:expected_message) { /is required/ }
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+      end
+
       context "when the default message does not match" do
         let(:expected_message) { "Input `email` is missing" }
 
@@ -116,6 +142,30 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Input::Require
 
       it "passes the service, the input and a nil value" do
         expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      context "when a Regexp matches the built message" do
+        let(:expected_message) { /is required, got nil\z/ }
+
+        it "returns true" do
+          expect(submatcher.matches?(nil)).to be(true)
+        end
+      end
+
+      context "when an RSpec matcher is expected" do
+        let(:expected_message) { be_a(Proc) }
+
+        it "applies the matcher to the Proc" do
+          expect(submatcher.matches?(nil)).to be(true)
+        end
+      end
+
+      context "when an RSpec matcher does not match the Proc" do
+        let(:expected_message) { a_string_including("is required") }
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
       end
 
       context "when the built message does not match" do

@@ -30,7 +30,7 @@ module Servactory
         # - `.inclusion(Array)` - expected inclusion values
         # - `.must(Array)` - custom validation rules
         # - `.target(value, name:)` - target validation
-        # - `.message(String)` - expected error message (after other chain)
+        # - `.message(String | Regexp | matcher)` - expected error message (after other chain)
         #
         # ## Architecture
         #

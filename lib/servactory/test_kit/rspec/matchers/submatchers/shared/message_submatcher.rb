@@ -20,6 +20,8 @@ module Servactory
             # it { is_expected.to have_service_input(:id).type(Integer).message("ID must be an Integer") }
             # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message("Invalid email") }
             # it { is_expected.to have_service_input(:data).schema({ key: String }).message("Invalid schema") }
+            # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message(/Invalid/) }
+            # it { is_expected.to have_service_input(:email).inclusion(%w[a b]).message(be_a(Proc)) }
             # ```
             #
             # ## Note
@@ -29,10 +31,16 @@ module Servactory
             # or its `option_name` for options with a configurable name such as
             # `target`, to find the message field.
             #
+            # A String is compared with the message exactly, a Regexp is matched
+            # against it, and an RSpec matcher is applied to the message as
+            # defined, for example to check that it is a Proc.
+            #
             # A Proc message is called with the keyword arguments the library
-            # passes to it. Values known only while the service runs, such as
-            # `value:`, are `nil`. A Proc message that raises with them does
-            # not match, and the failure message shows the error.
+            # passes to it before a String or Regexp comparison. Values known
+            # only while the service runs, such as `value:`, are `nil`.
+            # A Proc message that raises with them or does not return a String
+            # does not match, and the failure message shows the error or the
+            # returned value.
             class MessageSubmatcher < Base::Submatcher
               # Option name in attribute data (unused - uses last submatcher's)
               OPTION_NAME = :message
@@ -42,18 +50,19 @@ module Servactory
               # Creates a new message submatcher.
               #
               # @param context [Base::SubmatcherContext] The submatcher context
-              # @param custom_message [String] Expected error message
+              # @param custom_message [String, Regexp, Object] Expected error message or an RSpec matcher
               # @return [MessageSubmatcher] New submatcher instance
               def initialize(context, custom_message)
                 super(context)
                 @custom_message = custom_message
+                @expectation = Base::MessageExpectation.new(custom_message)
               end
 
               # Returns description for RSpec output.
               #
               # @return [String] Human-readable description with message
               def description
-                "message: #{expected_message_description}"
+                "message: #{expectation.description}"
               end
 
               protected
@@ -65,92 +74,29 @@ module Servactory
                 attribute_schema = attribute_data.fetch(option_name)
                 @attribute_schema_is = attribute_schema.fetch(context.last_submatcher.class::OPTION_BODY_KEY)
                 @attribute_schema_message = attribute_schema.fetch(:message)
+                @mismatch = find_mismatch
 
-                schema_message_equal?
+                @mismatch.nil?
               end
 
               # Builds the failure message for message validation.
               #
               # @return [String] Failure message with expected vs actual message
               def build_failure_message
-                return "" if schema_message_equal?
-                return proc_message_error_failure_message unless @proc_message_error.nil?
-
-                <<~MESSAGE
-                  should return expected message in case of problem:
-
-                    expected #{expected_message_description}
-                         got #{(@built_message || @attribute_schema_message).inspect}
-                MESSAGE
+                "should return expected message in case of problem:\n\n#{@mismatch.indent(2)}"
               end
 
               private
 
-              attr_reader :custom_message
+              attr_reader :custom_message, :expectation
 
-              # Describes the expected message for descriptions and failure messages.
+              # Compares the option's message with the expected message.
               #
-              # @return [String] The expected message or the description of the matcher
-              def expected_message_description
-                return custom_message.description if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
+              # @return [String, nil] Explanation of the mismatch, or nil if the messages match
+              def find_mismatch
+                return if custom_message.blank? || @attribute_schema_message.nil?
 
-                custom_message.inspect
-              end
-
-              # Compares expected and actual messages with type-aware logic.
-              #
-              # Handles RSpec matchers, Procs, and plain strings.
-              #
-              # @return [Boolean] True if messages match
-              def schema_message_equal? # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
-                @schema_message_equal ||= begin
-                  if custom_message.present? && !@attribute_schema_message.nil?
-                    if custom_message.is_a?(RSpec::Matchers::BuiltIn::BaseMatcher)
-                      RSpec::Expectations::ValueExpectationTarget
-                        .new(@attribute_schema_message)
-                        .to(custom_message)
-                      true
-                    elsif @attribute_schema_message.is_a?(Proc)
-                      proc_message_equal?
-                    else
-                      @attribute_schema_message.casecmp(custom_message).zero?
-                    end
-                  else
-                    true
-                  end
-                rescue RSpec::Expectations::ExpectationNotMetError
-                  false
-                end
-              end
-
-              # Compares the message built by the attribute's Proc with the expected message.
-              #
-              # A Proc raising an error, for example because it uses a value known
-              # only while the service runs, does not match. The error is kept
-              # for the failure message.
-              #
-              # @return [Boolean] True if the built message matches
-              def proc_message_equal?
-                @built_message = call_message(@attribute_schema_message)
-              rescue StandardError => e
-                @proc_message_error = e
-                false
-              else
-                @built_message.to_s.casecmp(custom_message).zero?
-              end
-
-              # Builds the failure message for a Proc message that raised an error.
-              #
-              # @return [String] Failure message with the expected message and the error
-              def proc_message_error_failure_message
-                <<~MESSAGE
-                  should return expected message in case of problem:
-
-                    could not build the Proc message to compare with #{custom_message.inspect}:
-                      #{@proc_message_error.class}: #{@proc_message_error.message}
-
-                    The Proc may receive nil for keywords known only while the service runs, such as `value:`.
-                MESSAGE
+                expectation.mismatch_for(@attribute_schema_message) { |message| call_message(message) }
               end
 
               # Calls a Proc message with the keyword arguments it accepts.

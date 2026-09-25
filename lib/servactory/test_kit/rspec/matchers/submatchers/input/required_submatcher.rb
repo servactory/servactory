@@ -18,12 +18,17 @@ module Servactory
             # ```ruby
             # it { is_expected.to have_service_input(:user_id).required }
             # it { is_expected.to have_service_input(:name).required("Name is mandatory") }
+            # it { is_expected.to have_service_input(:name).required(/is mandatory/) }
             # ```
             #
             # ## Validation
             #
             # Checks the `:required` option in attribute data where `is: true`.
             # If a custom message is provided, also validates the message matches.
+            #
+            # The expected message follows the rules of `.message`: a String is
+            # compared with the message exactly, a Regexp is matched against it,
+            # and an RSpec matcher is applied to the message as defined.
             #
             # A Proc message is called with the keyword arguments the library
             # passes to it: `service:`, `input:` and `value:`, which is `nil`.
@@ -33,11 +38,12 @@ module Servactory
               # Creates a new required submatcher.
               #
               # @param context [Base::SubmatcherContext] The submatcher context
-              # @param custom_message [String, nil] Optional expected error message
+              # @param custom_message [String, Regexp, Object, nil] Optional expected error message or an RSpec matcher
               # @return [RequiredSubmatcher] New submatcher instance
               def initialize(context, custom_message = nil)
                 super(context)
                 @custom_message = custom_message
+                @expectation = Base::MessageExpectation.new(custom_message)
               end
 
               # Returns description for RSpec output.
@@ -56,7 +62,8 @@ module Servactory
                 return false unless required?
                 return true unless custom_message.present?
 
-                message_equal?
+                @message_mismatch = find_message_mismatch
+                @message_mismatch.nil?
               end
 
               # Builds the failure message for required validation.
@@ -64,19 +71,13 @@ module Servactory
               # @return [String] Failure message with expected vs actual
               def build_failure_message
                 return not_required_failure_message unless required?
-                return message_error_failure_message unless @message_error.nil?
 
-                <<~MESSAGE
-                  should be required with the expected message
-
-                    expected #{custom_message.inspect}
-                         got #{@actual_message.inspect}
-                MESSAGE
+                "should be required with the expected message\n\n#{@message_mismatch.indent(2)}"
               end
 
               private
 
-              attr_reader :custom_message
+              attr_reader :custom_message, :expectation
 
               # Checks if the input has `required: true`.
               #
@@ -87,32 +88,23 @@ module Servactory
 
               # Compares the message of the required option with the expected message.
               #
-              # A Proc message raising an error does not match. The error is kept
-              # for the failure message.
-              #
-              # @return [Boolean] True if the message is a String matching the expected message
-              def message_equal?
-                @actual_message = actual_message
-              rescue StandardError => e
-                @message_error = e
-                false
-              else
-                @actual_message.is_a?(String) && @actual_message.casecmp(custom_message).zero?
-              end
-
-              # Builds the message the library uses for a missing required value.
-              #
               # Uses the custom message from `required: { message: }` if provided,
               # otherwise the default message. A Proc message is called with the
               # keyword arguments the library passes to it.
               #
-              # @return [Object] The message, a String unless a Proc message returns another object
-              def actual_message
-                message = attribute_data.fetch(:required).fetch(:message)
+              # @return [String, nil] Explanation of the mismatch, or nil if the messages match
+              def find_message_mismatch
+                expectation.mismatch_for(
+                  attribute_data.fetch(:required).fetch(:message),
+                  default_message: default_required_message
+                ) { |message| call_message(message) }
+              end
 
-                return default_required_message if message.blank?
-                return message unless message.is_a?(Proc)
-
+              # Calls a Proc message with the keyword arguments the library passes to it.
+              #
+              # @param message [Proc] The custom message
+              # @return [Object] The message built by the Proc
+              def call_message(message)
                 message.call(
                   service: described_class.send(:new).send(:servactory_service_info),
                   input: attribute_data.fetch(:actor),
@@ -129,20 +121,6 @@ module Servactory
 
                     expected required: true
                          got required: false
-                MESSAGE
-              end
-
-              # Builds the failure message for a Proc message that raised an error.
-              #
-              # @return [String] Failure message with the expected message and the error
-              def message_error_failure_message
-                <<~MESSAGE
-                  should be required with the expected message
-
-                    could not build the Proc message to compare with #{custom_message.inspect}:
-                      #{@message_error.class}: #{@message_error.message}
-
-                    The Proc receives nil for `value:`, which is known only while the service runs.
                 MESSAGE
               end
 
