@@ -12,7 +12,7 @@ module Servactory
           @rspec_context: untyped
           @config: ServiceMockConfig
           @sequential_configs: Array[ServiceMockConfig]
-          @message_expectation: untyped
+          @stub: MockExecutor::Stub?
 
           attr_reader service_class: Class
           attr_reader config: ServiceMockConfig

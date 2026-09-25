@@ -4,18 +4,20 @@ module Servactory
   module TestKit
     module Rspec
       module Helpers
-        # RSpec argument matcher for inputs accepted by a service.
+        # Argument list matcher for inputs accepted by a service.
         #
         # ## Purpose
         #
         # Default argument matcher for service mocks configured without `.with()`.
         # A call matches when every required input is present and no undeclared
-        # inputs are passed. Optional inputs may be omitted. Input values are
-        # not constrained.
+        # inputs are passed. Optional inputs may be omitted, so a call without
+        # arguments matches when the service has no required inputs. Input values
+        # are not constrained.
         #
         # ## Usage
         #
-        # Built internally by ServiceMockConfig when no argument matcher is set:
+        # Built internally by ServiceMockConfig when no argument matcher is set
+        # and applied to every call by ServiceInputsGuard:
         #
         # ```ruby
         # allow_service(MyService).succeeds(result: "ok")
@@ -36,14 +38,18 @@ module Servactory
             end
           end
 
-          # Checks whether the argument contains acceptable service inputs.
+          # Checks whether the call arguments contain acceptable service inputs.
           #
-          # @param actual [Object] The argument the service was called with
+          # @param arguments [Array<Object>] The arguments the service was called with
           # @return [Boolean] True if all required inputs are present and no unknown inputs are passed
-          def ===(actual)
-            actual.is_a?(Hash) &&
-              @required_input_names.all? { |input_name| actual.key?(input_name) } &&
-              actual.each_key.all? { |input_name| @input_names.include?(input_name) }
+          def args_match?(*arguments)
+            return @required_input_names.empty? if arguments.empty?
+            return false unless arguments.one? && arguments.first.is_a?(Hash)
+
+            inputs = arguments.first
+
+            @required_input_names.all? { |input_name| inputs.key?(input_name) } &&
+              inputs.each_key.all? { |input_name| @input_names.include?(input_name) }
           end
 
           # Describes the matcher for RSpec failure messages.

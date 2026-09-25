@@ -119,7 +119,7 @@ module Servactory
             @config = ServiceMockConfig.new(service_class:)
             @config.method_type = method_type
             @sequential_configs = []
-            @message_expectation = nil
+            @stub = nil
           end
 
           # ============================================================
@@ -486,16 +486,16 @@ module Servactory
           #
           # @return [void]
           def execute_mock
-            @message_expectation = mock_executor.execute(@message_expectation)
+            @stub = mock_executor.execute(@stub)
           end
 
           # Applies the current argument matcher to the registered stub.
           #
           # @return [void]
           def update_mock_arguments
-            return if @message_expectation.nil?
+            return if @stub.nil?
 
-            mock_executor.update_arguments(@message_expectation)
+            mock_executor.update_arguments(@stub)
           end
 
           # Builds an executor for the current configs.

@@ -84,6 +84,13 @@ module Servactory
             result_type == :wrap_original
           end
 
+          # Checks if this is a pass-through mock.
+          #
+          # @return [Boolean] True if result_type is :call_original or :wrap_original
+          def pass_through?
+            call_original? || wrap_original?
+          end
+
           # Checks if this mocks the .call! method.
           #
           # @return [Boolean] True if method_type is :call!
@@ -114,19 +121,27 @@ module Servactory
 
           # Builds RSpec argument matcher from config.
           #
-          # If no matcher specified, builds one from service input definitions:
-          # required inputs must be present, optional inputs may be omitted,
-          # and unknown inputs are rejected.
+          # If no matcher specified, any arguments are accepted by RSpec
+          # and verified against the matcher from #build_inputs_matcher.
           #
           # @param rspec_context [Object] The RSpec test context
           # @return [Object] RSpec argument matcher
           def build_argument_matcher(rspec_context)
             return argument_matcher if argument_matcher.present?
 
-            inputs = service_class.info.inputs
-            return rspec_context.no_args if inputs.empty?
+            rspec_context.any_args
+          end
 
-            ServiceInputsMatcher.new(inputs)
+          # Builds matcher of service inputs used when no argument matcher is specified.
+          #
+          # Required inputs must be present, optional inputs may be omitted,
+          # and unknown inputs are rejected.
+          #
+          # @return [ServiceInputsMatcher, nil] Inputs matcher, or nil if an argument matcher is specified
+          def build_inputs_matcher
+            return if argument_matcher.present?
+
+            ServiceInputsMatcher.new(service_class.info.inputs)
           end
 
           # Creates a deep copy of this config.

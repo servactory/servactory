@@ -25,11 +25,13 @@ module Servactory
           def failure?: () -> bool
           def call_original?: () -> bool
           def wrap_original?: () -> bool
+          def pass_through?: () -> bool
           def bang_method?: () -> bool
           def result_type_defined?: () -> bool
 
           def build_result: () -> Servactory::TestKit::Result
           def build_argument_matcher: (untyped rspec_context) -> untyped
+          def build_inputs_matcher: () -> ServiceInputsMatcher?
           def dup: () -> ServiceMockConfig
         end
       end

@@ -24,17 +24,23 @@ module Servactory
         #   configs: [config1, config2],
         #   rspec_context: self
         # )
-        # message_expectation = executor.execute
+        # stub = executor.execute
         #
         # # After configs change
-        # executor.execute(message_expectation)
-        # executor.update_arguments(message_expectation)
+        # executor.execute(stub)
+        # executor.update_arguments(stub)
         # ```
+        #
+        # ## Argument Matching
+        #
+        # - **With `.with()`** - RSpec matches the arguments against the configured matcher
+        # - **Without `.with()`** - RSpec accepts any arguments, and ServiceInputsGuard
+        #   verifies them against the service inputs before the stub responds
         #
         # ## Execution Strategies
         #
         # - **Single Config** - uses `and_return` or `and_raise` directly
-        # - **Pass-Through** - uses `and_call_original` or `and_wrap_original`
+        # - **Pass-Through** - uses `and_wrap_original` to call the original or the wrap block
         # - **Sequential Returns** - uses `and_return(*values)` for multiple values
         # - **Sequential with Raises** - uses `and_invoke(*callables)` for mixed behavior
         #
@@ -44,8 +50,23 @@ module Servactory
         # - ServiceMockConfig - provides configuration for each stub
         # - ServiceMockBuilder - creates executor with configs
         # - ExceptionValidator - validates exceptions of the configs
+        # - ServiceInputsGuard - verifies inputs of calls accepted with any arguments
         # - RSpec Context - provides allow/receive/etc. methods
         class MockExecutor
+          # Registered RSpec stub and the guard verifying the inputs it receives.
+          #
+          # @!attribute [r] message_expectation
+          #   @return [RSpec::Mocks::MessageExpectation] The RSpec stub
+          # @!attribute [r] inputs_guard
+          #   @return [ServiceInputsGuard] The guard called by the stub implementation
+          Stub = Data.define(:message_expectation, :inputs_guard)
+
+          CALL_ORIGINAL = lambda do |original, *arguments, &block|
+            original.call(*arguments, &block)
+          end.ruby2_keywords
+
+          private_constant :CALL_ORIGINAL
+
           # Creates a new mock executor.
           #
           # @param service_class [Class] The Servactory service class to stub
@@ -62,29 +83,32 @@ module Servactory
           # Validates all configs first, then applies the argument matcher and
           # the appropriate return behavior (single or sequential).
           #
-          # @param message_expectation [RSpec::Mocks::MessageExpectation, nil] Stub to reconfigure
-          # @return [RSpec::Mocks::MessageExpectation] The configured stub
+          # @param stub [Stub, nil] Stub to reconfigure
+          # @return [Stub] The configured stub
           # @raise [ArgumentError] If any config is invalid
-          def execute(message_expectation = nil)
+          def execute(stub = nil)
             validate_configs!
 
-            message_expectation = stub_or_update_arguments(message_expectation)
+            stub = stub.nil? ? register_stub : update_arguments(stub)
 
             if sequential?
-              apply_sequential_behavior(message_expectation)
+              apply_sequential_behavior(stub.message_expectation)
             else
-              apply_return_behavior(message_expectation, @configs.first)
+              apply_return_behavior(stub, @configs.first)
             end
 
-            message_expectation
+            stub
           end
 
-          # Replaces the argument matcher of a registered stub.
+          # Replaces the argument matcher of a registered stub
+          # and the inputs matcher of its guard.
           #
-          # @param message_expectation [RSpec::Mocks::MessageExpectation] Stub to update
-          # @return [RSpec::Mocks::MessageExpectation] The updated stub
-          def update_arguments(message_expectation)
-            message_expectation.with(argument_matcher)
+          # @param stub [Stub] Stub to update
+          # @return [Stub] The updated stub
+          def update_arguments(stub)
+            stub.message_expectation.with(argument_matcher)
+            stub.inputs_guard.inputs_matcher = @configs.first.build_inputs_matcher
+            stub
           end
 
           private
@@ -96,16 +120,29 @@ module Servactory
             @configs.size > 1
           end
 
-          # Registers a new stub or updates the arguments of an existing one.
+          # Registers a new stub constrained by the argument matcher.
           #
-          # @param message_expectation [RSpec::Mocks::MessageExpectation, nil] Existing stub
-          # @return [RSpec::Mocks::MessageExpectation] The stub constrained by the argument matcher
-          def stub_or_update_arguments(message_expectation)
-            return update_arguments(message_expectation) unless message_expectation.nil?
+          # Return behaviors run after the guard, which is registered as the stub
+          # implementation. Pass-through behaviors replace the stub implementation,
+          # so they call the guard themselves.
+          #
+          # @return [Stub] The registered stub
+          def register_stub
+            inputs_guard = ServiceInputsGuard.new(service_class: @service_class, method_type:)
+            implementation = ->(*arguments) { inputs_guard.verify!(arguments) } unless @configs.first.pass_through?
 
-            @rspec_context.allow(@service_class).to(
-              @rspec_context.receive(@configs.first.method_type).with(argument_matcher)
+            message_expectation = @rspec_context.allow(@service_class).to(
+              @rspec_context.receive(method_type, &implementation)
             )
+
+            update_arguments(Stub.new(message_expectation:, inputs_guard:))
+          end
+
+          # Returns the stubbed method shared by all configs.
+          #
+          # @return [Symbol] :call or :call!
+          def method_type
+            @configs.first.method_type
           end
 
           # Builds the argument matcher shared by all configs.
@@ -153,21 +190,40 @@ module Servactory
             end
           end
 
-          # Applies return, raise, or pass-through behavior to a message expectation.
+          # Applies return, raise, or pass-through behavior to a stub.
           #
-          # @param message_expectation [Object] RSpec message expectation
+          # @param stub [Stub] The stub to configure
           # @param config [ServiceMockConfig] Configuration with result/exception
           # @return [void]
-          def apply_return_behavior(message_expectation, config)
-            if config.call_original?
-              message_expectation.and_call_original
-            elsif config.wrap_original?
-              message_expectation.and_wrap_original(&wrap_with_keyword_inputs(config.wrap_block))
+          def apply_return_behavior(stub, config)
+            message_expectation = stub.message_expectation
+
+            if config.pass_through?
+              message_expectation.and_wrap_original(&build_pass_through(stub.inputs_guard, config))
             elsif config.failure? && config.bang_method?
               message_expectation.and_raise(config.exception)
             else
               message_expectation.and_return(config.build_result)
             end
+          end
+
+          # Builds the and_wrap_original block for a pass-through config.
+          #
+          # Verifies the received inputs, then delegates to the original method
+          # or to the wrap block.
+          #
+          # @param inputs_guard [ServiceInputsGuard] Guard of the stub
+          # @param config [ServiceMockConfig] Pass-through configuration
+          # @return [Proc] Block for RSpec's and_wrap_original
+          def build_pass_through(inputs_guard, config)
+            delegate = config.wrap_original? ? wrap_with_keyword_inputs(config.wrap_block) : CALL_ORIGINAL
+
+            pass_through = lambda do |original, *arguments, &block|
+              inputs_guard.verify!(arguments)
+              delegate.call(original, *arguments, &block)
+            end
+
+            pass_through.ruby2_keywords
           end
 
           # Adapts a wrap block to receive service inputs as keywords.
@@ -176,7 +232,7 @@ module Servactory
           # the wrap block receives them as keywords in both cases.
           #
           # @param wrap_block [Proc] Block given to and_wrap_original
-          # @return [Proc] Block for RSpec's and_wrap_original
+          # @return [Proc] Wrap block receiving the inputs as keywords
           def wrap_with_keyword_inputs(wrap_block)
             lambda do |original, *arguments, &block|
               if arguments.one? && arguments.first.is_a?(Hash)

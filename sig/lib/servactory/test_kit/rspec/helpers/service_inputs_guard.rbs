@@ -1,0 +1,24 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class ServiceInputsGuard
+          @service_class: Class
+          @method_type: Symbol
+          @inputs_matcher: ServiceInputsMatcher?
+
+          attr_accessor inputs_matcher: ServiceInputsMatcher?
+
+          def initialize: (service_class: Class, method_type: Symbol) -> void
+
+          def verify!: (Array[untyped] arguments) -> void
+
+          private
+
+          def unexpected_arguments_message: (Array[untyped] arguments) -> String
+          def format_arguments: (Array[untyped] arguments) -> String
+        end
+      end
+    end
+  end
+end

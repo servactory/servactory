@@ -8,7 +8,7 @@ module Servactory
 
           def initialize: (Hash[Symbol, Hash[Symbol, untyped]] inputs) -> void
 
-          def ===: (untyped actual) -> bool
+          def args_match?: (*untyped arguments) -> bool
 
           def description: () -> String
 

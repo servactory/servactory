@@ -12,43 +12,37 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::ServiceInputsMatcher do
       end
     end
 
-    describe "#===" do
-      subject { arguments }
-
-      context "with only required inputs" do
-        let(:arguments) { { user_id: 1 } }
-
-        it { is_expected.to match(matcher) }
+    describe "#args_match?" do
+      it "matches only required inputs" do
+        expect(matcher.args_match?({ user_id: 1 })).to be(true)
       end
 
-      context "with required and optional inputs" do
-        let(:arguments) { { user_id: 1, locale: "en", limit: 5 } }
-
-        it { is_expected.to match(matcher) }
+      it "matches required and optional inputs" do
+        expect(matcher.args_match?({ user_id: 1, locale: "en", limit: 5 })).to be(true)
       end
 
-      context "without a required input" do
-        let(:arguments) { { locale: "en" } }
-
-        it { is_expected.not_to match(matcher) }
+      it "rejects inputs without a required input" do
+        expect(matcher.args_match?({ locale: "en" })).to be(false)
       end
 
-      context "with an unknown input" do
-        let(:arguments) { { user_id: 1, page: 2 } }
-
-        it { is_expected.not_to match(matcher) }
+      it "rejects inputs with an unknown input" do
+        expect(matcher.args_match?({ user_id: 1, page: 2 })).to be(false)
       end
 
-      context "with string keys" do
-        let(:arguments) { { "user_id" => 1 } }
-
-        it { is_expected.not_to match(matcher) }
+      it "rejects a call without arguments" do
+        expect(matcher.args_match?).to be(false)
       end
 
-      context "with a non-Hash argument" do
-        let(:arguments) { [[:user_id, 1]] }
+      it "rejects string keys" do
+        expect(matcher.args_match?({ "user_id" => 1 })).to be(false)
+      end
 
-        it { is_expected.not_to match(matcher) }
+      it "rejects a non-Hash argument" do
+        expect(matcher.args_match?([[:user_id, 1]])).to be(false)
+      end
+
+      it "rejects more than one argument" do
+        expect(matcher.args_match?({ user_id: 1 }, { locale: "en" })).to be(false)
       end
     end
 
@@ -72,25 +66,55 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::ServiceInputsMatcher do
       end
     end
 
-    describe "#===" do
-      subject { arguments }
-
-      context "without inputs" do
-        let(:arguments) { {} }
-
-        it { is_expected.to match(matcher) }
+    describe "#args_match?" do
+      it "matches a call without arguments" do
+        expect(matcher.args_match?).to be(true)
       end
 
-      context "with an unknown input" do
-        let(:arguments) { { page: 2 } }
+      it "matches an empty Hash" do
+        expect(matcher.args_match?({})).to be(true)
+      end
 
-        it { is_expected.not_to match(matcher) }
+      it "matches optional inputs" do
+        expect(matcher.args_match?({ locale: "en" })).to be(true)
+      end
+
+      it "rejects an unknown input" do
+        expect(matcher.args_match?({ page: 2 })).to be(false)
+      end
+
+      it "rejects a nil argument" do
+        expect(matcher.args_match?(nil)).to be(false)
       end
     end
 
     describe "#description" do
       it "lists no required inputs" do
         expect(matcher.description).to eq("service_inputs(required: [], optional: [:locale])")
+      end
+    end
+  end
+
+  context "when service has no inputs" do
+    let(:service_class) { Class.new(ApplicationService::Base) }
+
+    describe "#args_match?" do
+      it "matches a call without arguments" do
+        expect(matcher.args_match?).to be(true)
+      end
+
+      it "matches an empty Hash" do
+        expect(matcher.args_match?({})).to be(true)
+      end
+
+      it "rejects any input" do
+        expect(matcher.args_match?({ page: 2 })).to be(false)
+      end
+    end
+
+    describe "#description" do
+      it "lists no inputs" do
+        expect(matcher.description).to eq("service_inputs(required: [], optional: [])")
       end
     end
   end
