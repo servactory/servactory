@@ -45,6 +45,7 @@ require_relative "matchers/concerns/attribute_data_access"
 require_relative "matchers/concerns/error_message_builder"
 require_relative "matchers/concerns/value_comparison"
 require_relative "matchers/concerns/option_helper_rules"
+require_relative "matchers/concerns/proc_message"
 require_relative "matchers/concerns/required_message"
 
 # Base classes (loaded after concerns)

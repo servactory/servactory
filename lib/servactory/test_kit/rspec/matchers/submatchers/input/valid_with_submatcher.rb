@@ -35,6 +35,7 @@ module Servactory
             # 5. `failure_inclusion_passes?` - fails with value outside inclusion
             # 6. `failure_target_passes?` - fails with value outside target
             class ValidWithSubmatcher < Base::Submatcher # rubocop:disable Metrics/ClassLength
+              include Concerns::ProcMessage
               include Concerns::RequiredMessage
 
               # Creates a new valid_with submatcher.
@@ -119,20 +120,7 @@ module Servactory
                 return default_type_error_message(expected_type:, given_type:) if message.blank?
                 return message unless message.is_a?(Proc)
 
-                call_message(message, value:, expected_type:, given_type:)
-              end
-
-              # Calls a Proc message with the keyword arguments the library passes.
-              #
-              # @param message [Proc] The custom message
-              # @param arguments [Hash] The option-specific arguments, such as the value
-              # @return [String] The message built by the Proc
-              def call_message(message, **arguments)
-                message.call(
-                  service: described_class.send(:new).send(:servactory_service_info),
-                  input: attribute_data.fetch(:actor),
-                  **arguments
-                )
+                call_proc_message(message, :type, value:, expected_type:, given_type:)
               end
 
               # Builds the default message for a value of wrong type.

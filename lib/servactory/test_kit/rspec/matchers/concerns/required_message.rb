@@ -31,11 +31,12 @@ module Servactory
           # - `call_required_message` - builds a Proc message
           # - `required_message` - the message used for a missing value
           module RequiredMessage
-            # Includes InstanceMethods in the including class.
+            # Includes ProcMessage and InstanceMethods in the including class.
             #
             # @param base [Class] The class including this concern
             # @return [void]
             def self.included(base)
+              base.include(ProcMessage)
               base.include(InstanceMethods)
             end
 
@@ -66,11 +67,7 @@ module Servactory
               # @param message [Proc] The custom message
               # @return [Object] The message built by the Proc
               def call_required_message(message)
-                message.call(
-                  service: described_class.send(:new).send(:servactory_service_info),
-                  input: attribute_data.fetch(:actor),
-                  value: nil
-                )
+                call_proc_message(message, :required)
               end
 
               # Builds the message the library uses for a missing required value.

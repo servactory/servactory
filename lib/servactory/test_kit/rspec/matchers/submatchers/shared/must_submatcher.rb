@@ -60,6 +60,7 @@ module Servactory
             # messages with `raise_error` instead.
             class MustSubmatcher < Base::Submatcher
               include Concerns::OptionHelperRules
+              include Concerns::ProcMessage
 
               # NOTE: Dynamic options that are also `must` but tested separately
               BUILT_IN_RULE_NAMES = %i[consists_of schema be_inclusion be_target].freeze
@@ -234,7 +235,7 @@ module Servactory
                   mismatch = expectation.mismatch_for(
                     rule_message(attribute_must.fetch(name)),
                     default_message: Servactory::Maintenance::Validations::Translator::Must.default_message
-                  ) { |message| call_message(message, code: name) }
+                  ) { |message| call_proc_message(message, :must, code: name) }
 
                   [name, mismatch] unless mismatch.nil?
                 end.to_h
@@ -246,29 +247,6 @@ module Servactory
               # @return [String, Proc, nil] The custom message
               def rule_message(rule)
                 rule.is_a?(Hash) ? rule[:message] : nil
-              end
-
-              # Calls a Proc message with the keyword arguments the library passes to it.
-              #
-              # @param message [Proc] The rule's message or the default message
-              # @param code [Symbol] The rule name
-              # @return [Object] The message built by the Proc
-              def call_message(message, code:)
-                message.call(
-                  service: service_info,
-                  attribute_type => attribute_data.fetch(:actor),
-                  value: nil,
-                  code:,
-                  reason: nil,
-                  meta: nil
-                )
-              end
-
-              # Returns the service information passed to Proc messages.
-              #
-              # @return [Object] The service information
-              def service_info
-                @service_info ||= described_class.send(:new).send(:servactory_service_info)
               end
             end
           end

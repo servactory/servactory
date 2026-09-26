@@ -6,6 +6,7 @@ module Servactory
           module Shared
             class MustSubmatcher < Base::Submatcher
               include Concerns::OptionHelperRules
+              include Concerns::ProcMessage
 
               BUILT_IN_RULE_NAMES: Array[Symbol]
 
@@ -13,7 +14,6 @@ module Servactory
               @message_expectations: Hash[Symbol, Base::MessageExpectation]
               @actual_must_names: Array[Symbol]
               @message_mismatches: Hash[Symbol, String]
-              @service_info: untyped
 
               def self.arguments_from: (Array[untyped] args) -> [Array[Symbol], Hash[Symbol, untyped]]
 
@@ -50,10 +50,6 @@ module Servactory
               def find_message_mismatches: () -> Hash[Symbol, String]
 
               def rule_message: (untyped rule) -> (String | Proc)?
-
-              def call_message: (Proc message, code: Symbol) -> untyped
-
-              def service_info: () -> untyped
             end
           end
         end
