@@ -182,7 +182,8 @@ module Servactory
                 could not build the Proc message to compare with #{description}:
                   #{error.class}: #{error.message}
 
-                The Proc may receive nil for keywords known only while the service runs, such as `value:`.
+                The Proc receives every keyword the library passes to it while the service runs,
+                with nil for values known only then, such as `value:`. Accept unused keywords with `**`.
               MESSAGE
             end
           end

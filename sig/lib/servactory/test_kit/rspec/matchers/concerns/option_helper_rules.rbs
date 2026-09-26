@@ -8,6 +8,8 @@ module Servactory
 
             def option_helper_rule?: (Symbol name) -> bool
 
+            def option_helper_rule_name: (Symbol option_name) -> Symbol?
+
             private
 
             def rule_condition: (untyped rule) -> untyped

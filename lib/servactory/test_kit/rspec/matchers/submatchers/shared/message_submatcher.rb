@@ -52,18 +52,29 @@ module Servactory
             # against it, and an RSpec matcher is applied to the message as
             # defined, for example to check that it is a Proc.
             #
-            # A Proc message is called with the keyword arguments the library
-            # passes to it before a String or Regexp comparison. Values known
-            # only while the service runs, such as `value:`, are `nil`.
-            # A Proc message that raises with them or does not return a String
-            # does not match, and the failure message shows the error or the
-            # returned value.
+            # A Proc message is called before a String or Regexp comparison with
+            # every keyword argument the library passes to it while the service
+            # runs: `service:`, the attribute (`input:`, `internal:` or
+            # `output:`) and `value:`, plus `expected_type:` and `given_type:`
+            # for `type`, or `code:`, `reason:`, `option_name:` and
+            # `option_value:` for the other options, and `key_name:`,
+            # `expected_type:` and `given_type:` for `schema` as well (see
+            # Concerns::ProcMessage). The library passes the same keywords for
+            # every failure reason of an option. Values known only while the
+            # service runs, such as `value:` and `reason:`, are `nil`.
+            # A Proc message that raises with them, for example because it does
+            # not accept every keyword, or does not return a String does not
+            # match, and the failure message shows the error or the returned
+            # value.
             #
             # `:default` checks that the option defines no custom message.
             # Without a custom message, a String or Regexp does not match:
             # the default message of these options depends on values known
             # only while the service runs. Check it with `raise_error` instead.
             class MessageSubmatcher < Base::Submatcher
+              include Concerns::OptionHelperRules
+              include Concerns::ProcMessage
+
               # Option name in attribute data (unused - uses last submatcher's)
               OPTION_NAME = :message
               # Key for the message within the option
@@ -159,44 +170,25 @@ module Servactory
                 MESSAGE
               end
 
-              # Calls a Proc message with the keyword arguments it accepts.
+              # Calls a Proc message with the keyword arguments the library passes to it.
               #
-              # Required keywords without a known value receive `nil`.
+              # `code:` is the name of the must rule the option helper generates,
+              # such as `be_inclusion`.
               #
               # @param message [Proc] The attribute's message
-              # @return [String] The message built by the Proc
+              # @return [Object] The message built by the Proc
               def call_message(message)
-                arguments = message_arguments
-                parameters = message.parameters.group_by(&:first).transform_values { |list| list.map(&:last) }
+                if option_name == :type
+                  return call_proc_message(message, :type, expected_type: @attribute_schema_is.join(", "))
+                end
 
-                keywords = parameters.fetch(:keyreq, []).to_h { |name| [name, arguments[name]] }
-                keywords.merge!(parameters.key?(:keyrest) ? arguments : arguments.slice(*parameters.fetch(:key, [])))
-
-                message.call(**keywords)
-              end
-
-              # Builds the keyword arguments the library passes to Proc messages.
-              #
-              # @return [Hash{Symbol => Object}] Message arguments
-              def message_arguments
-                {
-                  service: described_class.send(:new).send(:servactory_service_info),
-                  attribute_type => attribute_data.fetch(:actor),
-                  value: nil,
-                  **option_message_arguments
-                }
-              end
-
-              # Builds the option-specific keyword arguments for Proc messages.
-              #
-              # The `type` option passes the expected types, other options
-              # pass their name and value.
-              #
-              # @return [Hash{Symbol => Object}] Option message arguments
-              def option_message_arguments
-                return { expected_type: @attribute_schema_is.join(", ") } if option_name == :type
-
-                { option_name:, option_value: @attribute_schema_is }
+                call_proc_message(
+                  message,
+                  option_name == :schema ? :schema : :dynamic_option,
+                  code: option_helper_rule_name(option_name),
+                  option_name:,
+                  option_value: @attribute_schema_is
+                )
               end
 
               # Returns the name of the option validated by the previous submatcher.

@@ -57,6 +57,21 @@ module Servactory
                 dynamic_option_rule?(rule) || option_helper_rules.any? { |helper_rule| same_rule?(helper_rule, rule) }
               end
 
+              # Returns the name of the must rule the option helper of an option generates.
+              #
+              # The library passes it as `code:` to the Proc message of the option.
+              #
+              # @param option_name [Symbol] The option name, such as `inclusion`
+              # @return [Symbol, nil] The rule name, such as `be_inclusion`, or nil if no helper generates one
+              def option_helper_rule_name(option_name)
+                helpers = described_class.config.public_send(:"#{attribute_type}_option_helpers")
+                helper = helpers.find_by(name: option_name)
+                return if helper.nil?
+
+                rules = helper_option(helper)
+                rules[:must].keys.first if rules.is_a?(Hash) && rules[:must].is_a?(Hash)
+              end
+
               private
 
               # Returns the condition of a rule in advanced or simple mode.

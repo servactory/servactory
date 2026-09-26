@@ -5,6 +5,9 @@ module Servactory
         module Submatchers
           module Shared
             class MessageSubmatcher < Base::Submatcher
+              include Concerns::OptionHelperRules
+              include Concerns::ProcMessage
+
               OPTION_NAME: Symbol
 
               OPTION_BODY_KEY: Symbol
@@ -36,10 +39,6 @@ module Servactory
               def missing_option_explanation: () -> String
 
               def call_message: (Proc message) -> untyped
-
-              def message_arguments: () -> Hash[Symbol, untyped]
-
-              def option_message_arguments: () -> Hash[Symbol, untyped]
 
               def option_name: () -> Symbol
             end
