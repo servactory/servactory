@@ -5,6 +5,7 @@ module Servactory
         module Submatchers
           module Input
             class ValidWithSubmatcher < Base::Submatcher
+              include Concerns::OptionHelperRules
               include Concerns::ProcMessage
               include Concerns::RequiredMessage
 
@@ -37,9 +38,19 @@ module Servactory
 
               def failure_inclusion_passes?: () -> bool
 
+              def inclusion_error_message_for: (untyped value, untyped option_value) -> untyped
+
+              def default_inclusion_error_message: (value: untyped, option_value: untyped) -> String
+
               def failure_target_passes?: () -> bool
 
-              def expect_failure_with!: (Hash[Symbol, untyped] | Datory::Base prepared_attributes, (String | Symbol)? expected_message) -> bool
+              def target_error_message_for: (untyped value, untyped option_value) -> untyped
+
+              def default_target_error_message: (value: untyped, option_value: untyped) -> String
+
+              def dynamic_option_message: (untyped message, Symbol option_name, value: untyped, option_value: untyped) -> untyped
+
+              def expect_failure_with!: (Hash[Symbol, untyped] | Datory::Base prepared_attributes, untyped expected_message) -> bool
             end
           end
         end

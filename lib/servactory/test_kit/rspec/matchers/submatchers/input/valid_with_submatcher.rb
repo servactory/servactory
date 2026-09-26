@@ -35,6 +35,7 @@ module Servactory
             # 5. `failure_inclusion_passes?` - fails with value outside inclusion
             # 6. `failure_target_passes?` - fails with value outside target
             class ValidWithSubmatcher < Base::Submatcher # rubocop:disable Metrics/ClassLength
+              include Concerns::OptionHelperRules
               include Concerns::ProcMessage
               include Concerns::RequiredMessage
 
@@ -167,7 +168,7 @@ module Servactory
               # Checks that inclusion validation fails with wrong value.
               #
               # @return [Boolean] True if inclusion validation fails as expected
-              def failure_inclusion_passes? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+              def failure_inclusion_passes?
                 input_inclusion_in = attribute_data.dig(:inclusion, :in)
                 return true if input_inclusion_in.blank?
 
@@ -176,31 +177,43 @@ module Servactory
                 prepared_attributes = attributes.dup
                 prepared_attributes[attribute_name] = wrong_value
 
-                input_required_message = attribute_data.fetch(:inclusion).fetch(:message)
+                expect_failure_with!(prepared_attributes, inclusion_error_message_for(wrong_value, input_inclusion_in))
+              end
 
-                # If message is a Proc, we can't easily evaluate it in the test context
-                # (it may require runtime args like input:, value:), so skip message comparison
-                if input_required_message.is_a?(Proc)
-                  return expect_failure_with!(prepared_attributes, :skip_message_check)
-                end
+              # Builds the message expected for a value outside the inclusion set.
+              #
+              # Uses the custom message from `inclusion: { in:, message: }` if provided,
+              # otherwise the default message.
+              #
+              # @param value [Object] The value outside the inclusion set
+              # @param option_value [Range, Array, Object] The inclusion constraint
+              # @return [Object] Expected error message
+              def inclusion_error_message_for(value, option_value)
+                message = attribute_data.fetch(:inclusion).fetch(:message)
+                return default_inclusion_error_message(value:, option_value:) if message.blank?
 
-                if input_required_message.nil?
-                  input_required_message = I18n.t(
-                    "#{i18n_root_key}.inputs.validations.must.dynamic_options.inclusion.default",
-                    service_class_name: described_class.name,
-                    input_name: attribute_name,
-                    input_inclusion: input_inclusion_in.inspect,
-                    value: wrong_value.inspect
-                  )
-                end
+                dynamic_option_message(message, :inclusion, value:, option_value:)
+              end
 
-                expect_failure_with!(prepared_attributes, input_required_message)
+              # Builds the default message for a value outside the inclusion set.
+              #
+              # @param value [Object] The value outside the inclusion set
+              # @param option_value [Object] The inclusion constraint
+              # @return [String] Default error message
+              def default_inclusion_error_message(value:, option_value:)
+                I18n.t(
+                  "#{i18n_root_key}.inputs.validations.must.dynamic_options.inclusion.default",
+                  service_class_name: described_class.name,
+                  input_name: attribute_name,
+                  input_inclusion: option_value.inspect,
+                  value: value.inspect
+                )
               end
 
               # Checks that target validation fails with wrong value.
               #
               # @return [Boolean] True if target validation fails as expected
-              def failure_target_passes? # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+              def failure_target_passes?
                 input_target_in = attribute_data.dig(:target, :in)
                 return true if input_target_in.blank?
 
@@ -210,36 +223,71 @@ module Servactory
                 prepared_attributes = attributes.dup
                 prepared_attributes[attribute_name] = wrong_value
 
-                input_required_message = attribute_data.fetch(:target).fetch(:message)
+                expect_failure_with!(prepared_attributes, target_error_message_for(wrong_value, input_target_in))
+              end
 
-                # If message is a Proc, we can't easily evaluate it in the test context
-                # (it may require runtime args like input:, value:), so skip message comparison
-                if input_required_message.is_a?(Proc)
-                  return expect_failure_with!(prepared_attributes, :skip_message_check)
-                end
+              # Builds the message expected for a value outside the target set.
+              #
+              # Uses the custom message from `target: { in:, message: }` if provided,
+              # otherwise the default message.
+              #
+              # @param value [Object] The value outside the target set
+              # @param option_value [Array, Object] The target constraint
+              # @return [Object] Expected error message
+              def target_error_message_for(value, option_value)
+                message = attribute_data.fetch(:target).fetch(:message)
+                return default_target_error_message(value:, option_value:) if message.blank?
 
-                if input_required_message.nil?
-                  input_required_message = I18n.t(
-                    "#{i18n_root_key}.inputs.validations.must.dynamic_options.target.default",
-                    service_class_name: described_class.name,
-                    input_name: attribute_name,
-                    expected_target: input_target_in.inspect,
-                    value: wrong_value.inspect
-                  )
-                end
+                dynamic_option_message(message, :target, value:, option_value:)
+              end
 
-                expect_failure_with!(prepared_attributes, input_required_message)
+              # Builds the default message for a value outside the target set.
+              #
+              # @param value [Object] The value outside the target set
+              # @param option_value [Object] The target constraint
+              # @return [String] Default error message
+              def default_target_error_message(value:, option_value:)
+                I18n.t(
+                  "#{i18n_root_key}.inputs.validations.must.dynamic_options.target.default",
+                  service_class_name: described_class.name,
+                  input_name: attribute_name,
+                  expected_target: option_value.inspect,
+                  value: value.inspect
+                )
+              end
+
+              # Returns the custom message of a dynamic option as the library builds it.
+              #
+              # A Proc message is called with the keywords the library passes to it
+              # when the value is outside the option, where the failure has no reason.
+              #
+              # @param message [Proc, Object] The custom message of the option
+              # @param option_name [Symbol] The option name, such as `inclusion`
+              # @param value [Object] The value outside the option
+              # @param option_value [Object] The value of the option
+              # @return [Object] Expected error message
+              def dynamic_option_message(message, option_name, value:, option_value:)
+                return message unless message.is_a?(Proc)
+
+                call_proc_message(
+                  message,
+                  :dynamic_option,
+                  value:,
+                  code: option_helper_rule_name(option_name),
+                  reason: nil,
+                  option_name:,
+                  option_value:
+                )
               end
 
               # Calls service and verifies it fails with expected message.
               #
               # @param prepared_attributes [Hash] Attributes to pass to service
-              # @param expected_message [String, Symbol, nil] Expected error message
+              # @param expected_message [Object, nil] Expected error message
               # @return [Boolean] True if service fails with expected message
               def expect_failure_with!(prepared_attributes, expected_message)
                 described_class.call!(prepared_attributes).success?
               rescue Servactory::Exceptions::Input => e
-                return true if expected_message == :skip_message_check # Just verify error was raised
                 return false if expected_message.blank?
 
                 expected_message.to_s.casecmp(e.message.to_s).zero?
