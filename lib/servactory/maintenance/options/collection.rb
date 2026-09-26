@@ -90,7 +90,7 @@ module Servactory
         def options_for_checks
           warn "[DEPRECATION] Servactory::Maintenance::Options::Collection#options_for_checks is deprecated. " \
                "Use #validations_for_checks instead."
-          validations_for_checks.to_h { |check_key, check_options, _| [check_key, check_options] }
+          check_options_by_key
         end
 
         # Returns options that need validation checks as an array of tuples.
@@ -131,6 +131,14 @@ module Servactory
         end
 
         private
+
+        # Builds the result of the deprecated `options_for_checks` methods
+        # without emitting a deprecation warning.
+        #
+        # @return [Hash{Symbol => Object}] option names mapped to normalized bodies
+        def check_options_by_key
+          validations_for_checks.to_h { |check_key, check_options, _| [check_key, check_options] }
+        end
 
         # Resets memoized data derived from the collection contents.
         #

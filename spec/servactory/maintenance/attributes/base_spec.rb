@@ -11,11 +11,11 @@ RSpec.describe Servactory::Maintenance::Attributes::Base do
     end
 
     let(:deprecation_warning) do
-      "[DEPRECATION] Servactory::Maintenance::Options::Collection#options_for_checks is deprecated. " \
-        "Use #validations_for_checks instead.\n"
+      "[DEPRECATION] Servactory::Maintenance::Attributes::Base#options_for_checks is deprecated. " \
+        "Use collection_of_options.validations_for_checks instead.\n"
     end
 
-    it "delegates to the deprecated collection method", :aggregate_failures do
+    it "warns once about its own deprecation and returns the check options", :aggregate_failures do
       options_for_checks = nil
 
       expect { options_for_checks = input.options_for_checks }.to output(deprecation_warning).to_stderr

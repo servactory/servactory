@@ -21,6 +21,7 @@ module Servactory
 
         private
 
+        def check_options_by_key: () -> Hash[Symbol, untyped]
         def reset_memoized_caches: () -> void
         def options_index: () -> Hash[Symbol, Option]
         def extract_normalized_body_from: (option: Option) -> untyped
