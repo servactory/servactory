@@ -6,6 +6,7 @@ module Servactory
 
         @collection: Set[untyped]
         @attributes_index: Hash[Symbol, untyped]?
+        @declarations_index: Hash[Symbol, untyped]?
 
         def initialize: (?Set[untyped] collection) -> void
 
@@ -26,6 +27,8 @@ module Servactory
         private
 
         def attributes_index: () -> Hash[Symbol, untyped]
+
+        def declarations_index: () -> Hash[Symbol, untyped]
 
         def lookup_name: (untyped attribute) -> Symbol
       end
