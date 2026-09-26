@@ -23,8 +23,10 @@ module Usual
       end
     end
 
+    # The first call builds the memoized attribute and action caches.
     Example2.call(first_name: "john")
 
+    # Attributes and actions added after the call must still apply.
     class Example2
       input :last_name, type: String
 

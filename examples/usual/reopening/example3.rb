@@ -27,9 +27,11 @@ module Usual
       input :middle_name, type: String, required: false
     end
 
+    # The first calls build the memoized caches of both classes.
     Example3Base.call(first_name: "john")
     Example3.call(first_name: "john")
 
+    # Declarations added to the child after the calls must apply to it only.
     class Example3
       input :last_name, type: String
 

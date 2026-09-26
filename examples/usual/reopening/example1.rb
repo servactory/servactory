@@ -16,8 +16,10 @@ module Usual
       end
     end
 
+    # The first call builds the memoized action caches.
     Example1.call(number: 1)
 
+    # Actions and stages added after the call must still run.
     class Example1
       make :append_doubled_number
 
