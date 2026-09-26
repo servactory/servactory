@@ -29,6 +29,9 @@ module Servactory
               # Key for the target values within the option
               OPTION_BODY_KEY = :in
 
+              # @return [Symbol] The name of the target option
+              attr_reader :option_name
+
               # Creates a new target submatcher.
               #
               # @param context [Base::SubmatcherContext] The submatcher context
@@ -77,8 +80,7 @@ module Servactory
 
               private
 
-              attr_reader :option_name,
-                          :values
+              attr_reader :values
 
               # Formats values for human-readable description.
               #

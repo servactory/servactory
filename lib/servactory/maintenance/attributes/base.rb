@@ -39,8 +39,11 @@ module Servactory
           @collection_of_options = options_registrar.collection
         end
 
+        # @deprecated Use collection_of_options.validations_for_checks instead.
         def options_for_checks
-          @collection_of_options.options_for_checks
+          warn "[DEPRECATION] Servactory::Maintenance::Attributes::Base#options_for_checks is deprecated. " \
+               "Use collection_of_options.validations_for_checks instead."
+          @collection_of_options.send(:check_options_by_key)
         end
 
         def system_name

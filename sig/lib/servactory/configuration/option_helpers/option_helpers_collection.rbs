@@ -2,24 +2,38 @@ module Servactory
   module Configuration
     module OptionHelpers
       class OptionHelpersCollection
-        extend Forwardable
+        include Enumerable[Maintenance::Options::Helper]
 
-        @collection: Set[Maintenance::Options::Helper]
-        @helpers_index: Hash[Symbol, Maintenance::Options::Helper]
+        type registration_status = :registered | :skipped | :reserved | :duplicated
 
-        def initialize: (?Set[Maintenance::Options::Helper] collection) -> void
+        @helpers: Hash[Symbol, Maintenance::Options::Helper]
+        @builtin_names: Set[Symbol]
+        @own_names: Set[Symbol]
+
+        def initialize: (?Enumerable[Maintenance::Options::Helper] builtin_helpers) -> void
 
         def initialize_dup: (OptionHelpersCollection original) -> void
+
+        def each: () { (Maintenance::Options::Helper) -> void } -> self
+                | () -> Enumerator[Maintenance::Options::Helper, self]
+
+        def register: (Maintenance::Options::Helper helper) -> registration_status
+
+        def <<: (Maintenance::Options::Helper helper) -> self
+
+        def merge: (*Enumerable[Maintenance::Options::Helper] enums) -> self
 
         def dynamic_options: -> OptionHelpersCollection
 
         def find_by: (name: Symbol) -> Maintenance::Options::Helper?
 
-        def replace: (name: Symbol, with: Maintenance::Attributes::OptionHelper) -> void
+        def replace: (name: Symbol, with: Maintenance::Options::Helper) -> void
 
         private
 
-        def helpers_index: () -> Hash[Symbol, Maintenance::Options::Helper]
+        def raise_error_about_reserved_name_with: (Symbol name) -> bot
+
+        def raise_error_about_duplicated_name_with: (Symbol name) -> bot
       end
     end
   end

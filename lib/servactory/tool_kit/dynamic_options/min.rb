@@ -97,7 +97,7 @@ module Servactory
         # Creates a Min validator instance.
         #
         # @param option_name [Symbol] The option name (default: :min)
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :min)
           new(option_name).must(:be_greater_than_or_equal_to)
         end

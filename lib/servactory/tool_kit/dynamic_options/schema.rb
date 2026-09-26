@@ -129,7 +129,7 @@ module Servactory
         # @param option_name [Symbol] The option name (default: :schema)
         # @param default_hash_mode_class_names [Servactory::Configuration::HashMode::ClassNamesCollection]
         #   Valid Hash-like types
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :schema, default_hash_mode_class_names:)
           instance = new(option_name, :is, false)
           instance.assign(default_hash_mode_class_names)
@@ -187,7 +187,9 @@ module Servactory
           return true if option.value == false
 
           # Attribute type must be Hash-compatible.
-          return [false, :wrong_type] unless @default_hash_mode_class_names.intersect?(attribute.types)
+          unless @default_hash_mode_class_names.intersect?(attribute.types)
+            return [false, :wrong_type, wrong_type_meta_for(attribute:)]
+          end
 
           # Skip validation for blank optional values.
           if value.blank? && ((attribute.input? && attribute.optional?) || attribute.internal? || attribute.output?)
@@ -207,6 +209,19 @@ module Servactory
           prepare_object_with!(object: value, schema:) if is_success
 
           [is_success, reason, meta]
+        end
+
+        # Builds failure metadata for an attribute whose type is not Hash-compatible.
+        #
+        # @param attribute [Object] The attribute being validated
+        # @return [Hash] Metadata with the Hash-compatible types as expected
+        #   and the declared attribute types as given
+        def wrong_type_meta_for(attribute:)
+          {
+            key_name: nil,
+            expected_type: @default_hash_mode_class_names.to_a.join(", "),
+            given_type: attribute.types.join(", ")
+          }
         end
 
         # Recursively validates object against schema definition.
@@ -279,7 +294,7 @@ module Servactory
             return true
           end
 
-          value = object[schema_key]
+          value = object.fetch(schema_key, nil)
           prepared_value = prepare_value_from(schema_value:, value:, required: attribute_required)
 
           [
@@ -299,7 +314,7 @@ module Servactory
           required || (
             !required && !fetch_default_from(schema_value).nil?
           ) || (
-            !required && !object[schema_key].nil?
+            !required && !object.fetch(schema_key, nil).nil?
           )
         end
 
@@ -337,14 +352,13 @@ module Servactory
           schema.each do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
             required = schema_value.fetch(:required, true)
-            object_value = object[schema_key]
+            object_value = object.fetch(schema_key, nil)
 
             if attribute_type == Hash
               # Apply nested Hash defaults.
-              default_value = schema_value.fetch(:default, {})
-
-              if !required && !default_value.nil? && !Servactory::Utils.value_present?(object_value)
-                object[schema_key] = default_value
+              if !required && !Servactory::Utils.value_present?(object_value)
+                default_value = schema_value.key?(:default) ? schema_value[:default].deep_dup : {}
+                object[schema_key] = default_value unless default_value.nil?
               end
 
               # Recursively prepare nested objects.
@@ -362,7 +376,7 @@ module Servactory
 
               # Execute prepare callback if defined.
               unless (input_prepare = schema_value[:prepare]).nil?
-                object[schema_key] = input_prepare.call(value: object[schema_key])
+                object[schema_key] = input_prepare.call(value: object.fetch(schema_key, nil))
               end
 
               object

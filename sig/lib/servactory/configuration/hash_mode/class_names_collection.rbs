@@ -13,6 +13,7 @@ module Servactory
         def merge: (Array[Class] | Set[Class]) -> self
         def include?: (untyped) -> bool
         def intersect?: (Set[untyped]) -> bool
+        def to_a: () -> Array[Class]
       end
     end
   end

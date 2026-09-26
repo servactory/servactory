@@ -27,7 +27,8 @@ module Servactory
           ) -> untyped
 
           def self.build_error_message: (
-            Hash[Symbol, untyped] error_data
+            attribute: (Inputs::Input | Internals::Internal | Outputs::Output),
+            error_data: Hash[Symbol, untyped]
           ) -> String
         end
       end

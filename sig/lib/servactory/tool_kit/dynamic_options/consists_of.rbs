@@ -4,7 +4,7 @@ module Servactory
       class ConsistsOf < Must
         @collection_mode_class_names: Configuration::CollectionMode::ClassNamesCollection
 
-        def self.use: (?::Symbol option_name, collection_mode_class_names: Configuration::CollectionMode::ClassNamesCollection) -> untyped
+        def self.use: (?::Symbol option_name, collection_mode_class_names: Configuration::CollectionMode::ClassNamesCollection) -> Maintenance::Options::Helper
 
         def assign: (Configuration::CollectionMode::ClassNamesCollection collection_mode_class_names) -> Configuration::CollectionMode::ClassNamesCollection
 
@@ -13,6 +13,8 @@ module Servactory
         def validate_for!: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), values: Array[untyped], option: Must::WorkOption) -> (::Array[Symbol | bool] | bool)
 
         def fails_presence_validation?: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), values: Array[untyped], consists_of_types: Array[Class]) -> bool
+
+        def type_names_for: (attribute: (Inputs::Input | Internals::Internal | Outputs::Output), values: untyped, option_value: untyped, reason: Symbol?) -> Hash[Symbol, String?]
 
         def given_type_for: (values: Array[untyped], option_value: untyped) -> String?
       end

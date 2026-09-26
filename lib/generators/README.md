@@ -19,7 +19,7 @@ rails generate servactory:service NAME [inputs] [options]
 ```
 
 **Arguments:**
-- `NAME` — Service name (e.g., `Users::Create`, `ProcessOrder`)
+- `NAME` — Service name (e.g., `Users::Create`, `Orders::Process`)
 - `inputs` — Input attributes with optional types (e.g., `email:string name:String user:User`)
 
 **Options:**

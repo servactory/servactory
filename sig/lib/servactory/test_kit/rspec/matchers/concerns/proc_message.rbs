@@ -1,0 +1,23 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Concerns
+          module ProcMessage : Concerns::AttributeDataAccess
+            OPTION_KEYWORDS: Hash[Symbol, Array[Symbol]]
+
+            @proc_message_service_info: untyped
+
+            def call_proc_message: (Proc message, Symbol option, **untyped values) -> untyped
+
+            def proc_message_arguments: (Symbol option, **untyped values) -> Hash[Symbol, untyped]
+
+            private
+
+            def proc_message_service_info: () -> untyped
+          end
+        end
+      end
+    end
+  end
+end

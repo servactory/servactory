@@ -152,7 +152,7 @@ module Servactory
           @body_fallback = body_fallback
         end
 
-        # Creates an OptionHelper for registration with Servactory.
+        # Creates an option helper for registration with Servactory.
         #
         # @param name [Symbol] Internal validation name
         # @return [Servactory::Maintenance::Options::Helper]

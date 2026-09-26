@@ -11,6 +11,12 @@ module Servactory
 
           def initialize_dup: (Collection original) -> void
 
+          def merge!: (Hash[Symbol, Hash[Symbol, untyped]] other) -> Hash[Symbol, Hash[Symbol, untyped]]
+
+          def fetch: (Symbol name, nil) -> Hash[Symbol, untyped]?
+
+          def keys: () -> Array[Symbol]
+
           alias merge merge!
 
           def shortcuts: -> Array[Symbol]

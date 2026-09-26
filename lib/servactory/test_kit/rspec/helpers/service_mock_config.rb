@@ -9,9 +9,9 @@ module Servactory
         # ## Purpose
         #
         # Holds all configuration for mocking a single service call, including
-        # result type (success/failure), method type (call/call!), outputs,
-        # exceptions, and argument matchers. Used by ServiceMockBuilder and
-        # MockExecutor.
+        # result type (success/failure/pass-through), method type (call/call!),
+        # outputs, exceptions, argument matchers, and the wrap block.
+        # Used by ServiceMockBuilder and MockExecutor.
         #
         # ## Usage
         #
@@ -27,11 +27,12 @@ module Servactory
         # ## Attributes
         #
         # - `service_class` - The service class being mocked
-        # - `result_type` - :success or :failure
+        # - `result_type` - :success, :failure, :call_original, or :wrap_original
         # - `method_type` - :call or :call!
         # - `outputs` - Hash of output values
         # - `exception` - Exception for failure mocks
         # - `argument_matcher` - RSpec argument matcher or Hash
+        # - `wrap_block` - Block for :wrap_original mocks
         class ServiceMockConfig
           attr_accessor :service_class,
                         :result_type,
@@ -83,6 +84,13 @@ module Servactory
             result_type == :wrap_original
           end
 
+          # Checks if this is a pass-through mock.
+          #
+          # @return [Boolean] True if result_type is :call_original or :wrap_original
+          def pass_through?
+            call_original? || wrap_original?
+          end
+
           # Checks if this mocks the .call! method.
           #
           # @return [Boolean] True if method_type is :call!
@@ -113,17 +121,27 @@ module Servactory
 
           # Builds RSpec argument matcher from config.
           #
-          # If no matcher specified, builds one from service input names.
+          # If no matcher specified, any arguments are accepted by RSpec
+          # and verified against the matcher from #build_inputs_matcher.
           #
           # @param rspec_context [Object] The RSpec test context
           # @return [Object] RSpec argument matcher
           def build_argument_matcher(rspec_context)
             return argument_matcher if argument_matcher.present?
 
-            input_names = service_class.info.inputs.keys
-            return rspec_context.no_args if input_names.empty?
+            rspec_context.any_args
+          end
 
-            input_names.to_h { |input_name| [input_name, rspec_context.anything] }
+          # Builds matcher of service inputs used when no argument matcher is specified.
+          #
+          # Required inputs must be present, optional inputs may be omitted,
+          # and unknown inputs are rejected.
+          #
+          # @return [ServiceInputsMatcher, nil] Inputs matcher, or nil if an argument matcher is specified
+          def build_inputs_matcher
+            return if argument_matcher.present?
+
+            ServiceInputsMatcher.new(service_class.info.inputs)
           end
 
           # Creates a deep copy of this config.

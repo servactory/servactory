@@ -19,6 +19,9 @@ module Servactory
         #   it { is_expected.to have_service_internal(:processed_data).type(Hash) }
         #   it { is_expected.to have_service_internal(:items).type(Array).consists_of(Item) }
         #   it { is_expected.to have_service_internal(:config).schema({ key: String }) }
+        #   it { is_expected.to have_service_internal(:items).type(Array).message(/must be an Array/) }
+        #   it { is_expected.to have_service_internal(:total).must(be_positive: "Total must be positive") }
+        #   it { is_expected.to have_service_internal(:total).must(:be_positive).message(:default) }
         # end
         # ```
         #
@@ -28,9 +31,11 @@ module Servactory
         # - `.consists_of(Class)` - for Array/Hash element types
         # - `.schema(Hash)` - expected schema definition
         # - `.inclusion(Array)` - expected inclusion values
-        # - `.must(Array)` - custom validation rules
+        # - `.must(Array)` / `.must(*names, **messages)` - custom validation rules,
+        #   optionally with the expected message of each rule
         # - `.target(value, name:)` - target validation
-        # - `.message(String)` - expected error message (after other chain)
+        # - `.message(String | Regexp | matcher | :default)` - expected error message (after other chain);
+        #   after `.must(:rule)` it is the expected message of that rule
         #
         # ## Architecture
         #
@@ -72,7 +77,9 @@ module Servactory
 
           register_submatcher :must,
                               class_name: "Shared::MustSubmatcher",
-                              transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] }
+                              transform_args: (lambda do |args, _kwargs = {}|
+                                Submatchers::Shared::MustSubmatcher.arguments_from(args)
+                              end)
 
           register_submatcher :message,
                               class_name: "Shared::MessageSubmatcher",

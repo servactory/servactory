@@ -22,17 +22,38 @@ module Servactory
         # end
         # ```
         #
+        # ## Messages
+        #
+        # `.message` checks the message of the option chained right before it,
+        # `.required(message)` checks the required message, and `.must` takes
+        # the expected message of each rule by its name:
+        #
+        # ```ruby
+        # it { is_expected.to have_service_input(:status).inclusion(%w[active inactive]).message("Unknown status") }
+        # it { is_expected.to have_service_input(:status).type(String).message(:default) }
+        # it { is_expected.to have_service_input(:email).required(/is required/) }
+        # it { is_expected.to have_service_input(:age).must(:be_adult, be_positive: "Age must be positive") }
+        # it { is_expected.to have_service_input(:age).must(:be_positive).message(be_a(Proc)) }
+        # ```
+        #
+        # A String must equal the message, a Regexp must match it, an RSpec
+        # matcher is applied to the message as defined, and `:default` checks
+        # that no custom message is defined. See MessageSubmatcher and
+        # MustSubmatcher for the details.
+        #
         # ## Chain Methods
         #
         # - `.type(Class)` / `.types(Class, ...)` - expected type(s)
-        # - `.required` / `.optional` - required status
+        # - `.required` / `.optional` - required status, `.required(message)` also checks the message
         # - `.default(value)` - expected default value
         # - `.consists_of(Class)` - for Array/Hash element types
         # - `.schema(Hash)` - expected schema definition
         # - `.inclusion(Array)` - expected inclusion values
-        # - `.must(Array)` - custom validation rules
+        # - `.must(Array)` / `.must(*names, **messages)` - custom validation rules,
+        #   optionally with the expected message of each rule
         # - `.target(value, name:)` - target validation
-        # - `.message(String)` - expected error message (after other chain)
+        # - `.message(String | Regexp | matcher | :default)` - expected error message (after other chain);
+        #   after `.must(:rule)` it is the expected message of that rule
         class HaveServiceInputMatcher < Base::AttributeMatcher
           for_attribute_type :input
 
@@ -69,7 +90,9 @@ module Servactory
 
           register_submatcher :must,
                               class_name: "Shared::MustSubmatcher",
-                              transform_args: ->(args, _kwargs = {}) { [Array(args).flatten] }
+                              transform_args: (lambda do |args, _kwargs = {}|
+                                Submatchers::Shared::MustSubmatcher.arguments_from(args)
+                              end)
 
           register_submatcher :message,
                               class_name: "Shared::MessageSubmatcher",

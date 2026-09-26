@@ -8,7 +8,9 @@ module Servactory
 
       def initialize: (?Set[Action] collection) -> void
 
-      def <<: (Action action) -> Set[Action]
+      def initialize_dup: (Collection original) -> void
+
+      def <<: (Action action) -> self
 
       def each: () { (Action) -> void } -> Set[Action]
 

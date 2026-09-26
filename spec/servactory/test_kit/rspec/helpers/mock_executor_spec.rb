@@ -13,6 +13,33 @@ RSpec.describe Servactory::TestKit::Rspec::Helpers::MockExecutor, type: :service
     Class.new(ApplicationService::Base)
   end
 
+  describe "#execute" do
+    let(:registered_stub) do
+      config = Servactory::TestKit::Rspec::Helpers::ServiceMockConfig.new(
+        service_class: application_service_class
+      )
+      config.result_type = :success
+
+      described_class.new(
+        service_class: application_service_class,
+        configs: [config],
+        rspec_context:
+      ).execute
+    end
+
+    it "returns a stub that has not been invoked" do
+      expect(registered_stub).not_to be_invoked
+    end
+
+    it "returns a stub that is invoked by a call of the service" do
+      registered_stub
+
+      application_service_class.call
+
+      expect(registered_stub).to be_invoked
+    end
+  end
+
   describe "#valid_exception_type?" do
     describe "differentiated validation strategy" do
       context "when using .call (non-bang) method" do

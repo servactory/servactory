@@ -38,9 +38,34 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
     it "includes 'message'" do
       expect(submatcher.description).to include("message")
     end
+
+    it "includes the expected message" do
+      expect(submatcher.description).to eq('message: "Config schema validation failed"')
+    end
+
+    context "when the expected message is a matcher" do
+      subject(:submatcher) { described_class.new(context, be_a(String)) }
+
+      it "includes the description of the matcher" do
+        expect(submatcher.description).to eq("message: be a kind of String")
+      end
+    end
   end
 
   describe "#matches?" do
+    def submatcher_context(**options)
+      Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(described_class: service_class, **options)
+    end
+
+    def build_submatcher(expected_message, attribute_name:, option:, attribute_type: :input, attribute_data: nil)
+      attribute_data ||= service_class.info.public_send(:"#{attribute_type}s").fetch(attribute_name)
+      context_options = { attribute_type:, attribute_name:, attribute_data: }
+      option_submatcher_class, *option_arguments = option
+      last_submatcher = option_submatcher_class.new(submatcher_context(**context_options), *option_arguments)
+
+      described_class.new(submatcher_context(**context_options, last_submatcher:), expected_message)
+    end
+
     context "when message matches exactly" do
       it "returns true" do
         expect(submatcher.matches?(nil)).to be(true)
@@ -52,11 +77,65 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
       end
     end
 
-    context "when message matches case-insensitively" do
+    context "when message differs only in case" do
       subject(:submatcher) { described_class.new(context, "CONFIG SCHEMA VALIDATION FAILED") }
+
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "when message is a part of the actual message" do
+      subject(:submatcher) { described_class.new(context, "Config schema") }
+
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "when a Regexp matches the message" do
+      subject(:submatcher) { described_class.new(context, /schema validation/) }
 
       it "returns true" do
         expect(submatcher.matches?(nil)).to be(true)
+      end
+    end
+
+    context "when a Regexp does not match the message" do
+      subject(:submatcher) { described_class.new(context, /\Aschema/) }
+
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "shows the Regexp and the actual message in the failure message", :aggregate_failures do
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("expected /\\Aschema/")
+        expect(submatcher.failure_message).to include('got "Config schema validation failed"')
+      end
+    end
+
+    context "when an RSpec matcher matches the message" do
+      subject(:submatcher) { described_class.new(context, a_string_starting_with("Config")) }
+
+      it "returns true" do
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+    end
+
+    context "when an RSpec matcher does not match the message" do
+      subject(:submatcher) { described_class.new(context, be_a(Proc)) }
+
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "shows the matcher and the actual message in the failure message", :aggregate_failures do
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("expected be a kind of Proc")
+        expect(submatcher.failure_message).to include('got "Config schema validation failed"')
       end
     end
 
@@ -74,18 +153,119 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
     end
 
     context "when expected message is nil" do
-      subject(:submatcher) { described_class.new(context, nil) }
+      it "raises ArgumentError" do
+        expect { described_class.new(context, nil) }.to raise_error(
+          ArgumentError,
+          "Expected message must be a String, a Regexp, an RSpec matcher or :default, got nil"
+        )
+      end
+    end
 
-      it "returns true (nil message skips validation)" do
-        expect(submatcher.matches?(nil)).to be(true)
+    context "when expected message is an Integer" do
+      it "raises ArgumentError" do
+        expect { described_class.new(context, 1) }.to raise_error(ArgumentError, /got 1\z/)
       end
     end
 
     context "when expected message is empty" do
       subject(:submatcher) { described_class.new(context, "") }
 
-      it "returns true (empty message skips validation)" do
+      it "returns false" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "when the default message is expected" do
+      subject(:submatcher) { described_class.new(context, :default) }
+
+      it "returns false for a custom message" do
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "shows the custom message in the failure message", :aggregate_failures do
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("expected the default message")
+        expect(submatcher.failure_message).to include('got the custom message "Config schema validation failed"')
+      end
+
+      it "describes the default message" do
+        expect(submatcher.description).to eq("message: the default message")
+      end
+    end
+
+    context "when the option has no custom message" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::MessagesService }
+      let(:shared) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared }
+
+      it "passes for the default message" do
+        submatcher = build_submatcher(
+          :default,
+          attribute_name: :kind,
+          option: [shared::InclusionSubmatcher, %i[primary secondary]]
+        )
+
         expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes for the default type message" do
+        submatcher = build_submatcher(:default, attribute_name: :kind, option: [shared::TypesSubmatcher, [Symbol]])
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "fails for a String" do
+        submatcher = build_submatcher(
+          "[Usual::TestKit::Rspec::Matchers::MessagesService] Wrong value in `kind`",
+          attribute_name: :kind,
+          option: [shared::InclusionSubmatcher, %i[primary secondary]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "fails for a Regexp" do
+        submatcher = build_submatcher(/kind/, attribute_name: :kind, option: [shared::TypesSubmatcher, [Symbol]])
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "explains that the default message depends on values known only while the service runs", :aggregate_failures do
+        submatcher = build_submatcher(/kind/, attribute_name: :kind, option: [shared::TypesSubmatcher, [Symbol]])
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("got no custom message")
+        expect(submatcher.failure_message).to include("depends on values known only while the service runs")
+        expect(submatcher.failure_message).to include("Use `message(:default)`")
+        expect(submatcher.failure_message).to include("`raise_error`")
+      end
+
+      it "applies an RSpec matcher to the missing message" do
+        submatcher = build_submatcher(
+          be_a(Proc),
+          attribute_name: :kind,
+          option: [shared::InclusionSubmatcher, %i[primary secondary]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "when the attribute has no such option" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::MessagesService }
+      let(:shared) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared }
+
+      it "returns false" do
+        submatcher = build_submatcher(:default, attribute_name: :kind, option: [shared::SchemaSubmatcher, {}])
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "shows the missing option in the failure message" do
+        submatcher = build_submatcher(:default, attribute_name: :kind, option: [shared::SchemaSubmatcher, {}])
+        submatcher.matches?(nil)
+
+        expect(submatcher.failure_message).to include("got no `schema` option")
       end
     end
 
@@ -125,10 +305,479 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
       end
     end
 
-    # NOTE: Proc message testing is skipped because:
-    #       Procs with arguments (like ->(input:, value:)) require runtime context
-    #       that cannot be easily provided in unit tests. This behavior is covered
-    #       in integration tests where the full service context is available.
+    context "with types submatcher" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::CustomMessageService }
+      let(:types_submatcher_class) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TypesSubmatcher }
+
+      it "returns true when the input type message matches" do
+        submatcher = build_submatcher(
+          "Count must be an Integer",
+          attribute_name: :count,
+          option: [types_submatcher_class, [Integer]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "returns true when the internal type message matches" do
+        submatcher = build_submatcher(
+          "Total must be a number",
+          attribute_type: :internal,
+          attribute_name: :total,
+          option: [types_submatcher_class, [Integer, Float]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "returns false when the type message does not match" do
+        submatcher = build_submatcher(
+          "Wrong message",
+          attribute_name: :count,
+          option: [types_submatcher_class, [Integer]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+    end
+
+    context "with target submatcher" do
+      let(:service_class) { Usual::DynamicOptions::Target::Example4 }
+      let(:target_submatcher_class) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::TargetSubmatcher }
+
+      it "returns true when the target message matches" do
+        submatcher = build_submatcher(
+          "Custom error",
+          attribute_name: :service_class,
+          option: [target_submatcher_class, :target, [service_class::TargetA]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "returns false when the target message does not match" do
+        submatcher = build_submatcher(
+          "Wrong message",
+          attribute_name: :service_class,
+          option: [target_submatcher_class, :target, [service_class::TargetA]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "passes the option name and value to a Proc message" do
+        attribute_data = service_class.info.inputs.fetch(:service_class).merge(
+          target: {
+            in: service_class::TargetA,
+            message: ->(option_name:, option_value:, **) { "#{option_name}: #{option_value.name}" }
+          }
+        )
+
+        submatcher = build_submatcher(
+          "target: Usual::DynamicOptions::Target::Example4::TargetA",
+          attribute_name: :service_class,
+          attribute_data:,
+          option: [target_submatcher_class, :target, [service_class::TargetA]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      context "when the target option has a custom name" do
+        let(:service_class) { Usual::DynamicOptions::Target::Example8 }
+
+        it "returns true when the target message matches" do
+          submatcher = build_submatcher(
+            "Internal custom error",
+            attribute_type: :internal,
+            attribute_name: :service_class,
+            option: [target_submatcher_class, :expect, [service_class::TargetA, service_class::TargetB]]
+          )
+
+          expect(submatcher.matches?(nil)).to be(true)
+        end
+      end
+    end
+
+    context "with a Proc message" do
+      let(:shared) { Servactory::TestKit::Rspec::Matchers::Submatchers::Shared }
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
+
+      it "passes the actor, the option value and a nil value" do
+        submatcher = build_submatcher(
+          "Input `status` must be one of [:active, :inactive], got nil",
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "returns false when the built message does not match" do
+        submatcher = build_submatcher(
+          "Input `status` is wrong",
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "passes the service" do
+        submatcher = build_submatcher(
+          "[Usual::TestKit::Rspec::Matchers::ProcMessageService] Input `ids` must contain Integer values",
+          attribute_name: :ids,
+          option: [shared::ConsistsOfSubmatcher, [Integer]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes nil for a keyword known only at validation time" do
+        submatcher = build_submatcher(
+          "Input `config` is invalid",
+          attribute_name: :config,
+          option: [shared::SchemaSubmatcher, { key: { type: String } }]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "matches a Regexp against the built message" do
+        submatcher = build_submatcher(
+          /must be one of \[:active, :inactive\]/,
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "compares the built message exactly" do
+        submatcher = build_submatcher(
+          "input `status` must be one of [:active, :inactive], got nil",
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(false)
+      end
+
+      it "applies an RSpec matcher to the Proc" do
+        submatcher = build_submatcher(
+          be_a(Proc),
+          attribute_name: :status,
+          option: [shared::InclusionSubmatcher, %i[active inactive]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes the expected types for the type option" do
+        submatcher = build_submatcher(
+          "Input `count` must be Integer, Float",
+          attribute_name: :count,
+          option: [shared::TypesSubmatcher, [Integer, Float]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes the internal actor" do
+        submatcher = build_submatcher(
+          "Internal attribute `tags` must contain String values",
+          attribute_type: :internal,
+          attribute_name: :tags,
+          option: [shared::ConsistsOfSubmatcher, [String]]
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      context "when the Proc raises with a value known only at validation time" do
+        subject(:submatcher) do
+          build_submatcher(
+            "Input `status` got ACTIVE",
+            attribute_name: :status,
+            attribute_data:,
+            option: [shared::InclusionSubmatcher, %i[active inactive]]
+          )
+        end
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:status).merge(
+            inclusion: {
+              in: %i[active inactive],
+              message: ->(input:, value:, **) { "Input `#{input.name}` got #{value.upcase}" }
+            }
+          )
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "describes the error in the failure message", :aggregate_failures do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include(
+            'could not build the Proc message to compare with "Input `status` got ACTIVE"'
+          )
+          expect(submatcher.failure_message).to include("NoMethodError:")
+          expect(submatcher.failure_message).to match(/undefined method .upcase. for nil/)
+        end
+      end
+
+      context "when the Proc returns nil for a value known only at validation time" do
+        subject(:submatcher) do
+          build_submatcher(
+            "Input `status` is invalid",
+            attribute_name: :status,
+            attribute_data:,
+            option: [shared::InclusionSubmatcher, %i[active inactive]]
+          )
+        end
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:status).merge(
+            inclusion: {
+              in: %i[active inactive],
+              message: ->(value:, **) { { active: "Input `status` is invalid" }[value] }
+            }
+          )
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "shows the returned value in the failure message" do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include("got nil, which is not a String")
+        end
+      end
+
+      context "when the Proc returns a Symbol" do
+        subject(:submatcher) do
+          build_submatcher(
+            /invalid/,
+            attribute_name: :status,
+            attribute_data:,
+            option: [shared::InclusionSubmatcher, %i[active inactive]]
+          )
+        end
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:status).merge(
+            inclusion: {
+              in: %i[active inactive],
+              message: ->(**) { :invalid }
+            }
+          )
+        end
+
+        it "does not match a Regexp" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+      end
+
+      context "when the Proc raises ArgumentError" do
+        subject(:submatcher) do
+          build_submatcher(
+            "Input `status` is invalid",
+            attribute_name: :status,
+            attribute_data:,
+            option: [shared::InclusionSubmatcher, %i[active inactive]]
+          )
+        end
+
+        let(:attribute_data) do
+          service_class.info.inputs.fetch(:status).merge(
+            inclusion: {
+              in: %i[active inactive],
+              message: -> { "Input `status` is invalid" }
+            }
+          )
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "describes the error in the failure message" do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include("ArgumentError: wrong number of arguments")
+        end
+      end
+    end
+  end
+
+  describe "keywords of Proc messages" do
+    let(:attribute_type) { :input }
+
+    def submatcher_context(**options)
+      Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(described_class: service_class, **options)
+    end
+
+    def attribute_data_with(option_key, message)
+      attribute_data = service_class.info.public_send(:"#{attribute_type}s").fetch(attribute_name)
+      attribute_data.merge(option_key => attribute_data.fetch(option_key).merge(message:))
+    end
+
+    def build_submatcher(expected_message, option:, message:)
+      option_key, option_submatcher_name, *option_arguments = option
+      option_submatcher_class = Servactory::TestKit::Rspec::Matchers::Submatchers::Shared.const_get(option_submatcher_name)
+      context_options = { attribute_type:, attribute_name:, attribute_data: attribute_data_with(option_key, message) }
+      last_submatcher = option_submatcher_class.new(submatcher_context(**context_options), *option_arguments)
+
+      described_class.new(submatcher_context(**context_options, last_submatcher:), expected_message)
+    end
+
+    def strict_message
+      if attribute_type == :input
+        ->(input:) { "Attribute `#{input.name}` is invalid" }
+      else
+        ->(internal:) { "Attribute `#{internal.name}` is invalid" }
+      end
+    end
+
+    shared_examples "a Proc message called with every keyword" do |option:, expected_message:, full_message:|
+      it "passes for a Proc declaring every keyword" do
+        submatcher = build_submatcher(expected_message, option:, message: full_message)
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      it "passes for a Proc accepting the other keywords with **" do
+        submatcher = build_submatcher(
+          "Attribute `#{attribute_name}` is invalid",
+          option:,
+          message: ->(**arguments) { "Attribute `#{arguments.fetch(attribute_type).name}` is invalid" }
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+
+      context "when the Proc declares only the attribute keyword" do
+        subject(:submatcher) do
+          build_submatcher("Attribute `#{attribute_name}` is invalid", option:, message: strict_message)
+        end
+
+        it "returns false" do
+          expect(submatcher.matches?(nil)).to be(false)
+        end
+
+        it "explains that the Proc receives every keyword", :aggregate_failures do
+          submatcher.matches?(nil)
+
+          expect(submatcher.failure_message).to include(
+            "could not build the Proc message to compare with \"Attribute `#{attribute_name}` is invalid\""
+          )
+          expect(submatcher.failure_message).to include("ArgumentError:")
+          expect(submatcher.failure_message).to include("receives every keyword the library passes")
+          expect(submatcher.failure_message).to include("Accept unused keywords with `**`")
+        end
+      end
+    end
+
+    context "with the type option" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
+      let(:attribute_name) { :count }
+
+      it_behaves_like "a Proc message called with every keyword",
+                      option: [:type, :TypesSubmatcher, [Integer, Float]],
+                      expected_message: "ProcMessageService count: Integer, Float [nil, nil]",
+                      full_message: lambda { |service:, input:, value:, expected_type:, given_type:|
+                        "#{service.class_name.demodulize} #{input.name}: #{expected_type} " \
+                          "#{[value, given_type].inspect}"
+                      }
+    end
+
+    context "with the inclusion option" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
+      let(:attribute_name) { :status }
+
+      it_behaves_like "a Proc message called with every keyword",
+                      option: [:inclusion, :InclusionSubmatcher, %i[active inactive]],
+                      expected_message: "ProcMessageService status: be_inclusion inclusion " \
+                                        "[:active, :inactive] [nil, nil]",
+                      full_message: lambda { |service:, input:, value:, code:, reason:, option_name:, option_value:|
+                        "#{service.class_name.demodulize} #{input.name}: #{code} #{option_name} " \
+                          "#{option_value} #{[value, reason].inspect}"
+                      }
+    end
+
+    context "with the consists_of option" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
+      let(:attribute_name) { :ids }
+
+      it_behaves_like "a Proc message called with every keyword",
+                      option: [:consists_of, :ConsistsOfSubmatcher, [Integer]],
+                      expected_message: "ProcMessageService ids: consists_of consists_of Integer [nil, nil]",
+                      full_message: lambda { |service:, input:, value:, code:, reason:, option_name:, option_value:|
+                        "#{service.class_name.demodulize} #{input.name}: #{code} #{option_name} " \
+                          "#{option_value} #{[value, reason].inspect}"
+                      }
+    end
+
+    context "with the consists_of option of an internal attribute" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
+      let(:attribute_type) { :internal }
+      let(:attribute_name) { :tags }
+
+      it_behaves_like "a Proc message called with every keyword",
+                      option: [:consists_of, :ConsistsOfSubmatcher, [String]],
+                      expected_message: "ProcMessageService tags: consists_of consists_of String [nil, nil]",
+                      full_message: lambda { |service:, internal:, value:, code:, reason:, option_name:, option_value:|
+                        "#{service.class_name.demodulize} #{internal.name}: #{code} #{option_name} " \
+                          "#{option_value} #{[value, reason].inspect}"
+                      }
+    end
+
+    context "with the schema option" do
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
+      let(:attribute_name) { :config }
+
+      it_behaves_like "a Proc message called with every keyword",
+                      option: [:schema, :SchemaSubmatcher, { key: { type: String } }],
+                      expected_message: "ProcMessageService config: schema schema [:key] [nil, nil, nil, nil, nil]",
+                      full_message: lambda { |service:, input:, value:, code:, reason:, option_name:, option_value:,
+                                              key_name:, expected_type:, given_type:|
+                        "#{service.class_name.demodulize} #{input.name}: #{code} #{option_name} " \
+                          "#{option_value.keys.inspect} #{[value, reason, key_name, expected_type, given_type].inspect}"
+                      }
+    end
+
+    context "with the target option" do
+      let(:service_class) { Usual::DynamicOptions::Target::Example4 }
+      let(:attribute_name) { :service_class }
+
+      it_behaves_like "a Proc message called with every keyword",
+                      option: [:target, :TargetSubmatcher, :target, [Usual::DynamicOptions::Target::Example4::TargetA]],
+                      expected_message: "Example4 service_class: be_target target TargetA [nil, nil]",
+                      full_message: lambda { |service:, input:, value:, code:, reason:, option_name:, option_value:|
+                        "#{service.class_name.demodulize} #{input.name}: #{code} #{option_name} " \
+                          "#{option_value.name.demodulize} #{[value, reason].inspect}"
+                      }
+    end
+
+    context "with the target option under a custom name" do
+      let(:service_class) { Usual::DynamicOptions::Target::Example8 }
+      let(:attribute_type) { :internal }
+      let(:attribute_name) { :service_class }
+
+      it "passes the rule name of the option as code" do
+        submatcher = build_submatcher(
+          "be_expect expect",
+          option: [:expect, :TargetSubmatcher, :expect, [service_class::TargetA, service_class::TargetB]],
+          message: ->(code:, option_name:, **) { "#{code} #{option_name}" }
+        )
+
+        expect(submatcher.matches?(nil)).to be(true)
+      end
+    end
   end
 
   describe "#failure_message" do
@@ -138,11 +787,49 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
       before { submatcher.matches?(nil) }
 
       it "includes expected message" do
-        expect(submatcher.failure_message).to include("Wrong message")
+        expect(submatcher.failure_message).to include('expected "Wrong message"')
       end
 
       it "includes actual message" do
-        expect(submatcher.failure_message).to include("Config schema validation failed")
+        expect(submatcher.failure_message).to include('got "Config schema validation failed"')
+      end
+    end
+
+    context "when the message built by a Proc does not match" do
+      subject(:submatcher) do
+        described_class.new(
+          Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
+            described_class: service_class,
+            attribute_type: :input,
+            attribute_name: :ids,
+            attribute_data: service_class.info.inputs.fetch(:ids),
+            last_submatcher: consists_of_submatcher
+          ),
+          "Wrong message"
+        )
+      end
+
+      let(:service_class) { Usual::TestKit::Rspec::Matchers::ProcMessageService }
+
+      let(:consists_of_submatcher) do
+        Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::ConsistsOfSubmatcher.new(
+          Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
+            described_class: service_class,
+            attribute_type: :input,
+            attribute_name: :ids,
+            attribute_data: service_class.info.inputs.fetch(:ids)
+          ),
+          [Integer]
+        )
+      end
+
+      before { submatcher.matches?(nil) }
+
+      it "shows the expected message and the built message", :aggregate_failures do
+        expect(submatcher.failure_message).to include('expected "Wrong message"')
+        expect(submatcher.failure_message).to include(
+          'got "[Usual::TestKit::Rspec::Matchers::ProcMessageService] Input `ids` must contain Integer values"'
+        )
       end
     end
   end

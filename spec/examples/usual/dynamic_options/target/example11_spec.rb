@@ -38,6 +38,11 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
                 [described_class::TargetA, described_class::TargetB],
                 name: :expect
               )
+              .message(
+                "Internal `service_class`: nil is not allowed. " \
+                "Allowed: Usual::DynamicOptions::Target::Example11::TargetA, " \
+                "Usual::DynamicOptions::Target::Example11::TargetB"
+              )
           )
         end
       end
@@ -132,6 +137,11 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
               .target(
                 [described_class::TargetA, described_class::TargetB],
                 name: :expect
+              )
+              .message(
+                "Internal `service_class`: nil is not allowed. " \
+                "Allowed: Usual::DynamicOptions::Target::Example11::TargetA, " \
+                "Usual::DynamicOptions::Target::Example11::TargetB"
               )
           )
         end

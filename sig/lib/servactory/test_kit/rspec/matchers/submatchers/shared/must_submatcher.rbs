@@ -5,11 +5,21 @@ module Servactory
         module Submatchers
           module Shared
             class MustSubmatcher < Base::Submatcher
-              @must_names: Array[Symbol]
-              @actual_must_names: Array[Symbol]
-              @missing_must_names: Array[Symbol]
+              include Concerns::OptionHelperRules
+              include Concerns::ProcMessage
 
-              def initialize: (Base::SubmatcherContext context, Array[Symbol] must_names) -> void
+              BUILT_IN_RULE_NAMES: Array[Symbol]
+
+              @must_names: Array[Symbol]
+              @message_expectations: Hash[Symbol, Base::MessageExpectation]
+              @actual_must_names: Array[Symbol]
+              @message_mismatches: Hash[Symbol, String]
+
+              def self.arguments_from: (Array[untyped] args) -> [Array[Symbol], Hash[Symbol, untyped]]
+
+              def initialize: (Base::SubmatcherContext context, Array[Symbol] must_names, ?Hash[Symbol, untyped] message_expectations) -> void
+
+              def expect_message: (untyped expected) -> void
 
               def description: () -> String
 
@@ -17,9 +27,29 @@ module Servactory
 
               attr_reader must_names: Array[Symbol]
 
+              attr_reader message_expectations: Hash[Symbol, Base::MessageExpectation]
+
               def passes?: () -> bool
 
               def build_failure_message: () -> String
+
+              def ensure_message_checkable!: (Symbol name) -> void
+
+              def several_rules_error_message: () -> String
+
+              def rule_description: (Symbol name) -> String
+
+              def attribute_must: () -> Hash[Symbol, untyped]
+
+              def actual_must_names: () -> Array[Symbol]
+
+              def names_match?: () -> bool
+
+              def names_failure_message: () -> String
+
+              def find_message_mismatches: () -> Hash[Symbol, String]
+
+              def rule_message: (untyped rule) -> (String | Proc)?
             end
           end
         end

@@ -87,7 +87,7 @@ module Servactory
         # Creates an Inclusion validator instance.
         #
         # @param option_name [Symbol] The option name (default: :inclusion)
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :inclusion)
           instance = new(option_name, :in)
           instance.must(:be_inclusion)

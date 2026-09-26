@@ -64,11 +64,19 @@ module Servactory
 
             def add_submatcher: (Submatcher submatcher) -> void
 
+            def attach_submatcher: (Submatcher submatcher) -> void
+
+            def store_submatcher: (Submatcher submatcher, SubmatcherRegistry::SubmatcherDefinition definition) -> void
+
             def remove_submatcher: (Class matcher_class) -> void
 
             def build_chain_methods_from_registry: () -> void
 
             def define_chain_method_for: (SubmatcherRegistry::SubmatcherDefinition definition) -> void
+
+            def apply_chain_method: (SubmatcherRegistry::SubmatcherDefinition definition, Array[untyped] args) -> self
+
+            def expected_by_last_submatcher?: (SubmatcherRegistry::SubmatcherDefinition definition) -> bool
 
             def extract_options_hash: (Array[untyped] args, SubmatcherRegistry::SubmatcherDefinition definition) -> Hash[Symbol, untyped]
 

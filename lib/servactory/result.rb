@@ -120,6 +120,10 @@ module Servactory
 
     private_constant :Outputs
 
+    # Result state keys exposed by {#deconstruct_keys}.
+    STATE_KEYS = %i[success failure error].freeze
+    private_constant :STATE_KEYS
+
     ############################################################################
 
     # Creates a success result for the given context.
@@ -198,10 +202,11 @@ module Servactory
 
     # Converts outputs to hash.
     #
-    # Returns all declared outputs with their values, including nil.
-    # Excludes predicate methods from the result hash.
+    # Returns only outputs that were assigned during the call, including
+    # outputs explicitly assigned nil. Declared outputs that were never
+    # assigned are absent. Excludes predicate methods from the result hash.
     #
-    # @return [Hash<Symbol, Object>] Output name-value pairs
+    # @return [Hash<Symbol, Object>] Assigned output name-value pairs
     #
     # @example
     #   result.to_h # => { user: #<User>, token: nil }
@@ -214,7 +219,10 @@ module Servactory
     # Pattern matching support.
     #
     # Returns hash of result state and output values for use with case/in.
-    # State keys (:success, :failure, :error) take priority over output names.
+    # Output keys match {#to_h}: only assigned outputs are present.
+    # State keys (:success, :failure, :error) take priority over output names:
+    # outputs with these names are not included, and :error is present only
+    # for failures.
     #
     # @param keys [Array<Symbol>, nil] Keys to include, or nil for all
     # @return [Hash<Symbol, Object>] Hash of state and outputs for pattern matching
@@ -237,6 +245,8 @@ module Servactory
       available[:error] = error if failure?
 
       outputs.send(:output_names).each do |name|
+        next if STATE_KEYS.include?(name)
+
         available[name] = outputs.public_send(name)
       end
 
@@ -350,7 +360,7 @@ module Servactory
       Outputs.new(
         outputs: build_outputs_hash,
         predicate_methods_enabled:
-          @context.is_a?(Servactory::TestKit::Result) || @context.config.predicate_methods_enabled
+          @context.is_a?(Servactory::TestKit::Result) || @context.class.config.predicate_methods_enabled
       )
     end
 
@@ -377,7 +387,7 @@ module Servactory
     def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
       raise exception if @context.blank? || @context.instance_of?(Servactory::TestKit::Result)
 
-      raise @context.config.failure_class.new(
+      raise @context.class.config.failure_class.new(
         type: :base,
         message: @context.send(:servactory_service_info).translate(
           "common.undefined_method.missing_name",

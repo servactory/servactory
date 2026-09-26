@@ -1,0 +1,31 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Concerns
+          module OptionHelperRules : Concerns::AttributeDataAccess
+            @option_helper_rules: Array[untyped]
+
+            def option_helper_rule?: (Symbol name) -> bool
+
+            def option_helper_rule_name: (Symbol option_name) -> Symbol?
+
+            private
+
+            def rule_condition: (untyped rule) -> untyped
+
+            def dynamic_option_rule?: (untyped rule) -> bool
+
+            def same_rule?: (untyped helper_rule, untyped rule) -> bool
+
+            def condition_location: (untyped rule) -> [String, Integer]?
+
+            def option_helper_rules: () -> Array[untyped]
+
+            def helper_option: (Servactory::Maintenance::Options::Helper helper) -> untyped
+          end
+        end
+      end
+    end
+  end
+end

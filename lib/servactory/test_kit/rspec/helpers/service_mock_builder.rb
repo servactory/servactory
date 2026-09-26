@@ -35,6 +35,18 @@ module Servactory
         #   .fails(CustomException, type: :base, message: "Error")
         # ```
         #
+        # Pass-through to the original service (spy pattern):
+        #
+        # ```ruby
+        # allow_service(MyService)
+        #   .and_call_original
+        #
+        # allow_service(MyService)
+        #   .and_wrap_original do |original, **inputs|
+        #     original.call(**inputs)
+        #   end
+        # ```
+        #
         # Sequential returns (first call succeeds, second fails):
         #
         # ```ruby
@@ -57,12 +69,30 @@ module Servactory
         #   .with(user_id: 123)
         # ```
         #
+        # Configuring the mock after the service has been called registers
+        # a new stub, which takes precedence over the earlier one for the calls
+        # it matches.
+        #
+        # A mock without `.with()` (default mock) accepts any arguments on the
+        # RSpec level, so it handles every later call of the stubbed method,
+        # including calls that mocks configured before it would match. Calls
+        # with inputs the service would not accept are rejected instead of
+        # deferred to those earlier mocks. Mocks with `.with()` configured after
+        # a default mock take precedence for the calls they match:
+        #
+        # ```ruby
+        # allow_service(MyService).succeeds(user: default_user)
+        # allow_service(MyService).with(user_id: 123).succeeds(user: user)
+        # ```
+        #
         # ## Features
         #
         # - **Fluent API** - chainable methods for readable test setup
         # - **Success/Failure** - configure expected result type in one method
         # - **Exception Handling** - auto-creates exceptions with type, message, meta
         # - **Input Matching** - match specific service inputs with `.with()`
+        # - **Pass-Through** - delegate to the original service with `.and_call_original`
+        #   or `.and_wrap_original`
         # - **Sequential Responses** - different results for consecutive calls
         # - **Automatic Validation** - validates inputs and outputs against service definition
         #
@@ -105,7 +135,7 @@ module Servactory
             @config = ServiceMockConfig.new(service_class:)
             @config.method_type = method_type
             @sequential_configs = []
-            @executed = false
+            @stub = nil
           end
 
           # ============================================================
@@ -136,7 +166,7 @@ module Servactory
             validate_outputs!(outputs_hash)
             @config.result_type = :success
             @config.outputs = outputs_hash
-            execute_or_re_execute_mock
+            execute_mock
             self
           end
 
@@ -166,7 +196,7 @@ module Servactory
 
             @config.result_type = :failure
             @config.exception = build_exception(exception_class, type:, message:, meta:)
-            execute_or_re_execute_mock
+            execute_mock
             self
           end
 
@@ -176,6 +206,11 @@ module Servactory
           # or after then_* methods). Applies to the entire mock chain.
           #
           # Inputs are automatically validated against service definition.
+          #
+          # Without `.with()`, a call matches when all required inputs are present
+          # and no unknown inputs are passed; optional inputs may be omitted.
+          # Such a mock handles every later call of the stubbed method and rejects
+          # invalid inputs instead of deferring to mocks configured before it.
           #
           # @param inputs_hash_or_matcher [Hash, Object] Service inputs to match or RSpec matcher
           # @return [ServiceMockBuilder] self for method chaining
@@ -192,8 +227,8 @@ module Servactory
           # @raise [InputValidator::ValidationError] if inputs don't match service definition
           def with(inputs_hash_or_matcher)
             validate_inputs!(inputs_hash_or_matcher)
-            @config.argument_matcher = inputs_hash_or_matcher
-            re_execute_mock if @executed
+            all_configs.each { |config| config.argument_matcher = inputs_hash_or_matcher }
+            update_mock_arguments
             self
           end
 
@@ -216,14 +251,21 @@ module Servactory
             validate_result_type_not_switched!(:and_call_original)
 
             @config.result_type = :call_original
-            execute_or_re_execute_mock
+            execute_mock
             self
           end
 
           # Wraps the original method with custom logic.
-          # Block receives the original method and call arguments.
+          # Block receives the original method and the service inputs as keywords,
+          # whether the service was called with keywords, a positional Hash or
+          # a Datory object. Input names are symbolized the way the service does it.
+          # A block without keyword parameters receives the call arguments as given,
+          # e.g. `{}` for `.call({})`.
           #
           # @yield [original, **inputs] Block wrapping the original
+          # @yieldparam original [Method] The original `.call` or `.call!` method
+          # @yieldparam inputs [Hash{Symbol => Object}] Service inputs
+          # @yieldreturn [Object] Value returned to the service caller
           # @return [ServiceMockBuilder] self for method chaining
           #
           # @example Modify result
@@ -232,13 +274,26 @@ module Servactory
           #     # custom logic
           #     result
           #   end
+          #
+          # @example Modify inputs
+          #   allow_service(S).and_wrap_original do |original, **inputs|
+          #     original.call(**inputs, locale: "en")
+          #   end
+          #
+          # @example Receive the call arguments as given
+          #   allow_service(S).and_wrap_original do |original, *arguments|
+          #     original.call(*arguments)
+          #   end
+          #
+          # @raise [ArgumentError] if called without a block
           def and_wrap_original(&block)
+            validate_block_given!(:and_wrap_original, block)
             validate_not_in_sequential_mode!(:and_wrap_original)
             validate_result_type_not_switched!(:and_wrap_original)
 
             @config.result_type = :wrap_original
             @config.wrap_block = block
-            execute_or_re_execute_mock
+            execute_mock
             self
           end
 
@@ -271,7 +326,7 @@ module Servactory
             @config.result_type = :success
             @config.outputs = outputs_hash
             @config.method_type = @sequential_configs.last&.method_type || :call
-            execute_sequential_mock
+            execute_mock
             self
           end
 
@@ -300,7 +355,7 @@ module Servactory
             @config.result_type = :failure
             @config.exception = build_exception(exception_class, type:, message:, meta:)
             @config.method_type = @sequential_configs.last&.method_type || :call
-            execute_sequential_mock
+            execute_mock
             self
           end
 
@@ -369,6 +424,21 @@ module Servactory
                   "Pass-through methods are not compatible with sequential responses."
           end
 
+          # Validates that a block is given.
+          #
+          # @param method_name [Symbol] The method being called
+          # @param block [Proc, nil] The block given to the method
+          # @raise [ArgumentError] if block is missing
+          # @return [void]
+          def validate_block_given!(method_name, block)
+            return unless block.nil?
+
+            raise ArgumentError,
+                  "Cannot call #{method_name}() without a block. " \
+                  "Pass a block that receives the original method and the service inputs, " \
+                  "e.g. { |original, **inputs| original.call(**inputs) }."
+          end
+
           # Validates outputs against service definition.
           #
           # @param outputs_hash [Hash] Outputs to validate
@@ -424,17 +494,6 @@ module Servactory
           # Mock Execution
           # ============================================================
 
-          # Executes or re-executes mock depending on current state.
-          #
-          # @return [void]
-          def execute_or_re_execute_mock
-            if @executed
-              re_execute_mock
-            else
-              execute_mock
-            end
-          end
-
           # Saves current config to sequential list.
           #
           # @return [void]
@@ -442,48 +501,54 @@ module Servactory
             @sequential_configs << @config.dup
           end
 
-          # Executes the mock for the first time.
+          # Returns all configs in call order.
+          #
+          # @return [Array<ServiceMockConfig>] Sequential configs followed by the current config
+          def all_configs
+            @sequential_configs + [@config]
+          end
+
+          # Registers the mock, or reconfigures the already registered stub.
+          #
+          # A stub that has already been invoked cannot be reconfigured,
+          # so a new stub is registered instead.
           #
           # @return [void]
           def execute_mock
-            return if @executed
-
-            @executed = true
-            MockExecutor.new(
-              service_class:,
-              configs: [@config],
-              rspec_context: @rspec_context
-            ).execute
+            @stub = mock_executor.execute(reconfigurable_stub)
           end
 
-          # Re-executes the mock after configuration changes.
+          # Applies the current argument matcher to the registered stub.
+          #
+          # Registers a new stub if the registered one has already been invoked.
           #
           # @return [void]
-          def re_execute_mock
-            return unless @executed
+          def update_mock_arguments
+            return if @stub.nil?
 
-            if @sequential_configs.any?
-              execute_sequential_mock
+            if @stub.invoked?
+              execute_mock
             else
-              MockExecutor.new(
-                service_class:,
-                configs: [@config],
-                rspec_context: @rspec_context
-              ).execute
+              mock_executor.update_arguments(@stub)
             end
           end
 
-          # Executes the mock with all sequential configurations.
+          # Returns the registered stub unless it has already been invoked.
           #
-          # @return [void]
-          def execute_sequential_mock
-            all_configs = @sequential_configs + [@config]
+          # @return [MockExecutor::Stub, nil] Stub that can be reconfigured in place
+          def reconfigurable_stub
+            @stub unless @stub&.invoked?
+          end
 
+          # Builds an executor for the current configs.
+          #
+          # @return [MockExecutor] Executor for all configs
+          def mock_executor
             MockExecutor.new(
               service_class:,
               configs: all_configs,
               rspec_context: @rspec_context
-            ).execute
+            )
           end
         end
       end

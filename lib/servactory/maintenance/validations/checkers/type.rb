@@ -21,11 +21,19 @@ module Servactory
         #   input :id, type: Integer
         #   input :data, type: [Hash, Array]  # union type
         #   input :status, type: String, required: false
+        #   input :email, type: { is: String, message: "Email must be a String" }
         #
         #   internal :result, type: CustomType
         #   output :response, type: Hash
         # end
         # ```
+        #
+        # ## Custom Message
+        #
+        # Advanced mode `type: { is:, message: }` replaces the default error
+        # message for every type failure of the attribute. A Proc message
+        # receives `service:`, `input:`/`internal:`/`output:`, `value:`,
+        # `expected_type:` and `given_type:`.
         class Type
           extend Concerns::ErrorBuilder
 
@@ -51,7 +59,7 @@ module Servactory
 
             return if error_data.nil?
 
-            build_error_message(error_data)
+            build_error_message(attribute:, error_data:)
           end
 
           # Determines if type validation should run for given attribute.
@@ -99,10 +107,21 @@ module Servactory
 
           # Builds error message from validation error data.
           #
+          # Uses the custom message from `type: { is:, message: }` if provided,
+          # otherwise falls back to the default message.
+          #
+          # @param attribute [Inputs::Input, Internals::Internal, Outputs::Output] Failed attribute
           # @param error_data [Hash] Error data from TypeValidator.validate
           # @return [String] Processed error message
-          def self.build_error_message(error_data)
-            process_message(error_data[:message], **error_data)
+          def self.build_error_message(attribute:, error_data:)
+            message = attribute.collection_of_options.find_by(name: :types).body[:message]
+            return process_message(error_data[:message], **error_data) if message.blank?
+
+            process_message(
+              message,
+              **attribute.typed_actor_kwargs,
+              **error_data.slice(:service, :value, :expected_type, :given_type)
+            )
           end
           private_class_method :build_error_message
         end

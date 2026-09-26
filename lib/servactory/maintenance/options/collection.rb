@@ -28,15 +28,13 @@ module Servactory
       # ## Performance
       #
       # The collection uses memoization for frequently accessed data:
-      # - `validation_classes` - cached list of unique validation classes
-      # - `options_for_checks` - cached hash for validation pipeline
+      # - `validations_for_checks` - cached tuples for validation pipeline
       # - `options_index` - cached hash for O(1) lookups by name
       #
       class Collection
         extend Forwardable
 
         def_delegators :@collection,
-                       :<<,
                        :filter,
                        :each, :each_with_object,
                        :map,
@@ -50,6 +48,26 @@ module Servactory
           @collection = Set.new
         end
 
+        # Duplicates the collection, resetting memoized caches.
+        #
+        # @param original [Collection] the collection being duplicated
+        # @return [void]
+        def initialize_dup(original)
+          super
+          @collection = original.instance_variable_get(:@collection).dup
+          reset_memoized_caches
+        end
+
+        # Adds an option to the collection, invalidating memoized caches.
+        #
+        # @param option [Option] the option to add
+        # @return [Collection] self
+        def <<(option)
+          @collection << option
+          reset_memoized_caches
+          self
+        end
+
         # Returns all option names in the collection.
         #
         # @return [Array<Symbol>] list of option names
@@ -57,23 +75,22 @@ module Servactory
           map(&:name)
         end
 
-        # Returns unique validation classes from all options.
+        # @deprecated Use {#validations_for_checks} instead.
         #
         # @return [Array<Class>] deduplicated list of validation classes
         def validation_classes
-          @validation_classes ||=
-            filter { |option| option.validation_class.present? }
-            .map(&:validation_class)
-            .uniq
+          warn "[DEPRECATION] Servactory::Maintenance::Options::Collection#validation_classes is deprecated. " \
+               "Use #validations_for_checks instead."
+          validations_for_checks.map(&:last).uniq
         end
 
-        # Returns options that need validation checks as a hash.
+        # @deprecated Use {#validations_for_checks} instead.
         #
         # @return [Hash{Symbol => Object}] option names mapped to normalized bodies
         def options_for_checks
-          @options_for_checks ||= filter(&:need_for_checks?).to_h do |option|
-            [option.name, extract_normalized_body_from(option:)]
-          end
+          warn "[DEPRECATION] Servactory::Maintenance::Options::Collection#options_for_checks is deprecated. " \
+               "Use #validations_for_checks instead."
+          check_options_by_key
         end
 
         # Returns options that need validation checks as an array of tuples.
@@ -114,6 +131,22 @@ module Servactory
         end
 
         private
+
+        # Builds the result of the deprecated `options_for_checks` methods
+        # without emitting a deprecation warning.
+        #
+        # @return [Hash{Symbol => Object}] option names mapped to normalized bodies
+        def check_options_by_key
+          validations_for_checks.to_h { |check_key, check_options, _| [check_key, check_options] }
+        end
+
+        # Resets memoized data derived from the collection contents.
+        #
+        # @return [void]
+        def reset_memoized_caches
+          @validations_for_checks = nil
+          @options_index = nil
+        end
 
         # Builds and caches a hash index for O(1) option lookups.
         #

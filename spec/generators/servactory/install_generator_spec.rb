@@ -218,6 +218,24 @@ RSpec.describe "Servactory::Generators::InstallGenerator" do
     end
   end
 
+  describe "usage" do
+    let(:bundled_locales) do
+      Dir.glob(File.join(Servactory::Generators::Base.gem_locales_path, "*.yml")).map do |path|
+        File.basename(path, ".yml")
+      end
+    end
+
+    it "lists every bundled locale as available", :aggregate_failures do
+      available_locale_lists = generator_class.desc.scan(/\(available: ([a-z, ]+)\)/).flatten
+
+      expect(available_locale_lists).not_to be_empty
+
+      available_locale_lists.each do |available_locales|
+        expect(available_locales.split(", ")).to match_array(bundled_locales)
+      end
+    end
+  end
+
   describe "namespace validation" do
     context "with invalid namespace names" do
       it "rejects namespace starting with lowercase" do

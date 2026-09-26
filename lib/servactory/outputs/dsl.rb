@@ -17,12 +17,18 @@ module Servactory
         private
 
         def output(name, *helpers, **options)
-          collection_of_outputs << Output.new(
+          output = Output.new(
             name,
             *helpers,
             option_helpers: config.output_option_helpers,
             **options
           )
+
+          if output.types.empty?
+            raise ArgumentError, "[#{self.name}] Output attribute `#{name}` must have the `type` option"
+          end
+
+          collection_of_outputs << output
         end
 
         def collection_of_outputs

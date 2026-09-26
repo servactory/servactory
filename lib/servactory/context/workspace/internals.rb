@@ -60,7 +60,7 @@ module Servactory
         end
 
         def fetch_with(name:, &_block)
-          predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+          predicate = @context.class.config.predicate_methods_enabled && name.end_with?("?")
 
           internal_name = predicate ? name.to_s.chomp("?").to_sym : name
           internal = @collection_of_internals.find_by(name: internal_name)
@@ -89,7 +89,7 @@ module Servactory
         def resolve_internal(name)
           return true if @collection_of_internals.find_by(name:)
 
-          @context.config.predicate_methods_enabled &&
+          @context.class.config.predicate_methods_enabled &&
             name.to_s.end_with?("?") &&
             @collection_of_internals.find_by(name: name.to_s.chomp("?").to_sym)
         end

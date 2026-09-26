@@ -1,0 +1,26 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class ExceptionValidator
+          include Concerns::ErrorMessages
+
+          @config: ServiceMockConfig
+
+          def self.validate!: (ServiceMockConfig config) -> void
+
+          def initialize: (ServiceMockConfig config) -> void
+
+          def validate!: () -> void
+
+          private
+
+          def validate_failure_has_exception!: () -> void
+          def validate_exception_type!: () -> void
+          def valid_exception_type?: () -> bool
+          def failure_class: () -> Class
+        end
+      end
+    end
+  end
+end

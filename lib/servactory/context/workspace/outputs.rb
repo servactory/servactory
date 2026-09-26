@@ -52,7 +52,7 @@ module Servactory
         end
 
         def fetch_with(name:, &_block)
-          predicate = @context.config.predicate_methods_enabled && name.end_with?("?")
+          predicate = @context.class.config.predicate_methods_enabled && name.end_with?("?")
 
           output_name = predicate ? name.to_s.chomp("?").to_sym : name
           output = @collection_of_outputs.find_by(name: output_name)
@@ -67,7 +67,7 @@ module Servactory
         def resolve_output(name)
           return true if @collection_of_outputs.find_by(name:)
 
-          @context.config.predicate_methods_enabled &&
+          @context.class.config.predicate_methods_enabled &&
             name.to_s.end_with?("?") &&
             @collection_of_outputs.find_by(name: name.to_s.chomp("?").to_sym)
         end

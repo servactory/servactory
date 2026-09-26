@@ -80,9 +80,7 @@ module Servactory
           body_fallback:,
           detect_advanced_mode:
         )
-          return wrap_and_normalize(original_value) if original_value.present?
-
-          raw_value = options.fetch(@name, body_fallback)
+          raw_value = original_value.nil? ? options.fetch(@name, body_fallback) : original_value
 
           result = if detect_advanced_mode
                      use_advanced_mode(
@@ -95,11 +93,6 @@ module Servactory
                      wrap_value(raw_value)
                    end
 
-          apply_normalizer(result)
-        end
-
-        def wrap_and_normalize(value)
-          result = wrap_value(value)
           apply_normalizer(result)
         end
 

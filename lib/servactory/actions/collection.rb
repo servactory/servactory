@@ -30,10 +30,6 @@ module Servactory
     class Collection
       extend Forwardable
 
-      # @!method <<(action)
-      #   Adds an action to the collection.
-      #   @param action [Action] The action to add
-      #   @return [Set] The updated collection
       # @!method each
       #   Iterates over all actions in the collection.
       #   @yield [Action] Each action in the collection
@@ -50,13 +46,33 @@ module Servactory
       # @!method empty?
       #   Checks if the collection is empty.
       #   @return [Boolean] true if no actions registered
-      def_delegators :@collection, :<<, :each, :to_h, :sort_by, :size, :empty?
+      def_delegators :@collection, :each, :to_h, :sort_by, :size, :empty?
 
       # Creates a new actions collection.
       #
       # @param collection [Set] Initial collection of actions (default: empty Set)
       def initialize(collection = Set.new)
         @collection = collection
+      end
+
+      # Duplicates the collection, resetting memoized caches.
+      #
+      # @param original [Collection] The collection being duplicated
+      # @return [void]
+      def initialize_dup(original)
+        super
+        @collection = original.instance_variable_get(:@collection).dup
+        @sorted_by_position = nil
+      end
+
+      # Adds an action to the collection, invalidating the sorted cache.
+      #
+      # @param action [Action] The action to add
+      # @return [Collection] self
+      def <<(action)
+        @collection << action
+        @sorted_by_position = nil
+        self
       end
 
       # Returns a new collection with actions sorted by position.

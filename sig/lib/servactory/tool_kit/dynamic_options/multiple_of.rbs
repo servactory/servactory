@@ -2,9 +2,13 @@ module Servactory
   module ToolKit
     module DynamicOptions
       class MultipleOf < Must
+        FLOAT_TOLERANCE: Float
+
         def self.use: (?::Symbol option_name) -> Maintenance::Options::Helper
 
         def common_condition_with: (value: untyped, option: Must::WorkOption, **untyped `**`) -> bool
+
+        def multiple_of?: (Numeric value, Numeric divisor) -> bool
       end
     end
   end
