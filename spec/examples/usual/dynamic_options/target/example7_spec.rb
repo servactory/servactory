@@ -34,10 +34,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example7, type: :service do
           expect { perform }.to(
             have_internal(:service_class)
               .type(Class)
-              .target(
-                described_class::TargetA,
-                name: :expect
-              )
+              .target(described_class::TargetA)
           )
         end
       end
@@ -115,10 +112,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example7, type: :service do
           expect { perform }.to(
             have_internal(:service_class)
               .type(Class)
-              .target(
-                described_class::TargetA,
-                name: :expect
-              )
+              .target(described_class::TargetA)
           )
         end
       end

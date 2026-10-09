@@ -18,10 +18,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
           expect { perform }.to(
             have_internal(:service_class)
               .type(Class)
-              .target(
-                [described_class::TargetA, described_class::TargetB],
-                name: :expect
-              )
+              .target([described_class::TargetA, described_class::TargetB])
               .message("Internal custom error")
           )
         end
@@ -65,10 +62,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
           expect { perform }.to(
             have_internal(:service_class)
               .type(Class)
-              .target(
-                [described_class::TargetA, described_class::TargetB],
-                name: :expect
-              )
+              .target([described_class::TargetA, described_class::TargetB])
               .message("Internal custom error")
           )
         end

@@ -9,7 +9,7 @@ module Usual
         # NOTE: Option `target` is not specifically used here.
         input :service_class, type: Class
 
-        internal :service_class, type: Class, expect: TargetA
+        internal :service_class, type: Class, target: TargetA
 
         output :result, type: String
 

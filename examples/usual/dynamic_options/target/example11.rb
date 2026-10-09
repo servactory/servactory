@@ -12,7 +12,7 @@ module Usual
 
         internal :service_class,
                  type: Class,
-                 expect: {
+                 target: {
                    in: [TargetA, TargetB],
                    message: lambda do |internal:, value:, option_value:, **|
                      "Internal `#{internal.name}`: #{value.inspect} is not allowed. " \

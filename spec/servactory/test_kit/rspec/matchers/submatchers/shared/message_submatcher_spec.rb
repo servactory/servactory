@@ -384,7 +384,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
       end
 
       context "when the target option has a custom name" do
-        let(:service_class) { Usual::DynamicOptions::Target::Example8 }
+        let(:service_class) { Usual::DynamicOptions::Target::Example13 }
 
         it "returns true when the target message matches" do
           submatcher = build_submatcher(
@@ -764,7 +764,7 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Submatchers::Shared::Messag
     end
 
     context "with the target option under a custom name" do
-      let(:service_class) { Usual::DynamicOptions::Target::Example8 }
+      let(:service_class) { Usual::DynamicOptions::Target::Example13 }
       let(:attribute_type) { :internal }
       let(:attribute_name) { :service_class }
 

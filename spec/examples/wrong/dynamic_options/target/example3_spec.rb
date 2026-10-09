@@ -24,7 +24,7 @@ RSpec.describe Wrong::DynamicOptions::Target::Example3, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "[Wrong::DynamicOptions::Target::Example3] " \
-              "Internal attribute `target_class` has missing value in `expect` option"
+              "Internal attribute `target_class` has missing value in `target` option"
             )
           )
         end
@@ -68,7 +68,7 @@ RSpec.describe Wrong::DynamicOptions::Target::Example3, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "[Wrong::DynamicOptions::Target::Example3] " \
-              "Internal attribute `target_class` has missing value in `expect` option"
+              "Internal attribute `target_class` has missing value in `target` option"
             )
           )
         end

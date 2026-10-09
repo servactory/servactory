@@ -23,6 +23,12 @@ module Usual
                 )
               ]
             )
+
+            internal_option_helpers(
+              [
+                Servactory::ToolKit::DynamicOptions::Target.use(:expect)
+              ]
+            )
           end
 
           input :email,
