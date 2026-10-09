@@ -18,12 +18,16 @@ module Servactory
         private
 
         def input(name, *helpers, **options)
-          collection_of_inputs << Input.new(
+          input = Input.new(
             name,
             *helpers,
             option_helpers: config.input_option_helpers,
             **options
           )
+
+          raise ArgumentError, "[#{self.name}] Input `#{name}` must have the `type` option" if input.types.empty?
+
+          collection_of_inputs << input
         end
 
         def collection_of_inputs

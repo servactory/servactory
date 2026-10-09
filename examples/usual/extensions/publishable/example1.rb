@@ -14,27 +14,27 @@ module Usual
 
             def publish(event_name, payload)
               self.published_events ||= []
-              self.published_events << { name: event_name, payload: }
+              published_events << { name: event_name, payload: }
             end
           end
         end
 
         input :user_id, type: Integer
 
-        output :user_name, type: String
+        output :full_name, type: String
 
         publishes :user_created, with: :event_payload, event_bus: LikeAnEventBus
 
-        make :assign_user_name
+        make :assign_full_name
 
         private
 
-        def assign_user_name
-          outputs.user_name = "User #{inputs.user_id}"
+        def assign_full_name
+          outputs.full_name = "User #{inputs.user_id}"
         end
 
         def event_payload
-          { user_id: inputs.user_id, user_name: outputs.user_name }
+          { user_id: inputs.user_id, full_name: outputs.full_name }
         end
       end
     end

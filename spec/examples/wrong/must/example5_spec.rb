@@ -10,7 +10,7 @@ RSpec.describe Wrong::Must::Example5, type: :service do
                     outputs: %i[invoice_numbers first_invoice_number]
 
     describe "but the data required for work is invalid" do
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       it "returns expected error" do
         expect { perform }.to(
           raise_error(
@@ -25,7 +25,6 @@ RSpec.describe Wrong::Must::Example5, type: :service do
           )
         )
       end
-      # rubocop:enable Layout/LineLength
     end
   end
 
@@ -38,7 +37,7 @@ RSpec.describe Wrong::Must::Example5, type: :service do
                     outputs: %i[invoice_numbers first_invoice_number]
 
     describe "but the data required for work is invalid" do
-      # rubocop:disable Layout/LineLength
+      # rubocop:disable-next Layout/LineLength
       it "returns expected error" do
         expect { perform }.to(
           raise_error(
@@ -53,7 +52,6 @@ RSpec.describe Wrong::Must::Example5, type: :service do
           )
         )
       end
-      # rubocop:enable Layout/LineLength
     end
   end
 end

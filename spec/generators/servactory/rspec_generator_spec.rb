@@ -20,6 +20,7 @@ RSpec.describe "Servactory::Generators::RspecGenerator" do
         it "creates spec with correct structure", :aggregate_failures do
           content = file_content("spec/services/process_order_spec.rb")
           expect(content).to include("RSpec.describe ProcessOrder, type: :service do")
+          # rubocop:disable-next Lint/InterpolationCheck
           expect(content).to include('pending "add some examples to (or delete) #{__FILE__}"')
           expect(content).to include('describe ".call!" do')
           expect(content).to include("subject(:perform) { described_class.call!(**attributes) }")
@@ -173,11 +174,13 @@ RSpec.describe "Servactory::Generators::RspecGenerator" do
 
         it "generates correct example values for collections", :aggregate_failures do
           content = file_content("spec/services/process_data_spec.rb")
-          expect(content).to include("let(:items) { [] }")
-          expect(content).to include("let(:options) { {} }")
+          expect(content).to include('let(:items) { ["example"] }')
+          expect(content).to include('let(:options) { { key: "value" } }')
           expect(content).to include(".type(Array)")
           expect(content).to include(".type(Hash)")
         end
+
+        it_behaves_like "generates valid Ruby syntax", "spec/services/process_data_spec.rb"
       end
 
       context "with symbol type" do

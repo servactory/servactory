@@ -18,7 +18,14 @@ module Servactory
       attr_accessor i18n_root_key: String
       attr_accessor predicate_methods_enabled: bool
 
+      @collection_mode_class_names: CollectionMode::ClassNamesCollection
+      @hash_mode_class_names: HashMode::ClassNamesCollection
+
       def initialize_dup: (Config original) -> void
+
+      private
+
+      def rebind_dynamic_option_helpers!: -> void
     end
   end
 end

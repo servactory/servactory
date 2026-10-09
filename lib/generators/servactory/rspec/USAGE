@@ -5,7 +5,7 @@ Usage:
     rails generate servactory:rspec NAME [inputs] [options]
 
 Arguments:
-    NAME           The name of the service (e.g., Users::Create, ProcessOrder)
+    NAME           The name of the service (e.g., Users::Create, Orders::Process)
     inputs         Input attributes with optional types (e.g., email:string, user:User)
 
 Options:
@@ -33,14 +33,14 @@ Examples:
     rails generate servactory:rspec Users::Create email:String name:String
         Creates spec/services/users/create_spec.rb with Ruby class types
 
-    rails generate servactory:rspec ProcessOrder user:User event:Event
+    rails generate servactory:rspec Orders::Process user:User event:Event
         Creates spec with custom model/class type inputs
 
     rails generate servactory:rspec Users::Create --path=lib/my_gem/services
         Creates spec/my_gem/services/users/create_spec.rb for gem/library use
 
-    rails generate servactory:rspec ProcessOrder --call-method=call
+    rails generate servactory:rspec Orders::Process --call-method=call
         Creates spec using .call instead of .call!
 
-    rails generate servactory:rspec CacheData --skip-pending
+    rails generate servactory:rspec Caches::Write --skip-pending
         Creates spec without pending placeholder

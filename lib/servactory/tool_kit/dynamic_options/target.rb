@@ -21,8 +21,8 @@ module Servactory
       # Use in your service definition:
       #
       # ```ruby
-      # class ProcessOrderService < ApplicationService::Base
-      #   input :service_class, type: Class, target: UserService
+      # class Orders::Process < ApplicationService::Base
+      #   input :service_class, type: Class, target: Payments::Charge
       #   input :handler_class, type: Class, target: [CreateHandler, UpdateHandler]
       # end
       # ```
@@ -32,7 +32,7 @@ module Servactory
       # Specify target class directly or as an array:
       #
       # ```ruby
-      # input :service_class, type: Class, target: UserService
+      # input :service_class, type: Class, target: Payments::Charge
       # input :handler_class, type: Class, target: [CreateHandler, UpdateHandler]
       # ```
       #
@@ -84,7 +84,7 @@ module Servactory
         # Creates a Target validator instance.
         #
         # @param option_name [Symbol] The option name (default: :target)
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :target)
           instance = new(option_name, :in)
           instance.must(:"be_#{option_name}")

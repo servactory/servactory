@@ -5,8 +5,16 @@ module Servactory
         extend Forwardable
 
         @collection: Set[untyped]
+        @attributes_index: Hash[Symbol, untyped]?
+        @declarations_index: Hash[Symbol, untyped]?
 
         def initialize: (?Set[untyped] collection) -> void
+
+        def initialize_dup: (Collection original) -> void
+
+        def <<: (untyped attribute) -> self
+
+        def merge: (Collection | Enumerable[untyped] other) -> self
 
         def names: () -> Array[Symbol]
 
@@ -18,7 +26,11 @@ module Servactory
 
         private
 
-        def lookup_name: (untyped item) -> Symbol
+        def attributes_index: () -> Hash[Symbol, untyped]
+
+        def declarations_index: () -> Hash[Symbol, untyped]
+
+        def lookup_name: (untyped attribute) -> Symbol
       end
     end
   end

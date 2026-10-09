@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "zeitwerk"
-require "forwardable"
 require "servactory"
 
 require "servactory/test_kit/rspec/helpers"

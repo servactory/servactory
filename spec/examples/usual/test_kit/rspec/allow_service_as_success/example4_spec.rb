@@ -18,6 +18,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example4, type: :se
                     inputs: %i[amount currency],
                     internals: %i[],
                     outputs: %i[display_value]
+
     describe "validations" do
       describe "outputs" do
         it do

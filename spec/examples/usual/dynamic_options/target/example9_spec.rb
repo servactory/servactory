@@ -10,7 +10,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example9, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -45,7 +45,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example9, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:service_class, described_class::MyFirstService)
+            .with_output(:service_class, described_class::TargetA)
         )
       end
     end
@@ -60,7 +60,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example9, type: :service do
               ApplicationService::Exceptions::Output,
               "[Usual::DynamicOptions::Target::Example9] " \
               "Output attribute `service_class` has wrong target, " \
-              "must be `Usual::DynamicOptions::Target::Example9::MyFirstService`, " \
+              "must be `Usual::DynamicOptions::Target::Example9::TargetA`, " \
               "got `String`"
             )
           )
@@ -78,7 +78,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example9, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -113,7 +113,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example9, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:service_class, described_class::MyFirstService)
+            .with_output(:service_class, described_class::TargetA)
         )
       end
     end
@@ -128,7 +128,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example9, type: :service do
               ApplicationService::Exceptions::Output,
               "[Usual::DynamicOptions::Target::Example9] " \
               "Output attribute `service_class` has wrong target, " \
-              "must be `Usual::DynamicOptions::Target::Example9::MyFirstService`, " \
+              "must be `Usual::DynamicOptions::Target::Example9::TargetA`, " \
               "got `String`"
             )
           )

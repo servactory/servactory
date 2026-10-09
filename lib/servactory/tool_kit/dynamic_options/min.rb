@@ -35,7 +35,7 @@ module Servactory
       # Use in your service definition:
       #
       # ```ruby
-      # class ProcessDataService < ApplicationService::Base
+      # class Data::Process < ApplicationService::Base
       #   input :age, type: Integer, min: 18
       #   input :password, type: String, min: 8
       #   input :tags, type: Array, min: 1
@@ -47,7 +47,7 @@ module Servactory
       # Specify minimum value directly:
       #
       # ```ruby
-      # class ProcessDataService < ApplicationService::Base
+      # class Data::Process < ApplicationService::Base
       #   input :age, type: Integer, min: 18
       #   input :password, type: String, min: 8
       #   input :tags, type: Array, min: 1
@@ -97,7 +97,7 @@ module Servactory
         # Creates a Min validator instance.
         #
         # @param option_name [Symbol] The option name (default: :min)
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :min)
           new(option_name).must(:be_greater_than_or_equal_to)
         end

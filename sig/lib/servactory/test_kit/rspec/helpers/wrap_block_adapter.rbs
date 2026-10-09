@@ -1,0 +1,18 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Helpers
+        class WrapBlockAdapter
+          KEYWORD_PARAMETER_TYPES: Array[Symbol]
+
+          def self.adapt: (Proc wrap_block) -> Proc
+
+          private
+
+          def self.accepts_keywords?: (Proc wrap_block) -> bool
+          def self.with_keyword_inputs: (Proc wrap_block) -> Proc
+        end
+      end
+    end
+  end
+end

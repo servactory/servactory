@@ -72,7 +72,7 @@ module Servactory
       # Specify format directly as the option value:
       #
       # ```ruby
-      # class ValidateUserService < ApplicationService::Base
+      # class Users::Validate < ApplicationService::Base
       #   input :uuid, type: String, format: :uuid
       #   input :email, type: String, format: :email
       #   input :password, type: String, format: :password
@@ -179,7 +179,7 @@ module Servactory
         #
         # @param option_name [Symbol] The option name (default: :format)
         # @param formats [Hash] Custom format definitions to merge with defaults
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :format, formats: {})
           instance = new(option_name)
           instance.assign(formats)
@@ -232,7 +232,7 @@ module Servactory
         # @param internal [Object, nil] Internal attribute if applicable
         # @param output [Object, nil] Output attribute if applicable
         # @return [Boolean, Array] true if valid, or [false, reason]
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def common_condition_with(value:, option:, input: nil, internal: nil, output: nil)
           option_value = option.value&.to_sym
 
@@ -269,7 +269,6 @@ module Servactory
           # Run validator callback.
           option.properties.fetch(:validator, format_options.fetch(:validator)).call(value:)
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         ########################################################################
 

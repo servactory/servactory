@@ -26,7 +26,7 @@ module Servactory
 
       private
 
-      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength
       def build_all_attributes(inputs:, internals:, outputs:, stages:, config:)
         build_input_attributes_with(
           collection: inputs,
@@ -45,7 +45,6 @@ module Servactory
 
         build_action_stages_with(collection: stages)
       end
-      # rubocop:enable Metrics/MethodLength
 
       def build_input_attributes_with(collection:, dynamic_options:)
         @inputs = build_attributes_with(
@@ -142,12 +141,13 @@ module Servactory
       end
 
       def enrich_options_with_common_fields(attribute:, options:)
-        actor = attribute.class::Actor.new(attribute)
+        types = attribute.collection_of_options.find_by(name: :types)
         must = attribute.collection_of_options.find_by(name: :must)
 
         options.merge(
-          actor:,
-          types: attribute.types,
+          actor: attribute.actor,
+          type: { is: types.value, message: types.body[:message] },
+          types: types.value,
           must: must&.value
         )
       end

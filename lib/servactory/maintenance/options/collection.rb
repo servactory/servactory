@@ -28,19 +28,16 @@ module Servactory
       # ## Performance
       #
       # The collection uses memoization for frequently accessed data:
-      # - `validation_classes` - cached list of unique validation classes
-      # - `options_for_checks` - cached hash for validation pipeline
+      # - `validations_for_checks` - cached tuples for validation pipeline
       # - `options_index` - cached hash for O(1) lookups by name
       #
       class Collection
         extend Forwardable
 
         def_delegators :@collection,
-                       :<<,
                        :filter,
                        :each, :each_with_object,
-                       :map, :flat_map,
-                       :find,
+                       :map,
                        :size,
                        :empty?
 
@@ -51,6 +48,26 @@ module Servactory
           @collection = Set.new
         end
 
+        # Duplicates the collection, resetting memoized caches.
+        #
+        # @param original [Collection] the collection being duplicated
+        # @return [void]
+        def initialize_dup(original)
+          super
+          @collection = original.instance_variable_get(:@collection).dup
+          reset_memoized_caches
+        end
+
+        # Adds an option to the collection, invalidating memoized caches.
+        #
+        # @param option [Option] the option to add
+        # @return [Collection] self
+        def <<(option)
+          @collection << option
+          reset_memoized_caches
+          self
+        end
+
         # Returns all option names in the collection.
         #
         # @return [Array<Symbol>] list of option names
@@ -58,32 +75,51 @@ module Servactory
           map(&:name)
         end
 
-        # Returns unique validation classes from all options.
+        # @deprecated Use {#validations_for_checks} instead.
         #
         # @return [Array<Class>] deduplicated list of validation classes
         def validation_classes
-          @validation_classes ||=
-            filter { |option| option.validation_class.present? }
-            .map(&:validation_class)
-            .uniq
+          warn "[DEPRECATION] Servactory::Maintenance::Options::Collection#validation_classes is deprecated. " \
+               "Use #validations_for_checks instead."
+          validations_for_checks.map(&:last).uniq
         end
 
-        # Returns options that need validation checks as a hash.
+        # @deprecated Use {#validations_for_checks} instead.
         #
         # @return [Hash{Symbol => Object}] option names mapped to normalized bodies
         def options_for_checks
-          @options_for_checks ||= filter(&:need_for_checks?).to_h do |option|
-            [option.name, extract_normalized_body_from(option:)]
+          warn "[DEPRECATION] Servactory::Maintenance::Options::Collection#options_for_checks is deprecated. " \
+               "Use #validations_for_checks instead."
+          check_options_by_key
+        end
+
+        # Returns options that need validation checks as an array of tuples.
+        # Each tuple contains [check_key, check_options, validation_class],
+        # enabling direct dispatch without nested iteration.
+        #
+        # @return [Array<Array(Symbol, Object, Class)>] tuples for direct validation dispatch
+        def validations_for_checks
+          @validations_for_checks ||= filter(&:need_for_checks?).filter_map do |option|
+            next if option.validation_class.nil?
+
+            [option.name, extract_normalized_body_from(option:), option.validation_class]
           end
         end
 
         # Returns the first conflict code found among options.
         #
-        # @return [Object, nil] conflict code or nil if no conflicts
+        # @return [Symbol, nil] conflict code or nil if no conflicts
         def defined_conflict_code
-          flat_map { |option| resolve_conflicts_from(option:) }
-            .reject(&:blank?)
-            .first
+          each do |option|
+            next unless option.define_conflicts
+
+            option.define_conflicts.each do |conflict|
+              code = conflict.content.call
+              return code if code.present?
+            end
+          end
+
+          nil
         end
 
         # Finds an option by its name using indexed lookup.
@@ -96,13 +132,27 @@ module Servactory
 
         private
 
+        # Builds the result of the deprecated `options_for_checks` methods
+        # without emitting a deprecation warning.
+        #
+        # @return [Hash{Symbol => Object}] option names mapped to normalized bodies
+        def check_options_by_key
+          validations_for_checks.to_h { |check_key, check_options, _| [check_key, check_options] }
+        end
+
+        # Resets memoized data derived from the collection contents.
+        #
+        # @return [void]
+        def reset_memoized_caches
+          @validations_for_checks = nil
+          @options_index = nil
+        end
+
         # Builds and caches a hash index for O(1) option lookups.
         #
         # @return [Hash{Symbol => Option}] option names mapped to Option instances
         def options_index
-          @options_index ||= each_with_object({}) do |option, index|
-            index[option.name] = option
-          end
+          @options_index ||= @collection.to_h { |option| [option.name, option] }
         end
 
         # Extracts the normalized body value from an option.
@@ -111,16 +161,6 @@ module Servactory
         # @return [Object] the body_key value if body is a Hash, otherwise the full body
         def extract_normalized_body_from(option:)
           option.value
-        end
-
-        # Resolves conflict codes from an option's define_conflicts.
-        #
-        # @param option [Option] the option to check for conflicts
-        # @return [Array<Object>] array of conflict codes (may contain nils/blanks)
-        def resolve_conflicts_from(option:)
-          return [] unless option.define_conflicts
-
-          option.define_conflicts.map { |conflict| conflict.content.call }
         end
       end
     end

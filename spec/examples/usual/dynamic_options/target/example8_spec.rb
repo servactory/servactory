@@ -5,7 +5,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
   describe ".call!" do
     subject(:perform) { described_class.call! }
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[],
@@ -18,7 +18,8 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
           expect { perform }.to(
             have_internal(:service_class)
               .type(Class)
-              .target([described_class::MyFirstService, described_class::MySecondService])
+              .target([described_class::TargetA, described_class::TargetB])
+              .message("Internal custom error")
           )
         end
       end
@@ -48,7 +49,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
   describe ".call" do
     subject(:perform) { described_class.call }
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[],
@@ -61,7 +62,8 @@ RSpec.describe Usual::DynamicOptions::Target::Example8, type: :service do
           expect { perform }.to(
             have_internal(:service_class)
               .type(Class)
-              .target([described_class::MyFirstService, described_class::MySecondService])
+              .target([described_class::TargetA, described_class::TargetB])
+              .message("Internal custom error")
           )
         end
       end

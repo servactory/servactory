@@ -78,8 +78,8 @@ module Servactory
         when "Float" then "1.0"
         when "TrueClass", "[TrueClass, FalseClass]" then "true"
         when "FalseClass" then "false"
-        when "Array" then "[]"
-        when "Hash" then "{}"
+        when "Array" then '["example"]'
+        when "Hash" then '{ key: "value" }'
         when "Symbol" then ":example"
         when "Date" then "Date.current"
         when "DateTime" then "DateTime.current"

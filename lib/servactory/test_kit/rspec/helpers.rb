@@ -2,7 +2,11 @@
 
 require_relative "helpers/concerns/error_messages"
 require_relative "helpers/concerns/service_class_validation"
+require_relative "helpers/service_inputs_matcher"
+require_relative "helpers/service_inputs_guard"
 require_relative "helpers/service_mock_config"
+require_relative "helpers/exception_validator"
+require_relative "helpers/wrap_block_adapter"
 require_relative "helpers/mock_executor"
 require_relative "helpers/input_validator"
 require_relative "helpers/output_validator"

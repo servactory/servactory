@@ -63,11 +63,12 @@ module Servactory
 
         def default_input_option_helpers(config)
           Set[
-            Servactory::Maintenance::Attributes::OptionHelper
+            Servactory::Maintenance::Options::Helper
             .new(name: :optional, equivalent: { required: false }),
             Servactory::ToolKit::DynamicOptions::ConsistsOf
               .use(collection_mode_class_names: config.collection_mode_class_names),
-            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Schema
+              .use(default_hash_mode_class_names: config.hash_mode_class_names),
             Servactory::ToolKit::DynamicOptions::Inclusion.use,
             Servactory::ToolKit::DynamicOptions::Target.use
           ]
@@ -77,7 +78,8 @@ module Servactory
           Set[
             Servactory::ToolKit::DynamicOptions::ConsistsOf
             .use(collection_mode_class_names: config.collection_mode_class_names),
-            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Schema
+              .use(default_hash_mode_class_names: config.hash_mode_class_names),
             Servactory::ToolKit::DynamicOptions::Inclusion.use,
             Servactory::ToolKit::DynamicOptions::Target.use
           ]
@@ -87,7 +89,8 @@ module Servactory
           Set[
             Servactory::ToolKit::DynamicOptions::ConsistsOf
             .use(collection_mode_class_names: config.collection_mode_class_names),
-            Servactory::ToolKit::DynamicOptions::Schema.use(default_hash_mode_class_names:),
+            Servactory::ToolKit::DynamicOptions::Schema
+              .use(default_hash_mode_class_names: config.hash_mode_class_names),
             Servactory::ToolKit::DynamicOptions::Inclusion.use,
             Servactory::ToolKit::DynamicOptions::Target.use
           ]

@@ -5,19 +5,15 @@ module Servactory
     extend self
 
     def adapt(data)
-      if defined?(Datory::Base) && data.is_a?(Datory::Base)
-        data = Servactory::Utils.send(:instance_variables_to_hash_from, data)
-      end
+      data = instance_variables_to_hash_from(data) if datory?(data)
 
       data.symbolize_keys
     end
 
-    def fetch_hash_with_desired_attribute(attribute)
-      return { input: attribute.class::Actor.new(attribute) } if really_input?(attribute)
-      return { internal: attribute.class::Actor.new(attribute) } if really_internal?(attribute)
-      return { output: attribute.class::Actor.new(attribute) } if really_output?(attribute)
-
-      raise ArgumentError, "Failed to define attribute"
+    # @param data [Object]
+    # @return [Boolean] True if #adapt accepts the data as service arguments
+    def adaptable?(data)
+      data.is_a?(Hash) || datory?(data)
     end
 
     def define_attribute_with(input: nil, internal: nil, output: nil)
@@ -115,6 +111,12 @@ module Servactory
     end
 
     private
+
+    def datory?(data)
+      return false unless defined?(Datory::Base)
+
+      data.is_a?(Datory::Base)
+    end
 
     def instance_variables_to_hash_from(data) # rubocop:disable Metrics/MethodLength
       data.instance_variables.to_h do |key|

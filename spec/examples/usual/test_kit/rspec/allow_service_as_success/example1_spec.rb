@@ -21,9 +21,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1, type: :se
       end
 
       it "returns success of child class" do
-        result = perform
-
-        expect(result.child_result).to be_success_service
+        expect(perform.child_result).to be_success_service
       end
     end
   end
@@ -44,9 +42,7 @@ RSpec.describe Usual::TestKit::Rspec::AllowServiceAsSuccess::Example1, type: :se
       it_behaves_like "success result class"
 
       it "returns success of child class" do
-        result = perform
-
-        expect(result.child_result).to be_success_service
+        expect(perform.child_result).to be_success_service
       end
     end
   end

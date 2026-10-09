@@ -47,7 +47,7 @@ Usage in Service:
 
     Then use the DSL method in your services:
 
-        class MyService < ApplicationService::Base
+        class Users::Create < ApplicationService::Base
           my_extension!(my_setting: "value")
 
           # ...

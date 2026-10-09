@@ -22,6 +22,20 @@ def extract_variables(text)
   text.scan(/%\{(\w+)\}/).flatten.sort
 end
 
+def value_errors(name, keys)
+  keys.each_with_object([]) do |(key, value), result|
+    result << "#{name}.yml: key '#{key}' has nil value" if value.nil?
+
+    next unless value.is_a?(String)
+
+    result << "#{name}.yml: key '#{key}' has empty value" if value.strip.empty?
+
+    result << "#{name}.yml: key '#{key}' has unbalanced brackets" if value.count("[") != value.count("]")
+
+    result << "#{name}.yml: key '#{key}' has odd number of backticks" if value.count("`").odd?
+  end
+end
+
 errors = []
 
 # Discover locale files dynamically
@@ -67,8 +81,10 @@ unless base_keys
   exit 1
 end
 
-# Validate each non-base locale
+# Validate each locale
 locales.each do |name, keys|
+  errors.concat(value_errors(name, keys))
+
   next if name == BASE_LOCALE
 
   # Missing keys
@@ -90,19 +106,6 @@ locales.each do |name, keys|
 
     errors << "#{name}.yml: key '#{key}' has different interpolation variables " \
               "(expected #{expected.inspect}, got #{got.inspect})"
-  end
-
-  # Value checks for all locales
-  keys.each do |key, value|
-    next unless value.is_a?(String)
-
-    errors << "#{name}.yml: key '#{key}' has empty value" if value.strip.empty?
-
-    errors << "#{name}.yml: key '#{key}' has unbalanced brackets" if value.count("[") != value.count("]")
-
-    errors << "#{name}.yml: key '#{key}' has odd number of backticks" if value.count("`").odd?
-
-    errors << "#{name}.yml: key '#{key}' has nil value" if value.nil?
   end
 end
 

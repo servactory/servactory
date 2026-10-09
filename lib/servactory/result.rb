@@ -55,8 +55,6 @@ module Servactory
       def initialize(outputs:, predicate_methods_enabled:)
         @outputs = outputs
         @predicate_methods_enabled = predicate_methods_enabled
-
-        define_attribute_methods!
       end
 
       # Returns string representation for debugging.
@@ -66,25 +64,33 @@ module Servactory
         "#<#{self.class.name} #{draw_result}>"
       end
 
-      private
-
-      # Defines singleton accessor methods for output values on this instance.
-      #
-      # Creates getter methods for each output key and, when predicate methods
-      # are enabled, predicate methods (e.g., user?) for boolean queries.
-      #
-      # @return [void]
-      def define_attribute_methods!
-        @outputs.each_key do |name|
-          define_singleton_method(name) { @outputs[name] }
-
-          next unless @predicate_methods_enabled
-
-          define_singleton_method(:"#{name}?") do
-            Servactory::Utils.query_attribute(@outputs[name])
+      # Delegates method calls to stored outputs.
+      def method_missing(name, *args)
+        if name.to_s.end_with?("?")
+          base_name = name.to_s.chomp("?").to_sym
+          if @predicate_methods_enabled && @outputs.key?(base_name)
+            return Servactory::Utils.query_attribute(@outputs[base_name])
           end
+        elsif @outputs.key?(name)
+          return @outputs[name]
         end
+
+        super
       end
+
+      # Checks if method corresponds to stored output.
+      def respond_to_missing?(name, include_private = false)
+        if name.to_s.end_with?("?")
+          base_name = name.to_s.chomp("?").to_sym
+          return true if @predicate_methods_enabled && @outputs.key?(base_name)
+        elsif @outputs.key?(name)
+          return true
+        end
+
+        super
+      end
+
+      private
 
       # Returns array of output attribute names.
       #
@@ -113,6 +119,10 @@ module Servactory
     end
 
     private_constant :Outputs
+
+    # Result state keys exposed by {#deconstruct_keys}.
+    STATE_KEYS = %i[success failure error].freeze
+    private_constant :STATE_KEYS
 
     ############################################################################
 
@@ -192,20 +202,27 @@ module Servactory
 
     # Converts outputs to hash.
     #
-    # Excludes predicate methods from the result hash.
+    # Returns only outputs that were assigned during the call, including
+    # outputs explicitly assigned nil. Declared outputs that were never
+    # assigned are absent. Excludes predicate methods from the result hash.
     #
-    # @return [Hash<Symbol, Object>] Output name-value pairs
+    # @return [Hash<Symbol, Object>] Assigned output name-value pairs
     #
     # @example
-    #   result.to_h # => { user: #<User>, token: "abc123" }
+    #   result.to_h # => { user: #<User>, token: nil }
     def to_h
-      outputs.send(:output_names).to_h { |key| [key, outputs.public_send(key)] }.compact
+      hash = {}
+      outputs.send(:output_names).each { |key| hash[key] = outputs.public_send(key) }
+      hash
     end
 
     # Pattern matching support.
     #
     # Returns hash of result state and output values for use with case/in.
-    # State keys (:success, :failure, :error) take priority over output names.
+    # Output keys match {#to_h}: only assigned outputs are present.
+    # State keys (:success, :failure, :error) take priority over output names:
+    # outputs with these names are not included, and :error is present only
+    # for failures.
     #
     # @param keys [Array<Symbol>, nil] Keys to include, or nil for all
     # @return [Hash<Symbol, Object>] Hash of state and outputs for pattern matching
@@ -228,6 +245,8 @@ module Servactory
       available[:error] = error if failure?
 
       outputs.send(:output_names).each do |name|
+        next if STATE_KEYS.include?(name)
+
         available[name] = outputs.public_send(name)
       end
 
@@ -282,9 +301,6 @@ module Servactory
 
     # Delegates method calls to the outputs container.
     #
-    # On first access, triggers lazy initialization of outputs and
-    # installs singleton delegator methods for subsequent direct access.
-    #
     # @param name [Symbol] Method name (output attribute)
     # @param args [Array] Method arguments
     # @param block [Proc] Optional block
@@ -332,12 +348,9 @@ module Servactory
 
     # Returns outputs container, lazily initialized.
     #
-    # On first access, also defines singleton delegator methods on this
-    # Result instance for subsequent direct access.
-    #
     # @return [Outputs] Outputs container with service values
     def outputs
-      @outputs ||= build_outputs.tap { |outputs_container| define_output_delegators!(outputs_container) }
+      @outputs ||= build_outputs
     end
 
     # Builds Outputs container with predicate configuration.
@@ -347,7 +360,7 @@ module Servactory
       Outputs.new(
         outputs: build_outputs_hash,
         predicate_methods_enabled:
-          @context.is_a?(Servactory::TestKit::Result) || @context.config.predicate_methods_enabled
+          @context.is_a?(Servactory::TestKit::Result) || @context.class.config.predicate_methods_enabled
       )
     end
 
@@ -362,21 +375,6 @@ module Servactory
       hash
     end
 
-    # Defines singleton delegator methods on this Result instance
-    # for direct access to output values without method_missing.
-    #
-    # @param outputs_container [Outputs] Outputs container to delegate to
-    # @return [void]
-    def define_output_delegators!(outputs_container)
-      outputs_container.send(:output_names).each do |name|
-        define_singleton_method(name) { outputs.public_send(name) }
-      end
-
-      outputs_container.send(:predicate_names).each do |name|
-        define_singleton_method(name) { outputs.public_send(name) }
-      end
-    end
-
     ########################################################################
 
     # Wraps NoMethodError with contextual failure.
@@ -389,7 +387,7 @@ module Servactory
     def rescue_no_method_error_with(exception:) # rubocop:disable Metrics/MethodLength
       raise exception if @context.blank? || @context.instance_of?(Servactory::TestKit::Result)
 
-      raise @context.config.failure_class.new(
+      raise @context.class.config.failure_class.new(
         type: :base,
         message: @context.send(:servactory_service_info).translate(
           "common.undefined_method.missing_name",

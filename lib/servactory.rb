@@ -2,6 +2,8 @@
 
 require "zeitwerk"
 
+require "forwardable"
+
 require "stroma"
 
 require "active_support/all"
@@ -10,15 +12,12 @@ require "uri"
 
 loader = Zeitwerk::Loader.for_gem
 loader.ignore("#{__dir__}/generators")
+loader.ignore("#{__dir__}/servactory/engine.rb")
 loader.ignore("#{__dir__}/servactory/test_kit/rspec")
 loader.inflector.inflect(
   "dsl" => "DSL"
 )
 loader.setup
-
-# Eager load DSL to initialize Stroma::Registry.
-# Registry must be populated before any service class is defined.
-require_relative "servactory/dsl"
 
 module Servactory; end
 

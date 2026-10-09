@@ -1,0 +1,19 @@
+module Servactory
+  module TestKit
+    module Rspec
+      module Matchers
+        module Concerns
+          module RequiredMessage : Concerns::AttributeDataAccess
+            def required_custom_message: () -> (String | Proc)?
+
+            def default_required_message: () -> String
+
+            def call_required_message: (Proc message) -> untyped
+
+            def required_message: () -> untyped
+          end
+        end
+      end
+    end
+  end
+end

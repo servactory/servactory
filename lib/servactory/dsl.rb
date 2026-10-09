@@ -2,7 +2,7 @@
 
 module Servactory
   module DSL
-    STROMA = Stroma::Matrix.define(:my_lib) do
+    STROMA = Stroma::Matrix.define(:servactory) do
       register(:configuration, Configuration::DSL)
       register(:info, Info::DSL)
       register(:context, Context::DSL)

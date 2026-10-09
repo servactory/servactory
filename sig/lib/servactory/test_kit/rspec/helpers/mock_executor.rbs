@@ -3,7 +3,17 @@ module Servactory
     module Rspec
       module Helpers
         class MockExecutor
-          include Concerns::ErrorMessages
+          class Stub < ::Data
+            attr_reader message_expectation: untyped
+            attr_reader inputs_guard: ServiceInputsGuard
+
+            def self.new: (message_expectation: untyped, inputs_guard: ServiceInputsGuard) -> instance
+                        | (untyped message_expectation, ServiceInputsGuard inputs_guard) -> instance
+
+            def invoked?: () -> bool
+          end
+
+          CALL_ORIGINAL: Proc
 
           @service_class: Class
           @configs: Array[ServiceMockConfig]
@@ -11,24 +21,22 @@ module Servactory
 
           def initialize: (service_class: Class, configs: Array[ServiceMockConfig], rspec_context: untyped) -> void
 
-          def execute: () -> void
+          def execute: (?Stub? stub) -> Stub
+
+          def update_arguments: (Stub stub) -> Stub
 
           private
 
           def sequential?: () -> bool
-          def execute_single: () -> void
-          def execute_sequential: () -> void
+          def register_stub: () -> Stub
+          def method_type: () -> Symbol
+          def argument_matcher: () -> untyped
+          def apply_sequential_behavior: (untyped message_expectation) -> void
           def all_returns?: () -> bool
-          def execute_sequential_returns: (Symbol method_name, untyped arg_matcher) -> void
-          def execute_sequential_invoke: (Symbol method_name, untyped arg_matcher) -> void
           def build_callable: (ServiceMockConfig config) -> ^(*untyped) -> untyped
-          def apply_return_behavior: (untyped message_expectation, ServiceMockConfig config) -> void
+          def apply_return_behavior: (Stub stub, ServiceMockConfig config) -> void
+          def build_pass_through: (ServiceInputsGuard inputs_guard, ServiceMockConfig config) -> Proc
           def validate_configs!: () -> void
-          def validate_config!: (ServiceMockConfig config) -> void
-          def validate_failure_has_exception!: (ServiceMockConfig config) -> void
-          def validate_exception_type!: (ServiceMockConfig config) -> void
-          def valid_exception_type?: (ServiceMockConfig config) -> bool
-          def failure_class_for: (ServiceMockConfig config) -> Class
         end
       end
     end

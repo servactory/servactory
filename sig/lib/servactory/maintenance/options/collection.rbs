@@ -5,23 +5,26 @@ module Servactory
         extend Forwardable
 
         @collection: Set[Option]
-        @validation_classes: Array[Class]
-        @options_for_checks: Hash[Symbol, untyped]
-        @options_index: Hash[Symbol, Option]
+        @validations_for_checks: Array[[Symbol, untyped, Class]]?
+        @options_index: Hash[Symbol, Option]?
 
         def initialize: () -> void
 
+        def initialize_dup: (Collection original) -> void
+        def <<: (Option option) -> self
         def names: () -> Array[Symbol]
         def validation_classes: () -> Array[Class]
         def options_for_checks: () -> Hash[Symbol, untyped]
-        def defined_conflict_code: () -> untyped
+        def validations_for_checks: () -> Array[[Symbol, untyped, Class]]
+        def defined_conflict_code: () -> Symbol?
         def find_by: (name: Symbol) -> Option?
 
         private
 
+        def check_options_by_key: () -> Hash[Symbol, untyped]
+        def reset_memoized_caches: () -> void
         def options_index: () -> Hash[Symbol, Option]
         def extract_normalized_body_from: (option: Option) -> untyped
-        def resolve_conflicts_from: (option: Option) -> Array[untyped]
       end
     end
   end

@@ -4,9 +4,9 @@ module Usual
   module DynamicOptions
     module MultipleOf
       class Example4 < ApplicationService::Base
-        # NOTE: This example tests Float type with numeric divisors.
-        #       Using Integer-like Float divisors (2.0, 3.0, 5.0) avoids
-        #       IEEE 754 precision issues with decimal fractions like 0.1.
+        # NOTE: This example tests Float type with Integer-like Float divisors
+        #       (2.0, 3.0, 5.0). Decimal fraction divisors like 0.1 are
+        #       covered by Example5.
 
         input :number, type: Float, multiple_of: 2.0
 

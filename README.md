@@ -52,7 +52,7 @@ gem "servactory"
 ### Define service
 
 ```ruby
-class UserService::Authenticate < Servactory::Base
+class Users::Authenticate < Servactory::Base
   input :email, type: String
   input :password, type: String
 
@@ -77,7 +77,7 @@ end
 ```ruby
 class SessionsController < ApplicationController
   def create
-    service = UserService::Authenticate.call(**session_params)
+    service = Users::Authenticate.call(**session_params)
 
     if service.success?
       session[:current_user_id] = service.user.id
@@ -95,6 +95,11 @@ class SessionsController < ApplicationController
   end
 end
 ```
+
+## 🧩 Ecosystem
+
+- [**Stroma**](https://github.com/servactory/stroma) — A foundation for building modular, extensible DSLs in Ruby
+- [**OpenTelemetry Instrumentation**](https://github.com/servactory/opentelemetry-instrumentation-servactory) — Automatic tracing of service calls and actions with span attributes and failure detection
 
 ## 🤝 Contributing
 

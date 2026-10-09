@@ -6,6 +6,7 @@ module RSpec
     def self.alias_matcher: (Symbol alias_name, Symbol original_name) -> void
                            | (Symbol alias_name, Symbol original_name) { (String) -> String } -> void
     def self.define: (Symbol name) { () -> void } -> void
+    def self.is_a_matcher?: (untyped obj) -> bool
 
     module BuiltIn
       class BaseMatcher

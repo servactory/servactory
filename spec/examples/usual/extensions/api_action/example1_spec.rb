@@ -16,7 +16,7 @@ RSpec.describe Usual::Extensions::ApiAction::Example1, type: :service do
       }
     end
 
-    let(:user_id) { 42 }
+    let(:user_id) { 47 }
 
     it_behaves_like "check class info",
                     inputs: %i[user_id],
@@ -51,7 +51,7 @@ RSpec.describe Usual::Extensions::ApiAction::Example1, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:user_data, { id: 1, name: "User from /users/42" })
+            .with_output(:user_data, { id: 1, name: "User from /users/47" })
         )
       end
 
@@ -71,7 +71,7 @@ RSpec.describe Usual::Extensions::ApiAction::Example1, type: :service do
       }
     end
 
-    let(:user_id) { 42 }
+    let(:user_id) { 47 }
 
     describe "validations" do
       describe "inputs" do
@@ -101,7 +101,7 @@ RSpec.describe Usual::Extensions::ApiAction::Example1, type: :service do
       it do
         expect(perform).to(
           be_success_service
-            .with_output(:user_data, { id: 1, name: "User from /users/42" })
+            .with_output(:user_data, { id: 1, name: "User from /users/47" })
         )
       end
     end

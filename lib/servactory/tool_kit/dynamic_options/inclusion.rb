@@ -20,7 +20,7 @@ module Servactory
       # Use in your service definition:
       #
       # ```ruby
-      # class CreateUserService < ApplicationService::Base
+      # class Users::Create < ApplicationService::Base
       #   input :role, type: String, inclusion: { in: %w[admin user guest] }
       #   input :status, type: Symbol, inclusion: { in: [:active, :inactive] }
       #   input :level, type: Integer, inclusion: { in: [1, 2, 3, 4, 5] }
@@ -32,7 +32,7 @@ module Servactory
       # Specify inclusion values directly:
       #
       # ```ruby
-      # class CreateUserService < ApplicationService::Base
+      # class Users::Create < ApplicationService::Base
       #   input :role, type: String, inclusion: %w[admin user guest]
       #   input :status, type: Symbol, inclusion: [:active, :inactive]
       #   input :level, type: Integer, inclusion: 1..10
@@ -87,7 +87,7 @@ module Servactory
         # Creates an Inclusion validator instance.
         #
         # @param option_name [Symbol] The option name (default: :inclusion)
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :inclusion)
           instance = new(option_name, :in)
           instance.must(:be_inclusion)

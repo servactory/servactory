@@ -10,7 +10,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example5, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -25,7 +25,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example5, type: :service do
               .valid_with(attributes)
               .type(Class)
               .required
-              .target([described_class::MyFirstService, described_class::MySecondService])
+              .target([described_class::TargetA, described_class::TargetB])
           )
         end
       end
@@ -41,7 +41,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example5, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      context "when using MyFirstService" do
+      context "when using TargetA" do
         it_behaves_like "success result class"
 
         it do
@@ -52,8 +52,8 @@ RSpec.describe Usual::DynamicOptions::Target::Example5, type: :service do
         end
       end
 
-      context "when using MySecondService" do
-        let(:service_class) { described_class::MySecondService }
+      context "when using TargetB" do
+        let(:service_class) { described_class::TargetB }
 
         it_behaves_like "success result class"
 
@@ -91,7 +91,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example5, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -106,7 +106,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example5, type: :service do
               .valid_with(attributes)
               .type(Class)
               .required
-              .target([described_class::MyFirstService, described_class::MySecondService])
+              .target([described_class::TargetA, described_class::TargetB])
           )
         end
       end
@@ -122,7 +122,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example5, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      context "when using MyFirstService" do
+      context "when using TargetA" do
         it_behaves_like "success result class"
 
         it do
@@ -133,8 +133,8 @@ RSpec.describe Usual::DynamicOptions::Target::Example5, type: :service do
         end
       end
 
-      context "when using MySecondService" do
-        let(:service_class) { described_class::MySecondService }
+      context "when using TargetB" do
+        let(:service_class) { described_class::TargetB }
 
         it_behaves_like "success result class"
 

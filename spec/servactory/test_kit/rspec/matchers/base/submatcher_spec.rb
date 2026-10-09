@@ -110,6 +110,32 @@ RSpec.describe Servactory::TestKit::Rspec::Matchers::Base::Submatcher do
     end
   end
 
+  describe "#attached_to?" do
+    let(:attached_submatcher) do
+      concrete_submatcher_class.new(
+        Servactory::TestKit::Rspec::Matchers::Base::SubmatcherContext.new(
+          described_class: Usual::TestKit::Rspec::Matchers::MinimalInputService,
+          attribute_type: :input,
+          attribute_name: :name,
+          attribute_data: Usual::TestKit::Rspec::Matchers::MinimalInputService.info.inputs[:name],
+          last_submatcher: submatcher
+        )
+      )
+    end
+
+    it "returns true for the submatcher chained right before it" do
+      expect(attached_submatcher.attached_to?(submatcher)).to be(true)
+    end
+
+    it "returns false for another submatcher" do
+      expect(attached_submatcher.attached_to?(concrete_submatcher_class.new(context))).to be(false)
+    end
+
+    it "returns false without a submatcher chained before it" do
+      expect(submatcher.attached_to?(attached_submatcher)).to be(false)
+    end
+  end
+
   describe "#failure_message_when_negated" do
     it "includes description" do
       expect(submatcher.failure_message_when_negated).to eq("expected not to test submatcher")

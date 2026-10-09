@@ -5,6 +5,10 @@ module Servactory
         module Submatchers
           module Shared
             class TypesSubmatcher < Base::Submatcher
+              OPTION_NAME: Symbol
+
+              OPTION_BODY_KEY: Symbol
+
               @expected_types: Array[Class]
               @actual_types: Array[Class]
 

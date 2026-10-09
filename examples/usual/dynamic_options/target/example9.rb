@@ -5,12 +5,12 @@ module Usual
   module DynamicOptions
     module Target
       class Example9 < ApplicationService::Base
-        class MyFirstService; end # rubocop:disable Lint/EmptyClass
+        class TargetA; end # rubocop:disable Lint/EmptyClass
 
         # NOTE: Option `target` is not specifically used here.
         input :service_class, type: Class
 
-        output :service_class, type: Class, target: MyFirstService
+        output :service_class, type: Class, target: TargetA
 
         make :assign_output
 

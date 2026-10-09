@@ -10,7 +10,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -34,7 +34,12 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
           expect { perform }.to(
             have_internal(:service_class)
               .type(Class)
-              .target([described_class::MyFirstService, described_class::MySecondService])
+              .target([described_class::TargetA, described_class::TargetB])
+              .message(
+                "Internal `service_class`: nil is not allowed. " \
+                "Allowed: Usual::DynamicOptions::Target::Example11::TargetA, " \
+                "Usual::DynamicOptions::Target::Example11::TargetB"
+              )
           )
         end
       end
@@ -50,26 +55,26 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      context "when using MyFirstService" do
+      context "when using TargetA" do
         it_behaves_like "success result class"
 
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:result, "Usual::DynamicOptions::Target::Example11::MyFirstService")
+              .with_output(:result, "Usual::DynamicOptions::Target::Example11::TargetA")
           )
         end
       end
 
-      context "when using MySecondService" do
-        let(:service_class) { described_class::MySecondService }
+      context "when using TargetB" do
+        let(:service_class) { described_class::TargetB }
 
         it_behaves_like "success result class"
 
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:result, "Usual::DynamicOptions::Target::Example11::MySecondService")
+              .with_output(:result, "Usual::DynamicOptions::Target::Example11::TargetB")
           )
         end
       end
@@ -84,8 +89,8 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "Internal `service_class`: String is not allowed. " \
-              "Allowed: Usual::DynamicOptions::Target::Example11::MyFirstService, " \
-              "Usual::DynamicOptions::Target::Example11::MySecondService"
+              "Allowed: Usual::DynamicOptions::Target::Example11::TargetA, " \
+              "Usual::DynamicOptions::Target::Example11::TargetB"
             )
           )
         end
@@ -102,7 +107,7 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
       }
     end
 
-    let(:service_class) { described_class::MyFirstService }
+    let(:service_class) { described_class::TargetA }
 
     it_behaves_like "check class info",
                     inputs: %i[service_class],
@@ -126,7 +131,12 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
           expect { perform }.to(
             have_internal(:service_class)
               .type(Class)
-              .target([described_class::MyFirstService, described_class::MySecondService])
+              .target([described_class::TargetA, described_class::TargetB])
+              .message(
+                "Internal `service_class`: nil is not allowed. " \
+                "Allowed: Usual::DynamicOptions::Target::Example11::TargetA, " \
+                "Usual::DynamicOptions::Target::Example11::TargetB"
+              )
           )
         end
       end
@@ -142,26 +152,26 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
     end
 
     describe "and the data required for work is also valid" do
-      context "when using MyFirstService" do
+      context "when using TargetA" do
         it_behaves_like "success result class"
 
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:result, "Usual::DynamicOptions::Target::Example11::MyFirstService")
+              .with_output(:result, "Usual::DynamicOptions::Target::Example11::TargetA")
           )
         end
       end
 
-      context "when using MySecondService" do
-        let(:service_class) { described_class::MySecondService }
+      context "when using TargetB" do
+        let(:service_class) { described_class::TargetB }
 
         it_behaves_like "success result class"
 
         it do
           expect(perform).to(
             be_success_service
-              .with_output(:result, "Usual::DynamicOptions::Target::Example11::MySecondService")
+              .with_output(:result, "Usual::DynamicOptions::Target::Example11::TargetB")
           )
         end
       end
@@ -176,8 +186,8 @@ RSpec.describe Usual::DynamicOptions::Target::Example11, type: :service do
             raise_error(
               ApplicationService::Exceptions::Internal,
               "Internal `service_class`: String is not allowed. " \
-              "Allowed: Usual::DynamicOptions::Target::Example11::MyFirstService, " \
-              "Usual::DynamicOptions::Target::Example11::MySecondService"
+              "Allowed: Usual::DynamicOptions::Target::Example11::TargetA, " \
+              "Usual::DynamicOptions::Target::Example11::TargetB"
             )
           )
         end

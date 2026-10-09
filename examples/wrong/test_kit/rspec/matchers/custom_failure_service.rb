@@ -4,15 +4,6 @@ module Wrong
   module TestKit
     module Rspec
       module Matchers
-        class CustomFailure < Servactory::Exceptions::Failure; end
-
-        # Base class that configures the custom failure class
-        class CustomFailureBaseService < Servactory::Base
-          configuration do
-            failure_class CustomFailure
-          end
-        end
-
         class CustomFailureService < CustomFailureBaseService
           input :error_type, type: Symbol
 

@@ -1,0 +1,134 @@
+ja:
+  servactory:
+    common:
+      undefined_method:
+        missing_name: "[%{service_class_name}] %{error_text}"
+    methods:
+      call:
+        not_used: "[%{service_class_name}] 実行する処理がありません。`make`を使用するか、`call`メソッドを作成してください。"
+      cannot_be_overwritten: "[%{service_class_name}] 次のメソッドは上書きできません: %{list_of_methods}"
+    inputs:
+      undefined:
+        for_fetch: "[%{service_class_name}] 未定義の入力`%{input_name}`"
+        for_assign: "[%{service_class_name}] 未定義の入力`%{input_name}`"
+      validations:
+        must:
+          default_error: "[%{service_class_name}] 入力`%{input_name}`は「%{code}」を満たす必要があります"
+          syntax_error: "[%{service_class_name}] 入力`%{input_name}`の`%{code}`内の構文エラー: %{exception_message}"
+          dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] 入力コレクション`%{input_name}`の必須要素が不足しています"
+              wrong_type: "[%{service_class_name}] 入力コレクション`%{input_name}`の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+              wrong_element_type: "[%{service_class_name}] 入力コレクション`%{input_name}`の要素の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+            format:
+              default: "[%{service_class_name}] 入力`%{input_name}`は`%{format_name}`フォーマットに一致しません"
+              wrong_pattern: "[%{service_class_name}] 入力`%{input_name}`は`%{format_name}`フォーマットに一致しません"
+              wrong_type: "[%{service_class_name}] 入力`%{input_name}`は`%{format_name}`フォーマット検証のためにStringである必要があります"
+              unknown: "[%{service_class_name}] 入力`%{input_name}`に指定された`%{format_name}`フォーマットは不明です"
+            inclusion:
+              default: "[%{service_class_name}] `%{input_name}`の値が不正です。`%{input_inclusion}`のいずれかである必要がありますが、`%{value}`が渡されました"
+              invalid_option: "[%{service_class_name}] 入力`%{input_name}`の`%{option_name}`オプションに値がありません"
+            min:
+              default: "[%{service_class_name}] 入力`%{input_name}`は値`%{value}`を受け取りましたが、`%{option_value}`より小さいです"
+            max:
+              default: "[%{service_class_name}] 入力`%{input_name}`は値`%{value}`を受け取りましたが、`%{option_value}`より大きいです"
+            multiple_of:
+              default: "[%{service_class_name}] 入力`%{input_name}`の値`%{value}`は`%{option_value}`の倍数ではありません"
+              blank: "[%{service_class_name}] 入力`%{input_name}`の`%{option_name}`オプションに無効な値`%{option_value}`があります"
+              divided_by_0: "[%{service_class_name}] 入力`%{input_name}`の`%{option_name}`オプションに無効な値`%{option_value}`があります"
+            schema:
+              wrong_type: "[%{service_class_name}] 入力`%{input_name}`の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+              wrong_element_type: "[%{service_class_name}] 入力ハッシュ`%{input_name}`の型が不正です。`%{key_name}`には`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+              wrong_element_value: "[%{service_class_name}] 入力ハッシュ`%{input_name}`の値が不正です。`%{key_name}`には`%{expected_type}`型の値が期待されましたが、`%{given_type}`が渡されました"
+            target:
+              default: "[%{service_class_name}] 入力`%{input_name}`のターゲットが不正です。`%{expected_target}`である必要がありますが、`%{value}`が渡されました"
+              invalid_option: "[%{service_class_name}] 入力`%{input_name}`の`%{option_name}`オプションに値がありません"
+        required:
+          default_error:
+            default: "[%{service_class_name}] 必須の入力`%{input_name}`が不足しています"
+        type:
+          default_error:
+            default: "[%{service_class_name}] 入力`%{input_name}`の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+      tools:
+        find_unnecessary:
+          error: "[%{service_class_name}] 予期しない属性: `%{unnecessary_attributes}`"
+        rules:
+          error: "[%{service_class_name}] 入力`%{input_name}`のオプションに競合があります: `%{conflict_code}`"
+    internals:
+      undefined:
+        for_fetch: "[%{service_class_name}] 未定義の内部属性`%{internal_name}`"
+        for_assign: "[%{service_class_name}] 未定義の内部属性`%{internal_name}`"
+      validations:
+        must:
+          default_error: "[%{service_class_name}] 内部属性`%{internal_name}`は「%{code}」を満たす必要があります"
+          syntax_error: "[%{service_class_name}] 内部属性`%{internal_name}`の`%{code}`内の構文エラー: %{exception_message}"
+          dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] 内部属性コレクション`%{internal_name}`の必須要素が不足しています"
+              wrong_type: "[%{service_class_name}] 内部属性コレクション`%{internal_name}`の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+              wrong_element_type: "[%{service_class_name}] 内部属性コレクション`%{internal_name}`の要素の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+            format:
+              default: "[%{service_class_name}] 内部属性`%{internal_name}`は`%{format_name}`フォーマットに一致しません"
+              wrong_pattern: "[%{service_class_name}] 内部属性`%{internal_name}`は`%{format_name}`フォーマットに一致しません"
+              wrong_type: "[%{service_class_name}] 内部属性`%{internal_name}`は`%{format_name}`フォーマット検証のためにStringである必要があります"
+              unknown: "[%{service_class_name}] 内部属性`%{internal_name}`に指定された`%{format_name}`フォーマットは不明です"
+            inclusion:
+              default: "[%{service_class_name}] `%{internal_name}`の値が不正です。`%{internal_inclusion}`のいずれかである必要がありますが、`%{value}`が渡されました"
+              invalid_option: "[%{service_class_name}] 内部属性`%{internal_name}`の`%{option_name}`オプションに値がありません"
+            min:
+              default: "[%{service_class_name}] 内部属性`%{internal_name}`は値`%{value}`を受け取りましたが、`%{option_value}`より小さいです"
+            max:
+              default: "[%{service_class_name}] 内部属性`%{internal_name}`は値`%{value}`を受け取りましたが、`%{option_value}`より大きいです"
+            multiple_of:
+              default: "[%{service_class_name}] 内部属性`%{internal_name}`の値`%{value}`は`%{option_value}`の倍数ではありません"
+              blank: "[%{service_class_name}] 内部属性`%{internal_name}`の`%{option_name}`オプションに無効な値`%{option_value}`があります"
+              divided_by_0: "[%{service_class_name}] 内部属性`%{internal_name}`の`%{option_name}`オプションに無効な値`%{option_value}`があります"
+            schema:
+              wrong_type: "[%{service_class_name}] 内部属性`%{internal_name}`の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+              wrong_element_type: "[%{service_class_name}] 内部属性ハッシュ`%{internal_name}`の型が不正です。`%{key_name}`には`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+              wrong_element_value: "[%{service_class_name}] 内部属性ハッシュ`%{internal_name}`の値が不正です。`%{key_name}`には`%{expected_type}`型の値が期待されましたが、`%{given_type}`が渡されました"
+            target:
+              default: "[%{service_class_name}] 内部属性`%{internal_name}`のターゲットが不正です。`%{expected_target}`である必要がありますが、`%{value}`が渡されました"
+              invalid_option: "[%{service_class_name}] 内部属性`%{internal_name}`の`%{option_name}`オプションに値がありません"
+        type:
+          default_error:
+            default: "[%{service_class_name}] 内部属性`%{internal_name}`の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+    outputs:
+      undefined:
+        for_fetch: "[%{service_class_name}] 未定義の出力属性`%{output_name}`"
+        for_assign: "[%{service_class_name}] 未定義の出力属性`%{output_name}`"
+      validations:
+        must:
+          default_error: "[%{service_class_name}] 出力属性`%{output_name}`は「%{code}」を満たす必要があります"
+          syntax_error: "[%{service_class_name}] 出力属性`%{output_name}`の`%{code}`内の構文エラー: %{exception_message}"
+          dynamic_options:
+            consists_of:
+              required: "[%{service_class_name}] 出力属性コレクション`%{output_name}`の必須要素が不足しています"
+              wrong_type: "[%{service_class_name}] 出力属性コレクション`%{output_name}`の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+              wrong_element_type: "[%{service_class_name}] 出力属性コレクション`%{output_name}`の要素の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+            format:
+              default: "[%{service_class_name}] 出力属性`%{output_name}`は`%{format_name}`フォーマットに一致しません"
+              wrong_pattern: "[%{service_class_name}] 出力属性`%{output_name}`は`%{format_name}`フォーマットに一致しません"
+              wrong_type: "[%{service_class_name}] 出力属性`%{output_name}`は`%{format_name}`フォーマット検証のためにStringである必要があります"
+              unknown: "[%{service_class_name}] 出力属性`%{output_name}`に指定された`%{format_name}`フォーマットは不明です"
+            inclusion:
+              default: "[%{service_class_name}] `%{output_name}`の値が不正です。`%{output_inclusion}`のいずれかである必要がありますが、`%{value}`が渡されました"
+              invalid_option: "[%{service_class_name}] 出力属性`%{output_name}`の`%{option_name}`オプションに値がありません"
+            min:
+              default: "[%{service_class_name}] 出力属性`%{output_name}`は値`%{value}`を受け取りましたが、`%{option_value}`より小さいです"
+            max:
+              default: "[%{service_class_name}] 出力属性`%{output_name}`は値`%{value}`を受け取りましたが、`%{option_value}`より大きいです"
+            multiple_of:
+              default: "[%{service_class_name}] 出力属性`%{output_name}`の値`%{value}`は`%{option_value}`の倍数ではありません"
+              blank: "[%{service_class_name}] 出力属性`%{output_name}`の`%{option_name}`オプションに無効な値`%{option_value}`があります"
+              divided_by_0: "[%{service_class_name}] 出力属性`%{output_name}`の`%{option_name}`オプションに無効な値`%{option_value}`があります"
+            schema:
+              wrong_type: "[%{service_class_name}] 出力属性`%{output_name}`の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+              wrong_element_type: "[%{service_class_name}] 出力属性ハッシュ`%{output_name}`の型が不正です。`%{key_name}`には`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"
+              wrong_element_value: "[%{service_class_name}] 出力属性ハッシュ`%{output_name}`の値が不正です。`%{key_name}`には`%{expected_type}`型の値が期待されましたが、`%{given_type}`が渡されました"
+            target:
+              default: "[%{service_class_name}] 出力属性`%{output_name}`のターゲットが不正です。`%{expected_target}`である必要がありますが、`%{value}`が渡されました"
+              invalid_option: "[%{service_class_name}] 出力属性`%{output_name}`の`%{option_name}`オプションに値がありません"
+        type:
+          default_error:
+            default: "[%{service_class_name}] 出力属性`%{output_name}`の型が不正です。`%{expected_type}`が期待されましたが、`%{given_type}`が渡されました"

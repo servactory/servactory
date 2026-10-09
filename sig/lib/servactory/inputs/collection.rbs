@@ -7,7 +7,7 @@ module Servactory
 
       private
 
-      def lookup_name: (Input item) -> Symbol
+      def lookup_name: (Input attribute) -> Symbol
     end
   end
 end

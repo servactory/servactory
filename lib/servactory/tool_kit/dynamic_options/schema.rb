@@ -29,7 +29,7 @@ module Servactory
       # Define schema in your service:
       #
       # ```ruby
-      # class CreateUserService < ApplicationService::Base
+      # class Users::Create < ApplicationService::Base
       #   input :user_data,
       #         type: Hash,
       #         schema: {
@@ -49,7 +49,7 @@ module Servactory
       # Specify schema definition directly:
       #
       # ```ruby
-      # class CreateUserService < ApplicationService::Base
+      # class Users::Create < ApplicationService::Base
       #   input :user_data,
       #         type: Hash,
       #         schema: {
@@ -127,8 +127,9 @@ module Servactory
         # Creates a Schema validator instance.
         #
         # @param option_name [Symbol] The option name (default: :schema)
-        # @param default_hash_mode_class_names [Array<Class>] Valid Hash-like types
-        # @return [Servactory::Maintenance::Attributes::OptionHelper]
+        # @param default_hash_mode_class_names [Servactory::Configuration::HashMode::ClassNamesCollection]
+        #   Valid Hash-like types
+        # @return [Servactory::Maintenance::Options::Helper]
         def self.use(option_name = :schema, default_hash_mode_class_names:)
           instance = new(option_name, :is, false)
           instance.assign(default_hash_mode_class_names)
@@ -137,7 +138,8 @@ module Servactory
 
         # Assigns the list of valid Hash-compatible class names.
         #
-        # @param default_hash_mode_class_names [Array<Class>] Hash-like types to accept
+        # @param default_hash_mode_class_names [Servactory::Configuration::HashMode::ClassNamesCollection]
+        #   Hash-like types to accept
         # @return [void]
         def assign(default_hash_mode_class_names)
           @default_hash_mode_class_names = default_hash_mode_class_names
@@ -179,13 +181,15 @@ module Servactory
         # @param value [Object] Hash value to validate
         # @param option [WorkOption] Schema configuration
         # @return [Boolean, Array] true if valid, or [false, reason, meta]
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def common_condition_with(attribute:, value:, option:)
           # Schema disabled, skip validation.
           return true if option.value == false
 
           # Attribute type must be Hash-compatible.
-          return [false, :wrong_type] unless @default_hash_mode_class_names.intersect?(attribute.types)
+          unless @default_hash_mode_class_names.intersect?(attribute.types)
+            return [false, :wrong_type, wrong_type_meta_for(attribute:)]
+          end
 
           # Skip validation for blank optional values.
           if value.blank? && ((attribute.input? && attribute.optional?) || attribute.internal? || attribute.output?)
@@ -206,7 +210,19 @@ module Servactory
 
           [is_success, reason, meta]
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+        # Builds failure metadata for an attribute whose type is not Hash-compatible.
+        #
+        # @param attribute [Object] The attribute being validated
+        # @return [Hash] Metadata with the Hash-compatible types as expected
+        #   and the declared attribute types as given
+        def wrong_type_meta_for(attribute:)
+          {
+            key_name: nil,
+            expected_type: @default_hash_mode_class_names.to_a.join(", "),
+            given_type: attribute.types.join(", ")
+          }
+        end
 
         # Recursively validates object against schema definition.
         #
@@ -229,16 +245,18 @@ module Servactory
           end
 
           # Validate each schema field.
-          errors = schema.map do |schema_key, schema_value|
+          schema.each do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
 
             if attribute_type == Hash
               # Recursively validate nested Hash.
-              validate_for!(
+              result = validate_for!(
                 object: object.fetch(schema_key, {}),
                 schema: schema_value.except(*RESERVED_OPTIONS),
                 root_schema_key: schema_key
               )
+
+              return result unless result == true
             else
               is_success, given_type = validate_with(
                 object:,
@@ -250,12 +268,11 @@ module Servactory
 
               next if is_success
 
-              [false, :wrong_element_type, { key_name: schema_key, expected_type: attribute_type, given_type: }]
+              return [false, :wrong_element_type, { key_name: schema_key, expected_type: attribute_type, given_type: }]
             end
           end
 
-          # Return first error or true.
-          errors.compact.first || true
+          true
         end
 
         # Validates a single field against its type specification.
@@ -277,11 +294,11 @@ module Servactory
             return true
           end
 
-          value = object[schema_key]
+          value = object.fetch(schema_key, nil)
           prepared_value = prepare_value_from(schema_value:, value:, required: attribute_required)
 
           [
-            Array(attribute_type).uniq.any? { |type| prepared_value.is_a?(type) },
+            Array(attribute_type).any? { |type| prepared_value.is_a?(type) },
             prepared_value.class.name
           ]
         end
@@ -297,7 +314,7 @@ module Servactory
           required || (
             !required && !fetch_default_from(schema_value).nil?
           ) || (
-            !required && !object[schema_key].nil?
+            !required && !object.fetch(schema_key, nil).nil?
           )
         end
 
@@ -330,19 +347,18 @@ module Servactory
         # @param object [Hash] Object to modify
         # @param schema [Hash] Schema definition
         # @return [void]
-        # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+        # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         def prepare_object_with!(object:, schema:)
-          schema.map do |schema_key, schema_value|
+          schema.each do |schema_key, schema_value|
             attribute_type = schema_value.fetch(:type, String)
             required = schema_value.fetch(:required, true)
-            object_value = object[schema_key]
+            object_value = object.fetch(schema_key, nil)
 
             if attribute_type == Hash
               # Apply nested Hash defaults.
-              default_value = schema_value.fetch(:default, {})
-
-              if !required && !default_value.nil? && !Servactory::Utils.value_present?(object_value)
-                object[schema_key] = default_value
+              if !required && !Servactory::Utils.value_present?(object_value)
+                default_value = schema_value.key?(:default) ? schema_value[:default].deep_dup : {}
+                object[schema_key] = default_value unless default_value.nil?
               end
 
               # Recursively prepare nested objects.
@@ -360,14 +376,13 @@ module Servactory
 
               # Execute prepare callback if defined.
               unless (input_prepare = schema_value[:prepare]).nil?
-                object[schema_key] = input_prepare.call(value: object[schema_key])
+                object[schema_key] = input_prepare.call(value: object.fetch(schema_key, nil))
               end
 
               object
             end
           end
         end
-        # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
         ########################################################################
         ########################################################################

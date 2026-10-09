@@ -8,6 +8,7 @@ RSpec.describe Usual::Must::Example2, type: :service do
                     inputs: %i[],
                     internals: %i[invoice_numbers],
                     outputs: %i[first_invoice_number]
+
     describe "validations" do
       describe "outputs" do
         it do
@@ -41,6 +42,7 @@ RSpec.describe Usual::Must::Example2, type: :service do
                     inputs: %i[],
                     internals: %i[invoice_numbers],
                     outputs: %i[first_invoice_number]
+
     describe "validations" do
       describe "outputs" do
         it do

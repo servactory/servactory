@@ -6,7 +6,7 @@ module Servactory
 
         @formats: Hash[Symbol, untyped]
 
-        def self.use: (?::Symbol option_name, formats: Hash[Symbol, untyped]) -> untyped
+        def self.use: (?::Symbol option_name, formats: Hash[Symbol, untyped]) -> Maintenance::Options::Helper
 
         def assign: (Hash[Symbol, untyped] formats) -> Hash[Symbol, untyped]
 

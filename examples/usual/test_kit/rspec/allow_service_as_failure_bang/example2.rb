@@ -8,7 +8,7 @@ module Usual
         class Example2Child < ApplicationService::Base
           input :user_id, type: Integer
 
-          output :user_name, type: String
+          output :full_name, type: String
 
           make :fetch_user
 
@@ -32,7 +32,7 @@ module Usual
           def greet_user
             result = Example2Child.call!(user_id: inputs.user_id)
 
-            outputs.greeting = "Hello, #{result.user_name}!"
+            outputs.greeting = "Hello, #{result.full_name}!"
           end
         end
       end
